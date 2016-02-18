@@ -12,7 +12,7 @@
                 CHtml::encode($data->name),
                 ['/blog/blog/view/', 'slug' => CHtml::encode($data->slug)]
             ); ?></h2>
-        <?= CHtml::image(
+        <span><?= CHtml::image(
             $data->createUser->getAvatar(24),
             CHtml::encode($data->createUser->nick_name)
         ); ?> <?= CHtml::link(
