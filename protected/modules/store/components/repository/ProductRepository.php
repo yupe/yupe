@@ -195,7 +195,6 @@ class ProductRepository extends CApplicationComponent
     {
         $pagination = [
             'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
-            'pageVar' => 'page',
         ];
 
         $categories = $category->getChildsArray();
