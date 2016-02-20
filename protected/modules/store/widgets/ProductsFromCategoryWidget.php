@@ -24,10 +24,6 @@ class ProductsFromCategoryWidget extends \yupe\widgets\YWidget
     /**
      * @var string
      */
-    public $order = 't.id DESC';
-    /**
-     * @var string
-     */
     public $view = 'default';
 
     /**
@@ -58,7 +54,7 @@ class ProductsFromCategoryWidget extends \yupe\widgets\YWidget
     {
         $category = $this->categoryRepository->getByAlias($this->slug);
 
-        if (null === $category) {
+        if ($category === null) {
             return false;
         }
 

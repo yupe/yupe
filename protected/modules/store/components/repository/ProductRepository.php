@@ -193,6 +193,10 @@ class ProductRepository extends CApplicationComponent
      */
     public function getListForCategory(StoreCategory $category, $limit = null)
     {
+        $pagination = [
+            'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+        ];
+
         $categories = $category->getChildsArray();
         $categories[] = $category->id;
 
@@ -203,7 +207,9 @@ class ProductRepository extends CApplicationComponent
         $criteria->addInCondition('t.category_id', $categories, 'OR');
         $criteria->group = 't.id';
         $criteria->scopes = ['published'];
+
         if ($limit) {
+            $pagination = false;
             $criteria->limit = $limit;
         }
 
@@ -211,10 +217,7 @@ class ProductRepository extends CApplicationComponent
             Product::model(),
             [
                 'criteria' => $criteria,
-                'pagination' => [
-                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
-                    'pageVar' => 'page',
-                ],
+                'pagination' => $pagination,
                 'sort' => [
                     'sortVar' => 'sort',
                     'defaultOrder' => 't.position',
