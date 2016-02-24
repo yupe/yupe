@@ -27,15 +27,15 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('NewsModule.news', 'News'); ?>
-        <small><?php echo Yii::t('NewsModule.news', 'management'); ?></small>
+        <?= Yii::t('NewsModule.news', 'News'); ?>
+        <small><?= Yii::t('NewsModule.news', 'management'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('NewsModule.news', 'Find news'); ?>
+        <?= Yii::t('NewsModule.news', 'Find news'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -119,6 +119,16 @@ $this->menu = [
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'frontViewButtonUrl' => function($data){
+                    return Yii::app()->createUrl('/news/news/view', ['slug' => $data->slug]);
+                },
+                'buttons' => [
+                    'front_view' => [
+                        'visible' => function ($row, $data) {
+                            return $data->status == News::STATUS_PUBLISHED;
+                        }
+                    ]
+                ]
             ],
         ],
     ]

@@ -78,6 +78,11 @@ class CustomGridView extends \TbExtendedGridView
     public $pageSizeVarName = 'pageSize';
 
     /**
+     * @var bool
+     */
+    public $sorter = false;
+
+    /**
      * @var bool Whether rendering of page size selector at headline section is available and enabled.
      */
     protected $_pageSizesEnabled = false;
@@ -103,7 +108,7 @@ class CustomGridView extends \TbExtendedGridView
     /**
      * @var string
      */
-    public $template = "{pager}{summary}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right' style='margin: 26px 0;'>{headline}</div>";
+    public $template = "{sorter}{summary}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right'>{headline}</div>";
 
     /**
      * @var
@@ -168,6 +173,9 @@ class CustomGridView extends \TbExtendedGridView
         if (!empty($this->bulk)) {
             $this->bulk->renderButtons();
         }
+
+        echo $this->renderSorter();
+
         if (!empty($this->actionsButtons)) {
             if (is_array($this->actionsButtons)) {
                 foreach ($this->actionsButtons as $button) {
@@ -186,6 +194,43 @@ class CustomGridView extends \TbExtendedGridView
             }
         }
         echo '</td></tr>';
+    }
+
+    /**
+     * @return string
+     */
+    public function renderSorter()
+    {
+        if($this->sorter) {
+
+            $columns = ['' => Yii::t('YupeModule.yupe', '--sort by--')];
+
+            foreach ($this->dataProvider->model->getAttributes() as $attribute => $value) {
+                $columns[$attribute] = $this->dataProvider->model->getAttributeLabel($attribute);
+            }
+
+            $sorterName = sprintf('sorter-%s', $this->getId());
+
+            Yii::app()->getClientScript()->registerScript($sorterName,<<<JS
+
+$('body').on('click', '#{$sorterName}', function(event){
+    alert($(this).val());
+    event.preventDefault();
+        $('#{$this->getId()}').yiiGridView('update',{
+
+        });
+});
+
+JS
+);
+
+            return '<div class="pull-left">'.CHtml::dropDownList(
+                $sorterName,
+                null,
+                $columns,
+                ['class' => 'form-control']
+            ).'</div>';
+        }
     }
 
     /**
@@ -375,12 +420,14 @@ class CustomGridView extends \TbExtendedGridView
             // Если не найдена запись, создаем
             if (null === $setting) {
                 $setting = new Settings();
-                $setting->setAttributes([
-                    'module_id'   => $modelName,
-                    'param_name'  => 'pageSize',
-                    'param_value' => $currentPageSize,
-                    'type' => Settings::TYPE_USER
-                ]);
+                $setting->setAttributes(
+                    [
+                        'module_id' => $modelName,
+                        'param_name' => 'pageSize',
+                        'param_value' => $currentPageSize,
+                        'type' => Settings::TYPE_USER,
+                    ]
+                );
                 $setting->save();
             }
         } // Если информация найдена в сессии и значение отличается
@@ -399,12 +446,14 @@ class CustomGridView extends \TbExtendedGridView
             // Если не найдена запись, создаем
             if (null === $setting) {
                 $setting = new Settings();
-                $setting->setAttributes([
-                    'module_id'   => $modelName,
-                    'param_name'  => 'pageSize',
-                    'param_value' => $currentPageSize,
-                    'type' => Settings::TYPE_USER
-                ]);
+                $setting->setAttributes(
+                    [
+                        'module_id' => $modelName,
+                        'param_name' => 'pageSize',
+                        'param_value' => $currentPageSize,
+                        'type' => Settings::TYPE_USER,
+                    ]
+                );
                 $setting->save();
             } else {
                 $setting->param_value = $currentPageSize;

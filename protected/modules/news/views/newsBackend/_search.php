@@ -11,13 +11,13 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-4">
-        <?php echo $form->textFieldGroup($model, 'title'); ?>
+        <?= $form->textFieldGroup($model, 'title'); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->textFieldGroup($model, 'slug'); ?>
+        <?= $form->textFieldGroup($model, 'slug'); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->datePickerGroup(
+        <?= $form->datePickerGroup(
             $model,
             'date',
             [
@@ -37,7 +37,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-4">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'category_id',
             [
@@ -51,17 +51,17 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->textFieldGroup($model, 'short_text'); ?>
+        <?= $form->textFieldGroup($model, 'short_text'); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->textFieldGroup($model, 'full_text'); ?>
+        <?= $form->textFieldGroup($model, 'full_text'); ?>
     </div>
 </div>
 
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -78,7 +78,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'is_protected',
             [

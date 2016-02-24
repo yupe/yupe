@@ -285,16 +285,16 @@ class Blog extends yupe\models\YModel
         $criteria->group = 't.id';
 
         $criteria->compare('t.id', $this->id);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('slug', $this->slug, true);
-        $criteria->compare('type', $this->type);
+        $criteria->compare('t.name', $this->name, true);
+        $criteria->compare('t.description', $this->description, true);
+        $criteria->compare('t.slug', $this->slug, true);
+        $criteria->compare('t.type', $this->type);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('t.create_user_id', $this->create_user_id);
         $criteria->compare('t.update_user_id', $this->update_user_id);
-        $criteria->compare('category_id', $this->category_id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
+        $criteria->compare('t.category_id', $this->category_id);
+        $criteria->compare('t.create_time', $this->create_time);
+        $criteria->compare('t.update_time', $this->update_time);
 
         $criteria->with = ['createUser', 'updateUser', 'postsCount', 'membersCount'];
 

@@ -15,17 +15,17 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('NewsModule.news', 'Fields with'); ?>
+    <?= Yii::t('NewsModule.news', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('NewsModule.news', 'are required'); ?>
+    <?= Yii::t('NewsModule.news', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
 
     <div class="col-sm-3">
-        <?php echo $form->datePickerGroup(
+        <?= $form->datePickerGroup(
             $model,
             'date',
             [
@@ -43,7 +43,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class="col-sm-2">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -56,7 +56,7 @@ $form = $this->beginWidget(
 
     <div class="col-sm-2">
         <?php if (count($languages) > 1): { ?>
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'lang',
                 [
@@ -72,19 +72,19 @@ $form = $this->beginWidget(
                 <?php foreach ($languages as $k => $v): { ?>
                     <?php if ($k !== $model->lang): { ?>
                         <?php if (empty($langModels[$k])): { ?>
-                            <a href="<?php echo $this->createUrl(
+                            <a href="<?= $this->createUrl(
                                 '/news/newsBackend/create',
                                 ['id' => $model->id, 'lang' => $k]
-                            ); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t(
+                            ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
                                     'NewsModule.news',
                                     'Add translation for {lang} language',
                                     ['{lang}' => $v]
                                 ) ?>"></i></a>
                         <?php } else: { ?>
-                            <a href="<?php echo $this->createUrl(
+                            <a href="<?= $this->createUrl(
                                 '/news/newsBackend/update',
                                 ['id' => $langModels[$k]]
-                            ); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t(
+                            ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
                                     'NewsModule.news',
                                     'Edit translation in to {lang} language',
                                     ['{lang}' => $v]
@@ -94,7 +94,7 @@ $form = $this->beginWidget(
                 <?php } endforeach; ?>
             <?php } endif; ?>
         <?php } else: { ?>
-            <?php echo $form->hiddenField($model, 'lang'); ?>
+            <?= $form->hiddenField($model, 'lang'); ?>
         <?php } endif; ?>
     </div>
 
@@ -102,7 +102,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'category_id',
             [
@@ -122,13 +122,13 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'title'); ?>
+        <?= $form->textFieldGroup($model, 'title'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'title']); ?>
+        <?= $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'title']); ?>
     </div>
 </div>
 
@@ -152,7 +152,7 @@ $form = $this->beginWidget(
             </div>
         <?php endif; ?>
 
-        <?php echo $form->fileFieldGroup(
+        <?= $form->fileFieldGroup(
             $model,
             'image',
             [
@@ -168,8 +168,8 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-12 <?php echo $model->hasErrors('full_text') ? 'has-error' : ''; ?>">
-        <?php echo $form->labelEx($model, 'full_text'); ?>
+    <div class="col-sm-12 <?= $model->hasErrors('full_text') ? 'has-error' : ''; ?>">
+        <?= $form->labelEx($model, 'full_text'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -178,18 +178,18 @@ $form = $this->beginWidget(
             ]
         ); ?>
         <span class="help-block">
-            <?php echo Yii::t(
+            <?= Yii::t(
                 'NewsModule.news',
                 'Full text news which will be shown on news article page'
             ); ?>
         </span>
-        <?php echo $form->error($model, 'full_text'); ?>
+        <?= $form->error($model, 'full_text'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-12">
-        <?php echo $form->labelEx($model, 'short_text'); ?>
+        <?= $form->labelEx($model, 'short_text'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -198,24 +198,24 @@ $form = $this->beginWidget(
             ]
         ); ?>
         <span class="help-block">
-            <?php echo Yii::t(
+            <?= Yii::t(
                 'NewsModule.news',
                 'News anounce text. Usually this is the main idea of the article.'
             ); ?>
         </span>
-        <?php echo $form->error($model, 'short_text'); ?>
+        <?= $form->error($model, 'short_text'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'link'); ?>
+        <?= $form->textFieldGroup($model, 'link'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->checkBoxGroup($model, 'is_protected', $model->getProtectedStatusList()); ?>
+        <?= $form->checkBoxGroup($model, 'is_protected', $model->getProtectedStatusList()); ?>
     </div>
 </div>
 
@@ -225,7 +225,7 @@ $form = $this->beginWidget(
         <div class="panel-heading">
             <div class="panel-title">
                 <a data-toggle="collapse" data-parent="#extended-options" href="#collapseOne">
-                    <?php echo Yii::t('NewsModule.news', 'Data for SEO'); ?>
+                    <?= Yii::t('NewsModule.news', 'Data for SEO'); ?>
                 </a>
             </div>
         </div>
@@ -233,12 +233,12 @@ $form = $this->beginWidget(
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php echo $form->textFieldGroup($model, 'keywords'); ?>
+                        <?= $form->textFieldGroup($model, 'keywords'); ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php echo $form->textAreaGroup($model, 'description'); ?>
+                        <?= $form->textAreaGroup($model, 'description'); ?>
                     </div>
                 </div>
             </div>

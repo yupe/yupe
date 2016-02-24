@@ -50,50 +50,50 @@ $this->menu = [
 
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('NewsModule.news', 'Show news article'); ?><br/>
-        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+        <?= Yii::t('NewsModule.news', 'Show news article'); ?><br/>
+        <small>&laquo;<?= $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#anounce" data-toggle="tab"><?php echo Yii::t(
+    <li class="active"><a href="#anounce" data-toggle="tab"><?= Yii::t(
                 'NewsModule.news',
                 'Short news article example'
             ); ?></a></li>
-    <li><a href="#full" data-toggle="tab"><?php echo Yii::t('NewsModule.news', 'Full news article example'); ?></a></li>
+    <li><a href="#full" data-toggle="tab"><?= Yii::t('NewsModule.news', 'Full news article example'); ?></a></li>
 </ul>
 <div class="tab-content">
     <div id="anounce" class="tab-pane fade active in">
         <div style="margin-bottom: 20px;">
             <h6>
-                <span class="label label-info"><?php echo $model->date; ?></span>
-                <?php echo CHtml::link($model->title, ['/news/news/view', 'slug' => $model->slug]); ?>
+                <span class="label label-info"><?= $model->date; ?></span>
+                <?= CHtml::link($model->title, ['/news/news/view', 'slug' => $model->slug]); ?>
             </h6>
 
             <p>
-                <?php echo $model->short_text; ?>
+                <?= $model->short_text; ?>
             </p>
-            <i class="fa fa-fw fa-globe"></i><?php echo CHtml::link(
-                $model->getAbsoluteUrl(),
-                $model->getAbsoluteUrl()
+            <i class="fa fa-fw fa-globe"></i><?= CHtml::link(
+                Yii::app()->createAbsoluteUrl('/news/news/view', ['slug' => $model->slug]),
+                Yii::app()->createAbsoluteUrl('/news/news/view', ['slug' => $model->slug])
             ); ?>
         </div>
     </div>
     <div id="full" class="tab-pane fade">
         <div style="margin-bottom: 20px;">
-            <h3><?php echo CHtml::link(CHtml::encode($model->title), $model->getUrl()); ?></h3>
+            <h3><?= CHtml::link(CHtml::encode($model->title), ['/news/news/view', 'slug' => $model->slug]); ?></h3>
             <?php if ($model->image): ?>
-                <?php echo CHtml::image($model->getImageUrl(), $model->title); ?>
+                <?= CHtml::image($model->getImageUrl(), $model->title); ?>
             <?php endif; ?>
-            <p><?php echo $model->full_text; ?></p>
-            <span class="label label-info"><?php echo $model->date; ?></span>
-            <i class="fa fa-fw fa-user"></i><?php echo CHtml::link(
+            <p><?= $model->full_text; ?></p>
+            <span class="label label-info"><?= $model->date; ?></span>
+            <i class="fa fa-fw fa-user"></i><?= CHtml::link(
                 $model->user->fullName,
                 ['/user/people/' . $model->user->nick_name]
             ); ?>
-            <i class="fa fa-fw fa-globe"></i><?php echo CHtml::link(
-                $model->getAbsoluteUrl(),
-                $model->getAbsoluteUrl()
+            <i class="fa fa-fw fa-globe"></i><?= CHtml::link(
+                Yii::app()->createAbsoluteUrl('/news/news/view', ['slug' => $model->slug]),
+                Yii::app()->createAbsoluteUrl('/news/news/view', ['slug' => $model->slug])
             ); ?>
         </div>
     </div>

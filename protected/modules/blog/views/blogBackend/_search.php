@@ -23,7 +23,7 @@ $form = $this->beginWidget(
 <fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup(
+            <?= $form->textFieldGroup(
                 $model,
                 'name',
                 [
@@ -38,7 +38,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup(
+            <?= $form->textFieldGroup(
                 $model,
                 'slug',
                 [
@@ -55,7 +55,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'type',
                 [
@@ -72,7 +72,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'status',
                 [
@@ -91,7 +91,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup(
+            <?= $form->textFieldGroup(
                 $model,
                 'description',
                 [

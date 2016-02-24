@@ -245,6 +245,16 @@ $this->menu = [
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'frontViewButtonUrl' => function ($data) {
+                    return Yii::app()->createUrl('/blog/post/view', ['slug' => $data->slug]);
+                },
+                'buttons' => [
+                    'front_view' => [
+                        'visible' => function ($row, $data) {
+                            return $data->status == Post::STATUS_PUBLISHED;
+                        },
+                    ],
+                ],
             ],
         ],
     ]

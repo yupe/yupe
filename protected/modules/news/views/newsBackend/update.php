@@ -50,12 +50,12 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('NewsModule.news', 'Edit news article'); ?><br/>
-        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+        <?= Yii::t('NewsModule.news', 'Edit news article'); ?><br/>
+        <small>&laquo;<?= $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial(
+<?= $this->renderPartial(
     '_form',
     ['model' => $model, 'languages' => $languages, 'langModels' => $langModels]
 ); ?>

@@ -25,16 +25,16 @@ $form = $this->beginWidget(
 
 ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('BlogModule.blog', 'Fields marked with'); ?>
+    <?= Yii::t('BlogModule.blog', 'Fields marked with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('BlogModule.blog', 'are required.'); ?>
+    <?= Yii::t('BlogModule.blog', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'category_id',
             [
@@ -57,7 +57,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'type',
             [
@@ -73,7 +73,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -92,7 +92,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'member_status',
             [
@@ -108,7 +108,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'post_status',
             [
@@ -146,7 +146,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup(
+        <?= $form->slugFieldGroup(
             $model,
             'slug',
             [
@@ -182,7 +182,7 @@ $form = $this->beginWidget(
             </div>
         <?php endif; ?>
 
-        <?php echo $form->fileFieldGroup(
+        <?= $form->fileFieldGroup(
             $model,
             'icon',
             [
@@ -199,11 +199,11 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-12 form-group popover-help"
-         data-original-title='<?php echo $model->getAttributeLabel('description'); ?>'
-         data-content='<?php echo $model->getAttributeDescription(
+         data-original-title='<?= $model->getAttributeLabel('description'); ?>'
+         data-content='<?= $model->getAttributeDescription(
              'description'
          ); ?>'>
-        <?php echo $form->labelEx($model, 'description'); ?>
+        <?= $form->labelEx($model, 'description'); ?>
         <?php
         $this->widget(
             $this->module->getVisualEditor(),

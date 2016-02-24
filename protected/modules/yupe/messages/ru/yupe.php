@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    '--sort by--' => '--сортировать по--',
     ' run in: {time}' => ' выполнение: {time}',
     ' The resulting interface is well integrated into the control panel of Yupe!.' => ' Полученный интерфейс благополучно интегрируется в панель управления Юпи!.',
     ' time: {qtime}' => ' время: {qtime}',
