@@ -13,9 +13,12 @@ class ProductHelper
     {
         $route = '/store/product/view';
         $params = [
-            'category' => $product->category->path,
             'name' => $product->slug,
         ];
+
+        if (isset($product->category)) {
+            $params['category'] = $product->category->path;
+        }
 
         return $absolute ? Yii::app()->createAbsoluteUrl($route, $params) : Yii::app()->createUrl($route, $params);
     }
