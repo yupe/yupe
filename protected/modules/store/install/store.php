@@ -48,5 +48,6 @@ return [
         '/store/brands' => 'store/producer/index',
         '/store/<path:[\w_\/-]+>' => 'store/category/view',
         ['store/product/view', 'pattern' => '/store/<category:[\w_\/-]+>/<name:[\w_\/-]+>', 'urlSuffix' => '.html'],
+        ['store/product/view', 'pattern' => '/store/<name:[\w_\/-]+>', 'urlSuffix' => '.html'],
     ],
 ];
