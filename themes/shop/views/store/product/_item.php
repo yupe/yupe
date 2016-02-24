@@ -5,7 +5,7 @@
 ?>
 <div class="catalog__item">
     <article class="product-vertical">
-        <a href="<?= $data->getUrl(); ?>">
+        <a href="<?= ProductHelper::getUrl($data); ?>">
             <div class="product-vertical__thumbnail">
                 <img src="<?= StoreImage::product($data, 150, 280, false) ?>"
                      class="product-vertical__img"
@@ -14,7 +14,7 @@
                 />
             </div>
         </a>
-        <div class="product-vertical__content"><a href="<?= $data->getUrl(); ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>
+        <div class="product-vertical__content"><a href="<?= ProductHelper::getUrl($data); ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>
             <div class="product-vertical__price">
                 <div class="product-price"><?= $data->getResultPrice() ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
                 <?php if ($data->hasDiscount()): ?>

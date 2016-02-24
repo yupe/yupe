@@ -1018,21 +1018,6 @@ class Product extends yupe\models\YModel implements ICommentable
     }
 
     /**
-     * @param bool|false $absolute
-     * @return string
-     */
-    public function getUrl($absolute = false)
-    {
-        $route = '/store/product/view';
-        $params = [
-            'category' => $this->category->path,
-            'name' => $this->slug,
-        ];
-
-        return $absolute ? Yii::app()->createAbsoluteUrl($route, $params) : Yii::app()->createUrl($route, $params);
-    }
-
-    /**
      * Связывает продукты
      * @param $product Product|int Ид продукта или продукт
      * @param null $type_id Тип связи

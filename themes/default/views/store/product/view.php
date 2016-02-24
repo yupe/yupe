@@ -227,7 +227,7 @@ $this->breadcrumbs = array_merge(
             </div>
             <div class="tab-pane" id="comments-tab">
                 <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
-                    'redirectTo' => $product->getUrl(),
+                    'redirectTo' => ProductHelper::getUrl($product),
                     'model' => $product,
                 ]); ?>
             </div>

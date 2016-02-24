@@ -7,12 +7,12 @@ $price = $data->getResultPrice();
 ?>
 <div class="catalog__item">
     <article class="product-vertical">
-        <a href="<?= $data->getUrl(); ?>">
+        <a href="<?= ProductHelper::getUrl($data); ?>">
             <div class="product-vertical__thumbnail">
                 <img src="<?= $data->getImageUrl(150, 280, false); ?>" class="product-vertical__img" />
             </div>
         </a>
-        <div class="product-vertical__content"><a href="<?= $data->getUrl(); ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>
+        <div class="product-vertical__content"><a href="<?= ProductHelper::getUrl($data); ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>
             <div class="product-vertical__price">
                 <div class="product-price"><?= $price ?><span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
                 <?php if ($basePrice != $price): ?>

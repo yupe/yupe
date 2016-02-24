@@ -8,12 +8,12 @@ $price = $product->getResultPrice();
 <div class="h-slider__slide js-overlay-item">
     <div class="grid-module-3">
         <article class="product-vertical">
-            <a href="<?= $product->getUrl(); ?>">
+            <a href="<?= ProductHelper::getUrl($product); ?>">
                 <div class="product-vertical__thumbnail">
                     <img src="<?= $product->getImageUrl(150, 280, false); ?>" class="product-vertical__img" />
                 </div>
             </a>
-            <div class="product-vertical__content"><a href="<?= $product->getUrl(); ?>" class="product-vertical__title"><?= CHtml::encode($product->getName()); ?></a>
+            <div class="product-vertical__content"><a href="<?= ProductHelper::getUrl($product); ?>" class="product-vertical__title"><?= CHtml::encode($product->getName()); ?></a>
                 <div class="product-vertical__price">
                     <div class="product-price"><?= $price ?><span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
                     <?php if ($basePrice != $price): ?>

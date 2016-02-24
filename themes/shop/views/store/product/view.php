@@ -295,7 +295,7 @@ $this->breadcrumbs = array_merge(
             <div id="reviews" class="tabs__body js-tab">
                 <div class="product-reviews">
                     <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
-                        'redirectTo' => $product->getUrl(),
+                        'redirectTo' => ProductHelper::getUrl($product),
                         'model' => $product,
                     ]); ?>
 
