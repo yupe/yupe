@@ -1,16 +1,18 @@
 <?php
-$productUrl = Yii::app()->createUrl('/store/product/view', ['name' => CHtml::encode($data->slug)]);
+/**
+ * @var Product $data
+ */
 $basePrice = (float)$data->getBasePrice();
 $price = $data->getResultPrice();
 ?>
 <div class="catalog__item">
     <article class="product-vertical">
-        <a href="<?= $productUrl; ?>">
+        <a href="<?= $data->getUrl(); ?>">
             <div class="product-vertical__thumbnail">
                 <img src="<?= $data->getImageUrl(150, 280, false); ?>" class="product-vertical__img" />
             </div>
         </a>
-        <div class="product-vertical__content"><a href="<?= $productUrl; ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>
+        <div class="product-vertical__content"><a href="<?= $data->getUrl(); ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>
             <div class="product-vertical__price">
                 <div class="product-price"><?= $price ?><span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
                 <?php if ($basePrice != $price): ?>
