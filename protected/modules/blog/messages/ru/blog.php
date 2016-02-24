@@ -145,7 +145,7 @@ return [
     'location' => 'Откуда',
     'Main blog category' => 'Главная категория блогов',
     'Main posts category' => 'Главная категория записей',
-    'Manage blogs' => 'Блогами',
+    'Manage blogs' => 'Блоги',
     'Manage members' => 'Участники',
     'Manage posts' => 'Записи',
     'Maximum size (in bytes)' => 'Максимальный размер (в байтах)',

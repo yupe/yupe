@@ -131,7 +131,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             'create',
             [
                 'model' => $model,
-                'imageGroupModel' => ImageGroup::model(),
+                'imageGroup' => ImageGroup::model(),
             ]
         );
     }
