@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="product-mini__info">
-                <div class="product-mini__title"><a href="<?= $data->getUrl(); ?>"
+                <div class="product-mini__title"><a href="<?= ProductHelper::getUrl($data); ?>"
                                                     class="product-mini__link"><?= Chtml::encode($data->getName()); ?></a>
                 </div>
                 <div class="product-mini__price">
