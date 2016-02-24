@@ -43,10 +43,10 @@ return [
     'rules' => [
         '/store' => 'store/product/index',
         '/store/search' => 'store/product/search',
-        '/store/show/<name:[\w_\/-]+>' => 'store/product/view',
         '/store/categories' => 'store/category/index',
         '/store/brand/<slug:[\w_\/-]+>' => 'store/producer/view',
         '/store/brands' => 'store/producer/index',
-        '/store/<path:[\w_\/-]+>' => 'store/category/view'
+        '/store/<path:[\w_\/-]+>' => 'store/category/view',
+        ['store/product/view', 'pattern' => '/store/<category:[\w_\/-]+>/<name:[\w_\/-]+>', 'urlSuffix' => '.html'],
     ],
 ];

@@ -1,5 +1,3 @@
-<?php $productUrl = Yii::app()->createUrl('/store/product/view', ['name' => CHtml::encode($data->slug)]); ?>
-
 <div class="h-slider__slide">
     <div class="grid-module-4">
         <div class="product-mini">
@@ -10,7 +8,7 @@
                 </a>
             </div>
             <div class="product-mini__info">
-                <div class="product-mini__title"><a href="<?= $productUrl; ?>"
+                <div class="product-mini__title"><a href="<?= $data->getUrl(); ?>"
                                                     class="product-mini__link"><?= Chtml::encode($data->getName()); ?></a>
                 </div>
                 <div class="product-mini__price">
