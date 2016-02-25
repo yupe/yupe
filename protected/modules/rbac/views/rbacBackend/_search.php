@@ -8,19 +8,19 @@
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->dropDownListGroup($model, 'type'); ?>
+        <?=  $form->dropDownListGroup($model, 'type'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->textAreaGroup($model, 'description'); ?>
+        <?=  $form->textAreaGroup($model, 'description'); ?>
     </div>
 </div>
 

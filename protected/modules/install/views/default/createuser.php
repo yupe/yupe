@@ -30,24 +30,24 @@ Yii::app()->clientScript->registerScript(
 <?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
 <div class="alert alert-info">
-    <p><?php echo Yii::t('InstallModule.install', 'Create admin account'); ?></p>
+    <p><?=  Yii::t('InstallModule.install', 'Create admin account'); ?></p>
 
-    <p><?php echo Yii::t(
+    <p><?=  Yii::t(
             'InstallModule.install',
             'Please select hard password with digits, alphas and special symbols.'
         ); ?></p>
 
-    <p><?php echo Yii::t(
+    <p><?=  Yii::t(
             'InstallModule.install',
             'Memorize please. Data form this section will need you for Control Panel access'
         ); ?></p>
 </div>
 
-<?php echo $form->errorSummary($data['model']); ?>
+<?=  $form->errorSummary($data['model']); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'userName',
             [
@@ -66,7 +66,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'userEmail',
             [
@@ -85,7 +85,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->passwordFieldGroup(
+        <?=  $form->passwordFieldGroup(
             $data['model'],
             'userPassword',
             [
@@ -104,7 +104,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->passwordFieldGroup(
+        <?=  $form->passwordFieldGroup(
             $data['model'],
             'cPassword',
             [
@@ -121,7 +121,7 @@ Yii::app()->clientScript->registerScript(
     </div>
 </div>
 
-<?php echo CHtml::link(
+<?=  CHtml::link(
     Yii::t('InstallModule.install', '< Back'),
     ['/install/default/modulesinstall'],
     ['class' => 'btn btn-default']

@@ -16,16 +16,16 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('OrderModule.order', 'Fields with'); ?>
+    <?=  Yii::t('OrderModule.order', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('OrderModule.order', 'are required'); ?>
+    <?=  Yii::t('OrderModule.order', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 

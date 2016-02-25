@@ -39,12 +39,12 @@ EOF;
 ?>
 
 <div class="alert alert-info">
-    <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'Поля, отмеченные'); ?>\n"; ?>
+    <?=  "<?=  Yii::t('{$this->getModuleTranslate()}', 'Поля, отмеченные'); ?>\n"; ?>
     <span class="required">*</span>
-    <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'обязательны.'); ?>\n"; ?>
+    <?=  "<?=  Yii::t('{$this->getModuleTranslate()}', 'обязательны.'); ?>\n"; ?>
 </div>
 
-<?php echo "<?php echo \$form->errorSummary(\$model); ?>\n"; ?>
+<?=  "<?=  \$form->errorSummary(\$model); ?>\n"; ?>
 
 <?php
 foreach ($this->tableSchema->columns as $column) {
@@ -56,7 +56,7 @@ foreach ($this->tableSchema->columns as $column) {
     echo <<<EOF
     <div class="row">
         <div class="col-sm-7">
-            <?php echo {$activeRow}; ?>
+            <?=  {$activeRow}; ?>
         </div>
     </div>\n
 EOF;
@@ -82,4 +82,4 @@ echo <<<EOF
 EOF;
 ?>
 
-<?php echo "<?php \$this->endWidget(); ?>"; ?>
+<?=  "<?php \$this->endWidget(); ?>"; ?>

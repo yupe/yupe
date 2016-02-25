@@ -20,8 +20,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CallbackModule.callback', 'Callback'); ?>
-        <small><?php echo Yii::t('CallbackModule.callback', 'manage'); ?></small>
+        <?=  Yii::t('CallbackModule.callback', 'Callback'); ?>
+        <small><?=  Yii::t('CallbackModule.callback', 'manage'); ?></small>
     </h1>
 </div>
 

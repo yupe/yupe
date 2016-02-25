@@ -15,16 +15,16 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('DictionaryModule.dictionary', 'Fields with'); ?>
+    <?=  Yii::t('DictionaryModule.dictionary', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('DictionaryModule.dictionary', 'are required.'); ?>
+    <?=  Yii::t('DictionaryModule.dictionary', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'group_id',
             [
@@ -36,7 +36,7 @@ $form = $this->beginWidget(
 
     </div>
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             ['widgetOptions' => ['data' => $model->getStatusList()]]
@@ -46,26 +46,26 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
+        <?=  $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'value'); ?>
+        <?=  $form->textFieldGroup($model, 'value'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12 form-group popover-help"
-         data-original-title='<?php echo $model->getAttributeLabel('description'); ?>'
-         data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
-        <?php echo $form->labelEx($model, 'description'); ?>
+         data-original-title='<?=  $model->getAttributeLabel('description'); ?>'
+         data-content='<?=  $model->getAttributeDescription('description'); ?>'>
+        <?=  $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->yupe->getVisualEditor(),
             [

@@ -1,15 +1,15 @@
-<?php echo "<?php\n"; ?>
+<?=  "<?php\n"; ?>
 /**
- * <?php echo $this->moduleClass; ?> основной класс модуля <?php echo $this->moduleID."\n"; ?>
+ * <?=  $this->moduleClass; ?> основной класс модуля <?=  $this->moduleID."\n"; ?>
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
  * @copyright 2009-<?= date('Y'); ?> amyLabs && Yupe! team
- * @package yupe.modules.<?php echo $this->moduleID."\n"; ?>
+ * @package yupe.modules.<?=  $this->moduleID."\n"; ?>
  * @since 0.1
  */
 
-class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
+class <?=  $this->moduleClass; ?>  extends yupe\components\WebModule
 {
     const VERSION = '0.9.8';
 
@@ -41,7 +41,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getCategory()
     {
-        return Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleCategory; ?>');
+        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleCategory; ?>');
     }
 
     /**
@@ -82,11 +82,11 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
     public function getNavigation()
     {
         return [
-            ['label' => Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?>')],
+            ['label' => Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?>')],
             [
                 'icon' => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'Index'),
-                'url' => ['/<?php echo $this->moduleID; ?>/<?php echo $this->moduleID; ?>Backend/index']
+                'label' => Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'Index'),
+                'url' => ['/<?=  $this->moduleID; ?>/<?=  $this->moduleID; ?>Backend/index']
             ],
         ];
     }
@@ -98,7 +98,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getVersion()
     {
-        return Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', self::VERSION);
+        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', self::VERSION);
     }
 
     /**
@@ -108,7 +108,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'http://yupe.ru');
+        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'http://yupe.ru');
     }
 
     /**
@@ -118,7 +118,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getName()
     {
-        return Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?>');
+        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?>');
     }
 
     /**
@@ -128,7 +128,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getDescription()
     {
-        return Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'Описание модуля "<?php echo $this->moduleID; ?>"');
+        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'Описание модуля "<?=  $this->moduleID; ?>"');
     }
 
     /**
@@ -138,7 +138,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getAuthor()
     {
-        return Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'yupe team');
+        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'yupe team');
     }
 
     /**
@@ -148,7 +148,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'team@yupe.ru');
+        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'team@yupe.ru');
     }
 
     /**
@@ -159,7 +159,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getAdminPageLink()
     {
-        return '/<?php echo $this->moduleID; ?>/<?php echo $this->moduleID; ?>Backend/index';
+        return '/<?=  $this->moduleID; ?>/<?=  $this->moduleID; ?>Backend/index';
     }
 
     /**
@@ -169,7 +169,7 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getIcon()
     {
-        return "fa fa-fw fa-<?php echo $this->moduleIcon; ?>";
+        return "fa fa-fw fa-<?=  $this->moduleIcon; ?>";
     }
 
     /**
@@ -193,8 +193,8 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
 
         $this->setImport(
             [
-                '<?php echo $this->moduleID; ?>.models.*',
-                '<?php echo $this->moduleID; ?>.components.*',
+                '<?=  $this->moduleID; ?>.models.*',
+                '<?=  $this->moduleID; ?>.components.*',
             ]
         );
     }
@@ -207,14 +207,14 @@ class <?php echo $this->moduleClass; ?>  extends yupe\components\WebModule
     {
         return [
             [
-                'name' => '<?php echo ucfirst($this->moduleID); ?>.<?php echo ucfirst($this->moduleID); ?>Manager',
-                'description' => Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'Manage <?php echo $this->moduleID; ?>'),
+                'name' => '<?=  ucfirst($this->moduleID); ?>.<?=  ucfirst($this->moduleID); ?>Manager',
+                'description' => Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'Manage <?=  $this->moduleID; ?>'),
                 'type' => AuthItem::TYPE_TASK,
                 'items' => [
                     [
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => '<?php echo ucfirst($this->moduleID); ?>.<?php echo ucfirst($this->moduleID); ?>Backend.Index',
-                        'description' => Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'Index')
+                        'name' => '<?=  ucfirst($this->moduleID); ?>.<?=  ucfirst($this->moduleID); ?>Backend.Index',
+                        'description' => Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'Index')
                     ],
                 ]
             ]

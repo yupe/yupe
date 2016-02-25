@@ -21,16 +21,16 @@ $form = $this->beginWidget(
 <fieldset>
     <div class="row">
                     <div class="col-sm-3">
-                <?php echo $form->textFieldGroup($model, 'id', ['widgetOptions' => ['htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('id'), 'data-content' => $model->getAttributeDescription('id')]]]); ?>
+                <?=  $form->textFieldGroup($model, 'id', ['widgetOptions' => ['htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('id'), 'data-content' => $model->getAttributeDescription('id')]]]); ?>
             </div>
             <div class="col-sm-3">
-                <?php echo $form->dropDownListGroup($model, 'user_id', ['widgetOptions' => ['data' => CHtml::listData(User::model()->findAll(), 'id', 'first_name')]]); ?>
+                <?=  $form->dropDownListGroup($model, 'user_id', ['widgetOptions' => ['data' => CHtml::listData(User::model()->findAll(), 'id', 'first_name')]]); ?>
             </div>
             <div class="col-sm-3">
-                <?php echo $form->textFieldGroup($model, 'my_post', ['widgetOptions' => ['htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_post'), 'data-content' => $model->getAttributeDescription('my_post')]]]); ?>
+                <?=  $form->textFieldGroup($model, 'my_post', ['widgetOptions' => ['htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_post'), 'data-content' => $model->getAttributeDescription('my_post')]]]); ?>
             </div>
             <div class="col-sm-3">
-                <?php echo $form->textFieldGroup($model, 'my_comment', ['widgetOptions' => ['htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_comment'), 'data-content' => $model->getAttributeDescription('my_comment')]]]); ?>
+                <?=  $form->textFieldGroup($model, 'my_comment', ['widgetOptions' => ['htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_comment'), 'data-content' => $model->getAttributeDescription('my_comment')]]]); ?>
             </div>
     </div>
 </fieldset>

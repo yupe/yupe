@@ -1,5 +1,5 @@
 <div class="alert alert-warning">
-    <p><b><?php echo Yii::t(
+    <p><b><?=  Yii::t(
                 'InstallModule.install',
                 'If you have problems with installation, please check {link} or {feedback}',
                 [

@@ -8,15 +8,15 @@ $this->menu = $this->module->getNavigation();
 ?>
 <div class="page-header">
     <h3>
-        <?php echo Yii::t('RbacModule.rbac', 'Users'); ?>
-        <small><?php echo Yii::t('RbacModule.rbac', 'management'); ?></small>
+        <?=  Yii::t('RbacModule.rbac', 'Users'); ?>
+        <small><?=  Yii::t('RbacModule.rbac', 'management'); ?></small>
     </h3>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('RbacModule.rbac', 'Find users'); ?>
+        <?=  Yii::t('RbacModule.rbac', 'Find users'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>

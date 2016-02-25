@@ -1,6 +1,6 @@
-<?php echo "<?php\n"; ?>
+<?=  "<?php\n"; ?>
 /**
-* Отображение для <?php echo $this->moduleID; ?>Backend/index
+* Отображение для <?=  $this->moduleID; ?>Backend/index
 *
 * @category YupeView
 * @package  yupe
@@ -9,18 +9,18 @@
 * @link     http://yupe.ru
 **/
 $this->breadcrumbs = [
-    Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?>') => ['/<?php echo $this->moduleID; ?>/<?php echo $this->moduleID; ?>Backend/index'],
-    Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'Index'),
+    Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?>') => ['/<?=  $this->moduleID; ?>/<?=  $this->moduleID; ?>Backend/index'],
+    Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'Index'),
 ];
 
-$this->pageTitle = Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?> - index');
+$this->pageTitle = Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?> - index');
 
 $this->menu = $this->getModule()->getNavigation();;
 ?>
 
 <div class="page-header">
     <h1>
-        <?php echo "<?php"; ?> echo Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?>'); ?>
-        <small><?php echo "<?php"; ?> echo Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', 'Index'); ?></small>
+        <?=  "<?php"; ?> echo Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?>'); ?>
+        <small><?=  "<?php"; ?> echo Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'Index'); ?></small>
     </h1>
 </div>

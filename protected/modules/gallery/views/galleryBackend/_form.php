@@ -10,16 +10,16 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('GalleryModule.gallery', 'Fields with'); ?>
+    <?=  Yii::t('GalleryModule.gallery', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('GalleryModule.gallery', 'are required.'); ?>
+    <?=  Yii::t('GalleryModule.gallery', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-2">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'owner',
             [
@@ -30,7 +30,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class='col-sm-2'>
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -44,13 +44,13 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-12 form-group">
-        <?php echo $form->labelEx($model, 'description'); ?>
+        <?=  $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -58,7 +58,7 @@ $form = $this->beginWidget(
                 'attribute' => 'description',
             ]
         ); ?>
-        <?php echo $form->error($model, 'description'); ?>
+        <?=  $form->error($model, 'description'); ?>
     </div>
 </div>
 

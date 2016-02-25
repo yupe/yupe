@@ -8,13 +8,13 @@
 <ul class="nav nav-tabs">
     <li class="active">
         <a href="#coupon" data-toggle="tab">
-            <?php echo Yii::t("CouponModule.coupon", "Coupon"); ?>
+            <?=  Yii::t("CouponModule.coupon", "Coupon"); ?>
         </a>
     </li>
     <?php if (!$model->getIsNewRecord()): ?>
         <li>
             <a href="#history" data-toggle="tab">
-                <?php echo Yii::t("CouponModule.coupon", "Purchasing history"); ?>
+                <?=  Yii::t("CouponModule.coupon", "Purchasing history"); ?>
             </a>
         </li>
     <?php endif; ?>
@@ -35,15 +35,15 @@
         );
         ?>
         <div class="alert alert-info">
-            <?php echo Yii::t('CouponModule.coupon', 'Fields with'); ?>
+            <?=  Yii::t('CouponModule.coupon', 'Fields with'); ?>
             <span class="required">*</span>
-            <?php echo Yii::t('CouponModule.coupon', 'are required'); ?>
+            <?=  Yii::t('CouponModule.coupon', 'are required'); ?>
         </div>
 
-        <?php echo $form->errorSummary($model); ?>
+        <?=  $form->errorSummary($model); ?>
         <div class="row">
             <div class="col-sm-3">
-                <?php echo $form->dropDownListGroup(
+                <?=  $form->dropDownListGroup(
                     $model,
                     'type',
                     [
@@ -54,7 +54,7 @@
                 ); ?>
             </div>
             <div class="col-sm-3">
-                <?php echo $form->dropDownListGroup(
+                <?=  $form->dropDownListGroup(
                     $model,
                     'status',
                     [
@@ -68,27 +68,27 @@
 
         <div class="row">
             <div class="col-sm-7">
-                <?php echo $form->textFieldGroup($model, 'name'); ?>
+                <?=  $form->textFieldGroup($model, 'name'); ?>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-7">
-                <?php echo $form->textFieldGroup($model, 'code'); ?>
+                <?=  $form->textFieldGroup($model, 'code'); ?>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-3">
-                <?php echo $form->textFieldGroup($model, 'value'); ?>
+                <?=  $form->textFieldGroup($model, 'value'); ?>
             </div>
             <div class="col-sm-4">
-                <?php echo $form->textFieldGroup($model, 'min_order_price'); ?>
+                <?=  $form->textFieldGroup($model, 'min_order_price'); ?>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-3">
-                <?php echo $form->dropDownListGroup(
+                <?=  $form->dropDownListGroup(
                     $model,
                     'free_shipping',
                     [
@@ -99,7 +99,7 @@
                 ); ?>
             </div>
             <div class="col-sm-4">
-                <?php echo $form->dropDownListGroup(
+                <?=  $form->dropDownListGroup(
                     $model,
                     'registered_user',
                     [
@@ -113,7 +113,7 @@
 
         <div class="row">
             <div class="col-sm-4">
-                <?php echo $form->datePickerGroup(
+                <?=  $form->datePickerGroup(
                     $model,
                     'start_time',
                     [
@@ -130,7 +130,7 @@
                 ?>
             </div>
             <div class="col-sm-3">
-                <?php echo $form->datePickerGroup(
+                <?=  $form->datePickerGroup(
                     $model,
                     'end_time',
                     [
@@ -150,10 +150,10 @@
 
         <div class="row">
             <div class="col-sm-3">
-                <?php echo $form->textFieldGroup($model, 'quantity'); ?>
+                <?=  $form->textFieldGroup($model, 'quantity'); ?>
             </div>
             <div class="col-sm-3">
-                <?php echo $form->textFieldGroup($model, 'quantity_per_user'); ?>
+                <?=  $form->textFieldGroup($model, 'quantity_per_user'); ?>
             </div>
         </div>
 

@@ -10,16 +10,16 @@
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('UserModule.user', 'Fields with'); ?>
+    <?=  Yii::t('UserModule.user', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('UserModule.user', 'are required'); ?>
+    <?=  Yii::t('UserModule.user', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $model,
             'nick_name'
         ); ?>
@@ -27,32 +27,32 @@
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'email'); ?>
+        <?=  $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'last_name'); ?>
+        <?=  $form->textFieldGroup($model, 'last_name'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'first_name'); ?>
+        <?=  $form->textFieldGroup($model, 'first_name'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'middle_name'); ?>
+        <?=  $form->textFieldGroup($model, 'middle_name'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'site'); ?>
+        <?=  $form->textFieldGroup($model, 'site'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->datePickerGroup(
+        <?=  $form->datePickerGroup(
             $model,
             'birth_date',
             [
@@ -71,7 +71,7 @@
     </div>
     <div class="col-sm-2">
         <div class="form-group">
-            <?php echo $form->labelEx($model,'phone',['class' => 'control-label']); ?>
+            <?=  $form->labelEx($model,'phone',['class' => 'control-label']); ?>
             <?php $this->widget(
                 'CMaskedTextField',
                 [
@@ -84,13 +84,13 @@
                     ]
                 ]
             ); ?>
-            <?php echo $form->error($model,'phone'); ?>
+            <?=  $form->error($model,'phone'); ?>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <?php echo $form->labelEx($model, 'about'); ?>
+        <?=  $form->labelEx($model, 'about'); ?>
         <?php
         $this->widget(
             $this->module->getVisualEditor(),
@@ -106,7 +106,7 @@
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'gender',
             [
@@ -119,7 +119,7 @@
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -133,7 +133,7 @@
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'email_confirm',
             [
@@ -147,7 +147,7 @@
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'access_level',
             [

@@ -11,13 +11,13 @@ $form = $this->beginWidget(
 <fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'name'); ?>
+            <?=  $form->textFieldGroup($model, 'name'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'code'); ?>
+            <?=  $form->textFieldGroup($model, 'code'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'event_id',
                 [
@@ -31,24 +31,24 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'description'); ?>
+            <?=  $form->textFieldGroup($model, 'description'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'from'); ?>
+            <?=  $form->textFieldGroup($model, 'from'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'to'); ?>
+            <?=  $form->textFieldGroup($model, 'to'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'theme'); ?>
+            <?=  $form->textFieldGroup($model, 'theme'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'body'); ?>
+            <?=  $form->textFieldGroup($model, 'body'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'status',
                 [

@@ -20,17 +20,17 @@ $form = $this->beginWidget(
 <fieldset>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'code'); ?>
+            <?=  $form->textFieldGroup($model, 'code'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'name'); ?>
+            <?=  $form->textFieldGroup($model, 'name'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textAreaGroup($model, 'description'); ?>
+            <?=  $form->textAreaGroup($model, 'description'); ?>
         </div>
     </div>
     <div class="form-actions">

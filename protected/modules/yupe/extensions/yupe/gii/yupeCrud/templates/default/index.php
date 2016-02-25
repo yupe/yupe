@@ -42,21 +42,21 @@ EOF;
 
 <div class="page-header">
     <h1>
-        <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', '{$label}'); ?>\n"; ?>
-        <small><?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'управление'); ?>"; ?></small>
+        <?=  "<?=  Yii::t('{$this->getModuleTranslate()}', '{$label}'); ?>\n"; ?>
+        <small><?=  "<?=  Yii::t('{$this->getModuleTranslate()}', 'управление'); ?>"; ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'Поиск {$this->mrod}');?>\n"; ?>
+        <?=  "<?=  Yii::t('{$this->getModuleTranslate()}', 'Поиск {$this->mrod}');?>\n"; ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
 
 <div id="search-toggle" class="collapse out search-form">
-    <?php echo <<<EOF
+    <?=  <<<EOF
     <?php Yii::app()->clientScript->registerScript('search', "
         $('.search-form form').submit(function () {
             $.fn.yiiGridView.update('{$this->class2id($this->modelClass)}-grid', {
@@ -74,12 +74,12 @@ EOF;
 
 <br/>
 
-<p> <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'В данном разделе представлены средства управления {$this->mtvor}'); ?>\n"; ?></p>
+<p> <?=  "<?=  Yii::t('{$this->getModuleTranslate()}', 'В данном разделе представлены средства управления {$this->mtvor}'); ?>\n"; ?></p>
 
-<?php echo "<?php\n"; ?> $this->widget(
+<?=  "<?php\n"; ?> $this->widget(
     'yupe\widgets\CustomGridView',
     [
-        'id'           => '<?php echo $this->class2id($this->modelClass); ?>-grid',
+        'id'           => '<?=  $this->class2id($this->modelClass); ?>-grid',
         'type'         => 'striped condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,

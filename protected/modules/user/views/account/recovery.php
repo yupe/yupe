@@ -8,11 +8,11 @@
 $this->title = Yii::t('UserModule.user', 'Password recovery.');
 ?>
 
-<h1><?php echo Yii::t('UserModule.user', 'Password recovery.'); ?></h1>
+<h1><?=  Yii::t('UserModule.user', 'Password recovery.'); ?></h1>
 
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
-<p><?php echo Yii::t('UserModule.user', 'For password recovery - select e-mail you used in registration form.'); ?></p>
+<p><?=  Yii::t('UserModule.user', 'For password recovery - select e-mail you used in registration form.'); ?></p>
 
 <div class="form">
     <?php $form = $this->beginWidget(
@@ -23,16 +23,16 @@ $this->title = Yii::t('UserModule.user', 'Password recovery.');
         ]
     ); ?>
 
-    <?php echo $form->errorSummary($model); ?>
+    <?=  $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email'); ?>
-        <?php echo $form->error($model, 'email'); ?>
+        <?=  $form->labelEx($model, 'email'); ?>
+        <?=  $form->textField($model, 'email'); ?>
+        <?=  $form->error($model, 'email'); ?>
     </div>
 
     <div class="row submit">
-        <?php echo CHtml::submitButton(Yii::t('UserModule.user', 'Password recovery')); ?>
+        <?=  CHtml::submitButton(Yii::t('UserModule.user', 'Password recovery')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

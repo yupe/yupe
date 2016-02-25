@@ -20,8 +20,8 @@ $this->menu = [
 ];
 ?>
 <h1>
-    <?php echo Yii::t('FeedbackModule.feedback', 'Messages '); ?>
-    <small><?php echo Yii::t('FeedbackModule.feedback', 'adding'); ?></small>
+    <?=  Yii::t('FeedbackModule.feedback', 'Messages '); ?>
+    <small><?=  Yii::t('FeedbackModule.feedback', 'adding'); ?></small>
 </h1>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

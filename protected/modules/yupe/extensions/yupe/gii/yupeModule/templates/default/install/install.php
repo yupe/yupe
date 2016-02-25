@@ -1,21 +1,21 @@
-<?php echo "<?php\n"; ?>
+<?=  "<?php\n"; ?>
 /**
- * Файл настроек для модуля <?php echo $this->moduleID."\n"; ?>
+ * Файл настроек для модуля <?=  $this->moduleID."\n"; ?>
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
  * @copyright 2009-<?= date('Y'); ?> amyLabs && Yupe! team
- * @package yupe.modules.<?php echo $this->moduleID; ?>.install
+ * @package yupe.modules.<?=  $this->moduleID; ?>.install
  * @since 0.1
  *
  */
 return [
     'module'    => [
-        'class' => 'application.modules.<?php echo $this->moduleID; ?>.<?php echo $this->moduleClass; ?>',
+        'class' => 'application.modules.<?=  $this->moduleID; ?>.<?=  $this->moduleClass; ?>',
     ],
     'import'    => [],
     'component' => [],
     'rules'     => [
-        '/<?php echo $this->moduleID; ?>' => '<?php echo $this->moduleID; ?>/<?php echo $this->moduleID; ?>/index',
+        '/<?=  $this->moduleID; ?>' => '<?=  $this->moduleID; ?>/<?=  $this->moduleID; ?>/index',
     ],
 ];

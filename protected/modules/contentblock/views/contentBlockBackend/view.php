@@ -54,8 +54,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'Viewing content block'); ?><br/>
-        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+        <?=  Yii::t('ContentBlockModule.contentblock', 'Viewing content block'); ?><br/>
+        <small>&laquo;<?=  $model->name; ?>&raquo;</small>
     </h1>
 </div>
 
@@ -87,13 +87,13 @@ $this->menu = [
 
 <br/>
 <div>
-    <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block in template:'); ?>
+    <?=  Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block in template:'); ?>
     <br/><br/>
-    <?php echo $example; ?>
+    <?=  $example; ?>
 </div>
 <div>
-    <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block group in template:'); ?>
+    <?=  Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block group in template:'); ?>
     <br /><br />
-    <?php echo $exampleCategory; ?>
-    <?php echo Yii::t('ContentBlockModule.contentblock', 'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>'); ?>
+    <?=  $exampleCategory; ?>
+    <?=  Yii::t('ContentBlockModule.contentblock', 'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>'); ?>
 </div>

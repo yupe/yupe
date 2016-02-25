@@ -10,16 +10,16 @@ $this->pageTitle = Yii::t('ZendSearchModule.zendsearch', 'Find (Zend) - manage')
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ZendSearchModule.zendsearch', 'Find (Zend)'); ?>
-        <small><?php echo Yii::t('ZendSearchModule.zendsearch', 'manage'); ?></small>
+        <?=  Yii::t('ZendSearchModule.zendsearch', 'Find (Zend)'); ?>
+        <small><?=  Yii::t('ZendSearchModule.zendsearch', 'manage'); ?></small>
     </h1>
 </div>
 <p>
-    <?php echo Yii::t(
+    <?=  Yii::t(
         'ZendSearchModule.zendsearch',
         'Models you want to index is necessary to describe in configuration file.'
     ); ?><br/>
-    <?php echo Yii::t('ZendSearchModule.zendsearch', 'For index creation, please click button below.'); ?>
+    <?=  Yii::t('ZendSearchModule.zendsearch', 'For index creation, please click button below.'); ?>
 </p>
 <?php
 $this->widget(

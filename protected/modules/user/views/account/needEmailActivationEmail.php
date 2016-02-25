@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        <?php echo Yii::t('UserModule.user', 'Changing e-mail'); ?>
+        <?=  Yii::t('UserModule.user', 'Changing e-mail'); ?>
     </title>
 </head>
 <body>
 <p>
-    <?php echo Yii::t(
+    <?=  Yii::t(
         'UserModule.user',
         'You have successfully changed your email on "{site}"!',
         [
@@ -20,7 +20,7 @@
 </p>
 
 <p>
-    <?php echo Yii::t(
+    <?=  Yii::t(
             'UserModule.user',
             'To activate your email please follow the {link}'
         ) . CHtml::link(
@@ -34,12 +34,12 @@
         ); ?>
 </p>
 
-<p><?php echo $link; ?></p>
+<p><?=  $link; ?></p>
 
 <hr/>
 
 <p>
-    <?php echo Yii::t(
+    <?=  Yii::t(
         'UserModule.user',
         'Truly yours, administration of "{site}" !',
         [

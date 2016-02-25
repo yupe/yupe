@@ -23,26 +23,26 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('NotifyModule.notify', 'Fields with'); ?>
+    <?=  Yii::t('NotifyModule.notify', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('NotifyModule.notify', 'are required'); ?>
+    <?=  Yii::t('NotifyModule.notify', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->dropDownListGroup($model, 'user_id', ['widgetOptions' => ['data' => CHtml::listData(User::model()->findAll(), 'id', 'fullName')]]); ?>
+            <?=  $form->dropDownListGroup($model, 'user_id', ['widgetOptions' => ['data' => CHtml::listData(User::model()->findAll(), 'id', 'fullName')]]); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->dropDownListGroup($model, 'my_post', ['widgetOptions' => ['data' => $this->module->getChoice(),'htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_post'), 'data-content' => $model->getAttributeDescription('my_post')]]]); ?>
+            <?=  $form->dropDownListGroup($model, 'my_post', ['widgetOptions' => ['data' => $this->module->getChoice(),'htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_post'), 'data-content' => $model->getAttributeDescription('my_post')]]]); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->dropDownListGroup($model, 'my_comment', ['widgetOptions' => ['data' => $this->module->getChoice(),'htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_comment'), 'data-content' => $model->getAttributeDescription('my_comment')]]]); ?>
+            <?=  $form->dropDownListGroup($model, 'my_comment', ['widgetOptions' => ['data' => $this->module->getChoice(),'htmlOptions' => ['class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('my_comment'), 'data-content' => $model->getAttributeDescription('my_comment')]]]); ?>
         </div>
     </div>
 

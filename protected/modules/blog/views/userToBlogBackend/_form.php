@@ -22,16 +22,16 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('BlogModule.blog', 'Fields marked with'); ?>
+    <?=  Yii::t('BlogModule.blog', 'Fields marked with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('BlogModule.blog', 'are required.'); ?>
+    <?=  Yii::t('BlogModule.blog', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'user_id',
             [
@@ -49,7 +49,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'blog_id',
             [
@@ -67,7 +67,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'role',
             [
@@ -86,7 +86,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -104,7 +104,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $model,
             'note',
             [

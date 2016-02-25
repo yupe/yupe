@@ -41,7 +41,7 @@ $this->menu = array_merge(
 );
 ?>
 
-<h3><?php echo Yii::t('RbacModule.rbac', 'View operation'); ?> "<?php echo $model->name; ?>"</h3>
+<h3><?=  Yii::t('RbacModule.rbac', 'View operation'); ?> "<?=  $model->name; ?>"</h3>
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',

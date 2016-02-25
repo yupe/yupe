@@ -49,19 +49,19 @@ Yii::app()->clientScript->registerScript(
 <?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
 <div class="alert alert-info">
-    <p><?php echo Yii::t('InstallModule.install', 'Select DB connection settings'); ?></p>
+    <p><?=  Yii::t('InstallModule.install', 'Select DB connection settings'); ?></p>
 
-    <p><?php echo Yii::t(
+    <p><?=  Yii::t(
             'InstallModule.install',
             'You can create DB with phpmyadmin help, or with some other sql tools.'
         ); ?></p>
 
-    <p><b><?php echo Yii::t('InstallModule.install', 'Yupe try to create DB if it doesn\'t exists.'); ?></p></b>
+    <p><b><?=  Yii::t('InstallModule.install', 'Yupe try to create DB if it doesn\'t exists.'); ?></p></b>
 </div>
 
 <?php if (!$data['result']) : { ?>
     <div class="alert alert-danger">
-        <b><?php echo Yii::t(
+        <b><?=  Yii::t(
                 'InstallModule.install',
                 'File {file} not exists or not accessible for write!',
                 ['{file}' => $data['file']]
@@ -69,17 +69,17 @@ Yii::app()->clientScript->registerScript(
     </div>
 <?php } endif; ?>
 
-<?php echo $form->errorSummary($data['model']); ?>
+<?=  $form->errorSummary($data['model']); ?>
 
 <div class="alert alert-info">
-    <p><?php echo '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t(
+    <p><?=  '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t(
                 'InstallModule.install',
                 'This option is experiment. Only MySQL works stable.'
             ); ?></p>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $data['model'],
             'dbType',
             [
@@ -98,7 +98,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row mysql-enable">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'host',
             [
@@ -117,7 +117,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row mysql-enable">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'port',
             [
@@ -135,7 +135,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row mysql-enable">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'dbName',
             [
@@ -154,13 +154,13 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row mysql-enable">
     <div class="col-sm-7">
-        <?php echo $form->checkBoxGroup($data['model'], 'createDb'); ?>
+        <?=  $form->checkBoxGroup($data['model'], 'createDb'); ?>
     </div>
 </div>
 
 <div class="row mysql-enable">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'tablePrefix',
             [
@@ -179,7 +179,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row mysql-enable">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'dbUser',
             [
@@ -198,7 +198,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row mysql-enable">
     <div class="col-sm-7">
-        <?php echo $form->passwordFieldGroup(
+        <?=  $form->passwordFieldGroup(
             $data['model'],
             'dbPassword',
             [
@@ -217,7 +217,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row mysql-enable">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'socket',
             [
@@ -238,7 +238,7 @@ Yii::app()->clientScript->registerScript(
 
 <br/>
 
-<?php echo CHtml::link(
+<?=  CHtml::link(
     Yii::t('InstallModule.install', '< Back'),
     ['/install/default/requirements'],
     ['class' => 'btn btn-default']

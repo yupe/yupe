@@ -43,9 +43,9 @@ EOF;
 
 <div class="page-header">
     <h1>
-        <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', '{$label}'); ?>\n"; ?>
-        <small><?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'добавление'); ?>"; ?></small>
+        <?=  "<?=  Yii::t('{$this->getModuleTranslate()}', '{$label}'); ?>\n"; ?>
+        <small><?=  "<?=  Yii::t('{$this->getModuleTranslate()}', 'добавление'); ?>"; ?></small>
     </h1>
 </div>
 
-<?php echo "<?php echo \$this->renderPartial('_form', ['model' => \$model]); ?>"; ?>
+<?=  "<?=  \$this->renderPartial('_form', ['model' => \$model]); ?>"; ?>

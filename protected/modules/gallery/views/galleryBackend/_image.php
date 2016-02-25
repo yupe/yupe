@@ -1,6 +1,6 @@
 <div class="col-sm-3">
     <div class="gallery-thumbnail">
-        <?php echo CHtml::link(
+        <?=  CHtml::link(
             CHtml::image(
                 $data->image->getImageUrl(190, 190),
                 $data->image->alt

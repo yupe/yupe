@@ -11,16 +11,16 @@ $form = $this->beginWidget(
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('UserModule.user', 'Fields with'); ?>
+    <?=  Yii::t('UserModule.user', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('UserModule.user', 'are required'); ?>
+    <?=  Yii::t('UserModule.user', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'user_id',
             [
@@ -35,7 +35,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class="col-sm-6">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -52,7 +52,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'type',
             [
@@ -67,13 +67,13 @@ $form = $this->beginWidget(
     </div>
 
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'token'); ?>
+        <?=  $form->textFieldGroup($model, 'token'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->labelEx($model, 'create_time'); ?>
+        <?=  $form->labelEx($model, 'create_time'); ?>
         <div class="input-prepend">
             <span class="add-on"><i class="icon-calendar"></i></span>
             <?php $this->widget(
@@ -93,7 +93,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class="col-sm-6">
-        <?php echo $form->labelEx($model, 'update_time'); ?>
+        <?=  $form->labelEx($model, 'update_time'); ?>
         <div class="input-prepend">
             <span class="add-on"><i class="icon-calendar"></i></span>
             <?php $this->widget(

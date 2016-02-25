@@ -12,14 +12,14 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="fa fa-comment"></i> <?php echo Yii::t(
+                    <i class="fa fa-comment"></i> <?=  Yii::t(
                         'CommentModule.comment',
                         'Comments'
                     ); ?>
                 </a>
-                <span class="badge alert-success"><?php echo $commentsCount; ?></span>
-                <span class="badge alert-info"><?php echo $allCommentsCnt; ?></span>
-                <span class="badge alert-danger"><?php echo $newCnt; ?></span>
+                <span class="badge alert-success"><?=  $commentsCount; ?></span>
+                <span class="badge alert-info"><?=  $allCommentsCnt; ?></span>
+                <span class="badge alert-danger"><?=  $newCnt; ?></span>
             </h4>
         </div>
 
@@ -61,20 +61,20 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('CommentModule.comment', 'Comments (last day / all)'); ?>:
+                                        <?=  Yii::t('CommentModule.comment', 'Comments (last day / all)'); ?>:
 
                                     </td>
                                     <td>
-                                        <span class="badge alert-success"><?php echo $commentsCount; ?></span>
-                                        <span class="badge alert-info"><?php echo $allCommentsCnt; ?></span>
+                                        <span class="badge alert-success"><?=  $commentsCount; ?></span>
+                                        <span class="badge alert-info"><?=  $allCommentsCnt; ?></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('CommentModule.comment', 'Moderation'); ?>:
+                                        <?=  Yii::t('CommentModule.comment', 'Moderation'); ?>:
                                     </td>
                                     <td>
-                                        <span class="badge alert-danger"><?php echo $newCnt; ?></span>
+                                        <span class="badge alert-danger"><?=  $newCnt; ?></span>
                                     </td>
                                 </tr>
                                 </tbody>

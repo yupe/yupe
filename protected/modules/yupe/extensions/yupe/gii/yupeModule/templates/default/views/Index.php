@@ -1,6 +1,6 @@
-<?php echo "<?php\n"; ?>
+<?=  "<?php\n"; ?>
 /**
-* Отображение для <?php echo $this->moduleID; ?>/index
+* Отображение для <?=  $this->moduleID; ?>/index
 *
 * @category YupeView
 * @package  yupe
@@ -8,15 +8,15 @@
 * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
 * @link     http://yupe.ru
 **/
-$this->pageTitle = Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?>');
-$this->description = Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?>');
-$this->keywords = Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?>');
+$this->pageTitle = Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?>');
+$this->description = Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?>');
+$this->keywords = Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?>');
 
-$this->breadcrumbs = [Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?>')];
+$this->breadcrumbs = [Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?>')];
 ?>
 
 <h1>
     <small>
-        <?php echo "<?php"; ?> echo Yii::t('<?php echo $this->moduleClass; ?>.<?php echo $this->moduleID; ?>', '<?php echo $this->moduleID; ?>'); ?>
+        <?=  "<?php"; ?> echo Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?>'); ?>
     </small>
 </h1>

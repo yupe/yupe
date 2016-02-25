@@ -41,11 +41,11 @@ $this->menu = array_merge(
 ); ?>
 
 <h3>
-    <?php echo Yii::t('RbacModule.rbac', 'Edit item'); ?> "<?php echo $model->description; ?>"
-    <small>(<?php echo $model->getType() . ' ' . $model->name; ?>)</small>
+    <?=  Yii::t('RbacModule.rbac', 'Edit item'); ?> "<?=  $model->description; ?>"
+    <small>(<?=  $model->getType() . ' ' . $model->name; ?>)</small>
 </h3>
 
-<?php echo $this->renderPartial(
+<?=  $this->renderPartial(
     '_form',
     [
         'model'       => $model,

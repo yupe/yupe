@@ -16,28 +16,28 @@ $form = $this->beginWidget(
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('DictionaryModule.dictionary', 'Fields with'); ?>
+    <?=  Yii::t('DictionaryModule.dictionary', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('DictionaryModule.dictionary', 'are required.'); ?>
+    <?=  Yii::t('DictionaryModule.dictionary', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
+        <?=  $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-12 form-group">
-        <?php echo $form->labelEx($model, 'description'); ?>
+        <?=  $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -45,7 +45,7 @@ $form = $this->beginWidget(
                 'attribute' => 'description',
             ]
         ); ?>
-        <?php echo $form->error($model, 'description'); ?>
+        <?=  $form->error($model, 'description'); ?>
     </div>
 </div>
 

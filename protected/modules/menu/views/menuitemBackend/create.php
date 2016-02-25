@@ -42,9 +42,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('MenuModule.menu', 'Menu item'); ?>
-        <small><?php echo Yii::t('MenuModule.menu', 'create'); ?></small>
+        <?=  Yii::t('MenuModule.menu', 'Menu item'); ?>
+        <small><?=  Yii::t('MenuModule.menu', 'create'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

@@ -9,12 +9,12 @@
  * @link     http://yupe.ru
  **/
 ?>
-<h1><?php echo Yii::t('InstallModule.install', 'Installation in progress...'); ?></h1>
+<h1><?=  Yii::t('InstallModule.install', 'Installation in progress...'); ?></h1>
 
 <?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
 <div class="alert alert-info">
-    <p><?php echo Yii::t(
+    <p><?=  Yii::t(
             'InstallModule.install',
             'On this step Yupe trying to install modules you checked. This process can take several minutes...'
         ); ?></p>
@@ -79,9 +79,9 @@ $this->widget(
         $.each(modules, function (i, m) {
             ic++;
             if (!m.installed) {
-                setModuleProgress(ic, "<i class='" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('InstallModule.install', 'Installing module'); ?> <b>" + m.description + "</b>");
+                setModuleProgress(ic, "<i class='" + m.icon + "'>&nbsp;</i>&nbsp; <?=  Yii::t('InstallModule.install', 'Installing module'); ?> <b>" + m.description + "</b>");
                 $.ajax({
-                    url: "<?php echo $this->createUrl('/install/default/moduleinstall') ?>",
+                    url: "<?=  $this->createUrl('/install/default/moduleinstall') ?>",
                     data: {'name': m.id},
                     dataType: 'json',
                     success: function (data, status) {
@@ -90,7 +90,7 @@ $this->widget(
                             modules[m.id].installed = true;
                             if (typeof (data.log) != undefined)
                                 log(data.log);
-                            setModuleProgress(ic, "<i class='" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('InstallModule.install', 'Module was installed'); ?> <b>" + m.description + "</b>");
+                            setModuleProgress(ic, "<i class='" + m.icon + "'>&nbsp;</i>&nbsp; <?=  Yii::t('InstallModule.install', 'Module was installed'); ?> <b>" + m.description + "</b>");
                             // проверить, остались ли еще не установленные
                             if (ic < total)
                                 installNext();
@@ -122,11 +122,11 @@ $this->widget(
 <?php $this->beginWidget('bootstrap.widgets.TbModal', ['id' => 'modules-modal']); ?>
 <div class="modal-header">
     <h4>
-        <?php echo Yii::t('InstallModule.install', 'Installation completed'); ?>
+        <?=  Yii::t('InstallModule.install', 'Installation completed'); ?>
     </h4>
 </div>
 <div id="modules-modal-list" class="modal-body row">
-    <?php echo Yii::t('InstallModule.install', 'Congratulations, modules which you checked installed successfully!'); ?>
+    <?=  Yii::t('InstallModule.install', 'Congratulations, modules which you checked installed successfully!'); ?>
 </div>
 <div class="modal-footer">
     <?php
@@ -140,7 +140,7 @@ $this->widget(
             ],
         ]
     ); ?>
-    <?php echo CHtml::link(
+    <?=  CHtml::link(
         Yii::t('InstallModule.install', 'Continue >'),
         ['/install/default/createuser'],
         ['class' => 'btn btn-primary nextButton']
@@ -151,11 +151,11 @@ $this->widget(
 <?php $this->beginWidget('bootstrap.widgets.TbModal', ['id' => 'modules-fail']); ?>
 <div class="modal-header">
     <h4>
-        <?php echo Yii::t('InstallModule.install', 'Ошибка!'); ?>
+        <?=  Yii::t('InstallModule.install', 'Ошибка!'); ?>
     </h4>
 </div>
 <div id="modules-modal-list" class="modal-body row">
-    <?php echo Yii::t(
+    <?=  Yii::t(
         'InstallModule.install',
         'There is an error occured when installing modules. You can watch errors in backlog journal.'
     ); ?>
@@ -181,12 +181,12 @@ $this->widget(
 <?php $this->endWidget(); ?>
 
 <div class='buttons' style='display: none'>
-    <?php echo CHtml::link(
+    <?=  CHtml::link(
         Yii::t('InstallModule.install', '< Back'),
         ['/install/default/modulesinstall'],
         ['class' => 'btn btn-default']
     ); ?>
-    <?php echo CHtml::link(
+    <?=  CHtml::link(
         Yii::t('InstallModule.install', 'Continue >'),
         ['/install/default/createuser'],
         ['class' => 'btn btn-primary nextButton']

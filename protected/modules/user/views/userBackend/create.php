@@ -37,9 +37,9 @@ $this->menu = [
 
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('UserModule.user', 'Users'); ?>
-        <small><?php echo Yii::t('UserModule.user', 'create'); ?></small>
+        <?=  Yii::t('UserModule.user', 'Users'); ?>
+        <small><?=  Yii::t('UserModule.user', 'create'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

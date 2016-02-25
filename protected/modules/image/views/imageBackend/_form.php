@@ -19,16 +19,16 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('ImageModule.image', 'Fields with'); ?>
+    <?=  Yii::t('ImageModule.image', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('ImageModule.image', 'are required.'); ?>
+    <?=  Yii::t('ImageModule.image', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class='col-sm-2'>
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'type',
             [
@@ -40,7 +40,7 @@ $form = $this->beginWidget(
     </div>
     <?php if (Yii::app()->hasModule('gallery')) : { ?>
         <div class='col-sm-2'>
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'galleryId',
                 [
@@ -61,7 +61,7 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class='col-sm-2'>
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -72,7 +72,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
      <span class="col-sm-2">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'category_id',
             [
@@ -87,22 +87,22 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'alt'); ?>
+        <?=  $form->textFieldGroup($model, 'alt'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
         <?php if (!$model->isNewRecord) : { ?>
-            <?php echo CHtml::image($model->getImageUrl(300, 200), $model->alt, ["width" => 300, "height" => 200]); ?>
+            <?=  CHtml::image($model->getImageUrl(300, 200), $model->alt, ["width" => 300, "height" => 200]); ?>
         <?php } endif; ?>
-        <?php echo $form->fileFieldGroup(
+        <?=  $form->fileFieldGroup(
             $model,
             'file',
             [
@@ -116,7 +116,7 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textAreaGroup($model, 'description'); ?>
+        <?=  $form->textAreaGroup($model, 'description'); ?>
     </div>
 </div>
 

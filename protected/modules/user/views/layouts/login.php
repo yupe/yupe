@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
+    <title><?=  CHtml::encode(Yii::app()->name); ?> <?=  CHtml::encode($this->pageTitle); ?></title>
     <?php
     $mainAssets = Yii::app()->getAssetManager()->publish(
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
@@ -29,7 +29,7 @@
         Yii::getPathOfAlias('application.modules.user.views.assets') . '/css/moscow-city.jpg'
     );
     ?>
-    <link rel="shortcut icon" href="<?php echo $mainAssets; ?>/img/favicon.ico"/>
+    <link rel="shortcut icon" href="<?=  $mainAssets; ?>/img/favicon.ico"/>
 
 </head>
 
@@ -147,15 +147,15 @@
 
     <div class="container-fluid" id="page">
         <div class="row">
-            <?php echo $content; ?>
+            <?=  $content; ?>
         </div>
     </div>
     <div id="footer-guard"></div>
 </div>
 
 <footer>
-    &copy; 2012 - <?php echo date('Y'); ?>
-    <?php echo $this->yupe->poweredBy(); ?>
+    &copy; 2012 - <?=  date('Y'); ?>
+    <?=  $this->yupe->poweredBy(); ?>
 </footer>
 </body>
 </html>

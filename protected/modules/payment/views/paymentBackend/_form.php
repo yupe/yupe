@@ -17,17 +17,17 @@ $form = $this->beginWidget(
     <?= Yii::t('PaymentModule.payment', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -38,7 +38,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'module',
             [
@@ -58,7 +58,7 @@ $form = $this->beginWidget(
     <div class="col-sm-7">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="panel-title"><?php echo Yii::t("PaymentModule.payment", "Payment system settings"); ?></span>
+                <span class="panel-title"><?=  Yii::t("PaymentModule.payment", "Payment system settings"); ?></span>
             </div>
             <div class="panel-body" id="payment-system-settings">
                 <?php $this->renderPartial(
@@ -79,10 +79,10 @@ $form = $this->beginWidget(
             var module = this.value;
             if (module) {
                 $.ajax({
-                    url: '<?php echo Yii::app()->createUrl('/payment/paymentBackend/paymentSystemSettings')?>',
+                    url: '<?=  Yii::app()->createUrl('/payment/paymentBackend/paymentSystemSettings')?>',
                     type: 'get',
                     data: {
-                        payment_id: <?php echo $model->id ?: '""'?>,
+                        payment_id: <?=  $model->id ?: '""'?>,
                         payment_system: module
                     },
                     success: function (data) {
@@ -101,8 +101,8 @@ $form = $this->beginWidget(
     <div class="row">
         <div class="col-sm-7">
             <div class="form-group">
-                <?php echo CHtml::label(Yii::t("PaymentModule.payment", 'Payment system notifications HTTP link'), null, ['class' => 'control-label']); ?>
-                <?php echo CHtml::textField(
+                <?=  CHtml::label(Yii::t("PaymentModule.payment", 'Payment system notifications HTTP link'), null, ['class' => 'control-label']); ?>
+                <?=  CHtml::textField(
                     'PaymentProcessUrl',
                     Yii::app()->createAbsoluteUrl('/payment/payment/process', ['id' => $model->id]),
                     ['disabled' => true, 'class' => 'form-control']
@@ -113,8 +113,8 @@ $form = $this->beginWidget(
 <?php endif; ?>
 
 <div class='row'>
-    <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
-        <?php echo $form->labelEx($model, 'description'); ?>
+    <div class="col-sm-12 <?=  $model->hasErrors('description') ? 'has-error' : ''; ?>">
+        <?=  $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -123,10 +123,10 @@ $form = $this->beginWidget(
             ]
         ); ?>
         <p class="help-block"></p>
-        <?php echo $form->error($model, 'description'); ?>
+        <?=  $form->error($model, 'description'); ?>
     </div>
 </div>
-<?php echo $form->hiddenField($model, 'position'); ?>
+<?=  $form->hiddenField($model, 'position'); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',

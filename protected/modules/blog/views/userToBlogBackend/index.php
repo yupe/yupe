@@ -65,15 +65,15 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('BlogModule.blog', 'Members'); ?>
-        <small><?php echo Yii::t('BlogModule.blog', 'administration'); ?></small>
+        <?=  Yii::t('BlogModule.blog', 'Members'); ?>
+        <small><?=  Yii::t('BlogModule.blog', 'administration'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('BlogModule.blog', 'Find members'); ?>
+        <?=  Yii::t('BlogModule.blog', 'Find members'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -96,7 +96,7 @@ $this->menu = [
 </div>
 
 <p>
-    <?php echo Yii::t('BlogModule.blog', 'In this category located member administration functions'); ?>
+    <?=  Yii::t('BlogModule.blog', 'In this category located member administration functions'); ?>
 </p>
 
 <?php $this->widget(

@@ -59,10 +59,10 @@ EOF;
 
 <div class="page-header">
     <h1>
-        <?php echo "<?php echo Yii::t('{$this->getModuleTranslate()}', 'Редактирование') . ' ' . Yii::t('{$this->getModuleTranslate()}', '{$this->rod}'); ?>"; ?>
+        <?=  "<?=  Yii::t('{$this->getModuleTranslate()}', 'Редактирование') . ' ' . Yii::t('{$this->getModuleTranslate()}', '{$this->rod}'); ?>"; ?>
         <br/>
-        <small>&laquo;<?php echo "<?php echo \$model->{$nameColumn}; ?>"; ?>&raquo;</small>
+        <small>&laquo;<?=  "<?=  \$model->{$nameColumn}; ?>"; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo "<?php echo \$this->renderPartial('_form', ['model' => \$model]); ?>"; ?>
+<?=  "<?=  \$this->renderPartial('_form', ['model' => \$model]); ?>"; ?>

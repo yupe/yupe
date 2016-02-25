@@ -42,7 +42,7 @@ EOF;
             $activeRow = $this->generateActiveGroup($this->modelClass, $column);
             echo <<<EOF
 <div class="col-sm-3">
-            <?php echo {$activeRow}; ?>
+            <?=  {$activeRow}; ?>
         </div>\n\t\t
 EOF;
         } ?>
@@ -62,4 +62,4 @@ echo <<<EOF
 EOF;
 ?>
 
-<?php echo "<?php \$this->endWidget(); ?>"; ?>
+<?=  "<?php \$this->endWidget(); ?>"; ?>

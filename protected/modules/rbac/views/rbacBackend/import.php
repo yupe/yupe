@@ -7,7 +7,7 @@ $this->breadcrumbs = [
 $this->menu = $this->module->getNavigation();
 ?>
 
-<h3><?php echo Yii::t('RbacModule.rbac', 'Rules import'); ?></h3>
+<h3><?=  Yii::t('RbacModule.rbac', 'Rules import'); ?></h3>
 
 <?php $form = $this->beginWidget(
     'CActiveForm',
@@ -25,12 +25,12 @@ $this->menu = $this->module->getNavigation();
         <?php foreach ($modules as $moduleId => $moduleName): { ?>
             <div class="checkbox">
                 <label>
-                    <?php echo CHtml::checkBox(
+                    <?=  CHtml::checkBox(
                         'modules[]',
                         false,
                         ['value' => $moduleId]
-                    ); ?><?php echo $moduleName; ?>
-                    <span class='text-muted'>[<?php echo $moduleId; ?>]</span>
+                    ); ?><?=  $moduleName; ?>
+                    <span class='text-muted'>[<?=  $moduleId; ?>]</span>
                 </label>
             </div>
         <?php } endforeach; ?>

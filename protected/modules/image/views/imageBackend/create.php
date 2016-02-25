@@ -21,9 +21,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ImageModule.image', 'Images'); ?>
-        <small><?php echo Yii::t('ImageModule.image', 'add'); ?></small>
+        <?=  Yii::t('ImageModule.image', 'Images'); ?>
+        <small><?=  Yii::t('ImageModule.image', 'add'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

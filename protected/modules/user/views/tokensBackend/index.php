@@ -37,8 +37,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('UserModule.user', 'Tokens'); ?>
-        <small><?php echo Yii::t('UserModule.user', 'management'); ?></small>
+        <?=  Yii::t('UserModule.user', 'Tokens'); ?>
+        <small><?=  Yii::t('UserModule.user', 'management'); ?></small>
     </h1>
 </div>
 

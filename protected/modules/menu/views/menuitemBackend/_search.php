@@ -12,10 +12,10 @@ $form = $this->beginWidget(
 <fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'title'); ?>
+            <?=  $form->textFieldGroup($model, 'title'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'menu_id',
                 [
@@ -29,7 +29,7 @@ $form = $this->beginWidget(
             );?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'status',
                 [
@@ -45,7 +45,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'parent_id',
                 [
@@ -59,7 +59,7 @@ $form = $this->beginWidget(
             );?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'condition_name',
                 [
@@ -73,7 +73,7 @@ $form = $this->beginWidget(
             );?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'condition_denial',
                 [

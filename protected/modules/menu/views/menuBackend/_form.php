@@ -23,16 +23,16 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('MenuModule.menu', 'Fields with'); ?>
+    <?=  Yii::t('MenuModule.menu', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('MenuModule.menu', 'are required.'); ?>
+    <?=  Yii::t('MenuModule.menu', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $model,
             'name',
             [
@@ -49,7 +49,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup(
+        <?=  $form->slugFieldGroup(
             $model,
             'code',
             [
@@ -67,7 +67,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textAreaGroup(
+        <?=  $form->textAreaGroup(
             $model,
             'description',
             [
@@ -85,7 +85,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [

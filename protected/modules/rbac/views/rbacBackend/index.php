@@ -7,7 +7,7 @@ $this->breadcrumbs = [
 $this->menu = $this->module->getNavigation();
 ?>
 
-<h3><?php echo Yii::t('RbacModule.rbac', 'Manage operations'); ?></h3>
+<h3><?=  Yii::t('RbacModule.rbac', 'Manage operations'); ?></h3>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',

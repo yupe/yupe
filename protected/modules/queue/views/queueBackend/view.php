@@ -48,8 +48,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('QueueModule.queue', 'View task'); ?><br/>
-        <small>&laquo;<?php echo $model->id; ?>&raquo;</small>
+        <?=  Yii::t('QueueModule.queue', 'View task'); ?><br/>
+        <small>&laquo;<?=  $model->id; ?>&raquo;</small>
     </h1>
 </div>
 

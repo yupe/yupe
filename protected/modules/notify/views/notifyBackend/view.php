@@ -37,8 +37,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('NotifyModule.notify', 'View notify'); ?><br/>
-        <small>&laquo;<?php echo $model->id; ?>&raquo;</small>
+        <?=  Yii::t('NotifyModule.notify', 'View notify'); ?><br/>
+        <small>&laquo;<?=  $model->id; ?>&raquo;</small>
     </h1>
 </div>
 

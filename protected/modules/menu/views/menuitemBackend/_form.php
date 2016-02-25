@@ -10,12 +10,12 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('MenuModule.menu', 'Fields with'); ?>
+    <?=  Yii::t('MenuModule.menu', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('MenuModule.menu', 'are required.'); ?>
+    <?=  Yii::t('MenuModule.menu', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <?php
@@ -23,7 +23,7 @@ $form = $this->beginWidget(
     $parent_id = '#' . CHtml::activeId($model, 'parent_id');
     ?>
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'menu_id',
             [
@@ -56,7 +56,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'parent_id',
             [
@@ -77,7 +77,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $model,
             'title',
             [
@@ -95,7 +95,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->checkBoxGroup(
+        <?=  $form->checkBoxGroup(
             $model,
             'regular_link',
             [
@@ -113,7 +113,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $model,
             'href',
             [
@@ -131,13 +131,13 @@ $form = $this->beginWidget(
 
 <div class="row hidden">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'sort'); ?>
+        <?=  $form->textFieldGroup($model, 'sort'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-2">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -160,7 +160,7 @@ $form = $this->beginWidget(
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    <?php echo Yii::t('MenuModule.menu', 'Extended settings'); ?>
+                    <?=  Yii::t('MenuModule.menu', 'Extended settings'); ?>
                 </a>
             </h4>
         </div>
@@ -168,7 +168,7 @@ $form = $this->beginWidget(
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php echo $form->textFieldGroup(
+                        <?=  $form->textFieldGroup(
                             $model,
                             'title_attr',
                             [
@@ -187,7 +187,7 @@ $form = $this->beginWidget(
                 </div>
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php echo $form->textFieldGroup(
+                        <?=  $form->textFieldGroup(
                             $model,
                             'class',
                             [
@@ -205,7 +205,7 @@ $form = $this->beginWidget(
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <?php echo $form->textFieldGroup(
+                        <?=  $form->textFieldGroup(
                             $model,
                             'before_link',
                             [
@@ -221,7 +221,7 @@ $form = $this->beginWidget(
                         ); ?>
                     </div>
                     <div class="col-sm-4">
-                        <?php echo $form->textFieldGroup(
+                        <?=  $form->textFieldGroup(
                             $model,
                             'after_link',
                             [
@@ -239,7 +239,7 @@ $form = $this->beginWidget(
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <?php echo $form->textFieldGroup(
+                        <?=  $form->textFieldGroup(
                             $model,
                             'target',
                             [
@@ -255,7 +255,7 @@ $form = $this->beginWidget(
                         ); ?>
                     </div>
                     <div class="col-sm-4">
-                        <?php echo $form->textFieldGroup(
+                        <?=  $form->textFieldGroup(
                             $model,
                             'rel',
                             [
@@ -273,7 +273,7 @@ $form = $this->beginWidget(
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <?php echo $form->dropDownListGroup(
+                        <?=  $form->dropDownListGroup(
                             $model,
                             'condition_name',
                             [
@@ -290,7 +290,7 @@ $form = $this->beginWidget(
                         ); ?>
                     </div>
                     <div class="col-sm-3">
-                        <?php echo $form->dropDownListGroup(
+                        <?=  $form->dropDownListGroup(
                             $model,
                             'condition_denial',
                             [

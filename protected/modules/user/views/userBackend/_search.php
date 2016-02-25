@@ -10,25 +10,25 @@ $form = $this->beginWidget(
 ); ?>
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'nick_name'); ?>
+        <?=  $form->textFieldGroup($model, 'nick_name'); ?>
     </div>
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'email'); ?>
+        <?=  $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'first_name'); ?>
+        <?=  $form->textFieldGroup($model, 'first_name'); ?>
     </div>
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'last_name'); ?>
+        <?=  $form->textFieldGroup($model, 'last_name'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->datePickerGroup(
+        <?=  $form->datePickerGroup(
             $model,
             'create_time',
             [
@@ -46,7 +46,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class="col-sm-3">
-        <?php echo $form->datepickerGroup(
+        <?=  $form->datepickerGroup(
             $model,
             'visit_time',
             [
@@ -63,7 +63,7 @@ $form = $this->beginWidget(
         ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'gender',
             [
@@ -80,7 +80,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -94,7 +94,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-6">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'access_level',
             [

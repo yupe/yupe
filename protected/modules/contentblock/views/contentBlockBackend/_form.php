@@ -17,16 +17,16 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('ContentBlockModule.contentblock', 'Fields with'); ?>
+    <?=  Yii::t('ContentBlockModule.contentblock', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('ContentBlockModule.contentblock', 'are required.'); ?>
+    <?=  Yii::t('ContentBlockModule.contentblock', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'type',
             ['widgetOptions' => ['data' => $model->getTypes()]]
@@ -35,17 +35,17 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
+        <?=  $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'category_id',
             [
@@ -66,7 +66,7 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-sm-12 form-group">
         <?php if (!$model->isNewRecord && $model->type == ContentBlock::HTML_TEXT): ?>
-            <?php echo $form->labelEx($model, 'content'); ?>
+            <?=  $form->labelEx($model, 'content'); ?>
             <?php $this->widget(
                 $this->yupe->getVisualEditor(),
                 [
@@ -74,9 +74,9 @@ $form = $this->beginWidget(
                     'attribute' => 'content',
                 ]
             ); ?>
-            <?php echo $form->error($model, 'content'); ?>
+            <?=  $form->error($model, 'content'); ?>
         <?php else: ?>
-            <?php echo $form->textAreaGroup(
+            <?=  $form->textAreaGroup(
                 $model,
                 'content',
                 ['widgetOptions' => ['htmlOptions' => ['rows' => 6]]]
@@ -86,7 +86,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-12 form-group">
-        <?php echo $form->labelEx($model, 'description'); ?>
+        <?=  $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->yupe->getVisualEditor(),
             [
@@ -94,12 +94,12 @@ $form = $this->beginWidget(
                 'attribute' => 'description',
             ]
         ); ?>
-        <?php echo $form->error($model, 'description'); ?>
+        <?=  $form->error($model, 'description'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <?php echo $form->dropDownListGroup($model, 'status', ['widgetOptions' => ['data' => $model->getStatusList()]]); ?>
+        <?=  $form->dropDownListGroup($model, 'status', ['widgetOptions' => ['data' => $model->getStatusList()]]); ?>
     </div>
 </div>
 

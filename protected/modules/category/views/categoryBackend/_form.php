@@ -16,17 +16,17 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('CategoryModule.category', 'Fields with'); ?>
+    <?=  Yii::t('CategoryModule.category', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('CategoryModule.category', 'are required'); ?>
+    <?=  Yii::t('CategoryModule.category', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
 
     <div class='col-sm-3'>
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -41,7 +41,7 @@ $form = $this->beginWidget(
     <div class="col-sm-4">
 
         <?php if (count($languages) > 1): { ?>
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'lang',
                 [
@@ -57,19 +57,19 @@ $form = $this->beginWidget(
                 <?php foreach ($languages as $k => $v): { ?>
                     <?php if ($k !== $model->lang): { ?>
                         <?php if (empty($langModels[$k])): { ?>
-                            <a href="<?php echo $this->createUrl(
+                            <a href="<?=  $this->createUrl(
                                 '/category/categoryBackend/create',
                                 ['id' => $model->id, 'lang' => $k]
-                            ); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t(
+                            ); ?>"><i class="iconflags iconflags-<?=  $k; ?>" title="<?=  Yii::t(
                                     'CategoryModule.category',
                                     'Add translate in to {lang}',
                                     ['{lang}' => $v]
                                 ) ?>"></i></a>
                         <?php } else: { ?>
-                            <a href="<?php echo $this->createUrl(
+                            <a href="<?=  $this->createUrl(
                                 '/category/categoryBackend/update',
                                 ['id' => $langModels[$k]]
-                            ); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t(
+                            ); ?>"><i class="iconflags iconflags-<?=  $k; ?>" title="<?=  Yii::t(
                                     'CategoryModule.category',
                                     'Change translation in to {lang}',
                                     ['{lang}' => $v]
@@ -79,7 +79,7 @@ $form = $this->beginWidget(
                 <?php } endforeach; ?>
             <?php } endif; ?>
         <?php } else: { ?>
-            <?php echo $form->hiddenField($model, 'lang'); ?>
+            <?=  $form->hiddenField($model, 'lang'); ?>
         <?php } endif; ?>
 
     </div>
@@ -88,7 +88,7 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'parent_id',
             [
@@ -105,12 +105,12 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'name']); ?>
+        <?=  $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 <div class='row'>
@@ -133,7 +133,7 @@ $form = $this->beginWidget(
             </div>
         <?php endif; ?>
 
-        <?php echo $form->fileFieldGroup(
+        <?=  $form->fileFieldGroup(
             $model,
             'image',
             [
@@ -151,7 +151,7 @@ $form = $this->beginWidget(
 <div class='row'>
     <div class="col-sm-12">
         <div class="form-group">
-            <?php echo $form->labelEx($model, 'description'); ?>
+            <?=  $form->labelEx($model, 'description'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
                 [
@@ -159,7 +159,7 @@ $form = $this->beginWidget(
                     'attribute' => 'description',
                 ]
             ); ?>
-            <?php echo $form->error($model, 'description', ['class' => 'help-block error']); ?>
+            <?=  $form->error($model, 'description', ['class' => 'help-block error']); ?>
         </div>
     </div>
 </div>
@@ -167,7 +167,7 @@ $form = $this->beginWidget(
 <div class='row'>
     <div class="col-sm-12">
         <div class="form-group">
-            <?php echo $form->labelEx($model, 'short_description'); ?>
+            <?=  $form->labelEx($model, 'short_description'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
                 [
@@ -176,7 +176,7 @@ $form = $this->beginWidget(
                 ]
             ); ?>
             <br/>
-            <?php echo $form->error($model, 'short_description', ['class' => 'help-block error']); ?>
+            <?=  $form->error($model, 'short_description', ['class' => 'help-block error']); ?>
         </div>
     </div>
 </div>

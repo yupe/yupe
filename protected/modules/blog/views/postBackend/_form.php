@@ -25,16 +25,16 @@ $form = $this->beginWidget(
 
 ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('BlogModule.blog', 'Fields marked with'); ?>
+    <?=  Yii::t('BlogModule.blog', 'Fields marked with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('BlogModule.blog', 'are required.'); ?>
+    <?=  Yii::t('BlogModule.blog', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->select2Group(
+        <?=  $form->select2Group(
             $model,
             'blog_id',
             [
@@ -45,7 +45,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -61,7 +61,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->dateTimePickerGroup(
+        <?=  $form->dateTimePickerGroup(
             $model,
             'publish_time',
             [
@@ -85,7 +85,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $model,
             'title',
             [
@@ -102,7 +102,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup(
+        <?=  $form->slugFieldGroup(
             $model,
             'slug',
             [
@@ -120,7 +120,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $model,
             'link',
             [
@@ -138,7 +138,7 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-sm-5">
         <div class="form-group">
-            <?php echo $form->labelEx($model, 'tags', ['control-label']); ?>
+            <?=  $form->labelEx($model, 'tags', ['control-label']); ?>
             <?php
             $this->widget(
                 'booster.widgets.TbSelect2',
@@ -180,7 +180,7 @@ $form = $this->beginWidget(
             </div>
         <?php endif; ?>
 
-        <?php echo $form->fileFieldGroup(
+        <?=  $form->fileFieldGroup(
             $model,
             'image',
             [
@@ -196,9 +196,9 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-12 form-group popover-help"
-         data-original-title='<?php echo $model->getAttributeLabel('content'); ?>'
-         data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
-        <?php echo $form->labelEx($model, 'content'); ?>
+         data-original-title='<?=  $model->getAttributeLabel('content'); ?>'
+         data-content='<?=  $model->getAttributeDescription('content'); ?>'>
+        <?=  $form->labelEx($model, 'content'); ?>
         <?php
         $this->widget(
             $this->module->getVisualEditor(),
@@ -211,9 +211,9 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-12 form-group popover-help"
-         data-original-title='<?php echo $model->getAttributeLabel('quote'); ?>'
-         data-content='<?php echo $model->getAttributeDescription('quote'); ?>'>
-        <?php echo $form->labelEx($model, 'quote'); ?>
+         data-original-title='<?=  $model->getAttributeLabel('quote'); ?>'
+         data-content='<?=  $model->getAttributeDescription('quote'); ?>'>
+        <?=  $form->labelEx($model, 'quote'); ?>
         <?php
         $this->widget(
             $this->module->getVisualEditor(),
@@ -231,7 +231,7 @@ $form = $this->beginWidget(
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#blog_post_additional">
-                        <?php echo Yii::t('BlogModule.blog', 'Дополнительно'); ?>
+                        <?=  Yii::t('BlogModule.blog', 'Дополнительно'); ?>
                     </a>
                 </h4>
             </div>
@@ -239,7 +239,7 @@ $form = $this->beginWidget(
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-2">
-                            <?php echo $form->dropDownListGroup(
+                            <?=  $form->dropDownListGroup(
                                 $model,
                                 'category_id',
                                 [
@@ -259,7 +259,7 @@ $form = $this->beginWidget(
                             ); ?>
                         </div>
                         <div class="col-sm-2">
-                            <?php echo $form->dropDownListGroup(
+                            <?=  $form->dropDownListGroup(
                                 $model,
                                 'access_type',
                                 [
@@ -276,7 +276,7 @@ $form = $this->beginWidget(
                             ); ?>
                         </div>
                         <div class="col-sm-2">
-                            <?php echo $form->dropDownListGroup(
+                            <?=  $form->dropDownListGroup(
                                 $model,
                                 'comment_status',
                                 [
@@ -305,7 +305,7 @@ $form = $this->beginWidget(
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#blog_post_seodata">
-                        <?php echo Yii::t('BlogModule.blog', 'Data for SEO'); ?>
+                        <?=  Yii::t('BlogModule.blog', 'Data for SEO'); ?>
                     </a>
                 </h4>
             </div>
@@ -313,7 +313,7 @@ $form = $this->beginWidget(
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-7">
-                            <?php echo $form->textFieldGroup(
+                            <?=  $form->textFieldGroup(
                                 $model,
                                 'keywords',
                                 [
@@ -330,7 +330,7 @@ $form = $this->beginWidget(
                     </div>
                     <div class="row">
                         <div class="col-sm-7">
-                            <?php echo $form->textAreaGroup(
+                            <?=  $form->textAreaGroup(
                                 $model,
                                 'description',
                                 [

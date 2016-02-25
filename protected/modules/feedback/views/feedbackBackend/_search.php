@@ -13,21 +13,21 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->textFieldGroup($model, 'email'); ?>
+        <?=  $form->textFieldGroup($model, 'email'); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->textFieldGroup($model, 'phone'); ?>
+        <?=  $form->textFieldGroup($model, 'phone'); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->textFieldGroup($model, 'theme'); ?>
+        <?=  $form->textFieldGroup($model, 'theme'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'type',
             [
@@ -41,7 +41,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -55,7 +55,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'category_id',
             [
@@ -71,7 +71,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->datePickerGroup(
+        <?=  $form->datePickerGroup(
             $model,
             'create_time',
             [
@@ -89,7 +89,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->checkBoxGroup($model, 'is_faq', $model->isFaqList); ?>
+        <?=  $form->checkBoxGroup($model, 'is_faq', $model->isFaqList); ?>
     </div>
 </div>
 <div class='row hidden'>

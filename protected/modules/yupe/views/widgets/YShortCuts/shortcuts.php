@@ -10,7 +10,7 @@
         <?php if (!$module->getIsShowInAdminMenu() && !$module->getExtendedNavigation()): ?>
             <?php continue; ?>
         <?php endif; ?>
-        <?php echo CHtml::link($this->render('_view', ['module' => $module, 'updates' => $updates], true), is_string($module->getAdminPageLink()) ? [$module->getAdminPageLink()] : $module->getAdminPageLink(), ['class' => 'shortcut']); ?>
+        <?=  CHtml::link($this->render('_view', ['module' => $module, 'updates' => $updates], true), is_string($module->getAdminPageLink()) ? [$module->getAdminPageLink()] : $module->getAdminPageLink(), ['class' => 'shortcut']); ?>
     <?php endforeach; ?>
 </div>
 
@@ -19,15 +19,15 @@
         $('.config-update').on('click', function (event) {
             var $this = $(this);
             event.preventDefault();
-            $.post('<?php echo Yii::app()->createUrl('/yupe/modulesBackend/configUpdate/')?>', {
-                '<?php echo Yii::app()->getRequest()->csrfTokenName;?>': '<?php echo Yii::app()->getRequest()->csrfToken;?>',
+            $.post('<?=  Yii::app()->createUrl('/yupe/modulesBackend/configUpdate/')?>', {
+                '<?=  Yii::app()->getRequest()->csrfTokenName;?>': '<?=  Yii::app()->getRequest()->csrfToken;?>',
                 'module': $(this).data('module')
             }, function (response) {
 
                 if (response.result) {
                     $this.fadeOut();
                     $('#notifications').notify({
-                        message: {text: '<?php echo Yii::t('YupeModule.yupe','Successful');?>'},
+                        message: {text: '<?=  Yii::t('YupeModule.yupe','Successful');?>'},
                         type: 'success'
                     }).show();
                 }

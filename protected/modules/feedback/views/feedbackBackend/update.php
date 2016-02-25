@@ -63,9 +63,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('FeedbackModule.feedback', 'Change message '); ?><br/>
-        <small>&laquo;<?php echo $model->theme; ?>&raquo;</small>
+        <?=  Yii::t('FeedbackModule.feedback', 'Change message '); ?><br/>
+        <small>&laquo;<?=  $model->theme; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

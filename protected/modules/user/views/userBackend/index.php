@@ -43,15 +43,15 @@ $this->menu = [
 
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('UserModule.user', 'Users'); ?>
-        <small><?php echo Yii::t('UserModule.user', 'management'); ?></small>
+        <?=  Yii::t('UserModule.user', 'Users'); ?>
+        <small><?=  Yii::t('UserModule.user', 'management'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('UserModule.user', 'Find users'); ?>
+        <?=  Yii::t('UserModule.user', 'Find users'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>

@@ -21,9 +21,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CommentModule.comment', 'Comments'); ?>
-        <small><?php echo Yii::t('CommentModule.comment', 'create'); ?></small>
+        <?=  Yii::t('CommentModule.comment', 'Comments'); ?>
+        <small><?=  Yii::t('CommentModule.comment', 'create'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

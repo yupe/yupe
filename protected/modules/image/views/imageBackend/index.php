@@ -21,15 +21,15 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo ucfirst(Yii::t('ImageModule.image', 'Images')); ?>
-        <small><?php echo Yii::t('ImageModule.image', 'management'); ?></small>
+        <?=  ucfirst(Yii::t('ImageModule.image', 'Images')); ?>
+        <small><?=  Yii::t('ImageModule.image', 'management'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('ImageModule.image', 'Find images'); ?>
+        <?=  Yii::t('ImageModule.image', 'Find images'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>

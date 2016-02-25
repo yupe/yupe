@@ -67,8 +67,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('MenuModule.menu', 'Show menu item'); ?><br/>
-        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+        <?=  Yii::t('MenuModule.menu', 'Show menu item'); ?><br/>
+        <small>&laquo;<?=  $model->title; ?>&raquo;</small>
     </h1>
 </div>
 

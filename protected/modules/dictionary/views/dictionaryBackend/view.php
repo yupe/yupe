@@ -74,8 +74,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('DictionaryModule.dictionary', 'Showing dictionary'); ?><br/>
-        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+        <?=  Yii::t('DictionaryModule.dictionary', 'Showing dictionary'); ?><br/>
+        <small>&laquo;<?=  $model->name; ?>&raquo;</small>
     </h1>
 </div>
 

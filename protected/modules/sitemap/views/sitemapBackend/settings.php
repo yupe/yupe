@@ -8,8 +8,8 @@ $this->breadcrumbs = [
 ?>
 
 <h1>
-    <?php echo Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?php echo CHtml::encode($this->getModule()->name); ?>"
-    <small><?php echo Yii::t('YupeModule.yupe', 'version'); ?> <?php echo CHtml::encode($this->getModule()->version); ?></small>
+    <?=  Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?=  CHtml::encode($this->getModule()->name); ?>"
+    <small><?=  Yii::t('YupeModule.yupe', 'version'); ?> <?=  CHtml::encode($this->getModule()->version); ?></small>
 </h1>
 
 <?php $this->widget(
@@ -29,7 +29,7 @@ $this->breadcrumbs = [
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#add-toggle">
         <i class="glyphicon glyphicon-plus">&nbsp;</i>
-        <?php echo Yii::t('SitemapModule.sitemap', 'Add'); ?>
+        <?=  Yii::t('SitemapModule.sitemap', 'Add'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -48,21 +48,21 @@ $this->breadcrumbs = [
         ]
     ); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('SitemapModule.sitemap', 'Fields with'); ?>
+        <?=  Yii::t('SitemapModule.sitemap', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('SitemapModule.sitemap', 'are required.'); ?>
+        <?=  Yii::t('SitemapModule.sitemap', 'are required.'); ?>
     </div>
 
-    <?php echo $form->errorSummary($sitemapPage); ?>
+    <?=  $form->errorSummary($sitemapPage); ?>
 
     <div class="row">
         <div class="col-sm-6">
-            <?php echo $form->textFieldGroup($sitemapPage, 'url'); ?>
+            <?=  $form->textFieldGroup($sitemapPage, 'url'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-2">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $sitemapPage,
                 'changefreq',
                 [
@@ -73,10 +73,10 @@ $this->breadcrumbs = [
             ); ?>
         </div>
         <div class="col-sm-2">
-            <?php echo $form->textFieldGroup($sitemapPage, 'priority'); ?>
+            <?=  $form->textFieldGroup($sitemapPage, 'priority'); ?>
         </div>
         <div class="col-sm-2">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $sitemapPage,
                 'status',
                 [

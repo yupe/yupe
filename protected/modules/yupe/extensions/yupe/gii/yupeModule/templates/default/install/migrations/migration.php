@@ -1,15 +1,15 @@
-<?php echo "<?php\n"; ?>
+<?=  "<?php\n"; ?>
 /**
- * <?php echo ucfirst($this->moduleID); ?> install migration
- * Класс миграций для модуля <?php echo ucfirst($this->moduleID); ?>:
+ * <?=  ucfirst($this->moduleID); ?> install migration
+ * Класс миграций для модуля <?=  ucfirst($this->moduleID); ?>:
  *
  * @category YupeMigration
- * @package  yupe.modules.<?php echo $this->moduleID; ?>.install.migrations
+ * @package  yupe.modules.<?=  $this->moduleID; ?>.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class m000000_000000_<?php echo $this->moduleID; ?>_base extends yupe\components\DbMigration
+class m000000_000000_<?=  $this->moduleID; ?>_base extends yupe\components\DbMigration
 {
     /**
      * Функция настройки и создания таблицы:
@@ -19,7 +19,7 @@ class m000000_000000_<?php echo $this->moduleID; ?>_base extends yupe\components
     public function safeUp()
     {
         $this->createTable(
-            '{{<?php echo $this->moduleID; ?>}}',
+            '{{<?=  $this->moduleID; ?>}}',
             [
                 'id'             => 'pk',
                 //для удобства добавлены некоторые базовые поля, которые могут пригодиться.
@@ -32,10 +32,10 @@ class m000000_000000_<?php echo $this->moduleID; ?>_base extends yupe\components
         );
 
         //ix
-        $this->createIndex("ix_{{<?php echo $this->moduleID; ?>}}_create_user", '{{<?php echo $this->moduleID; ?>}}', "create_user_id", false);
-        $this->createIndex("ix_{{<?php echo $this->moduleID; ?>}}_update_user", '{{<?php echo $this->moduleID; ?>}}', "update_user_id", false);
-        $this->createIndex("ix_{{<?php echo $this->moduleID; ?>}}_create_time", '{{<?php echo $this->moduleID; ?>}}', "create_time", false);
-        $this->createIndex("ix_{{<?php echo $this->moduleID; ?>}}_update_time", '{{<?php echo $this->moduleID; ?>}}', "update_time", false);
+        $this->createIndex("ix_{{<?=  $this->moduleID; ?>}}_create_user", '{{<?=  $this->moduleID; ?>}}', "create_user_id", false);
+        $this->createIndex("ix_{{<?=  $this->moduleID; ?>}}_update_user", '{{<?=  $this->moduleID; ?>}}', "update_user_id", false);
+        $this->createIndex("ix_{{<?=  $this->moduleID; ?>}}_create_time", '{{<?=  $this->moduleID; ?>}}', "create_time", false);
+        $this->createIndex("ix_{{<?=  $this->moduleID; ?>}}_update_time", '{{<?=  $this->moduleID; ?>}}', "update_time", false);
 
     }
 
@@ -46,6 +46,6 @@ class m000000_000000_<?php echo $this->moduleID; ?>_base extends yupe\components
      **/
     public function safeDown()
     {
-        $this->dropTableWithForeignKeys('{{<?php echo $this->moduleID; ?>}}');
+        $this->dropTableWithForeignKeys('{{<?=  $this->moduleID; ?>}}');
     }
 }

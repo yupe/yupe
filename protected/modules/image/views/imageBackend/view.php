@@ -48,8 +48,8 @@ $this->menu = [
 ];
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('ImageModule.image', 'Show image'); ?><br/>
-        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+    <h1><?=  Yii::t('ImageModule.image', 'Show image'); ?><br/>
+        <small>&laquo;<?=  $model->name; ?>&raquo;</small>
     </h1>
 </div>
 

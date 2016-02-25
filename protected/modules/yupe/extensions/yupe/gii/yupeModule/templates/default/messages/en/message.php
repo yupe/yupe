@@ -1,4 +1,4 @@
-<?php echo "<?php\n"; ?>
+<?=  "<?php\n"; ?>
 /**
  * Message translations.
  *

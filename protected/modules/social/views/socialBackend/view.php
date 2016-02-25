@@ -44,8 +44,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('SocialModule.social', 'Viewing social account'); ?><br/>
-        <small>&laquo;<?php echo $model->provider; ?>&raquo; <?php echo $model->user->getFullName(); ?></small>
+        <?=  Yii::t('SocialModule.social', 'Viewing social account'); ?><br/>
+        <small>&laquo;<?=  $model->provider; ?>&raquo; <?=  $model->user->getFullName(); ?></small>
     </h1>
 </div>
 

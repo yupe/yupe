@@ -42,7 +42,7 @@ $this->menu = array_merge(
     ]
 ); ?>
 
-<h3><?php echo Yii::t('RbacModule.rbac', 'User Rights Assignment'); ?> "<?php echo $model->getFullName(); ?>"</h3>
+<h3><?=  Yii::t('RbacModule.rbac', 'User Rights Assignment'); ?> "<?=  $model->getFullName(); ?>"</h3>
 
 <?php
 $form = $this->beginWidget(

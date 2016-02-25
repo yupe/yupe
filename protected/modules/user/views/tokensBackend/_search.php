@@ -1,7 +1,7 @@
 <p>
     <a class="btn btn-default btn-sm" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('UserModule.user', 'Find tokens'); ?>
+        <?=  Yii::t('UserModule.user', 'Find tokens'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -34,7 +34,7 @@
     ); ?>
     <div class="row">
         <div class="col-sm-6">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'user_id',
                 [
@@ -49,7 +49,7 @@
         </div>
 
         <div class="col-sm-6">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'status',
                 [
@@ -66,7 +66,7 @@
 
     <div class="row">
         <div class="col-sm-6">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'type',
                 [
@@ -81,7 +81,7 @@
         </div>
 
         <div class="col-sm-6">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'create_time',
                 [

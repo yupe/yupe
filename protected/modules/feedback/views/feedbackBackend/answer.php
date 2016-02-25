@@ -65,9 +65,9 @@ $this->menu = [
 
 <script type='text/javascript'>
     $(document).ready(function () {
-        var email = '<?php echo $model->email; ?>';
+        var email = '<?=  $model->email; ?>';
         $('input:submit').click(function () {
-            if (window.confirm('<?php echo Yii::t('FeedbackModule.feedback', 'Reply will be send on '); ?>' + email + '<?php echo Yii::t('FeedbackModule.feedback', ' продолжить ?'); ?>'))
+            if (window.confirm('<?=  Yii::t('FeedbackModule.feedback', 'Reply will be send on '); ?>' + email + '<?=  Yii::t('FeedbackModule.feedback', ' продолжить ?'); ?>'))
                 return true;
             return false;
         });
@@ -76,8 +76,8 @@ $this->menu = [
 
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('FeedbackModule.feedback', 'Reply on message'); ?><br/>
-        <small>&laquo;<?php echo $model->theme; ?>&raquo;</small>
+        <?=  Yii::t('FeedbackModule.feedback', 'Reply on message'); ?><br/>
+        <small>&laquo;<?=  $model->theme; ?>&raquo;</small>
     </h1>
 </div>
 
@@ -122,16 +122,16 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('FeedbackModule.feedback', 'Fields with'); ?>
+    <?=  Yii::t('FeedbackModule.feedback', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('FeedbackModule.feedback', 'are required.'); ?>
+    <?=  Yii::t('FeedbackModule.feedback', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($answerForm); ?>
+<?=  $form->errorSummary($answerForm); ?>
 
 <div class="row">
     <div class="col-sm-12 form-group">
-        <?php echo $form->labelEx($answerForm, 'answer'); ?>
+        <?=  $form->labelEx($answerForm, 'answer'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -143,12 +143,12 @@ $form = $this->beginWidget(
                 'htmlOptions' => ['rows' => 20, 'cols' => 6],
             ]
         ); ?>
-        <?php echo $form->error($answerForm, 'answer'); ?>
+        <?=  $form->error($answerForm, 'answer'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <?php echo $form->checkBoxGroup($answerForm, 'is_faq'); ?>
+        <?=  $form->checkBoxGroup($answerForm, 'is_faq'); ?>
     </div>
 </div>
 

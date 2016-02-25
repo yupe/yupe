@@ -21,9 +21,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CategoryModule.category', 'Category'); ?>
-        <small><?php echo Yii::t('CategoryModule.category', 'create'); ?></small>
+        <?=  Yii::t('CategoryModule.category', 'Category'); ?>
+        <small><?=  Yii::t('CategoryModule.category', 'create'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model, 'languages' => $languages]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model, 'languages' => $languages]); ?>

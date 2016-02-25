@@ -58,9 +58,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'Editing blocks'); ?><br/>
-        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+        <?=  Yii::t('ContentBlockModule.contentblock', 'Editing blocks'); ?><br/>
+        <small>&laquo;<?=  $model->name; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

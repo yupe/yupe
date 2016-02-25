@@ -26,15 +26,15 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('FeedbackModule.feedback', 'Messages '); ?>
-        <small><?php echo Yii::t('FeedbackModule.feedback', 'management'); ?></small>
+        <?=  Yii::t('FeedbackModule.feedback', 'Messages '); ?>
+        <small><?=  Yii::t('FeedbackModule.feedback', 'management'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('FeedbackModule.feedback', 'Find messages'); ?>
+        <?=  Yii::t('FeedbackModule.feedback', 'Find messages'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>

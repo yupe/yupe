@@ -18,16 +18,16 @@ Yii::app()->clientScript->registerScript(
 "
 );
 ?>
-<h1><?php echo Yii::t('YupeModule.yupe', 'Yupe! Crud Generator!'); ?></h1>
+<h1><?=  Yii::t('YupeModule.yupe', 'Yupe! Crud Generator!'); ?></h1>
 
-<p><?php echo Yii::t('YupeModule.yupe', 'Yupe! Generator helps to create CRUD for any model.'); ?></p>
+<p><?=  Yii::t('YupeModule.yupe', 'Yupe! Generator helps to create CRUD for any model.'); ?></p>
 
-<p><?php echo Yii::t(
+<p><?=  Yii::t(
         'YupeModule.yupe',
         ' The resulting interface is well integrated into the control panel of Yupe!.'
     ); ?></p>
 
-<p><?php echo Yii::t(
+<p><?=  Yii::t(
         'YupeModule.yupe',
         'More information and technical support you can find in our site {site}.',
         ['{site}' => CHtml::link(Yii::t('YupeModule.yupe', 'Yupe!'), 'http://yupe.ru/?from=generator')]
@@ -36,28 +36,28 @@ Yii::app()->clientScript->registerScript(
 <?php $form = $this->beginWidget('CCodeForm', ['model' => $model]); ?>
 
 <div class="row">
-    <?php echo $form->labelEx($model, 'model'); ?>
-    <?php echo $form->textField($model, 'model', ['size' => 65]); ?>
+    <?=  $form->labelEx($model, 'model'); ?>
+    <?=  $form->textField($model, 'model', ['size' => 65]); ?>
     <div class="tooltip">
         Model class is case-sensitive. It can be either a class name (e.g. <code>Post</code>)
         or the path alias of the class file (e.g. <code>application.models.Post</code>).
         Note that if the former, the class must be auto-loadable.
     </div>
-    <?php echo $form->error($model, 'model'); ?>
+    <?=  $form->error($model, 'model'); ?>
 </div>
 
 <div class="row">
     <label>Модуль (id) для которого генерируется CRUD</label>
-    <?php echo $form->textField($model, 'mid', ['size' => 65]); ?>
+    <?=  $form->textField($model, 'mid', ['size' => 65]); ?>
     <div class="tooltip">
         Модуль (id) (например <code>page</code>, <code>user</code> или <code>news</code>)
     </div>
-    <?php echo $form->error($model, 'mid'); ?>
+    <?=  $form->error($model, 'mid'); ?>
 </div>
 
 <div class="row">
-    <?php echo $form->labelEx($model, 'controller'); ?>
-    <?php echo $form->textField($model, 'controller', ['size' => 65]); ?>
+    <?=  $form->labelEx($model, 'controller'); ?>
+    <?=  $form->textField($model, 'controller', ['size' => 65]); ?>
     <div class="tooltip">
         Контроллер ID чувствителен к регистру. CRUD controllers are often named after
         the model class name that they are dealing with. Ниже приведены некоторые примеры:
@@ -71,17 +71,17 @@ Yii::app()->clientScript->registerScript(
             </li>
         </ul>
     </div>
-    <?php echo $form->error($model, 'controller'); ?>
+    <?=  $form->error($model, 'controller'); ?>
 </div>
 
 <div class="row sticky">
-    <?php echo $form->labelEx($model, 'baseControllerClass'); ?>
-    <?php echo $form->dropDownList($model, 'baseControllerClass', $model->getBbaseControllerClassList(), ['style' => 'width: 484px;']); ?>
+    <?=  $form->labelEx($model, 'baseControllerClass'); ?>
+    <?=  $form->dropDownList($model, 'baseControllerClass', $model->getBbaseControllerClassList(), ['style' => 'width: 484px;']); ?>
     <div class="tooltip">
         От этого класса будет унаследован новый класс контроллера CRUD.<br/>
         Пожалуйста, убедитесь, что класс существует и может быть автоматически загружаются.
     </div>
-    <?php echo $form->error($model, 'baseControllerClass'); ?>
+    <?=  $form->error($model, 'baseControllerClass'); ?>
 </div>
 
 <br/>
@@ -90,25 +90,25 @@ Yii::app()->clientScript->registerScript(
 
 <br/>
 <label>Именительный (кто? что? есть ...)</label>
-<?php echo $form->textField($model, 'im', ['size' => 65]); ?>
+<?=  $form->textField($model, 'im', ['size' => 65]); ?>
 <br/>
-<label>Родительный (Кого? Чего? нет ...)</label><?php echo $form->textField($model, 'rod', ['size' => 65]); ?>
+<label>Родительный (Кого? Чего? нет ...)</label><?=  $form->textField($model, 'rod', ['size' => 65]); ?>
 <br/>
-<label>Дательный (Кому? Чему? дам ...)</label><?php echo $form->textField($model, 'dat', ['size' => 65]); ?>
+<label>Дательный (Кому? Чему? дам ...)</label><?=  $form->textField($model, 'dat', ['size' => 65]); ?>
 <br/>
-<label>Винительный (Кого? Что? вижу ...)</label><?php echo $form->textField($model, 'vin', ['size' => 65]); ?>
+<label>Винительный (Кого? Что? вижу ...)</label><?=  $form->textField($model, 'vin', ['size' => 65]); ?>
 <br/>
-<label>Творительный (Кем? Чем? горжусь ...)</label><?php echo $form->textField($model, 'tvor', ['size' => 65]); ?>
+<label>Творительный (Кем? Чем? горжусь ...)</label><?=  $form->textField($model, 'tvor', ['size' => 65]); ?>
 <br/>
-<label>Предложный (О ком? О чем? думаю о ...)</label><?php echo $form->textField($model, 'pre', ['size' => 65]); ?>
+<label>Предложный (О ком? О чем? думаю о ...)</label><?=  $form->textField($model, 'pre', ['size' => 65]); ?>
 <br/>  <br/>
 <h2>Множественное число</h2>
 <br/>
-<label>Именительный (кто? что? есть ...)</label><?php echo $form->textField($model, 'mim', ['size' => 65]); ?>
+<label>Именительный (кто? что? есть ...)</label><?=  $form->textField($model, 'mim', ['size' => 65]); ?>
 <br/>
-<label>Родительный (Кого? Чего? нет ...)</label><?php echo $form->textField($model, 'mrod', ['size' => 65]); ?>
+<label>Родительный (Кого? Чего? нет ...)</label><?=  $form->textField($model, 'mrod', ['size' => 65]); ?>
 <br/>
-<label>Творительный (Кем? Чем? горжусь ...)</label><?php echo $form->textField($model, 'mtvor', ['size' => 65]); ?>
+<label>Творительный (Кем? Чем? горжусь ...)</label><?=  $form->textField($model, 'mtvor', ['size' => 65]); ?>
 <br/>
 
 <?php $this->endWidget(); ?>

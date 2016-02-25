@@ -25,9 +25,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CouponModule.coupon', 'Coupons'); ?>
-        <small><?php echo Yii::t('CouponModule.coupon', 'creating'); ?></small>
+        <?=  Yii::t('CouponModule.coupon', 'Coupons'); ?>
+        <small><?=  Yii::t('CouponModule.coupon', 'creating'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

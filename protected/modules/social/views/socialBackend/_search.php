@@ -22,7 +22,7 @@ $form = $this->beginWidget(
 <fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'user_id',
                 [
@@ -34,10 +34,10 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'provider'); ?>
+            <?=  $form->textFieldGroup($model, 'provider'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'uid'); ?>
+            <?=  $form->textFieldGroup($model, 'uid'); ?>
         </div>
     </div>
 </fieldset>

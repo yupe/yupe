@@ -25,8 +25,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CouponModule.coupon', 'Coupons'); ?>
-        <small><?php echo Yii::t('CouponModule.coupon', 'manage'); ?></small>
+        <?=  Yii::t('CouponModule.coupon', 'Coupons'); ?>
+        <small><?=  Yii::t('CouponModule.coupon', 'manage'); ?></small>
     </h1>
 </div>
 

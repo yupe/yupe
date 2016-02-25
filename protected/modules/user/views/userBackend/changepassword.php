@@ -72,8 +72,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('UserModule.user', 'Edit password'); ?><br/>
-        <small>&laquo;<?php echo $model->nick_name; ?>&raquo;</small>
+        <?=  Yii::t('UserModule.user', 'Edit password'); ?><br/>
+        <small>&laquo;<?=  $model->nick_name; ?>&raquo;</small>
     </h1>
 </div>
 
@@ -89,17 +89,17 @@ $form = $this->beginWidget(
     ]
 );
 ?>
-<?php echo $form->errorSummary($changePasswordForm); ?>
+<?=  $form->errorSummary($changePasswordForm); ?>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->passwordFieldGroup($changePasswordForm, 'password'); ?>
+        <?=  $form->passwordFieldGroup($changePasswordForm, 'password'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->passwordFieldGroup($changePasswordForm, 'cPassword'); ?>
+        <?=  $form->passwordFieldGroup($changePasswordForm, 'cPassword'); ?>
     </div>
 </div>
 

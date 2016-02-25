@@ -23,9 +23,9 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('NotifyModule.notify', 'Notify'); ?>
-        <small><?php echo Yii::t('NotifyModule.notify', 'creating'); ?></small>
+        <?=  Yii::t('NotifyModule.notify', 'Notify'); ?>
+        <small><?=  Yii::t('NotifyModule.notify', 'creating'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

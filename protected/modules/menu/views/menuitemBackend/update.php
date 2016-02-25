@@ -70,9 +70,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('MenuModule.menu', 'Edit menu item'); ?><br/>
-        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+        <?=  Yii::t('MenuModule.menu', 'Edit menu item'); ?><br/>
+        <small>&laquo;<?=  $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

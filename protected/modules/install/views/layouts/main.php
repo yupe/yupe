@@ -15,7 +15,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?php echo CHtml::encode(Yii::app()->name) . ' ' . CHtml::encode($this->pageTitle); ?>
+        <?=  CHtml::encode(Yii::app()->name) . ' ' . CHtml::encode($this->pageTitle); ?>
     </title>
     <?php
     Yii::app()->clientScript->registerCoreScript('jquery');
@@ -25,7 +25,7 @@
     Yii::app()->clientScript->registerCssFile($yupeAssets . '/css/flags.css');
     Yii::app()->clientScript->registerCssFile($installAssets . '/css/install.css');
     ?>
-    <link rel="shortcut icon" href="<?php echo $yupeAssets . '/img/favicon.ico'; ?>">
+    <link rel="shortcut icon" href="<?=  $yupeAssets . '/img/favicon.ico'; ?>">
 </head>
 <body>
 <div id="overall-wrap">
@@ -130,21 +130,21 @@
         <!-- breadcrumbs -->
         <?php //$this->widget('yupe\widgets\YFlashMessages'); ?>
         <div class="installContent row">
-            <?php echo $content; ?>
+            <?=  $content; ?>
         </div>
         <!-- content -->
     </div>
 </div>
 <footer>
-    Copyright &copy; 2012-<?php echo date('Y'); ?>
-    <?php echo $this->yupe->poweredBy(); ?>
-    <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
+    Copyright &copy; 2012-<?=  date('Y'); ?>
+    <?=  $this->yupe->poweredBy(); ?>
+    <small class="label label-info"><?=  $this->yupe->getVersion(); ?></small>
     <br/>
     <a href="http://amylabs.ru/?from=install" target="_blank">
-        <?php echo Yii::t('YupeModule.yupe', 'Development and support'); ?></a> - <a
+        <?=  Yii::t('YupeModule.yupe', 'Development and support'); ?></a> - <a
         href="http://amylabs.ru/?from=yupe-install" target="_blank">amylabs</a>
     <br/>
-    <?php echo Yii::powered(); ?>
+    <?=  Yii::powered(); ?>
 </footer>
 <!-- footer -->
 </body>

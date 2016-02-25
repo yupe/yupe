@@ -31,15 +31,15 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('NotifyModule.notify', 'Notify'); ?>
-        <small><?php echo Yii::t('NotifyModule.notify', 'manage'); ?></small>
+        <?=  Yii::t('NotifyModule.notify', 'Notify'); ?>
+        <small><?=  Yii::t('NotifyModule.notify', 'manage'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('NotifyModule.notify', 'Search notify'); ?>
+        <?=  Yii::t('NotifyModule.notify', 'Search notify'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -64,7 +64,7 @@ $this->menu = [
 
 <br/>
 
-<p> <?php echo Yii::t('NotifyModule.notify', 'This section presents notification management tools.'); ?>
+<p> <?=  Yii::t('NotifyModule.notify', 'This section presents notification management tools.'); ?>
 </p>
 
 <?php

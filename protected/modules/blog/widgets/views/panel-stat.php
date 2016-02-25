@@ -12,11 +12,11 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="fa fa-fw fa-pencil"></i> <?php echo Yii::t('BlogModule.blog', 'Blogs'); ?>
+                    <i class="fa fa-fw fa-pencil"></i> <?=  Yii::t('BlogModule.blog', 'Blogs'); ?>
                 </a>
-                <span class="badge alert-success"><?php echo $postsCount; ?></span>
-                <span class="badge alert-info"><?php echo $allPostsCnt; ?></span>
-                <span class="badge alert-danger"><?php echo $moderationCnt; ?></span>
+                <span class="badge alert-success"><?=  $postsCount; ?></span>
+                <span class="badge alert-info"><?=  $allPostsCnt; ?></span>
+                <span class="badge alert-danger"><?=  $moderationCnt; ?></span>
             </h4>
         </div>
 
@@ -26,7 +26,7 @@
 
                 <div class="row">
                     <div class="col-sm-2">
-                        <?php echo CHtml::link(
+                        <?=  CHtml::link(
                             Yii::t('BlogModule.blog', 'New post'),
                             ['/blog/postBackend/create'],
                             ['class' => 'btn btn-success btn-sm']
@@ -71,20 +71,20 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('BlogModule.blog', 'Posts (last day / all)'); ?>:
+                                        <?=  Yii::t('BlogModule.blog', 'Posts (last day / all)'); ?>:
 
                                     </td>
                                     <td>
-                                        <span class="badge alert-success"><?php echo $postsCount; ?></span>
-                                        <span class="badge alert-info"><?php echo $allPostsCnt; ?></span>
+                                        <span class="badge alert-success"><?=  $postsCount; ?></span>
+                                        <span class="badge alert-info"><?=  $allPostsCnt; ?></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('BlogModule.blog', 'Moderation'); ?>:
+                                        <?=  Yii::t('BlogModule.blog', 'Moderation'); ?>:
                                     </td>
                                     <td>
-                                        <span class="badge alert-danger"><?php echo $moderationCnt; ?></span>
+                                        <span class="badge alert-danger"><?=  $moderationCnt; ?></span>
                                     </td>
                                 </tr>
                                 </tbody>

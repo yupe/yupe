@@ -62,8 +62,8 @@ $this->menu = [
 ]; ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('UserModule.user', 'Tokens'); ?>
-        <small><?php echo Yii::t('UserModule.user', 'view token') . ' #' . $model->id; ?></small>
+        <?=  Yii::t('UserModule.user', 'Tokens'); ?>
+        <small><?=  Yii::t('UserModule.user', 'view token') . ' #' . $model->id; ?></small>
     </h1>
 </div>
 

@@ -10,16 +10,16 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('QueueModule.queue', 'Fields with'); ?>
+    <?=  Yii::t('QueueModule.queue', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('QueueModule.queue', 'are required'); ?>
+    <?=  Yii::t('QueueModule.queue', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'worker',
             [
@@ -33,17 +33,17 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textAreaGroup($model, 'task'); ?>
+        <?=  $form->textAreaGroup($model, 'task'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'notice'); ?>
+        <?=  $form->textFieldGroup($model, 'notice'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'priority',
             [
@@ -56,7 +56,7 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [

@@ -11,7 +11,7 @@ $form = $this->beginWidget(
 <fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'worker',
                 [
@@ -23,7 +23,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'priority',
                 [
@@ -35,7 +35,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'status',
                 [
@@ -50,7 +50,7 @@ $form = $this->beginWidget(
 
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->datePickerGroup(
+            <?=  $form->datePickerGroup(
                 $model,
                 'create_time',
                 [
@@ -67,7 +67,7 @@ $form = $this->beginWidget(
             ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->datePickerGroup(
+            <?=  $form->datePickerGroup(
                 $model,
                 'start_time',
                 [
@@ -84,7 +84,7 @@ $form = $this->beginWidget(
             ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->datePickerGroup(
+            <?=  $form->datePickerGroup(
                 $model,
                 'complete_time',
                 [
@@ -104,10 +104,10 @@ $form = $this->beginWidget(
 
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'task'); ?>
+            <?=  $form->textFieldGroup($model, 'task'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'notice'); ?>
+            <?=  $form->textFieldGroup($model, 'notice'); ?>
         </div>
     </div>
 

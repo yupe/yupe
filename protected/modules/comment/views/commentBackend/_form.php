@@ -10,41 +10,41 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('CommentModule.comment', 'Fields with'); ?>
+    <?=  Yii::t('CommentModule.comment', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('CommentModule.comment', 'are require.'); ?>
+    <?=  Yii::t('CommentModule.comment', 'are require.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'model'); ?>
+        <?=  $form->textFieldGroup($model, 'model'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'model_id'); ?>
+        <?=  $form->textFieldGroup($model, 'model_id'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'email'); ?>
+        <?=  $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'url'); ?>
+        <?=  $form->textFieldGroup($model, 'url'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-12">
-        <?php echo $form->labelEx($model, 'text'); ?>
+        <?=  $form->labelEx($model, 'text'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -52,12 +52,12 @@ $form = $this->beginWidget(
                 'attribute' => 'text',
             ]
         ); ?>
-        <br/><?php echo $form->error($model, 'text'); ?>
+        <br/><?=  $form->error($model, 'text'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-2">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [

@@ -77,8 +77,8 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('MenuModule.menu', 'Show menu'); ?><br/>
-        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+        <?=  Yii::t('MenuModule.menu', 'Show menu'); ?><br/>
+        <small>&laquo;<?=  $model->name; ?>&raquo;</small>
     </h1>
 </div>
 
@@ -101,8 +101,8 @@ $this->menu = [
 
 <br/>
 <div>
-    <?php echo Yii::t('MenuModule.menu', 'Use next code for inserting menu in view'); ?>
+    <?=  Yii::t('MenuModule.menu', 'Use next code for inserting menu in view'); ?>
     <p>
-        <?php echo $example; ?>
+        <?=  $example; ?>
     </p>
 </div>

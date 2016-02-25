@@ -52,15 +52,15 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('MenuModule.menu', 'Menu'); ?>
-        <small><?php echo Yii::t('MenuModule.menu', 'manage'); ?></small>
+        <?=  Yii::t('MenuModule.menu', 'Menu'); ?>
+        <small><?=  Yii::t('MenuModule.menu', 'manage'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('MenuModule.menu', 'Find menu'); ?>
+        <?=  Yii::t('MenuModule.menu', 'Find menu'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>

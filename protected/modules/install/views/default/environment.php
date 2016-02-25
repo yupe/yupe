@@ -11,19 +11,19 @@
 ?>
 <?php if (!$data['result']) : { ?>
     <div class="alert alert-danger">
-        <b><?php echo Yii::t('InstallModule.install', 'Install can\'t be continued. Please check errors!'); ?></b>
+        <b><?=  Yii::t('InstallModule.install', 'Install can\'t be continued. Please check errors!'); ?></b>
     </div>
 <?php } endif; ?>
 
 <?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
 <div class="alert alert-info">
-    <p><?php echo Yii::t(
+    <p><?=  Yii::t(
             'InstallModule.install',
             'On this step Yupe checks access right for needed directories.'
         ); ?></p>
 
-    <p><?php echo Yii::t(
+    <p><?=  Yii::t(
             'InstallModule.install',
             'To continue installation you need to repair error was occured.'
         ); ?></p>
@@ -31,13 +31,13 @@
 
 <table class="table table-striped">
     <tr>
-        <th><?php echo Yii::t('InstallModule.install', 'Value'); ?></th>
-        <th><?php echo Yii::t('InstallModule.install', 'Result'); ?></th>
-        <th><?php echo Yii::t('InstallModule.install', 'Comments'); ?></th>
+        <th><?=  Yii::t('InstallModule.install', 'Value'); ?></th>
+        <th><?=  Yii::t('InstallModule.install', 'Result'); ?></th>
+        <th><?=  Yii::t('InstallModule.install', 'Comments'); ?></th>
     </tr>
     <?php foreach ($data['requirements'] as $requirement): { ?>
         <tr>
-            <td style="width:200px;"><?php echo $requirement[0]; ?></td>
+            <td style="width:200px;"><?=  $requirement[0]; ?></td>
             <td>
                 <?php
                 $this->widget(
@@ -48,14 +48,14 @@
                     ]
                 ); ?>
             </td>
-            <td><?php echo $requirement[2]; ?></td>
+            <td><?=  $requirement[2]; ?></td>
         </tr>
     <?php } endforeach; ?>
 </table>
 
 <br/>
 
-<?php echo CHtml::link(
+<?=  CHtml::link(
     Yii::t('InstallModule.install', '< Back'),
     ['/install/default/index'],
     ['class' => 'btn btn-primary']

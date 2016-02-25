@@ -25,15 +25,15 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'Blocks'); ?>
-        <small><?php echo Yii::t('ContentBlockModule.contentblock', 'administration'); ?></small>
+        <?=  Yii::t('ContentBlockModule.contentblock', 'Blocks'); ?>
+        <small><?=  Yii::t('ContentBlockModule.contentblock', 'administration'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'Find content blocks'); ?>
+        <?=  Yii::t('ContentBlockModule.contentblock', 'Find content blocks'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>

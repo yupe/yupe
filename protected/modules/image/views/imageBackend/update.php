@@ -49,8 +49,8 @@ $this->menu = [
 ];
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('ImageModule.image', 'Change image'); ?><br/>
-        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+    <h1><?=  Yii::t('ImageModule.image', 'Change image'); ?><br/>
+        <small>&laquo;<?=  $model->name; ?>&raquo;</small>
     </h1>
 </div>
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

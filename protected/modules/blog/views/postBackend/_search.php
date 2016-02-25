@@ -23,7 +23,7 @@ $form = $this->beginWidget(
 <fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup(
+            <?=  $form->textFieldGroup(
                 $model,
                 'title',
                 [
@@ -39,7 +39,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup(
+            <?=  $form->textFieldGroup(
                 $model,
                 'slug',
                 [
@@ -57,7 +57,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'blog_id',
                 [
@@ -74,7 +74,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->datePickerGroup(
+            <?=  $form->datePickerGroup(
                 $model,
                 'publish_time',
                 [
@@ -97,7 +97,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'status',
                 [
@@ -114,7 +114,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'access_type',
                 [
@@ -133,7 +133,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup(
+            <?=  $form->textFieldGroup(
                 $model,
                 'link',
                 [
@@ -144,7 +144,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'comment_status',
                 [
@@ -163,7 +163,7 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup(
+            <?=  $form->textFieldGroup(
                 $model,
                 'description',
                 [
@@ -179,7 +179,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup(
+            <?=  $form->textFieldGroup(
                 $model,
                 'keywords',
                 [

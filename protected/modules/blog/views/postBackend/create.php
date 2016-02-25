@@ -65,9 +65,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('BlogModule.blog', 'Posts'); ?>
-        <small><?php echo Yii::t('BlogModule.blog', 'add'); ?></small>
+        <?=  Yii::t('BlogModule.blog', 'Posts'); ?>
+        <small><?=  Yii::t('BlogModule.blog', 'add'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

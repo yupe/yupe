@@ -21,9 +21,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'Content block'); ?>
-        <small><?php echo Yii::t('ContentBlockModule.contentblock', 'add'); ?></small>
+        <?=  Yii::t('ContentBlockModule.contentblock', 'Content block'); ?>
+        <small><?=  Yii::t('ContentBlockModule.contentblock', 'add'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

@@ -28,9 +28,9 @@ Yii::app()->clientScript->registerScript(
 <?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
 <div class="alert alert-info">
-    <p><?php echo Yii::t('InstallModule.install', 'Select your site title, description and keywords for SEO.'); ?></p>
+    <p><?=  Yii::t('InstallModule.install', 'Select your site title, description and keywords for SEO.'); ?></p>
 
-    <p><?php echo Yii::t(
+    <p><?=  Yii::t(
             'InstallModule.install',
             'More about SEO {link}',
             [
@@ -43,11 +43,11 @@ Yii::app()->clientScript->registerScript(
         ); ?></p>
 </div>
 
-<?php echo $form->errorSummary($data['model']); ?>
+<?=  $form->errorSummary($data['model']); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $data['model'],
             'theme',
             [
@@ -67,7 +67,7 @@ Yii::app()->clientScript->registerScript(
 <?php if (!empty($data['backendThemes'])) : { ?>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $data['model'],
                 'backendTheme',
                 [
@@ -87,7 +87,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'siteName',
             [
@@ -105,7 +105,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textAreaGroup(
+        <?=  $form->textAreaGroup(
             $data['model'],
             'siteDescription',
             [
@@ -124,7 +124,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textAreaGroup(
+        <?=  $form->textAreaGroup(
             $data['model'],
             'siteKeyWords',
             [
@@ -143,7 +143,7 @@ Yii::app()->clientScript->registerScript(
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $data['model'],
             'siteEmail',
             [
@@ -159,7 +159,7 @@ Yii::app()->clientScript->registerScript(
     </div>
 </div>
 
-<?php echo CHtml::link(
+<?=  CHtml::link(
     Yii::t('InstallModule.install', '< Back'),
     ['/install/default/createuser'],
     ['class' => 'btn btn-default']

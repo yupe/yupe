@@ -5,9 +5,9 @@
         <td class="preview"><span class="fade"></span></td>
         <td class="name">
             <span>
-                <?php echo CHtml::hiddenField('ajax', 'ajax') ?>
-    <?php echo CHtml::activeLabel($this->model, 'name'); ?>
-    <?php echo CHtml::activeTextField(
+                <?=  CHtml::hiddenField('ajax', 'ajax') ?>
+    <?=  CHtml::activeLabel($this->model, 'name'); ?>
+    <?=  CHtml::activeTextField(
             $this->model,
             'name',
             ['value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][name]', 'class' => 'form-control']
@@ -16,8 +16,8 @@
         </td>
         <td class="name">
             <span>
-                <?php echo CHtml::activeLabel($this->model, 'alt'); ?>
-    <?php echo CHtml::activeTextField(
+                <?=  CHtml::activeLabel($this->model, 'alt'); ?>
+    <?=  CHtml::activeTextField(
             $this->model,
             'alt',
             ['value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][alt]', 'class' => 'form-control']

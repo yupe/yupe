@@ -11,22 +11,22 @@
  * @link     http://yupe.ru
  */
 ?>
-<?php echo "<?php\n"; ?>
+<?=  "<?php\n"; ?>
 /**
-* Класс <?php echo $this->controllerClass; ?>:
+* Класс <?=  $this->controllerClass; ?>:
 *
-*   @category Yupe<?php echo $this->baseControllerClass . "\n"; ?>
+*   @category Yupe<?=  $this->baseControllerClass . "\n"; ?>
 *   @package  yupe
 *   @author   Yupe Team <team@yupe.ru>
 *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
 *   @link     http://yupe.ru
 **/
-class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseControllerClass . "\n"; ?>
+class <?=  $this->controllerClass; ?> extends <?=  $this->baseControllerClass . "\n"; ?>
 {
     /**
-    * Отображает <?php echo $this->vin; ?> по указанному идентификатору
+    * Отображает <?=  $this->vin; ?> по указанному идентификатору
     *
-    * @param integer $id Идинтификатор <?php echo $this->vin; ?> для отображения
+    * @param integer $id Идинтификатор <?=  $this->vin; ?> для отображения
     *
     * @return void
     */
@@ -36,22 +36,22 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
     }
     
     /**
-    * Создает новую модель <?php echo $this->rod; ?>.
+    * Создает новую модель <?=  $this->rod; ?>.
     * Если создание прошло успешно - перенаправляет на просмотр.
     *
     * @return void
     */
     public function actionCreate()
     {
-        $model = new <?php echo $this->modelClass; ?>;
+        $model = new <?=  $this->modelClass; ?>;
 
-        if (Yii::app()->getRequest()->getPost('<?php echo $this->modelClass; ?>') !== null) {
-            $model->setAttributes(Yii::app()->getRequest()->getPost('<?php echo $this->modelClass; ?>'));
+        if (Yii::app()->getRequest()->getPost('<?=  $this->modelClass; ?>') !== null) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('<?=  $this->modelClass; ?>'));
         
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('<?php echo $this->getModuleTranslate(); ?>', 'Запись добавлена!')
+                    Yii::t('<?=  $this->getModuleTranslate(); ?>', 'Запись добавлена!')
                 );
 
                 $this->redirect(
@@ -59,7 +59,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                         'submit-type',
                         [
                             'update',
-                            'id' => $model-><?php echo $this->tableSchema->primaryKey."\n"; ?>
+                            'id' => $model-><?=  $this->tableSchema->primaryKey."\n"; ?>
                         ]
                     )
                 );
@@ -69,9 +69,9 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
     }
     
     /**
-    * Редактирование <?php echo $this->rod; ?>.
+    * Редактирование <?=  $this->rod; ?>.
     *
-    * @param integer $id Идинтификатор <?php echo $this->vin; ?> для редактирования
+    * @param integer $id Идинтификатор <?=  $this->vin; ?> для редактирования
     *
     * @return void
     */
@@ -79,13 +79,13 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
     {
         $model = $this->loadModel($id);
 
-        if (Yii::app()->getRequest()->getPost('<?php echo $this->modelClass; ?>') !== null) {
-            $model->setAttributes(Yii::app()->getRequest()->getPost('<?php echo $this->modelClass; ?>'));
+        if (Yii::app()->getRequest()->getPost('<?=  $this->modelClass; ?>') !== null) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('<?=  $this->modelClass; ?>'));
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('<?php echo $this->getModuleTranslate(); ?>', 'Запись обновлена!')
+                    Yii::t('<?=  $this->getModuleTranslate(); ?>', 'Запись обновлена!')
                 );
 
                 $this->redirect(
@@ -93,7 +93,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                         'submit-type',
                         [
                             'update',
-                            'id' => $model-><?php echo $this->tableSchema->primaryKey."\n"; ?>
+                            'id' => $model-><?=  $this->tableSchema->primaryKey."\n"; ?>
                         ]
                     )
                 );
@@ -103,10 +103,10 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
     }
     
     /**
-    * Удаляет модель <?php echo $this->rod; ?> из базы.
+    * Удаляет модель <?=  $this->rod; ?> из базы.
     * Если удаление прошло успешно - возвращется в index
     *
-    * @param integer $id идентификатор <?php echo $this->rod; ?>, который нужно удалить
+    * @param integer $id идентификатор <?=  $this->rod; ?>, который нужно удалить
     *
     * @return void
     */
@@ -118,7 +118,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('<?php echo $this->getModuleTranslate(); ?>', 'Запись удалена!')
+                Yii::t('<?=  $this->getModuleTranslate(); ?>', 'Запись удалена!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -126,20 +126,20 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                 $this->redirect(Yii::app()->getRequest()->getPost('returnUrl', ['index']));
             }
         } else
-            throw new CHttpException(400, Yii::t('<?php echo $this->getModuleTranslate(); ?>', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('<?=  $this->getModuleTranslate(); ?>', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
     
     /**
-    * Управление <?php echo $this->mtvor; ?>.
+    * Управление <?=  $this->mtvor; ?>.
     *
     * @return void
     */
     public function actionIndex()
     {
-        $model = new <?php echo $this->modelClass; ?>('search');
+        $model = new <?=  $this->modelClass; ?>('search');
         $model->unsetAttributes(); // clear any default values
-        if (Yii::app()->getRequest()->getParam('<?php echo $this->modelClass; ?>') !== null)
-            $model->setAttributes(Yii::app()->getRequest()->getParam('<?php echo $this->modelClass; ?>'));
+        if (Yii::app()->getRequest()->getParam('<?=  $this->modelClass; ?>') !== null)
+            $model->setAttributes(Yii::app()->getRequest()->getParam('<?=  $this->modelClass; ?>'));
         $this->render('index', ['model' => $model]);
     }
     
@@ -153,9 +153,9 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
     */
     public function loadModel($id)
     {
-        $model = <?php echo $this->modelClass; ?>::model()->findByPk($id);
+        $model = <?=  $this->modelClass; ?>::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('<?php echo $this->getModuleTranslate(); ?>', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('<?=  $this->getModuleTranslate(); ?>', 'Запрошенная страница не найдена.'));
 
         return $model;
     }

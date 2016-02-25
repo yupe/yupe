@@ -62,9 +62,9 @@ $this->menu = [
 ]; ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('UserModule.user', 'Tokens'); ?>
-        <small><?php echo Yii::t('UserModule.user', 'update token') . ' #' . $model->id; ?></small>
+        <?=  Yii::t('UserModule.user', 'Tokens'); ?>
+        <small><?=  Yii::t('UserModule.user', 'update token') . ' #' . $model->id; ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

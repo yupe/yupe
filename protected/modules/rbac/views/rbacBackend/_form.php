@@ -9,14 +9,14 @@
         $('#AuthItem_type').change(function () {
             var val = parseInt($(this).val());
             $('#operations-list, #tasks-list, #roles-list').hide();
-            if (val == <?php echo AuthItem::TYPE_OPERATION;?>) {
+            if (val == <?=  AuthItem::TYPE_OPERATION;?>) {
                 $('#operations-list').show();
             }
-            if (val == <?php echo AuthItem::TYPE_TASK;?>) {
+            if (val == <?=  AuthItem::TYPE_TASK;?>) {
                 $('#operations-list').show();
                 $('#tasks-list').show();
             }
-            if (val == <?php echo AuthItem::TYPE_ROLE;?>) {
+            if (val == <?=  AuthItem::TYPE_ROLE;?>) {
                 $('#operations-list').show();
                 $('#tasks-list').show();
                 $('#roles-list').show();
@@ -59,22 +59,22 @@
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('RbacModule.rbac', 'Fields marked with'); ?>
+    <?=  Yii::t('RbacModule.rbac', 'Fields marked with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('RbacModule.rbac', 'are required.'); ?>
+    <?=  Yii::t('RbacModule.rbac', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-5">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-5">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'type',
             [
@@ -89,16 +89,16 @@
 
 <div class="row">
     <div class="col-sm-5">
-        <?php echo $form->textFieldGroup($model, 'description'); ?>
+        <?=  $form->textFieldGroup($model, 'description'); ?>
     </div>
 </div>
 
 <div id="operations-list" style="display:none;">
-    <p><b><?php echo Yii::t('RbacModule.rbac', 'Operations') ?>:</b></p>
+    <p><b><?=  Yii::t('RbacModule.rbac', 'Operations') ?>:</b></p>
 
     <div class="row">
         <div class="col-sm-5">
-            <?php echo CHtml::textField(
+            <?=  CHtml::textField(
                 'search',
                 '',
                 ['class' => 'form-control', 'placeholder' => Yii::t('RbacModule.rbac', 'Filter')]
@@ -106,20 +106,20 @@
         </div>
     </div>
     <p>
-        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Select all'), '#', ['id' => 'check-all']); ?>
-        <?php echo CHtml::link(Yii::t('RbacModule.rbac', 'Clear all'), '#', ['id' => 'uncheck-all']); ?>
+        <?=  CHtml::link(Yii::t('RbacModule.rbac', 'Select all'), '#', ['id' => 'check-all']); ?>
+        <?=  CHtml::link(Yii::t('RbacModule.rbac', 'Clear all'), '#', ['id' => 'uncheck-all']); ?>
     </p>
     <?php foreach ($operations as $k => $v): { ?>
         <div class="row operation">
             <div class="col-sm-7">
                 <div class="checkbox">
                     <label>
-                        <?php echo CHtml::checkBox(
+                        <?=  CHtml::checkBox(
                             'ChildAuthItems[]',
                             isset($checkedList[$k]),
                             ['class' => 'item', 'value' => $k, 'id' => $k]
                         ); ?>
-                        <?php echo $v; ?>
+                        <?=  $v; ?>
                     </label>
                 </div>
             </div>
@@ -134,12 +134,12 @@
             <div class="col-sm-7">
                 <div class="checkbox">
                     <label>
-                        <?php echo CHtml::checkBox(
+                        <?=  CHtml::checkBox(
                             'ChildAuthItems[]',
                             isset($checkedList[$k]),
                             ['class' => 'item', 'value' => $k, 'id' => $k]
                         ); ?>
-                        <?php echo $v; ?>
+                        <?=  $v; ?>
                     </label>
                 </div>
             </div>
@@ -154,12 +154,12 @@
             <div class="col-sm-7">
                 <div class="checkbox">
                     <label>
-                        <?php echo CHtml::checkBox(
+                        <?=  CHtml::checkBox(
                             'ChildAuthItems[]',
                             isset($checkedList[$k]),
                             ['class' => 'item', 'value' => $k, 'id' => $k]
                         ); ?>
-                        <?php echo $v; ?>
+                        <?=  $v; ?>
                     </label>
                 </div>
             </div>
@@ -171,7 +171,7 @@
 
 <div class="row">
     <div class="col-sm-5">
-        <?php echo $form->textFieldGroup($model, 'bizrule'); ?>
+        <?=  $form->textFieldGroup($model, 'bizrule'); ?>
     </div>
 </div>
 

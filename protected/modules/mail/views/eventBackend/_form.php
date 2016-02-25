@@ -24,28 +24,28 @@ $form = $this->beginWidget(
 ); ?>
 
 <div class="alert alert-info">
-    <?php echo Yii::t('MailModule.mail', 'Fields, with'); ?>
+    <?=  Yii::t('MailModule.mail', 'Fields, with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('MailModule.mail', 'are required.'); ?>
+    <?=  Yii::t('MailModule.mail', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
+        <?=  $form->slugFieldGroup($model, 'code', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textAreaGroup($model, 'description'); ?>
+        <?=  $form->textAreaGroup($model, 'description'); ?>
     </div>
 </div>
 

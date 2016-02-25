@@ -11,16 +11,16 @@ $form = $this->beginWidget(
     ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('FeedbackModule.feedback', 'Fields with'); ?>
+    <?=  Yii::t('FeedbackModule.feedback', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('FeedbackModule.feedback', 'are required.'); ?>
+    <?=  Yii::t('FeedbackModule.feedback', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-2">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'type',
             [
@@ -34,7 +34,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'category_id',
             [
@@ -50,7 +50,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-2">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -66,27 +66,27 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?=  $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'email'); ?>
+        <?=  $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'phone'); ?>
+        <?=  $form->textFieldGroup($model, 'phone'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'theme'); ?>
+        <?=  $form->textFieldGroup($model, 'theme'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12 form-group">
-        <?php echo $form->labelEx($model, 'text'); ?>
+        <?=  $form->labelEx($model, 'text'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -95,12 +95,12 @@ $form = $this->beginWidget(
                 'attribute' => 'text',
             ]
         ); ?>
-        <?php echo $form->error($model, 'text'); ?>
+        <?=  $form->error($model, 'text'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12 form-group">
-        <?php echo $form->labelEx($model, 'answer'); ?>
+        <?=  $form->labelEx($model, 'answer'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
@@ -109,22 +109,22 @@ $form = $this->beginWidget(
                 'attribute' => 'answer',
             ]
         ); ?>
-        <?php echo $form->error($model, 'answer'); ?>
+        <?=  $form->error($model, 'answer'); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->checkBoxGroup($model, 'is_faq'); ?>
+        <?=  $form->checkBoxGroup($model, 'is_faq'); ?>
     </div>
 </div>
 <?php if ($model->status == FeedBack::STATUS_ANSWER_SENDED && isset($model->answer_user)): ?>
     <div class="row">
         <div class="col-sm-7 form-group">
-            <label><?php echo Yii::t('FeedbackModule.feedback', 'Ответил'); ?> <?php echo CHtml::link(
+            <label><?=  Yii::t('FeedbackModule.feedback', 'Ответил'); ?> <?=  CHtml::link(
                     $model->getAnsweredUser()->nick_name,
                     ['/user/userBackend/view', 'id' => $model->answer_user]
-                ); ?> (<?php echo $model->answer_time; ?>)</label>
-            <?php echo $model->answer; ?>
+                ); ?> (<?=  $model->answer_time; ?>)</label>
+            <?=  $model->answer; ?>
         </div>
     </div>
 <?php endif; ?>

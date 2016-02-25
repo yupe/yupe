@@ -26,15 +26,15 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('SocialModule.social', 'Accounts'); ?>
-        <small><?php echo Yii::t('SocialModule.social', 'manage'); ?></small>
+        <?=  Yii::t('SocialModule.social', 'Accounts'); ?>
+        <small><?=  Yii::t('SocialModule.social', 'manage'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('SocialModule.social', 'Account search'); ?>
+        <?=  Yii::t('SocialModule.social', 'Account search'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>

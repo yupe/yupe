@@ -38,9 +38,9 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('NotifyModule.notify', 'Update notify'); ?><br/>
-        <small>&laquo;<?php echo $model->id; ?>&raquo;</small>
+        <?=  Yii::t('NotifyModule.notify', 'Update notify'); ?><br/>
+        <small>&laquo;<?=  $model->id; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

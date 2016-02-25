@@ -12,14 +12,14 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="fa fa-retweet"></i> <?php echo Yii::t(
+                    <i class="fa fa-retweet"></i> <?=  Yii::t(
                         'FeedbackModule.feedback',
                         'Feedback'
                     ); ?>
                 </a>
-                <span class="badge alert-success"><?php echo $feedbackCount; ?></span>
-                <span class="badge alert-info"><?php echo $allFeedbackCount; ?></span>
-                <span class="badge alert-danger"><?php echo $needAnswerCount; ?></span>
+                <span class="badge alert-success"><?=  $feedbackCount; ?></span>
+                <span class="badge alert-info"><?=  $allFeedbackCount; ?></span>
+                <span class="badge alert-danger"><?=  $needAnswerCount; ?></span>
             </h4>
         </div>
 
@@ -60,19 +60,19 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('FeedbackModule.feedback', 'Feedback (last day / all)'); ?>:
+                                        <?=  Yii::t('FeedbackModule.feedback', 'Feedback (last day / all)'); ?>:
                                     </td>
                                     <td>
-                                        <span class="badge alert-success"><?php echo $feedbackCount; ?></span>
-                                        <span class="badge alert-info"><?php echo $allFeedbackCount; ?></span>
+                                        <span class="badge alert-success"><?=  $feedbackCount; ?></span>
+                                        <span class="badge alert-info"><?=  $allFeedbackCount; ?></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('FeedbackModule.feedback', 'Need answer'); ?>:
+                                        <?=  Yii::t('FeedbackModule.feedback', 'Need answer'); ?>:
                                     </td>
                                     <td>
-                                        <span class="badge alert-danger"><?php echo $needAnswerCount; ?></span>
+                                        <span class="badge alert-danger"><?=  $needAnswerCount; ?></span>
                                     </td>
                                 </tr>
                                 </tbody>
