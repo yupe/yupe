@@ -84,6 +84,7 @@ class ConfigManager extends \CApplicationComponent
         'modules',
         'cache',
         'commandMap',
+        'behaviors'
     ];
     // Кеш-файл настроек:
     /**
@@ -334,6 +335,15 @@ class ConfigManager extends \CApplicationComponent
                         : [],
                     isset($settings['aliases'])
                         ? $settings['aliases']
+                        : []
+                ),
+                // Алиасы
+                'behaviors' => CMap::mergeArray(
+                    isset($this->_config['behaviors'])
+                        ? $this->_config['behaviors']
+                        : [],
+                    isset($settings['behaviors'])
+                        ? $settings['behaviors']
                         : []
                 ),
                 // Консольные команды:
