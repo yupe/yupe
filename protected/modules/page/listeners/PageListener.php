@@ -13,6 +13,6 @@ class PageListener
      */
     public static function onAfterSave(Event $event)
     {
-        Yii::app()->getCache()->clear([PageRoute::CACHE_TAG_NAME]);
+        Yii::app()->getCache()->clear([PageBehavior::RULES_CACHE_TAG_NAME]);
     }
 }

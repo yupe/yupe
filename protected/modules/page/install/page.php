@@ -20,7 +20,7 @@ return [
     'import' => [
         'application.modules.page.events.*',
         'application.modules.page.listeners.*',
-        'application.modules.page.components.*',
+        'application.modules.page.models.*',
     ],
     'component' => [
         'eventManager' => [
@@ -34,6 +34,9 @@ return [
                 ],
             ],
         ],
+    ],
+    'behaviors' => [
+        'page' => ['class' => 'application.modules.page.behaviors.PageBehavior']
     ],
     'rules' => [],
 ];

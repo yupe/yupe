@@ -68,12 +68,6 @@ return [
             'ipFilters'=>array(),
         ),*/
     ],
-    'onBeginRequest' => function (CEvent $event) {
-        if (Yii::app()->hasModule('page')) {
-            Yii::import('application.modules.page.components.*');
-            PageRoute::add();
-        }
-    },
     'behaviors' => [
         'onBeginRequest' => [
             'class' => 'yupe\components\urlManager\LanguageBehavior'
