@@ -161,15 +161,19 @@ $this->breadcrumbs = array_merge(
 <div class="main__product-tabs grid">
     <div class="tabs tabs_classic tabs_gray js-tabs">
         <ul data-nav="data-nav" class="tabs__list">
-            <li class="tabs__item"><a href="#spec"
-                                      class="tabs__link"><?= Yii::t("StoreModule.store", "Characteristics"); ?></a>
+            <li class="tabs__item">
+                <a href="#spec" class="tabs__link"><?= Yii::t("StoreModule.store", "Characteristics"); ?></a>
             </li>
-            <li class="tabs__item"><a href="#description"
-                                      class="tabs__link"><?= Yii::t("StoreModule.store", "Description"); ?></a>
-            </li>
-            <li class="tabs__item"><a href="#reviews"
-                                      class="tabs__link"><?= Yii::t("StoreModule.store", "Comments"); ?></a>
-            </li>
+            <?php if (!empty($product->description)): ?>
+                <li class="tabs__item">
+                    <a href="#description" class="tabs__link"><?= Yii::t("StoreModule.store", "Description"); ?></a>
+                </li>
+            <?php endif; ?>
+            <?php if (Yii::app()->hasModule('comment')): ?>
+                <li class="tabs__item">
+                    <a href="#reviews" class="tabs__link"><?= Yii::t("StoreModule.store", "Comments"); ?></a>
+                </li>
+            <?php endif; ?>
         </ul>
         <div class="tabs__bodies js-tabs-bodies">
             <div id="spec" class="tabs__body js-tab">
@@ -287,20 +291,23 @@ $this->breadcrumbs = array_merge(
                     </div>
                 </div>
             </div>
-            <div id="description" class="tabs__body js-tab">
-                <div class="wysiwyg">
-                    <?= $product->description ?>
+            <?php if (!empty($product->description)): ?>
+                <div id="description" class="tabs__body js-tab">
+                    <div class="wysiwyg">
+                        <?= $product->description ?>
+                    </div>
                 </div>
-            </div>
-            <div id="reviews" class="tabs__body js-tab">
-                <div class="product-reviews">
-                    <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
-                        'redirectTo' => ProductHelper::getUrl($product),
-                        'model' => $product,
-                    ]); ?>
-
+            <?php endif; ?>
+            <?php if (Yii::app()->hasModule('comment')): ?>
+                <div id="reviews" class="tabs__body js-tab">
+                    <div class="product-reviews">
+                        <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+                            'redirectTo' => ProductHelper::getUrl($product),
+                            'model' => $product,
+                        ]); ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

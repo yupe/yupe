@@ -183,20 +183,31 @@ $this->breadcrumbs = array_merge(
         </div>
         <div class="clearfix"></div>
         <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a href="#description" data-toggle="tab"><?= Yii::t("StoreModule.store", "Description"); ?></a>
-            </li>
-            <li><a href="#data" data-toggle="tab"><?= Yii::t("StoreModule.store", "Data"); ?></a></li>
+            <?php if (!empty($product->description)): ?>
+                <li>
+                    <a href="#description" data-toggle="tab"><?= Yii::t("StoreModule.store", "Description"); ?></a>
+                </li>
+            <?php endif; ?>
+            <?php if (!empty($product->data)): ?>
+                <li><a href="#data" data-toggle="tab"><?= Yii::t("StoreModule.store", "Data"); ?></a></li>
+            <?php endif; ?>
             <li><a href="#attributes" data-toggle="tab"><?= Yii::t("StoreModule.store", "Characteristics"); ?></a></li>
-            <li><a href="#comments-tab" data-toggle="tab"><?= Yii::t("StoreModule.store", "Comments"); ?></a></li>
+            <?php if (Yii::app()->hasModule('comment')): ?>
+                <li><a href="#comments-tab" data-toggle="tab"><?= Yii::t("StoreModule.store", "Comments"); ?></a></li>
+            <?php endif; ?>
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane active" id="description">
-                <?= $product->description; ?>
-            </div>
-            <div class="tab-pane" id="data">
-                <?= $product->data; ?>
-            </div>
+            <?php if (!empty($product->description)): ?>
+                <div class="tab-pane" id="description">
+                    <?= $product->description; ?>
+                </div>
+            <?php endif; ?>
+            <?php if (!empty($product->data)): ?>
+                <div class="tab-pane" id="data">
+                    <?= $product->data; ?>
+                </div>
+            <?php endif; ?>
             <div class="tab-pane" id="attributes">
                 <table>
                     <tr>
@@ -225,12 +236,14 @@ $this->breadcrumbs = array_merge(
                     </tr>
                 </table>
             </div>
-            <div class="tab-pane" id="comments-tab">
-                <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
-                    'redirectTo' => ProductHelper::getUrl($product),
-                    'model' => $product,
-                ]); ?>
-            </div>
+            <?php if (Yii::app()->hasModule('comment')): ?>
+                <div class="tab-pane" id="comments-tab">
+                    <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
+                        'redirectTo' => ProductHelper::getUrl($product),
+                        'model' => $product,
+                    ]); ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
     <div class="col-sm-12">
@@ -241,8 +254,8 @@ $this->breadcrumbs = array_merge(
 <?php Yii::app()->getClientScript()->registerScript(
     "product-images",
     <<<JS
-        $(".thumbnails").simpleGal({
-    mainImage: "#main-image"
-});
+        $(".thumbnails").simpleGal({mainImage: "#main-image"});
+        $("#myTab li").first().addClass('active');
+        $(".tab-pane").first().addClass('active');
 JS
 ); ?>
