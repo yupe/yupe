@@ -344,6 +344,7 @@ class FeedbackModule extends WebModule
             [
                 'feedback.models.*',
                 'feedback.components.*',
+                'feedback.events.*',
             ]
         );
 

@@ -73,7 +73,7 @@ class DbFeedbackSender implements IFeedbackSender
             true
         );
 
-        $result = $this->mail->send(
+        return $this->mail->send(
             $this->module->notifyEmailFrom,
             $form->getEmail(),
             Yii::t(
@@ -83,18 +83,6 @@ class DbFeedbackSender implements IFeedbackSender
             ),
             $emailBody
         );
-
-        if ($result) {
-            Yii::log(
-                Yii::t('FeedbackModule.feedback', 'Feedback: Notification for user was sent to email successfully'),
-                CLogger::LEVEL_INFO
-            );
-        } else {
-            Yii::log(
-                Yii::t('FeedbackModule.feedback', 'Feedback: can\'t send message'),
-                CLogger::LEVEL_INFO
-            );
-        }
 
         return $result;
     }
