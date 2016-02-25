@@ -12,10 +12,22 @@
  **/
 class AnswerForm extends CFormModel
 {
+    /**
+     * @var
+     */
     public $answer;
+    /**
+     * @var
+     */
     public $is_faq;
+    /**
+     * @var
+     */
     public $email;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -24,6 +36,9 @@ class AnswerForm extends CFormModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [

@@ -73,10 +73,6 @@ class FeedbackModule extends WebModule
      */
     const BACKEND_DB = 'DbFeedbackSender';
 
-    /**
-     * @var string
-     */
-    public static $logCategory = 'application.modules.feedback';
 
     /**
      * @return array

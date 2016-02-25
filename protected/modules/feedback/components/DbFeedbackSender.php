@@ -67,7 +67,7 @@ class DbFeedbackSender implements IFeedbackSender
      */
     public function sendConfirmation(IFeedbackForm $form, FeedBack $feedBack = null)
     {
-        $emailBody = Yii::app()->controller->renderPartial(
+        $emailBody = Yii::app()->getController()->renderPartial(
             'feedbackConfirmationEmail',
             ['model' => $feedBack],
             true
@@ -87,14 +87,12 @@ class DbFeedbackSender implements IFeedbackSender
         if ($result) {
             Yii::log(
                 Yii::t('FeedbackModule.feedback', 'Feedback: Notification for user was sent to email successfully'),
-                CLogger::LEVEL_INFO,
-                FeedbackModule::$logCategory
+                CLogger::LEVEL_INFO
             );
         } else {
             Yii::log(
                 Yii::t('FeedbackModule.feedback', 'Feedback: can\'t send message'),
-                CLogger::LEVEL_INFO,
-                FeedbackModule::$logCategory
+                CLogger::LEVEL_INFO
             );
         }
 

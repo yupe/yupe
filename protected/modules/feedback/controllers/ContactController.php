@@ -13,25 +13,50 @@
 
 use yupe\widgets\YFlashMessages;
 
+/**
+ * Class ContactController
+ */
 class ContactController extends \yupe\components\controllers\FrontController
 {
+
+    /**
+     * @var FeedbackService
+     */
+    protected $feedback;
+
+    /**
+     *
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->feedback = Yii::app()->getComponent('feedback');
+    }
+
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             'captcha' => [
-                'class'     => 'yupe\components\actions\YCaptchaAction',
+                'class' => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
-                'testLimit' => 1
-            ]
+                'testLimit' => 1,
+            ],
         ];
     }
 
+    /**
+     * @param null $type
+     */
     public function actionIndex($type = null)
     {
         $form = new FeedBackForm();
 
         // если пользователь авторизован - подставить его данные
-        if (Yii::app()->user->isAuthenticated()) {
+        if (Yii::app()->getUser()->isAuthenticated()) {
             $form->email = Yii::app()->getUser()->getProFileField('email');
             $form->name = Yii::app()->getUser()->getProFileField('nick_name');
         }
@@ -43,28 +68,13 @@ class ContactController extends \yupe\components\controllers\FrontController
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['FeedBackForm'])) {
 
-            $form->setAttributes(Yii::app()->getRequest()->getPost('FeedBackForm'));
+            $form->setAttributes(
+                Yii::app()->getRequest()->getPost('FeedBackForm')
+            );
 
             if ($form->validate()) {
 
-                // обработка запроса
-                $backEnd = array_unique($module->backEnd);
-
-                $success = true;
-
-                if (is_array($backEnd)) {
-
-                    foreach ($backEnd as $storage) {
-
-                        $sender = new $storage(Yii::app()->mail, $module);
-
-                        if (!$sender->send($form)) {
-                            $success = false;
-                        }
-                    }
-                }
-
-                if ($success) {
+                if ($this->feedback->send($form, $module)) {
 
                     if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                         Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!'));
@@ -81,10 +91,12 @@ class ContactController extends \yupe\components\controllers\FrontController
                 } else {
 
                     if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-                        Yii::app()->ajax->failure(Yii::t('FeedbackModule.feedback', 'It is not possible to send message!'));
+                        Yii::app()->ajax->failure(
+                            Yii::t('FeedbackModule.feedback', 'It is not possible to send message!')
+                        );
                     }
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         YFlashMessages::ERROR_MESSAGE,
                         Yii::t('FeedbackModule.feedback', 'It is not possible to send message!')
                     );
@@ -102,30 +114,38 @@ class ContactController extends \yupe\components\controllers\FrontController
         $this->render('index', ['model' => $form, 'module' => $module]);
     }
 
-    // отобразить сообщения   с признаком is_faq
-    // @TODO CActiveDataProvider перенести в модуль
+
+    /**
+     *
+     */
     public function actionFaq()
     {
-        $dataProvider = new CActiveDataProvider('FeedBack', [
-            'criteria' => [
-                'condition' => 'is_faq = :is_faq AND (status = :sended OR status = :finished)',
-                'params'    => [
-                    ':is_faq'   => FeedBack::IS_FAQ,
-                    ':sended'   => FeedBack::STATUS_ANSWER_SENDED,
-                    ':finished' => FeedBack::STATUS_FINISHED,
+        $dataProvider = new CActiveDataProvider(
+            'FeedBack', [
+                'criteria' => [
+                    'condition' => 'is_faq = :is_faq AND (status = :sent OR status = :finished)',
+                    'params' => [
+                        ':is_faq' => FeedBack::IS_FAQ,
+                        ':sent' => FeedBack::STATUS_ANSWER_SENDED,
+                        ':finished' => FeedBack::STATUS_FINISHED,
+                    ],
+                    'order' => 'id DESC',
                 ],
-                'order'     => 'id DESC',
             ]
-        ]);
+        );
 
         $this->render('faq', ['dataProvider' => $dataProvider]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionFaqView($id)
     {
         $id = (int)$id;
 
-        if (!$id) {
+        if (empty($id)) {
             throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));
         }
 

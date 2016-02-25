@@ -12,8 +12,6 @@
 return [
     'module'    => [
         'class'           => 'application.modules.feedback.FeedbackModule',
-        'notifyEmailFrom' => 'test@test.ru',
-        'emails'          => 'test_1@test.ru, test_2@test.ru',
         'panelWidgets'    => [
             'application.modules.feedback.widgets.PanelFeedbackStatWidget' => [
                 'limit' => 5
@@ -23,7 +21,11 @@ return [
     'import'    => [
         'application.modules.yupe.YupeModule'
     ],
-    'component' => [],
+    'component' => [
+        'feedback' => [
+            'class' => 'application.modules.feedback.components.FeedbackService'
+        ]
+    ],
     'rules'     => [
         '/contacts'                             => '/feedback/contact/index',
         '/faq'                                  => '/feedback/contact/faq',

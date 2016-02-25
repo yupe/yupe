@@ -12,6 +12,9 @@
  **/
 class FeedbackBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -22,22 +25,28 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Feedback.FeedbackBackend.Update']],
             ['allow', 'actions' => ['answer'], 'roles' => ['Feedback.FeedbackBackend.Answer']],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Feedback.FeedbackBackend.Delete']],
-            ['deny']
+            ['deny'],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'FeedBack',
-                'validAttributes' => ['name', 'email', 'theme', 'type', 'status', 'is_faq']
-            ]
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'FeedBack',
+                'validAttributes' => ['name', 'email', 'theme', 'type', 'status', 'is_faq'],
+            ],
         ];
     }
 
     // FeedBack $model
+    /**
+     * @var
+     */
     private $_model;
 
     /**
@@ -54,13 +63,13 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             return Yii::app()->ajax->success(
                 [
                     'html' => $this->renderPartial(
-                            'view',
-                            [
-                                'model' => $this->loadModel($id)
-                            ],
-                            true,
-                            false
-                        )
+                        'view',
+                        [
+                            'model' => $this->loadModel($id),
+                        ],
+                        true,
+                        false
+                    ),
                 ]
             );
         }
@@ -78,20 +87,20 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     {
         $model = new FeedBack();
 
-        $model->email = Yii::app()->user->getProfileField('email');
-        $model->name = Yii::app()->user->getProfileField('fullName');
+        $model->email = Yii::app()->getUser()->getProfileField('email');
+        $model->name = Yii::app()->getUser()->getProfileField('fullName');
 
         if (($data = Yii::app()->getRequest()->getPost('FeedBack')) !== null) {
 
             $model->setAttributes($data);
 
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
-                $model->answer_user = Yii::app()->user->getId();
+                $model->answer_user = Yii::app()->getUser()->getId();
                 $model->answer_time = new CDbExpression('NOW()');
             }
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('FeedbackModule.feedback', 'Message saved!')
                 );
@@ -125,12 +134,12 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             $model->setAttributes($data);
 
             if ($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED) {
-                $model->answer_user = Yii::app()->user->getId();
+                $model->answer_user = Yii::app()->getUser()->getId();
                 $model->answer_time = new CDbExpression('NOW()');
             }
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('FeedbackModule.feedback', 'Message was updated')
                 );
@@ -181,9 +190,9 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                 return Yii::app()->ajax->failure(
                     [
                         'message' => Yii::t(
-                                'FeedbackModule.feedback',
-                                'Attention! Reply for this message already sent!'
-                            )
+                            'FeedbackModule.feedback',
+                            'Attention! Reply for this message already sent!'
+                        ),
                     ]
                 );
             }
@@ -191,20 +200,20 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             return Yii::app()->ajax->success(
                 [
                     'html' => $this->renderPartial(
-                            '_ajax_answer',
-                            [
-                                'model'      => $model,
-                                'answerForm' => $form
-                            ],
-                            true,
-                            false
-                        )
+                        '_ajax_answer',
+                        [
+                            'model' => $model,
+                            'answerForm' => $form,
+                        ],
+                        true,
+                        false
+                    ),
                 ]
             );
         }
 
         if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('FeedbackModule.feedback', 'Attention! Reply for this message already sent!')
             );
@@ -235,11 +244,11 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
                 $model->setAttributes(
                     [
-                        'answer'      => $form->answer,
-                        'is_faq'      => $form->is_faq,
-                        'answer_user' => Yii::app()->user->getId(),
+                        'answer' => $form->answer,
+                        'is_faq' => $form->is_faq,
+                        'answer_user' => Yii::app()->getUser()->getId(),
                         'answer_time' => new CDbExpression('NOW()'),
-                        'status'      => FeedBack::STATUS_ANSWER_SENDED,
+                        'status' => FeedBack::STATUS_ANSWER_SENDED,
                     ]
                 );
 
@@ -250,12 +259,12 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                     Yii::app()->mail->send(
                         Yii::app()->getModule('feedback')->notifyEmailFrom,
                         $model->email,
-                        'RE: ' . $model->theme,
+                        'RE: '.$model->theme,
                         $body
                     );
 
                     if (Yii::app()->getRequest()->getIsAjaxRequest() == false) {
-                        Yii::app()->user->setFlash(
+                        Yii::app()->getUser()->setFlash(
                             yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('FeedbackModule.feedback', 'Reply on message was sent!')
                         );
@@ -337,7 +346,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     {
         if ($this->_model === null) {
 
-            $id = $id ? : Yii::app()->getRequest()->getParam('id');
+            $id = $id ?: Yii::app()->getRequest()->getParam('id');
 
             if (($this->_model = FeedBack::model()->findByPk($id)) === null) {
                 throw new CHttpException(

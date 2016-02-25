@@ -25,20 +25,41 @@
  * @property integer $status
  * @property integer $ip
  * @property integer $category_id
- * @property string  $phone
+ * @property string $phone
  * @property integer $is_faq
  */
 class FeedBack extends yupe\models\YModel
 {
 
+    /**
+     *
+     */
     const STATUS_NEW = 0;
+    /**
+     *
+     */
     const STATUS_PROCESS = 1;
+    /**
+     *
+     */
     const STATUS_FINISHED = 2;
+    /**
+     *
+     */
     const STATUS_ANSWER_SENDED = 3;
 
+    /**
+     *
+     */
     const TYPE_DEFAULT = 0;
 
+    /**
+     *
+     */
     const IS_FAQ_NO = 0;
+    /**
+     *
+     */
     const IS_FAQ = 1;
 
     /**
@@ -80,7 +101,7 @@ class FeedBack extends yupe\models\YModel
             [
                 'id, create_time, update_time, name, email, theme, text, type, status, ip',
                 'safe',
-                'on' => 'search'
+                'on' => 'search',
             ],
         ];
     }
@@ -91,22 +112,22 @@ class FeedBack extends yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id'            => Yii::t('FeedbackModule.feedback', 'ID'),
+            'id' => Yii::t('FeedbackModule.feedback', 'ID'),
             'create_time' => Yii::t('FeedbackModule.feedback', 'Created'),
-            'update_time'   => Yii::t('FeedbackModule.feedback', 'Updated'),
-            'name'          => Yii::t('FeedbackModule.feedback', 'Name'),
-            'email'         => Yii::t('FeedbackModule.feedback', 'Email'),
-            'phone'         => Yii::t('FeedbackModule.feedback', 'Phone'),
-            'theme'         => Yii::t('FeedbackModule.feedback', 'Topic'),
-            'text'          => Yii::t('FeedbackModule.feedback', 'Text'),
-            'type'          => Yii::t('FeedbackModule.feedback', 'Type'),
-            'answer'        => Yii::t('FeedbackModule.feedback', 'Reply'),
-            'answer_time'   => Yii::t('FeedbackModule.feedback', 'Reply time'),
-            'answer_user'   => Yii::t('FeedbackModule.feedback', 'Replied'),
-            'is_faq'        => Yii::t('FeedbackModule.feedback', 'In FAQ'),
-            'status'        => Yii::t('FeedbackModule.feedback', 'Status'),
-            'ip'            => Yii::t('FeedbackModule.feedback', 'Ip-address'),
-            'category_id'   => Yii::t('FeedbackModule.feedback', 'Category'),
+            'update_time' => Yii::t('FeedbackModule.feedback', 'Updated'),
+            'name' => Yii::t('FeedbackModule.feedback', 'Name'),
+            'email' => Yii::t('FeedbackModule.feedback', 'Email'),
+            'phone' => Yii::t('FeedbackModule.feedback', 'Phone'),
+            'theme' => Yii::t('FeedbackModule.feedback', 'Topic'),
+            'text' => Yii::t('FeedbackModule.feedback', 'Text'),
+            'type' => Yii::t('FeedbackModule.feedback', 'Type'),
+            'answer' => Yii::t('FeedbackModule.feedback', 'Reply'),
+            'answer_time' => Yii::t('FeedbackModule.feedback', 'Reply time'),
+            'answer_user' => Yii::t('FeedbackModule.feedback', 'Replied'),
+            'is_faq' => Yii::t('FeedbackModule.feedback', 'In FAQ'),
+            'status' => Yii::t('FeedbackModule.feedback', 'Status'),
+            'ip' => Yii::t('FeedbackModule.feedback', 'Ip-address'),
+            'category_id' => Yii::t('FeedbackModule.feedback', 'Category'),
         ];
     }
 
@@ -123,8 +144,8 @@ class FeedBack extends yupe\models\YModel
         if (!empty($this->create_time)) {
             $criteria->addBetweenCondition(
                 'create_time',
-                $this->create_time . ' 00:00:00',
-                $this->create_time . ' 23:59:59',
+                $this->create_time.' 00:00:00',
+                $this->create_time.' 23:59:59',
                 'AND'
             );
         }
@@ -142,7 +163,7 @@ class FeedBack extends yupe\models\YModel
 
         return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort'     => ['defaultOrder' => 'create_time DESC, status ASC'],
+            'sort' => ['defaultOrder' => 'create_time DESC, status ASC'],
         ]);
     }
 
@@ -176,17 +197,17 @@ class FeedBack extends yupe\models\YModel
     public function scopes()
     {
         return [
-            'new'      => [
+            'new' => [
                 'condition' => 'status = :status',
-                'params'    => [':status' => self::STATUS_NEW],
+                'params' => [':status' => self::STATUS_NEW],
             ],
             'answered' => [
                 'condition' => 'status = :status',
-                'params'    => [':status' => self::STATUS_ANSWER_SENDED],
+                'params' => [':status' => self::STATUS_ANSWER_SENDED],
             ],
-            'faq'      => [
+            'faq' => [
                 'condition' => 'is_faq = :is_faq',
-                'params'    => [':is_faq' => self::IS_FAQ],
+                'params' => [':is_faq' => self::IS_FAQ],
             ],
         ];
     }
@@ -212,9 +233,9 @@ class FeedBack extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_NEW           => Yii::t('FeedbackModule.feedback', 'New message'),
-            self::STATUS_PROCESS       => Yii::t('FeedbackModule.feedback', 'Message in handle'),
-            self::STATUS_FINISHED      => Yii::t('FeedbackModule.feedback', 'Message was handled'),
+            self::STATUS_NEW => Yii::t('FeedbackModule.feedback', 'New message'),
+            self::STATUS_PROCESS => Yii::t('FeedbackModule.feedback', 'Message in handle'),
+            self::STATUS_FINISHED => Yii::t('FeedbackModule.feedback', 'Message was handled'),
             self::STATUS_ANSWER_SENDED => Yii::t('FeedbackModule.feedback', 'Reply was received'),
         ];
     }
@@ -276,7 +297,7 @@ class FeedBack extends yupe\models\YModel
     {
         return [
             self::IS_FAQ_NO => Yii::t('FeedbackModule.feedback', 'No'),
-            self::IS_FAQ    => Yii::t('FeedbackModule.feedback', 'Yes'),
+            self::IS_FAQ => Yii::t('FeedbackModule.feedback', 'Yes'),
         ];
     }
 
@@ -316,7 +337,7 @@ class FeedBack extends yupe\models\YModel
         $p = new CHtmlPurifier();
 
         return $p->purify(
-            mb_substr($this->text, 0, $size) . '...'
+            mb_substr($this->text, 0, $size).'...'
         );
     }
 

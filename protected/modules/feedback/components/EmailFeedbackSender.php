@@ -11,7 +11,7 @@ class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
      */
     public function send(IFeedbackForm $form)
     {
-        $emailBody = Yii::app()->controller->renderPartial('feedbackEmail', ['model' => $form], true);
+        $emailBody = Yii::app()->getController()->renderPartial('feedbackEmail', ['model' => $form], true);
 
         foreach (explode(',', $this->module->emails) as $mail) {
             $this->mail->send($form->getEmail(), $mail, $form->getTheme(), $emailBody);
@@ -31,7 +31,7 @@ class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
      */
     public function sendConfirmation(IFeedbackForm $form, FeedBack $feedBack = null)
     {
-        $emailBody = Yii::app()->controller->renderPartial(
+        $emailBody = Yii::app()->getController()->renderPartial(
             'feedbackConfirmationEmailEmpty',
             ['model' => $form],
             true
@@ -51,14 +51,12 @@ class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
         if ($result) {
             Yii::log(
                 Yii::t('FeedbackModule.feedback', 'Feedback: Notification for user was sent to email successfully'),
-                CLogger::LEVEL_INFO,
-                FeedbackModule::$logCategory
+                CLogger::LEVEL_INFO
             );
         } else {
             Yii::log(
                 Yii::t('FeedbackModule.feedback', 'Feedback: can\'t send message'),
-                CLogger::LEVEL_INFO,
-                FeedbackModule::$logCategory
+                CLogger::LEVEL_INFO
             );
         }
 
