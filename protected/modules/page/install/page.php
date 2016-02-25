@@ -12,23 +12,31 @@
  *
  */
 return [
-    'module'    => [
+    'module' => [
         'class' => 'application.modules.page.PageModule',
         // Указание здесь layout'a портит отображение на фронтенде:
         //'layout' => '//layouts/column2',
     ],
-    'import'    => [],
+    'import' => [
+        'application.modules.page.events.*',
+        'application.modules.page.listeners.*',
+        'application.modules.page.models.*',
+    ],
     'component' => [
-        'eventManager'   => [
-            'class'  => 'yupe\components\EventManager',
+        'eventManager' => [
+            'class' => 'yupe\components\EventManager',
             'events' => [
                 'sitemap.before.generate' => [
-                    ['\PageSitemapGeneratorListener', 'onGenerate']
-                ]
-            ]
-        ]
+                    ['\PageSitemapGeneratorListener', 'onGenerate'],
+                ],
+                'page.after.save' => [
+                    ['\PageListener', 'onAfterSave']
+                ],
+            ],
+        ],
     ],
-    'rules'     => [
-        '/pages/<slug>' => 'page/page/view',
+    'behaviors' => [
+        'page' => ['class' => 'application.modules.page.behaviors.PageBehavior']
     ],
+    'rules' => [],
 ];
