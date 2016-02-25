@@ -167,6 +167,7 @@ $this->widget(
                         'icon'  => 'fa fa-fw fa-plus-square',
                         'label' => Yii::t('MailModule.mail', 'Create mail template'),
                         'url'   => 'Yii::app()->createUrl("/mail/templateBackend/create/", array("eid" => $data->id))',
+                        'options' => ['class' => 'btn btn-sm btn-default']
                     ]
                 ]
             ],

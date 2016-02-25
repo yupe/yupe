@@ -140,23 +140,12 @@ SCRIPT;
                 'name'        => 'status',
                 'value'       => 'yupe\helpers\Html::label($data->status, $data->getStatus(), [UserToken::STATUS_NEW => yupe\helpers\Html::SUCCESS, UserToken::STATUS_ACTIVATE => yupe\helpers\Html::INFO, UserToken::STATUS_FAIL => yupe\helpers\Html::DANGER])',
                 'type'        => 'raw',
-                'filter'      => $model->getStatusList(),
-                'htmlOptions' => [
-                    'style' => implode(
-                        ' ',
-                        [
-                            'white-space: nowrap;',
-                            'max-width: 100px;',
-                            'text-overflow: ellipsis;',
-                            'overflow: hidden;',
-                        ]
-                    ),
-                ],
+                'filter'      => $model->getStatusList()
             ],
             [
                 'header'      => Yii::t('UserModule.user', 'Management'),
                 'class'       => 'yupe\widgets\CustomButtonColumn',
-                'template'    => '{fail} &emsp; {view} {update} {delete}',
+                'template'    => '{fail} {view} {update} {delete}',
                 'buttons'     => [
                     'fail' => [
                         'icon'    => 'fa fa-fw fa-times',
@@ -164,10 +153,8 @@ SCRIPT;
                         'click'   => $compromiseJS,
                         'visible' => '$data->getIsCompromised() === false',
                         'url'     => 'array("/user/tokensBackend/compromise", "id" => $data->id)',
+                        'options' => ['class' => 'btn btn-sm btn-default fail']
                     ],
-                ],
-                'htmlOptions' => [
-                    'class' => 'button-column'
                 ]
             ],
         ],

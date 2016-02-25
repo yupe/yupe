@@ -155,6 +155,7 @@ $this->menu = [
                         'icon'  => 'fa fa-fw fa-plus-square',
                         'label' => Yii::t('MenuModule.menu', 'Create menu item'),
                         'url'   => 'Yii::app()->createUrl("/menu/menuitemBackend/create", array("mid" => $data->id))',
+                        'options' => ['class' => 'btn btn-sm btn-default']
                     ],
                 ],
             ],

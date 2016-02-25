@@ -184,6 +184,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                         'icon'  => 'fa fa-fw fa-envelope',
                         'label' => Yii::t('FeedbackModule.feedback', 'Messages - answer'),
                         'url'   => 'Yii::app()->createUrl("/feedback/feedbackBackend/answer", array("id" => $data->id))',
+                        'options' => ['class' => 'btn btn-sm btn-default']
                     ]
                 ]
             ],
