@@ -79,12 +79,6 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
         ],
         'columns'        => [
             [
-                'name'        => 'id',
-                'htmlOptions' => ['style' => 'width:20px'],
-                'type'        => 'raw',
-                'value'       => 'CHtml::link($data->id, array("/feedback/feedbackBackend/update", "id" => $data->id))'
-            ],
-            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'theme',
                 'editable' => [
@@ -120,6 +114,7 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                 ],
                 'filter'   => CHtml::activeTextField($model, 'email', ['class' => 'form-control']),
             ],
+            'create_time',
             [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => [
@@ -147,9 +142,9 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                 'url'     => $this->createUrl('/feedback/feedbackBackend/inline'),
                 'source'  => $model->getStatusList(),
                 'options' => [
-                    FeedBack::STATUS_ANSWER_SENDED => ['class' => 'label-default'],
+                    FeedBack::STATUS_ANSWER_SENDED => ['class' => 'label-success'],
                     FeedBack::STATUS_FINISHED      => ['class' => 'label-success'],
-                    FeedBack::STATUS_NEW           => ['class' => 'label-danger'],
+                    FeedBack::STATUS_NEW           => ['class' => 'label-default'],
                     FeedBack::STATUS_PROCESS       => ['class' => 'label-info'],
                 ],
             ],
@@ -174,8 +169,6 @@ Yii::app()->getClientScript()->registerCssFile($assets . '/css/feedback.css');
                     ['class' => 'form-control', 'empty' => '']
                 ),
             ],
-            'create_time',
-            'answer_time',
             [
                 'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{answer}{view}{update}{delete}',

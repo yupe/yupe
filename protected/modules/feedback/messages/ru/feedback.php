@@ -75,7 +75,7 @@ return [
     'If you have any questions, proposals or want to report an error' => 'Если у Вас есть вопросы, предложения или вы хотите сообщите об ошибке.',
     'If you interesting with quality project which simple in support' => 'Если вы заинтересованы в создании качественного и легкого в поддержке проекта.',
     'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!' => 'Срочно <a href="http://yupe.ru/contacts?from=contact" target="_blank">напишите нам</a> об этом!',
-    'In FAQ' => 'В разделе FAQ',
+    'In FAQ' => 'FAQ',
     'Insert symbols you see on image' => 'Введите цифры указанные на картинке',
     'Ip-address' => 'Ip-адрес',
     'It is not possible to send message!' => 'Сообщение отправить невозможно!',
