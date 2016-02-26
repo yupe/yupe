@@ -1,31 +1,47 @@
 <?php
 
+/**
+ * Class PageBehavior
+ */
 class PageBehavior extends CBehavior
 {
+    /**
+     *
+     */
     const RULES_CACHE_NAME = 'page::rules::list';
+    /**
+     *
+     */
     const RULES_CACHE_TAG_NAME = 'yupe::page::rules';
 
-    public function events() {
+    /**
+     * @return array
+     */
+    public function events()
+    {
         return array_merge(parent::events(), array(
             'onBeginRequest' => 'onBeginRequest',
         ));
     }
 
+    /**
+     *
+     */
     public function onBeginRequest()
     {
-        $rules = Yii::app()->cache->get(self::RULES_CACHE_NAME);
+        $rules = Yii::app()->getCache()->get(self::RULES_CACHE_NAME);
 
         if ($rules === false) {
             $rules = [];
             $pages = Page::model()->published()->findAll();
 
             foreach ($pages as $page) {
-                $rules[$page->slug] = 'page/page/view/slug/' . $page->slug;
+                $rules[$page->slug] = 'page/page/view/slug/'.$page->slug;
             }
 
-            Yii::app()->cache->set(self::RULES_CACHE_NAME, $rules, 0, new TagsCache(self::RULES_CACHE_TAG_NAME));
+            Yii::app()->getCache()->set(self::RULES_CACHE_NAME, $rules, 0, new TagsCache(self::RULES_CACHE_TAG_NAME));
         }
 
-        Yii::app()->urlManager->addRules($rules);
+        Yii::app()->getUrlManager()->addRules($rules);
     }
 }

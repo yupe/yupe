@@ -13,9 +13,7 @@
  */
 return [
     'module' => [
-        'class' => 'application.modules.page.PageModule',
-        // Указание здесь layout'a портит отображение на фронтенде:
-        //'layout' => '//layouts/column2',
+        'class' => 'application.modules.page.PageModule'
     ],
     'import' => [
         'application.modules.page.events.*',
@@ -38,5 +36,4 @@ return [
     'behaviors' => [
         'page' => ['class' => 'application.modules.page.behaviors.PageBehavior']
     ],
-    'rules' => [],
 ];

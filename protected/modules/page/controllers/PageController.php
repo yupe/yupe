@@ -88,8 +88,9 @@ class PageController extends FrontController
     private function getBreadCrumbsRecursively(Page $page)
     {
         $pages = [];
-        $pages[$page->title] = $page->getUrl();
+        $pages[$page->title] = Yii::app()->createUrl('/page/page/view', ['slug' => $page->slug]);
         $pp = $page->parentPage;
+
         if ($pp) {
             $pages += $this->getBreadCrumbsRecursively($pp);
         }
