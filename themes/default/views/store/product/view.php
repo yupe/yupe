@@ -68,7 +68,6 @@ $this->breadcrumbs = array_merge(
                             <span class="label label-danger"><?= Yii::t("StoreModule.store", "Not in stock");?></span>
                         <?php endif;?>
 
-
                         <div class="properties">
                             <?php foreach ($product->getAttributeGroups() as $groupName => $items): { ?>
                                 <div class="propertyGroup">

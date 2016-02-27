@@ -33,8 +33,6 @@ class Type extends \yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
             ['name', 'required'],
             ['name', 'unique'],

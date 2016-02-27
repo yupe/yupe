@@ -101,6 +101,11 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     protected $_variantsOptions = false;
 
+    /**
+     * @var bool
+     */
+    protected $_attributesValues = false;
+
 
     /**
      * Returns the static model of the specified AR class.
@@ -398,8 +403,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 continue;
             }
 
-            if ($attribute->isRequired(
-                ) && (!isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id])
+            if ($attribute->isRequired() && (!isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id])
             ) {
                 $this->addError(
                     $attribute->title,
@@ -597,21 +601,42 @@ class Product extends yupe\models\YModel implements ICommentable
             return null;
         }
 
-        //@TODO переделать на получение в 1 запрос
-        $model = AttributeValue::model()->with('attribute')->find(
-            'product_id = :product AND attribute_id = :attribute',
-            [
-                ':product' => $this->id,
-                ':attribute' => $attribute->id,
-            ]
-        );
+        $this->loadAttributes();
 
-        if (null === $model) {
-            return null;
-        }
-
-        return $model->value($default);
+        return isset($this->_attributesValues[$attribute->id]) ? $this->_attributesValues[$attribute->id]->value($default) : $default;
     }
+
+
+    /**
+     *
+     */
+    protected function loadAttributes()
+    {
+        if (false === $this->_attributesValues) {
+            $attributes = AttributeValue::model()->with('attribute')->findAll(
+                'product_id = :product',
+                [
+                    ':product' => $this->id,
+                ]
+            );
+
+            foreach ($attributes as $attr) {
+                $this->_attributesValues[$attr->attribute_id] = $attr;
+            }
+        }
+    }
+
+
+    /**
+     *
+     */
+    public function attributes()
+    {
+        $this->loadAttributes();
+
+        return array_values($this->_attributesValues);
+    }
+
 
     /**
      * @return array
@@ -928,7 +953,6 @@ class Product extends yupe\models\YModel implements ICommentable
 
         return $this->type->getAttributeGroups();
     }
-
 
     /**
      * @return array

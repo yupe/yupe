@@ -44,7 +44,7 @@ class AttributeValue extends yupe\models\YModel
             array('product_id, attribute_id, option_value', 'numerical', 'integerOnly' => true),
             array('number_value', 'numerical'),
             array('string_value', 'length', 'max' => 250),
-            array('text_value', 'safe')
+            array('text_value', 'safe'),
         );
     }
 
@@ -74,7 +74,7 @@ class AttributeValue extends yupe\models\YModel
             'string_value' => 'Str Value',
             'text_value' => 'Text Value',
             'option_value' => 'Option value',
-            'create_time' => 'Create time'
+            'create_time' => 'Create time',
         );
     }
 
@@ -190,6 +190,10 @@ class AttributeValue extends yupe\models\YModel
     }
 
 
+    /**
+     * @param $type
+     * @return string
+     */
     public function column($type)
     {
         $type = (int)$type;
@@ -199,7 +203,7 @@ class AttributeValue extends yupe\models\YModel
             Attribute::TYPE_CHECKBOX => 'number_value',
             Attribute::TYPE_NUMBER => 'number_value',
             Attribute::TYPE_TEXT => 'text_value',
-            Attribute::TYPE_SHORT_TEXT => 'string_value'
+            Attribute::TYPE_SHORT_TEXT => 'string_value',
         ];
 
         return array_key_exists($type, $map) ? $map[$type] : 'string_value';
