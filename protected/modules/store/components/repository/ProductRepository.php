@@ -247,7 +247,7 @@ class ProductRepository extends CApplicationComponent
      */
     public function getBySlug(
         $slug,
-        array $with = ['producer', 'type.typeAttributes', 'images', 'category', 'variants']
+        array $with = ['producer', 'type.typeAttributes', 'images', 'category', 'variants', 'attributesValues']
     ) {
         return Product::model()->published()->with($with)->find('t.slug = :slug', [':slug' => $slug]);
     }

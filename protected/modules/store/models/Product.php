@@ -210,7 +210,12 @@ class Product extends yupe\models\YModel implements ICommentable
                 'through' => 'linkedProductsRelation',
                 'joinType' => 'INNER JOIN',
             ],
-            'attributesValues' => [self::HAS_MANY, 'AttributeValue', 'product_id'],
+            'attributesValues' => [
+                self::HAS_MANY,
+                'AttributeValue',
+                'product_id',
+                'with' => ['attribute' => ['alias' => 'attr']],
+            ],
         ];
     }
 
@@ -613,15 +618,11 @@ class Product extends yupe\models\YModel implements ICommentable
     protected function loadAttributes()
     {
         if (false === $this->_attributesValues) {
-            $attributes = AttributeValue::model()->with('attribute')->findAll(
-                'product_id = :product',
-                [
-                    ':product' => $this->id,
-                ]
-            );
 
-            foreach ($attributes as $attr) {
-                $this->_attributesValues[$attr->attribute_id] = $attr;
+            $this->_attributesValues = [];
+
+            foreach ($this->attributesValues as $attribute) {
+                $this->_attributesValues[$attribute->attribute_id] = $attribute;
             }
         }
     }
@@ -632,9 +633,7 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function attributes()
     {
-        $this->loadAttributes();
-
-        return array_values($this->_attributesValues);
+        return $this->attributesValues;
     }
 
 

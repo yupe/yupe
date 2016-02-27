@@ -53,8 +53,6 @@ class AttributeValue extends yupe\models\YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'attribute' => array(self::BELONGS_TO, 'Attribute', 'attribute_id'),
             'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
