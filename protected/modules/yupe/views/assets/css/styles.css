@@ -470,3 +470,7 @@ input.form-control[type="file"] {
     right: 5px;
     z-index: 99;
 }
+
+.btn-group .btn {
+    margin-left: -1px;
+}
