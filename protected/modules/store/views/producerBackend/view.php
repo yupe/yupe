@@ -60,7 +60,6 @@ $this->menu = [
                 'name' => 'status',
                 'value' => $model->getStatusTitle(),
             ],
-            'order',
             [
                 'name' => 'image',
                 'type' => 'raw',

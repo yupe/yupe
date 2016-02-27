@@ -7,10 +7,10 @@
 $form = $this->beginWidget(
     '\yupe\widgets\ActiveForm',
     [
-        'id'                     => 'producer-form',
-        'enableAjaxValidation'   => false,
+        'id' => 'producer-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+        'htmlOptions' => ['class' => 'well', 'enctype' => 'multipart/form-data'],
     ]
 );
 ?>
@@ -63,7 +63,7 @@ $form = $this->beginWidget(
             $model->name,
             [
                 'class' => 'preview-image img-thumbnail',
-                'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none'
+                'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none',
             ]
         ); ?>
         <?= $form->fileFieldGroup(
@@ -85,7 +85,7 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
-                'model'     => $model,
+                'model' => $model,
                 'attribute' => 'description',
             ]
         ); ?>
@@ -100,7 +100,7 @@ $form = $this->beginWidget(
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
-                'model'     => $model,
+                'model' => $model,
                 'attribute' => 'short_description',
             ]
         ); ?>
@@ -146,17 +146,21 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
-        'context'    => 'primary',
-        'label'      => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add producer and continue') : Yii::t('StoreModule.store', 'Save producer and continue'),
+        'context' => 'primary',
+        'label' => $model->getIsNewRecord() ?
+            Yii::t('StoreModule.store', 'Add producer and continue') :
+            Yii::t('StoreModule.store', 'Save producer and continue'),
     ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'buttonType'  => 'submit',
+        'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label'       => $model->getIsNewRecord() ? Yii::t('StoreModule.store', 'Add producer and close') : Yii::t('StoreModule.store', 'Save producer and close'),
+        'label' => $model->getIsNewRecord() ?
+            Yii::t('StoreModule.store', 'Add producer and close') :
+            Yii::t('StoreModule.store', 'Save producer and close'),
     ]
 ); ?>
 

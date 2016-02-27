@@ -8,24 +8,32 @@ $this->breadcrumbs = [
 $this->pageTitle = Yii::t('StoreModule.store', 'Producers - edition');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Manage producers'), 'url' => ['/store/producerBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Create producer'), 'url' => ['/store/producerBackend/create']],
+    [
+        'icon' => 'fa fa-fw fa-list-alt',
+        'label' => Yii::t('StoreModule.store', 'Manage producers'),
+        'url' => ['/store/producerBackend/index'],
+    ],
+    [
+        'icon' => 'fa fa-fw fa-plus-square',
+        'label' => Yii::t('StoreModule.store', 'Create producer'),
+        'url' => ['/store/producerBackend/create'],
+    ],
     ['label' => Yii::t('StoreModule.store', 'Producer') . ' «' . mb_substr($model->name_short, 0, 32) . '»'],
     [
         'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('StoreModule.store', 'Update producer'),
         'url' => [
             '/store/producerBackend/update',
-            'id' => $model->id
-        ]
+            'id' => $model->id,
+        ],
     ],
     [
         'icon' => 'fa fa-fw fa-eye',
         'label' => Yii::t('StoreModule.store', 'View producer'),
         'url' => [
             '/store/producerBackend/view',
-            'id' => $model->id
-        ]
+            'id' => $model->id,
+        ],
     ],
     [
         'icon' => 'fa fa-fw fa-trash-o',
@@ -36,7 +44,7 @@ $this->menu = [
             'confirm' => Yii::t('StoreModule.store', 'Do you really want to remove this producer?'),
             'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'csrf' => true,
-        ]
+        ],
     ],
 ];
 ?>
