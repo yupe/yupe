@@ -6,7 +6,7 @@
  * @property string $name
  * @property string $slug
  * @property integer $status
- * @property integer $order
+ * @property integer $sort
  * @property string $image
  * @property string $short_description
  * @property string $description
@@ -49,7 +49,7 @@ class Producer extends yupe\models\YModel
         return [
             ['name_short, name, slug, status', 'required'],
             ['name_short, name, slug, short_description, description', 'filter', 'filter' => 'trim'],
-            ['order', 'numerical', 'integerOnly' => true],
+            ['sort', 'numerical', 'integerOnly' => true],
             ['name_short', 'length', 'max' => 150],
             ['name, image, meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
             ['short_description, description', 'safe'],
@@ -61,7 +61,7 @@ class Producer extends yupe\models\YModel
             ],
             ['slug', 'unique'],
             [
-                'id, name_short, name, slug, status, order, image, short_description, description, meta_title, meta_keywords, meta_description',
+                'id, name_short, name, slug, status, sort, image, short_description, description, meta_title, meta_keywords, meta_description',
                 'safe',
                 'on' => 'search',
             ],
@@ -77,7 +77,7 @@ class Producer extends yupe\models\YModel
             'published' => [
                 'condition' => 'status = :status',
                 'params' => [':status' => self::STATUS_ACTIVE],
-                'order' => 'name ASC',
+                'order' => 'sort ASC',
             ],
         ];
     }
@@ -103,7 +103,7 @@ class Producer extends yupe\models\YModel
             'name' => Yii::t('StoreModule.store', 'Title'),
             'slug' => Yii::t('StoreModule.store', 'URL'),
             'status' => Yii::t('StoreModule.store', 'Status'),
-            'order' => Yii::t('StoreModule.store', 'Order'),
+            'sort' => Yii::t('StoreModule.store', 'Order'),
             'image' => Yii::t('StoreModule.store', 'Image'),
             'short_description' => Yii::t('StoreModule.store', 'Short description'),
             'description' => Yii::t('StoreModule.store', 'Description'),
@@ -136,7 +136,7 @@ class Producer extends yupe\models\YModel
         $criteria->compare('name', $this->name, true);
         $criteria->compare('slug', $this->slug, true);
         $criteria->compare('status', $this->status);
-        $criteria->compare('order', $this->order);
+        $criteria->compare('sort', $this->sort);
         $criteria->compare('image', $this->image, true);
         $criteria->compare('short_description', $this->short_description, true);
         $criteria->compare('description', $this->description, true);
@@ -144,6 +144,7 @@ class Producer extends yupe\models\YModel
         return new CActiveDataProvider(
             $this, [
                 'criteria' => $criteria,
+                'sort' => ['defaultOrder' => 'sort'],
             ]
         );
     }
@@ -151,6 +152,7 @@ class Producer extends yupe\models\YModel
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
+     *
      * @param string $className active record class name.
      * @return Producer the static model class
      */
@@ -173,11 +175,15 @@ class Producer extends yupe\models\YModel
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module !== null ? $module->uploadPath.'/producer' : null,
+                'uploadPath' => $module !== null ? $module->uploadPath . '/producer' : null,
                 'resizeOptions' => [
                     'maxWidth' => 900,
                     'maxHeight' => 900,
                 ],
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+                'attributeName' => 'sort',
             ],
         ];
     }
@@ -230,7 +236,7 @@ class Producer extends yupe\models\YModel
      * @param string $order
      * @return mixed
      */
-    public function getAll($limit = -1, $order = 'id ASC')
+    public function getAll($limit = -1, $order = 'sort ASC')
     {
         $criteria = new CDbCriteria();
         $criteria->order = $order;
@@ -248,16 +254,16 @@ class Producer extends yupe\models\YModel
     {
         $criteria = new CDbCriteria();
         $criteria->scopes = ['published'];
-        $criteria->order = 'id';
+        $criteria->order = 'sort';
 
         return new CActiveDataProvider(
             get_class($this), [
-            'criteria' => $criteria,
-            'pagination' => [
-                'pageSize' => 20,
-                'pageVar' => 'page',
-            ],
-        ]
+                'criteria' => $criteria,
+                'pagination' => [
+                    'pageSize' => 20,
+                    'pageVar' => 'page',
+                ],
+            ]
         );
     }
 }

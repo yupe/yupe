@@ -6,13 +6,18 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Producer',
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Producer',
                 'validAttributes' => [
                     'status',
-                    'slug'
-                ]
-            ]
+                    'slug',
+                ],
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Producer',
+                'attribute' => 'sort',
+            ],
         ];
     }
 
@@ -23,7 +28,7 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
             ['allow', 'actions' => ['index'], 'roles' => ['Store.ProducerBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.ProducerBackend.View'],],
             ['allow', 'actions' => ['create'], 'roles' => ['Store.ProducerBackend.Create'],],
-            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Store.ProducerBackend.Update'],],
+            ['allow', 'actions' => ['update', 'inline', 'sortable'], 'roles' => ['Store.ProducerBackend.Update'],],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Store.ProducerBackend.Delete'],],
             ['deny',],
         ];
@@ -37,12 +42,10 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
     public function actionCreate()
     {
         $model = new Producer();
+        $data = Yii::app()->getRequest()->getPost('Producer');
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Producer'])) {
-            $model->attributes = $_POST['Producer'];
+        if (!is_null($data)) {
+            $model->attributes = $data;
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -50,25 +53,25 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
                     Yii::t('StoreModule.store', 'Record was created!')
                 );
 
-                if (!isset($_POST['submit-type'])) {
-                    $this->redirect(['update', 'id' => $model->id]);
-                } else {
-                    $this->redirect([$_POST['submit-type']]);
-                }
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        ['create']
+                    )
+                );
             }
         }
+
         $this->render('create', ['model' => $model]);
     }
 
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
+        $data = Yii::app()->getRequest()->getPost('Producer');
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Producer'])) {
-            $model->attributes = $_POST['Producer'];
+        if (!is_null($data)) {
+            $model->attributes = $data;
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -76,13 +79,18 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
                     Yii::t('StoreModule.store', 'Record was updated!')
                 );
 
-                if (!isset($_POST['submit-type'])) {
-                    $this->redirect(['update', 'id' => $model->id]);
-                } else {
-                    $this->redirect([$_POST['submit-type']]);
-                }
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        [
+                            'update',
+                            'id' => $model->id,
+                        ]
+                    )
+                );
             }
         }
+
         $this->render('update', ['model' => $model]);
     }
 
@@ -96,39 +104,38 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
                 Yii::t('StoreModule.store', 'Record was removed!')
             );
 
-            if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
+            if (Yii::app()->getRequest()->getQuery('ajax')) {
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
+                );
             }
         } else {
-            throw new CHttpException(400, Yii::t('StoreModule.store', 'Bad request. Please don\'t use similar requests anymore'));
+            throw new CHttpException(400,
+                Yii::t('StoreModule.store', 'Bad request. Please don\'t use similar requests anymore'));
         }
     }
 
     public function actionIndex()
     {
         $model = new Producer('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Producer'])) {
-            $model->attributes = $_GET['Producer'];
+        $model->unsetAttributes();
+        $data = Yii::app()->getRequest()->getQuery('Producer');
+
+        if (!is_null($data)) {
+            $model->attributes = $data;
         }
+
         $this->render('index', ['model' => $model]);
     }
 
     public function loadModel($id)
     {
         $model = Producer::model()->findByPk($id);
+
         if ($model === null) {
             throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
+
         return $model;
-    }
-
-
-    protected function performAjaxValidation(Producer $model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'producer-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

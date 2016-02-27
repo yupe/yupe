@@ -13,7 +13,7 @@ class ProducersWidget extends \yupe\widgets\YWidget
     /**
      * @var string
      */
-    public $order = 'id ASC';
+    public $order = 'sort ASC';
     /**
      * @var string
      */
