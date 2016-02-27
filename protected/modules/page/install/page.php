@@ -19,6 +19,7 @@ return [
         'application.modules.page.events.*',
         'application.modules.page.listeners.*',
         'application.modules.page.models.*',
+        'application.modules.page.components.*',
     ],
     'component' => [
         'eventManager' => [
@@ -35,5 +36,10 @@ return [
     ],
     'behaviors' => [
         'page' => ['class' => 'application.modules.page.behaviors.PageBehavior']
+    ],
+    'rules' => [
+        [
+            'class' => 'application.modules.page.components.PageUrlRule',
+        ],
     ],
 ];
