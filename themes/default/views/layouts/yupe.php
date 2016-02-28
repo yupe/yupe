@@ -46,7 +46,7 @@
                             'Разработка и запуск интернет магазина на Yii и "Юпи!"',
                             ['style' => 'width: 100%']
                         ),
-                        'http://yupe-project.ru/ecommerce?from=yupe-business',
+                        'http://yupe.ru/ecommerce?from=yupe-business',
                         [
                             'title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"',
                             'target' => '_blank'

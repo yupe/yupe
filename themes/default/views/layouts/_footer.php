@@ -14,7 +14,7 @@
                        target="_blank"><?= Yii::t('default', 'Google+'); ?></a></li>
                 <li><a href="http://yupe.ru/blogs/yupe-mini-cms-yii"
                        target="_blank"><?= Yii::t('default', 'Blog'); ?></a></li>
-                <li><a href="http://yupe-project.ru/" target="_blank"><?= Yii::t('default', 'Our site'); ?></a></li>
+                <li><a href="http://yupe.ru/" target="_blank"><?= Yii::t('default', 'Our site'); ?></a></li>
             </ul>
         </div>
         <div class="col-sm-3">
@@ -30,7 +30,7 @@
         </div>
         <div class="col-sm-3">
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="http://yupe-project.ru/about"
+                <li><a href="http://yupe.ru/about"
                        target="_blank"><?= Yii::t('default', 'About project'); ?></a></li>
                 <li><a href="http://yupe.ru/docs/yupe/team.html"
                        target="_blank"><?= Yii::t('default', 'Team'); ?></a></li>
@@ -55,7 +55,7 @@
                         ); ?></a>
                 </li>
                 <li><a href="http://amylabs.ru" target="_blank"><?= Yii::t('default', 'amylabs'); ?></a></li>
-                <li><a href="http://yupe-project.ru/service/support?from=yupe"
+                <li><a href="http://yupe.ru/service/support?from=yupe"
                        target="_blank"><?= Yii::t('default', 'Commertial support'); ?></a></li>
             </ul>
         </div>

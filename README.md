@@ -14,13 +14,13 @@
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
-* [интернет-магазины](http://yupe-project.ru/ecommerce)
+* [интернет-магазины](http://yupe.ru/ecommerce)
 * сайты-визитки
 * корпоративные порталы
-* [блоги / сообщества](http://yupe-project.ru/community)
+* [блоги / сообщества](http://yupe.ru/community)
 
 
-На Юпи! работает более 1500 проектов, среди которых около 300 интернет-магазинов, Юпи! активно используют [студии и команды разработчиков](http://yupe-project.ru/partners).
+На Юпи! работает более 1500 проектов, среди которых около 300 интернет-магазинов, Юпи! активно используют [студии и команды разработчиков](http://yupe.ru/partners).
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x.
 
@@ -39,23 +39,21 @@
 
 Ссылки
 ------
-* [Сообщество](http://yupe.ru/)
-* [Официальный сайт](http://yupe-project.ru/)
+* [Официальный сайт](http://yupe.ru/)
 * [Юпи! Market](http://yupe.ru/marketplace)
 * [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
-* [Руководство](http://guides-v1.yupe-project.ru/)
 * [Документация](http://docs.yupe.ru/)
 * [API](http://api.yupe.ru/)
-* [Подробнее о проекте](http://yupe-project.ru/about)
+* [Подробнее о проекте](http://yupe.ru/about)
 * [Команда](http://docs.yupe.ru/team/)
 * [Форум](http://talk.yupe.ru/)
 * [Контакты](http://yupe.ru/contacts)
 * [Как помочь проекту](http://docs.yupe.ru/assistance.project/)
 * [twitter](https://twitter.com/#!/YupeCms)
 * [Группа Вконтакте](https://vk.com/yupecms)
-* [Разработка](http://yupe-project.ru/service/development) и [поддержка](http://yupe-project.ru/service/support)
+* [Разработка](http://yupe.ru/service/development) и [поддержка](http://yupe.ru/service/support)
 
 [![Юпи! Market](http://yupe.ru/uploads/blogs/a0301fdec876e23050ff3d312d97ee88.png)](http://yupe.ru/marketplace)
 
@@ -79,7 +77,7 @@
 * Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/albums/5)).
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 * Авторизация через социальные сети (с использованием nodge/yii-eauth)
-* [Интернет-магазин (каталог, корзина, заказы, купоны, платежные системы)](http://yupe-project.ru/ecommerce)
+* [Интернет-магазин (каталог, корзина, заказы, купоны, платежные системы)](http://yupe.ru/ecommerce)
 
 **Если вам не хватает какой-то функциональности - [напишите нам](http://amylabs.ru/contact) и мы Вам обязательно поможем!**
 
@@ -89,10 +87,10 @@
 
 Исходный код, макеты дизайна и вёрстка распространяются по [лицензии BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
 
-Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe-project.ru](http://yupe-project.ru)
+Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru](http://yupe.ru)
 
 
-[![amylabs](http://yupe-project.ru/web/images/yupe/amylabs.jpg)](http://amylabs.ru)
+[![amylabs](http://yupe.ru/web/images/yupe/amylabs.jpg)](http://amylabs.ru)
 
 ![amyLabs](http://amylabs.ru/assets/196fa697/images/logo1.png)
 
