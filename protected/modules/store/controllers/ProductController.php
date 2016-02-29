@@ -57,14 +57,19 @@ class ProductController extends FrontController
     }
 
     /**
-     * @param $name
+     * @param string $name Product slug
+     * @param string $category Product category path
      * @throws CHttpException
      */
-    public function actionView($name)
+    public function actionView($name, $category = null)
     {
         $product = $this->productRepository->getBySlug($name);
 
-        if (null === $product) {
+        if (
+            null === $product ||
+            (isset($product->category) && $product->category->path !== $category) ||
+            (!isset($product->category) && !is_null($category))
+        ) {
             throw new CHttpException(404, Yii::t('StoreModule.catalog', 'Product was not found!'));
         }
 
