@@ -205,7 +205,6 @@ class UserModule extends WebModule
                     'emailAccountVerification',
                     'minPasswordLength',
                     'autoRecoveryPassword',
-                    'recoveryDisabled',
                     'badLoginCount'
                 ]
             ],
