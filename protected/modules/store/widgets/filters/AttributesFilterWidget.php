@@ -16,7 +16,10 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
     public function run()
     {
         if ('*' === $this->attributes) {
-            $this->attributes = Attribute::model()->with(['options.parent'])->cache($this->cacheTime)->findAll();
+            $this->attributes = Attribute::model()->with(['options.parent'])->cache($this->cacheTime)->findAll([
+                'condition' => 't.is_filter = 1',
+                'order' => 't.sort DESC'
+            ]);
         }
 
         foreach ($this->attributes as $attribute) {

@@ -10,75 +10,123 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class PaylerModule
+ */
 class PaylerModule extends WebModule
 {
+    /**
+     *
+     */
     const VERSION = '1.0.1';
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
         return ['payment'];
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
-        return false;
+        return [];
     }
 
+    /**
+     * @return bool
+     */
     public function getAdminPageLink()
     {
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsShowInAdminMenu()
     {
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
         return [];
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('PaylerModule.payler', 'Store');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('PaylerModule.payler', 'Payler');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('PaylerModule.payler', 'Payler payment module');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('PaylerModule.payler', 'Oleg Filimonov');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('PaylerModule.payler', 'olegsabian@gmail.com');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return 'https://github.com/sabian/yupe-payler';
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-rub';
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();

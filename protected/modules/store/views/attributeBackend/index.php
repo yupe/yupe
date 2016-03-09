@@ -78,6 +78,10 @@ $this->menu = [
             'yupe\widgets\CustomGridView',
             [
                 'id' => 'attribute-grid',
+                'sortableRows' => true,
+                'sortableAjaxSave' => true,
+                'sortableAttribute' => 'sort',
+                'sortableAction' => '/store/attributeBackend/sortattr',
                 'type' => 'condensed',
                 'dataProvider' => $model->search(),
                 'filter' => $model,

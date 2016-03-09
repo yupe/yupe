@@ -11,6 +11,8 @@
  * @property bool $required
  * @property integer $group_id
  * @property string $unit
+ * @property integer $sort
+ * @property integer $is_filter
  *
  * @property-read AttributeOption[] $options
  * @property-read AttributeGroup $group
@@ -82,9 +84,9 @@ class Attribute extends \yupe\models\YModel
                 'name',
                 'match',
                 'pattern' => '/^([a-z0-9._-])+$/i',
-                'message' => Yii::t('StoreModule.store', 'The name can contain only letters, numbers and underscores.')
+                'message' => Yii::t('StoreModule.store', 'The name can contain only letters, numbers and underscores.'),
             ],
-            ['type, group_id', 'numerical', 'integerOnly' => true],
+            ['type, group_id, sort, is_filter', 'numerical', 'integerOnly' => true],
             ['required', 'boolean'],
             ['unit', 'length', 'max' => 30],
             ['rawOptions', 'safe'],
@@ -101,7 +103,7 @@ class Attribute extends \yupe\models\YModel
         return [
             'options' => [self::HAS_MANY, 'AttributeOption', 'attribute_id', 'order' => 'options.position ASC'],
             'group' => [self::BELONGS_TO, 'AttributeGroup', 'group_id'],
-            'value' => [self::BELONGS_TO, 'AttributeValue', 'attribute_id']
+            'value' => [self::BELONGS_TO, 'AttributeValue', 'attribute_id'],
         ];
     }
 
@@ -119,6 +121,8 @@ class Attribute extends \yupe\models\YModel
             'required' => Yii::t('StoreModule.store', 'Required'),
             'group_id' => Yii::t('StoreModule.store', 'Group'),
             'unit' => Yii::t('StoreModule.store', 'Unit'),
+            'sort' => Yii::t('StoreModule.store', 'Sort'),
+            'is_filter' => Yii::t('StoreModule.store', 'Filter'),
         ];
     }
 
@@ -151,8 +155,10 @@ class Attribute extends \yupe\models\YModel
         $criteria->compare('title', $this->title, true);
         $criteria->compare('type', $this->type);
         $criteria->compare('group_id', $this->group_id);
+        $criteria->compare('is_filter', $this->is_filter);
 
         $sort = new CSort;
+        $sort->defaultOrder = 't.sort DESC';
         $sort->attributes = [
             '*',
             'title' => [
@@ -164,7 +170,7 @@ class Attribute extends \yupe\models\YModel
         return new CActiveDataProvider(
             $this, [
                 'criteria' => $criteria,
-                'sort' => $sort
+                'sort' => $sort,
             ]
         );
     }
@@ -297,8 +303,9 @@ class Attribute extends \yupe\models\YModel
     {
         $tmp = '';
         foreach ((array)$this->options as $option) {
-            $tmp .= $option->value . "\n";
+            $tmp .= $option->value."\n";
         }
+
         return $tmp;
     }
 
@@ -327,20 +334,37 @@ class Attribute extends \yupe\models\YModel
         try {
 
             Yii::app()->getDb()
-                ->createCommand(sprintf('UPDATE {{store_product_attribute_value}} SET %s = %s WHERE attribute_id = :id', $newCol, $currentCol))
+                ->createCommand(sprintf('UPDATE {{store_product_attribute_value}} SET %s = %s WHERE attribute_id = :id',
+                    $newCol, $currentCol))
                 ->bindValue(':id', $this->id)
                 ->execute();
 
             Yii::app()->getDb()
-                ->createCommand(sprintf('UPDATE {{store_product_attribute_value}} SET %s = null WHERE attribute_id = :id', $currentCol))
+                ->createCommand(sprintf('UPDATE {{store_product_attribute_value}} SET %s = null WHERE attribute_id = :id',
+                    $currentCol))
                 ->bindValue(':id', $this->id)
                 ->execute();
 
             $transaction->commit();
+
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
+
             return false;
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+                'attributeName' => 'sort',
+            ],
+        ];
     }
 }

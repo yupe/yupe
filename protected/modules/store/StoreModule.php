@@ -172,11 +172,11 @@ class StoreModule extends WebModule
     }
 
     /**
-     * @return bool
+     * @return array
      */
     public function getNavigation()
     {
-        return false;
+        return [];
     }
 
     /**

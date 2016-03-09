@@ -39,6 +39,11 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                 'class' => 'yupe\components\actions\SortAction',
                 'model' => 'AttributeGroup',
             ],
+            'sortattr' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Attribute',
+                'attribute' => 'sort',
+            ],
         ];
     }
 

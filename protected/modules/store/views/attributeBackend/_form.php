@@ -89,6 +89,12 @@ $form = $this->beginWidget(
     </div>
 </div>
 
+<div class='row'>
+    <div class="col-sm-7">
+        <?= $form->checkBoxGroup($model, 'is_filter'); ?>
+    </div>
+</div>
+
 
 <div class="row">
     <div id="options" class="<?= !in_array($model->type, Attribute::getTypesWithOptions()) ? 'hidden' : ''; ?> col-sm-5">

@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class ProducerBackendController
+ */
 class ProducerBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -21,6 +27,9 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
         ];
     }
 
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -34,11 +43,18 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
         ];
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionView($id)
     {
         $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
+    /**
+     *
+     */
     public function actionCreate()
     {
         $model = new Producer();
@@ -65,6 +81,10 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
         $this->render('create', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
@@ -94,6 +114,10 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
         $this->render('update', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
@@ -115,6 +139,9 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
         }
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Producer('search');
@@ -128,6 +155,11 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
         $this->render('index', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @return static
+     * @throws CHttpException
+     */
     public function loadModel($id)
     {
         $model = Producer::model()->findByPk($id);

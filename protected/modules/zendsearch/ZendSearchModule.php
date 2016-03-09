@@ -12,12 +12,24 @@
  */
 class ZendSearchModule extends yupe\components\WebModule
 {
+    /**
+     *
+     */
     const VERSION = '0.9.9';
 
+    /**
+     * @var string
+     */
     public $indexFiles = 'runtime.search';
 
+    /**
+     * @var
+     */
     public $searchModels;
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
         return [];
@@ -40,6 +52,9 @@ class ZendSearchModule extends yupe\components\WebModule
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getParamsLabels()
     {
         return [
@@ -47,11 +62,17 @@ class ZendSearchModule extends yupe\components\WebModule
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
         return [
@@ -59,51 +80,81 @@ class ZendSearchModule extends yupe\components\WebModule
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function getIsInstallDefault()
     {
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('ZendSearchModule.zendsearch', 'Services');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('ZendSearchModule.zendsearch', 'Search');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('ZendSearchModule.zendsearch', 'Find module in terms of Zend Lucene');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('ZendSearchModule.zendsearch', 'amylabs');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('ZendSearchModule.zendsearch', 'hello@amylabs.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return Yii::t('ZendSearchModule.zendsearch', 'http://amylabs.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-fw fa-search';
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/zendsearch/manageBackend/index';
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -117,6 +168,9 @@ class ZendSearchModule extends yupe\components\WebModule
         );
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
         return [
@@ -128,6 +182,9 @@ class ZendSearchModule extends yupe\components\WebModule
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [
