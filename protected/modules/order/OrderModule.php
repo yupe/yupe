@@ -125,14 +125,14 @@ class OrderModule extends WebModule
     {
         return [
             [
-                'icon' => 'fa fa-fw fa-users',
-                'label' => Yii::t('OrderModule.order', 'Clients'),
-                'url' => ['/order/clientBackend/index'],
-            ],
-            [
                 'icon' => 'fa fa-fw fa-gift',
                 'label' => Yii::t('OrderModule.order', 'Orders'),
                 'url' => ['/order/orderBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-users',
+                'label' => Yii::t('OrderModule.order', 'Clients'),
+                'url' => ['/order/clientBackend/index'],
             ],
             [
                 'icon' => 'fa fa-fw fa-list-alt',

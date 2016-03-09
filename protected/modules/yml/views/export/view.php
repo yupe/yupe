@@ -32,6 +32,11 @@
                 <model><?= htmlspecialchars(strip_tags($offer->name));?></model>
                 <vendor><?= htmlspecialchars(strip_tags($offer->producer->name));?></vendor>
                 <description><?= htmlspecialchars(strip_tags($offer->description));?></description>
+                <?php foreach($offer->attributes() as $attr):?>
+                     <param name="<?= $attr->attribute->title;?>" <?php if($attr->attribute->unit):?> unit="<?= strip_tags($attr->attribute->unit);?>" <?php endif;?>>
+                         <?= htmlspecialchars(strip_tags($attr->value()));?>
+                     </param>
+                <?php endforeach;?>
             </offer>
         <?php endforeach;?>
     </offers>
