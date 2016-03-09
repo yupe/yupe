@@ -19,6 +19,10 @@ class AttributeGroup extends yupe\models\YModel
         return '{{store_attribute_group}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -37,6 +41,9 @@ class AttributeGroup extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function relations()
     {
         return [
@@ -56,16 +63,22 @@ class AttributeGroup extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
             'sortable' => [
-                'class' => 'yupe\components\behaviors\SortableBehavior'
-            ]
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+            ],
         ];
     }
 
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function search()
     {
         $criteria = new CDbCriteria;
@@ -77,11 +90,14 @@ class AttributeGroup extends yupe\models\YModel
         return new CActiveDataProvider(
             $this, [
                 'criteria' => $criteria,
-                'sort' => ['defaultOrder' => 't.position']
+                'sort' => ['defaultOrder' => 't.position'],
             ]
         );
     }
 
+    /**
+     * @return array
+     */
     public function getFormattedList()
     {
         $groups = $this->findAll(['order' => 'name ASC']);
@@ -89,6 +105,7 @@ class AttributeGroup extends yupe\models\YModel
         foreach ($groups as $key => $group) {
             $list[$group->id] = $group->name;
         }
+
         return $list;
     }
 }

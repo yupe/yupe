@@ -7,8 +7,16 @@ $this->breadcrumbs = [
 $this->pageTitle = Yii::t('StoreModule.store', 'Attributes - manage');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('StoreModule.store', 'Manage attributes'), 'url' => ['/store/attributeBackend/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('StoreModule.store', 'Create attribute'), 'url' => ['/store/attributeBackend/create']],
+    [
+        'icon' => 'fa fa-fw fa-list-alt',
+        'label' => Yii::t('StoreModule.store', 'Manage attributes'),
+        'url' => ['/store/attributeBackend/index'],
+    ],
+    [
+        'icon' => 'fa fa-fw fa-plus-square',
+        'label' => Yii::t('StoreModule.store', 'Create attribute'),
+        'url' => ['/store/attributeBackend/create'],
+    ],
 ];
 ?>
 <div class="page-header">
@@ -39,18 +47,12 @@ $this->menu = [
                 'sortableAttribute' => 'position',
                 'sortableAction' => '/store/attributeBackend/sortable',
                 'actionsButtons' => [
-                    'clear' => CHtml::link(
-                        Yii::t("StoreModule.store", "Without a group"),
-                        '#',
-                        ['id' => 'clear-attribute-group-filter', 'class' => 'btn btn-sm btn-default']
-                    ),
                     'add' => CHtml::link(
                         Yii::t('YupeModule.yupe', 'Add'),
                         '#',
                         ['id' => 'add-attribute-group', 'class' => 'btn btn-sm btn-success pull-right']
                     ),
                 ],
-                'afterAjaxUpdate' => 'js:function(id, data){ changeGroupFilter(); }',
                 'columns' => [
                     [
                         'name' => 'name',
@@ -59,9 +61,10 @@ $this->menu = [
                         'editable' => [
                             'type' => 'text',
                             'url' => ['/store/attributeBackend/inlineEditGroup'],
-                            'title' => Yii::t('StoreModule.store', 'Enter {field}', ['{field}' => mb_strtolower($attributeGroup->getAttributeLabel('name'))]),
+                            'title' => Yii::t('StoreModule.store', 'Enter {field}',
+                                ['{field}' => mb_strtolower($attributeGroup->getAttributeLabel('name'))]),
                             'params' => [
-                                Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                                Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
                             ],
                             'placement' => 'right',
                         ],
@@ -81,36 +84,38 @@ $this->menu = [
                 'columns' => [
                     [
                         'name' => 'group_id',
-                        'value' => function($data){
+                        'value' => function ($data) {
                             return $data->getGroupTitle();
                         },
-                        'filter' => CHtml::activeDropDownList($model, 'group_id', AttributeGroup::model()->getFormattedList(), ['empty' => '', 'class' => 'form-control']),
+                        'filter' => CHtml::activeDropDownList($model, 'group_id',
+                            AttributeGroup::model()->getFormattedList(), ['empty' => '', 'class' => 'form-control']),
                     ],
                     [
                         'name' => 'name',
                         'type' => 'raw',
-                        'value' => function($data){
+                        'value' => function ($data) {
                             return CHtml::link($data->name, array("/store/attributeBackend/update", "id" => $data->id));
                         },
                     ],
                     [
                         'name' => 'title',
                         'type' => 'raw',
-                        'value' => function($data){
-                            return CHtml::link($data->title, array("/store/attributeBackend/update", "id" => $data->id));
+                        'value' => function ($data) {
+                            return CHtml::link($data->title,
+                                array("/store/attributeBackend/update", "id" => $data->id));
                         },
                     ],
                     [
                         'name' => 'type',
                         'type' => 'text',
-                        'value' => function($data){
+                        'value' => function ($data) {
                             return $data->getTypeTitle($data->type);
                         },
-                        'filter' => $model->getTypesList()
+                        'filter' => $model->getTypesList(),
                     ],
                     [
                         'class' => 'yupe\widgets\CustomButtonColumn',
-                        'template' => '{update}{delete}'
+                        'template' => '{update}{delete}',
                     ],
                 ],
             ]
@@ -121,16 +126,6 @@ $this->menu = [
 <script type="text/javascript">
     $(document).ready(function () {
         var $container = $('body');
-        $container.on('click', '#clear-attribute-group-filter', function (e) {
-            e.preventDefault();
-            $("#Attribute_group_id").val('').trigger("change");
-            $('#attribute-group-grid').find('tr').removeClass('selected');
-        });
-
-        // TODO: вызывается два раза, надо сделать, чтобы обновление грида происходило только один раз
-        $container.on('change', "#attribute-group-grid input[type=checkbox]", function () {
-            changeGroupFilter();
-        });
 
         $container.on('click', '#add-attribute-group', function (e) {
             e.preventDefault();
@@ -153,9 +148,4 @@ $this->menu = [
         });
     });
 
-    function changeGroupFilter() {
-        if (!$('#attribute-group-grid').find('a.editable-open')[0]) {
-            $("#Attribute_group_id").val($.fn.yiiGridView.getSelection('attribute-group-grid')).trigger("change");
-        }
-    }
 </script>

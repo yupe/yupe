@@ -15,7 +15,7 @@ $this->breadcrumbs = [
 
 $this->pageTitle = Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', '<?=  $this->moduleID; ?> - index');
 
-$this->menu = $this->getModule()->getNavigation();;
+$this->menu = $this->getModule()->getNavigation();
 ?>
 
 <div class="page-header">

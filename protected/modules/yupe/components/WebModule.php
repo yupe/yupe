@@ -261,7 +261,7 @@ abstract class WebModule extends CWebModule
      */
     public function getNavigation()
     {
-        return false;
+        return [];
     }
 
     /**

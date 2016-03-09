@@ -190,7 +190,7 @@ class ModuleManager extends \CApplicationComponent
 
                         // Добавляем подменю у модулей
                         $links = $modules[$key]->getNavigation();
-                        if (is_array($links)) {
+                        if (!empty($links)) {
                             $data['items'] = $links;
                         } else {
                             unset($modSettings[0]);
