@@ -1,14 +1,13 @@
 Юпи!- CMS на Yii
 =================
 
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc)](https://scrutinizer-ci.com/g/yupe/yupe/)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/yupe/yupe/?branch=dev)
 [![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
 [![Daily Downloads](https://poser.pugx.org/yupe/yupe/d/daily.png)](https://packagist.org/packages/yupe/yupe)
 [![Gitter chat](https://badges.gitter.im/yupe/yupe.png)](https://gitter.im/yupe/yupe)
 [![Dependency Status](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png)](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8)
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
-[![project status](http://stillmaintained.com/yupe/yupe.png)](http://stillmaintained.com/yupe/yupe)
 [![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
 ![Юпи!](http://amylabs.ru/assets/196fa697/images/Head_browser.png)
 
@@ -20,14 +19,13 @@
 * [блоги / сообщества](http://yupe.ru/community)
 
 
-На Юпи! работает более 1500 проектов, среди которых около 300 интернет-магазинов, Юпи! активно используют [студии и команды разработчиков](http://yupe.ru/partners).
+На Юпи! работает более 2000 проектов, среди которых около 500 интернет-магазинов, Юпи! активно используют [студии и команды разработчиков](http://yupe.ru/partners).
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x.
 
 [Процесс установки](http://docs.yupe.ru/install/) очень прост и занимает не более 5 минут!
 
-Для успешной работы проекта на Юпи! вполне достаточно самого простого и дешевого хостинга, минимальные требования:
-
+Для успешной работы проекта на Юпи! вполне достаточно самого простого и [дешевого хостинга](http://yupe.ru/service/hosting), минимальные требования:
 
 * PHP >= 5.4
 * Composer

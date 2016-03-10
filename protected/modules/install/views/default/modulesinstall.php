@@ -104,7 +104,7 @@ $this->widget(
         'coupon',
         'delivery',
         'robokassa',
-        'yandexmarket',
+        'yml',
         'mail',
         'comment',
         'menu',
@@ -112,7 +112,9 @@ $this->widget(
         'category',
         'callback',
         'favorite',
-        'yandexmoney'
+        'yandexmoney',
+        'sitemap',
+        'payler'
     ];
     foreach ($data['modules'] as $module) : {
         if (!is_object($module)) {
