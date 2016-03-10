@@ -52,7 +52,7 @@ class OrderModule extends WebModule
      */
     public function getDependencies()
     {
-        return ['store', 'payment', 'delivery', 'mail'];
+        return ['store', 'payment', 'delivery', 'mail', 'comment'];
     }
 
     /**

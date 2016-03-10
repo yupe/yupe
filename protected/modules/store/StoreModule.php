@@ -57,6 +57,7 @@ class StoreModule extends WebModule
      */
     public $itemsPerPage = 20;
 
+
     /**
      * @return string
      */
