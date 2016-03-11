@@ -59,7 +59,8 @@
         "yiiext/twig-renderer": "1.1.*",
         "2amigos/transliterator-helper": "dev-master",
         "yiiext/migrate-command": "dev-master",
-        "samdark/sitemap": "2.0.*"
+        "samdark/sitemap": "2.0.*",
+        "ckeditor/ckeditor": "4.*"
     },
     "repositories": {
         

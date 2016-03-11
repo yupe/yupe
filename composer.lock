@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "491c1feabf51bd460d028396305c573f",
-    "content-hash": "2fd225be8c21ec34fe10c95dd8b1cd2a",
+    "hash": "52bd13c5483b99bdf048f513992b4b8f",
+    "content-hash": "d6da5d0883fc9ce4842fdf437c750ca0",
     "packages": [
         {
             "name": "2amigos/transliterator-helper",
@@ -44,6 +44,47 @@
                 "yii"
             ],
             "time": "2014-01-08 17:37:55"
+        },
+        {
+            "name": "ckeditor/ckeditor",
+            "version": "4.5.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ckeditor/ckeditor-releases.git",
+                "reference": "a55e90c4e4114c40169b054bbeb2190c3a62a055"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor-releases/zipball/a55e90c4e4114c40169b054bbeb2190c3a62a055",
+                "reference": "a55e90c4e4114c40169b054bbeb2190c3a62a055",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+",
+                "LGPL-2.1+",
+                "MPL-1.1+"
+            ],
+            "authors": [
+                {
+                    "name": "CKSource",
+                    "homepage": "http://cksource.com"
+                }
+            ],
+            "description": "JavaScript WYSIWYG web text editor.",
+            "homepage": "http://ckeditor.com",
+            "keywords": [
+                "CKEditor",
+                "editor",
+                "fckeditor",
+                "html",
+                "javascript",
+                "richtext",
+                "text",
+                "wysiwyg"
+            ],
+            "time": "2016-02-04 17:41:24"
         },
         {
             "name": "clevertech/yii-booster",
