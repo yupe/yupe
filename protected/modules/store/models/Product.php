@@ -608,7 +608,7 @@ class Product extends yupe\models\YModel implements ICommentable
 
         $this->loadAttributes();
 
-        $attributeName = $attribute instanceof Attribute ? $attribute->attribute->name : $attribute;
+        $attributeName = $attribute instanceof Attribute ? $attribute->name : $attribute;
 
         return isset($this->_attributesValues[$attributeName]) ? $this->_attributesValues[$attributeName]->value($default) : $default;
     }

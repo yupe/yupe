@@ -58,7 +58,7 @@ class AttributeRender
      * @param $value
      * @return string
      */
-    public static function renderValue($attribute, $value)
+    public static function renderValue(Attribute $attribute, $value)
     {
         $unit = $attribute->unit ? ' '.$attribute->unit : '';
         $res = '';
