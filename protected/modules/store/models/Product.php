@@ -608,9 +608,10 @@ class Product extends yupe\models\YModel implements ICommentable
 
         $this->loadAttributes();
 
-        return isset($this->_attributesValues[$attribute->id]) ? $this->_attributesValues[$attribute->id]->value($default) : $default;
-    }
+        $attributeName = $attribute instanceof Attribute ? $attribute->attribute->name : $attribute;
 
+        return isset($this->_attributesValues[$attributeName]) ? $this->_attributesValues[$attributeName]->value($default) : $default;
+    }
 
     /**
      *
@@ -622,7 +623,7 @@ class Product extends yupe\models\YModel implements ICommentable
             $this->_attributesValues = [];
 
             foreach ($this->attributesValues as $attribute) {
-                $this->_attributesValues[$attribute->attribute_id] = $attribute;
+                $this->_attributesValues[$attribute->attribute->name] = $attribute;
             }
         }
     }
