@@ -724,8 +724,8 @@ class Product extends yupe\models\YModel implements ICommentable
             }
 
             $criteria = new CDbCriteria();
-            $criteria->addCondition('product_id = :product_id');
             $criteria->params = [':product_id' => $this->id];
+            $criteria->addCondition('product_id = :product_id');
             $criteria->addNotInCondition('id', $productVariants);
             ProductVariant::model()->deleteAll($criteria);
             $transaction->commit();
@@ -952,6 +952,14 @@ class Product extends yupe\models\YModel implements ICommentable
         }
 
         return $this->type->getAttributeGroups();
+    }
+
+    /**
+     * @return ProductVariant[]
+     */
+    public function getVariants()
+    {
+        return $this->variants;
     }
 
     /**

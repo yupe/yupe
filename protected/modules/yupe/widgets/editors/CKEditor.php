@@ -24,7 +24,11 @@ class CKEditor extends \CInputWidget
 
         $this->htmlOptions['id'] = $id;
 
-        echo \CHtml::textArea($name, $this->value, $this->htmlOptions);
+        if($this->hasModel()){
+            echo \CHtml::activeTextArea($this->model, $this->attribute, $this->htmlOptions);
+        }else{
+            echo \CHtml::textArea($name, $this->value, $this->htmlOptions);
+        }
 
         $this->registerClientScript($id);
     }
