@@ -1,6 +1,9 @@
 <?php
 use yupe\components\controllers\FrontController;
 
+/**
+ * Class CategoryController
+ */
 class CategoryController extends FrontController
 {
     /**
@@ -13,14 +16,19 @@ class CategoryController extends FrontController
      */
     protected $attributeFilter;
 
+    /**
+     *
+     */
     public function init()
     {
+        parent::init();
         $this->productRepository = Yii::app()->getComponent('productRepository');
         $this->attributeFilter = Yii::app()->getComponent('attributesFilter');
-
-        parent::init();
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $this->render(
@@ -55,7 +63,6 @@ class CategoryController extends FrontController
             ),
             $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest())
         ) : $this->productRepository->getListForCategory($category);
-
 
         $this->render(
             'view',
