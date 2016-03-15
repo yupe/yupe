@@ -2,18 +2,31 @@
 
 use yupe\models\YModel;
 
+/**
+ * Class ImageGroup
+ */
 class ImageGroup extends YModel
 {
+    /**
+     * @return string
+     */
     public function tableName()
     {
         return '{{store_product_image_group}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -24,6 +37,9 @@ class ImageGroup extends YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -32,6 +48,9 @@ class ImageGroup extends YModel
         ];
     }
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function search()
     {
         $criteria = new CDbCriteria;
@@ -42,9 +61,8 @@ class ImageGroup extends YModel
         return new CActiveDataProvider(
             $this, [
                 'criteria' => $criteria,
-                'sort' => ['defaultOrder' => 'id']
+                'sort' => ['defaultOrder' => 'id'],
             ]
         );
     }
-
 }

@@ -23,9 +23,10 @@ class ProductImage extends \yupe\models\YModel
         return '{{store_product_image}}';
     }
 
+
     /**
-     * Returns the static model of the specified AR class.
-     * @return Attribute the static model class
+     * @param null|string $className
+     * @return $this
      */
     public static function model($className = __CLASS__)
     {
