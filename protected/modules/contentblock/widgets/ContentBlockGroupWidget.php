@@ -12,15 +12,39 @@
 Yii::import('application.modules.contentblock.models.ContentBlock');
 Yii::import('application.modules.contentblock.ContentBlockModule');
 
+/**
+ * Class ContentBlockGroupWidget
+ */
 class ContentBlockGroupWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var
+     */
     public $category;
+    /**
+     * @var
+     */
     public $limit;
+    /**
+     * @var bool
+     */
     public $silent = true;
+    /**
+     * @var int
+     */
     public $cacheTime = 60;
+    /**
+     * @var bool
+     */
     public $rand = false;
+    /**
+     * @var string
+     */
     public $view = 'contentblockgroup';
 
+    /**
+     * @throws CException
+     */
     public function init()
     {
         if (empty($this->category)) {
@@ -36,7 +60,7 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                     'ContentBlockModule.contentblock',
                     'Category "{category}" does not exist, please enter the unsettled category',
                     [
-                        '{category}' => $this->category
+                        '{category}' => $this->category,
                     ]
                 ));
             }
@@ -46,9 +70,12 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
         $this->rand = (int)$this->rand;
     }
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
-        $cacheName = "ContentBlock{$this->category}" . Yii::app()->language;
+        $cacheName = "ContentBlock{$this->category}".Yii::app()->language;
 
         $blocks = Yii::app()->cache->get($cacheName);
 
@@ -78,7 +105,7 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                         'ContentBlockModule.contentblock',
                         'Group content block "{category_id}" was not found !',
                         [
-                            '{category_id}' => $this->category
+                            '{category_id}' => $this->category,
                         ]
                     )
                 );

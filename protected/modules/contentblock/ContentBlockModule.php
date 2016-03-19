@@ -15,7 +15,7 @@ class ContentBlockModule extends yupe\components\WebModule
     /**
      *
      */
-    const VERSION = '0.9.9';
+    const VERSION = '1.0';
 
     /**
      * @return array

@@ -120,7 +120,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
                     Yii::t('ContentBlockModule.contentblock', 'Content block was changed!')
                 );
 
-                Yii::app()->cache->delete("ContentBlock{$model->code}");
+                Yii::app()->getCache()->delete("ContentBlock{$model->code}");
 
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(

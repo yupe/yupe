@@ -12,12 +12,27 @@
 Yii::import('application.modules.contentblock.models.ContentBlock');
 Yii::import('application.modules.contentblock.ContentBlockModule');
 
+/**
+ * Class ContentBlockWidget
+ */
 class ContentBlockWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var
+     */
     public $code;
+    /**
+     * @var bool
+     */
     public $silent = false;
+    /**
+     * @var string
+     */
     public $view = 'contentblock';
 
+    /**
+     * @throws CException
+     */
     public function init()
     {
         if (empty($this->code)) {
@@ -32,11 +47,14 @@ class ContentBlockWidget extends yupe\widgets\YWidget
         $this->silent = (bool)$this->silent;
     }
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
-        $cacheName = "ContentBlock{$this->code}" . Yii::app()->language;
+        $cacheName = "ContentBlock{$this->code}";
 
-        $output = Yii::app()->cache->get($cacheName);
+        $output = Yii::app()->getCache()->get($cacheName);
 
         if ($output === false) {
 
@@ -49,7 +67,7 @@ class ContentBlockWidget extends yupe\widgets\YWidget
                             'ContentBlockModule.contentblock',
                             'Content block "{code}" was not found !',
                             [
-                                '{code}' => $this->code
+                                '{code}' => $this->code,
                             ]
                         )
                     );
@@ -65,7 +83,7 @@ class ContentBlockWidget extends yupe\widgets\YWidget
                 }
             }
 
-            Yii::app()->cache->set($cacheName, $output);
+            Yii::app()->getCache()->set($cacheName, $output);
         }
 
         $this->render($this->view, ['output' => $output]);
