@@ -45,8 +45,8 @@ class AttributeRender
             case Attribute::TYPE_NUMBER:
                 return CHtml::numberField($name, $value, $htmlOptions);
                 break;
-            case Attribute::TYPE_IMAGE:
-                return CHtml::fileField($name, null, $htmlOptions);
+            case Attribute::TYPE_FILE:
+                return CHtml::fileField($name.'[name]', null, $htmlOptions);
                 break;
         }
 

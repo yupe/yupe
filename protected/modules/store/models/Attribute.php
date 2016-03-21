@@ -40,14 +40,16 @@ class Attribute extends \yupe\models\YModel
      *
      */
     const TYPE_CHECKBOX_LIST = 4;
-    /**
-     *
-     */
-    const TYPE_IMAGE = 5;
+
     /**
      *
      */
     const TYPE_NUMBER = 6;
+
+    /**
+     *
+     */
+    const TYPE_FILE = 7;
 
     /**
      * @var
@@ -184,10 +186,9 @@ class Attribute extends \yupe\models\YModel
             self::TYPE_SHORT_TEXT => Yii::t('StoreModule.store', 'Short text (up to 250 characters)'),
             self::TYPE_TEXT => Yii::t('StoreModule.store', 'Text'),
             self::TYPE_DROPDOWN => Yii::t('StoreModule.store', 'Dropdown list'),
-            //self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.store', 'Список чекбоксов'),
             self::TYPE_CHECKBOX => Yii::t('StoreModule.store', 'Checkbox'),
-            //self::TYPE_IMAGE => Yii::t('StoreModule.store', 'Изображение'),
-            self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Число'),
+            self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Number'),
+            self::TYPE_FILE => Yii::t('StoreModule.store', 'File')
         ];
     }
 
@@ -199,7 +200,7 @@ class Attribute extends \yupe\models\YModel
     {
         $list = self::getTypesList();
 
-        return $list[$type];
+        return isset($list[$type]) ? $list[$type] : $type;
     }
 
     /**

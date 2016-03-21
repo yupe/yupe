@@ -10,7 +10,7 @@
                     <legend><?= CHtml::encode($groupName); ?></legend>
                     <?php foreach ($items as $attribute): ?>
                         <?php /* @var $attribute Attribute */ ?>
-                        <?php $hasError = $model->hasErrors('eav.' . $attribute->name); ?>
+                        <?php $hasError = $model->hasErrors($attribute->name); ?>
                         <div class="row form-group">
                             <div class="col-sm-2">
                                 <label for="Attribute_<?= $attribute->name ?>"

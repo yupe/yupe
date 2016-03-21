@@ -329,13 +329,6 @@ $form = $this->beginWidget(
                                 <label for=""><?= Yii::t("StoreModule.store", "File"); ?></label>
                                 <input type="file" class="image-file"/>
                             </div>
-                            <div class="col-xs-6 col-sm-3">
-                                <label for=""><?= Yii::t("StoreModule.store", "Group"); ?></label>
-                                <?= CHtml::dropDownList('', null, ImageGroupHelper::all(), [
-                                    'empty' => Yii::t('StoreModule.store', '--choose--'),
-                                    'class' => 'form-control image-group image-group-dropdown'
-                                ]) ?>
-                            </div>
                             <div class="col-xs-5 col-sm-3">
                                 <label for=""><?= Yii::t("StoreModule.store", "Image title"); ?></label>
                                 <input type="text" class="image-title form-control"/>
@@ -343,6 +336,13 @@ $form = $this->beginWidget(
                             <div class="col-xs-5 col-sm-3">
                                 <label for=""><?= Yii::t("StoreModule.store", "Image alt"); ?></label>
                                 <input type="text" class="image-alt form-control"/>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <label for=""><?= Yii::t("StoreModule.store", "Group"); ?></label>
+                                <?= CHtml::dropDownList('', null, ImageGroupHelper::all(), [
+                                    'empty' => Yii::t('StoreModule.store', '--choose--'),
+                                    'class' => 'form-control image-group image-group-dropdown'
+                                ]) ?>
                             </div>
                             <div class="col-xs-2 col-sm-1" style="padding-top: 24px">
                                 <button class="button-delete-image btn btn-default" type="button"><i

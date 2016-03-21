@@ -182,6 +182,9 @@ class AttributeValue extends yupe\models\YModel
             case Attribute::TYPE_SHORT_TEXT:
                 return $this->string_value;
                 break;
+            case Attribute::TYPE_FILE:
+                return $this->string_value;
+                break;
             default:
                 return $default;
         }
@@ -205,5 +208,19 @@ class AttributeValue extends yupe\models\YModel
         ];
 
         return array_key_exists($type, $map) ? $map[$type] : 'string_value';
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'file-upload' => [
+                'class' => 'yupe\components\behaviors\FileUploadBehavior',
+                'attributeName' => 'string_value',
+                'uploadPath' => Yii::app()->getModule('store')->uploadPath.'/product',
+            ],
+        ];
     }
 }

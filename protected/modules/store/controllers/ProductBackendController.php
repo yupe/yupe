@@ -109,6 +109,8 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
                 $this->updateProductImages($model);
 
+                $this->uploadAttributesFiles($model);
+
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Record was created!')
@@ -155,6 +157,8 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
                 $this->updateProductImages($model);
 
+                $this->uploadAttributesFiles($model);
+
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Record was updated!')
@@ -191,9 +195,37 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     }
 
     /**
+     * @param $model
+     */
+    protected function uploadAttributesFiles($model)
+    {
+        if (!empty($_FILES['Attribute']['name'])) {
+            foreach ($_FILES['Attribute']['name'] as $key => $file) {
+                $value = AttributeValue::model()->find('product_id = :product AND attribute_id = :attribute', [
+                    ':product' => $model->id,
+                    ':attribute' => $key,
+                ]);
+
+                $value = $value ?: new AttributeValue();
+
+                $value->setAttributes([
+                    'product_id' => $model->id,
+                    'attribute_id' => $key,
+                ]);
+
+                $value->addFileInstanceName('Attribute['.$key.'][name]');
+                if (false === $value->save()) {
+                    Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('StoreModule.store', 'Error uploading some files...'));
+                }
+            }
+        }
+    }
+
+    /**
      * @param Product $product
      */
-    public function updateProductImages(Product $product)
+    protected function updateProductImages(Product $product)
     {
         if (Yii::app()->getRequest()->getPost('ProductImage')) {
             foreach (Yii::app()->getRequest()->getPost('ProductImage') as $key => $val) {
@@ -203,8 +235,11 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                     $productImage->product_id = $product->id;
                     $productImage->addFileInstanceName('ProductImage['.$key.'][name]');
                 }
-                $productImage->attributes = $_POST['ProductImage'][$key];
-                $productImage->save();
+                $productImage->setAttributes($_POST['ProductImage'][$key]);
+                if (false === $productImage->save()) {
+                    Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('StoreModule.store', 'Error uploading some images...'));
+                }
             }
         }
     }
@@ -220,8 +255,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
             $model = ProductImage::model()->findByPk($id);
 
-            if (null !== $model) {
-                $model->delete();
+            if (null !== $model && $model->delete()) {
                 Yii::app()->ajax->success();
             }
         }

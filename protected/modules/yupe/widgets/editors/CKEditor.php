@@ -41,7 +41,8 @@ class CKEditor extends \CInputWidget
         $options = [
             'language' => Yii::app()->getLanguage(),
             'filebrowserUploadUrl' => Yii::app()->createUrl('/yupe/backend/AjaxImageUploadCKE'),
-            'extraPlugins' => 'table,tableresize,tabletools,stylesheetparser,embed,image',
+            'extraPlugins' => 'table,tableresize,tabletools,stylesheetparser,embed,image,filetools,docprops,lineutils,liststyle,find,uploadwidget',
+            'autoParagraph' => false
         ];
 
         $assets = Yii::app()->getAssetManager()->publish(

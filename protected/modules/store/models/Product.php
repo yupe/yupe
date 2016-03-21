@@ -102,9 +102,9 @@ class Product extends yupe\models\YModel implements ICommentable
     protected $_variantsOptions = false;
 
     /**
-     * @var bool
+     * @var array
      */
-    protected $_attributesValues = false;
+    protected $_attributesValues;
 
 
     /**
@@ -572,15 +572,18 @@ class Product extends yupe\models\YModel implements ICommentable
 
         try {
 
-            AttributeValue::model()->deleteAll('product_id = :id', [':id' => $this->id]);
-
             foreach ($attributes as $attribute => $value) {
 
                 if (null === $value) {
                     continue;
                 }
 
-                $model = new AttributeValue();
+                $model = AttributeValue::model()->find('product_id = :product AND attribute_id = :attribute', [
+                    ':product' => $this->id,
+                    ':attribute' => $attribute,
+                ]);
+
+                $model = $model ?: new AttributeValue();
 
                 if (false === $model->store($attribute, $value, $this)) {
                     throw new InvalidArgumentException('Error store attribute!');
@@ -593,6 +596,18 @@ class Product extends yupe\models\YModel implements ICommentable
 
             return false;
         }
+    }
+
+
+    /**
+     * @param $attribute
+     * @return string
+     */
+    public function attributeFile($attribute)
+    {
+        $value = $this->attribute($attribute);
+
+        return Yii::app()->getRequest()->getBaseUrl(true).'/'.Yii::app()->getModule('yupe')->uploadPath.'/'.Yii::app()->getModule('store')->uploadPath.'/product/'.$value;
     }
 
     /**
@@ -610,7 +625,8 @@ class Product extends yupe\models\YModel implements ICommentable
 
         $attributeName = $attribute instanceof Attribute ? $attribute->name : $attribute;
 
-        return isset($this->_attributesValues[$attributeName]) ? $this->_attributesValues[$attributeName]->value($default) : $default;
+        return array_key_exists($attributeName,
+            $this->_attributesValues) ? $this->_attributesValues[$attributeName]->value($default) : $default;
     }
 
     /**
@@ -618,7 +634,7 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     protected function loadAttributes()
     {
-        if (false === $this->_attributesValues) {
+        if (null === $this->_attributesValues) {
 
             $this->_attributesValues = [];
 

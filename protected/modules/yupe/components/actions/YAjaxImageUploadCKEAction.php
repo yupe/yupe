@@ -30,14 +30,12 @@ class YAjaxImageUploadCKEAction extends YAjaxImageUploadAction
         $this->webPath = '/'.$this->getController()->yupe->uploadPath.'/files/'.date('Y/m/d').'/';
         $this->uploadPath = Yii::getPathOfAlias('webroot').$this->webPath;
 
-        if (!is_dir($this->uploadPath)) {
-            if (!@mkdir($this->uploadPath, 0755, true)) {
-                $message = Yii::t(
-                    'YupeModule.yupe',
-                    'Can\'t create catalog "{dir}" for files!',
-                    array('{dir}' => $this->uploadPath)
-                );
-            }
+        if (!is_dir($this->uploadPath) && !@mkdir($this->uploadPath, 0755, true)) {
+            $message = Yii::t(
+                'YupeModule.yupe',
+                'Can\'t create catalog "{dir}" for files!',
+                array('{dir}' => $this->uploadPath)
+            );
         }
 
         $this->getController()->disableProfilers();
@@ -50,8 +48,8 @@ class YAjaxImageUploadCKEAction extends YAjaxImageUploadAction
         $form->types = $this->types ?: null;
         $form->file = $this->uploadedFile;
 
-        if ($form->validate() && $this->uploadFile() && ($this->fileLink !== null && $this->fileName !== null)) {
-            $fullPath = $this->fileLink; //'filename' => $this->fileName;
+        if (($this->fileLink !== null && $this->fileName !== null) && $form->validate() && $this->uploadFile()) {
+            $fullPath = $this->fileLink;
         } else {
             $message = implode("\n", $form->getErrors("file"));
         }
@@ -59,7 +57,6 @@ class YAjaxImageUploadCKEAction extends YAjaxImageUploadAction
         $callback = Yii::app()->getRequest()->getParam('CKEditorFuncNum');
         echo '<script type="text/javascript">window.parent.CKEDITOR.tools.callFunction("'.$callback.'", "'.$fullPath.'", "'.$message.'" );</script>';
         Yii::app()->end();
-
     }
 
     /**
