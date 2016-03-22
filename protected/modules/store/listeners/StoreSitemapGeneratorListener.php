@@ -20,7 +20,7 @@ class StoreSitemapGeneratorListener
 
         foreach (new CDataProviderIterator($provider) as $item) {
             $generator->addItem(
-                Yii::app()->createAbsoluteUrl('/store/product/view', ['name' => $item->slug]),
+                ProductHelper::getUrl($item, true),
                 strtotime($item->update_time),
                 SitemapHelper::FREQUENCY_DAILY,
                 0.5
