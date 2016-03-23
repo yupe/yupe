@@ -28,7 +28,7 @@
                         <div class="col-sm-6 text-right">
                             <p>
                                 <?= Yii::app()->cart->getCost(); ?>
-                                <?= Yii::t("CartModule.cart", "RUB"); ?>
+                                <?= Yii::t("CartModule.cart", Yii::app()->getModule('store')->currency); ?>
                             </p>
                         </div>
                     </div>

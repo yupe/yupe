@@ -17,7 +17,7 @@
                     <a href="<?= ProductHelper::getUrl($data); ?>"><?= CHtml::encode($product->getName()); ?></a>
                 </h5>
                 <h5 class="price-text-color">
-                    <?= $product->getResultPrice(); ?> <i class="fa fa-rub"></i>
+                    <?= $product->getResultPrice(); ?> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?>
                 </h5>
             </div>
         </div>
