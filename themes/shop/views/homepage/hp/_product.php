@@ -14,9 +14,9 @@ $price = $data->getResultPrice();
         </a>
         <div class="product-vertical__content"><a href="<?= ProductHelper::getUrl($data); ?>" class="product-vertical__title"><?= CHtml::encode($data->getName()); ?></a>
             <div class="product-vertical__price">
-                <div class="product-price"><?= $price ?><span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
+                <div class="product-price"><?= $price ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
                 <?php if ($basePrice != $price): ?>
-                    <div class="product-price product-price_old"><?= $basePrice ?><span class="ruble"> <?= Yii::t("StoreModule.store", "RUB"); ?></span></div>
+                    <div class="product-price product-price_old"><?= $basePrice ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
                 <?php endif; ?>
             </div>
         </div>
