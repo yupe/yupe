@@ -87,7 +87,7 @@ class YupeModule extends WebModule
     /**
      * @var string
      */
-    public $availableLanguages = 'ru,en,zh_cn';
+    public $availableLanguages = 'ru,en,zh_cn,uk';
     /**
      * @var string
      */
@@ -142,10 +142,11 @@ class YupeModule extends WebModule
 
     /**
      * @since 0.8
+     * @param array $filters
      *
      * Устанавливает массив фильтров для контроллеров панели управления
      */
-    public function setBackendFilters($filters)
+    public function setBackendFilters(array $filters)
     {
         $this->backEndFilters = $filters;
     }

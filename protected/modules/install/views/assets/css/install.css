@@ -1,6 +1,8 @@
-/*.navbar-inner .container-fluid {*/
-/*color: #999999;*/
-/*}*/
+#yupestore {
+    border:none;
+    height: 500px;
+    width: 300px;
+}
 
 #stepName {
     color: #999999;

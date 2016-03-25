@@ -232,6 +232,9 @@ return [
     'Yupe!' => 'Юпи!',
     'Yupe!, yupe, cms, yii' => 'Юпи!, yupe, цмс, yii',
     'Zend OPcache required to optimize and speed up your project.' => 'Zend OPcache необходим для оптимизации и ускорения работы вашего проекта',
-    '{app} can help to deploy YiiFramework project fast and easy.' => '{app} позволит быстро и легко запустить новый проект на Yiiframework',
+    '{app} can help to deploy your new store fast and easy.' => '{app} позволит быстро и легко запустить ваш интернет-магазин!',
     'РНР version' => 'Версия РНР',
+    'Support' => 'Поддержка',
+    'Blog' => 'Блог',
+    'Hosting' => 'Хостинг'
 ];

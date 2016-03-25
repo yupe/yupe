@@ -13,7 +13,7 @@
 
 <p><?=  Yii::t(
         'InstallModule.install',
-        '{app} can help to deploy YiiFramework project fast and easy.',
+        '{app} can help to deploy your new store fast and easy.',
         ['{app}' => Yii::app()->name]
     ); ?></p>
 <p><?=  Yii::t('InstallModule.install', 'Please follow installation instructions.'); ?></p>
@@ -31,7 +31,7 @@
                     ),
                 '{forum}'   => CHtml::link(
                         Yii::t('InstallModule.install', 'forum'),
-                        'http://yupe.ru/talk?from=install',
+                        'http://talk.yupe.ru/?from=install',
                         ['target' => '_blank']
                     )
             ]
@@ -44,7 +44,7 @@
                 [
                     '{link}' => CHtml::link(
                             Yii::t('InstallModule.install', 'our forum'),
-                            'http://talk.yupe.ru/viewforum.php?id=10',
+                            'http://talk.yupe.ru/',
                             ['target' => '_blank']
                         )
                 ]
@@ -55,12 +55,12 @@
 
 <div class="btn-group">
     <?php $languages = $this->yupe->getLanguagesList(); ?>
-    <?php foreach ($languages as $lang => $lang_label) : { ?>
+    <?php foreach ($languages as $lang => $label) : { ?>
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
             [
                 'icon'       => 'iconflags iconflags-' . $lang,
-                'label'      => isset($lang_label) ? $lang_label : $lang,
+                'label'      => isset($label) ? $label : $lang,
                 'buttonType' => 'link',
                 'url'        => ['/install/default/environment', Yii::app()->getUrlManager()->langParam => $lang],
             ]
