@@ -128,13 +128,13 @@ $this->breadcrumbs = array_merge(
 
                                 <p>
                                     <?= Yii::t("StoreModule.store", "Price"); ?>
-                                    : <?= round($product->getBasePrice(), 2); ?> <?= Yii::t("StoreModule.store", "RUB"); ?>
+                                    : <?= round($product->getBasePrice(), 2); ?> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?>
                                 </p>
 
                                 <p>
                                     <?= Yii::t("StoreModule.store", "Fix price with discount"); ?>
                                     : <?= round($product->getDiscountPrice(), 2); ?>
-                                    <?= Yii::t("StoreModule.store", "RUB"); ?>
+                                    <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?>
                                 </p>
 
                                 <p>
@@ -144,7 +144,7 @@ $this->breadcrumbs = array_merge(
                                 <p>
                                     <?= Yii::t("StoreModule.store", "Total price"); ?>: <span
                                         id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
-                                    <?= Yii::t("StoreModule.store", "RUB"); ?>
+                                    <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?>
                                 </p>
                             </div>
 
