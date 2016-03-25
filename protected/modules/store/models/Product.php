@@ -607,6 +607,10 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         $value = $this->attribute($attribute);
 
+        if(null === $value) {
+            return null;
+        }
+
         return Yii::app()->getRequest()->getBaseUrl(true).'/'.Yii::app()->getModule('yupe')->uploadPath.'/'.Yii::app()->getModule('store')->uploadPath.'/product/'.$value;
     }
 
