@@ -224,7 +224,7 @@ return [
     'You need to set write permissions for the directory {folder}assets' => 'Необходимо установить права на запись для директории {folder}assets',
     'You should copy {from file} to {to file} and give it permission to write' => 'Необходимо скопировать {from file} в {to file} и дать доступ для записи',
     'You should disable the directive safe_mode.' => 'Необходимо отключить директиву safe_mode',
-    'Your site is ready to work!' => 'Ваш сайт готов к работе!',
+    'Your store is ready to work!' => 'Ваш интерент-магазин готов к работе! Совершенно бесплатно!',
     'Yupe checks PHP version and needed extensions on this step.' => 'На данном этапе Юпи! проверяет версию PHP и наличие всех необходимых модулей.',
     'yupe team' => 'yupe team',
     'Yupe try to create DB if it doesn\'t exists.' => 'Юпи! попытается сам создать базу данных если вы поставите галочку "Создать базу данных"',
@@ -236,5 +236,8 @@ return [
     'РНР version' => 'Версия РНР',
     'Support' => 'Поддержка',
     'Blog' => 'Блог',
-    'Hosting' => 'Хостинг'
+    'Hosting' => 'Хостинг',
+    'Share with your friends!' => 'Поделитесь с друзьями!',
+    'Free online store!' => 'Совершенно бесплатный интернет-магазин!',
+    'Hosting for your store' => 'Хостинг для интернент-магазина!'
 ];

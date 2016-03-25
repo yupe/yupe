@@ -87,7 +87,7 @@ class YupeModule extends WebModule
     /**
      * @var string
      */
-    public $availableLanguages = 'ru,en,zh_cn,uk';
+    public $availableLanguages = 'ru,uk,en,zh_cn';
     /**
      * @var string
      */
