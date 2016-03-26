@@ -36,10 +36,6 @@ use TagsCache;
  */
 class Settings extends YModel
 {
-    /*
-        TYPE_CORE - для модуля,
-        TYPE_USER - для пользователей
-    */
     /**
      *
      */
@@ -81,7 +77,7 @@ class Settings extends YModel
                 ['module_id, param_name', 'required'],
                 ['module_id, param_name', 'length', 'max' => 100],
                 ['param_value', 'length', 'max' => 500],
-                ['user_id', 'numerical', 'integerOnly' => true],
+                ['user_id, type', 'numerical', 'integerOnly' => true],
                 [
                     'id, module_id, param_name, param_value, create_time, update_time, user_id',
                     'safe',
@@ -161,7 +157,6 @@ class Settings extends YModel
      */
     public static function fetchModuleSettings($moduleId, array $params = null)
     {
-
         $settings = [];
 
         if ($moduleId) {
@@ -209,7 +204,7 @@ class Settings extends YModel
             );
 
             // Если новая запись
-            if ($setting == null) {
+            if ($setting === null) {
                 $setting = new Settings();
                 $setting->module_id = $moduleId;
                 $setting->param_name = $name;

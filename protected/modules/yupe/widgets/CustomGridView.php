@@ -396,13 +396,11 @@ JS
      */
     protected function _updatePageSize()
     {
-
-        // имя текущей модели
         $modelName = strtolower($this->_modelName);
 
         // Делаем так, ибо при попытке править Yii::app()->session['modSettings'] - получаем ошибку
         $sessionSettings = Yii::app()->getUser()->getState(\YWebUser::STATE_MOD_SETTINGS, null);
-        $currentPageSize = $this->dataProvider->getPagination()->pageSize;
+        $currentPageSize = $this->dataProvider->getPagination()->getPageSize();
 
         // Если переменная не найдена нужно проверить наличие данных в БД
         if (!isset($sessionSettings[$modelName]['pageSize'])) {

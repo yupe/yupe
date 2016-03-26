@@ -3,17 +3,26 @@
 use yupe\components\controllers\BackController;
 use yupe\widgets\YFlashMessages;
 
+/**
+ * Class SitemapBackendController
+ */
 class SitemapBackendController extends BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
             ['allow', 'roles' => ['admin']],
             ['allow', 'roles' => ['SitemapModule.SitemapBackend.manage']],
-            ['deny']
+            ['deny'],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -26,10 +35,13 @@ class SitemapBackendController extends BackController
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'SitemapPage',
                 'validAttributes' => ['url', 'changefreq', 'priority', 'status'],
-            ]
+            ],
         ];
     }
 
+    /**
+     *
+     */
     public function actionSettings()
     {
         $sitemapPage = new SitemapPage('search');
@@ -38,6 +50,9 @@ class SitemapBackendController extends BackController
         $this->render('settings', ['sitemapPage' => $sitemapPage]);
     }
 
+    /**
+     *
+     */
     public function actionCreatePage()
     {
         if ($data = Yii::app()->getRequest()->getPost('SitemapPage')) {
@@ -48,18 +63,23 @@ class SitemapBackendController extends BackController
         $this->redirect(['settings']);
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionRegenerate()
     {
-        if(!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getPost('do')) {
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getPost('do')) {
             throw new CHttpException(404);
         }
 
-        if(\yupe\helpers\YFile::rmIfExists($this->getModule()->getSiteMapPath())){
-            Yii::app()->getUser()->setFlash(YFlashMessages::SUCCESS_MESSAGE, Yii::t('SitemapModule.sitemap', 'Sitemap is deleted!'));
+        if (\yupe\helpers\YFile::rmIfExists($this->getModule()->getSiteMapPath())) {
+            Yii::app()->getUser()->setFlash(YFlashMessages::SUCCESS_MESSAGE,
+                Yii::t('SitemapModule.sitemap', 'Sitemap is deleted!'));
             Yii::app()->ajax->success();
         }
 
-        Yii::app()->getUser()->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('SitemapModule.sitemap', 'Sitemap is not deleted!'));
+        Yii::app()->getUser()->setFlash(YFlashMessages::ERROR_MESSAGE,
+            Yii::t('SitemapModule.sitemap', 'Sitemap is not deleted!'));
         Yii::app()->ajax->failure();
     }
 }

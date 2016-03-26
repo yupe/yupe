@@ -88,7 +88,7 @@ class SitemapPage extends yupe\models\YModel
         $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('module', $this->url, true);
+        $criteria->compare('url', $this->url, true);
         $criteria->compare('changefreq', $this->changefreq, true);
         $criteria->compare('priority', $this->priority);
         $criteria->compare('status', $this->status);

@@ -36,7 +36,7 @@ $this->menu = [
         $this->widget(
             'yupe\widgets\CustomGridView',
             [
-                'id' => 'attribute-group-grid',
+                'id' => 'attributes-groups-grid',
                 'type' => 'condensed',
                 'dataProvider' => $attributeGroup->search(),
                 'template' => "{items}\n{multiaction}",
@@ -77,7 +77,7 @@ $this->menu = [
         <?php $this->widget(
             'yupe\widgets\CustomGridView',
             [
-                'id' => 'attribute-grid',
+                'id' => 'attributes-grid',
                 'sortableRows' => true,
                 'sortableAjaxSave' => true,
                 'sortableAttribute' => 'sort',
@@ -130,7 +130,6 @@ $this->menu = [
 <script type="text/javascript">
     $(document).ready(function () {
         var $container = $('body');
-
         $container.on('click', '#add-attribute-group', function (e) {
             e.preventDefault();
             var name = prompt('<?= Yii::t("StoreModule.store", "Title"); ?>');
@@ -151,5 +150,4 @@ $this->menu = [
             }
         });
     });
-
 </script>

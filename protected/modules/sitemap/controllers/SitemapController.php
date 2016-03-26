@@ -18,9 +18,10 @@ class SitemapController extends FrontController
      */
     public function init()
     {
+        parent::init();
+
         $this->generator = Yii::app()->getComponent('sitemapGenerator');
 
-        parent::init();
     }
 
     /**
