@@ -12,6 +12,9 @@
  */
 class MenuBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -25,6 +28,9 @@ class MenuBackendController extends yupe\components\controllers\BackController
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [

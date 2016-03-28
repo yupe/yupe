@@ -108,7 +108,7 @@ $this->widget(
     [
         'buttonType' => 'submit',
         'context'    => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t(
+        'label'      => $model->getIsNewRecord() ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t(
             'MenuModule.menu',
             'Save menu and continue'
         ),
@@ -121,7 +121,7 @@ $this->widget(
     [
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t(
+        'label'       => $model->getIsNewRecord() ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t(
             'MenuModule.menu',
             'Save menu and close'
         ),

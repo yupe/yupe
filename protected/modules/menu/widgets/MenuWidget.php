@@ -26,6 +26,9 @@
 
 Yii::import('application.modules.menu.models.*');
 
+/**
+ * Class MenuWidget
+ */
 class MenuWidget extends yupe\widgets\YWidget
 {
     /**
@@ -49,13 +52,16 @@ class MenuWidget extends yupe\widgets\YWidget
      */
     public $params = [];
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $this->params['items'] = Menu::model()->getItems($this->name, $this->parent_id);
         $this->render(
             $this->layout,
             [
-                'params'       => $this->params,
+                'params' => $this->params,
                 'layoutParams' => $this->layoutParams,
             ]
         );

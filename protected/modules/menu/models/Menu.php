@@ -27,7 +27,13 @@
  */
 class Menu extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_DISABLED = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
 
     /**
@@ -84,11 +90,11 @@ class Menu extends yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id'          => Yii::t('MenuModule.menu', 'Id'),
-            'name'        => Yii::t('MenuModule.menu', 'Name'),
-            'code'        => Yii::t('MenuModule.menu', 'Unified code'),
+            'id' => Yii::t('MenuModule.menu', 'Id'),
+            'name' => Yii::t('MenuModule.menu', 'Name'),
+            'code' => Yii::t('MenuModule.menu', 'Unified code'),
             'description' => Yii::t('MenuModule.menu', 'Description'),
-            'status'      => Yii::t('MenuModule.menu', 'Status'),
+            'status' => Yii::t('MenuModule.menu', 'Status'),
         ];
     }
 
@@ -98,14 +104,14 @@ class Menu extends yupe\models\YModel
     public function attributeDescriptions()
     {
         return [
-            'id'          => Yii::t('MenuModule.menu', 'Menu Id'),
-            'name'        => Yii::t('MenuModule.menu', 'Menu name'),
-            'code'        => Yii::t(
+            'id' => Yii::t('MenuModule.menu', 'Menu Id'),
+            'name' => Yii::t('MenuModule.menu', 'Menu name'),
+            'code' => Yii::t(
                 'MenuModule.menu',
                 'Unified code is using in widget, as identifier for menu printing.'
             ),
             'description' => Yii::t('MenuModule.menu', 'Short description'),
-            'status'      => Yii::t(
+            'status' => Yii::t(
                 'MenuModule.menu',
                 'Choose menu status: <br /><br /><span class="label label-success">active</span> &ndash; Will be visible on site.<br /><br /><span class="label label-warning">not active</span> &ndash; Will be hidden.'
             ),
@@ -118,9 +124,6 @@ class Menu extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
@@ -132,71 +135,92 @@ class Menu extends yupe\models\YModel
         return new CActiveDataProvider(
             get_class($this), [
                 'criteria' => $criteria,
-                'sort'     => ['defaultOrder' => 'status DESC, id'],
+                'sort' => ['defaultOrder' => 'status DESC, id'],
             ]
         );
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
             'active' => [
                 'condition' => 'status = :status',
-                'params'    => [
-                    ':status' => self::STATUS_ACTIVE
-                ]
-            ]
+                'params' => [
+                    ':status' => self::STATUS_ACTIVE,
+                ],
+            ],
         ];
     }
 
+    /**
+     *
+     */
     protected function afterSave()
     {
-        Yii::app()->cache->clear($this->code);
+        Yii::app()->getCache()->clear($this->code);
 
         return parent::afterSave();
     }
 
+    /**
+     *
+     */
     protected function afterDelete()
     {
-        Yii::app()->cache->clear($this->code);
+        Yii::app()->getCache()->clear($this->code);
 
         return parent::afterDelete();
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
             self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'not active'),
-            self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'active'),
+            self::STATUS_ACTIVE => Yii::t('MenuModule.menu', 'active'),
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('MenuModule.menu', '*unknown*');
+        return array_key_exists($this->status, $data) ? $data[$this->status] : $this->status;
     }
 
-    // @todo добавить кэширование
+    /**
+     * @param $code
+     * @param int $parent_id
+     * @return array|mixed
+     * @throws CDbException
+     */
     public function getItems($code, $parent_id = 0)
     {
-        $userId = Yii::app()->user->getId();
-        $items = Yii::app()->cache->get("Menu::{$code}{$parent_id}::user_{$userId}" . Yii::app()->language);
+        $userId = Yii::app()->getUser()->getId();
+
+        $items = Yii::app()->getCache()->get("Menu::{$code}{$parent_id}::user_{$userId}".Yii::app()->getLanguage());
 
         if ($items === false) {
             $alias = $this->getDbConnection()->getSchema()->quoteTableName('menuItems');
             $results = self::model()->with(
                 [
                     'menuItems' => [
-                        'on'     => $alias . '.parent_id = :parent_id AND ' . $alias . '.status = 1',
+                        'on' => $alias.'.parent_id = :parent_id AND '.$alias.'.status = 1',
                         'params' => ['parent_id' => (int)$parent_id],
-                        'order'  => $alias . '.sort ASC, ' . $alias . '.id ASC',
-                    ]
+                        'order' => $alias.'.sort ASC, '.$alias.'.id ASC',
+                    ],
                 ]
             )->findByAttributes(
                 [
-                    'code' => $code
+                    'code' => $code,
                 ]
             );
 
@@ -217,7 +241,7 @@ class Menu extends yupe\models\YModel
                     if (!$result->regular_link) {
                         $url = $result->href;
                         $param = [];
-                        strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = [];
+                        strstr($url, '?') ? list($url, $param) = explode('?', $url) : $param = [];
                         if ($param) {
                             parse_str($param, $param);
                         }
@@ -232,30 +256,30 @@ class Menu extends yupe\models\YModel
                     $url = [];
                 }
 
-                $class = (($childItems) ? ' submenuItem' : '') . (($result->class) ? ' ' . $result->class : '');
+                $class = (($childItems) ? ' submenuItem' : '').(($result->class) ? ' '.$result->class : '');
                 $title_attr = ($result->title_attr) ? ['title' => $result->title_attr] : [];
                 $target = ($result->target && $url) ? ['target' => $result->target] : [];
                 $rel = ($result->rel && $url) ? ['rel' => $result->rel] : [];
 
                 $items[] = [
-                        'label'       => $result->title,
-                        'template'    => $result->before_link . '{menu}' . $result->after_link,
-                        'itemOptions' => ['class' => 'listItem' . $class],
+                        'label' => $result->title,
+                        'template' => $result->before_link.'{menu}'.$result->after_link,
+                        'itemOptions' => ['class' => 'listItem'.$class],
                         'linkOptions' => [
                                 'class' => 'listItemLink',
                             ] + $title_attr + $target + $rel,
-                        'visible'     => MenuItem::model()->getConditionVisible(
+                        'visible' => MenuItem::model()->getConditionVisible(
                             $result->condition_name,
                             $result->condition_denial
                         ),
                     ] + $url;
             }
 
-            Yii::app()->cache->set(
-                "Menu::{$code}{$parent_id}::user_{$userId}" . Yii::app()->language,
+            Yii::app()->getCache()->set(
+                "Menu::{$code}{$parent_id}::user_{$userId}".Yii::app()->getLanguage(),
                 $items,
                 0,
-                new TagsCache('menu', $code, 'loggedIn' . $userId)
+                new TagsCache('menu', $code, 'loggedIn'.$userId)
             );
         }
 
@@ -277,16 +301,9 @@ class Menu extends yupe\models\YModel
         $menuItem->menu_id = $this->id;
         $menuItem->title = $title;
         $menuItem->href = $href;
-        $menuItem->condition_name = '';
-        $menuItem->class = '';
-        $menuItem->title_attr = '';
-        $menuItem->before_link = '';
-        $menuItem->after_link = '';
-        $menuItem->target = '';
-        $menuItem->rel = '';
         $menuItem->regular_link = $regularLink;
         if ($menuItem->save()) {
-            Yii::app()->cache->clear(['menu', $this->code]);
+            Yii::app()->getCache()->clear(['menu', $this->code]);
 
             return true;
         }
@@ -305,7 +322,7 @@ class Menu extends yupe\models\YModel
      */
     public function changeItem($oldTitle, $newTitle, $href, $parentId, $regularLink = false)
     {
-        $menuItem = MenuItem::model()->findByAttributes(["title" => $oldTitle]);
+        $menuItem = MenuItem::model()->findByAttributes(['title' => $oldTitle]);
 
         if ($menuItem === null) {
             return $this->addItem($newTitle, $href, $parentId, $regularLink);
@@ -318,8 +335,7 @@ class Menu extends yupe\models\YModel
         $menuItem->regular_link = $regularLink;
 
         if ($menuItem->save()) {
-            Yii::app()->cache->clear(['menu', $this->code]);
-
+            Yii::app()->getCache()->clear(['menu', $this->code]);
             return true;
         }
 

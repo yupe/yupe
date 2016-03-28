@@ -2,52 +2,52 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'id'                     => 'menu-item-form',
-        'enableAjaxValidation'   => false,
+        'id' => 'menu-item-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'htmlOptions'            => ['class' => 'well'],
+        'type' => 'vertical',
+        'htmlOptions' => ['class' => 'well'],
     ]
 ); ?>
 <div class="alert alert-info">
-    <?=  Yii::t('MenuModule.menu', 'Fields with'); ?>
+    <?= Yii::t('MenuModule.menu', 'Fields with'); ?>
     <span class="required">*</span>
-    <?=  Yii::t('MenuModule.menu', 'are required.'); ?>
+    <?= Yii::t('MenuModule.menu', 'are required.'); ?>
 </div>
 
-<?=  $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
     <?php
-    $menu_id = '#' . CHtml::activeId($model, 'menu_id');
-    $parent_id = '#' . CHtml::activeId($model, 'parent_id');
+    $menu_id = '#'.CHtml::activeId($model, 'menu_id');
+    $parent_id = '#'.CHtml::activeId($model, 'parent_id');
     ?>
     <div class="col-sm-3">
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'menu_id',
             [
                 'widgetOptions' => [
-                    'data'        => CHtml::listData(Menu::model()->findAll(), 'id', 'name'),
+                    'data' => CHtml::listData(Menu::model()->findAll(), 'id', 'name'),
                     'htmlOptions' => [
-                        'class'               => 'popover-help',
+                        'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('menu_id'),
-                        'data-content'        => $model->getAttributeDescription('menu_id'),
-                        'empty'               => Yii::t('MenuModule.menu', '--choose menu--'),
-                        'ajax'                => [
-                            'type'       => 'POST',
-                            'url'        => $this->createUrl(
-                                    '/menu/menuitemBackend/dynamicparent',
-                                    (!$model->isNewRecord ? ['id' => $model->id] : [])
-                                ),
-                            'update'     => $parent_id,
+                        'data-content' => $model->getAttributeDescription('menu_id'),
+                        'empty' => Yii::t('MenuModule.menu', '--choose menu--'),
+                        'ajax' => [
+                            'type' => 'POST',
+                            'url' => $this->createUrl(
+                                '/menu/menuitemBackend/dynamicparent',
+                                (!$model->getIsNewRecord() ? ['id' => $model->id] : [])
+                            ),
+                            'update' => $parent_id,
                             'beforeSend' => "function () {
-                            $('" . $parent_id . "').attr('disabled', true);
-                            if ($('" . $menu_id . " option:selected').val() == '')
+                            $('".$parent_id."').attr('disabled', true);
+                            if ($('".$menu_id." option:selected').val() == '')
                                 return false;
                         }",
-                            'complete'   => "function () {
-                            $('" . $parent_id . "').attr('disabled', false);
+                            'complete' => "function () {
+                            $('".$parent_id."').attr('disabled', false);
                         }",
                         ],
                     ],
@@ -56,18 +56,18 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'parent_id',
             [
                 'widgetOptions' => [
-                    'data'        => $model->getParentTree(),
+                    'data' => $model->getParentTree(),
                     'htmlOptions' => [
-                        'disabled'            => ($model->menu_id) ? false : true,
-                        'encode'              => false,
-                        'class'               => 'popover-help',
+                        'disabled' => ($model->menu_id) ? false : true,
+                        'encode' => false,
+                        'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('parent_id'),
-                        'data-content'        => $model->getAttributeDescription('parent_id'),
+                        'data-content' => $model->getAttributeDescription('parent_id'),
                     ],
                 ],
             ]
@@ -77,15 +77,15 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?=  $form->textFieldGroup(
+        <?= $form->textFieldGroup(
             $model,
             'title',
             [
                 'widgetOptions' => [
                     'htmlOptions' => [
-                        'class'               => 'popover-help',
+                        'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('title'),
-                        'data-content'        => $model->getAttributeDescription('title'),
+                        'data-content' => $model->getAttributeDescription('title'),
                     ],
                 ],
             ]
@@ -95,15 +95,15 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?=  $form->checkBoxGroup(
+        <?= $form->checkBoxGroup(
             $model,
             'regular_link',
             [
                 'widgetOptions' => [
                     'htmlOptions' => [
-                        'class'               => 'popover-help',
+                        'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('regular_link'),
-                        'data-content'        => $model->getAttributeDescription('regular_link'),
+                        'data-content' => $model->getAttributeDescription('regular_link'),
                     ],
                 ],
             ]
@@ -113,15 +113,15 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-7">
-        <?=  $form->textFieldGroup(
+        <?= $form->textFieldGroup(
             $model,
             'href',
             [
                 'widgetOptions' => [
                     'htmlOptions' => [
-                        'class'               => 'popover-help',
+                        'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('href'),
-                        'data-content'        => $model->getAttributeDescription('href'),
+                        'data-content' => $model->getAttributeDescription('href'),
                     ],
                 ],
             ]
@@ -131,22 +131,22 @@ $form = $this->beginWidget(
 
 <div class="row hidden">
     <div class="col-sm-7">
-        <?=  $form->textFieldGroup($model, 'sort'); ?>
+        <?= $form->textFieldGroup($model, 'sort'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-2">
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
             [
                 'widgetOptions' => [
-                    'data'        => $model->getStatusList(),
+                    'data' => $model->getStatusList(),
                     'htmlOptions' => [
-                        'class'               => 'popover-help',
+                        'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
-                        'data-content'        => $model->getAttributeDescription('status'),
+                        'data-content' => $model->getAttributeDescription('status'),
                     ],
                 ],
             ]
@@ -160,7 +160,7 @@ $form = $this->beginWidget(
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    <?=  Yii::t('MenuModule.menu', 'Extended settings'); ?>
+                    <?= Yii::t('MenuModule.menu', 'Extended settings'); ?>
                 </a>
             </h4>
         </div>
@@ -168,16 +168,16 @@ $form = $this->beginWidget(
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-7">
-                        <?=  $form->textFieldGroup(
+                        <?= $form->textFieldGroup(
                             $model,
                             'title_attr',
                             [
                                 'widgetOptions' => [
-                                    'data'        => $model->getStatusList(),
+                                    'data' => $model->getStatusList(),
                                     'htmlOptions' => [
-                                        'class'               => 'popover-help',
+                                        'class' => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('title_attr'),
-                                        'data-content'        => $model->getAttributeDescription('title_attr'),
+                                        'data-content' => $model->getAttributeDescription('title_attr'),
                                     ],
                                 ],
                             ]
@@ -187,16 +187,16 @@ $form = $this->beginWidget(
                 </div>
                 <div class="row">
                     <div class="col-sm-7">
-                        <?=  $form->textFieldGroup(
+                        <?= $form->textFieldGroup(
                             $model,
                             'class',
                             [
                                 'widgetOptions' => [
-                                    'data'        => $model->getStatusList(),
+                                    'data' => $model->getStatusList(),
                                     'htmlOptions' => [
-                                        'class'               => 'popover-help',
+                                        'class' => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('class'),
-                                        'data-content'        => $model->getAttributeDescription('class'),
+                                        'data-content' => $model->getAttributeDescription('class'),
                                     ],
                                 ],
                             ]
@@ -205,32 +205,32 @@ $form = $this->beginWidget(
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <?=  $form->textFieldGroup(
+                        <?= $form->textFieldGroup(
                             $model,
                             'before_link',
                             [
                                 'widgetOptions' => [
-                                    'data'        => $model->getStatusList(),
+                                    'data' => $model->getStatusList(),
                                     'htmlOptions' => [
-                                        'class'               => 'popover-help',
+                                        'class' => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('before_link'),
-                                        'data-content'        => $model->getAttributeDescription('before_link'),
+                                        'data-content' => $model->getAttributeDescription('before_link'),
                                     ],
                                 ],
                             ]
                         ); ?>
                     </div>
                     <div class="col-sm-4">
-                        <?=  $form->textFieldGroup(
+                        <?= $form->textFieldGroup(
                             $model,
                             'after_link',
                             [
                                 'widgetOptions' => [
-                                    'data'        => $model->getStatusList(),
+                                    'data' => $model->getStatusList(),
                                     'htmlOptions' => [
-                                        'class'               => 'popover-help',
+                                        'class' => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('after_link'),
-                                        'data-content'        => $model->getAttributeDescription('after_link'),
+                                        'data-content' => $model->getAttributeDescription('after_link'),
                                     ],
                                 ],
                             ]
@@ -239,32 +239,32 @@ $form = $this->beginWidget(
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <?=  $form->textFieldGroup(
+                        <?= $form->textFieldGroup(
                             $model,
                             'target',
                             [
                                 'widgetOptions' => [
-                                    'data'        => $model->getStatusList(),
+                                    'data' => $model->getStatusList(),
                                     'htmlOptions' => [
-                                        'class'               => 'popover-help',
+                                        'class' => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('target'),
-                                        'data-content'        => $model->getAttributeDescription('target'),
+                                        'data-content' => $model->getAttributeDescription('target'),
                                     ],
                                 ],
                             ]
                         ); ?>
                     </div>
                     <div class="col-sm-4">
-                        <?=  $form->textFieldGroup(
+                        <?= $form->textFieldGroup(
                             $model,
                             'rel',
                             [
                                 'widgetOptions' => [
-                                    'data'        => $model->getStatusList(),
+                                    'data' => $model->getStatusList(),
                                     'htmlOptions' => [
-                                        'class'               => 'popover-help',
+                                        'class' => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('rel'),
-                                        'data-content'        => $model->getAttributeDescription('rel'),
+                                        'data-content' => $model->getAttributeDescription('rel'),
                                     ],
                                 ],
                             ]
@@ -273,33 +273,33 @@ $form = $this->beginWidget(
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <?=  $form->dropDownListGroup(
+                        <?= $form->dropDownListGroup(
                             $model,
                             'condition_name',
                             [
                                 'widgetOptions' => [
-                                    'data'        => $model->getConditionList(),
+                                    'data' => $model->getConditionList(),
                                     'htmlOptions' => [
-                                        'class'               => 'popover-help',
+                                        'class' => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('condition_name'),
-                                        'data-content'        => $model->getAttributeDescription('condition_name'),
-                                        'empty'               => '',
+                                        'data-content' => $model->getAttributeDescription('condition_name'),
+                                        'empty' => '',
                                     ],
                                 ],
                             ]
                         ); ?>
                     </div>
                     <div class="col-sm-3">
-                        <?=  $form->dropDownListGroup(
+                        <?= $form->dropDownListGroup(
                             $model,
                             'condition_denial',
                             [
                                 'widgetOptions' => [
-                                    'data'        => $model->getConditionDenialList(),
+                                    'data' => $model->getConditionDenialList(),
                                     'htmlOptions' => [
-                                        'class'               => 'popover-help',
+                                        'class' => 'popover-help',
                                         'data-original-title' => $model->getAttributeLabel('condition_denial'),
-                                        'data-content'        => $model->getAttributeDescription('condition_denial'),
+                                        'data-content' => $model->getAttributeDescription('condition_denial'),
                                     ],
                                 ],
                             ]
@@ -316,23 +316,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
-        'context'    => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu item and continue') : Yii::t(
-                'MenuModule.menu',
-                'Save menu item and continue'
-            ),
+        'context' => 'primary',
+        'label' => $model->getIsNewRecord() ? Yii::t('MenuModule.menu', 'Create menu item and continue') : Yii::t(
+            'MenuModule.menu',
+            'Save menu item and continue'
+        ),
     ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'buttonType'  => 'submit',
+        'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu item and close') : Yii::t(
-                'MenuModule.menu',
-                'Save menu item and close'
-            ),
+        'label' => $model->getIsNewRecord() ? Yii::t('MenuModule.menu', 'Create menu item and close') : Yii::t(
+            'MenuModule.menu',
+            'Save menu item and close'
+        ),
     ]
 ); ?>
 

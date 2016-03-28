@@ -12,32 +12,46 @@
  */
 class MenuitemBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
             ['allow', 'roles' => ['admin']],
             ['allow', 'actions' => ['index'], 'roles' => ['Menu.MenuitemBackend.Index']],
             ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuitemBackend.View']],
-            ['allow', 'actions' => ['create', 'dynamicParent', 'getjsonitems'], 'roles' => ['Menu.MenuitemBackend.Create']],
-            ['allow', 'actions' => ['update', 'inline', 'sortable', 'dynamicParent', 'getjsonitems'], 'roles' => ['Menu.MenuitemBackend.Update']],
+            [
+                'allow',
+                'actions' => ['create', 'dynamicParent', 'getjsonitems'],
+                'roles' => ['Menu.MenuitemBackend.Create'],
+            ],
+            [
+                'allow',
+                'actions' => ['update', 'inline', 'sortable', 'dynamicParent', 'getjsonitems'],
+                'roles' => ['Menu.MenuitemBackend.Update'],
+            ],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Menu.MenuitemBackend.Delete']],
-            ['deny']
+            ['deny'],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'MenuItem',
-                'validAttributes' => ['title', 'href', 'status', 'menu_id', 'sort']
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'MenuItem',
+                'validAttributes' => ['title', 'href', 'status', 'menu_id', 'sort'],
             ],
             'sortable' => [
                 'class' => 'yupe\components\actions\SortAction',
                 'model' => 'MenuItem',
-                'attribute' => 'sort'
-            ]
+                'attribute' => 'sort',
+            ],
         ];
     }
 
@@ -54,17 +68,17 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             throw new CHttpException(404);
         }
 
-        if (($menuId = Yii::app()->getRequest()->getPost('menuId')) == null) {
+        if (($menuId = Yii::app()->getRequest()->getPost('menuId')) === null) {
             throw new CHttpException(404);
         }
 
         $items = MenuItem::model()->public()->findAll(
             [
                 'condition' => 'menu_id = :menu_id',
-                'order'     => 'title DESC',
-                'params'    => [
-                    ':menu_id' => $menuId
-                ]
+                'order' => 'title DESC',
+                'params' => [
+                    ':menu_id' => $menuId,
+                ],
             ]
         );
 
@@ -107,7 +121,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'New item was added to menu!')
                 );
@@ -141,7 +155,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'Record was updated!')
                 );
@@ -174,7 +188,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             // we only allow deletion via POST request
             $this->loadModel($id)->deleteWithChild();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('MenuModule.menu', 'Record was removed!')
             );
@@ -209,31 +223,30 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         $this->render('index', ['model' => $model]);
     }
 
+
     /**
-     * Обновление дерева пунктов меню в завимости от родителя.
-     *
-     * @return void
+     * @throws CHttpException
      */
     public function actionDynamicParent()
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && ($data = Yii::app()->getRequest()->getParam(
-                'MenuItem'
-            )) !== null
-        ) {
-            $model = new MenuItem('search');
+        if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
+            throw new CHttpException(404);
+        }
 
-            $model->setAttributes($data);
+        $model = new MenuItem('search');
 
-            if ($model->menu_id) {
-                if (isset($_GET['id'])) {
-                    $model->id = $_GET['id'];
-                }
+        $model->setAttributes(
+            Yii::app()->getRequest()->getParam('MenuItem')
+        );
 
-                $data = $model->parentTree;
+        if ($model->menu_id) {
 
-                foreach ($data as $value => $name) {
-                    echo CHtml::tag('option', ['value' => $value], $name, true);
-                }
+            $model->id = Yii::app()->getRequest()->getQuery('id');
+
+            $data = $model->getParentTree();
+
+            foreach ($data as $value => $name) {
+                echo CHtml::tag('option', ['value' => $value], $name, true);
             }
         }
 
