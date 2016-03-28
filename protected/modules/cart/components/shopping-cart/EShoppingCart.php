@@ -17,8 +17,14 @@ class EShoppingCart extends CMap
      */
     public $refresh = true;
 
+    /**
+     * @var array
+     */
     public $discounts = [];
 
+    /**
+     * @var string
+     */
     public $cartId = __CLASS__;
 
     /**
@@ -37,13 +43,19 @@ class EShoppingCart extends CMap
      */
     protected $discountPrice = 0.0;
 
+    /**
+     *
+     */
     public function init()
     {
         $this->restoreFromSession();
         $this->couponManager = Yii::app()->getComponent('couponManager');
-        $this->eventManager  = Yii::app()->getComponent('eventManager');
+        $this->eventManager = Yii::app()->getComponent('eventManager');
     }
 
+    /**
+     * @return CouponManager
+     */
     public function getCouponManager()
     {
         return $this->couponManager;
