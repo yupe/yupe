@@ -3454,7 +3454,7 @@ a {
     bottom: -2px;
     left: 0;
     z-index: 1;
-    clip: rect(-1px, 11px, 21px, 0);
+    clip: rect(1px, 11px, 21px, 0);
     width: 12px;
     height: 26px
 }
@@ -3491,58 +3491,6 @@ span.required {
 .rich-radio-body {
     height: 100%;
     display: table
-}
-
-.rich-radio-body__img {
-    display: block;
-    margin-left: 34px;
-    margin-right: -56px;
-    position: relative;
-    width: 161px;
-    height: 100%;
-    min-height: 111px
-}
-
-.rich-radio-body__img:after {
-    position: absolute;
-    content: '';
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto
-}
-
-.rich-radio-body__img_in-cash:after {
-    sprite: $in-cash
-}
-
-.rich-radio-body__img_shop:after {
-    sprite: $market
-}
-
-.rich-radio-body__img_online:after {
-    sprite: $online
-}
-
-.rich-radio-body__img_bank:after {
-    sprite: $bank
-}
-
-.rich-radio-body__img_credit:after {
-    sprite: $credit
-}
-
-.rich-radio-body__img_railway:after {
-    sprite: $railway
-}
-
-.rich-radio-body__img_pek:after {
-    sprite: $pek
-}
-
-.rich-radio-body__img_trans-other:after {
-    sprite: $trans-other
 }
 
 .rich-radio-body__content {
@@ -4087,7 +4035,6 @@ span.required {
     padding-top: .25em;
     padding-bottom: .75em;
     padding-left: 1.8em;
-    background-image: url(../images/svg/1_logo_attention.svg);
     background-position: left .25em;
     background-repeat: no-repeat;
     background-size: 1.5em;
