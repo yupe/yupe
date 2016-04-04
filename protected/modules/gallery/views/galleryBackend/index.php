@@ -140,6 +140,7 @@ $this->menu = [
                         'icon'  => 'fa fa-fw fa-picture-o',
                         'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
                         'url'   => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
+                        'options' => ['class' => 'btn btn-sm btn-default'],
                     ],
                 ],
             ],
