@@ -7,8 +7,6 @@ Yii::app()->getClientScript()->registerCssFile(
         Yii::getPathOfAlias('application.modules.user.views.assets') . '/css/backendlogin.css'
     )
 );
-
-
 ?>
 <div class="wrapper">
     <div class="login-form">
@@ -16,7 +14,7 @@ Yii::app()->getClientScript()->registerCssFile(
         $form = $this->beginWidget(
             'bootstrap.widgets.TbActiveForm',
             [
-                'id'          => 'horizontalForm',
+                'id' => 'horizontalForm',
                 'htmlOptions' => ['class' => 'well']
             ]
         ); ?>
@@ -32,7 +30,13 @@ Yii::app()->getClientScript()->registerCssFile(
                 </div>
                 <?php if ($this->getModule()->sessionLifeTime > 0): { ?>
                     <div class="col-xs-12">
-                        <?= $form->checkBoxGroup($model, 'remember_me'); ?>
+                        <?= $form->checkBoxGroup($model, 'remember_me', [
+                            'widgetOptions' => [
+                                'htmlOptions' => [
+                                    'checked' => true
+                                ]
+                            ]
+                        ]); ?>
                     </div>
                 <?php } endif; ?>
 
@@ -71,9 +75,9 @@ Yii::app()->getClientScript()->registerCssFile(
             $this->widget(
                 'bootstrap.widgets.TbButton',
                 [
-                    'buttonType'  => 'submit',
-                    'context'     => 'primary',
-                    'label'       => Yii::t('UserModule.user', 'Login'),
+                    'buttonType' => 'submit',
+                    'context' => 'primary',
+                    'label' => Yii::t('UserModule.user', 'Login'),
                     'htmlOptions' => [
                         'class' => 'btn-block'
                     ],

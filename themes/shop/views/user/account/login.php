@@ -34,7 +34,7 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
 
         <?php if ($this->getModule()->sessionLifeTime > 0): { ?>
             <div class="fast-order__inputs">
-                <?= $form->checkBox($model, 'remember_me'); ?>
+                <?= $form->checkBox($model, 'remember_me', ['checked' => true]); ?>
                 <?= $form->labelEx($model, 'remember_me'); ?>
             </div>
         <?php } endif; ?>
