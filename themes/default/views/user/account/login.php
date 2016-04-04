@@ -8,8 +8,8 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'id'          => 'login-form',
-        'type'        => 'vertical',
+        'id' => 'login-form',
+        'type' => 'vertical',
         'htmlOptions' => [
             'class' => 'well',
         ]
@@ -33,7 +33,13 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
 <?php if ($this->getModule()->sessionLifeTime > 0): { ?>
     <div class='row'>
         <div class="col-xs-12">
-            <?= $form->checkBoxGroup($model, 'remember_me'); ?>
+            <?= $form->checkBoxGroup($model, 'remember_me', [
+                'widgetOptions' => [
+                    'htmlOptions' => [
+                        'checked' => true
+                    ]
+                ]
+            ]); ?>
         </div>
     </div>
 <?php } endif; ?>
@@ -52,13 +58,13 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
                 'CCaptcha',
                 [
                     'showRefreshButton' => true,
-                    'imageOptions'      => [
+                    'imageOptions' => [
                         'width' => '150',
                     ],
-                    'buttonOptions'     => [
+                    'buttonOptions' => [
                         'class' => 'btn btn-default',
                     ],
-                    'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
+                    'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
                 ]
             ); ?>
         </div>
@@ -72,10 +78,10 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
         $this->widget(
             'bootstrap.widgets.TbButton',
             [
-                'buttonType'  => 'submit',
-                'context'     => 'primary',
-                'icon'        => 'glyphicon glyphicon-signin',
-                'label'       => Yii::t('UserModule.user', 'Sign in'),
+                'buttonType' => 'submit',
+                'context' => 'primary',
+                'icon' => 'glyphicon glyphicon-signin',
+                'label' => Yii::t('UserModule.user', 'Sign in'),
                 'htmlOptions' => ['id' => 'login-btn', 'name' => 'login-btn']
             ]
         ); ?>
@@ -85,9 +91,9 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
             'bootstrap.widgets.TbButton',
             [
                 'buttonType' => 'link',
-                'context'    => 'link',
-                'label'      => Yii::t('UserModule.user', 'Sign up'),
-                'url'        => Yii::app()->createUrl('/user/account/registration'),
+                'context' => 'link',
+                'label' => Yii::t('UserModule.user', 'Sign up'),
+                'url' => Yii::app()->createUrl('/user/account/registration'),
             ]
         ); ?>
     </div>
@@ -101,7 +107,7 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
             $this->widget(
                 'vendor.nodge.yii-eauth.EAuthWidget',
                 [
-                    'action'             => '/social/login',
+                    'action' => '/social/login',
                     'predefinedServices' => ['google', 'facebook', 'vkontakte', 'twitter', 'github'],
                 ]
             );
