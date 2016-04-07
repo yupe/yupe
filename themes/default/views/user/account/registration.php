@@ -21,8 +21,8 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
         $('#generate_password').click(function () {
             var pass = str_rand($(this).data('minlength'));
             $('#RegistrationForm_password').attr('type', 'text');
-            $('#RegistrationForm_password').attr('value', pass);
-            $('#RegistrationForm_cPassword').attr('value', pass);
+            $('#RegistrationForm_password').val(pass);
+            $('#RegistrationForm_cPassword').val(pass);
         });
     })
 </script>
