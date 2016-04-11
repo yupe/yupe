@@ -17,7 +17,7 @@ class CallbackModule extends WebModule
     /**
      *
      */
-    const VERSION = '0.9.9';
+    const VERSION = '1.0';
 
     /**
      * @var
