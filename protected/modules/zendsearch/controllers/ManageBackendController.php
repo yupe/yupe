@@ -66,7 +66,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
             // Лимит количества символов к описанию превью найденной страницы
             $limit = 600;
             SetLocale(LC_ALL, 'ru_RU.UTF-8');
-            $analyzer = new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive();
+            $analyzer = new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive();
             Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
             $index = new Zend_Search_Lucene(Yii::getPathOfAlias('application.' . $indexFiles), true);
 
