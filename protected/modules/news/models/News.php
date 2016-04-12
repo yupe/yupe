@@ -308,13 +308,4 @@ class News extends yupe\models\YModel
     {
         return yupe\helpers\YText::langToflag($this->lang);
     }
-
-    /**
-     * @deprecated
-     * @return mixed
-     */
-    public function getPermaLink()
-    {
-        return $this->getUrl();
-    }
 }
