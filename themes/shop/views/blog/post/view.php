@@ -17,7 +17,7 @@ Yii::app()->clientScript->registerScript(
 
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index/'],
-    CHtml::encode($post->blog->name)   => $post->blog->getUrl(),
+    CHtml::encode($post->blog->name) => ['/blog/blog/view', 'slug' => $post->blog->slug],
     $post->title,
 ];
 ?>
