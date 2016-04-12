@@ -11,7 +11,7 @@
 $this->title = Yii::t('GalleryModule.gallery', 'Gallery');
 $this->breadcrumbs = [
     Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/gallery/index'],
-    $model->gallery->name => $model->gallery->getUrl(),
+    $model->gallery->name => ['/gallery/gallery/view', 'id' => $model->gallery->id],
     Yii::t(
         'GalleryModule.gallery',
         'Edit message #{id}',

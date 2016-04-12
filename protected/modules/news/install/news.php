@@ -9,13 +9,13 @@
  * @link     http://yupe.ru
  **/
 return [
-    'module'    => [
+    'module' => [
         'class' => 'application.modules.news.NewsModule',
     ],
-    'import'    => [],
+    'import' => [],
     'component' => [
-        'eventManager'   => [
-            'class'  => 'yupe\components\EventManager',
+        'eventManager' => [
+            'class' => 'yupe\components\EventManager',
             'events' => [
                 'sitemap.before.generate' => [
                     ['\NewsSitemapGeneratorListener', 'onGenerate']
@@ -23,8 +23,8 @@ return [
             ]
         ]
     ],
-    'rules'     => [
-        '/news/'        => 'news/news/index',
+    'rules' => [
+        '/news/' => 'news/news/index',
         '/news/<slug>' => 'news/news/view',
     ],
 ];
