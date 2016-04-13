@@ -26,6 +26,10 @@ class DCategoryTreeBehavior extends DCategoryBehavior
      * @var string model parent BELONGS_TO relation
      */
     public $parentRelation = 'parent';
+    /**
+     * @var null Stat relation name (defined in defaultCriteria)
+     */
+    public $statAttribute = null;
 
     /**
      * Returns array of primary keys of children items
@@ -294,6 +298,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
                 $resultArray[$item->getPrimaryKey()] = [
                         'id' => $item->getPrimaryKey(),
                         'label' => $item->name,
+                        'count' => $this->statAttribute ? $item->{$this->statAttribute} : 0,
                         'url' =>  Yii::app()->createUrl('/store/category/view', ['path' => $item->path]),
                         'icon' => $this->getAttributeValue('iconAttribute', $item),
                         'icon_alt' => $this->getAttributeValue('iconAltAttribute', $item),

@@ -20,8 +20,8 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
     <?php $this->widget('application.modules.store.widgets.SearchProductWidget'); ?>
 </div>
 <div class="row">
-    <form id="store-filter" name="store-filter" method="get">
-        <div class="col-sm-3">
+    <div class="col-sm-3">
+        <form id="store-filter" name="store-filter" method="get">
             <div>
                 <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
             </div>
@@ -34,8 +34,9 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
             <div>
                 <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
             </div>
-        </div>
-    </form>
+        </form>
+        <?php $this->widget('application.modules.store.widgets.CategoryWidget', ['view' => 'category-with-count']); ?>
+    </div>
     <div class="col-sm-9">
         <section>
             <div class="grid">
