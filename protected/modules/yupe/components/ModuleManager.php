@@ -196,12 +196,19 @@ class ModuleManager extends \CApplicationComponent
                             unset($modSettings[0]);
                         }
 
+                        if ($key !== self::CORE_MODULE) {
+                            $data['items'] = array_merge(
+                                $data['items'],
+                                $key === self::CORE_MODULE ? [] : $modSettings
+                            );
+                        }
+
                         $modulesNavigation[$keyCategory]['items'][$modules[$key]->id] = $data;
                     }
                 }
 
-                foreach($modulesNavigation as $key => $data) {
-                    if(count($data['items']) === 1){
+                foreach ($modulesNavigation as $key => $data) {
+                    if (count($data['items']) === 1) {
                         $items = array_shift($modulesNavigation[$key]['items']);
                         $modulesNavigation[$key]['items'] = $items['items'];
                     }
