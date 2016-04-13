@@ -110,8 +110,10 @@ class StoreCategory extends \yupe\models\YModel
                 'requestPathAttribute' => 'path',
                 'parentAttribute' => 'parent_id',
                 'parentRelation' => 'parent',
+                'statAttribute' => 'productCount',
                 'defaultCriteria' => [
                     'order' => 't.sort',
+                    'with' => 'productCount',
                 ],
                 'titleAttribute' => 'name',
                 'iconAttribute' => function(StoreCategory $item){
