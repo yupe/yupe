@@ -106,6 +106,7 @@ class Attribute extends \yupe\models\YModel
             'options' => [self::HAS_MANY, 'AttributeOption', 'attribute_id', 'order' => 'options.position ASC'],
             'group' => [self::BELONGS_TO, 'AttributeGroup', 'group_id'],
             'value' => [self::BELONGS_TO, 'AttributeValue', 'attribute_id'],
+            'types' => [self::HAS_MANY, 'TypeAttribute', 'attribute_id'],
         ];
     }
 
@@ -188,7 +189,7 @@ class Attribute extends \yupe\models\YModel
             self::TYPE_DROPDOWN => Yii::t('StoreModule.store', 'Dropdown list'),
             self::TYPE_CHECKBOX => Yii::t('StoreModule.store', 'Checkbox'),
             self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Number'),
-            self::TYPE_FILE => Yii::t('StoreModule.store', 'File')
+            self::TYPE_FILE => Yii::t('StoreModule.store', 'File'),
         ];
     }
 
@@ -233,7 +234,7 @@ class Attribute extends \yupe\models\YModel
      */
     public function afterSave()
     {
-        if ($this->type == Attribute::TYPE_DROPDOWN) {
+        if ($this->type === Attribute::TYPE_DROPDOWN) {
             // список новых значений опций атрибута, не пустые, без лишних пробелов по бокам, уникальные
             $newOptions = array_unique(
                 array_filter(
@@ -367,5 +368,53 @@ class Attribute extends \yupe\models\YModel
                 'attributeName' => 'sort',
             ],
         ];
+    }
+
+
+    /**
+     * @param array $types
+     * @return bool
+     * @throws CDbException
+     */
+    public function setTypes(array $types)
+    {
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        try {
+            TypeAttribute::model()->deleteAll('attribute_id = :attribute', [
+                ':attribute' => $this->id,
+            ]);
+
+            foreach ($types as $type) {
+                $attribute = new TypeAttribute();
+                $attribute->setAttributes([
+                    'attribute_id' => $this->id,
+                    'type_id' => (int)$type,
+                ]);
+                $attribute->save();
+            }
+
+            $transaction->commit();
+
+            return true;
+        } catch (Exception $e) {
+            $transaction->rollback();
+
+            return false;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getTypes()
+    {
+        $types = [];
+
+        foreach ($this->types as $type) {
+            $types[$type->type_id] = true;
+        }
+
+        return $types;
     }
 }

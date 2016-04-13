@@ -67,6 +67,7 @@ $form = $this->beginWidget(
         ];
     }
     ?>
+    <?php if(!empty($tree)):?>
     <div class="col-sm-7">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -77,6 +78,7 @@ $form = $this->beginWidget(
             </div>
         </div>
     </div>
+    <?php endif; ?>
 </div>
 
 <?php $this->widget(

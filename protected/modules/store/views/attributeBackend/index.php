@@ -87,12 +87,12 @@ $this->menu = [
                 'filter' => $model,
                 'columns' => [
                     [
-                        'name' => 'group_id',
+                        'name' => 'title',
+                        'type' => 'raw',
                         'value' => function ($data) {
-                            return $data->getGroupTitle();
+                            return CHtml::link($data->title,
+                                array("/store/attributeBackend/update", "id" => $data->id));
                         },
-                        'filter' => CHtml::activeDropDownList($model, 'group_id',
-                            AttributeGroup::model()->getFormattedList(), ['empty' => '', 'class' => 'form-control']),
                     ],
                     [
                         'name' => 'name',
@@ -102,12 +102,12 @@ $this->menu = [
                         },
                     ],
                     [
-                        'name' => 'title',
-                        'type' => 'raw',
+                        'name' => 'group_id',
                         'value' => function ($data) {
-                            return CHtml::link($data->title,
-                                array("/store/attributeBackend/update", "id" => $data->id));
+                            return $data->getGroupTitle();
                         },
+                        'filter' => CHtml::activeDropDownList($model, 'group_id',
+                            AttributeGroup::model()->getFormattedList(), ['empty' => '', 'class' => 'form-control']),
                     ],
                     [
                         'name' => 'type',
@@ -143,7 +143,7 @@ $this->menu = [
                     dataType: 'json',
                     success: function (data) {
                         if (data.result) {
-                            $.fn.yiiGridView.update('attribute-group-grid');
+                            $.fn.yiiGridView.update('attributes-groups-grid');
                         }
                     }
                 });

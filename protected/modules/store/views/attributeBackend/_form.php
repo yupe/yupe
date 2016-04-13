@@ -6,7 +6,7 @@
  */
 ?>
 <?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('store')->getAssetsUrl() . '/js/jquery-sortable.js');
+Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('store')->getAssetsUrl().'/js/jquery-sortable.js');
 ?>
 
 <?php
@@ -17,10 +17,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('store')->get
 $form = $this->beginWidget(
     '\yupe\widgets\ActiveForm',
     [
-        'id'                     => 'attribute-form',
-        'enableAjaxValidation'   => false,
+        'id' => 'attribute-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'htmlOptions'            => ['class' => 'well'],
+        'htmlOptions' => ['class' => 'well'],
     ]
 ); ?>
 <div class="alert alert-info">
@@ -38,10 +38,10 @@ $form = $this->beginWidget(
             'type',
             [
                 'widgetOptions' => [
-                    'data'        => $model->getTypesList(),
+                    'data' => $model->getTypesList(),
                     'htmlOptions' => [
                         'empty' => '---',
-                        'id'    => 'attribute-type',
+                        'id' => 'attribute-type',
                     ],
                 ],
             ]
@@ -54,7 +54,7 @@ $form = $this->beginWidget(
             'group_id',
             [
                 'widgetOptions' => [
-                    'data'        => AttributeGroup::model()->getFormattedList(),
+                    'data' => AttributeGroup::model()->getFormattedList(),
                     'htmlOptions' => [
                         'empty' => '---',
                     ],
@@ -97,7 +97,8 @@ $form = $this->beginWidget(
 
 
 <div class="row">
-    <div id="options" class="<?= !in_array($model->type, Attribute::getTypesWithOptions()) ? 'hidden' : ''; ?> col-sm-5">
+    <div id="options"
+         class="<?= !in_array($model->type, Attribute::getTypesWithOptions()) ? 'hidden' : ''; ?> col-sm-5">
         <div class="row form-group">
             <div class="col-sm-12">
                 <?= Yii::t("StoreModule.store", "Each option value must be on a new line."); ?>
@@ -105,16 +106,37 @@ $form = $this->beginWidget(
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?= CHtml::activeTextArea($model, 'rawOptions', ['rows' => 10, 'class' => 'form-control', 'value' => $model->getRawOptions()]); ?>
+                <?= CHtml::activeTextArea($model, 'rawOptions',
+                    ['rows' => 10, 'class' => 'form-control', 'value' => $model->getRawOptions()]); ?>
             </div>
         </div>
     </div>
 </div>
 
+<hr/>
+
+<?php if (!empty($types)): ?>
+    <strong><?= Yii::t('StoreModule.store', 'Use in types');?></strong>
+    <div class="row">
+        <?php foreach ($types as $type): ?>
+            <div class="form-group">
+                <div class="col-sm-7">
+                    <div class="checkbox">
+                        <label>
+                            <?= CHtml::checkBox('types[]', array_key_exists($type->id, $model->getTypes()), ['value' => $type->id]) ?>
+                            <?= CHtml::encode($type->name); ?>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
 <script type="text/javascript">
     $(function () {
         $('#attribute-type').change(function () {
-            if ($.inArray(parseInt($(this).val()), [<?= join(',', Attribute::getTypesWithOptions());?>]) >= 0) {
+            if ($.inArray(parseInt($(this).val()), [<?= implode(',', Attribute::getTypesWithOptions());?>]) >= 0) {
                 $('#options').removeClass('hidden');
             }
             else {
@@ -130,17 +152,19 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
-        'context'    => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('StoreModule.store', 'Add attribute and continue') : Yii::t('StoreModule.store', 'Save attribute and continue'),
+        'context' => 'primary',
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store',
+            'Add attribute and continue') : Yii::t('StoreModule.store', 'Save attribute and continue'),
     ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'buttonType'  => 'submit',
+        'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label'       => $model->isNewRecord ? Yii::t('StoreModule.store', 'Add attribute and close') : Yii::t('StoreModule.store', 'Save attribute and close'),
+        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store',
+            'Add attribute and close') : Yii::t('StoreModule.store', 'Save attribute and close'),
     ]
 ); ?>
 

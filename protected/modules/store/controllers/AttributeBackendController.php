@@ -62,8 +62,8 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
 
             $model->setAttributes($data);
 
-            if ($model->save()) {
-                Yii::app()->user->setFlash(
+            if ($model->save() && $model->setTypes(Yii::app()->getRequest()->getPost('types', []))) {
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Attribute created')
                 );
@@ -77,7 +77,10 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             }
         }
 
-        $this->render('create', ['model' => $model]);
+        $this->render('create', [
+            'model' => $model,
+            'types' => Type::model()->findAll()
+        ]);
     }
 
 
@@ -90,12 +93,14 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Attribute')) !== null) {
+
             $currentType = $model->type;
+
             $model->setAttributes(Yii::app()->getRequest()->getPost('Attribute'));
 
-            if ($model->save() && $model->changeType($currentType, $model->type)) {
+            if ($model->save() && $model->changeType($currentType, $model->type) && $model->setTypes(Yii::app()->getRequest()->getPost('types', []))) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Attribute updated')
                 );
@@ -116,6 +121,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             'update',
             [
                 'model' => $model,
+                'types' => Type::model()->findAll()
             ]
         );
     }

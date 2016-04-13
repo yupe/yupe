@@ -18,6 +18,16 @@ class TypeAttribute extends \yupe\models\YModel
     }
 
     /**
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            ['type_id, attribute_id', 'numerical', 'integerOnly' => true],
+        ];
+    }
+
+    /**
      * @param null|string $className
      * @return $this
      */

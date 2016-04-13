@@ -123,12 +123,4 @@ class PaylerModule extends WebModule
     {
         return 'fa fa-rub';
     }
-
-    /**
-     *
-     */
-    public function init()
-    {
-        parent::init();
-    }
 }

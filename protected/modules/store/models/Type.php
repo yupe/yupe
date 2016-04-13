@@ -134,14 +134,6 @@ class Type extends \yupe\models\YModel
     /**
      * @return array
      */
-    public function getFormattedList()
-    {
-        return CHtml::listData(Type::model()->findAll(), 'id', 'name');
-    }
-
-    /**
-     * @return array
-     */
     public function getAttributeGroups()
     {
         $attributeGroups = [];
