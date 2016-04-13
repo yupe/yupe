@@ -81,6 +81,7 @@ class ModuleManager extends \CApplicationComponent
             Yii::t('YupeModule.yupe', 'Users'),
             Yii::t('YupeModule.yupe', 'Services'),
             Yii::t('YupeModule.yupe', 'Yupe!'),
+            Yii::t('YupeModule.yupe', 'Store'),
             $this->otherCategoryName,
         ];
 
@@ -89,13 +90,13 @@ class ModuleManager extends \CApplicationComponent
 
         if (count(Yii::app()->getModules())) {
             /**
-             * @todo внести получение модулей в кэш
+             *
              * Получаем модули и заполняем основные массивы
              **/
             foreach (Yii::app()->getModules() as $key => $value) {
                 $key = strtolower($key);
                 $module = Yii::app()->getModule($key);
-                if (($module !== null)) {
+                if ($module !== null) {
                     if ($module instanceof WebModule) {
                         $category = (!$module->getCategory())
                             ? $this->otherCategoryName
@@ -117,26 +118,25 @@ class ModuleManager extends \CApplicationComponent
                 // Формируем навигационное меню
                 $modulesNavigation = [];
 
-                // Шаблон настройка модулей
-                $settings = [];
-
                 // Сортируем категории модулей
                 if (count($order) > 1) {
                     $categorySort = array_reverse($this->categorySort);
 
                     foreach ($categorySort as $iValue) {
-                        if (isset($order[$iValue])) {
+                        if (array_key_exists($iValue, $order)) {
                             $orderValue = $order[$iValue];
                             unset($order[$iValue]);
-                            $order = [$iValue => $orderValue] + $order;
+                            $order = array_merge([$iValue => $orderValue], $order);
                         }
                     }
                 }
 
                 $uniqueMenuId = 0;
+
+                $settings['items'] = [];
+
                 // Обходим категории модулей
                 foreach ($order as $keyCategory => $valueCategory) {
-                    $settings['items'] = [];
 
                     // Шаблон категорий
                     $modulesNavigation[$keyCategory] = [
@@ -147,7 +147,7 @@ class ModuleManager extends \CApplicationComponent
                     ];
                     $uniqueMenuId++;
 
-                    if (isset($this->categoryIcon[$keyCategory])) {
+                    if (array_key_exists($keyCategory, $this->categoryIcon)) {
                         $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory];
                     }
 
@@ -158,7 +158,7 @@ class ModuleManager extends \CApplicationComponent
                     foreach ($valueCategory as $key => $value) {
                         $modSettings = [];
                         // Собраются подпункты категории "Настройки модулей", кроме пункта Юпи
-                        if ($modules[$key]->editableParams && $key != self::CORE_MODULE) {
+                        if ($key !== self::CORE_MODULE && $modules[$key]->editableParams) {
                             $modSettings = [
                                 '---',
                                 [
@@ -174,7 +174,7 @@ class ModuleManager extends \CApplicationComponent
                             continue;
                         }
 
-                        // Если нет иконка для данной категории, подставляется иконка первого модуля
+                        // Если нет иконки для данной категории - подставляется иконка первого модуля
                         if (!isset($modulesNavigation[$keyCategory]['icon']) && $modules[$key]->icon) {
                             $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon;
                         }
@@ -196,20 +196,17 @@ class ModuleManager extends \CApplicationComponent
                             unset($modSettings[0]);
                         }
 
-                        if ($key !== self::CORE_MODULE) {
-                            $data['items'] = array_merge(
-                                $data['items'],
-                                $key == self::CORE_MODULE ? [] : $modSettings
-                            );
-                        }
-
                         $modulesNavigation[$keyCategory]['items'][$modules[$key]->id] = $data;
                     }
                 }
 
-                // Заполняем категорию Юпи!
-                // $this->category всегда пустая?
-                //$modulesNavigation[$this->category]['items']['settings'] = $settings;
+                foreach($modulesNavigation as $key => $data) {
+                    if(count($data['items']) === 1){
+                        $items = array_shift($modulesNavigation[$key]['items']);
+                        $modulesNavigation[$key]['items'] = $items['items'];
+                    }
+                }
+
 
                 // Цепочка зависимостей:
                 $chain = new CChainedCacheDependency();
@@ -227,7 +224,7 @@ class ModuleManager extends \CApplicationComponent
                 );
 
                 Yii::app()->getCache()->set(
-                    'YupeModulesNavigation-'.Yii::app()->language,
+                    'YupeModulesNavigation-'.Yii::app()->getLanguage(),
                     $modulesNavigation,
                     0,
                     $chain
@@ -237,7 +234,7 @@ class ModuleManager extends \CApplicationComponent
 
         // Подгрузка отключенных модулей
         if ($disableModule) {
-            $modules += (array)$this->getModulesDisabled($modules);
+            $modules = array_merge((array)$this->getModulesDisabled($modules), $modules);
         }
 
         $modulesNavigation = array_merge($modulesNavigation, $modulesExtendedNavigation);
@@ -266,7 +263,7 @@ class ModuleManager extends \CApplicationComponent
 
         try {
 
-            if ($imports === false || ($modules = @Yii::app()->getCache()->get('modulesDisabled')) == false) {
+            if ($imports === false || ($modules = Yii::app()->getCache()->get('modulesDisabled')) == false) {
                 $modConfigs = Yii::getPathOfAlias('application.config.modules');
                 $modPath = Yii::getPathOfAlias('application.modules');
                 $cacheFile = Yii::app()->configManager->cacheFileName;
@@ -301,7 +298,7 @@ class ModuleManager extends \CApplicationComponent
                 $imports = [];
 
                 if ($handler = opendir($path)) {
-                    while (($dir = readdir($handler))) {
+                    while ($dir = readdir($handler)) {
                         if (!$this->isValidModule($dir)) {
                             continue;
                         }
@@ -365,7 +362,7 @@ class ModuleManager extends \CApplicationComponent
         if ($path) {
             //посмотреть внутри файл с окончанием Module.php
             $files = glob($path.'/'.$name.'/'.'*Module.php');
-            if (count($files) == 1) {
+            if (count($files) === 1) {
                 $className = pathinfo($files[0], PATHINFO_FILENAME);
                 Yii::app()->getCache()->set('tmpImports', 'application.modules.'.$name.'.'.$className);
                 Yii::import('application.modules.'.$name.'.'.$className);
