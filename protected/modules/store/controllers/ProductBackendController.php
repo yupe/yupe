@@ -272,7 +272,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            // поддерживаем удаление только из POST-запроса
+
             $this->loadModel($id)->delete();
 
             Yii::app()->getUser()->setFlash(
@@ -280,7 +280,6 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 Yii::t('StoreModule.store', 'Record was removed!')
             );
 
-            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
@@ -295,7 +294,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     public function actionIndex()
     {
         $model = new Product('search');
-        $model->unsetAttributes(); // clear any default values
+        $model->unsetAttributes();
         if (Yii::app()->getRequest()->getQuery('Product')) {
             $model->setAttributes(
                 Yii::app()->getRequest()->getQuery('Product')
@@ -366,6 +365,9 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $out = [];
 
         foreach ($type->typeAttributes as $attr) {
+            if ($attr->type == Attribute::TYPE_FILE || $attr->type === Attribute::TYPE_TEXT) {
+                continue;
+            }
             if ($attr->type == Attribute::TYPE_DROPDOWN) {
                 $out[] = array_merge($attr->attributes, ['options' => $attr->options]);
             } else {

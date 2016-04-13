@@ -3,7 +3,7 @@
 $new = false;
 if (!$variant->id) {
     $new = true;
-    $variant->id = rand(10000, 50000);
+    $variant->id = mt_rand(10000, 50000);
 } ?>
 <tr>
     <?php if (false === $new): ?>
@@ -18,7 +18,7 @@ if (!$variant->id) {
             <?php $option = AttributeOption::model()->findByAttributes(['attribute_id' => $variant->attribute_id, 'value' => $variant->attribute_value]); ?>
             <?= AttributeRender::renderField($variant->attribute, ($option ? $option->id : null), 'ProductVariant[' . $variant->id . '][attributeOptionId]', ['class' => 'form-control']); ?>
         <?php else: ?>
-            <?= AttributeRender::renderField($variant->attribute, $variant->attribute_value, 'ProductVariant[' . $variant->id . '][attribute_value]'); ?>
+            <?= AttributeRender::renderField($variant->attribute, $variant->attribute_value, 'ProductVariant[' . $variant->id . '][attribute_value]', ['class' => 'form-control']); ?>
         <?php endif; ?>
     </td>
     <td>

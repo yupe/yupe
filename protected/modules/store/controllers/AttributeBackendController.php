@@ -19,7 +19,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                 'actions' => ['update', 'sortable', 'inlineEditGroup', 'groupCreate'],
                 'roles' => ['Store.AttributeBackend.Update'],
             ],
-            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Store.AttributeBackend.Delete'],],
+            ['allow', 'actions' => ['delete', 'multiaction', 'deleteFile'], 'roles' => ['Store.AttributeBackend.Delete'],],
             ['deny',],
         ];
     }
@@ -45,6 +45,29 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                 'attribute' => 'sort',
             ],
         ];
+    }
+
+    public function actionDeleteFile()
+    {
+        if(!Yii::app()->getRequest()->getIsPostRequest()){
+            throw new CHttpException();
+        }
+
+        $product = (int)Yii::app()->getRequest()->getPost('product');
+        $attribute = (int)Yii::app()->getRequest()->getPost('attribute');
+
+        $model = AttributeValue::model()->find('product_id = :product AND attribute_id = :attribute', [
+            ':product' => $product,
+            ':attribute' => $attribute
+        ]);
+
+        if(null === $model || null === $model->getFilePath()) {
+            Yii::app()->ajax->success();
+        }
+
+        $model->delete();
+
+        Yii::app()->ajax->success();
     }
 
 

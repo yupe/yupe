@@ -37,8 +37,6 @@ class AttributeValue extends yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('product_id, attribute_id', 'required'),
             array('product_id, attribute_id, option_value', 'numerical', 'integerOnly' => true),
@@ -90,8 +88,6 @@ class AttributeValue extends yupe\models\YModel
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
@@ -222,5 +218,19 @@ class AttributeValue extends yupe\models\YModel
                 'uploadPath' => Yii::app()->getModule('store')->uploadPath.'/product',
             ],
         ];
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFilePath()
+    {
+        if (!$this->attribute->isType(Attribute::TYPE_FILE)) {
+            return null;
+        }
+
+        $file = Yii::app()->getBasePath().'/'.Yii::app()->getModule('yupe')->uploadPath.'/'.Yii::app()->getModule('store')->uploadPath.'/product/'.$this->value();
+
+        return \yupe\helpers\YFile::rmFile($file);
     }
 }

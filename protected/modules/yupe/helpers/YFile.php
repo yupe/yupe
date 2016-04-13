@@ -131,6 +131,10 @@ class YFile extends CFileHelper
      */
     public static function rmFile($file)
     {
+        if (!file_exists($file)) {
+            return true;
+        }
+
         return @unlink($file);
     }
 
