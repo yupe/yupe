@@ -25,8 +25,17 @@ class UserToken extends yupe\models\YModel
      * cookie_auth     - авторизация через куки
      */
     const TYPE_ACTIVATE = 1;
+    /**
+     *
+     */
     const TYPE_CHANGE_PASSWORD = 2;
+    /**
+     *
+     */
     const TYPE_EMAIL_VERIFY = 3;
+    /**
+     *
+     */
     const TYPE_COOKIE_AUTH = 4;
 
     /**
@@ -37,7 +46,13 @@ class UserToken extends yupe\models\YModel
      * fail     - истёк/компроментирован
      */
     const STATUS_NEW = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVATE = 1;
+    /**
+     *
+     */
     const STATUS_FAIL = 2;
 
     /**
@@ -91,15 +106,15 @@ class UserToken extends yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id'      => 'ID',
+            'id' => 'ID',
             'user_id' => Yii::t('UserModule.user', 'User'),
-            'token'   => Yii::t('UserModule.user', 'Token'),
-            'type'    => Yii::t('UserModule.user', 'Type'),
-            'status'  => Yii::t('UserModule.user', 'Status'),
+            'token' => Yii::t('UserModule.user', 'Token'),
+            'type' => Yii::t('UserModule.user', 'Type'),
+            'status' => Yii::t('UserModule.user', 'Status'),
             'create_time' => Yii::t('UserModule.user', 'Created'),
             'update_time' => Yii::t('UserModule.user', 'Updated'),
-            'ip'      => Yii::t('UserModule.user', 'Ip'),
-            'expire_time'  => Yii::t('UserModule.user', 'Expire')
+            'ip' => Yii::t('UserModule.user', 'Ip'),
+            'expire_time' => Yii::t('UserModule.user', 'Expire'),
         ];
     }
 
@@ -131,14 +146,16 @@ class UserToken extends yupe\models\YModel
 
         // Критерия для поля "Дата создания":
         if (!empty($this->create_time) && strlen($this->create_time) == 10) {
-            $criteria->addBetweenCondition('t.create_time', $this->create_time . ' 00:00:00', $this->create_time . ' 23:59:59');
+            $criteria->addBetweenCondition('t.create_time', $this->create_time.' 00:00:00',
+                $this->create_time.' 23:59:59');
         } else {
             $criteria->compare('t.create_time', $this->create_time, true);
         }
 
         // Критерия для поля "Дата изменения":
         if (!empty($this->update_time) && strlen($this->update_time) == 10) {
-            $criteria->addBetweenCondition('t.update_time', $this->update_time . ' 00:00:00', $this->update_time . ' 23:59:59');
+            $criteria->addBetweenCondition('t.update_time', $this->update_time.' 00:00:00',
+                $this->update_time.' 23:59:59');
         } else {
             $criteria->compare('t.update_time', $this->update_time, true);
         }
@@ -149,9 +166,9 @@ class UserToken extends yupe\models\YModel
         return new CActiveDataProvider(
             $this, [
                 'criteria' => $criteria,
-                'sort'     => [
+                'sort' => [
                     'defaultOrder' => 't.id DESC',
-                ]
+                ],
             ]
         );
     }
@@ -180,9 +197,9 @@ class UserToken extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_NEW      => Yii::t('UserModule.user', 'New'),
+            self::STATUS_NEW => Yii::t('UserModule.user', 'New'),
             self::STATUS_ACTIVATE => Yii::t('UserModule.user', 'Activated'),
-            self::STATUS_FAIL     => Yii::t('UserModule.user', 'Compromised by'),
+            self::STATUS_FAIL => Yii::t('UserModule.user', 'Compromised by'),
         ];
     }
 
@@ -194,10 +211,10 @@ class UserToken extends yupe\models\YModel
     public static function getTypeList()
     {
         return [
-            self::TYPE_ACTIVATE        => Yii::t('UserModule.user', 'User activate'),
+            self::TYPE_ACTIVATE => Yii::t('UserModule.user', 'User activate'),
             self::TYPE_CHANGE_PASSWORD => Yii::t('UserModule.user', 'Change/reset password'),
-            self::TYPE_EMAIL_VERIFY    => Yii::t('UserModule.user', 'Email verification'),
-            self::TYPE_COOKIE_AUTH     => Yii::t('UserModule.user', 'Cookie auth'),
+            self::TYPE_EMAIL_VERIFY => Yii::t('UserModule.user', 'Email verification'),
+            self::TYPE_COOKIE_AUTH => Yii::t('UserModule.user', 'Cookie auth'),
         ];
     }
 
@@ -210,19 +227,19 @@ class UserToken extends yupe\models\YModel
      */
     public static function getDateList($dateField = 'create_time')
     {
-        $sql = 'left(' . $dateField . ', 10)';
+        $sql = 'left('.$dateField.', 10)';
 
         // Список дат, обрезаем до формата YYYY-MM-DD и кешируем запрос:
         $dateList = self::model()->cache(
             3600,
-            new TagsCache('user-tokens-dateList', 'dateList-' . $dateField)
+            new TagsCache('user-tokens-dateList', 'dateList-'.$dateField)
         )->findAll(
-                [
-                    'select' => $sql . ' as ' . $dateField,
-                    'group'  => $dateField,
-                    'order'  => $dateField . ' DESC'
-                ]
-            );
+            [
+                'select' => $sql.' as '.$dateField,
+                'group' => $dateField,
+                'order' => $dateField.' DESC',
+            ]
+        );
 
         return CHtml::listData($dateList, $dateField, $dateField);
     }
@@ -255,11 +272,17 @@ class UserToken extends yupe\models\YModel
         return isset($statusList[$status]) ? $statusList[$status] : $status;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsCompromised()
     {
         return (int)$this->status === self::STATUS_FAIL;
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         if (!$this->ip) {
@@ -269,12 +292,9 @@ class UserToken extends yupe\models\YModel
         return parent::beforeValidate();
     }
 
+
     /**
-     * Перед сохранением необходимо:
-     * - если новая запись указать время создания
-     * - если обновляется запись, то выставить время обновления
-     *
-     * @return void
+     * @return bool
      */
     public function beforeSave()
     {
@@ -323,6 +343,9 @@ class UserToken extends yupe\models\YModel
         return parent::model($className);
     }
 
+    /**
+     * @return bool
+     */
     public function compromise()
     {
         $this->status = self::STATUS_FAIL;

@@ -328,7 +328,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                 Yii::t('UserModule.user', 'requested page was not found!')
             );
         } elseif ($user->email_confirm) {
-            return $this->badRequest();
+            $this->badRequest();
         }
 
         $tokenStorage = new TokenStorage();

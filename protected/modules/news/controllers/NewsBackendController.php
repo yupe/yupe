@@ -246,7 +246,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
      *
      * @param integer the ID of the model to be loaded
      *
-     * @return void
+     * @return array|mixed|null
      *
      * @throws CHttpException If record not found
      */

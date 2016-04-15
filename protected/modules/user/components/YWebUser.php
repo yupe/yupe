@@ -246,7 +246,7 @@ class YWebUser extends CWebUser
                 //перегенерировать токен авторизации
                 $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
                     $user,
-                    (int)Yii::app()->getModule('user')->sessionLifeTime * 24 * 60 * 60
+                    (int)Yii::app()->getModule('user')->sessionLifeTime * 24 * 3600
                 );
 
                 $this->setState($this->authToken, $token->token);

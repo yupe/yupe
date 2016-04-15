@@ -118,10 +118,10 @@ class Migrator extends \CApplicationComponent
 
         $data = $db->cache(
             3600,
-            new CDbCacheDependency('select count(id) from '.$db->tablePrefix.$this->migrationTable)
+            new CDbCacheDependency('select count(id) from {{migrations}}')
         )->createCommand()
             ->selectDistinct('version, apply_time')
-            ->from($db->tablePrefix.$this->migrationTable)
+            ->from('{{migrations}}')
             ->order('id DESC')
             ->where(
                 'module = :module',
@@ -418,10 +418,10 @@ class Migrator extends \CApplicationComponent
 
             $data = $db->cache(
                 3600,
-                new CDbCacheDependency('select count(id) from '.$db->tablePrefix.$this->migrationTable)
+                new CDbCacheDependency('select count(id) from {{migrations}}')
             )->createCommand()
                 ->select('version, apply_time')
-                ->from($db->tablePrefix.$this->migrationTable)
+                ->from('{{migrations}}')
                 ->order('id DESC')
                 ->where('module = :module', [':module' => $module])
                 ->limit($limit)
@@ -551,10 +551,10 @@ class Migrator extends \CApplicationComponent
         $modules = [];
         $m = $db->cache(
             3600,
-            new CDbCacheDependency('select count(id) from '.$db->tablePrefix.$this->migrationTable)
+            new CDbCacheDependency('select count(id) from {{migrations}}')
         )->createCommand()
             ->select('module')
-            ->from($db->tablePrefix.$this->migrationTable)
+            ->from('{{migrations}}')
             ->order('module DESC')
             ->group('module')
             ->queryAll();

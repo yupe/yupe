@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class PanelOrderStatWidget
+ */
 class PanelOrderStatWidget extends \yupe\widgets\YWidget
 {
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $criteria = new CDbCriteria();
@@ -21,14 +27,14 @@ class PanelOrderStatWidget extends \yupe\widgets\YWidget
 
         $cacheTime = Yii::app()->getController()->yupe->coreCacheTime;
         $model = Order::model();
-        $dependency = new CDbCacheDependency('select max(modified) from ' . Order::model()->tableName());
+        $dependency = new CDbCacheDependency('select max(modified) from {{store_order}}');
 
         $this->render(
             'panel-stat',
             [
                 'ordersCount' => $model->cache($cacheTime, $dependency)->count(),
                 'newOrdersCount' => $model->cache($cacheTime, $dependency)->new()->count(),
-                'dataProvider' => $dataProvider
+                'dataProvider' => $dataProvider,
             ]
         );
     }

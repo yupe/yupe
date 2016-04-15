@@ -73,7 +73,6 @@ return [
     '--choose--' => '--вкажіть--',
     '--not selected--' => '--не обрана--',
     'Category "{category}" does not exist, please enter the unsettled category' => 'Категорія "{category}" не існує, введіть будь ласка існуючу категорію',
-    'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>' => 'Опис параметрів:<br><ul><li>category - код категорії. Обов’язковий параметр;</li><li>limit - яку кількість блоків виводити. Не обов’язковий параметр;</li><li>cacheTime - час життя кешу (як часто оновлюється кеш). Не обов’язковий параметр;</li><li>rand - визначає як саме виводити блоки, рандомно або ні. (по замовчаню "false").</li></ul>'
     'Enabled'  => 'Увімкнено',
     'Disabled' => 'Вимкнено',
     'Turn on'  => 'Увімкнути',

@@ -398,9 +398,9 @@ class UserManager extends CApplicationComponent
             $transaction->rollback();
 
             Yii::app()->eventManager->fire(UserEvents::FAILURE_EMAIL_CONFIRM, new UserEmailConfirmEvent($token));
-
-            return false;
         }
+
+        return false;
     }
 
     /**

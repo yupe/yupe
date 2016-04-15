@@ -11,6 +11,9 @@
  **/
 class EventBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -24,6 +27,9 @@ class EventBackendController extends yupe\components\controllers\BackController
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -162,15 +168,11 @@ class EventBackendController extends yupe\components\controllers\BackController
         $this->render('index', ['model' => $model]);
     }
 
+
     /**
-     * Возвращает модель по указанному идентификатору
-     * Если модель не будет найдена - возникнет HTTP-исключение.
-     *
-     * @param integer $id - integer идентификатор нужной модели
-     *
-     * @return void
-     *
-     * @throws CHttpExcetption
+     * @param $id
+     * @return array|mixed|null
+     * @throws CHttpException
      */
     public function loadModel($id)
     {

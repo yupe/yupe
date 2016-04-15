@@ -253,15 +253,11 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         Yii::app()->end();
     }
 
+
     /**
-     * Возвращает модель по указанному идентификатору
-     * Если модель не будет найдена - возникнет HTTP-исключение.
-     *
-     * @param integer идентификатор нужной модели
-     *
-     * @return void
-     *
-     * @throws CHttpException If MenuItem record not found
+     * @param $id
+     * @return array|mixed|null
+     * @throws CHttpException
      */
     public function loadModel($id)
     {

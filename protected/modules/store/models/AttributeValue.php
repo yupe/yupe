@@ -165,22 +165,16 @@ class AttributeValue extends yupe\models\YModel
         switch ($this->attribute->type) {
             case Attribute::TYPE_DROPDOWN:
                 return (int)$this->option_value;
-                break;
             case Attribute::TYPE_CHECKBOX:
                 return (bool)$this->number_value;
-                break;
             case Attribute::TYPE_NUMBER:
                 return (float)$this->number_value;
-                break;
             case Attribute::TYPE_TEXT:
                 return $this->text_value;
-                break;
             case Attribute::TYPE_SHORT_TEXT:
                 return $this->string_value;
-                break;
             case Attribute::TYPE_FILE:
                 return $this->string_value;
-                break;
             default:
                 return $default;
         }
