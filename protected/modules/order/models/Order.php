@@ -29,6 +29,7 @@
  * @property string $street
  * @property string $house
  * @property string $apartment
+ * @property integer $manager_id
  *
  * @property OrderProduct[] $products
  * @property Delivery $delivery
@@ -121,7 +122,7 @@ class Order extends yupe\models\YModel
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
             ['name, email, phone, zipcode, country, city, street, house, apartment', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
-            ['delivery_id, separate_delivery, payment_method_id, paid, user_id, couponId', 'numerical', 'integerOnly' => true],
+            ['delivery_id, separate_delivery, payment_method_id, paid, user_id, couponId, manager_id', 'numerical', 'integerOnly' => true],
             ['delivery_price, total_price, discount, coupon_discount', 'store\components\validators\NumberValidator'],
             ['name, phone, email, city, street', 'length', 'max' => 255],
             ['comment, note', 'length', 'max' => 1024],
@@ -136,7 +137,7 @@ class Order extends yupe\models\YModel
                 'on' => self::SCENARIO_USER,
             ],
             [
-                'id, delivery_id, delivery_price, payment_method_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, phone, email, comment, ip, url, note, modified',
+                'id, delivery_id, delivery_price, payment_method_id, paid, payment_time, payment_details, total_price, discount, coupon_discount, separate_delivery, status_id, date, user_id, name, phone, email, comment, ip, url, note, modified, manager_id',
                 'safe',
                 'on' => 'search',
             ],
@@ -154,6 +155,7 @@ class Order extends yupe\models\YModel
             'payment' => [self::BELONGS_TO, 'Payment', 'payment_method_id'],
             'status' => [self::BELONGS_TO, 'OrderStatus', 'status_id'],
             'client' => [self::BELONGS_TO, 'Client', 'user_id'],
+            'manager' => [self::BELONGS_TO, 'User', 'manager_id'],
             'couponsIds' => [self::HAS_MANY, 'OrderCoupon', 'order_id'],
             'coupons' => [self::HAS_MANY, 'Coupon', 'coupon_id', 'through' => 'couponsIds'],
         ];
@@ -221,9 +223,9 @@ class Order extends yupe\models\YModel
             'street' => Yii::t('OrderModule.order', 'Street'),
             'house' => Yii::t('OrderModule.order', 'House'),
             'apartment' => Yii::t('OrderModule.order', 'Apartment'),
+            'manager_id' => Yii::t('OrderModule.order', 'Manager'),
         ];
     }
-
 
     /**
      * @return CActiveDataProvider
@@ -256,6 +258,7 @@ class Order extends yupe\models\YModel
         $criteria->compare('url', $this->url, true);
         $criteria->compare('note', $this->note, true);
         $criteria->compare('modified', $this->modified, true);
+        $criteria->compare('t.manager_id', $this->manager_id);
 
         if (null !== $this->couponId) {
             $criteria->with['couponsIds'] = ['together' => true];
@@ -393,7 +396,6 @@ class Order extends yupe\models\YModel
 
         return $cost;
     }
-
 
     /**
      * Фильтрует переданные коды купонов и возвращает объекты купонов
@@ -586,7 +588,6 @@ class Order extends yupe\models\YModel
         return isset($data[$this->paid]) ? $data[$this->paid] : Yii::t("OrderModule.order", '*unknown*');
     }
 
-
     /**
      *
      * Формат массива:
@@ -684,7 +685,6 @@ class Order extends yupe\models\YModel
         $this->updateOrderProducts($this->_orderProducts);
         parent::afterSave();
     }
-
 
     /**
      * @return float

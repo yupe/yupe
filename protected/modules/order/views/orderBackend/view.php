@@ -101,6 +101,13 @@ $this->menu = [
                     'discount',
                     'coupon_discount',
                     [
+                        'name' => 'manager_id',
+                        'type' => 'raw',
+                        'value' => function(Order $model){
+                            return isset($model->manager) ? $model->manager->getFullName() : null;
+                        },
+                    ],
+                    [
                         'name' => 'user_id',
                         'type' => 'raw',
                         'visible' => isset($model->client),
