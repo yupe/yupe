@@ -35,7 +35,7 @@ class LoginAction extends CAction
 
             $form->setAttributes(Yii::app()->getRequest()->getPost('LoginForm'));
 
-            if ($form->validate() && Yii::app()->authenticationManager->login(
+            if (Yii::app()->authenticationManager->login(
                     $form,
                     Yii::app()->getUser(),
                     Yii::app()->getRequest()
