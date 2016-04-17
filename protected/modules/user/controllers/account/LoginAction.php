@@ -27,7 +27,7 @@ class LoginAction extends CAction
 
         $module = Yii::app()->getModule('user');
 
-        $scenario = $badLoginCount > (int)$module->badLoginCount ? LoginForm::LOGIN_LIMIT_SCENARIO : '';
+        $scenario = $badLoginCount >= (int)$module->badLoginCount ? LoginForm::LOGIN_LIMIT_SCENARIO : '';
 
         $form = new LoginForm($scenario);
 
