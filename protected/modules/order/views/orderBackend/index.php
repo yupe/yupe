@@ -116,6 +116,18 @@ $this->widget(
                 }
             ],
             [
+                'name' => 'manager_id',
+                'type' => 'raw',
+                'filter' => CHtml::listData(
+                    User::model()->findAll('access_level = :level', [':level' => User::ACCESS_LEVEL_ADMIN]),
+                    'id',
+                    'fullName'
+                ),
+                'value' => function($data){
+                    return isset($data->manager) ? $data->manager->getFullName() : null;
+                },
+            ],
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
             ],
         ],
