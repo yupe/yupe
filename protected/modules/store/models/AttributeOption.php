@@ -34,15 +34,17 @@ class AttributeOption extends \yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
+            ['attribute_id, value', 'required'],
             ['attribute_id, position', 'numerical', 'integerOnly' => true],
             ['value', 'length', 'max' => 255],
         ];
     }
 
 
+    /**
+     * @return array
+     */
     public function relations()
     {
         return [
@@ -71,6 +73,18 @@ class AttributeOption extends \yupe\models\YModel
             'id' => Yii::t('StoreModule.store', 'ID'),
             'position' => Yii::t('StoreModule.store', 'Position'),
             'value' => Yii::t('StoreModule.store', 'Value'),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+            ],
         ];
     }
 }

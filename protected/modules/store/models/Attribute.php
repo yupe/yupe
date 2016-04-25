@@ -181,7 +181,7 @@ class Attribute extends \yupe\models\YModel
     /**
      * @return array
      */
-    public static function getTypesList()
+    public function getTypesList()
     {
         return [
             self::TYPE_SHORT_TEXT => Yii::t('StoreModule.store', 'Short text (up to 250 characters)'),
@@ -197,20 +197,13 @@ class Attribute extends \yupe\models\YModel
      * @param $type
      * @return mixed
      */
-    public static function getTypeTitle($type)
+    public function getTypeTitle($type)
     {
-        $list = self::getTypesList();
+        $list = $this->getTypesList();
 
         return isset($list[$type]) ? $list[$type] : $type;
     }
 
-    /**
-     * @return array
-     */
-    public static function getTypesWithOptions()
-    {
-        return [self::TYPE_DROPDOWN, self::TYPE_CHECKBOX_LIST];
-    }
 
     /**
      * @param $name
@@ -227,57 +220,6 @@ class Attribute extends \yupe\models\YModel
     public function getGroupTitle()
     {
         return $this->group instanceof AttributeGroup ? $this->group->name : '---';
-    }
-
-    /**
-     * @throws CDbException
-     */
-    public function afterSave()
-    {
-        if ($this->type === Attribute::TYPE_DROPDOWN) {
-            // список новых значений опций атрибута, не пустые, без лишних пробелов по бокам, уникальные
-            $newOptions = array_unique(
-                array_filter(
-                    array_map('trim', explode("\n", $this->rawOptions))
-                )
-            );
-
-            // в нижнем регистре, чтобы не надо было переназначать привязку атрибутов в товарах
-            $newOptionsLower = array_map(
-                function ($x) {
-                    return mb_strtolower($x, 'utf-8');
-                },
-                $newOptions
-            );
-
-            $oldOptionsLower = []; // список имен опций, которые уже сохранены
-
-            // удалим те из них, которых нет, в остальных обновим значение и позицию
-            foreach ((array)$this->options as $option) {
-                /* @var $option AttributeOption */
-                $position = array_search(mb_strtolower($option->value), $newOptionsLower);
-                // опция была удалена
-                if ($position === false) {
-                    $option->delete();
-                } else {
-                    $oldOptionsLower[] = mb_strtolower($option->value, 'utf-8');
-                    $option->value = $newOptions[$position]; // если поменяли регистр опции
-                    $option->position = $position;
-                    $option->save();
-                }
-            }
-
-            // добавим оставшиеся
-            foreach (array_diff($newOptionsLower, $oldOptionsLower) as $position => $value) {
-                $option = new AttributeOption();
-                $option->attribute_id = $this->id;
-                $option->value = $newOptions[$position];
-                $option->position = $position;
-                $option->save();
-            }
-        }
-
-        parent::afterSave();
     }
 
     /**
@@ -416,5 +358,50 @@ class Attribute extends \yupe\models\YModel
         }
 
         return $types;
+    }
+
+    /**
+     * @param array $attributes
+     * @return bool
+     * @throws CDbException
+     */
+    public function setDropDownAttributes(array $attributes)
+    {
+        if(!$this->isDropDown()){
+            return true;
+        }
+
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        try {
+
+            foreach ($attributes as $attribute) {
+                $model = new AttributeOption();
+                $model->setAttributes([
+                    'attribute_id' => $this->id,
+                    'value' => trim($attribute),
+                ]);
+
+                if (false === $model->save()) {
+                    throw new CDbException();
+                }
+            }
+
+            $transaction->commit();
+
+            return true;
+        } catch (Exception $e) {
+            $transaction->rollback();
+
+            return false;
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDropDown()
+    {
+        return $this->type == self::TYPE_DROPDOWN;
     }
 }

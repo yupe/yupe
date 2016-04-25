@@ -95,35 +95,100 @@ $form = $this->beginWidget(
     </div>
 </div>
 
-
-<div class="row">
-    <div id="options"
-         class="<?= !in_array($model->type, Attribute::getTypesWithOptions()) ? 'hidden' : ''; ?> col-sm-5">
-        <div class="row form-group">
-            <div class="col-sm-12">
-                <?= Yii::t("StoreModule.store", "Each option value must be on a new line."); ?>
+<?php if ($model->getIsNewRecord()): ?>
+    <div class="row">
+        <div id="options"
+             class="<?= !$model->isDropDown() ? 'hidden' : ''; ?> col-sm-5">
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <?= Yii::t("StoreModule.store", "Each option value must be on a new line."); ?>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <?= CHtml::activeTextArea($model, 'rawOptions',
-                    ['rows' => 10, 'class' => 'form-control', 'value' => $model->getRawOptions()]); ?>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= CHtml::activeTextArea($model, 'rawOptions',
+                        ['rows' => 10, 'class' => 'form-control', 'value' => $model->getRawOptions()]); ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
+<?php elseif ($model->isDropDown()): ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?= CHtml::textField('AttributeOption[name]',null, ['class' => 'form-control']);?>
+        </div>
+        <div class="col-md-2">
+            <?= CHtml::button(Yii::t('StoreModule.store', 'Add'), ['class' => 'btn btn-success', 'id' => 'add-option-btn', 'data-url' => Yii::app()->createUrl('/store/attributeBackend/addOption', ['id' => $model->id])]);?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <?php $this->widget(
+                'yupe\widgets\CustomGridView',
+                [
+                    'hideBulkActions' => true,
+                    'id' => 'attributes-options-grid',
+                    'sortableRows' => true,
+                    'sortableAjaxSave' => true,
+                    'sortableAttribute' => 'position',
+                    'sortableAction' => '/store/attributeBackend/sortoptions',
+                    'type' => 'condensed',
+                    'ajaxUrl'=> Yii::app()->createUrl('/store/attributeBackend/update', ['id' => $model->id]),
+                    'template' => "{items}\n{pager}<br/><br/>",
+                    'dataProvider' => new CActiveDataProvider('AttributeOption',
+                        [
+                            'criteria' => [
+                                'condition' => 'attribute_id = :id',
+                                'params' => [':id' => $model->id],
+                            ],
+                        ]
+                    ),
+                    'columns' => [
+                        [
+                            'class' => 'bootstrap.widgets.TbEditableColumn',
+                            'name' => 'value',
+                            'editable' => [
+                                'url' => $this->createUrl('/store/attributeBackend/inline'),
+                                'mode' => 'inline',
+                                'params' => [
+                                    Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->getCsrfToken(),
+                                ],
+                            ],
+                        ],
+                        [
+                            'class' => 'yupe\widgets\CustomButtonColumn',
+                            'template' => '{delete}',
+                            'buttons' => [
+                                'delete' => [
+                                    'url' => function ($data) {
+                                        return Yii::app()->createUrl('/store/attributeBackend/deleteOption',
+                                            ['id' => $data->id]);
+                                    },
+                                    'options' => [
+                                        'class' => 'delete btn-sm btn-default',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ]
+            ) ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 <hr/>
 
 <?php if (!empty($types)): ?>
-    <strong><?= Yii::t('StoreModule.store', 'Use in types');?></strong>
+    <strong><?= Yii::t('StoreModule.store', 'Use in types'); ?></strong>
     <div class="row">
         <?php foreach ($types as $type): ?>
             <div class="form-group">
                 <div class="col-sm-7">
                     <div class="checkbox">
                         <label>
-                            <?= CHtml::checkBox('types[]', array_key_exists($type->id, $model->getTypes()), ['value' => $type->id]) ?>
+                            <?= CHtml::checkBox('types[]', array_key_exists($type->id, $model->getTypes()),
+                                ['value' => $type->id]) ?>
                             <?= CHtml::encode($type->name); ?>
                         </label>
                     </div>
@@ -135,8 +200,22 @@ $form = $this->beginWidget(
 
 <script type="text/javascript">
     $(function () {
+
+        $('#add-option-btn').on('click', function(event){
+            event.preventDefault();
+            var data = $('#AttributeOption_name').val();
+            if(data){
+                $.post($(this).data('url'),{
+                    'value':data,
+                    '<?= Yii::app()->getRequest()->csrfTokenName;?>' : '<?= Yii::app()->getRequest()->getCsrfToken()?>'
+                }, function(response){
+                    $.fn.yiiGridView.update('attributes-options-grid');
+                }, 'json');
+            }
+        });
+
         $('#attribute-type').change(function () {
-            if ($.inArray(parseInt($(this).val()), [<?= implode(',', Attribute::getTypesWithOptions());?>]) >= 0) {
+            if ($.inArray(parseInt($(this).val()), [<?= Attribute::TYPE_DROPDOWN;?>]) >= 0) {
                 $('#options').removeClass('hidden');
             }
             else {
