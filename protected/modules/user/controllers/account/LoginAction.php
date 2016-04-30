@@ -19,15 +19,15 @@ class LoginAction extends CAction
      */
     public function run()
     {
+        $module = Yii::app()->getModule('user');
+
         if (false === Yii::app()->getUser()->getIsGuest()) {
             $this->getController()->redirect(\yupe\helpers\Url::redirectUrl(
-                Yii::app()->getModule('user')->loginSuccess
+                $module->loginSuccess
             ));
         }
 
         $badLoginCount = Yii::app()->authenticationManager->getBadLoginCount(Yii::app()->getUser());
-
-        $module = Yii::app()->getModule('user');
 
         $scenario = $badLoginCount > (int)$module->badLoginCount ? LoginForm::LOGIN_LIMIT_SCENARIO : '';
 
