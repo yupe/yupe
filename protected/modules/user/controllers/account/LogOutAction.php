@@ -12,10 +12,20 @@
  **/
 use yupe\helpers\Url;
 
+/**
+ * Class LogOutAction
+ */
 class LogOutAction extends CAction
 {
+    /**
+     *
+     */
     public function run()
     {
+        if (Yii::app()->getUser()->getIsGuest()) {
+            $this->getController()->redirect(['/user/account/login']);
+        }
+
         Yii::app()->authenticationManager->logout(Yii::app()->getUser());
 
         $this->getController()->redirect(Url::redirectUrl(Yii::app()->getModule('user')->logoutSuccess));

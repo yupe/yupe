@@ -13,10 +13,22 @@
 
 use yupe\widgets\YFlashMessages;
 
+/**
+ * Class RecoveryAction
+ */
 class RecoveryAction extends CAction
 {
+    /**
+     * @throws CHttpException
+     */
     public function run()
     {
+        if (false === Yii::app()->getUser()->getIsGuest()) {
+            $this->getController()->redirect(\yupe\helpers\Url::redirectUrl(
+                Yii::app()->getModule('user')->loginSuccess
+            ));
+        }
+
         $module = Yii::app()->getModule('user');
 
         // Если восстановление отключено - ошбочка ;)

@@ -179,10 +179,10 @@ class MenuItem extends yupe\models\YModel
         $criteria->compare('t.title', $this->title, true);
         $criteria->compare('t.href', $this->href, true);
 
-        if ($this->condition_name !== '0') {
+        if ($this->condition_name != '0') {
             $criteria->compare('t.condition_name', $this->condition_name, true);
 
-            if ($this->condition_name) {
+            if ($this->condition_name != '') {
                 $criteria->compare('t.condition_denial', $this->condition_denial);
             }
         } else {
@@ -321,7 +321,7 @@ class MenuItem extends yupe\models\YModel
      */
     public function getParent()
     {
-        return null === $this->parent ? '---' : $this->parent->title;
+        return empty($this->parent) ? '---' : $this->parent->title;
     }
 
     /**
@@ -361,12 +361,7 @@ class MenuItem extends yupe\models\YModel
         );
     }
 
-    /**
-     * @param $name
-     * @param $conditionDenial
-     * @return bool
-     */
-    public function getConditionVisible($name, $conditionDenial)
+    public function getConditionVisible($name, $condition_denial)
     {
         if (empty($name)) {
             return true;
@@ -374,7 +369,7 @@ class MenuItem extends yupe\models\YModel
 
         $data = $this->getConditionList(true);
 
-        return (array_key_exists($name, $data) && (($data[$name] && $conditionDenial === 0) || (!$data[$name] && $conditionDenial === 1)));
+        return (isset($data[$name]) && (($data[$name] && $condition_denial == 0) || (!$data[$name] && $condition_denial == 1))) ? true : false;
     }
 
     /**

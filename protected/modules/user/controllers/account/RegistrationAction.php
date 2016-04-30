@@ -12,10 +12,22 @@
  **/
 use yupe\helpers\Url;
 
+/**
+ * Class RegistrationAction
+ */
 class RegistrationAction extends CAction
 {
+    /**
+     * @throws CHttpException
+     */
     public function run()
     {
+        if (false === Yii::app()->getUser()->getIsGuest()) {
+            $this->getController()->redirect(\yupe\helpers\Url::redirectUrl(
+                Yii::app()->getModule('user')->loginSuccess
+            ));
+        }
+
         $module = Yii::app()->getModule('user');
 
         if ($module->registrationDisabled) {

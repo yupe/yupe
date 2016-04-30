@@ -372,16 +372,16 @@
         },
         {
             "name": "samdark/sitemap",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/samdark/sitemap.git",
-                "reference": "da76edbef6383060c2d08523ae1b07f61b89a3fc"
+                "reference": "4cd7b6d7c1bf4031fee381f96db8fc48a0cb23cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samdark/sitemap/zipball/da76edbef6383060c2d08523ae1b07f61b89a3fc",
-                "reference": "da76edbef6383060c2d08523ae1b07f61b89a3fc",
+                "url": "https://api.github.com/repos/samdark/sitemap/zipball/4cd7b6d7c1bf4031fee381f96db8fc48a0cb23cc",
+                "reference": "4cd7b6d7c1bf4031fee381f96db8fc48a0cb23cc",
                 "shasum": ""
             },
             "require": {
@@ -409,7 +409,7 @@
             "keywords": [
                 "Sitemap"
             ],
-            "time": "2015-07-14 07:10:08"
+            "time": "2016-04-28 23:16:42"
         },
         {
             "name": "symfony/event-dispatcher",

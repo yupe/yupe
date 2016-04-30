@@ -240,7 +240,7 @@ class Menu extends yupe\models\YModel
                     // если адрес надо параметризовать через роутер
                     if (!$result->regular_link) {
                         $url = $result->href;
-                        strstr($url, '?') ? list($url, $param) = explode('?', $url) : $param = [];
+                        strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = [];
                         if ($param) {
                             parse_str($param, $param);
                         }

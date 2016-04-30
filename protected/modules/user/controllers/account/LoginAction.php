@@ -13,15 +13,17 @@
  */
 class LoginAction extends CAction
 {
+
     /**
      *
      */
     public function run()
     {
-        /**
-         * Если было совершено больше 3х попыток входа
-         * в систему, используем сценарий с капчей:
-         **/
+        if (false === Yii::app()->getUser()->getIsGuest()) {
+            $this->getController()->redirect(\yupe\helpers\Url::redirectUrl(
+                Yii::app()->getModule('user')->loginSuccess
+            ));
+        }
 
         $badLoginCount = Yii::app()->authenticationManager->getBadLoginCount(Yii::app()->getUser());
 
