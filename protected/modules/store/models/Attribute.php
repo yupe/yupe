@@ -190,6 +190,7 @@ class Attribute extends \yupe\models\YModel
             self::TYPE_CHECKBOX => Yii::t('StoreModule.store', 'Checkbox'),
             self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Number'),
             self::TYPE_FILE => Yii::t('StoreModule.store', 'File'),
+            self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.store', 'Checkbox list')
         ];
     }
 
@@ -237,20 +238,6 @@ class Attribute extends \yupe\models\YModel
     public function isRequired()
     {
         return $this->required;
-    }
-
-
-    /**
-     * @return string Список опций, разделенных переносом строки
-     */
-    public function getRawOptions()
-    {
-        $tmp = '';
-        foreach ((array)$this->options as $option) {
-            $tmp .= $option->value."\n";
-        }
-
-        return $tmp;
     }
 
     /**
@@ -365,9 +352,9 @@ class Attribute extends \yupe\models\YModel
      * @return bool
      * @throws CDbException
      */
-    public function setDropDownAttributes(array $attributes)
+    public function setMultipleValuesAttributes(array $attributes)
     {
-        if(!$this->isDropDown()){
+        if(!$this->isMultipleValues()){
             return true;
         }
 
@@ -400,8 +387,8 @@ class Attribute extends \yupe\models\YModel
     /**
      * @return bool
      */
-    public function isDropDown()
+    public function isMultipleValues()
     {
-        return $this->type == self::TYPE_DROPDOWN;
+         return $this->type == self::TYPE_DROPDOWN || $this->type == self::TYPE_CHECKBOX_LIST;
     }
 }

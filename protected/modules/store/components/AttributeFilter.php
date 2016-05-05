@@ -154,7 +154,7 @@ class AttributeFilter extends CApplicationComponent
      */
     public function getDropdownOptionName(AttributeOption $option)
     {
-        if ((int)$option->parent->type === Attribute::TYPE_DROPDOWN) {
+        if ((int)$option->parent->isMultipleValues()) {
             return sprintf($this->dropdownTemplate, $option->parent->name, $option->id);
         }
 

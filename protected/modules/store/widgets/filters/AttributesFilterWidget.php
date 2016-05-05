@@ -34,6 +34,12 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
                             ['attribute' => $model]
                         );
                         break;
+                    case Attribute::TYPE_CHECKBOX_LIST:
+                        $this->widget(
+                            'application.modules.store.widgets.filters.DropdownFilterWidget',
+                            ['attribute' => $model]
+                        );
+                        break;
                     case Attribute::TYPE_CHECKBOX:
                         $this->widget(
                             'application.modules.store.widgets.filters.CheckboxFilterWidget',

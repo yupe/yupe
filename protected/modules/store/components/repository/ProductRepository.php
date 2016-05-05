@@ -30,6 +30,7 @@ class ProductRepository extends CApplicationComponent
         $criteria->params = [];
         $criteria->addCondition('t.status = :status');
         $criteria->params['status'] = Product::STATUS_ACTIVE;
+        $criteria->distinct = true;
 
 
         //поиск по категории, производителю и цене

@@ -99,7 +99,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             $model->setAttributes($data);
 
             if ($model->save() && $model->setTypes(Yii::app()->getRequest()->getPost('types',
-                    [])) && $model->setDropDownAttributes(explode(PHP_EOL, $model->rawOptions))
+                    [])) && $model->setMultipleValuesAttributes(explode(PHP_EOL, $model->rawOptions))
             ) {
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,

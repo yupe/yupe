@@ -24,8 +24,8 @@ class DropdownFilterWidget extends \yupe\widgets\YWidget
             $this->attribute = Attribute::model()->findByAttributes(['name' => $this->attribute]);
         }
 
-        if (!($this->attribute instanceof Attribute) || $this->attribute->type != Attribute::TYPE_DROPDOWN) {
-            throw new Exception('Атрибут не найден или неправильного типа');
+        if (!($this->attribute instanceof Attribute) || !$this->attribute->isMultipleValues()) {
+            throw new Exception(Yii::t('StoreModulle.store','Attribute error!'));
         }
 
         parent::init();

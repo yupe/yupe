@@ -5,9 +5,6 @@
  * @var $form \yupe\widgets\ActiveForm
  */
 ?>
-<?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->getModule('store')->getAssetsUrl().'/js/jquery-sortable.js');
-?>
 
 <?php
 /**
@@ -98,7 +95,7 @@ $form = $this->beginWidget(
 <?php if ($model->getIsNewRecord()): ?>
     <div class="row">
         <div id="options"
-             class="<?= !$model->isDropDown() ? 'hidden' : ''; ?> col-sm-5">
+             class="<?= !$model->isMultipleValues() ? 'hidden' : ''; ?> col-sm-5">
             <div class="row form-group">
                 <div class="col-sm-12">
                     <?= Yii::t("StoreModule.store", "Each option value must be on a new line."); ?>
@@ -107,72 +104,78 @@ $form = $this->beginWidget(
             <div class="row">
                 <div class="col-sm-12">
                     <?= CHtml::activeTextArea($model, 'rawOptions',
-                        ['rows' => 10, 'class' => 'form-control', 'value' => $model->getRawOptions()]); ?>
+                        ['rows' => 10, 'class' => 'form-control']); ?>
                 </div>
             </div>
         </div>
     </div>
-<?php elseif ($model->isDropDown()): ?>
-    <div class="row">
-        <div class="col-md-4">
-            <?= CHtml::textField('AttributeOption[name]',null, ['class' => 'form-control']);?>
+<?php else: ?>
+    <div id="options" class="<?= !$model->isMultipleValues() ? 'hidden' : ''; ?>">
+        <div class="row">
+            <div class="col-md-4">
+                <?= CHtml::textField('AttributeOption[name]', null, ['class' => 'form-control']); ?>
+            </div>
+            <div class="col-md-2">
+                <?= CHtml::button(Yii::t('StoreModule.store', 'Add'), [
+                    'class' => 'btn btn-success',
+                    'id' => 'add-option-btn',
+                    'data-url' => Yii::app()->createUrl('/store/attributeBackend/addOption', ['id' => $model->id]),
+                ]); ?>
+            </div>
         </div>
-        <div class="col-md-2">
-            <?= CHtml::button(Yii::t('StoreModule.store', 'Add'), ['class' => 'btn btn-success', 'id' => 'add-option-btn', 'data-url' => Yii::app()->createUrl('/store/attributeBackend/addOption', ['id' => $model->id])]);?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <?php $this->widget(
-                'yupe\widgets\CustomGridView',
-                [
-                    'hideBulkActions' => true,
-                    'id' => 'attributes-options-grid',
-                    'sortableRows' => true,
-                    'sortableAjaxSave' => true,
-                    'sortableAttribute' => 'position',
-                    'sortableAction' => '/store/attributeBackend/sortoptions',
-                    'type' => 'condensed',
-                    'ajaxUrl'=> Yii::app()->createUrl('/store/attributeBackend/update', ['id' => $model->id]),
-                    'template' => "{items}\n{pager}<br/><br/>",
-                    'dataProvider' => new CActiveDataProvider('AttributeOption',
-                        [
-                            'criteria' => [
-                                'condition' => 'attribute_id = :id',
-                                'params' => [':id' => $model->id],
-                            ],
-                        ]
-                    ),
-                    'columns' => [
-                        [
-                            'class' => 'bootstrap.widgets.TbEditableColumn',
-                            'name' => 'value',
-                            'editable' => [
-                                'url' => $this->createUrl('/store/attributeBackend/inline'),
-                                'mode' => 'inline',
-                                'params' => [
-                                    Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->getCsrfToken(),
+        <div class="row">
+            <div class="col-md-6">
+                <?php $this->widget(
+                    'yupe\widgets\CustomGridView',
+                    [
+                        'hideBulkActions' => true,
+                        'id' => 'attributes-options-grid',
+                        'sortableRows' => true,
+                        'sortableAjaxSave' => true,
+                        'sortableAttribute' => 'position',
+                        'sortableAction' => '/store/attributeBackend/sortoptions',
+                        'type' => 'condensed',
+                        'ajaxUrl' => Yii::app()->createUrl('/store/attributeBackend/update', ['id' => $model->id]),
+                        'template' => "{items}\n{pager}<br/><br/>",
+                        'dataProvider' => new CActiveDataProvider('AttributeOption',
+                            [
+                                'criteria' => [
+                                    'condition' => 'attribute_id = :id',
+                                    'params' => [':id' => $model->id],
+                                ],
+                            ]
+                        ),
+                        'columns' => [
+                            [
+                                'class' => 'bootstrap.widgets.TbEditableColumn',
+                                'name' => 'value',
+                                'editable' => [
+                                    'url' => $this->createUrl('/store/attributeBackend/inline'),
+                                    'mode' => 'inline',
+                                    'params' => [
+                                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->getCsrfToken(),
+                                    ],
                                 ],
                             ],
-                        ],
-                        [
-                            'class' => 'yupe\widgets\CustomButtonColumn',
-                            'template' => '{delete}',
-                            'buttons' => [
-                                'delete' => [
-                                    'url' => function ($data) {
-                                        return Yii::app()->createUrl('/store/attributeBackend/deleteOption',
-                                            ['id' => $data->id]);
-                                    },
-                                    'options' => [
-                                        'class' => 'delete btn-sm btn-default',
+                            [
+                                'class' => 'yupe\widgets\CustomButtonColumn',
+                                'template' => '{delete}',
+                                'buttons' => [
+                                    'delete' => [
+                                        'url' => function ($data) {
+                                            return Yii::app()->createUrl('/store/attributeBackend/deleteOption',
+                                                ['id' => $data->id]);
+                                        },
+                                        'options' => [
+                                            'class' => 'delete btn-sm btn-default',
+                                        ],
                                     ],
                                 ],
                             ],
                         ],
-                    ],
-                ]
-            ) ?>
+                    ]
+                ) ?>
+            </div>
         </div>
     </div>
 <?php endif; ?>
@@ -201,21 +204,22 @@ $form = $this->beginWidget(
 <script type="text/javascript">
     $(function () {
 
-        $('#add-option-btn').on('click', function(event){
+        $('#add-option-btn').on('click', function (event) {
             event.preventDefault();
             var data = $('#AttributeOption_name').val();
-            if(data){
-                $.post($(this).data('url'),{
-                    'value':data,
-                    '<?= Yii::app()->getRequest()->csrfTokenName;?>' : '<?= Yii::app()->getRequest()->getCsrfToken()?>'
-                }, function(response){
+            if (data) {
+                $.post($(this).data('url'), {
+                    'value': data,
+                    '<?= Yii::app()->getRequest()->csrfTokenName;?>': '<?= Yii::app()->getRequest()->getCsrfToken()?>'
+                }, function (response) {
                     $.fn.yiiGridView.update('attributes-options-grid');
                 }, 'json');
             }
         });
 
         $('#attribute-type').change(function () {
-            if ($.inArray(parseInt($(this).val()), [<?= Attribute::TYPE_DROPDOWN;?>]) >= 0) {
+
+            if ($.inArray(parseInt($(this).val()), [<?= Attribute::TYPE_DROPDOWN;?>, <?= Attribute::TYPE_CHECKBOX_LIST;?>]) >= 0) {
                 $('#options').removeClass('hidden');
             }
             else {

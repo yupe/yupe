@@ -26,7 +26,7 @@
                             </div>
                             <div
                                 class="col-sm-<?= $attribute->isType(Attribute::TYPE_TEXT) ? 9 : 2; ?> <?= $hasError ? 'has-error' : null; ?>">
-                                <?php $htmlOptions = $attribute->isType(Attribute::TYPE_CHECKBOX) ? [] : ['class' => 'form-control']; ?>
+                                <?php $htmlOptions = $attribute->isType(Attribute::TYPE_CHECKBOX) || $attribute->isType(Attribute::TYPE_CHECKBOX_LIST) ? [] : ['class' => 'form-control']; ?>
                                 <?php if ($attribute->isType(Attribute::TYPE_FILE)): ?>
                                     <?php if ($model->attributeFile($attribute->name)): ?>
                                         <div>

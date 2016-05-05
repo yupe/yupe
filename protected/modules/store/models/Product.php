@@ -583,14 +583,35 @@ class Product extends yupe\models\YModel implements ICommentable
                     ':attribute' => $attribute,
                 ]);
 
-                $model = $model ?: new AttributeValue();
+                //множественные значения
+                if (is_array($value)) {
 
-                if (false === $model->store($attribute, $value, $this)) {
-                    throw new InvalidArgumentException('Error store attribute!');
+                    //var_dump($value);die();
+
+                    AttributeValue::model()->deleteAll('product_id = :product AND attribute_id = :attribute', [
+                        ':product' => $this->id,
+                        ':attribute' => $attribute,
+                    ]);
+
+                    foreach ($value as $val) {
+                        $model = new AttributeValue();
+                        if (false === $model->store($attribute, $val, $this)) {
+                            throw new InvalidArgumentException('Error store attribute!');
+                        }
+                    }
+
+                } else {
+
+                    $model = $model ?: new AttributeValue();
+
+                    if (false === $model->store($attribute, $value, $this)) {
+                        throw new InvalidArgumentException('Error store attribute!');
+                    }
                 }
             }
 
             $transaction->commit();
+
             return true;
         } catch (Exception $e) {
             $transaction->rollback();
@@ -608,7 +629,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         $value = $this->attribute($attribute);
 
-        if(null === $value) {
+        if (null === $value) {
             return null;
         }
 
@@ -618,7 +639,7 @@ class Product extends yupe\models\YModel implements ICommentable
     /**
      * @param $attribute
      * @param null $default
-     * @return bool|float|int|null|string
+     * @return bool|float|int|null|string|array
      */
     public function attribute($attribute, $default = null)
     {
@@ -630,8 +651,21 @@ class Product extends yupe\models\YModel implements ICommentable
 
         $attributeName = $attribute instanceof Attribute ? $attribute->name : $attribute;
 
-        return array_key_exists($attributeName,
-            $this->_attributesValues) ? $this->_attributesValues[$attributeName]->value($default) : $default;
+        if (!array_key_exists($attributeName, $this->_attributesValues)) {
+            return $default;
+        }
+
+        //если атрибут имеет множество значений - вернем их массив
+        if (is_array($this->_attributesValues[$attributeName])) {
+            $values = [];
+            foreach ($this->_attributesValues[$attributeName] as $attribute) {
+                $values[] = $attribute->value($default);
+            }
+
+            return $values;
+        }
+
+        return $this->_attributesValues[$attributeName]->value($default);
     }
 
     /**
@@ -644,7 +678,13 @@ class Product extends yupe\models\YModel implements ICommentable
             $this->_attributesValues = [];
 
             foreach ($this->attributesValues as $attribute) {
-                $this->_attributesValues[$attribute->attribute->name] = $attribute;
+
+                //собираем массив multiple values attributes
+                if ($attribute->attribute->isMultipleValues()) {
+                    $this->_attributesValues[$attribute->attribute->name][] = $attribute;
+                } else {
+                    $this->_attributesValues[$attribute->attribute->name] = $attribute;
+                }
             }
         }
     }
@@ -1009,7 +1049,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $options = [];
 
         foreach ((array)$this->variants as $variant) {
-            $options[$variant->id] = array('data-type' => $variant->type, 'data-amount' => $variant->amount);
+            $options[$variant->id] = ['data-type' => $variant->type, 'data-amount' => $variant->amount];
         }
         $this->_variantsOptions = $options;
 

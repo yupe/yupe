@@ -35,6 +35,7 @@ class AttributeRender
                 return CHtml::dropDownList($name, $value, $data, array_merge($htmlOptions, (['empty' => '---'])));
                 break;
             case Attribute::TYPE_CHECKBOX_LIST:
+
                 $data = CHtml::listData($attribute->options, 'id', 'value');
 
                 return CHtml::checkBoxList($name.'[]', $value, $data, $htmlOptions);
@@ -58,10 +59,10 @@ class AttributeRender
      * @param $value
      * @return string
      */
-    public static function renderValue(Attribute $attribute, $value)
+    public static function renderValue(Attribute $attribute, $value, $template = '<p>{item}</p>')
     {
         $unit = $attribute->unit ? ' '.$attribute->unit : '';
-        $res = '';
+        $res = null;
         switch ($attribute->type) {
             case Attribute::TYPE_TEXT:
             case Attribute::TYPE_SHORT_TEXT:
@@ -71,7 +72,13 @@ class AttributeRender
             case Attribute::TYPE_DROPDOWN:
                 $data = CHtml::listData($attribute->options, 'id', 'value');
                 if (!is_array($value) && isset($data[$value])) {
-                    $res = $data[$value];
+                    $res .= $data[$value];
+                }
+                break;
+            case Attribute::TYPE_CHECKBOX_LIST:
+                $data = CHtml::listData($attribute->options, 'id', 'value');
+                foreach (array_intersect(array_keys($data), $value) as $val) {
+                    $res .= strtr($template, ['{item}' => $data[$val]]);
                 }
                 break;
             case Attribute::TYPE_CHECKBOX:

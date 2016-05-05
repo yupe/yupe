@@ -38,10 +38,10 @@ class LoginAction extends CAction
             $form->setAttributes(Yii::app()->getRequest()->getPost('LoginForm'));
 
             if (Yii::app()->authenticationManager->login(
-                    $form,
-                    Yii::app()->getUser(),
-                    Yii::app()->getRequest()
-                )
+                $form,
+                Yii::app()->getUser(),
+                Yii::app()->getRequest()
+            )
             ) {
 
                 Yii::app()->getUser()->setFlash(
