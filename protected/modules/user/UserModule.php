@@ -13,43 +13,139 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class UserModule
+ */
 class UserModule extends WebModule
 {
+    /**
+     *
+     */
     const VERSION = '1.0';
 
+    /**
+     * @var string
+     */
     public $accountActivationSuccess = '/user/account/login';
+    /**
+     * @var string
+     */
     public $accountActivationFailure = '/user/account/registration';
+    /**
+     * @var string
+     */
     public $loginSuccess = '/';
+    /**
+     * @var string
+     */
     public $registrationSuccess = '/user/account/login';
+    /**
+     * @var string
+     */
     public $loginAdminSuccess = '/yupe/backend/index';
+    /**
+     * @var string
+     */
     public $logoutSuccess = '/';
+    /**
+     * @var int
+     */
     public $sessionLifeTime = 7;
 
+    /**
+     * @var
+     */
     public $notifyEmailFrom;
+    /**
+     * @var int
+     */
     public $autoRecoveryPassword = 0;
+    /**
+     * @var int
+     */
     public $recoveryDisabled = 0;
+    /**
+     * @var int
+     */
     public $registrationDisabled = 0;
+    /**
+     * @var int
+     */
     public $minPasswordLength = 8;
+    /**
+     * @var int
+     */
     public $emailAccountVerification = 1;
+    /**
+     * @var int
+     */
     public $showCaptcha = 0;
+    /**
+     * @var int
+     */
     public $minCaptchaLength = 3;
+    /**
+     * @var int
+     */
     public $maxCaptchaLength = 6;
+    /**
+     * @var
+     */
     public $documentRoot;
+    /**
+     * @var string
+     */
     public $avatarsDir = 'avatars';
+    /**
+     * @var int
+     */
     public $avatarMaxSize = 5242880; // 5 MB
+    /**
+     * @var string
+     */
     public $defaultAvatarPath = 'images/avatar.png';
+    /**
+     * @var string
+     */
     public $avatarExtensions = 'jpg,png,gif,jpeg';
+    /**
+     * @var int
+     */
     public $usersPerPage = 20;
+    /**
+     * @var int
+     */
     public $badLoginCount = 3;
+    /**
+     * @var string
+     */
     public $phoneMask = '+7-999-999-9999';
+    /**
+     * @var string
+     */
     public $phonePattern = '/^((\+?7)(-?\d{3})-?)?(\d{3})(-?\d{4})$/';
+    /**
+     * @var int
+     */
     public $generateNickName = 0;
 
+    /**
+     * @var string
+     */
     public static $logCategory = 'application.modules.user';
+    /**
+     * @var array
+     */
     public $profiles = [];
 
+    /**
+     * @var
+     */
     private $defaultAvatar;
 
+    /**
+     * @return string
+     */
     public function getUploadPath()
     {
         return Yii::getPathOfAlias('webroot') . '/' .
@@ -57,6 +153,9 @@ class UserModule extends WebModule
         $this->avatarsDir . '/';
     }
 
+    /**
+     * @return bool
+     */
     public function getInstall()
     {
         if (parent::getInstall()) {
@@ -66,6 +165,9 @@ class UserModule extends WebModule
         return false;
     }
 
+    /**
+     * @return array|bool
+     */
     public function checkSelf()
     {
         $messages = [];
@@ -112,6 +214,9 @@ class UserModule extends WebModule
         return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
 
+    /**
+     * @return array
+     */
     public function getParamsLabels()
     {
         return [
@@ -147,6 +252,9 @@ class UserModule extends WebModule
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
         return [
@@ -178,14 +286,23 @@ class UserModule extends WebModule
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParamsGroups()
     {
         return [
-            'main' => [
-                'label' => Yii::t('UserModule.user', 'General module settings'),
+            'security' => [
+                'label' => Yii::t('UserModule.user', 'Security settings'),
                 'items' => [
                     'sessionLifeTime',
                     'generateNickName',
+                    'registrationDisabled',
+                    'recoveryDisabled',
+                    'emailAccountVerification',
+                    'minPasswordLength',
+                    'autoRecoveryPassword',
+                    'badLoginCount'
                 ]
             ],
             'avatar' => [
@@ -195,17 +312,6 @@ class UserModule extends WebModule
                     'avatarsDir',
                     'avatarMaxSize',
                     'defaultAvatarPath'
-                ]
-            ],
-            'security' => [
-                'label' => Yii::t('UserModule.user', 'Security settings'),
-                'items' => [
-                    'registrationDisabled',
-                    'recoveryDisabled',
-                    'emailAccountVerification',
-                    'minPasswordLength',
-                    'autoRecoveryPassword',
-                    'badLoginCount'
                 ]
             ],
             'captcha' => [
@@ -237,11 +343,17 @@ class UserModule extends WebModule
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/user/userBackend/index';
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
         return [
@@ -265,56 +377,89 @@ class UserModule extends WebModule
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function getIsInstallDefault()
     {
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsNoDisable()
     {
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('UserModule.user', 'Users');
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('UserModule.user', 'Users');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('UserModule.user', 'Module for user registration and authorization management');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('UserModule.user', 'yupe team');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return 'team@yupe.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return 'http://yupe.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return 'fa fa-fw fa-user';
     }
 
+    /**
+     * @return array
+     */
     public function getConditions()
     {
         return [
@@ -329,6 +474,9 @@ class UserModule extends WebModule
         ];
     }
 
+    /**
+     *
+     */
     public function init()
     {
         $this->setImport(
@@ -345,6 +493,9 @@ class UserModule extends WebModule
         parent::init();
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [

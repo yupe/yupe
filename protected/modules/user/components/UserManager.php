@@ -6,14 +6,19 @@
 class UserManager extends CApplicationComponent
 {
     /**
-     * @var
+     * @var Hasher
      */
     public $hasher;
 
     /**
-     * @var
+     * @var TokenStorage
      */
     public $tokenStorage;
+
+    /**
+     * @var UserModule
+     */
+    public $userModule;
 
     /**
      *
@@ -25,6 +30,8 @@ class UserManager extends CApplicationComponent
         $this->setHasher(Yii::createComponent($this->hasher));
 
         $this->setTokenStorage(Yii::createComponent($this->tokenStorage));
+
+        $this->userModule = Yii::app()->getModule('user');
     }
 
     /**
@@ -55,32 +62,33 @@ class UserManager extends CApplicationComponent
 
             $user = new User;
 
-            $userData = $form->getAttributes();
+            $user->setAttributes([
+                'nick_name' => $form->nick_name,
+                'email' => $form->email,
+            ]);
 
-            foreach (['cPassword', 'password', 'verifyCode', 'disableCaptcha'] as $attribute) {
-                unset($userData[$attribute]);
+            if (!$this->userModule->emailAccountVerification) {
+                $user->setAttributes([
+                    'status' => User::STATUS_ACTIVE,
+                    'email_confirm' => User::EMAIL_CONFIRM_YES,
+                ]);
             }
-
-            $user->setAttributes($userData);
 
             $user->setAttribute('hash', $this->hasher->hashPassword($form->password));
 
             if ($user->save() && ($token = $this->tokenStorage->createAccountActivationToken($user)) !== false) {
 
-                Yii::app()->eventManager->fire(
-                    UserEvents::SUCCESS_REGISTRATION,
-                    new UserRegistrationEvent($form, $user, $token)
-                );
-
-                Yii::log(
-                    Yii::t(
-                        'UserModule.user',
-                        'Account {nick_name} was created',
-                        ['{nick_name}' => $user->nick_name]
-                    ),
-                    CLogger::LEVEL_INFO,
-                    UserModule::$logCategory
-                );
+                if (!$this->userModule->emailAccountVerification) {
+                    Yii::app()->eventManager->fire(
+                        UserEvents::SUCCESS_REGISTRATION,
+                        new UserRegistrationEvent($form, $user, $token)
+                    );
+                }else{
+                    Yii::app()->eventManager->fire(
+                        UserEvents::SUCCESS_REGISTRATION_NEED_ACTIVATION,
+                        new UserRegistrationEvent($form, $user, $token)
+                    );
+                }
 
                 $transaction->commit();
 
@@ -135,19 +143,6 @@ class UserManager extends CApplicationComponent
             $userModel->activate();
 
             if ($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
-
-                Yii::log(
-                    Yii::t(
-                        'UserModule.user',
-                        'Account with activate_key = {activate_key} was activated!',
-                        [
-                            '{activate_key}' => $token,
-                        ]
-                    ),
-                    CLogger::LEVEL_INFO,
-                    UserModule::$logCategory
-                );
-
 
                 Yii::app()->eventManager->fire(
                     UserEvents::SUCCESS_ACTIVATE_ACCOUNT,
@@ -377,19 +372,6 @@ class UserManager extends CApplicationComponent
                 );
 
                 $transaction->commit();
-
-                Yii::log(
-                    Yii::t(
-                        'UserModule.user',
-                        'Email with activate_key = {activate_key}, id = {id} was activated!',
-                        [
-                            '{activate_key}' => $token,
-                            '{id}' => $userModel->id,
-                        ]
-                    ),
-                    CLogger::LEVEL_INFO,
-                    UserModule::$logCategory
-                );
 
                 return true;
             }

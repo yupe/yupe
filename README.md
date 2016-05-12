@@ -1,5 +1,5 @@
-Юпи!- CMS на Yii
-=================
+Юпи!- CMS на Yiiframework 1.x
+=============================
 
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/yupe/yupe/?branch=dev)
 [![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
@@ -9,17 +9,17 @@
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 [![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
-![Юпи!](http://amylabs.ru/assets/196fa697/images/Head_browser.png)
+
+![Юпи!](http://amylabs.ru/assets/6e689601/images/Head_browser.png)
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
 * [интернет-магазины](http://yupe.ru/ecommerce)
-* сайты-визитки
-* корпоративные порталы
 * [блоги / сообщества](http://yupe.ru/community)
+* корпоративные порталы и сайты-визитки
 
 
-На Юпи! работает более 2000 проектов, среди которых около 500 интернет-магазинов, Юпи! активно используют [студии и команды разработчиков](http://yupe.ru/partners).
+На Юпи! работает более 2500 проектов, среди которых более 500 интернет-магазинов, Юпи! активно используют [студии и команды разработчиков](http://yupe.ru/partners).
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x.
 
@@ -53,13 +53,13 @@
 * [Группа Вконтакте](https://vk.com/yupecms)
 * [Разработка](http://yupe.ru/service/development) и [поддержка](http://yupe.ru/service/support)
 
-[![Юпи! Market](http://yupe.ru/uploads/blogs/a0301fdec876e23050ff3d312d97ee88.png)](http://yupe.ru/marketplace)
 
 Возможности
 -----------
 
 Из коробки Вы получаете каркас Yii-приложения, со следующим функционалом (всё разделено на модули - используйте только то, что необходимо):
 
+* [Интернет-магазин (каталог, корзина, заказы, купоны, платежные системы)](http://yupe.ru/ecommerce)
 * [Регистрация](http://yupe.ru/registration), [аутентификация](http://yupe.ru/login), [восстановление пароля](http://yupe.ru/recovery) ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
 * Управление пользователями (блокировка, активация, редактирование и т.д.) через административный интерфейс ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
 * Модуль для ведения блогов ([как индивидуальных, так и коллективных](http://yupe.ru/blogs/yupe-mini-cms-yii)) ([модуль blog](https://github.com/yupe/yupe/tree/master/protected/modules/blog)).
@@ -75,9 +75,8 @@
 * Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/albums/5)).
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 * Авторизация через социальные сети (с использованием nodge/yii-eauth)
-* [Интернет-магазин (каталог, корзина, заказы, купоны, платежные системы)](http://yupe.ru/ecommerce)
 
-**Если вам не хватает какой-то функциональности - [напишите нам](http://amylabs.ru/contact) и мы Вам обязательно поможем!**
+**Если вам не хватает какой-то функциональности - [напишите нам](http://yupe.ru/contacts) и мы Вам обязательно поможем!**
 
 
 Лицензия
@@ -90,7 +89,7 @@
 
 [![amylabs](http://yupe.ru/web/images/yupe/amylabs.jpg)](http://amylabs.ru)
 
-![amyLabs](http://amylabs.ru/assets/196fa697/images/logo1.png)
+![amyLabs](http://amylabs.ru/assets/6e689601/images/logo1.png)
 
 
-(c) 2012 - 2015 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
+(c) 2012 - 2016 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)

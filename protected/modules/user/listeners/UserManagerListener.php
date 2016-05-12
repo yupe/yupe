@@ -17,6 +17,27 @@ class UserManagerListener
                 'Registration on {site}',
                 ['{site}' => Yii::app()->getModule('yupe')->siteName]
             ),
+            '//user/email/successRegistrationEmail',
+            [
+                'token' => $event->getToken(),
+                'user' => $event->getUser(),
+                'event' => $event,
+            ]
+        );
+    }
+
+    /**
+     * @param UserRegistrationEvent $event
+     */
+    public static function onUserRegistrationNeedActivation(UserRegistrationEvent $event)
+    {
+        Yii::app()->notify->send(
+            $event->getUser(),
+            Yii::t(
+                'UserModule.user',
+                'Registration on {site}',
+                ['{site}' => Yii::app()->getModule('yupe')->siteName]
+            ),
             '//user/email/needAccountActivationEmail',
             [
                 'token' => $event->getToken(),

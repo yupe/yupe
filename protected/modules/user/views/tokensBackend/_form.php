@@ -72,48 +72,6 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-6">
-        <?=  $form->labelEx($model, 'create_time'); ?>
-        <div class="input-prepend">
-            <span class="add-on"><i class="icon-calendar"></i></span>
-            <?php $this->widget(
-                'bootstrap.widgets.TbDateTimePicker',
-                [
-                    'model'       => $model,
-                    'attribute'   => 'create_time',
-                    'htmlOptions' => [
-                        'class' => 'span11',
-                        'value' => !empty($model->create_time)
-                                ? $model->beautifyDate($model->create_time, 'yyyy-MM-dd HH:mm')
-                                : date('Y-m-d H:i')
-                    ],
-                ]
-            ); ?>
-        </div>
-    </div>
-
-    <div class="col-sm-6">
-        <?=  $form->labelEx($model, 'update_time'); ?>
-        <div class="input-prepend">
-            <span class="add-on"><i class="icon-calendar"></i></span>
-            <?php $this->widget(
-                'bootstrap.widgets.TbDateTimePicker',
-                [
-                    'model'       => $model,
-                    'attribute'   => 'update_time',
-                    'htmlOptions' => [
-                        'class' => 'span11',
-                        'value' => !empty($model->update_time)
-                                ? $model->beautifyDate($model->update_time, 'yyyy-MM-dd HH:mm')
-                                : date('Y-m-d H:i')
-                    ],
-                ]
-            ); ?>
-        </div>
-    </div>
-</div>
-<br/>
-<div class="row">
     <div class="col-xs-12">
         <?php $this->widget(
             'bootstrap.widgets.TbButton',

@@ -13,6 +13,9 @@
  **/
 class EmailConfirmAction extends CAction
 {
+    /**
+     * @param $token
+     */
     public function run($token)
     {
         // пытаемся подтвердить почту

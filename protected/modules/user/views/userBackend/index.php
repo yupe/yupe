@@ -115,7 +115,7 @@ $this->menu = [
                     ),
                     'source' => $model->getAccessLevelsList(),
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'name'     => 'access_level',
@@ -152,7 +152,7 @@ $this->menu = [
                     ),
                     'source' => $model->getEmailConfirmStatusList(),
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'name'     => 'email_confirm',

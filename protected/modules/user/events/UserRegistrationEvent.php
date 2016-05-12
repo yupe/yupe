@@ -12,6 +12,30 @@ class UserRegistrationEvent extends Event
     protected $token;
 
     /**
+     * @var RegistrationForm
+     */
+    protected $form;
+
+    /**
+     * @var User
+     */
+    protected $user;
+
+
+    /**
+     * UserRegistrationEvent constructor.
+     * @param RegistrationForm $form
+     * @param User $user
+     * @param UserToken|null $token
+     */
+    public function __construct(RegistrationForm $form, User $user, UserToken $token = null)
+    {
+        $this->form = $form;
+        $this->user = $user;
+        $this->token = $token;
+    }
+
+    /**
      * @param mixed $token
      */
     public function setToken($token)
@@ -25,27 +49,6 @@ class UserRegistrationEvent extends Event
     public function getToken()
     {
         return $this->token;
-    }
-
-    /**
-     * @var RegistrationForm
-     */
-    protected $form;
-
-    /**
-     * @var User
-     */
-    protected $user;
-
-    /**
-     * @param RegistrationForm $form
-     * @param User $user
-     */
-    public function __construct(RegistrationForm $form, User $user, UserToken $token = null)
-    {
-        $this->form = $form;
-        $this->user = $user;
-        $this->token = $token;
     }
 
     /**

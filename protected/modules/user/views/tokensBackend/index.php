@@ -114,7 +114,9 @@ SCRIPT;
             ],
             [
                 'name'        => 'create_time',
-                'value'       => '$data->beautifyDate($data->create_time)',
+                'value'       => function($data){
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->create_time);
+                },
                 'filter'      => false,
                 'htmlOptions' => [
                     'style' => 'width: 120px;'
@@ -123,7 +125,9 @@ SCRIPT;
             [
                 'name'        => 'update_time',
                 'filter'      => false,
-                'value'       => '$data->beautifyDate($data->update_time)',
+                'value'       => function($data){
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->update_time);
+                },
                 'htmlOptions' => [
                     'style' => 'width: 120px;'
                 ]
@@ -131,7 +135,9 @@ SCRIPT;
             [
                 'name'        => 'expire_time',
                 'filter'      => false,
-                'value'       => '$data->beautifyDate($data->expire_time)',
+                'value'       => function($data){
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->expire_time);
+                },
                 'htmlOptions' => [
                     'style' => 'width: 120px;'
                 ]

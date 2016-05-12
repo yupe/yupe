@@ -13,6 +13,9 @@
  **/
 class EmailAction extends CAction
 {
+    /**
+     *
+     */
     public function run()
     {
         $user = $this->getController()->user;

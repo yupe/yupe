@@ -88,11 +88,11 @@ $this->menu = [
             ],
             [
                 'name'  => 'create_time',
-                'value' => $model->beautifyDate($model->create_time),
+                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_time),
             ],
             [
                 'name'  => 'update_time',
-                'value' => $model->beautifyDate($model->update_time),
+                'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_time),
             ],
             'ip'
         ],

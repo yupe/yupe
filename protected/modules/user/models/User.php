@@ -168,6 +168,9 @@ class User extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -186,7 +189,6 @@ class User extends yupe\models\YModel
     public function relations()
     {
         return [
-            // Все токены пользователя:
             'tokens' => [
                 self::HAS_MANY,
                 'UserToken',
@@ -633,6 +635,9 @@ class User extends yupe\models\YModel
         return (int)$this->status === self::STATUS_ACTIVE;
     }
 
+    /**
+     * @return $this
+     */
     public function activate()
     {
         $this->status = self::STATUS_ACTIVE;

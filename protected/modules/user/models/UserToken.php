@@ -75,15 +75,11 @@ class UserToken extends yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
             ['user_id, type, ip, token, expire_time', 'required'],
             ['user_id, type, status', 'numerical', 'integerOnly' => true],
             ['token, ip', 'length', 'max' => 255],
             ['update_time', 'safe'],
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
             ['id, user_id, token, type, status, create_time, update_time, ip', 'safe', 'on' => 'search'],
         ];
     }
@@ -93,8 +89,6 @@ class UserToken extends yupe\models\YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return [
             'user' => [self::BELONGS_TO, 'User', 'user_id'],
         ];
@@ -132,8 +126,6 @@ class UserToken extends yupe\models\YModel
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->with = ['user'];
