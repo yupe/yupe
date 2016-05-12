@@ -22,6 +22,9 @@ class StoreModule extends WebModule
      */
     public $email;
 
+    /**
+     * @var string
+     */
     public $currency = 'RUB';
 
     /**
@@ -90,12 +93,15 @@ class StoreModule extends WebModule
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function getCurrencyList()
     {
         return [
             'USD' => 'USD',
             'RUB' => 'RUB',
-            'EUR' => 'EUR'
+            'EUR' => 'EUR',
         ];
     }
 
@@ -112,7 +118,7 @@ class StoreModule extends WebModule
             'itemsPerPage',
             'phone',
             'email',
-            'currency' => $this->getCurrencyList()
+            'currency' => $this->getCurrencyList(),
         ];
     }
 
@@ -132,7 +138,7 @@ class StoreModule extends WebModule
             'itemsPerPage' => Yii::t('StoreModule.store', 'Items per page'),
             'phone' => Yii::t('StoreModule.store', 'Phone'),
             'email' => Yii::t('StoreModule.store', 'Email'),
-            'currency' => Yii::t('StoreModule.store', 'Currency')
+            'currency' => Yii::t('StoreModule.store', 'Currency'),
         ];
     }
 
@@ -147,13 +153,13 @@ class StoreModule extends WebModule
                 'items' => [
                     'phone',
                     'email',
-                    'itemsPerPage'
+                    'itemsPerPage',
                 ],
             ],
             '1.store' => [
                 'label' => Yii::t('StoreModule.store', 'Currency'),
                 'items' => [
-                    'currency'
+                    'currency',
                 ],
             ],
             '2.main' => [

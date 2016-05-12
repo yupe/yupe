@@ -854,6 +854,9 @@ class YupeModule extends WebModule
     }
 
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
         return [
@@ -866,12 +869,7 @@ class YupeModule extends WebModule
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Yupe.YupeBackend.index',
                         'description' => Yii::t('YupeModule.yupe', 'Yupe panel')
-                    ],
-                    [
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Update.UpdateBackend.update',
-                        'description' => Yii::t('YupeModule.yupe', 'Modules update')
-                    ],
+                    ]
                 ]
             ]
         ];

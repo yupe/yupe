@@ -29,6 +29,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             'inline' => [
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Product',
+                'validateModel' => false,
                 'validAttributes' => [
                     'status',
                     'in_stock',
@@ -37,6 +38,7 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                     'sku',
                     'type_id',
                     'quantity',
+                    'producer_id'
                 ],
             ],
             'sortable' => [
