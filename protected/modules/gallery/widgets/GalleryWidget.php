@@ -41,12 +41,12 @@ class GalleryWidget extends yupe\widgets\YWidget
         );
         $dataProvider = new CActiveDataProvider(
             'ImageToGallery', [
-                'criteria'   => [
+                'criteria' => [
                     'condition' => 't.gallery_id = :gallery_id',
-                    'params'    => [':gallery_id' => $this->galleryId],
-                    'limit'     => $this->limit,
-                    'order'     => 'image.sort',
-                    'with'      => 'image',
+                    'params' => [':gallery_id' => $this->galleryId],
+                    'limit' => $this->limit,
+                    'order' => 'image.sort',
+                    'with' => 'image',
                 ],
                 'pagination' => ['pageSize' => $this->limit],
             ]
@@ -56,7 +56,7 @@ class GalleryWidget extends yupe\widgets\YWidget
             $this->view,
             [
                 'dataProvider' => $dataProvider,
-                'gallery'      => $this->gallery,
+                'gallery' => $this->gallery,
             ]
         );
     }
