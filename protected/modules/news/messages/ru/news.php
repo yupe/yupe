@@ -87,6 +87,7 @@ return [
     'News article was updated!' => 'Новость обновлена!',
     'News Article' => 'Новость',
     'News categories' => 'Категории новостей',
+    'News in category {name}' => 'Новости категории "{name}"',
     'News list' => 'Новости',
     'News lists' => 'Новости',
     'News management' => 'Управление новостями',

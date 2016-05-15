@@ -25,6 +25,8 @@ return [
     ],
     'rules' => [
         '/news/' => 'news/news/index',
-        '/news/<slug>' => 'news/news/view',
+        '/news/categories' => 'news/newsCategory/index',
+        '/news/<slug>' => 'news/newsCategory/view',
+        ['news/news/view', 'pattern' => '/news/<slug>', 'urlSuffix' => '.html'],
     ],
 ];
