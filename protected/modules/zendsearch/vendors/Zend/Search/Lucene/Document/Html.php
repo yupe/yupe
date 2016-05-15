@@ -450,7 +450,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
             $words = [$words];
         }
 
-        $wordsToHighlightList = [];
+        $wordsToHighlightList = [[]];
         $analyzer = Zend_Search_Lucene_Analysis_Analyzer::getDefault();
         foreach ($words as $wordString) {
             $wordsToHighlightList[] = $analyzer->tokenize($wordString, 'UTF-8');
