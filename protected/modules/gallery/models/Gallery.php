@@ -16,6 +16,7 @@
  * @property string $description
  * @property integer $status
  * @property integer $preview_id
+ * @property integer $category_id
  *
  * @property Image $preview
  */
@@ -54,7 +55,7 @@ class Gallery extends yupe\models\YModel
         return [
             ['name, description', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
             ['name, description, owner', 'required'],
-            ['status, owner, preview_id', 'numerical', 'integerOnly' => true],
+            ['status, owner, preview_id, category_id', 'numerical', 'integerOnly' => true],
             ['name', 'length', 'max' => 250],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['id, name, description, status, owner', 'safe', 'on' => 'search'],
@@ -75,6 +76,7 @@ class Gallery extends yupe\models\YModel
             'user' => [self::BELONGS_TO, 'User', 'owner'],
             'lastUpdated' => [self::STAT, 'ImageToGallery', 'gallery_id', 'select' => 'max(create_time)'],
             'preview' => [self::BELONGS_TO, 'Image', 'preview_id'],
+            'category' => [self::BELONGS_TO, 'Category', 'category_id'],
         ];
     }
 
@@ -105,6 +107,7 @@ class Gallery extends yupe\models\YModel
             'description' => Yii::t('GalleryModule.gallery', 'Description'),
             'status' => Yii::t('GalleryModule.gallery', 'Status'),
             'imagesCount' => Yii::t('GalleryModule.gallery', 'Images count'),
+            'category_id' => Yii::t('GalleryModule.gallery', 'Category'),
         ];
     }
 
@@ -124,6 +127,7 @@ class Gallery extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
         $criteria->compare('owner', $this->owner);
         $criteria->compare('status', $this->status);
+        $criteria->compare('category_id', $this->category_id);
 
         return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
@@ -222,5 +226,10 @@ class Gallery extends yupe\models\YModel
                 ]
             ],
         ];
+    }
+
+    public function getCategoryName()
+    {
+        return ($this->category === null) ? '---' : $this->category->name;
     }
 }

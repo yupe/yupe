@@ -36,6 +36,7 @@ class GalleryModule extends yupe\components\WebModule
     {
         return [
             'editor' => Yii::t('GalleryModule.gallery', 'Visual Editor'),
+            'mainCategory' => Yii::t('GalleryModule.gallery', 'Main gallery category'),
         ];
     }
 
@@ -132,6 +133,7 @@ class GalleryModule extends yupe\components\WebModule
     {
         return [
             'editor' => Yii::app()->getModule('yupe')->editors,
+            'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
         ];
     }
 
@@ -150,6 +152,11 @@ class GalleryModule extends yupe\components\WebModule
                 'icon' => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
                 'url' => ['/gallery/galleryBackend/create']
+            ],
+            [
+                'icon' => 'fa fa-fw fa-folder-open',
+                'label' => Yii::t('GalleryModule.gallery', 'Gallery categories'),
+                'url' => ['/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory],
             ],
         ];
     }
