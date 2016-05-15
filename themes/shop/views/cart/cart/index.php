@@ -6,6 +6,7 @@
 /* @var $form CActiveForm */
 
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
+$currency = Yii::t("CartModule.cart", Yii::app()->getModule('store')->currency);
 
 Yii::app()->getClientScript()->registerScriptFile($mainAssets.'/js/store.js');
 
@@ -91,7 +92,7 @@ $this->breadcrumbs = [
                             </div>
                             <div class="cart-item__price">
                                 <span class="position-price"><?= $position->getPrice(); ?></span>
-                                <span class="ruble"> <?= Yii::t("CartModule.cart", Yii::app()->getModule('store')->currency); ?></span>
+                                <span class="ruble"> <?= $currency; ?></span>
                             </div>
                             <div class="cart-item__quantity">
                                 <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
@@ -108,7 +109,7 @@ $this->breadcrumbs = [
                             </div>
                             <div class="cart-item__summ">
                                 <span class="position-sum-price"><?= $position->getSumPrice(); ?></span>
-                                <span class="ruble"> <?= Yii::t("CartModule.cart", Yii::app()->getModule('store')->currency); ?></span>
+                                <span class="ruble"> <?= $currency; ?></span>
 
                                 <div class="cart-item__action">
                                     <a class="js-cart__delete cart-delete-product"
@@ -183,10 +184,7 @@ $this->breadcrumbs = [
                                                     <div class="rich-radio-body__heading">
                                                         <span class="rich-radio-body__title">
                                                             <?= $delivery->name; ?>
-                                                            - <?= $delivery->price; ?> <?= Yii::t(
-                                                                "CartModule.cart",
-                                                                Yii::app()->getModule('store')->currency
-                                                            ); ?>
+                                                            - <?= $delivery->price; ?> <?= $currency ?>
                                                         </span>
                                                     </div>
                                                     <div
@@ -358,10 +356,7 @@ $this->breadcrumbs = [
                 <div class="cart-box__subtotal">
                     Итого: &nbsp;<span id="cart-total-product-count"><?= Yii::app()->cart->getItemsCount(); ?></span>&nbsp;
                     товар(ов)
-                    на сумму &nbsp;<span id="cart-full-cost-with-shipping">0</span><span class="ruble"> <?= Yii::t(
-                            "CartModule.cart",
-                            Yii::app()->getModule('store')->currency
-                        ); ?></span>
+                    на сумму &nbsp;<span id="cart-full-cost-with-shipping">0</span><span class="ruble"> <?= $currency; ?></span>
                 </div>
                 <div class="cart-box__order-button">
                     <button type="submit" class="btn btn_big btn_primary"><?= Yii::t(
