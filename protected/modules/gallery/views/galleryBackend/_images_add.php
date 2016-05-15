@@ -20,15 +20,15 @@ Yii::app()->clientScript->registerCss(
 $this->widget(
     'bootstrap.widgets.TbFileUpload',
     [
-        'id'         => 'fileUploader',
-        'url'        => $this->createUrl("/gallery/galleryBackend/addImages", ['id' => $gallery->id]),
-        'model'      => $model,
-        'attribute'  => 'file', // see the attribute?
-        'multiple'   => true,
-        'formView'   => 'gallery.views.galleryBackend._tform',
+        'id' => 'fileUploader',
+        'url' => $this->createUrl("/gallery/galleryBackend/addImages", ['id' => $gallery->id]),
+        'model' => $model,
+        'attribute' => 'file', // see the attribute?
+        'multiple' => true,
+        'formView' => 'gallery.views.galleryBackend._tform',
         'uploadView' => 'gallery.views.galleryBackend._upload', //bootstrap.views.fileupload.upload
-        'options'    => [
-            'maxFileSize'     => Yii::app()->getModule('image')->maxSize,
+        'options' => [
+            'maxFileSize' => Yii::app()->getModule('image')->maxSize,
             'acceptFileTypes' => 'js:/(\.|\/)(' . implode(
                     '|',
                     Yii::app()->getModule('image')->allowedExtensions()

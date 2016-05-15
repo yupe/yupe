@@ -18,28 +18,28 @@ $this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - manage');
 
 $this->menu = [
     [
-        'icon'  => 'fa fa-fw fa-list-alt',
+        'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
-        'url'   => ['/gallery/galleryBackend/index']
+        'url' => ['/gallery/galleryBackend/index']
     ],
     [
-        'icon'  => 'fa fa-fw fa-plus-square',
+        'icon' => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
-        'url'   => ['/gallery/galleryBackend/create']
+        'url' => ['/gallery/galleryBackend/create']
     ],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?=  Yii::t('GalleryModule.gallery', 'Galleries'); ?>
-        <small><?=  Yii::t('GalleryModule.gallery', 'management'); ?></small>
+        <?= Yii::t('GalleryModule.gallery', 'Galleries'); ?>
+        <small><?= Yii::t('GalleryModule.gallery', 'management'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?=  Yii::t('GalleryModule.gallery', 'Find galleries'); ?>
+        <?= Yii::t('GalleryModule.gallery', 'Find galleries'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -64,35 +64,35 @@ $this->menu = [
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     [
-        'id'           => 'gallery-grid',
+        'id' => 'gallery-grid',
         'dataProvider' => $model->search(),
-        'filter'       => $model,
-        'columns'      => [
+        'filter' => $model,
+        'columns' => [
             [
                 'header' => '',
-                'value'  => 'CHtml::image($data->previewImage(), $data->name, array("width" => 75))',
-                'type'   => 'html'
+                'value' => 'CHtml::image($data->previewImage(), $data->name, array("width" => 75))',
+                'type' => 'html'
             ],
             [
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'name',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'name',
                 'editable' => [
-                    'url'    => $this->createUrl('/gallery/galleryBackend/inline'),
-                    'mode'   => 'inline',
+                    'url' => $this->createUrl('/gallery/galleryBackend/inline'),
+                    'mode' => 'inline',
                     'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     ]
                 ],
-                'filter'   => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
+                'filter' => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
             ],
             [
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'description',
-                'value'    => 'trim(strip_tags($data->description))',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'description',
+                'value' => 'trim(strip_tags($data->description))',
                 'editable' => [
-                    'url'    => $this->createUrl('/gallery/galleryBackend/inline'),
-                    'type'   => 'textarea',
-                    'title'  => Yii::t(
+                    'url' => $this->createUrl('/gallery/galleryBackend/inline'),
+                    'type' => 'textarea',
+                    'title' => Yii::t(
                         'GalleryModule.gallery',
                         'Select {field}',
                         ['{field}' => mb_strtolower($model->getAttributeLabel('description'))]
@@ -101,23 +101,23 @@ $this->menu = [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     ]
                 ],
-                'filter'   => CHtml::activeTextField($model, 'description', ['class' => 'form-control']),
+                'filter' => CHtml::activeTextField($model, 'description', ['class' => 'form-control']),
             ],
             [
-                'class'   => 'yupe\widgets\EditableStatusColumn',
-                'name'    => 'status',
-                'url'     => $this->createUrl('/gallery/galleryBackend/inline'),
-                'source'  => $model->getStatusList(),
+                'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'status',
+                'url' => $this->createUrl('/gallery/galleryBackend/inline'),
+                'source' => $model->getStatusList(),
                 'options' => [
-                    Gallery::STATUS_DRAFT    => ['class' => 'label-default'],
+                    Gallery::STATUS_DRAFT => ['class' => 'label-default'],
                     Gallery::STATUS_PERSONAL => ['class' => 'label-info'],
-                    Gallery::STATUS_PRIVATE  => ['class' => 'label-warning'],
-                    Gallery::STATUS_PUBLIC   => ['class' => 'label-success'],
+                    Gallery::STATUS_PRIVATE => ['class' => 'label-warning'],
+                    Gallery::STATUS_PUBLIC => ['class' => 'label-success'],
                 ],
             ],
             [
-                'name'   => 'owner',
-                'value'  => '$data->ownerName',
+                'name' => 'owner',
+                'value' => '$data->ownerName',
                 'filter' => CHtml::activeDropDownList(
                     $model,
                     'owner',
@@ -127,19 +127,19 @@ $this->menu = [
 
             ],
             [
-                'name'   => 'imagesCount',
-                'value'  => 'CHtml::link($data->imagesCount, array("/gallery/galleryBackend/images", "id" => $data->id))',
-                'type'   => 'raw',
+                'name' => 'imagesCount',
+                'value' => 'CHtml::link($data->imagesCount, array("/gallery/galleryBackend/images", "id" => $data->id))',
+                'type' => 'raw',
                 'filter' => false
             ],
             [
-                'class'    => 'yupe\widgets\CustomButtonColumn',
+                'class' => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{images}{update}{delete}',
-                'buttons'  => [
+                'buttons' => [
                     'images' => [
-                        'icon'  => 'fa fa-fw fa-picture-o',
+                        'icon' => 'fa fa-fw fa-picture-o',
                         'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
-                        'url'   => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
+                        'url' => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
                         'options' => ['class' => 'btn btn-sm btn-default'],
                     ],
                 ],
