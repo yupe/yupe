@@ -27,6 +27,21 @@ class AttributeFilter extends CApplicationComponent
     /**
      *
      */
+    const MAIN_SEARCH_PARAM_WIDTH = 'width';
+
+    /**
+     *
+     */
+    const MAIN_SEARCH_PARAM_HEIGHT = 'height';
+
+    /**
+     *
+     */
+    const MAIN_SEARCH_PARAM_LENGTH = 'length';
+
+    /**
+     *
+     */
     const MAIN_SEARCH_QUERY_NAME = 'q';
 
     /**
@@ -94,6 +109,9 @@ class AttributeFilter extends CApplicationComponent
             self::MAIN_SEARCH_PARAM_CATEGORY => 'category_id',
             self::MAIN_SEARCH_PARAM_PRODUCER => 'producer_id',
             self::MAIN_SEARCH_PARAM_PRICE => 'price',
+            self::MAIN_SEARCH_PARAM_WIDTH => 'width',
+            self::MAIN_SEARCH_PARAM_HEIGHT => 'height',
+            self::MAIN_SEARCH_PARAM_LENGTH => 'length',
         ];
     }
 

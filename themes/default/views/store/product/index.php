@@ -26,6 +26,9 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
                 <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
             </div>
             <div>
+                <?php $this->widget('application.modules.store.widgets.filters.SizeFilterWidget'); ?>
+            </div>
+            <div>
                 <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
             </div>
             <div>
