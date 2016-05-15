@@ -2,24 +2,24 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'id'                     => 'gallery-form',
-        'enableAjaxValidation'   => false,
+        'id' => 'gallery-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'htmlOptions'            => ['class' => 'well'],
+        'type' => 'vertical',
+        'htmlOptions' => ['class' => 'well'],
     ]
 ); ?>
 <div class="alert alert-info">
-    <?=  Yii::t('GalleryModule.gallery', 'Fields with'); ?>
+    <?= Yii::t('GalleryModule.gallery', 'Fields with'); ?>
     <span class="required">*</span>
-    <?=  Yii::t('GalleryModule.gallery', 'are required.'); ?>
+    <?= Yii::t('GalleryModule.gallery', 'are required.'); ?>
 </div>
 
-<?=  $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-2">
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'owner',
             [
@@ -30,7 +30,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class='col-sm-2'>
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -44,21 +44,21 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?=  $form->textFieldGroup($model, 'name'); ?>
+        <?= $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-12 form-group">
-        <?=  $form->labelEx($model, 'description'); ?>
+        <?= $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
             $this->module->getVisualEditor(),
             [
-                'model'     => $model,
+                'model' => $model,
                 'attribute' => 'description',
             ]
         ); ?>
-        <?=  $form->error($model, 'description'); ?>
+        <?= $form->error($model, 'description'); ?>
     </div>
 </div>
 
@@ -67,23 +67,23 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
-        'context'    => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create gallery and continue') : Yii::t(
-                'GalleryModule.gallery',
-                'Save gallery and continue'
-            ),
+        'context' => 'primary',
+        'label' => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create gallery and continue') : Yii::t(
+            'GalleryModule.gallery',
+            'Save gallery and continue'
+        ),
     ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'buttonType'  => 'submit',
+        'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label'       => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create gallery and close') : Yii::t(
-                'GalleryModule.gallery',
-                'Save gallery and close'
-            ),
+        'label' => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create gallery and close') : Yii::t(
+            'GalleryModule.gallery',
+            'Save gallery and close'
+        ),
     ]
 ); ?>
 

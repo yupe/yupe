@@ -11,31 +11,31 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'id'                     => 'image-form',
-        'enableAjaxValidation'   => false,
+        'id' => 'image-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+        'type' => 'vertical',
+        'htmlOptions' => ['class' => 'well', 'enctype' => 'multipart/form-data'],
     ]
 ); ?>
 <div class="alert alert-info">
-    <?=  Yii::t('GalleryModule.gallery', 'Fields with'); ?>
+    <?= Yii::t('GalleryModule.gallery', 'Fields with'); ?>
     <span class="required">*</span>
-    <?=  Yii::t('GalleryModule.gallery', 'are required.'); ?>
+    <?= Yii::t('GalleryModule.gallery', 'are required.'); ?>
 </div>
 
-<?=  $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-2">
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'category_id',
             [
                 'widgetOptions' => [
-                    'data'        => Category::model()->getFormattedList(
-                            (int)Yii::app()->getModule('image')->mainCategory
-                        ),
+                    'data' => Category::model()->getFormattedList(
+                        (int)Yii::app()->getModule('image')->mainCategory
+                    ),
                     'htmlOptions' => [
                         'empty' => Yii::t('GalleryModule.gallery', '--choose--'),
                     ],
@@ -44,7 +44,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
     <div class='col-sm-2'>
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'type',
             [
@@ -56,7 +56,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class='col-sm-2'>
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -70,30 +70,30 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-6">
-        <?=  $form->textFieldGroup($model, 'name'); ?>
+        <?= $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-6">
-        <?=  $form->textFieldGroup($model, 'alt'); ?>
+        <?= $form->textFieldGroup($model, 'alt'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-6">
         <?php if (!$model->isNewRecord) : { ?>
-            <?=  CHtml::image($model->getImageUrl(), $model->alt); ?>
+            <?= CHtml::image($model->getImageUrl(), $model->alt); ?>
         <?php } endif; ?>
         <img id="preview" src="#" class='img-polaroid' alt="current preview of image"/>
-        <?=  $form->fileFieldGroup(
+        <?= $form->fileFieldGroup(
             $model,
             'file',
             [
                 'widgetOptions' => [
                     'htmlOptions' => [
                         'onchange' => 'readURL(this);',
-                        'style'    => 'background-color: inherit;',
+                        'style' => 'background-color: inherit;',
                     ],
                 ],
             ]
@@ -112,11 +112,11 @@ $this->widget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
-        'context'    => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create image') : Yii::t(
-                'GalleryModule.gallery',
-                'Save image'
-            ),
+        'context' => 'primary',
+        'label' => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create image') : Yii::t(
+            'GalleryModule.gallery',
+            'Save image'
+        ),
     ]
 ); ?>
 

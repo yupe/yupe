@@ -8,22 +8,22 @@ $this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - create');
 
 $this->menu = [
     [
-        'icon'  => 'fa fa-fw fa-list-alt',
+        'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
-        'url'   => ['/gallery/galleryBackend/index']
+        'url' => ['/gallery/galleryBackend/index']
     ],
     [
-        'icon'  => 'fa fa-fw fa-plus-square',
+        'icon' => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
-        'url'   => ['/gallery/galleryBackend/create']
+        'url' => ['/gallery/galleryBackend/create']
     ],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?=  Yii::t('GalleryModule.gallery', 'Galleries'); ?>
-        <small><?=  Yii::t('GalleryModule.gallery', 'Adding'); ?></small>
+        <?= Yii::t('GalleryModule.gallery', 'Galleries'); ?>
+        <small><?= Yii::t('GalleryModule.gallery', 'Adding'); ?></small>
     </h1>
 </div>
 
-<?=  $this->renderPartial('_form', ['model' => $model]); ?>
+<?= $this->renderPartial('_form', ['model' => $model]); ?>
