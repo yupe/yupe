@@ -6,12 +6,12 @@
  * @var array $htmlOptions
  */
 ?>
-<?=  CHtml::beginForm($this->url, 'post', $this->htmlOptions); ?>
+<?= CHtml::beginForm($this->url, 'post', $this->htmlOptions); ?>
 <div class="fileupload-buttonbar row">
     <div class="col-sm-7">
         <!-- The fileinput-button span is used to style the file input field as button -->
 		<span class="btn btn-success fileinput-button"> <i
-                class="fa fa-fw fa-plus"></i> <span><?=  Yii::t(
+                class="fa fa-fw fa-plus"></i> <span><?= Yii::t(
                     'GalleryModule.gallery',
                     'Add...'
                 ); ?></span>
@@ -25,15 +25,15 @@
 		</span>
         <button type="submit" class="btn btn-primary start">
             <i class="fa fa-fw fa-upload"></i>
-            <span><?=  Yii::t('GalleryModule.gallery', 'Start uploading'); ?></span>
+            <span><?= Yii::t('GalleryModule.gallery', 'Start uploading'); ?></span>
         </button>
         <button type="reset" class="btn btn-warning cancel">
             <i class="fa fa-fw fa-ban"></i>
-            <span><?=  Yii::t('GalleryModule.gallery', 'Cancel uploading'); ?></span>
+            <span><?= Yii::t('GalleryModule.gallery', 'Cancel uploading'); ?></span>
         </button>
         <button type="button" class="btn btn-danger delete">
             <i class="fa fa-fw fa-trash-o"></i>
-            <span><?=  Yii::t('GalleryModule.gallery', 'Remove'); ?></span>
+            <span><?= Yii::t('GalleryModule.gallery', 'Remove'); ?></span>
         </button>
         <input type="checkbox" class="toggle">
     </div>
@@ -57,4 +57,4 @@
         </table>
     </div>
 </div>
-<?=  CHtml::endForm(); ?>
+<?= CHtml::endForm(); ?>

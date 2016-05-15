@@ -64,7 +64,7 @@ class ImageToGallery extends yupe\models\YModel
         // class name for the relations automatically generated below.
         return [
             'gallery' => [self::BELONGS_TO, 'Gallery', 'gallery_id'],
-            'image'   => [self::BELONGS_TO, 'Image', 'image_id'],
+            'image' => [self::BELONGS_TO, 'Image', 'image_id'],
         ];
     }
 
@@ -74,9 +74,9 @@ class ImageToGallery extends yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id'            => Yii::t('GalleryModule.gallery', 'id'),
-            'image_id'      => Yii::t('GalleryModule.gallery', 'Image'),
-            'gallery_id'    => Yii::t('GalleryModule.gallery', 'Gallery'),
+            'id' => Yii::t('GalleryModule.gallery', 'id'),
+            'image_id' => Yii::t('GalleryModule.gallery', 'Image'),
+            'gallery_id' => Yii::t('GalleryModule.gallery', 'Gallery'),
             'create_time' => Yii::t('GalleryModule.gallery', 'Created at'),
         ];
     }
