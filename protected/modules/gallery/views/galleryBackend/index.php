@@ -104,6 +104,16 @@ $this->menu = [
                 'filter' => CHtml::activeTextField($model, 'description', ['class' => 'form-control']),
             ],
             [
+                'name' => 'category_id',
+                'value' => '$data->getCategoryName()',
+                'filter' => CHtml::activeDropDownList(
+                    $model,
+                    'category_id',
+                    Category::model()->getFormattedList(Yii::app()->getModule('gallery')->mainCategory),
+                    ['class' => 'form-control', 'encode' => false, 'empty' => '']
+                ),
+            ],
+            [
                 'class' => 'yupe\widgets\EditableStatusColumn',
                 'name' => 'status',
                 'url' => $this->createUrl('/gallery/galleryBackend/inline'),

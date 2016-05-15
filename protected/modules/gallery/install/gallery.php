@@ -17,6 +17,8 @@ return [
     'rules' => [
         '/albums' => '/gallery/gallery/index',
         '/albums/<id:\d+>' => '/gallery/gallery/view',
-        '/albums/images/<id:\d+>' => '/gallery/gallery/image'
+        '/albums/images/<id:\d+>' => '/gallery/gallery/image',
+        '/albums/categories' => '/gallery/galleryCategory/index',
+        '/albums/<slug>' => '/gallery/galleryCategory/view',
     ],
 ];

@@ -40,6 +40,23 @@ $form = $this->beginWidget(
             ]
         ); ?>
     </div>
+    <div class="col-sm-3">
+        <?= $form->dropDownListGroup(
+            $model,
+            'category_id',
+            [
+                'widgetOptions' => [
+                    'data' => Category::model()->getFormattedList(
+                        (int)Yii::app()->getModule('gallery')->mainCategory
+                    ),
+                    'htmlOptions' => [
+                        'empty' => Yii::t('GalleryModule.gallery', '--choose--'),
+                        'encode' => false,
+                    ],
+                ],
+            ]
+        ); ?>
+    </div>
 </div>
 
 <div class='row'>
