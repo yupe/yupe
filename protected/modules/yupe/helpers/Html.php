@@ -126,6 +126,6 @@ class Html
             return static::def($text);
         }
 
-        return static::$map[$status]($text);
+        return static::{$map[$status]}($text);
     }
 }
