@@ -44,13 +44,14 @@ class LoginForm extends yupe\models\YFormModel
 
         return [
             ['email, password', 'required'],
+            ['verifyCode', 'required', 'on' => self::LOGIN_LIMIT_SCENARIO],
             ['remember_me', 'boolean'],
             [
                 'verifyCode',
                 'yupe\components\validators\YRequiredValidator',
                 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(),
                 'message' => Yii::t('UserModule.user', 'Check code incorrect'),
-                'on' => 'loginLimit',
+                'on' => self::LOGIN_LIMIT_SCENARIO,
             ],
             [
                 'verifyCode',
