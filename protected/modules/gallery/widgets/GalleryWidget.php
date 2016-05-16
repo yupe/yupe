@@ -45,7 +45,7 @@ class GalleryWidget extends yupe\widgets\YWidget
                     'condition' => 't.gallery_id = :gallery_id',
                     'params' => [':gallery_id' => $this->galleryId],
                     'limit' => $this->limit,
-                    'order' => 'image.sort',
+                    'order' => 't.position',
                     'with' => 'image',
                 ],
                 'pagination' => ['pageSize' => $this->limit],

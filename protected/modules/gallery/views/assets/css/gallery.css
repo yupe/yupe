@@ -74,3 +74,19 @@ ul.gallery-thumbnails {
     border-bottom: 3px solid transparent;
     border-top: 3px solid #79A70A;
 }
+
+.gallery-thumbnail .move-sign {
+    position: absolute;
+    left: 67px;
+    top: 67px;
+    padding: 5px;
+    background-color: #fff;
+    opacity: 0;
+    border-radius: 5px;
+    transition: opacity 0.3s ease-in-out;
+    cursor: move;
+}
+
+.gallery-thumbnail:hover .move-sign {
+    opacity: 0.4;
+}
