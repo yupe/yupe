@@ -195,7 +195,7 @@ class ZendSearchModule extends yupe\components\WebModule
                 'items' => [
                     [
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Zendsearch.ManageBackend.Create',
+                        'name' => 'Zendsearch.ManageBackend.Index',
                         'description' => Yii::t('ZendSearchModule.zendsearch', 'Reindex site'),
                     ],
                 ],

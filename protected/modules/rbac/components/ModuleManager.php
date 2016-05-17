@@ -42,8 +42,7 @@ class ModuleManager extends \yupe\components\ModuleManager
                 $route = $item['url'][0];
                 $role = $this->getRoleByRoute($route);
                 if (!isset($menu[$key]['visible'])) {
-                    $menu[$key]['visible'] = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN) || Yii::app(
-                        )->getUser()->checkAccess(
+                    $menu[$key]['visible'] = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN) || Yii::app()->getUser()->checkAccess(
                             $role
                         );
                 }
@@ -57,6 +56,10 @@ class ModuleManager extends \yupe\components\ModuleManager
         return $menu;
     }
 
+    /**
+     * @param CWebModule $module
+     * @return bool
+     */
     public function checkModuleRights(CWebModule $module)
     {
         $items = $module->getAuthItems();
@@ -80,6 +83,10 @@ class ModuleManager extends \yupe\components\ModuleManager
         return false;
     }
 
+    /**
+     * @param array $modules
+     * @return array
+     */
     public function filterModulesListByUserRoles(array $modules)
     {
         foreach ($modules as $id => $module) {

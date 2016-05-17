@@ -14,12 +14,15 @@
 class ManageBackendController extends yupe\components\controllers\BackController
 {
 
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['index', 'create'], 'roles' => ['Zendsearch.ManageBackend.Create']],
-            ['deny']
+            ['allow', 'actions' => ['index', 'create'], 'roles' => ['Zendsearch.ManageBackend.Index']],
+            ['deny'],
         ];
     }
 
@@ -68,7 +71,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
             SetLocale(LC_ALL, 'ru_RU.UTF-8');
             $analyzer = new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive();
             Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
-            $index = new Zend_Search_Lucene(Yii::getPathOfAlias('application.' . $indexFiles), true);
+            $index = new Zend_Search_Lucene(Yii::getPathOfAlias('application.'.$indexFiles), true);
 
             $messages = [];
 
@@ -84,7 +87,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
                             'Update config file or module, Module index not found for model "{model}"!',
                             ['{model}' => $modelName]
                         );
-                    } elseif (is_file(Yii::getPathOfAlias($model['path']) . '.php') && Yii::app()->hasModule(
+                    } elseif (is_file(Yii::getPathOfAlias($model['path']).'.php') && Yii::app()->hasModule(
                             $model['module']
                         )
                     ) {
@@ -99,7 +102,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
                                 )
                             );
                             $link = str_replace(
-                                '{' . $model['linkColumn'] . '}',
+                                '{'.$model['linkColumn'].'}',
                                 $node->$model['linkColumn'],
                                 $model['linkPattern']
                             );
@@ -115,7 +118,7 @@ class ManageBackendController extends yupe\components\controllers\BackController
                                         Zend_Search_Lucene_Field::Text('description', $description, 'UTF-8')
                                     );
                                 } else {
-                                    $doc->addField(Zend_Search_Lucene_Field::Text('content' . $i, $content, 'UTF-8'));
+                                    $doc->addField(Zend_Search_Lucene_Field::Text('content'.$i, $content, 'UTF-8'));
                                 }
                                 $i++;
                             }
@@ -139,21 +142,30 @@ class ManageBackendController extends yupe\components\controllers\BackController
                 empty($messages)
                     ? Yii::t('ZendSearchModule.zendsearch', 'Index updated successfully!')
                     : Yii::t('ZendSearchModule.zendsearch', 'There is an error!')
-                    . ': '
-                    . implode("\n", $messages)
+                    .': '
+                    .implode("\n", $messages)
             );
         } catch (Exception $e) {
             Yii::app()->ajax->raw(
-                Yii::t('ZendSearchModule.zendsearch', 'There is an error!') . ":\n" . $e->getMessage()
+                Yii::t('ZendSearchModule.zendsearch', 'There is an error!').":\n".$e->getMessage()
             );
         }
     }
 
+    /**
+     * @param $data
+     * @param int $limit
+     * @return string
+     */
     private function previewContent($data, $limit = 400)
     {
-        return substr($data, 0, $limit) . '...';
+        return substr($data, 0, $limit).'...';
     }
 
+    /**
+     * @param $data
+     * @return string
+     */
     private function cleanContent($data)
     {
         return strip_tags($data);

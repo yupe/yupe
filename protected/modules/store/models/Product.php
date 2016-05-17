@@ -586,8 +586,6 @@ class Product extends yupe\models\YModel implements ICommentable
                 //множественные значения
                 if (is_array($value)) {
 
-                    //var_dump($value);die();
-
                     AttributeValue::model()->deleteAll('product_id = :product AND attribute_id = :attribute', [
                         ':product' => $this->id,
                         ':attribute' => $attribute,
