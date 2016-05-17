@@ -91,7 +91,9 @@ class ManageBackendController extends yupe\components\controllers\BackController
                             $model['module']
                         )
                     ) {
-                        $searchNodes = $modelName::model()->findAll();
+                        $criteria = isset($model['criteria']) ? $model['criteria'] : [];
+                        $searchNodes = $modelName::model()->findAll(new CDbCriteria($criteria));
+
                         foreach ($searchNodes as $node) {
                             $doc = new Zend_Search_Lucene_Document();
                             $doc->addField(
