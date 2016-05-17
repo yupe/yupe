@@ -1,5 +1,8 @@
 <div class="image-wrapper">
     <div class="gallery-thumbnail">
+        <div class="move-sign">
+            <span class="fa fa-4x fa-arrows"></span>
+        </div>
         <?php if ($gallery->preview_id == $data->image->id): ?>
             <div class="ribbon"><span><?= Yii::t('GalleryModule.gallery', 'Cover'); ?></span></div>
         <?php endif; ?>

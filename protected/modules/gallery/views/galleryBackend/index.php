@@ -144,7 +144,7 @@ $this->menu = [
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-                'template' => '{images}{update}{delete}',
+                'template' => '{images}{front_view}{update}{delete}',
                 'buttons' => [
                     'images' => [
                         'icon' => 'fa fa-fw fa-picture-o',
@@ -153,6 +153,9 @@ $this->menu = [
                         'options' => ['class' => 'btn btn-sm btn-default'],
                     ],
                 ],
+                'frontViewButtonUrl' => function($data){
+                    return Yii::app()->createUrl('/gallery/gallery/view', ['id' => $data->id]);
+                },
             ],
         ],
     ]

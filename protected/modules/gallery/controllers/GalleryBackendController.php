@@ -17,7 +17,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         return CMap::mergeArray(
             parent::filters(),
             [
-                'postOnly + delete, addImages',
+                'postOnly + delete, addImages, sortable',
             ]
         );
     }
@@ -30,10 +30,10 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['view'], 'roles' => ['Gallery.GalleryBackend.View']],
             ['allow', 'actions' => ['images'], 'roles' => ['Gallery.GalleryBackend.Images']],
             ['allow', 'actions' => ['create'], 'roles' => ['Gallery.GalleryBackend.Create']],
-            ['allow', 'actions' => ['addimages'], 'roles' => ['Gallery.GalleryBackend.Addimages']],
+            ['allow', 'actions' => ['addimages', 'sortable'], 'roles' => ['Gallery.GalleryBackend.Addimages']],
             ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Gallery.GalleryBackend.Update']],
-            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Gallery.GalleryBackend.Delete']],
-            ['allow', 'actions' => ['deleteImage'], 'roles' => ['Gallery.GalleryBackend.DeleteImage']],
+            ['allow', 'actions' => ['delete', 'multiaction', 'sortable'], 'roles' => ['Gallery.GalleryBackend.Delete']],
+            ['allow', 'actions' => ['deleteImage', 'sortable'], 'roles' => ['Gallery.GalleryBackend.DeleteImage']],
             ['deny']
         ];
     }
@@ -45,7 +45,11 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Gallery',
                 'validAttributes' => ['name', 'description', 'status']
-            ]
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'ImageToGallery',
+            ],
         ];
     }
 
@@ -195,21 +199,18 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             $this->_addImage($image, $imageData, $gallery);
         }
 
-        $dataProvider = new CActiveDataProvider(
-            'ImageToGallery', [
-                'criteria' => [
-                    'condition' => 't.gallery_id = :gallery_id',
-                    'params' => [':gallery_id' => $gallery->id],
-                    'order' => 'image.sort',
-                    'with' => 'image',
-                ],
-            ]
-        );
+        $criteria = new CDbCriteria();
+        $criteria->condition = 't.gallery_id = :gallery_id';
+        $criteria->order = 't.position';
+        $criteria->with = 'image';
+        $criteria->params = [
+            ':gallery_id' => $gallery->id
+        ];
 
         $this->render(
             'images',
             [
-                'dataProvider' => $dataProvider,
+                'dataProvider' => ImageToGallery::model()->findAll($criteria),
                 'image' => $image,
                 'model' => $gallery,
                 'tab' => !($errors = $image->getErrors())
