@@ -19,7 +19,7 @@
         <tr>
             <td>
                 <?= Yii::t('YupeModule.yupe', 'Web-site'); ?>:
-                <?= CHtml::link($module->url, $module->url, ['target' => '_blank']); ?>
+                <?= CHtml::link($module->url, $module->url.'?from=module-'.$module->id, ['target' => '_blank']); ?>
             </td>
         </tr>
     </table>

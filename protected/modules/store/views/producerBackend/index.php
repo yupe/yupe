@@ -76,7 +76,7 @@ $this->widget(
                     'url' => $this->createUrl('/store/producerBackend/inline'),
                     'mode' => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->request->csrfToken,
                     ],
                 ],
                 'filter' => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
