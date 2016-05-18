@@ -176,23 +176,26 @@ class UserBackendController extends yupe\components\controllers\BackController
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
-            // we only allow deletion via POST request
-            if ($this->loadModel($id)->delete()) {
-                Yii::app()->getUser()->setFlash(
-                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('UserModule.user', 'Record was removed!')
-                );
-            } else {
-                Yii::app()->getUser()->setFlash(
-                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('UserModule.user', 'You can\'t make this changes!')
-                );
-            }
+            header('Content-Type: application/json');
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
-                (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
-            );
+            try {
+                $this->loadModel($id)->delete();
+
+                echo CJavaScript::jsonEncode([
+                    'message' => [
+                        'text' => Yii::t('UserModule.user', 'The entry is successfully deleted.')
+                    ],
+                    'type' => 'success'
+                ]);
+
+            } catch (Exception $e) {
+                echo CJavaScript::jsonEncode([
+                    'message' => [
+                        'text' => Yii::t('UserModule.user', 'You can\'t delete an user.'),
+                    ],
+                    'type' => 'danger'
+                ]);
+            }
         } else {
             throw new CHttpException(
                 400,
