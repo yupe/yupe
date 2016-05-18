@@ -200,6 +200,7 @@ $this->menu = [
                         ]
                     ],
                 ],
+                'afterDelete'=>'function(link,success,data){$("#notifications").notify(data).show(); }',
             ],
         ],
     ]
