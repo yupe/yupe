@@ -61,7 +61,7 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
         $data = Yii::app()->getRequest()->getPost('Producer');
 
         if (!is_null($data)) {
-            $model->attributes = $data;
+            $model->setAttributes($data);
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -91,7 +91,7 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
         $data = Yii::app()->getRequest()->getPost('Producer');
 
         if (!is_null($data)) {
-            $model->attributes = $data;
+            $model->setAttributes($data);
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(

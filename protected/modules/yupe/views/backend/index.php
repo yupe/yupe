@@ -10,10 +10,10 @@
 <?php $box = $this->beginWidget(
     'bootstrap.widgets.TbPanel',
     [
-        'title'      => Yii::t('YupeModule.yupe', 'Notify'),
-        'headerIcon' => 'fa fa-fw fa-exclamation-circle'
+        'title' => Yii::t('YupeModule.yupe', 'Notify'),
+        'headerIcon' => 'fa fa-fw fa-exclamation-circle',
     ]
-);?>
+); ?>
 
 <?php foreach ($modules as $module): { ?>
     <?php if ($module instanceof yupe\components\WebModule === false): { ?>
@@ -33,14 +33,14 @@
                                data-toggle="collapse"
                                data-parent="#accordion<?= $module->getId(); ?>"
                                href="#collapse<?= $module->getId(); ?>"
-                                >
+                            >
                                 <?= Yii::t(
                                     'YupeModule.yupe',
                                     'Module {icon} "{module}", messages: {count}',
                                     [
-                                        '{icon}'   => $module->icon ? "<i class='" . $module->icon . "'></i> " : "",
+                                        '{icon}' => $module->icon ? "<i class='".$module->icon."'></i> " : "",
                                         '{module}' => $module->getName(),
-                                        '{count}'  => '<span class="badge alert-danger">' . count($value) . '</span>',
+                                        '{count}' => '<span class="badge alert-danger">'.count($value).'</span>',
                                     ]
                                 ); ?>
                             </a>
@@ -55,7 +55,7 @@
                                                 'Module "{module} ({id})"',
                                                 [
                                                     '{module}' => $module->getName(),
-                                                    '{id}'     => $module->getId(),
+                                                    '{id}' => $module->getId(),
                                                 ]
                                             ); ?>
                                         </h4>
@@ -94,7 +94,7 @@
 $this->widget(
     'yupe\widgets\YShortCuts',
     [
-        'modules' => $modules
+        'modules' => $modules,
     ]
 ); ?>
 <?php $this->menu = $modulesNavigation; ?>

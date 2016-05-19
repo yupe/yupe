@@ -77,8 +77,10 @@ class AttributeRender
                 break;
             case Attribute::TYPE_CHECKBOX_LIST:
                 $data = CHtml::listData($attribute->options, 'id', 'value');
-                foreach (array_intersect(array_keys($data), $value) as $val) {
-                    $res .= strtr($template, ['{item}' => $data[$val]]);
+                if(is_array($value)) {
+                    foreach (array_intersect(array_keys($data), $value) as $val) {
+                        $res .= strtr($template, ['{item}' => $data[$val]]);
+                    }
                 }
                 break;
             case Attribute::TYPE_CHECKBOX:
