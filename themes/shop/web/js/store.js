@@ -174,7 +174,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result) {
                     updateCartWidget();
-                    $('body').off('click','.quick-add-product-to-cart');
+                    el.off('click','.quick-add-product-to-cart');
                     el.removeClass('btn_cart')
                         .addClass('btn_success')
                         .html('Оформить заказ')
