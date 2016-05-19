@@ -370,7 +370,7 @@ class Attribute extends \yupe\models\YModel
                 ]);
 
                 if (false === $model->save()) {
-                    throw new CDbException();
+                    throw new CDbException('Error save attribute...');
                 }
             }
 
