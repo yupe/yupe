@@ -44,6 +44,10 @@ class RegistrationAction extends CAction
 
                 if ($user = Yii::app()->userManager->createUser($form)) {
 
+                    if (!$module->emailAccountVerification) {
+                        $this->autoLoginUser($form);
+                    }
+
                     Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('UserModule.user', 'Account was created! Check your email!')
@@ -60,5 +64,25 @@ class RegistrationAction extends CAction
         }
 
         $this->getController()->render('registration', ['model' => $form, 'module' => $module]);
+    }
+
+    /**
+     * Auto-login user.
+     *
+     * @param RegistrationForm $form
+     * @return bool
+     */
+    private function autoLoginUser(RegistrationForm $form)
+    {
+        $loginForm = new LoginForm();
+        $loginForm->remember_me = true;
+        $loginForm->email = $form->email;
+        $loginForm->password = $form->password;
+
+        return Yii::app()->authenticationManager->login(
+            $loginForm,
+            Yii::app()->getUser(),
+            Yii::app()->getRequest()
+        );
     }
 }
