@@ -12,16 +12,9 @@ class ViewedService extends CApplicationComponent
      */
     protected $session;
 
-    /**
-     * @var ProductRepository
-     */
-    protected $productRepository;
-
     public function init()
     {
         $this->session = Yii::app()->getSession();
-
-        $this->productRepository = Yii::app()->getComponent('productRepository');
 
         if (null === $this->session->get($this->key)) {
             $this->session->add($this->key, []);

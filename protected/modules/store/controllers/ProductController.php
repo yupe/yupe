@@ -1,6 +1,5 @@
 <?php
 
-use yupe\components\Event;
 use yupe\components\controllers\FrontController;
 
 /**
