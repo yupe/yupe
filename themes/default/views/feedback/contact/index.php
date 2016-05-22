@@ -44,8 +44,8 @@ Yii::import('application.modules.install.InstallModule');
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
         [
-            'id'          => 'feedback-form',
-            'type'        => 'vertical',
+            'id' => 'feedback-form',
+            'type' => 'vertical',
             'htmlOptions' => [
                 'class' => 'well',
             ]
@@ -109,13 +109,13 @@ Yii::import('application.modules.install.InstallModule');
                 'CCaptcha',
                 [
                     'showRefreshButton' => true,
-                    'imageOptions'      => [
+                    'imageOptions' => [
                         'width' => '150',
                     ],
-                    'buttonOptions'     => [
+                    'buttonOptions' => [
                         'class' => 'btn btn-info',
                     ],
-                    'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
+                    'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
                 ]
             ); ?>
             <div class='row'>
@@ -144,8 +144,8 @@ Yii::import('application.modules.install.InstallModule');
         'bootstrap.widgets.TbButton',
         [
             'buttonType' => 'submit',
-            'context'    => 'primary',
-            'label'      => Yii::t('FeedbackModule.feedback', 'Send message'),
+            'context' => 'primary',
+            'label' => Yii::t('FeedbackModule.feedback', 'Send message'),
         ]
     ); ?>
 

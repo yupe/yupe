@@ -10,27 +10,29 @@
  *
  **/
 return [
-    'module'    => [
-        'class'           => 'application.modules.feedback.FeedbackModule',
-        'panelWidgets'    => [
+    'module' => [
+        'class' => 'application.modules.feedback.FeedbackModule',
+        'panelWidgets' => [
             'application.modules.feedback.widgets.PanelFeedbackStatWidget' => [
                 'limit' => 5
             ]
         ]
     ],
-    'import'    => [
-        'application.modules.yupe.YupeModule'
+    'import' => [
+        'application.modules.yupe.YupeModule',
+        'application.modules.feedback.models.*',
+        'application.modules.feedback.components.*',
     ],
     'component' => [
         'feedback' => [
             'class' => 'application.modules.feedback.components.FeedbackService'
         ]
     ],
-    'rules'     => [
-        '/contacts'                             => '/feedback/contact/index',
-        '/faq'                                  => '/feedback/contact/faq',
-        '/faq/<id:\d+>'                         => '/feedback/contact/faqView',
+    'rules' => [
+        '/contacts' => '/feedback/contact/index',
+        '/faq' => '/feedback/contact/faq',
+        '/faq/<id:\d+>' => '/feedback/contact/faqView',
         '/feedback/contact/captcha/refresh/<v>' => '/feedback/contact/captcha/refresh',
-        '/feedback/contact/captcha/<v>'         => '/feedback/contact/captcha/'
+        '/feedback/contact/captcha/<v>' => '/feedback/contact/captcha/'
     ],
 ];
