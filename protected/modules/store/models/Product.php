@@ -110,7 +110,7 @@ class Product extends yupe\models\YModel implements ICommentable
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return Good the static model class
+     * @return Product Static model class
      */
     public static function model($className = __CLASS__)
     {
