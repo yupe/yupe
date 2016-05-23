@@ -12,20 +12,20 @@ class NewsShowCest
     {
         $I->am('anonymous user');
         $I->amGoingTo('test show news page...');
-        $I->amOnPage(NewsPage::route('pervaja-opublikovannaja-novost'));
+        $I->amOnPage(NewsPage::route('pervaja-opublikovannaja-novost.html'));
         $I->expectTo('see published news...');
         $I->see('Первая опубликованная новость', 'h4');
         $I->see('Первая опубликованная текст');
         $I->seeInTitle('Первая опубликованная новость');
 
         $I->amGoingTo('test show not published news...');
-        $I->amOnPage(NewsPage::route('vtoraja-ne-opublikovannaja-novost'));
+        $I->amOnPage(NewsPage::route('vtoraja-ne-opublikovannaja-novost.html'));
         $I->expectTo(' see page not found exception...');
         $I->dontSee('Вторая не опубликованная новость');
         $I->dontSeeInTitle('Вторая не опубликованная новость');
 
         $I->amGoingTo('test show protected news...');
-        $I->amOnPage(NewsPage::route('tretja-novost-tolko-dlja-avtorizovannyh'));
+        $I->amOnPage(NewsPage::route('tretja-novost-tolko-dlja-avtorizovannyh.html'));
         $I->expectTo(' see login page...');
         $I->dontSee('Третья новость только для авторизованных');
         $I->dontSee('Третья новость только для авторизованных текст');
@@ -37,14 +37,14 @@ class NewsShowCest
         $I = new UserSteps($scenario);
         $I->login('yupe@yupe.local', 'testpassword');
         $I->amGoingTo('test show protected news for authorized user...');
-        $I->amOnPage(NewsPage::route('tretja-novost-tolko-dlja-avtorizovannyh'));
+        $I->amOnPage(NewsPage::route('tretja-novost-tolko-dlja-avtorizovannyh.html'));
         $I->expectTo(' see protected news...');
         $I->see('Третья новость только для авторизованных', 'h4');
         $I->see('Третья новость только для авторизованных текст');
         $I->seeInTitle('Третья новость только для авторизованных');
 
         $I->amGoingTo('test show not published news...');
-        $I->amOnPage(NewsPage::route('vtoraja-ne-opublikovannaja-novost'));
+        $I->amOnPage(NewsPage::route('vtoraja-ne-opublikovannaja-novost.html'));
         $I->expectTo(' see page not found exception...');
         $I->dontSee('Вторая не опубликованная новость');
         $I->dontSeeInTitle('Вторая не опубликованная новость');

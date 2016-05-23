@@ -35,7 +35,7 @@ class MainFrontendCest
         $I->see('Контакты', 'h1');
         $I->amOnPage(FeedBackPage::FAQ_URL);
         $I->see('Вопросы и ответы', 'h1');
-        $I->see('Задайте вопрос ?!', '.btn');
+        $I->see('Задайте вопрос?!', '.btn');
 
         //news
         $I->am('simple user');
@@ -45,7 +45,7 @@ class MainFrontendCest
         $I->seeLink('Первая опубликованная новость');
         $I->am('anonymous user');
         $I->amGoingTo('test show news page...');
-        $I->amOnPage(NewsPage::route('pervaja-opublikovannaja-novost'));
+        $I->amOnPage(NewsPage::route('pervaja-opublikovannaja-novost.html'));
         $I->expectTo('see published news...');
         $I->see('Первая опубликованная новость', 'h4');
         $I->see('Первая опубликованная текст');
@@ -53,7 +53,7 @@ class MainFrontendCest
 
         //page
         $I->wantToTest('show published page...');
-        $I->amOnPage('/pages/opublikovannaja-starnica');
+        $I->amOnPage('/opublikovannaja-starnica');
         $I->seeInTitle('Опубликованная страница');
         $I->see('Опубликованная страница', 'h1');
         $I->see('Опубликованная страница текст');
@@ -69,15 +69,15 @@ class MainFrontendCest
         $I->seeLink('Первая галерея');
 
         $I->amOnPage('/en/');
-        $I->see('Discuss', 'h3');
-        $I->see('Latest posts', 'h3');
-        $I->see('Blogs', 'h3');
-        $I->see('Tags cloud', 'h3');
+        $I->seeLink('Documentation');
+        $I->seeLink('Forum');
+        $I->seeLink('FAQ');
+        $I->seeLink('Contacts');
 
         $I->amOnPage('/ru/');
-        $I->see('Обсуждают', 'h3');
-        $I->see('Последние записи', 'h3');
-        $I->see('Блоги', 'h3');
-        $I->see('Теги', 'h3');
+        $I->seeLink('Документация');
+        $I->seeLink('Форум');
+        $I->seeLink('Вопросы и ответы');
+        $I->seeLink('Контакты');
     }
 }

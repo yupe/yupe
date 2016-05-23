@@ -51,7 +51,7 @@ class FeedBackCest
 
         $I->amOnPage(FeedBackPage::FAQ_URL);
         $I->see('Вопросы и ответы', 'h1');
-        $I->see('Задайте вопрос ?!', '.btn');
+        $I->see('Задайте вопрос?!', '.btn');
         $I->dontSeeLink('test_theme');
 
         $I->amGoingTo('mark feedback message as faq');
