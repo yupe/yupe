@@ -33,7 +33,7 @@ class PageBehavior extends CBehavior
 
         if ($rules === false) {
             $rules = [];
-            $pages = Page::model()->published()->findAll();
+            $pages = Page::model()->findAll();
 
             foreach ($pages as $page) {
                 $rules[$page->slug] = 'page/page/view/slug/'.$page->slug;
