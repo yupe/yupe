@@ -474,3 +474,7 @@ input.form-control[type="file"] {
 .btn-group .btn {
     margin-left: -1px;
 }
+
+#news-form .ct-form-control {
+    min-width: 100px;
+}
