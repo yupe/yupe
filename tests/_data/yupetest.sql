@@ -163,6 +163,11 @@ CREATE TABLE `yupe_category_category` (
   CONSTRAINT `fk_yupe_category_category_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_category_category` (`id`, `parent_id`, `slug`, `lang`, `name`, `image`, `short_description`, `description`, `status`) VALUES
+  (1,	NULL,	'gallery',	'ru',	'Галереи',	NULL,	'',	'',	1),
+  (2,	1,	'gallery-first',	'ru',	'Галереи. Первая категория',	NULL,	'',	'',	1),
+  (3,	1,	'gallery-second',	'ru',	'Галереи. Вторая категория',	NULL,	'',	'',	1);
+
 DROP TABLE IF EXISTS `yupe_comment_comment`;
 CREATE TABLE `yupe_comment_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -302,7 +307,8 @@ CREATE TABLE `yupe_gallery_gallery` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `yupe_gallery_gallery` (`id`, `name`, `description`, `status`, `owner`, `preview_id`, `category_id`) VALUES
-  (1,	'Первая галерея',	'<p>\r\n  Первая галерея\r\n</p>',	1,	1,	NULL,	NULL);
+  (1,	'Первая галерея',	'<p>\n  Первая галерея\n</p>',	1,	1,	NULL,	2),
+  (2,	'Вторая галерея',	'<p>Описание второй галереи</p>',	1,	1,	NULL,	3);
 
 DROP TABLE IF EXISTS `yupe_gallery_image_to_gallery`;
 CREATE TABLE `yupe_gallery_image_to_gallery` (
@@ -1265,4 +1271,6 @@ INSERT INTO `yupe_yupe_settings` (`id`, `module_id`, `param_name`, `param_value`
   (65,	'comment',	'antiSpamInterval',	'10',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
   (66,	'comment',	'stripTags',	'1',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
   (67,	'comment',	'editor',	'textarea',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
-  (68,	'comment',	'modelsAvailableForRss',	'',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1);
+  (68,	'comment',	'modelsAvailableForRss',	'',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (69,	'gallery',	'editor',	'redactor',	'2016-05-25 20:43:51',	'2016-05-25 20:43:51',	1,	1),
+  (70,	'gallery',	'mainCategory',	'1',	'2016-05-25 20:43:51',	'2016-05-25 20:43:51',	1,	1);
