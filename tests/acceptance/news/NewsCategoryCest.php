@@ -4,7 +4,7 @@ namespace tests\acceptance\news;
 use \WebGuy;
 use tests\acceptance\pages\NewsPage;
 
-class NewsCategoriesCest
+class NewsCategoryCest
 {
     public function tryTestNewsCategories(WebGuy $I, $scenario)
     {
