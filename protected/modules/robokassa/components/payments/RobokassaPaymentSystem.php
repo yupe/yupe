@@ -78,7 +78,7 @@ class RobokassaPaymentSystem extends PaymentSystem
             return false;
         }
 
-        if ($amount != Yii::app()->money->convert($order->total_price, $payment->currency_id)) {
+        if ($amount != Yii::app()->money->convert($order->getTotalPrice(), $payment->currency_id)) {
             Yii::log(
                 Yii::t(
                     'RobokassaModule.robokassa',
