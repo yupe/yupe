@@ -13,6 +13,9 @@
  **/
 class UserBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -23,18 +26,21 @@ class UserBackendController extends yupe\components\controllers\BackController
             ['allow', 'actions' => ['update', 'inline', 'sendactivation'], 'roles' => ['User.UserBackend.Update']],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['User.UserBackend.Delete']],
             ['allow', 'actions' => ['changepassword'], 'roles' => ['User.UserBackend.Changepassword']],
-            ['deny']
+            ['deny'],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'User',
-                'validAttributes' => ['access_level', 'status', 'email_confirm']
-            ]
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'User',
+                'validAttributes' => ['access_level', 'status', 'email_confirm'],
+            ],
         ];
     }
 
@@ -103,8 +109,8 @@ class UserBackendController extends yupe\components\controllers\BackController
             $model->setAttributes(
                 [
                     'hash' => Yii::app()->userManager->hasher->hashPassword(
-                            Yii::app()->userManager->hasher->generateRandomPassword()
-                        ),
+                        Yii::app()->userManager->hasher->generateRandomPassword()
+                    ),
                 ]
             );
 
@@ -183,9 +189,9 @@ class UserBackendController extends yupe\components\controllers\BackController
 
                 echo CJavaScript::jsonEncode([
                     'message' => [
-                        'text' => Yii::t('UserModule.user', 'The entry is successfully deleted.')
+                        'text' => Yii::t('UserModule.user', 'The entry is successfully deleted.'),
                     ],
-                    'type' => 'success'
+                    'type' => 'success',
                 ]);
 
             } catch (Exception $e) {
@@ -193,7 +199,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                     'message' => [
                         'text' => Yii::t('UserModule.user', 'You can\'t delete an user.'),
                     ],
-                    'type' => 'danger'
+                    'type' => 'danger',
                 ]);
             }
         } else {
@@ -276,7 +282,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                 ),
                 '//user/email/needAccountActivationEmail',
                 [
-                    'token' => $token
+                    'token' => $token,
                 ]
             );
 
@@ -342,7 +348,7 @@ class UserBackendController extends yupe\components\controllers\BackController
                 Yii::t('UserModule.user', 'Email verification'),
                 '//user/email/needEmailActivationEmail',
                 [
-                    'token' => $token
+                    'token' => $token,
                 ]
             );
 
