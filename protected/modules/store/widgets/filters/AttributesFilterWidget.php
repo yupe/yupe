@@ -1,4 +1,5 @@
 <?php
+Yii::import('application.modules.store.components.repository.AttributesRepository');
 
 /**
  * Class AttributesFilterWidget
@@ -11,20 +12,48 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
     public $attributes;
 
     /**
+     * @var
+     */
+    public $category;
+
+    /**
+     * @var AttributesRepository
+     */
+    protected $attributesRepository;
+
+
+    /**
+     *
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->attributesRepository = new AttributesRepository();
+    }
+
+    /**
      * @throws Exception
      */
     public function run()
     {
+        if ($this->category) {
+            $this->attributes = $this->attributesRepository->getForCategory($this->category);
+        }
+
         if ('*' === $this->attributes) {
             $this->attributes = Attribute::model()->with(['options.parent'])->cache($this->cacheTime)->findAll([
                 'condition' => 't.is_filter = 1',
-                'order' => 't.sort DESC'
+                'order' => 't.sort DESC',
             ]);
         }
 
         foreach ($this->attributes as $attribute) {
 
-            $model = is_string($attribute) ? Attribute::model()->findByAttributes(['name' => $attribute]) : $attribute;
+            $model = is_string($attribute) ? Attribute::model()->findByAttributes([
+                'name' => $attribute,
+                'is_filter' => \yupe\components\WebModule::CHOICE_YES
+            ]) : $attribute;
 
             if ($model) {
                 switch ($model->type) {

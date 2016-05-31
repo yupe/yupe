@@ -28,6 +28,16 @@ class TypeAttribute extends \yupe\models\YModel
     }
 
     /**
+     * @return array
+     */
+    public function relations()
+    {
+        return [
+            'type' => [self::BELONGS_TO, 'Type', 'type_id'],
+        ];
+    }
+
+    /**
      * @param null|string $className
      * @return $this
      */

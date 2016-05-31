@@ -58,6 +58,7 @@ class Type extends \yupe\models\YModel
                 'order' => 'group.position ASC',
             ],
             'productCount' => [self::STAT, 'Product', 'type_id'],
+            'products' => [self::HAS_MANY, 'Product', 'type_id']
         ];
     }
 

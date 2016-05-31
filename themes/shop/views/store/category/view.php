@@ -24,7 +24,9 @@ $this->breadcrumbs = array_merge(
                     <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget', ['limit' => 30]); ?>
-                    <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
+                    <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', [
+                        'category' => $category
+                    ]); ?>
                 </form>
             </div>
         </div>

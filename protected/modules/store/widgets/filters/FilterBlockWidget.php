@@ -16,10 +16,15 @@ class FilterBlockWidget extends \yupe\widgets\YWidget
     public $attributes;
 
     /**
+     * @var
+     */
+    public $category;
+
+    /**
      * @throws CException
      */
     public function run()
     {
-        $this->render($this->view, ['attributes' => $this->attributes]);
+        $this->render($this->view, ['attributes' => $this->attributes, 'category' => $this->category]);
     }
 } 
