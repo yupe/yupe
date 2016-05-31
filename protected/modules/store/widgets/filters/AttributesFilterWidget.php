@@ -52,7 +52,7 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
 
             $model = is_string($attribute) ? Attribute::model()->findByAttributes([
                 'name' => $attribute,
-                'is_filter' => \yupe\components\WebModule::CHOICE_YES
+                'is_filter' => \yupe\components\WebModule::CHOICE_YES,
             ]) : $attribute;
 
             if ($model) {
