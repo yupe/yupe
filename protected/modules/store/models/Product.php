@@ -908,7 +908,7 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function getLink()
     {
-        return Yii::app()->createUrl('/store/product/view', ['name' => $this->slug]);
+        return ProductHelper::getUrl($this);
     }
 
     /**
