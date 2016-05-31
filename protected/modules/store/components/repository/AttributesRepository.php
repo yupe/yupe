@@ -12,8 +12,7 @@ class AttributesRepository extends CApplicationComponent
     public function getForCategory(StoreCategory $category)
     {
         $criteria = new CDbCriteria([
-            'select' => ['t.name', 't.id'],
-            'condition' => 'products.category_id = :category',
+            'condition' => 't.is_filter = 1 AND products.category_id = :category',
             'params' => [
                 ':category' => $category->id,
             ],
