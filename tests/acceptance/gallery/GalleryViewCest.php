@@ -12,6 +12,7 @@ class GalleryViewCest
         $I->amOnPage(GalleryPage::ALBUMS_URL);
         $I->see('Галереи изображений');
         $I->seeLink('Первая галерея');
+        $I->seeLink('Вторая галерея');
         $I->see('Всего изображений');
         $I->see('08 ноября 2013 г., 01:21');
 

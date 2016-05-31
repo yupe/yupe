@@ -29,7 +29,7 @@ class NewsPublishCest
         $I->logout();
         $I->am('anonymous user');
         $I->amGoingTo('test show just published news...');
-        $I->amOnPage(NewsPage::route('vtoraja-ne-opublikovannaja-novost'));
+        $I->amOnPage(NewsPage::route('vtoraja-ne-opublikovannaja-novost.html'));
         $I->expectTo('see just published news...');
         $I->see('Вторая не опубликованная новость', 'h4');
         $I->see('Вторая не опубликованная новость текст');

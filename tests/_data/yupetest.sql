@@ -32,8 +32,8 @@ CREATE TABLE `yupe_blog_blog` (
   KEY `ix_yupe_blog_blog_slug` (`slug`),
   KEY `ix_yupe_blog_blog_category_id` (`category_id`),
   CONSTRAINT `fk_yupe_blog_blog_category_id` FOREIGN KEY (`category_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
-  CONSTRAINT `fk_yupe_blog_blog_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_yupe_blog_blog_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_yupe_blog_blog_create_user` FOREIGN KEY (`create_user_id`) REFERENCES `yupe_user_user` (`id`) ON UPDATE NO ACTION,
+  CONSTRAINT `fk_yupe_blog_blog_update_user` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user_user` (`id`) ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `yupe_blog_blog` (`id`, `category_id`, `name`, `description`, `icon`, `slug`, `lang`, `type`, `status`, `create_user_id`, `update_user_id`, `create_time`, `update_time`, `member_status`, `post_status`) VALUES
@@ -163,6 +163,14 @@ CREATE TABLE `yupe_category_category` (
   CONSTRAINT `fk_yupe_category_category_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_category_category` (`id`, `parent_id`, `slug`, `lang`, `name`, `image`, `short_description`, `description`, `status`) VALUES
+  (1,	NULL,	'gallery',	'ru',	'Галереи',	NULL,	'',	'',	1),
+  (2,	1,	'gallery-first',	'ru',	'Галереи. Первая категория',	NULL,	'',	'',	1),
+  (3,	1,	'gallery-second',	'ru',	'Галереи. Вторая категория',	NULL,	'',	'',	1),
+  (4,	NULL,	'news',	'ru',	'Новости',	NULL,	'',	'',	1),
+  (5,	4,	'news-first',	'ru',	'Новости. Первая категория',	NULL,	'',	'',	1),
+  (6,	4,	'news-second',	'ru',	'Новости. Вторая категория',	NULL,	'',	'',	1);
+
 DROP TABLE IF EXISTS `yupe_comment_comment`;
 CREATE TABLE `yupe_comment_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -289,14 +297,21 @@ CREATE TABLE `yupe_gallery_gallery` (
   `description` text,
   `status` int(11) NOT NULL DEFAULT '1',
   `owner` int(11) DEFAULT NULL,
+  `preview_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ix_yupe_gallery_gallery_status` (`status`),
   KEY `ix_yupe_gallery_gallery_owner` (`owner`),
+  KEY `fk_yupe_gallery_gallery_gallery_preview_to_image` (`preview_id`),
+  KEY `fk_yupe_gallery_gallery_gallery_to_category` (`category_id`),
+  CONSTRAINT `fk_yupe_gallery_gallery_gallery_preview_to_image` FOREIGN KEY (`preview_id`) REFERENCES `yupe_image_image` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
+  CONSTRAINT `fk_yupe_gallery_gallery_gallery_to_category` FOREIGN KEY (`category_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
   CONSTRAINT `fk_yupe_gallery_gallery_owner` FOREIGN KEY (`owner`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `yupe_gallery_gallery` (`id`, `name`, `description`, `status`, `owner`) VALUES
-  (1,	'Первая галерея',	'<p>\r\n  Первая галерея\r\n</p>',	1,	1);
+INSERT INTO `yupe_gallery_gallery` (`id`, `name`, `description`, `status`, `owner`, `preview_id`, `category_id`) VALUES
+  (1,	'Первая галерея',	'<p>\n  Первая галерея\n</p>',	1,	1,	NULL,	2),
+  (2,	'Вторая галерея',	'<p>Описание второй галереи</p>',	1,	1,	NULL,	3);
 
 DROP TABLE IF EXISTS `yupe_gallery_image_to_gallery`;
 CREATE TABLE `yupe_gallery_image_to_gallery` (
@@ -304,6 +319,7 @@ CREATE TABLE `yupe_gallery_image_to_gallery` (
   `image_id` int(11) NOT NULL,
   `gallery_id` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
+  `position` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_gallery_image_to_gallery_gallery_to_image` (`image_id`,`gallery_id`),
   KEY `ix_yupe_gallery_image_to_gallery_gallery_to_image_image` (`image_id`),
@@ -312,8 +328,8 @@ CREATE TABLE `yupe_gallery_image_to_gallery` (
   CONSTRAINT `fk_yupe_gallery_image_to_gallery_gallery_to_image_image` FOREIGN KEY (`image_id`) REFERENCES `yupe_image_image` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `yupe_gallery_image_to_gallery` (`id`, `image_id`, `gallery_id`, `create_time`) VALUES
-  (1,	1,	1,	'2013-11-08 13:21:15');
+INSERT INTO `yupe_gallery_image_to_gallery` (`id`, `image_id`, `gallery_id`, `create_time`, `position`) VALUES
+  (1,	1,	1,	'2013-11-08 13:21:15',	1);
 
 DROP TABLE IF EXISTS `yupe_image_image`;
 CREATE TABLE `yupe_image_image` (
@@ -535,7 +551,23 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
   (103,	'store',	'm151223_140722_drop_product_type_categories',	1450943031),
   (104,	'order',	'm000000_000000_base_order',	1450950290),
   (105,	'order',	'm151209_185124_split_address',	1450950291),
-  (106,	'order',	'm151211_115447_add_appartment_field',	1450950291);
+  (106,	'order',	'm151211_115447_add_appartment_field',	1450950291),
+  (107,	'yupe',	'm160204_195213_change_settings_type',	1464017749),
+  (108,	'yml',	'm141110_090000_yandex_market_export_base',	1464017785),
+  (109,	'yml',	'm141110_090000_yandex_market_export_base',	1464017785),
+  (110,	'yml',	'm160119_084800_rename_yandex_market_table',	1464017785),
+  (111,	'blog',	'm160518_175903_alter_blog_foreign_keys',	1464017793),
+  (112,	'gallery',	'm160514_131314_add_preview_to_gallery',	1464017798),
+  (113,	'gallery',	'm160515_123559_add_category_to_gallery',	1464017798),
+  (114,	'gallery',	'm160515_151348_add_position_to_gallery_image',	1464017798),
+  (115,	'order',	'm160415_055344_add_manager_to_order',	1464017803),
+  (116,	'store',	'm160210_084850_add_h1_and_canonical',	1464017808),
+  (117,	'store',	'm160210_131541_add_main_image_alt_title',	1464017809),
+  (118,	'store',	'm160211_180200_add_additional_images_alt_title',	1464017809),
+  (119,	'store',	'm160215_110749_add_image_groups_table',	1464017809),
+  (120,	'store',	'm160227_114934_rename_producer_order_column',	1464017809),
+  (121,	'store',	'm160309_091039_add_attributes_sort_and_search_fields',	1464017809),
+  (122,	'store',	'm160413_184551_add_type_attr_fk',	1464017809);
 
 DROP TABLE IF EXISTS `yupe_news_news`;
 CREATE TABLE `yupe_news_news` (
@@ -567,9 +599,10 @@ CREATE TABLE `yupe_news_news` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `yupe_news_news` (`id`, `category_id`, `lang`, `create_time`, `update_time`, `date`, `title`, `slug`, `short_text`, `full_text`, `image`, `link`, `user_id`, `status`, `is_protected`, `keywords`, `description`) VALUES
-  (1,	NULL,	'ru',	'2013-09-26 19:17:56',	'2013-09-26 19:17:56',	'2013-09-26',	'Первая опубликованная новость',	'pervaja-opublikovannaja-novost',	'<p>\r\n	Первая опубликованная короткий новость\r\n</p>',	'<p>\r\n	Первая опубликованная текст\r\n</p>',	NULL,	'',	1,	1,	0,	'Первая опубликованная новость',	'Первая опубликованная новость'),
+  (1,	5,	'ru',	'2013-09-26 19:17:56',	'2016-05-26 19:21:07',	'2013-09-26',	'Первая опубликованная новость',	'pervaja-opublikovannaja-novost',	'<p>\r\n	Первая опубликованная короткий новость\r\n</p>',	'<p>\r\n	Первая опубликованная текст\r\n</p>',	NULL,	'',	1,	1,	0,	'Первая опубликованная новость',	'Первая опубликованная новость'),
   (2,	NULL,	'ru',	'2013-09-26 19:18:45',	'2013-09-26 19:18:45',	'2013-09-26',	'Вторая не опубликованная новость',	'vtoraja-ne-opublikovannaja-novost',	'<p>\r\n	Вторая не опубликованная новость короткий текст\r\n</p>',	'<p>\r\n	Вторая не опубликованная новость текст\r\n</p>',	NULL,	'',	1,	0,	0,	'Вторая не опубликованная новость',	'Вторая не опубликованная новость'),
-  (3,	NULL,	'ru',	'2013-09-26 19:20:04',	'2013-09-26 19:20:04',	'2013-09-26',	'Третья новость только для авторизованных',	'tretja-novost-tolko-dlja-avtorizovannyh',	'<p>\r\n	Третья новость только для авторизованных текст\r\n</p>',	'<p>\r\n	Третья новость только для авторизованных текст\r\n</p>',	NULL,	'',	1,	1,	1,	'Третья новость только для авторизованных текст',	'Третья новость только для авторизованных текст');
+  (3,	NULL,	'ru',	'2013-09-26 19:20:04',	'2013-09-26 19:20:04',	'2013-09-26',	'Третья новость только для авторизованных',	'tretja-novost-tolko-dlja-avtorizovannyh',	'<p>\r\n	Третья новость только для авторизованных текст\r\n</p>',	'<p>\r\n	Третья новость только для авторизованных текст\r\n</p>',	NULL,	'',	1,	1,	1,	'Третья новость только для авторизованных текст',	'Третья новость только для авторизованных текст'),
+  (4,	6,	'ru',	'2016-05-26 19:21:54',	'2016-05-26 19:21:54',	'2016-05-26',	'Четвертая новость',	'chetvertaya-novost',	'',	'<p>Текст четвертой новости</p>',	NULL,	'',	1,	1,	0,	'',	'');
 
 DROP TABLE IF EXISTS `yupe_notify_settings`;
 CREATE TABLE `yupe_notify_settings` (
@@ -670,6 +703,8 @@ CREATE TABLE `yupe_store_attribute` (
   `type` tinyint(4) DEFAULT NULL,
   `unit` varchar(30) DEFAULT NULL,
   `required` tinyint(1) NOT NULL DEFAULT '0',
+  `sort` int(11) NOT NULL DEFAULT '0',
+  `is_filter` smallint(6) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_store_attribute_name_group` (`name`,`group_id`),
   KEY `ix_yupe_store_attribute_title` (`title`),
@@ -712,6 +747,10 @@ CREATE TABLE `yupe_store_category` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL DEFAULT '1',
   `external_id` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `meta_canonical` varchar(255) DEFAULT NULL,
+  `image_alt` varchar(255) DEFAULT NULL,
+  `image_title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_store_category_alias` (`slug`),
   KEY `ix_yupe_store_category_parent_id` (`parent_id`),
@@ -793,6 +832,7 @@ CREATE TABLE `yupe_store_order` (
   `city` varchar(255) DEFAULT NULL,
   `house` varchar(50) DEFAULT NULL,
   `apartment` varchar(10) DEFAULT NULL,
+  `manager_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `udx_yupe_store_order_url` (`url`),
   KEY `idx_yupe_store_order_user_id` (`user_id`),
@@ -801,7 +841,9 @@ CREATE TABLE `yupe_store_order` (
   KEY `idx_yupe_store_order_paid` (`paid`),
   KEY `fk_yupe_store_order_delivery` (`delivery_id`),
   KEY `fk_yupe_store_order_payment` (`payment_method_id`),
+  KEY `fk_yupe_store_order_manager` (`manager_id`),
   CONSTRAINT `fk_yupe_store_order_delivery` FOREIGN KEY (`delivery_id`) REFERENCES `yupe_store_delivery` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_yupe_store_order_manager` FOREIGN KEY (`manager_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_order_payment` FOREIGN KEY (`payment_method_id`) REFERENCES `yupe_store_payment` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_order_status` FOREIGN KEY (`status_id`) REFERENCES `yupe_store_order_status` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_order_user` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
@@ -873,7 +915,7 @@ CREATE TABLE `yupe_store_producer` (
   `meta_keywords` varchar(250) DEFAULT NULL,
   `meta_description` varchar(250) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
-  `order` int(11) NOT NULL DEFAULT '0',
+  `sort` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ix_yupe_store_producer_slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -912,6 +954,10 @@ CREATE TABLE `yupe_store_product` (
   `recommended_price` decimal(19,3) DEFAULT NULL,
   `position` int(11) NOT NULL DEFAULT '1',
   `external_id` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `meta_canonical` varchar(255) DEFAULT NULL,
+  `image_alt` varchar(255) DEFAULT NULL,
+  `image_title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_store_product_alias` (`slug`),
   KEY `ix_yupe_store_product_status` (`status`),
@@ -969,9 +1015,20 @@ CREATE TABLE `yupe_store_product_image` (
   `product_id` int(11) NOT NULL,
   `name` varchar(250) NOT NULL,
   `title` varchar(250) DEFAULT NULL,
+  `alt` varchar(255) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_yupe_store_product_image_product` (`product_id`),
+  KEY `fk_yupe_store_product_image_group` (`group_id`),
+  CONSTRAINT `fk_yupe_store_product_image_group` FOREIGN KEY (`group_id`) REFERENCES `yupe_store_product_image_group` (`id`) ON DELETE NO ACTION ON UPDATE SET NULL,
   CONSTRAINT `fk_yupe_store_product_image_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `yupe_store_product_image_group`;
+CREATE TABLE `yupe_store_product_image_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `yupe_store_product_link`;
@@ -1030,6 +1087,8 @@ CREATE TABLE `yupe_store_type_attribute` (
   `type_id` int(11) NOT NULL,
   `attribute_id` int(11) NOT NULL,
   PRIMARY KEY (`type_id`,`attribute_id`),
+  KEY `fk_yupe_store_type_attribute_attribute` (`attribute_id`),
+  CONSTRAINT `fk_yupe_store_type_attribute_attribute` FOREIGN KEY (`attribute_id`) REFERENCES `yupe_store_attribute` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_type_attribute_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1122,8 +1181,8 @@ CREATE TABLE `yupe_user_user_auth_item_child` (
   CONSTRAINT `fk_yupe_user_user_auth_itemchild_parent` FOREIGN KEY (`parent`) REFERENCES `yupe_user_user_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `yupe_yandex_market_export`;
-CREATE TABLE `yupe_yandex_market_export` (
+DROP TABLE IF EXISTS `yupe_yml_export`;
+CREATE TABLE `yupe_yml_export` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `settings` text,
@@ -1135,7 +1194,7 @@ CREATE TABLE `yupe_yupe_settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `module_id` varchar(100) NOT NULL,
   `param_name` varchar(100) NOT NULL,
-  `param_value` varchar(255) NOT NULL,
+  `param_value` varchar(500) NOT NULL,
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -1203,18 +1262,27 @@ INSERT INTO `yupe_yupe_settings` (`id`, `module_id`, `param_name`, `param_value`
   (52,	'user',	'phoneMask',	'+7-999-999-9999',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
   (53,	'user',	'phonePattern',	'/^((\\+?7)(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$/',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
   (54,	'user',	'generateNickName',	'0',	'2015-12-22 11:59:44',	'2015-12-22 11:59:44',	1,	1),
-  (55, 'comment', 'allowGuestComment', '0', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (56, 'comment', 'defaultCommentStatus', '0', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (57, 'comment', 'autoApprove', '1', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (58, 'comment', 'notify', '1', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (59, 'comment', 'email', 'root@mail.ru', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (60, 'comment', 'showCaptcha', '1', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (61, 'comment', 'minCaptchaLength', '3', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (62, 'comment', 'maxCaptchaLength', '6', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (63, 'comment', 'rssCount', '10', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (64, 'comment', 'allowedTags', 'p,br,strong,img[src|style],a[href]', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (65, 'comment', 'antiSpamInterval', '10', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (66, 'comment', 'stripTags', '1', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (67, 'comment', 'editor', 'textarea', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1),
-  (68, 'comment', 'modelsAvailableForRss', '', '2015-12-28 21:00:49', '2015-12-28 21:00:49', 1, 1);
-
+  (55,	'comment',	'allowGuestComment',	'0',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (56,	'comment',	'defaultCommentStatus',	'0',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (57,	'comment',	'autoApprove',	'1',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (58,	'comment',	'notify',	'1',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (59,	'comment',	'email',	'root@mail.ru',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (60,	'comment',	'showCaptcha',	'1',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (61,	'comment',	'minCaptchaLength',	'3',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (62,	'comment',	'maxCaptchaLength',	'6',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (63,	'comment',	'rssCount',	'10',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (64,	'comment',	'allowedTags',	'p,br,strong,img[src|style],a[href]',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (65,	'comment',	'antiSpamInterval',	'10',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (66,	'comment',	'stripTags',	'1',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (67,	'comment',	'editor',	'textarea',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (68,	'comment',	'modelsAvailableForRss',	'',	'2015-12-28 21:00:49',	'2015-12-28 21:00:49',	1,	1),
+  (69,	'gallery',	'editor',	'redactor',	'2016-05-25 20:43:51',	'2016-05-25 20:43:51',	1,	1),
+  (70,	'gallery',	'mainCategory',	'1',	'2016-05-25 20:43:51',	'2016-05-25 20:43:51',	1,	1),
+  (71,	'news',	'editor',	'redactor',	'2016-05-26 19:18:30',	'2016-05-26 19:18:30',	1,	1),
+  (72,	'news',	'mainCategory',	'4',	'2016-05-26 19:18:30',	'2016-05-26 19:18:30',	1,	1),
+  (73,	'news',	'uploadPath',	'news',	'2016-05-26 19:18:30',	'2016-05-26 19:18:30',	1,	1),
+  (74,	'news',	'allowedExtensions',	'jpg,jpeg,png,gif',	'2016-05-26 19:18:30',	'2016-05-26 19:18:30',	1,	1),
+  (75,	'news',	'minSize',	'0',	'2016-05-26 19:18:30',	'2016-05-26 19:18:30',	1,	1),
+  (76,	'news',	'maxSize',	'5368709120',	'2016-05-26 19:18:31',	'2016-05-26 19:18:31',	1,	1),
+  (77,	'news',	'rssCount',	'10',	'2016-05-26 19:18:31',	'2016-05-26 19:18:31',	1,	1),
+  (78,	'news',	'perPage',	'10',	'2016-05-26 19:18:31',	'2016-05-26 19:18:31',	1,	1);

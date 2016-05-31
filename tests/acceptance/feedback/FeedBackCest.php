@@ -36,10 +36,10 @@ class FeedBackCest
         $I->seeInDatabase(
             'yupe_feedback_feedback',
             [
-                'name'   => 'test_name',
-                'email'  => 'test@yupe.ru',
-                'theme'  => 'test_theme',
-                'text'   => 'test_text',
+                'name' => 'test_name',
+                'email' => 'test@yupe.ru',
+                'theme' => 'test_theme',
+                'text' => 'test_text',
                 'is_faq' => 0,
                 'status' => 0
             ]
@@ -51,7 +51,7 @@ class FeedBackCest
 
         $I->amOnPage(FeedBackPage::FAQ_URL);
         $I->see('Вопросы и ответы', 'h1');
-        $I->see('Задайте вопрос ?!', '.btn');
+        $I->see('Задайте вопрос?!', '.btn');
         $I->dontSeeLink('test_theme');
 
         $I->amGoingTo('mark feedback message as faq');
@@ -72,9 +72,9 @@ class FeedBackCest
         $I->seeInDatabase(
             'yupe_feedback_feedback',
             [
-                'name'   => 'test_name',
-                'email'  => 'test@yupe.ru',
-                'theme'  => 'test_theme',
+                'name' => 'test_name',
+                'email' => 'test@yupe.ru',
+                'theme' => 'test_theme',
                 'answer' => 'test_answer',
                 'is_faq' => 1,
                 'status' => 3
@@ -86,20 +86,19 @@ class FeedBackCest
         $I->amGoingTo('test view feedback message on the public site');
         $I->amOnPage(FeedBackPage::FAQ_URL);
         $I->see('Вопросы и ответы', 'h1');
-        $I->see('Задайте вопрос ?!', '.btn');
+        $I->see('Задайте вопрос?!', '.btn');
         $I->seeLink('test_theme');
         $I->click('test_theme');
         $I->seeLink('Подробнее...', FeedBackPage::routeFaq(1));
         $I->click('Подробнее...');
 
         $I->see('test_theme #1', 'h1');
-        $I->see('Задайте вопрос ?!', '.btn');
+        $I->see('Задайте вопрос?!', '.btn');
 
         $check = ['test_name', 'test_theme', 'test_text', 'test_answer', 'yupe'];
 
         foreach ($check as $ch) {
             $I->see($ch);
         }
-
     }
 }
