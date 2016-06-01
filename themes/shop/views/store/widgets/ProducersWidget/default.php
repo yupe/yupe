@@ -15,7 +15,7 @@
                     <?php foreach ($brands as $brand): ?>
                         <div class="best-brands__item grid-module-2">
                             <a href="<?= Yii::app()->createUrl('/store/producer/view', ['slug' => $brand->slug]) ?>" title="<?= $brand->name ?>">
-                                <img src="<?= $brand->getImageUrl(100, 100, false) ?>" class="best-brands__img" alt="<?= $brand->name ?>">
+                                <img src="<?= StoreImage::producer($brand, 100, 100);?>" class="best-brands__img" alt="<?= $brand->name ?>">
                             </a>
                         </div>
                     <?php endforeach; ?>

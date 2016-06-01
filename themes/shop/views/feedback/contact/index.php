@@ -14,36 +14,6 @@ Yii::import('application.modules.install.InstallModule');
     <div class="grid-module-6">
         <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
     </div>
-    <div class="alert alert-warning grid-module-6 fast-order__inputs">
-        <p>
-            <?= Yii::t('FeedbackModule.feedback',
-                'If you have any questions, proposals or want to report an error'
-            ); ?>
-        </p>
-
-        <p>
-            <?= Yii::t('FeedbackModule.feedback',
-                'If you interesting with quality project which simple in support'
-            ); ?>
-        </p>
-
-        <p>
-            <b>
-                <?= Yii::t('FeedbackModule.feedback',
-                    'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'
-                ); ?>
-            </b>
-        </p>
-
-        <p>
-            <?= Yii::t('FeedbackModule.feedback', 'We try to answer as fast as we can!'); ?>
-        </p>
-
-        <p>
-            <b><?= Yii::t('FeedbackModule.feedback', 'Thanks for attention!'); ?></b>
-        </p>
-    </div>
-
     <div class="grid-module-6 ">
         <?php $form = $this->beginWidget('CActiveForm', [
             'id' => 'feedback-form',
