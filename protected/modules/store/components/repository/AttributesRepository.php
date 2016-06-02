@@ -17,9 +17,10 @@ class AttributesRepository extends CApplicationComponent
                 ':category' => $category->id,
                 ':type' => Attribute::TYPE_TEXT
             ],
-            'join' => 'JOIN {{store_type_attribute}} ON t.id = {{store_type_attribute}}.attribute_id
-                       JOIN {{store_type}} ON {{store_type_attribute}}.type_id = {{store_type}}.id
-                       JOIN {{store_product}} AS products ON products.type_id = {{store_type}}.id',
+            'join' => 'LEFT JOIN {{store_type_attribute}} ON t.id = {{store_type_attribute}}.attribute_id
+                       LEFT JOIN {{store_type}} ON {{store_type_attribute}}.type_id = {{store_type}}.id
+                       LEFT JOIN {{store_product}} AS products ON products.type_id = {{store_type}}.id',
+            'distinct' => true
         ]);
 
         return Attribute::model()->findAll($criteria);
