@@ -19,7 +19,7 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
                 <form id="store-filter" name="store-filter" method="get">
                     <?php $this->widget('application.modules.store.widgets.filters.QFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
-                    <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget'); ?>
+                    <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget', ['limit' => 30]); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget', ['limit' => 30]); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
                 </form>
