@@ -59,6 +59,10 @@ class YandexMoneyPaymentSystem extends PaymentSystem
             $this->showResponse($params, $message, 200);
         }
 
+        if ($params['action'] === 'PaymentSuccess') {
+            return $order;
+        }
+
         if ($order->isPaid()) {
             $message = Yii::t('YandexMoneyModule.ymoney', 'The order #{n} is already payed.', $order->getPrimaryKey());
             Yii::log($message, CLogger::LEVEL_ERROR);
