@@ -114,7 +114,9 @@ $this->widget(
         'favorite',
         'yandexmoney',
         'sitemap',
-        'payler'
+        'payler',
+        'viewed',
+        'feedback'
     ];
     foreach ($data['modules'] as $module) : {
         if (!is_object($module)) {
