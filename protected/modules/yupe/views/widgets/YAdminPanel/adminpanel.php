@@ -14,6 +14,9 @@ $mainAssets = Yii::app()->getAssetManager()->publish(
     Yii::getPathOfAlias('application.modules.yupe.views.assets')
 );
 
+$isAdmin = Yii::app()->getUser()->checkAccess('admin');
+$canUpdateUser = Yii::app()->getUser()->checkAccess('User.UserBackend.Update');
+
 foreach ($modules as &$item) {
     $item['linkOptions'] = ['title' => $item['label']];
     $item['label'] = CHtml::tag('span', ['class' => 'hidden-sm'], $item['label']);
@@ -130,9 +133,12 @@ $this->widget(
                                 [
                                     'icon' => 'fa fa-fw fa-cog',
                                     'label' => Yii::t('YupeModule.yupe', 'Profile'),
-                                    'url' => CHtml::normalizeUrl(
+                                    'url' => ($isAdmin || $canUpdateUser) ?
+                                        CHtml::normalizeUrl(
                                             (['/user/userBackend/update', 'id' => Yii::app()->getUser()->getId()])
-                                        ),
+                                        ) 
+                                        : 
+                                        Yii::app()->createAbsoluteUrl('/user/profile/profile'),
                                 ],
                                 [
                                     'icon' => 'fa fa-fw fa-power-off',
