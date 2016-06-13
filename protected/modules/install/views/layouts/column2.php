@@ -1,5 +1,5 @@
 <?php $installAssets = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.install.views.assets')); ?>
-<?php $this->beginContent(Yii::app())->getController()->getModule()->getLayoutAlias()); ?>
+<?php $this->beginContent(Yii::app()->getController()->getModule()->getLayoutAlias()); ?>
 <div class="row">
     <div class="col-sm-9 well">
         <?php if (count($this->breadcrumbs)) {
