@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    'Donate!' => 'Сказать спасибо!',
     '0.2' => '0.2',
     '< Back' => '< Назад',
     'Activation of Yupe core!' => 'Активация ядра Yupe!',
