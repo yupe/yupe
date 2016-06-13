@@ -71,7 +71,10 @@ class AttributeRender
                 break;
             case Attribute::TYPE_DROPDOWN:
                 $data = CHtml::listData($attribute->options, 'id', 'value');
-                if (!is_array($value) && isset($data[$value])) {
+                if(is_array($value)) {
+                    $value = array_shift($value);
+                }
+                if (isset($data[$value])) {
                     $res .= $data[$value];
                 }
                 break;
