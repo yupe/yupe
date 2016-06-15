@@ -30,6 +30,7 @@ return [
     ],
     // Перенаправляем журнал для cron-а в отдельные файлы
     'components' => [
+        'uploadManager' => ['class' => 'yupe\components\UploadManager'],
         'moduleManager' => ['class' => 'yupe\components\ModuleManager'],
         'configManager' => ['class' => 'yupe\components\ConfigManager'],
         // Работа с миграциями, обновление БД модулей
