@@ -1,17 +1,6 @@
 <?php
 
 return [
-    'from' => 'от',
-    'Quantity' => 'Кличество',
-    'Sku' => 'Артикул',
-    'Product' => 'Товар',
-    'Created' => 'Создан',
-    'Image' => 'Изображение',
-    'Variants' => 'Варианты',
-    'Number' => 'Количество',
-    'Price'  => 'Цена',
-    'Select client' => 'Выберите клиента',
-    'Select manager' => 'Выберите менеджера',
     '#' => '№',
     '(paid separately)' => '(оплачивается отдельно)',
     '*unknown*' => '*неизвестно*',
@@ -33,7 +22,6 @@ return [
     'Check' => 'Проверить',
     'City' => 'Город',
     'Client' => 'Клиент',
-    'Clients' => 'Клиенты',
     'Clients - manage' => 'Клиенты - управление',
     'Clients' => 'Клиенты',
     'Color' => 'Цвет',
@@ -64,6 +52,7 @@ return [
     'Do you really want to remove this status?' => 'Вы уверены, что хотите удалить статус?',
     'Edition' => 'Редактирование',
     'Fields with' => 'Поля, отмеченные',
+    'from' => 'от',
     'Green' => 'Зеленый',
     'Grey' => 'Серый',
     'House' => 'Дом (строение, корпус)',
