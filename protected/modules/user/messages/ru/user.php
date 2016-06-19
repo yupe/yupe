@@ -164,7 +164,7 @@ return [
     'Just remove this letter if it addressed not for you.' => 'Если это были не вы - просто удалите это письмо.',
     'Last name' => 'Фамилия',
     'Last visit {visit_time}' => 'Был на сайте {visit_time}',
-    'Last visit' => 'Последний визит',
+    'Last visit' => 'Визит',
     'Letter with password recovery instructions was sent on email which you choose during register' => 'На указанный email отправлено письмо с инструкцией по восстановлению пароля!',
     'link' => 'ссылке',
     'List of user tokens' => 'Просмотр списка токенов пользователей',

@@ -61,10 +61,10 @@ $this->menu = [
 
 <?= $this->renderPartial('_form', ['model' => $model]); ?>
 
-<?php if(Yii::app()->hasModule('comments') && Yii::app()->getModule('order')->enableComments):?>
+<?php if(Yii::app()->hasModule('comment') && Yii::app()->getModule('order')->enableComments):?>
     <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
             'view' => 'application.modules.order.views.orderBackend.comments',
-            'redirectTo' => Yii::app()->createUrl('/order/orderBackendUpdate', ['id' => $model->id]),
+            'redirectTo' => Yii::app()->createUrl('/order/orderBackend/update', ['id' => $model->id]),
             'model' => $model,
        ]); ?>
 <?php endif;?>

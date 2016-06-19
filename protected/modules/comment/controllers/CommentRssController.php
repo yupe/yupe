@@ -12,6 +12,9 @@
  */
 class CommentRssController extends yupe\components\controllers\RssController
 {
+    /**
+     * @throws CHttpException
+     */
     public function loadData()
     {
         $module = Yii::app()->getModule('comment');
@@ -29,7 +32,7 @@ class CommentRssController extends yupe\components\controllers\RssController
 
         $models = $module->getModelsAvailableForRss();
 
-        if(empty($models) || !in_array($model, $models)) {
+        if (empty($models) || !in_array($model, $models)) {
             throw new CHttpException(404);
         }
 
@@ -39,6 +42,9 @@ class CommentRssController extends yupe\components\controllers\RssController
         $this->data = Yii::app()->commentManager->getCommentsForModel($model, $modelId);
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [

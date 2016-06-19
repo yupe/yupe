@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'from' => 'от',
     'Quantity' => 'Кличество',
     'Sku' => 'Артикул',
     'Product' => 'Товар',

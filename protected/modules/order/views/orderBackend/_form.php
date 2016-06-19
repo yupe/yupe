@@ -351,10 +351,11 @@ $form = $this->beginWidget(
                                         ],
                                         [
                                             'label' => Yii::t('OrderModule.order', 'Money'),
-                                            'value' => Yii::app()->getNumberFormatter()->formatCurrency(
+                                            'value' => '<span  class="label label-success">'.Yii::app()->getNumberFormatter()->formatCurrency(
                                                 $model->client->getOrderSum(),
                                                 Yii::app()->getModule('store')->currency
-                                            ),
+                                            ).'</span>',
+                                            'type' => 'html'
                                         ],
                                     ],
                                 ]
