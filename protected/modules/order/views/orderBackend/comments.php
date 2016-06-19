@@ -8,7 +8,7 @@
 /* @var $comments Comment[] */
 
 Yii::app()->clientScript
-    ->registerScriptFile(Yii::app()->getModule('comment')->getAssetsUrl() . '/js/comments.js')
+    ->registerScriptFile(Yii::app()->getModule('comment')->getAssetsUrl().'/js/comments.js')
     ->registerScript(
         __FILE__,
         "$(document).ready(function(){
@@ -22,29 +22,17 @@ Yii::app()->clientScript
 <div class="comments-widget" id="comments">
 
     <?php if ($this->showComments): ?>
-        <?php if (empty($comments)): ?>
-            <p><?= Yii::t('CommentModule.comment', 'Be first!'); ?></p>
-        <?php else: ?>
-            <h2>
-                <small>
-                    <?= Yii::t('CommentModule.comment', 'Comments') . ' ' . count($comments); ?>
-                    <?= CHtml::link(
-                        CHtml::image(Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png"),
-                        [
-                            '/comment/commentRss/feed',
-                            'model' => get_class($this->model),
-                            'modelId' => $this->model->id
-                        ]
-                    ); ?>
-                </small>
-            </h2>
+        <h2>
+            <small>
+                <?= Yii::t('CommentModule.comment', 'Comments').' '.count($comments); ?>
+            </small>
+        </h2>
 
-            <div class="comments-list">
+        <div class="comments-list">
             <?php foreach ($comments as $comment): ?>
                 <?php $this->render('application.modules.order.views.orderBackend._comment', ['comment' => $comment]) ?>
             <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+        </div>
     <?php endif; ?>
 
     <?php if ($this->showForm): ?>
@@ -58,7 +46,7 @@ Yii::app()->clientScript
                         '{register}' => CHtml::link(
                             Yii::t('CommentModule.comment', 'register'),
                             ['/user/account/registration']
-                        )
+                        ),
                     ]
                 ); ?>
             </div>
@@ -75,7 +63,7 @@ Yii::app()->clientScript
                         'enableClientValidation' => true,
                         'htmlOptions' => [
                             'class' => 'well',
-                        ]
+                        ],
                     ]
                 ); ?>
 
@@ -91,7 +79,7 @@ Yii::app()->clientScript
                 ]); ?>
 
                 <?= $form->textField($model, 'comment', [
-                    'style' => 'position:absolute;display:none;visibility:hidden;'
+                    'style' => 'position:absolute;display:none;visibility:hidden;',
                 ]); ?>
 
                 <?php if (!Yii::app()->getUser()->isAuthenticated()) : ?>
@@ -125,7 +113,7 @@ Yii::app()->clientScript
                                     'attribute' => 'text',
                                     'options' => [
                                         'rows' => '3',
-                                    ]
+                                    ],
                                 ]
                             ); ?>
                             <?= $form->error($model, 'text'); ?>
@@ -146,10 +134,10 @@ Yii::app()->clientScript
                                         ],
                                         'buttonOptions' => [
                                             'class' => 'btn btn-info',
-                                            'id' => 'captcha-refresh'
+                                            'id' => 'captcha-refresh',
                                         ],
                                         'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
-                                        'captchaAction' => '/comment/comment/captcha'
+                                        'captchaAction' => '/comment/comment/captcha',
                                     ]
                                 ); ?>
                             </div>
@@ -165,7 +153,7 @@ Yii::app()->clientScript
                                                 'placeholder' => Yii::t(
                                                     'CommentModule.comment',
                                                     'Insert symbols you see on picture'
-                                                )
+                                                ),
                                             ],
                                         ],
                                     ]

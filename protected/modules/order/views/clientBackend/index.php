@@ -80,28 +80,34 @@ $this->widget(
                 'name'   => 'ordersTotalNumber',
                 'header' => Yii::t('OrderModule.order', 'Orders'),
                 'type'   => 'html',
-                'value'  => function($data){
-                    return CHtml::link($data->getOrderNumber(), ['/order/orderBackend/index', 'Order[user_id]' => $data->id]);
+                'value'  => function(Client $client){
+                    $data = CHtml::link($client->getOrderNumber(), ['/order/orderBackend/index', 'Order[user_id]' => $client->id]);
+                    $order = $client->getLastOrder();
+                    if($order) {
+                        $data .= ' <span class="label label-default">'.CHtml::link($order->id, ['/order/orderBackend/update', 'id' => $order->id]).' '.Yii::t('OrderModule.order', 'from').' '.Yii::app()->getDateFormatter()->formatDateTime($order->date, 'short', false).'</span>';
+                    }
+                    return $data;
                 },
             ],
             [
                 'name'   => 'ordersTotalSum',
                 'header' => Yii::t('OrderModule.order', 'Money'),
                 'value' => function($data){
-                    return Yii::app()->numberFormatter->formatCurrency($data->getOrderSum(), Yii::app()->getModule('store')->currency);
-                }
+                    return '<span class="label label-default">'.Yii::app()->numberFormatter->formatCurrency($data->getOrderSum(), Yii::app()->getModule('store')->currency).'</span>';
+                },
+                'type' => 'html'
             ],
             [
                 'name'   => 'create_time',
                 'filter' => false,
                 'value'  => function($data){
-                    return Yii::app()->getDateFormatter()->formatDateTime($data->create_time);
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->create_time, 'short', false);
                 },
             ],
             [
                 'name'   => 'visit_time',
                 'value'  => function($data){
-                    return Yii::app()->getDateFormatter()->formatDateTime($data->visit_time);
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->visit_time, 'short', false);
                 },
                 'filter' => false
             ],

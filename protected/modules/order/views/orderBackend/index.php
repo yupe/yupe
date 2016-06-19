@@ -124,7 +124,7 @@ $this->widget(
                     'fullName'
                 ),
                 'value' => function ($data) {
-                    return isset($data->manager) ? $data->manager->getFullName() : null;
+                    return isset($data->manager) ? \yupe\helpers\YText::shortName($data->manager->getFullName()) : null;
                 },
             ],
             [

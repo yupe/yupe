@@ -360,4 +360,13 @@ class YText
 
         return $str;
     }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public static function shortName($name)
+    {
+        return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $name);
+    }
 }

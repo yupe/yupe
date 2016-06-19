@@ -32,7 +32,7 @@ class Client extends User
         return CMap::mergeArray(
             parent::relations(),
             [
-                'orders' => [self::HAS_MANY, 'Order', 'user_id'],
+                'orders' => [self::HAS_MANY, 'Order', 'user_id', 'order' => 'orders.id DESC'],
                 'ordersCnt' => [self::STAT, 'Order', 'user_id'],
                 'ordersSum' => [
                     self::STAT,
@@ -93,7 +93,13 @@ class Client extends User
             parent::rules(),
             [
                 [
-                    'id, update_time, create_time, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, visit_time, phone, ordersTotalNumber, ordersTotalSum',
+                    'middle_name, first_name, last_name, nick_name, email, gender, status, access_level, visit_time, phone, ordersTotalNumber, ordersTotalSum',
+                    'filter',
+                    'filter' => 'trim',
+                    'on' => 'search',
+                ],
+                [
+                    'middle_name, first_name, last_name, nick_name, email, gender, status, access_level, visit_time, phone, ordersTotalNumber, ordersTotalSum',
                     'safe',
                     'on' => 'search',
                 ],
@@ -110,12 +116,12 @@ class Client extends User
     {
         $criteria = new CDbCriteria();
 
-        $criteria->compare('t.first_name', $this->first_name, true, 'OR');
-        $criteria->compare('t.middle_name', $this->middle_name, true, 'OR');
-        $criteria->compare('t.last_name', $this->last_name, true, 'OR');
-        $criteria->compare('t.nick_name', $this->nick_name, true, 'OR');
-        $criteria->compare('t.email', $this->email, true, 'OR');
-        $criteria->compare('t.phone', $this->phone, true, 'OR');
+        $criteria->compare('t.first_name', trim($this->first_name), true, 'OR');
+        $criteria->compare('t.middle_name', trim($this->middle_name), true, 'OR');
+        $criteria->compare('t.last_name', trim($this->last_name), true, 'OR');
+        $criteria->compare('t.nick_name', trim($this->nick_name), true, 'OR');
+        $criteria->compare('t.email', trim($this->email), true, 'OR');
+        $criteria->compare('t.phone', trim($this->phone), true, 'OR');
         $criteria->compare('t.gender', $this->gender);
         $criteria->compare('t.status', $this->status);
 
@@ -153,5 +159,17 @@ class Client extends User
                 ],
             ]
         );
+    }
+
+    /**
+     * @return null
+     */
+    public function getLastOrder()
+    {
+        if ($this->orders) {
+            return $this->orders[0];
+        }
+
+        return null;
     }
 }
