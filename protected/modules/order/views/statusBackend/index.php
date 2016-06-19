@@ -28,8 +28,8 @@ $this->menu = [
 ?>
 <div class="">
     <h1>
-        <?=  Yii::t('OrderModule.order', 'Order statuses'); ?>
-        <small><?=  Yii::t('OrderModule.order', 'manage'); ?></small>
+        <?= Yii::t('OrderModule.order', 'Order statuses'); ?>
+        <small><?= Yii::t('OrderModule.order', 'manage'); ?></small>
     </h1>
 </div>
 
@@ -55,19 +55,29 @@ $this->widget(
                 'htmlOptions' => ['width' => '50px'],
                 'filter' => false,
             ],
-            'name',
+            [
+                'name' => 'name',
+                'type' => 'raw',
+                'value' => function (OrderStatus $data) {
+                    if (!$data->color) {
+                        return $data->name;
+                    }
+
+                    return CHtml::tag('span', ['class' => 'label label-' . $data->color], $data->name);
+                }
+            ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{update} {delete}',
                 'buttons' => [
                     'update' => [
                         'visible' => function ($row, $data) {
-                            return !$data->is_system ? true: false;
+                            return !$data->is_system ? true : false;
                         }
                     ],
                     'delete' => [
                         'visible' => function ($row, $data) {
-                            return !$data->is_system ? true: false;
+                            return !$data->is_system ? true : false;
                         }
                     ],
                 ],

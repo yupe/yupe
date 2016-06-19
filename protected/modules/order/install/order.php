@@ -11,6 +11,7 @@ return [
     ],
     'import' => [
         'application.modules.order.models.*',
+        'application.modules.order.helpers.*',
     ],
     'component' => [
         'eventManager' => [

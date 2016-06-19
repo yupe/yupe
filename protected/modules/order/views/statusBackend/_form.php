@@ -4,6 +4,10 @@
  * @var TbActiveForm $form
  */
 
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/color-selector.css');
+Yii::app()->getClientScript()->registerScriptFile($this->module->getAssetsUrl() . '/js/color-selector.js', CClientScript::POS_END);
+Yii::app()->getClientScript()->registerScript('color-selector', '$("#colorselector").colorselector();', CClientScript::POS_READY);
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -16,16 +20,26 @@ $form = $this->beginWidget(
 ?>
 
 <div class="alert alert-info">
-    <?=  Yii::t('OrderModule.order', 'Fields with'); ?>
+    <?= Yii::t('OrderModule.order', 'Fields with'); ?>
     <span class="required">*</span>
-    <?=  Yii::t('OrderModule.order', 'are required'); ?>
+    <?= Yii::t('OrderModule.order', 'are required'); ?>
 </div>
 
-<?=  $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
-    <div class="col-sm-6">
-        <?=  $form->textFieldGroup($model, 'name'); ?>
+    <div class="col-sm-4">
+        <?= $form->textFieldGroup($model, 'name'); ?>
+    </div>
+    <div class="col-sm-1">
+        <?= $form->dropDownListGroup($model, 'color', ['widgetOptions' => [
+            'data' => OrderHelper::colorNames(),
+            'htmlOptions' => [
+                'empty' => '',
+                'id' => 'colorselector',
+                'options' => OrderHelper::colorValues(),
+            ]
+        ]]) ?>
     </div>
 </div>
 

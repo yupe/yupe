@@ -30,9 +30,9 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?=  Yii::t('OrderModule.order', 'Order statuses'); ?>
-        <small><?=  Yii::t('OrderModule.order', 'creating'); ?></small>
+        <?= Yii::t('OrderModule.order', 'Order statuses'); ?>
+        <small><?= Yii::t('OrderModule.order', 'creating'); ?></small>
     </h1>
 </div>
 
-<?=  $this->renderPartial('_form', ['model' => $model]); ?>
+<?= $this->renderPartial('_form', ['model' => $model]); ?>

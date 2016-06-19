@@ -1,4 +1,5 @@
 <?php
+Yii::app()->getClientScript()->registerCssFile(Yii::app()->getModule('order')->getAssetsUrl() . '/css/order-backend.css');
 /**
  * @var $ordersCount int
  * @var $newOrdersCount int
@@ -77,8 +78,8 @@
                                         'class' => 'yupe\widgets\EditableStatusColumn',
                                         'name' => 'status_id',
                                         'url' => $this->controller->createUrl('/order/orderBackend/inline'),
-                                        'source' => OrderStatus::model()->getList(),
-                                        'options' => OrderStatus::model()->getLabels(),
+                                        'source' => OrderHelper::statusList(),
+                                        'options' => OrderHelper::labelList(),
                                     ],
                                     [
                                         'class' => 'yupe\widgets\EditableStatusColumn',
