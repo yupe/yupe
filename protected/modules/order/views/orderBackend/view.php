@@ -194,7 +194,7 @@ $this->menu = [
                     [
                         'type' => 'raw',
                         'value' => function ($data) {
-                            return CHtml::image($data->product->getImageUrl(40, 40), "", ["class" => "img-thumbnail"]);
+                            return $data->product ? CHtml::image($data->product->getImageUrl(40, 40), "", ["class" => "img-thumbnail"]) : null;
                         },
                     ],
                     [
