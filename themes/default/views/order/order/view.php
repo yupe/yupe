@@ -9,7 +9,7 @@ $this->title = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
 <div class="row">
     <div class="col-sm-12">
         <h1><?= Yii::t("OrderModule.order", "Order #"); ?><?= $model->id; ?>
-            <small>[<?= $model->status->getTitle(); ?>]</small>
+            <small>[<?= CHtml::encode($model->getStatusTitle()); ?>]</small>
         </h1>
         <table class="table">
             <tbody>

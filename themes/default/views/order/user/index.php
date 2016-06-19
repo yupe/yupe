@@ -29,7 +29,7 @@ $this->title = Yii::t('OrderModule.order', 'Personal account');
                         ) . ($order->paid ? ' - ' . $order->getPaidStatus() : ''); ?>
                 </td>
                 <td>
-                    <?= $order->status->getTitle(); ?>
+                    <?= CHtml::encode($order->getStatusTitle()); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

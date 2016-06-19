@@ -70,9 +70,4 @@ class OrderStatus extends yupe\models\YModel
 
         return parent::beforeDelete();
     }
-
-    public function getTitle()
-    {
-        return $this->name ?: Yii::t('OrderModule.order', '*unknown*');
-    }
 }

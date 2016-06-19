@@ -25,7 +25,7 @@ $this->title = Yii::t('OrderModule.order', 'Check order');
 
             <?php if ($order): ?>
                 <div class="text-success">
-                    <?= Yii::t('OrderModule.order', 'Status') ?>: <strong><?= $order->status->getTitle(); ?></strong>
+                    <?= Yii::t('OrderModule.order', 'Status') ?>: <strong><?= CHtml::encode($order->getStatusTitle()); ?></strong>
                 </div>
             <?php elseif (!$model->hasErrors()): ?>
                 <div class="text-error">
