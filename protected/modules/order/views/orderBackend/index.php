@@ -41,77 +41,77 @@ $this->widget(
         'type' => 'condensed',
         'dataProvider' => $model->search(),
         'filter' => $model,
-        'datePickers'=> ['Order_date'],
+        'datePickers' => ['Order_date'],
         'afterAjaxUpdate' => 'reinstallDatePicker',
         'columns' => [
             [
                 'name' => 'id',
                 'htmlOptions' => ['width' => '90px'],
                 'type' => 'raw',
-                'value' => function($data){
+                'value' => function ($data) {
                     return CHtml::link($data->id, array("/order/orderBackend/update", "id" => $data->id));
                 },
             ],
             [
-                'name'   => 'date',
-                'type'   => 'html',
+                'name' => 'date',
+                'type' => 'html',
                 'filter' => $this->widget('booster.widgets.TbDatePicker', [
-                            'model'=>$model,
-                            'attribute'=>'date',
-                            'options' => [
-                                'format' => 'yyyy-mm-dd'
-                            ],
-                            'htmlOptions' => [
-                                'class' => 'form-control',
-                            ],
-                        ], true),
-                'value' => function($data){
+                    'model' => $model,
+                    'attribute' => 'date',
+                    'options' => [
+                        'format' => 'yyyy-mm-dd'
+                    ],
+                    'htmlOptions' => [
+                        'class' => 'form-control',
+                    ],
+                ], true),
+                'value' => function ($data) {
                     return CHtml::link(Yii::app()->getDateFormatter()->formatDateTime($data->date, 'medium'), array("/order/orderBackend/update", "id" => $data->id));
                 },
             ],
             [
                 'name' => 'name',
                 'type' => 'raw',
-                'value' => function($data){
+                'value' => function ($data) {
                     return isset($data->client) ? CHtml::link($data->client->getFullName(), ['/order/clientBackend/view', 'id' => $data->user_id]) : $data->name;
                 },
                 'htmlOptions' => ['width' => '400px'],
             ],
             [
                 'name' => 'total_price',
-                'value' => function($data){
+                'value' => function ($data) {
                     return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price, Yii::app()->getModule('store')->currency);
                 }
             ],
             [
-                'class'   => 'yupe\widgets\EditableStatusColumn',
-                'name'    => 'status_id',
-                'url'     => $this->createUrl('/order/orderBackend/inline'),
-                'source'  => OrderStatus::model()->getList(),
-                'options' => OrderStatus::model()->getLabels(),
+                'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'status_id',
+                'url' => $this->createUrl('/order/orderBackend/inline'),
+                'source' => OrderHelper::statusList(),
+                'options' => OrderHelper::labelList(),
             ],
             [
                 'name' => 'payment_method_id',
-                'value' => function($data){
+                'value' => function ($data) {
                     return $data->payment ? $data->payment->name : '---';
                 },
                 'filter' => CHtml::listData(Payment::model()->findAll(), 'id', 'name')
             ],
             [
-                'class'=> 'yupe\widgets\EditableStatusColumn',
+                'class' => 'yupe\widgets\EditableStatusColumn',
                 'name' => 'paid',
-                'url'  => $this->createUrl('/order/orderBackend/inline'),
-                'source'  => $model->getPaidStatusList(),
+                'url' => $this->createUrl('/order/orderBackend/inline'),
+                'source' => $model->getPaidStatusList(),
                 'options' => [
                     Order::PAID_STATUS_NOT_PAID => ['class' => 'label-danger'],
                     Order::PAID_STATUS_PAID => ['class' => 'label-success']
                 ],
             ],
             [
-                'name'   => 'delivery_id',
+                'name' => 'delivery_id',
                 'header' => Yii::t('OrderModule.order', 'Delivery'),
                 'filter' => CHtml::listData(Delivery::model()->findAll(), 'id', 'name'),
-                'value'  => function(Order $data){
+                'value' => function (Order $data) {
                     return $data->delivery->name;
                 }
             ],
@@ -123,7 +123,7 @@ $this->widget(
                     'id',
                     'fullName'
                 ),
-                'value' => function($data){
+                'value' => function ($data) {
                     return isset($data->manager) ? \yupe\helpers\YText::shortName($data->manager->getFullName()) : null;
                 },
             ],

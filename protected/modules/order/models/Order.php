@@ -814,4 +814,12 @@ class Order extends yupe\models\YModel
         ]
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getStatusTitle()
+    {
+        return isset($this->status) ? $this->status->name : Yii::t('OrderModule.order', '*unknown*');
+    }
 }

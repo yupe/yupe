@@ -20,7 +20,7 @@
             Статус
         </td>
         <td style="padding:6px; width:330; background-color:#ffffff; border:1px solid #e0e0e0;">
-            <?= $order->status->getTitle(); ?>
+            <?= CHtml::encode($order->getStatusTitle()); ?>
         </td>
     </tr>
     <tr>

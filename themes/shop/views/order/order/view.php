@@ -8,7 +8,7 @@ $this->title = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
 <div class="main__order-box grid">
     <div class="order-box">
         <div class="order-box__header order-box__header_black">
-            <div class="order-box__header-content"><?= Yii::t("OrderModule.order", "Order #"); ?> <b><?= $model->id ?></b> (<?= $model->status->getTitle(); ?>)
+            <div class="order-box__header-content"><?= Yii::t("OrderModule.order", "Order #"); ?> <b><?= $model->id ?></b> (<?= CHtml::encode($model->getStatusTitle()); ?>)
             </div>
         </div>
         <div class="order-box__body">

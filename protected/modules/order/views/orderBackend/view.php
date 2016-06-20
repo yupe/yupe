@@ -87,7 +87,7 @@ $this->menu = [
                     'date',
                     [
                         'name' => 'status_id',
-                        'value' => $model->status->getTitle(),
+                        'value' => CHtml::encode($model->getStatusTitle()),
                     ],
                     [
                         'name' => 'total_price',

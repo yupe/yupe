@@ -51,3 +51,26 @@ hr {
     float: none;
     top: 0;
 }
+
+.label-purple {
+    background-color: #800080;
+}
+
+.label-pistachio {
+    color: #187d18;
+    background-color: #bef574;
+}
+
+.label-mint {
+    color: #1d5f42;
+    background-color: #aaf0d1;
+}
+
+.label-yellow {
+    color: #565628;
+    background-color: #ffff00;
+}
+
+.label-black {
+    background-color: #000;
+}

@@ -27,7 +27,7 @@ $this->title = Yii::t('OrderModule.order', 'Personal account');
                                 ['class' => 'cart-item__link']
                             ) . ($order->paid ? ' - ' . $order->getPaidStatus() : ''); ?>
                         </div>
-                        <div class="cart-item__quantity"><?= $order->status->getTitle(); ?></div>
+                        <div class="cart-item__quantity"><?= CHtml::encode($order->getStatusTitle()); ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>

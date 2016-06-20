@@ -34,7 +34,7 @@ $form = $this->beginWidget(
                     [
                         'model' => $model,
                         'attribute' => 'status_id',
-                        'data' => OrderStatus::model()->getList(),
+                        'data' => OrderHelper::statusList(),
                         'options' => [
                             'placeholder' => Yii::t('OrderModule.order', 'Status'),
                             'width' => '100%'

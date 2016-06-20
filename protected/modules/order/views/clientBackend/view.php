@@ -1,4 +1,6 @@
 <?php
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-backend.css');
+
 $this->breadcrumbs = [
     Yii::t('OrderModule.order', 'Clients') => ['/order/clientBackend/index'],
     Yii::t('OrderModule.order', 'Manage'),
@@ -142,8 +144,8 @@ $this->menu = [
                                 'class' => 'yupe\widgets\EditableStatusColumn',
                                 'name' => 'status_id',
                                 'url' => $this->createUrl('/order/orderBackend/inline'),
-                                'source' => OrderStatus::model()->getList(),
-                                'options' => OrderStatus::model()->getLabels(),
+                                'source' => OrderHelper::statusList(),
+                                'options' => OrderHelper::labelList(),
                             ],
                             [
                                 'class' => 'yupe\widgets\EditableStatusColumn',
