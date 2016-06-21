@@ -9,6 +9,7 @@
  * @property string $time
  * @property string $comment
  * @property integer $status
+ * @property string $create_time
  */
 class Callback extends \yupe\models\YModel
 {
@@ -46,7 +47,7 @@ class Callback extends \yupe\models\YModel
             ],
             ['comment', 'length', 'max' => 255],
             ['status', 'numerical', 'integerOnly' => true],
-            ['id, name, phone, time, comment, status', 'safe', 'on' => 'search'],
+            ['id, name, phone, time, comment, status, create_time', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -58,6 +59,7 @@ class Callback extends \yupe\models\YModel
             'time' => Yii::t('CallbackModule.callback', 'Time'),
             'comment' => Yii::t('CallbackModule.callback', 'Comment'),
             'status' => Yii::t('CallbackModule.callback', 'Status'),
+            'create_time' => Yii::t('CallbackModule.callback', 'Created At'),
         ];
     }
 
@@ -75,12 +77,27 @@ class Callback extends \yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'CTimestampBehavior' => [
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'create_time',
+                'updateAttribute' => false,
+            ],
+        ];
+    }
+
     public function search()
     {
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->id);
         $criteria->compare('comment', $this->comment, true);
         $criteria->compare('status', $this->status);
+        $criteria->compare('create_time', $this->create_time, true);
 
         return new CActiveDataProvider(
             $this, [
