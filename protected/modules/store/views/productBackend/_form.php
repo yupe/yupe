@@ -279,6 +279,9 @@ $form = $this->beginWidget(
                     ]
                 ); ?>
             </div>
+            <div class="col-sm-2">
+                <?= $form->numberFieldGroup($model, 'quantity'); ?>
+            </div>
         </div>
 
         <div class="row">
@@ -296,10 +299,6 @@ $form = $this->beginWidget(
         <div class="row">
             <div class="col-sm-2">
                 <?= $form->textFieldGroup($model, 'weight'); ?>
-            </div>
-
-            <div class="col-sm-2">
-                <?= $form->numberFieldGroup($model, 'quantity'); ?>
             </div>
         </div>
 
@@ -511,7 +510,7 @@ $form = $this->beginWidget(
     </div>
 </div>
 
-<br/>
+<br/><br/>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
