@@ -9,13 +9,10 @@ $level = $comment->getLevel()
      data-id="<?= $comment->id; ?>"
      style="margin-left: <?=(30 * $level); ?>px;">
 
-    <div class="comments-item-main">
-        <div class="comments-item-avatar">
-            <a href="<?= $comment->getAuthorUrl() ?>"><?= $comment->getAuthorAvatar(); ?></a>
-        </div>
+    <div>
         <div class="comments-item-top">
             <div class="comments-item-author">
-                <?= $comment->getAuthorLink(); ?>
+                <?= $comment->author->getFullName(); ?>
                 <span class='comments-item-date'>
                     <time datetime="<?= str_replace(' ', '_', $comment->create_time); ?>">
                         <?= Yii::app()->getDateFormatter()->formatDateTime(

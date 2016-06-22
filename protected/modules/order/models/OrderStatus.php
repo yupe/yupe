@@ -10,21 +10,43 @@
  */
 class OrderStatus extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_NEW = 1;
+    /**
+     *
+     */
     const STATUS_ACCEPTED = 2;
+    /**
+     *
+     */
     const STATUS_FINISHED = 3;
+    /**
+     *
+     */
     const STATUS_DELETED = 4;
 
+    /**
+     * @return string
+     */
     public function tableName()
     {
         return '{{store_order_status}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -37,6 +59,9 @@ class OrderStatus extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -46,6 +71,9 @@ class OrderStatus extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function search()
     {
         $criteria = new CDbCriteria();
@@ -60,6 +88,9 @@ class OrderStatus extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return bool
+     */
     public function beforeDelete()
     {
         if ($this->is_system) {

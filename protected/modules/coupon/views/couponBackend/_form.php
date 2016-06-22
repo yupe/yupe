@@ -243,7 +243,7 @@
                             'value' => function (Order $data) {
                                 return $data->status->getTitle();
                             },
-                            'filter' => OrderStatus::model()->getList(),
+                            'filter' => CHtml::listData(OrderStatus::model()->findAll(), 'id', 'name'),
                         ],
                     ],
                 ]
