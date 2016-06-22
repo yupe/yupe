@@ -72,6 +72,23 @@ $this->widget(
                 'options' => Callback::model()->getStatusLabelList(),
             ],
             [
+                'name' => 'create_time',
+                'type' => 'html',
+                'filter' => $this->widget('booster.widgets.TbDatePicker', [
+                    'model' => $model,
+                    'attribute' => 'create_time',
+                    'options' => [
+                        'format' => 'yyyy-mm-dd'
+                    ],
+                    'htmlOptions' => [
+                        'class' => 'form-control',
+                    ],
+                ], true),
+                'value' => function ($data) {
+                    return Yii::app()->getDateFormatter()->formatDateTime($data->create_time, 'medium');
+                },
+            ],
+            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{delete}',
             ],

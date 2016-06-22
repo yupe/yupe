@@ -6,6 +6,7 @@ return [
     'Callback' => 'Обратный звонок',
     'Close' => 'Закрыть',
     'Comment' => 'Примечание',
+    'Created At' => 'Дата',
     'Delete messages' => 'Удаление сообщений',
     'Incorrect phone value' => 'Неверный формат телефона',
     'Incorrect time value' => 'Неверное значение времени',
