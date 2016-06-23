@@ -142,6 +142,7 @@ CREATE TABLE `yupe_callback` (
   `time` varchar(255) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   `status` int(11) DEFAULT '0',
+  `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -567,7 +568,11 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
   (119,	'store',	'm160215_110749_add_image_groups_table',	1464017809),
   (120,	'store',	'm160227_114934_rename_producer_order_column',	1464017809),
   (121,	'store',	'm160309_091039_add_attributes_sort_and_search_fields',	1464017809),
-  (122,	'store',	'm160413_184551_add_type_attr_fk',	1464017809);
+  (122,	'store',	'm160413_184551_add_type_attr_fk',	1464017809),
+  (123,	'callback',	'm160621_075232_add_date_to_callback',	1466603703),
+  (124,	'order',	'm160618_145025_add_status_color',	1466603708),
+  (125,	'store',	'm160602_091243_add_position_product_index',	1466603715),
+  (126,	'store',	'm160602_091909_add_producer_sort_index',	1466603715);
 
 DROP TABLE IF EXISTS `yupe_news_news`;
 CREATE TABLE `yupe_news_news` (
@@ -759,6 +764,11 @@ CREATE TABLE `yupe_store_category` (
   CONSTRAINT `fk_yupe_store_category_parent` FOREIGN KEY (`parent_id`) REFERENCES `yupe_store_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_category` (`id`, `parent_id`, `slug`, `name`, `image`, `short_description`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `status`, `sort`, `external_id`, `title`, `meta_canonical`, `image_alt`, `image_title`) VALUES
+  (1,	NULL,	'computer',	'Компьютеры',	NULL,	'',	'',	'',	'',	'',	1,	1,	NULL,	'',	'',	'',	''),
+  (2,	1,	'display',	'Мониторы',	NULL,	'',	'',	'',	'',	'',	1,	2,	NULL,	'',	'',	'',	''),
+  (3,	1,	'keyboard',	'Клавиатуры',	NULL,	'',	'',	'',	'',	'',	0,	3,	NULL,	'',	'',	'',	'');
+
 DROP TABLE IF EXISTS `yupe_store_coupon`;
 CREATE TABLE `yupe_store_coupon` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -885,6 +895,7 @@ CREATE TABLE `yupe_store_order_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `is_system` tinyint(1) NOT NULL DEFAULT '0',
+  `color` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -917,7 +928,8 @@ CREATE TABLE `yupe_store_producer` (
   `status` int(11) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `ix_yupe_store_producer_slug` (`slug`)
+  KEY `ix_yupe_store_producer_slug` (`slug`),
+  KEY `ix_yupe_store_producer_sort` (`sort`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `yupe_store_product`;
@@ -971,6 +983,7 @@ CREATE TABLE `yupe_store_product` (
   KEY `yupe_store_product_external_id_ix` (`external_id`),
   KEY `ix_yupe_store_product_sku` (`sku`),
   KEY `ix_yupe_store_product_name` (`name`),
+  KEY `ix_yupe_store_product_position` (`position`),
   CONSTRAINT `fk_yupe_store_product_category` FOREIGN KEY (`category_id`) REFERENCES `yupe_store_category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_product_producer` FOREIGN KEY (`producer_id`) REFERENCES `yupe_store_producer` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_product_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE

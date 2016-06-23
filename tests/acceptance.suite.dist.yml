@@ -19,7 +19,8 @@ modules:
         WebDriver:
             host: '127.0.0.1'
             url: 'http://yupe.loc/index-test.php'
-            browser: firefox
+            browser: phantomjs
+            window_size: 1024x768
             wait: 1
         DbHelper:
              dsn: 'mysql:host=127.0.0.1;dbname=yupe_test'

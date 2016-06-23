@@ -50,7 +50,7 @@ class CategoryController extends FrontController
      */
     public function actionView($path)
     {
-        $category = StoreCategory::model()->findByPath($path);
+        $category = StoreCategory::model()->published()->findByPath($path);
 
         if (null === $category) {
             throw new CHttpException(404);
