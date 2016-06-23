@@ -764,6 +764,11 @@ CREATE TABLE `yupe_store_category` (
   CONSTRAINT `fk_yupe_store_category_parent` FOREIGN KEY (`parent_id`) REFERENCES `yupe_store_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_category` (`id`, `parent_id`, `slug`, `name`, `image`, `short_description`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `status`, `sort`, `external_id`, `title`, `meta_canonical`, `image_alt`, `image_title`) VALUES
+  (1,	NULL,	'computer',	'Компьютеры',	NULL,	'',	'',	'',	'',	'',	1,	1,	NULL,	'',	'',	'',	''),
+  (2,	1,	'display',	'Мониторы',	NULL,	'',	'',	'',	'',	'',	1,	2,	NULL,	'',	'',	'',	''),
+  (3,	1,	'keyboard',	'Клавиатуры',	NULL,	'',	'',	'',	'',	'',	0,	3,	NULL,	'',	'',	'',	'');
+
 DROP TABLE IF EXISTS `yupe_store_coupon`;
 CREATE TABLE `yupe_store_coupon` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
