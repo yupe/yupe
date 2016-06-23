@@ -932,6 +932,12 @@ CREATE TABLE `yupe_store_producer` (
   KEY `ix_yupe_store_producer_sort` (`sort`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_producer` (`id`, `name_short`, `name`, `slug`, `image`, `short_description`, `description`, `meta_title`, `meta_keywords`, `meta_description`, `status`, `sort`) VALUES
+  (1,	'Intel',	'Intel',	'intel',	NULL,	'<p>Краткое описание бренда Intel</p>',	'<p>Описание бренда Intel</p>',	'',	'',	'',	1,	1),
+  (2,	'Dell',	'Dell',	'dell',	NULL,	'',	'',	'',	'',	'',	1,	2),
+  (3,	'A4Tech',	'A4Tech',	'a4tech',	NULL,	'',	'',	'',	'',	'',	0,	3),
+  (4,	'Samsung',	'Samsung',	'samsung',	NULL,	'',	'',	'',	'',	'',	2,	4);
+
 DROP TABLE IF EXISTS `yupe_store_product`;
 CREATE TABLE `yupe_store_product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
