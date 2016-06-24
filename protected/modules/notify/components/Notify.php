@@ -1,9 +1,10 @@
 <?php
-namespace yupe\components;
+namespace notify\components;
 
 use Yii;
 use CApplicationComponent;
 use User;
+use yupe\components\Mail;
 
 class Notify extends CApplicationComponent
 {

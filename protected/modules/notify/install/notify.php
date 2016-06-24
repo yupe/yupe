@@ -17,7 +17,13 @@ return [
                     ['NotifyNewCommentListener', 'onNewComment']
                 ],
             ]
-        ]
+        ],
+        'notify' => [
+            'class' => 'notify\components\Notify',
+            'mail' => [
+                'class' => 'yupe\components\Mail',
+            ],
+        ],
     ],
     'rules' => [
         '/profile/notify' => 'notify/notify/settings'

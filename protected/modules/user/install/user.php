@@ -38,12 +38,6 @@ return [
         'authenticationManager' => [
             'class' => 'application.modules.user.components.AuthenticationManager',
         ],
-        'notify' => [
-            'class' => 'yupe\components\Notify',
-            'mail' => [
-                'class' => 'yupe\components\Mail',
-            ],
-        ],
         'eventManager' => [
             'class' => 'yupe\components\EventManager',
             'events' => [
