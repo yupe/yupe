@@ -45,9 +45,10 @@ class StoreCategoryCest
         $I->seeLink('Компьютеры');
         $I->seeLink('Мониторы');
         $I->seeLink('Клавиатуры');
-        $I->seeLink('a', '/store/computer');
-        $I->seeLink('a', self::BACKEND_CATEGORIES_PATH . '/view/1');
-        $I->seeLink('a', self::BACKEND_CATEGORIES_PATH . '/delete/1');
+        $I->seeInPageSource('<a class="front-view btn btn-sm btn-default" target="_blank" title="" data-toggle="tooltip" href="/index-test.php/store/computer"');
+        $I->seeInPageSource('<a class="view btn btn-sm btn-default" title="" data-toggle="tooltip" href="/index-test.php/backend/store/category/view/1"');
+        $I->seeInPageSource('<a class="update btn btn-sm btn-default" title="" data-toggle="tooltip" href="/index-test.php/backend/store/category/update/1"');
+        $I->seeInPageSource('<a class="delete btn btn-sm btn-default" title="" data-toggle="tooltip" href="/index-test.php/backend/store/category/delete/1"');
 
         $I->amGoingTo('test category grid filter');
         $I->fillField('StoreCategory[name]', 'Комп');

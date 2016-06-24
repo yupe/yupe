@@ -51,10 +51,10 @@ class StoreBrandCest
         $I->seeLink('A4Tech');
         $I->seeLink('Samsung');
         $I->expectTo('see buttons column');
-        $I->seeLink('a', '/store/brand/intel');
-        $I->seeLink('a', self::BACKEND_BRANDS_PATH . '/view/1');
-        $I->seeLink('a', self::BACKEND_BRANDS_PATH . '/update/1');
-        $I->seeLink('a', self::BACKEND_BRANDS_PATH . '/delete/1');
+        $I->seeInPageSource('<a class="front-view btn btn-sm btn-default" target="_blank" title="" data-toggle="tooltip" href="/index-test.php/store/brand/intel"');
+        $I->seeInPageSource('<a class="view btn btn-sm btn-default" title="" data-toggle="tooltip" href="/index-test.php/backend/store/producer/view/1"');
+        $I->seeInPageSource('<a class="update btn btn-sm btn-default" title="" data-toggle="tooltip" href="/index-test.php/backend/store/producer/update/1"');
+        $I->seeInPageSource('<a class="delete btn btn-sm btn-default" title="" data-toggle="tooltip" href="/index-test.php/backend/store/producer/delete/1"');
 
         $I->amGoingTo('test brand grid filter');
         $I->fillField('Producer[name]', 'Intel');
@@ -83,6 +83,7 @@ class StoreBrandCest
         $I->dontSeeLink('A4Tech');
         $I->dontSeeLink('Dell');
         $I->fillField('Producer[slug]', '');
+        $I->wait(1);
         $I->pressKey('#Producer_slug', WebDriverKeys::ENTER);
         $I->wait(1);
         $I->selectOption('Producer[status]', 'Доступен');

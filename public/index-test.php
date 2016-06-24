@@ -21,8 +21,8 @@ if (!ini_get('mbstring.internal_encoding')) {
 }
 
 // Комментируем перед выпуском в продакшен:
-define('YII_DEBUG', true);
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
+//define('YII_DEBUG', true);
+//defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
 require dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
 
