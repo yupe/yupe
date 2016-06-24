@@ -26,9 +26,8 @@ class StoreTypeCest
         $I->seeLink('Клавиатуры');
         $I->seeLink('Мониторы');
         $I->expectTo('see buttons column');
-        $I->seeLink('a', self::BACKEND_TYPE_PATH . '/update/1');
-        $I->seeLink('a', self::BACKEND_TYPE_PATH . '/delete/1');
-        $I->dontSeeLink('a', self::BACKEND_TYPE_PATH . '/view/1');
+        $I->seeInPageSource('<a class="update btn btn-sm btn-default" title="" data-toggle="tooltip" href="/index-test.php/backend/store/type/update/1"');
+        $I->seeInPageSource('<a class="delete btn btn-sm btn-default" title="" data-toggle="tooltip" href="/index-test.php/backend/store/type/delete/1"');
 
         $I->amGoingTo('test type grid filter');
         $I->fillField('Type[name]', 'Мон');
