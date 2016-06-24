@@ -46,8 +46,8 @@ class StoreCategoryCest
         $I->seeLink('Мониторы');
         $I->seeLink('Клавиатуры');
         $I->seeLink('a', '/store/computer');
-        $I->seeLink('a', '/backend/store/category/view/1');
-        $I->seeLink('a', '/backend/store/category/delete/1');
+        $I->seeLink('a', self::BACKEND_CATEGORIES_PATH . '/view/1');
+        $I->seeLink('a', self::BACKEND_CATEGORIES_PATH . '/delete/1');
 
         $I->amGoingTo('test category grid filter');
         $I->fillField('StoreCategory[name]', 'Комп');
@@ -80,7 +80,7 @@ class StoreCategoryCest
         $I->dontSeeLink('Компьютеры');
 
         $I->amGoingTo('change category status');
-        $I->amOnPage('/backend/store/category/update/3');
+        $I->amOnPage(self::BACKEND_CATEGORIES_PATH . '/update/3');
         $I->selectOption('StoreCategory[status]', 'Опубликовано');
         $I->click('Сохранить категорию и закрыть');
         $I->amOnPage(self::FRONTEND_CATEGORIES_PATH);
@@ -91,7 +91,7 @@ class StoreCategoryCest
         $I->dontSeeLink('Телефоны');
 
         $I->amGoingTo('add a new category');
-        $I->amOnPage('/backend/store/category/create');
+        $I->amOnPage(self::BACKEND_CATEGORIES_PATH . '/create');
         $I->see('Категория', 'h1');
         $I->seeOptionIsSelected('StoreCategory[status]', 'Опубликовано');
         $I->expectTo('see validation errors');
@@ -114,7 +114,7 @@ class StoreCategoryCest
         $I->seeLink('Телефоны');
 
         $I->amGoingTo('see created category');
-        $I->amOnPage('/backend/store/category/view/4');
+        $I->amOnPage(self::BACKEND_CATEGORIES_PATH . '/view/4');
         $I->see('Просмотр категории', 'h1');
         $I->expectTo('see category detail view table');
         $I->see('Телефоны', 'td');
@@ -141,7 +141,7 @@ class StoreCategoryCest
         $I->seeLink('Мониторы');
         $I->seeLink('Клавиатуры');
         $I->seeLink('Телефоны');
-        $I->amOnPage('/backend/store/category/delete/4');
+        $I->amOnPage(self::BACKEND_CATEGORIES_PATH . '/delete/4');
         $I->expectTo('see an error message');
         $I->see('Неверный запрос. Пожалуйста, больше не повторяйте такие запросы', '.alert-danger');
         $I->amOnPage(self::BACKEND_CATEGORIES_PATH);
