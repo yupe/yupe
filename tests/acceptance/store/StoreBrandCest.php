@@ -163,7 +163,7 @@ class StoreBrandCest
         $I->expectTo('delete brand via ajax request');
         $I->executeJS('
             $.post(
-                "/backend/store/producer/delete/5", 
+                document.location.href + "/delete/5", 
                 {"YUPE_TOKEN":yupeToken}
             );
         ');
