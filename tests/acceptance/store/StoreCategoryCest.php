@@ -66,6 +66,7 @@ class StoreCategoryCest
         $I->dontSeeLink('Компьютеры');
         $I->dontSeeLink('Клавиатуры');
         $I->fillField('StoreCategory[slug]', '');
+        $I->wait(1);
         $I->pressKey('#StoreCategory_slug', WebDriverKeys::ENTER);
         $I->wait(1);
         $I->selectOption('StoreCategory[parent_id]', 'Компьютеры');
