@@ -52,9 +52,9 @@ class StoreBrandCest
         $I->seeLink('Samsung');
         $I->expectTo('see buttons column');
         $I->seeLink('a', '/store/brand/intel');
-        $I->seeLink('a', '/backend/store/producer/view/1');
-        $I->seeLink('a', '/backend/store/producer/update/1');
-        $I->seeLink('a', '/backend/store/producer/delete/1');
+        $I->seeLink('a', self::BACKEND_BRANDS_PATH . '/view/1');
+        $I->seeLink('a', self::BACKEND_BRANDS_PATH . '/update/1');
+        $I->seeLink('a', self::BACKEND_BRANDS_PATH . '/delete/1');
 
         $I->amGoingTo('test brand grid filter');
         $I->fillField('Producer[name]', 'Intel');
@@ -93,7 +93,7 @@ class StoreBrandCest
         $I->dontSeeLink('Samsung');
 
         $I->amGoingTo('change brand status');
-        $I->amOnPage('/backend/store/producer/update/4');
+        $I->amOnPage(self::BACKEND_BRANDS_PATH . '/update/4');
         $I->selectOption('Producer[status]', 'Доступен');
         $I->click('Сохранить производителя и закрыть');
         $I->wait(1);
@@ -108,7 +108,7 @@ class StoreBrandCest
         $I->dontSeeLink('A4Tech');
 
         $I->amGoingTo('add a new brand');
-        $I->amOnPage('/backend/store/producer/create');
+        $I->amOnPage(self::BACKEND_BRANDS_PATH . '/create');
         $I->see('Производитель', 'h1');
         $I->seeOptionIsSelected('Producer[status]', 'Доступен');
         $I->expectTo('see validation errors');
@@ -132,7 +132,7 @@ class StoreBrandCest
         $I->seeLink('Lenovo');
 
         $I->amGoingTo('see created brand');
-        $I->amOnPage('/backend/store/producer/view/5');
+        $I->amOnPage(self::BACKEND_BRANDS_PATH . '/view/5');
         $I->see('Просмотр производителя', 'h1');
         $I->expectTo('see brand detail view table');
         $I->see('Lenovo', 'td');
@@ -156,7 +156,7 @@ class StoreBrandCest
         $I->amGoingTo('test deleting brand');
         $I->amOnPage(self::BACKEND_BRANDS_PATH);
         $I->seeLink('Lenovo');
-        $I->amOnPage('/backend/store/producer/delete/5');
+        $I->amOnPage(self::BACKEND_BRANDS_PATH . '/delete/5');
         $I->expectTo('see an error message');
         $I->see('Неверный запрос. Пожалуйста, больше не повторяйте такие запросы', '.alert-danger');
         $I->amOnPage(self::BACKEND_BRANDS_PATH);
