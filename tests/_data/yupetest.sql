@@ -717,6 +717,11 @@ CREATE TABLE `yupe_store_attribute` (
   CONSTRAINT `fk_yupe_store_attribute_group` FOREIGN KEY (`group_id`) REFERENCES `yupe_store_attribute_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_attribute` (`id`, `group_id`, `name`, `title`, `type`, `unit`, `required`, `sort`, `is_filter`) VALUES
+  (1,	1,	'diagonal',	'Диагональ',	6,	'',	0,	1,	1),
+  (2,	1,	'matrica',	'Матрица',	1,	'',	0,	2,	1),
+  (3,	2,	'tip-klaviatury',	'Тип клавиатуры',	2,	'',	0,	3,	1);
+
 DROP TABLE IF EXISTS `yupe_store_attribute_group`;
 CREATE TABLE `yupe_store_attribute_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -724,6 +729,10 @@ CREATE TABLE `yupe_store_attribute_group` (
   `position` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `yupe_store_attribute_group` (`id`, `name`, `position`) VALUES
+  (1,	'Группа1',	1),
+  (2,	'Группа2',	2);
 
 DROP TABLE IF EXISTS `yupe_store_attribute_option`;
 CREATE TABLE `yupe_store_attribute_option` (
@@ -736,6 +745,12 @@ CREATE TABLE `yupe_store_attribute_option` (
   KEY `ix_yupe_store_attribute_option_position` (`position`),
   CONSTRAINT `fk_yupe_store_attribute_option_attribute` FOREIGN KEY (`attribute_id`) REFERENCES `yupe_store_attribute` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `yupe_store_attribute_option` (`id`, `attribute_id`, `position`, `value`) VALUES
+  (1,	3,	1,	'гибкая'),
+  (2,	3,	2,	'мембранная'),
+  (3,	3,	3,	'механическая'),
+  (4,	3,	4,	'ножничная');
 
 DROP TABLE IF EXISTS `yupe_store_category`;
 CREATE TABLE `yupe_store_category` (
@@ -1028,6 +1043,7 @@ CREATE TABLE `yupe_store_product_category` (
   CONSTRAINT `fk_yupe_store_product_category_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 DROP TABLE IF EXISTS `yupe_store_product_image`;
 CREATE TABLE `yupe_store_product_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1101,6 +1117,10 @@ CREATE TABLE `yupe_store_type` (
   UNIQUE KEY `ux_yupe_store_type_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_type` (`id`, `name`) VALUES
+  (2,	'Клавиатуры'),
+  (1,	'Мониторы');
+
 DROP TABLE IF EXISTS `yupe_store_type_attribute`;
 CREATE TABLE `yupe_store_type_attribute` (
   `type_id` int(11) NOT NULL,
@@ -1110,6 +1130,11 @@ CREATE TABLE `yupe_store_type_attribute` (
   CONSTRAINT `fk_yupe_store_type_attribute_attribute` FOREIGN KEY (`attribute_id`) REFERENCES `yupe_store_attribute` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_type_attribute_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `yupe_store_type_attribute` (`type_id`, `attribute_id`) VALUES
+  (1,	1),
+  (1,	2),
+  (2,	3);
 
 DROP TABLE IF EXISTS `yupe_user_tokens`;
 CREATE TABLE `yupe_user_tokens` (
