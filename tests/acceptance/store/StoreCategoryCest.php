@@ -148,7 +148,7 @@ class StoreCategoryCest
         $I->expectTo('delete category via ajax request');
         $I->executeJS('
             $.post(
-                "/backend/store/category/delete/4", 
+                document.location.href + "/delete/4", 
                 {"YUPE_TOKEN":yupeToken}
             );
         ');
