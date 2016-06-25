@@ -147,12 +147,15 @@ class StoreCategoryCest
         $I->expectTo('see an error message');
         $I->see('Неверный запрос. Пожалуйста, больше не повторяйте такие запросы', '.alert-danger');
         $I->amOnPage(self::BACKEND_CATEGORIES_PATH);
-        $I->expectTo('successful deletion of brand');
-        $I->click('//*[@id="category-grid"]/table/tbody/tr[4]/td[8]/div/a[4]');
+        $I->expectTo('delete category via ajax request');
+        $I->executeJS('
+            $.post(
+                document.location.href + "/delete/4", 
+                {"YUPE_TOKEN":yupeToken}
+            );
+        ');
         $I->wait(1);
-        $I->canSeeInPopup('Вы уверены, что хотите удалить данный элемент?');
-        $I->acceptPopup();
-        $I->wait(1);
+        $I->reloadPage();
         $I->seeLink('Компьютеры');
         $I->seeLink('Мониторы');
         $I->seeLink('Клавиатуры');

@@ -73,12 +73,15 @@ class StoreTypeCest
         $I->expectTo('see an error message');
         $I->see('Неверный запрос. Пожалуйста, больше не повторяйте такие запросы', '.alert-danger');
         $I->amOnPage(self::BACKEND_TYPE_PATH);
-        $I->expectTo('successful deletion of type');
-        $I->click('//*[@id="type-grid"]/table/tbody/tr[3]/td[4]/div/a[2]');
+        $I->expectTo('delete type via ajax request');
+        $I->executeJS('
+            $.post(
+                document.location.href + "/delete/3", 
+                {"YUPE_TOKEN":yupeToken}
+            );
+        ');
         $I->wait(1);
-        $I->canSeeInPopup('Вы уверены, что хотите удалить данный элемент?');
-        $I->acceptPopup();
-        $I->wait(1);
+        $I->reloadPage();
         $I->dontSeeLink('Телефоны');
     }
 }
