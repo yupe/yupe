@@ -20,6 +20,10 @@ return CMap::mergeArray(
             'application.modules.yupe.widgets.*',
         ],
         'components' => [
+            'debug' => [
+                'class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+                'enabled' => false,
+            ],
             'bootstrap'    => [
                 'class'          => 'bootstrap.components.Booster',
                 'responsiveCss'  => true,
