@@ -161,12 +161,15 @@ class StoreBrandCest
         $I->expectTo('see an error message');
         $I->see('Неверный запрос. Пожалуйста, больше не повторяйте такие запросы', '.alert-danger');
         $I->amOnPage(self::BACKEND_BRANDS_PATH);
-        $I->expectTo('successful deletion of brand');
-        $I->click('//*[@id="producer-grid"]/table/tbody/tr[5]/td[8]/div/a[4]');
+        $I->expectTo('delete brand via ajax request');
+        $I->executeJS('
+            $.post(
+                document.location.href + "/delete/5", 
+                {"YUPE_TOKEN":yupeToken}
+            );
+        ');
         $I->wait(1);
-        $I->canSeeInPopup('Вы уверены, что хотите удалить данный элемент?');
-        $I->acceptPopup();
-        $I->wait(1);
+        $I->reloadPage();
         $I->dontSeeLink('Lenovo');
     }
 }
