@@ -1,4 +1,4 @@
-<?php $this->pageTitle = Yii::app()->getModule('yupe')->siteName; ?>
+<?php $this->title = Yii::app()->getModule('yupe')->siteName; ?>
 
 <div class="main__promo-slider grid">
     <div data-show='1' data-scroll='1' data-infinite='1' data-autoplay='5000' data-speed='1500' data-dots='1' class="promo-slider js-slick promo-slider js-slick promo-slider_main">

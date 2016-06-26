@@ -1,10 +1,9 @@
 <?php
-
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 /* @var $category StoreCategory */
-
+$this->title = Yii::t("StoreModule.store", "Catalog");
 $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
 
 ?>

@@ -5,9 +5,11 @@ Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-fronten
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
 /* @var $category StoreCategory */
-
-$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog") => ['/store/product/index']];
-
+$this->title = Yii::t("StoreModule.store", "Search");
+$this->breadcrumbs = [
+    Yii::t("StoreModule.store", "Catalog") => ['/store/product/index'],
+    Yii::t("StoreModule.store", "Search"),
+];
 ?>
 
 

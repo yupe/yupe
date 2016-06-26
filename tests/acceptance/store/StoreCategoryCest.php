@@ -17,7 +17,7 @@ class StoreCategoryCest
         $I->amGoingTo('test store categories list page');
         $I->amOnPage(self::FRONTEND_CATEGORIES_PATH);
         $I->expectTo('see published categories list');
-        $I->see('Каталог товаров', 'h2');
+        $I->see('Категории', 'h2');
         $I->seeLink('Компьютеры');
         $I->seeLink('Мониторы');
         $I->dontSeeLink('Клавиатуры');
@@ -83,14 +83,18 @@ class StoreCategoryCest
 
         $I->amGoingTo('change category status');
         $I->amOnPage(self::BACKEND_CATEGORIES_PATH . '/update/3');
+        $I->seeOptionIsSelected('StoreCategory[status]', 'Черновик');
         $I->selectOption('StoreCategory[status]', 'Опубликовано');
         $I->click('Сохранить категорию и закрыть');
         $I->amOnPage(self::FRONTEND_CATEGORIES_PATH);
-        $I->see('Каталог товаров', 'h2');
+        $I->see('Категории', 'h2');
         $I->seeLink('Компьютеры');
         $I->seeLink('Мониторы');
         $I->seeLink('Клавиатуры');
         $I->dontSeeLink('Телефоны');
+        $I->amOnPage(self::BACKEND_CATEGORIES_PATH . '/update/3');
+        $I->selectOption('StoreCategory[status]', 'Черновик');
+        $I->click('Сохранить категорию и закрыть');
 
         $I->amGoingTo('add a new category');
         $I->amOnPage(self::BACKEND_CATEGORIES_PATH . '/create');

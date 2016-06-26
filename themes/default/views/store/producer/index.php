@@ -5,6 +5,7 @@
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-frontend.css');
 
+$this->title = Yii::t('StoreModule.store', 'Producers list');
 $this->breadcrumbs = [
     Yii::t("StoreModule.store", 'Catalog') => ['/store/product/index'],
     Yii::t('StoreModule.store', 'Producers list')

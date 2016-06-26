@@ -1,3 +1,5 @@
+<?php $this->title = Yii::t('default', 'Finishing register'); ?>
+
 <div class="main__title grid">
     <h1 class="h2"><?= Yii::t('default', 'Finishing register'); ?></h1>
 </div>

@@ -2,6 +2,7 @@
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
+$this->title = 'Избранные товары';
 $this->breadcrumbs = [
     Yii::t("StoreModule.store", "Catalog") => ['/store/product/index'],
     'Избранные товары'
