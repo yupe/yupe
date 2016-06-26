@@ -2,7 +2,7 @@
 
 /* @var $product Product */
 
-$this->pageTitle = $product->getMetaTitle();
+$this->title = $product->getMetaTitle();
 $this->description = $product->getMetaDescription();
 $this->keywords = $product->getMetaKeywords();
 $this->canonical = $product->getMetaCanonical();

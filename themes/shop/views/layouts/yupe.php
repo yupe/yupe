@@ -23,7 +23,7 @@
     <meta http-equiv="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 
-    <title><?= $this->pageTitle;?></title>
+    <title><?= $this->title;?></title>
     <meta name="description" content="<?= $this->description;?>" />
     <meta name="keywords" content="<?= $this->keywords;?>" />
     <?php if ($this->canonical): ?>

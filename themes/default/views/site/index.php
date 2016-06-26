@@ -1,4 +1,4 @@
-<?php $this->pageTitle = Yii::app()->getModule('yupe')->siteName;?>
+<?php $this->title = Yii::app()->getModule('yupe')->siteName;?>
 
 <h1>Congratulations!</h1>
 <p>You just have installed <a href="http://yupe.ru?from=mainpage" target='_blank'>Yupe! CMS</a>! We hope it was simple

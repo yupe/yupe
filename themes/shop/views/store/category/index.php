@@ -2,8 +2,8 @@
 /**
  * @var $dataProvider CArrayDataProvider
  */
-
-$this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
+$this->title = Yii::t('StoreModule.store', 'Categories');
+$this->breadcrumbs = [Yii::t('StoreModule.store', 'Categories')];
 ?>
 <div class="main__title grid">
     <h1 class="h2">

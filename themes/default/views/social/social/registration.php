@@ -1,3 +1,7 @@
+<?php
+$this->title = Yii::t('default', 'Finishing register');
+$this->breadcrumbs = [Yii::t('default', 'Finishing register')];
+?>
 <h1>
     <?= Yii::t('default', 'Finishing register'); ?>
 </h1>
@@ -9,10 +13,10 @@
     <?php $form = $this->beginWidget(
         'CActiveForm',
         [
-            'id'                     => 'registration-form',
+            'id' => 'registration-form',
             'enableClientValidation' => true
         ]
-    );?>
+    ); ?>
 
     <?= $form->errorSummary($model); ?>
     <div class="row">

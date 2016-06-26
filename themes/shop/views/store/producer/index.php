@@ -2,7 +2,7 @@
 /**
  * @var CActiveDataProvider $brands
  */
-
+$this->title = Yii::t('StoreModule.store', 'Producers list');
 $this->breadcrumbs = [
     Yii::t("StoreModule.store", 'Catalog') => ['/store/product/index'],
     Yii::t('StoreModule.store', 'Producers list')
