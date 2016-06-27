@@ -174,6 +174,16 @@ class StoreCategory extends \yupe\models\YModel
     }
 
     /**
+     *
+     */
+    public function afterDelete()
+    {
+        Yii::app()->eventManager->fire(StoreEvents::CATEGORY_AFTER_DELETE, new Event($this));
+
+        parent::afterDelete();
+    }
+
+    /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()

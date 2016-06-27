@@ -20,6 +20,9 @@ return [
                 'category.after.save' => [
                     ['\StoreCategoryListener', 'onAfterSave']
                 ],
+                'category.after.delete' => [
+                    ['\StoreCategoryListener', 'onAfterDelete']
+                ],
             ]
         ],
         'money' => [

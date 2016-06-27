@@ -15,4 +15,12 @@ class StoreCategoryListener
     {
         Yii::app()->getCache()->clear([StoreCategoryHelper::CACHE_CATEGORY_TAG]);
     }
+
+    /**
+     * @param Event $event
+     */
+    public static function onAfterDelete(Event $event)
+    {
+        Yii::app()->getCache()->clear([StoreCategoryHelper::CACHE_CATEGORY_TAG]);
+    }
 }
