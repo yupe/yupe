@@ -30,7 +30,7 @@ $this->menu = [
     </a>
 </p>
 
-<div id="add-toggle" class="collapse out add-form">
+<div id="add-toggle" class="collapse <?= $model->hasErrors() ? 'in' : 'out' ?> add-form">
     <?php
     /* @var $form TbActiveForm */
     $form = $this->beginWidget(
