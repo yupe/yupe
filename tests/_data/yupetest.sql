@@ -1091,6 +1091,10 @@ CREATE TABLE `yupe_store_product_link_type` (
   UNIQUE KEY `ux_yupe_store_product_link_type_title` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_product_link_type` (`id`, `code`, `title`) VALUES
+  (1,	'similar',	'Похожие товары'),
+  (2,	'buy-with',	'С этим товаром покупают');
+
 DROP TABLE IF EXISTS `yupe_store_product_variant`;
 CREATE TABLE `yupe_store_product_variant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
