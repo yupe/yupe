@@ -7,7 +7,7 @@ class AttributesRepository extends CApplicationComponent
 {
     /**
      * @param StoreCategory $category
-     * @return static[]
+     * @return Attribute[]
      */
     public function getForCategory(StoreCategory $category)
     {
