@@ -1,7 +1,9 @@
 <?php
+/* @var $category StoreCategory */
+/* @var $dataProvider CActiveDataProvider */
+
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
-/* @var $category StoreCategory */
 
 $this->title =  $category->getMetaTile();
 $this->description = $category->getMetaDescription();
@@ -23,7 +25,7 @@ $this->breadcrumbs = array_merge(
                 <form id="store-filter" name="store-filter" method="get">
                     <?php $this->widget('application.modules.store.widgets.filters.PriceFilterWidget'); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.CategoryFilterWidget', ['limit' => 30]); ?>
-                    <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget', ['limit' => 30]); ?>
+                    <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget', ['limit' => 30, 'category' => $category]); ?>
                     <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', [
                         'category' => $category
                     ]); ?>
@@ -70,6 +72,17 @@ $this->breadcrumbs = array_merge(
                             'class' => 'pagination'
                         ]
                     ]
+                ]
+            ); ?>
+        </div>
+    </div>
+
+    <div class="cols">
+        <div class="grid-module-12">
+            <?php $this->widget(
+                'application.modules.store.widgets.ProducersWidget', [
+                    'category' => $category,
+                    'title' => sprintf('Бренды категории «%s»', $category->name)
                 ]
             ); ?>
         </div>

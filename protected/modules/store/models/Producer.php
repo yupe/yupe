@@ -75,7 +75,7 @@ class Producer extends yupe\models\YModel
     {
         return [
             'published' => [
-                'condition' => 'status = :status',
+                'condition' => 't.status = :status',
                 'params' => [':status' => self::STATUS_ACTIVE],
                 'order' => 'sort ASC',
             ],
