@@ -140,7 +140,7 @@ return [
     'Sum' => 'Сумма',
     'The order created' => 'Заказ размещён!',
     'There are no selected products' => 'Не выбрано ни одного продукта',
-    'Total price' => 'Стоимость',
+    'Total price' => 'Сумма',
     'Total' => 'Всего',
     'Unknown request. Don\'t repeat it please!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
     'Update date' => 'Дата изменения',
@@ -157,4 +157,5 @@ return [
     'Yellow' => 'Желтый',
     'You can not delete a system status.' => 'Вы не можете удалять системные статусы',
     'Zipcode' => 'Индекс',
+    'Responsible manager is {user}...' => 'Ответственный за заказ {user}...'
 ];

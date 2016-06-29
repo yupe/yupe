@@ -1,5 +1,5 @@
 <?php
-Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-backend.css');
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl().'/css/order-backend.css');
 
 $this->breadcrumbs = [
     Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
@@ -12,16 +12,32 @@ $this->menu = [
     [
         'label' => Yii::t('OrderModule.order', 'Orders'),
         'items' => [
-            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Manage orders'), 'url' => ['/order/orderBackend/index']],
-            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Create order'), 'url' => ['/order/orderBackend/create']],
-        ]
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
+                'label' => Yii::t('OrderModule.order', 'Manage orders'),
+                'url' => ['/order/orderBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-plus-square',
+                'label' => Yii::t('OrderModule.order', 'Create order'),
+                'url' => ['/order/orderBackend/create'],
+            ],
+        ],
     ],
     [
         'label' => Yii::t('OrderModule.order', 'Order statuses'),
         'items' => [
-            ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('OrderModule.order', 'Manage statuses'), 'url' => ['/order/statusBackend/index']],
-            ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('OrderModule.order', 'Create status'), 'url' => ['/order/statusBackend/create']],
-        ]
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
+                'label' => Yii::t('OrderModule.order', 'Manage statuses'),
+                'url' => ['/order/statusBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-plus-square',
+                'label' => Yii::t('OrderModule.order', 'Create status'),
+                'url' => ['/order/statusBackend/create'],
+            ],
+        ],
     ],
 ];
 ?>
@@ -49,7 +65,7 @@ $this->widget(
                 'htmlOptions' => ['width' => '90px'],
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return CHtml::link($data->id, array("/order/orderBackend/update", "id" => $data->id));
+                    return CHtml::link($data->id, ["/order/orderBackend/update", "id" => $data->id]);
                 },
             ],
             [
@@ -59,29 +75,32 @@ $this->widget(
                     'model' => $model,
                     'attribute' => 'date',
                     'options' => [
-                        'format' => 'yyyy-mm-dd'
+                        'format' => 'yyyy-mm-dd',
                     ],
                     'htmlOptions' => [
                         'class' => 'form-control',
                     ],
                 ], true),
                 'value' => function ($data) {
-                    return CHtml::link(Yii::app()->getDateFormatter()->formatDateTime($data->date, 'medium'), array("/order/orderBackend/update", "id" => $data->id));
+                    return CHtml::link(Yii::app()->getDateFormatter()->formatDateTime($data->date, 'medium'),
+                        ["/order/orderBackend/update", "id" => $data->id]);
                 },
             ],
             [
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return isset($data->client) ? CHtml::link($data->client->getFullName(), ['/order/clientBackend/view', 'id' => $data->user_id]) : $data->name;
+                    return isset($data->client) ? CHtml::link($data->client->getFullName(),
+                        ['/order/clientBackend/view', 'id' => $data->user_id]) : $data->name;
                 },
                 'htmlOptions' => ['width' => '400px'],
             ],
             [
                 'name' => 'total_price',
                 'value' => function ($data) {
-                    return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price, Yii::app()->getModule('store')->currency);
-                }
+                    return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price,
+                        Yii::app()->getModule('store')->currency);
+                },
             ],
             [
                 'class' => 'yupe\widgets\EditableStatusColumn',
@@ -95,7 +114,7 @@ $this->widget(
                 'value' => function ($data) {
                     return $data->payment ? $data->payment->name : '---';
                 },
-                'filter' => CHtml::listData(Payment::model()->findAll(), 'id', 'name')
+                'filter' => CHtml::listData(Payment::model()->findAll(), 'id', 'name'),
             ],
             [
                 'class' => 'yupe\widgets\EditableStatusColumn',
@@ -104,7 +123,7 @@ $this->widget(
                 'source' => $model->getPaidStatusList(),
                 'options' => [
                     Order::PAID_STATUS_NOT_PAID => ['class' => 'label-danger'],
-                    Order::PAID_STATUS_PAID => ['class' => 'label-success']
+                    Order::PAID_STATUS_PAID => ['class' => 'label-success'],
                 ],
             ],
             [
@@ -113,7 +132,7 @@ $this->widget(
                 'filter' => CHtml::listData(Delivery::model()->findAll(), 'id', 'name'),
                 'value' => function (Order $data) {
                     return $data->delivery->name;
-                }
+                },
             ],
             [
                 'name' => 'manager_id',
@@ -129,6 +148,18 @@ $this->widget(
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
+                'buttons' => [
+                    'update' => [
+                        'visible' => function ($row, Order $order) {
+                            return $order->checkManager(Yii::app()->getUser());
+                        },
+                    ],
+                    'delete' => [
+                        'visible' => function ($row, Order $order) {
+                            return $order->checkManager(Yii::app()->getUser());
+                        },
+                    ],
+                ],
             ],
         ],
     ]

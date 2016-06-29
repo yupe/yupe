@@ -103,6 +103,13 @@ class OrderBackendController extends yupe\components\controllers\BackController
     {
         $model = $this->loadModel($id);
 
+        if (false === $model->checkManager(Yii::app()->getUser())) {
+            Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                Yii::t('OrderModule.order', 'Responsible manager is {user}...',
+                    ['{user}' => $model->manager->getFullName()]));
+            $this->redirect(['/order/orderBackend/view', 'id' => $model->id]);
+        }
+
         if (Yii::app()->getRequest()->getIsPostrequest() && Yii::app()->getRequest()->getPost('Order')) {
 
             $order = Yii::app()->getRequest()->getPost('Order', []);
@@ -150,9 +157,18 @@ class OrderBackendController extends yupe\components\controllers\BackController
      */
     public function actionDelete($id)
     {
+        $model = $this->loadModel($id);
+
+        if (false === $model->checkManager(Yii::app()->getUser())) {
+            Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                Yii::t('OrderModule.order', 'Responsible manager is {user}...',
+                    ['{user}' => $model->manager->getFullName()]));
+            $this->redirect(['/order/orderBackend/view', 'id' => $model->id]);
+        }
+
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
-            $this->loadModel($id)->delete();
+            $model->delete();
 
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -180,7 +196,9 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $model = new Order('search');
         $model->unsetAttributes(); // clear any default values
         if (Yii::app()->getRequest()->getQuery('Order')) {
-            $model->setAttributes(Yii::app()->getRequest()->getQuery('Order'));
+            $model->setAttributes(
+                Yii::app()->getRequest()->getQuery('Order')
+            );
         }
         $this->render('index', ['model' => $model]);
     }
@@ -270,7 +288,8 @@ class OrderBackendController extends yupe\components\controllers\BackController
         foreach ($model as $product) {
             $data[] = [
                 'id' => $product->id,
-                'name' => $product->name . ($product->sku ? " ({$product->sku}) " : ' ') . $product->getPrice() . ' ' . Yii::t('StoreModule.store', Yii::app()->getModule('store')->currency),
+                'name' => $product->name.($product->sku ? " ({$product->sku}) " : ' ').$product->getPrice().' '.Yii::t('StoreModule.store',
+                        Yii::app()->getModule('store')->currency),
                 'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
             ];
         }

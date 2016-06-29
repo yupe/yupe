@@ -831,4 +831,21 @@ class Order extends yupe\models\YModel
     {
         return isset($this->status) ? $this->status->name : Yii::t('OrderModule.order', '*unknown*');
     }
+
+    /**
+     * @param IWebUser $user
+     * @return bool
+     */
+    public function checkManager(IWebUser $user)
+    {
+        if (!$this->manager_id) {
+            return true;
+        }
+
+        if (((int)$this->manager_id === (int)$user->getId()) || $user->isSuperUser()) {
+            return true;
+        }
+
+        return false;
+    }
 }
