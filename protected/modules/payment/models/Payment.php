@@ -12,9 +12,18 @@
  */
 class Payment extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
+    /**
+     *
+     */
     const STATUS_NOT_ACTIVE = 0;
 
+    /**
+     * @var array
+     */
     private $_paymentSettings = [];
 
     /**
@@ -25,6 +34,10 @@ class Payment extends yupe\models\YModel
         return '{{store_payment}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -35,8 +48,6 @@ class Payment extends yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
             ['name, position, status', 'required'],
             ['name', 'filter', 'filter' => 'trim'],
@@ -49,6 +60,9 @@ class Payment extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
@@ -77,6 +91,9 @@ class Payment extends yupe\models\YModel
     }
 
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function search()
     {
         $criteria = new CDbCriteria;
@@ -92,11 +109,14 @@ class Payment extends yupe\models\YModel
         return new CActiveDataProvider(
             $this, [
                 'criteria' => $criteria,
-                'sort' => ['defaultOrder' => 't.position']
+                'sort' => ['defaultOrder' => 't.position'],
             ]
         );
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
@@ -105,51 +125,78 @@ class Payment extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getStatusTitle()
     {
         $data = $this->getStatusList();
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t("PaymentModule.payment", '*unknown*');
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
         $this->settings = serialize($this->_paymentSettings);
+
         return parent::beforeSave();
     }
 
+    /**
+     *
+     */
     public function afterFind()
     {
         $this->_paymentSettings = unserialize($this->settings);
+
         parent::afterFind();
     }
 
+    /**
+     *
+     */
     public function afterDelete()
     {
-        if (Yii::app()->hasModule('delivery')) {
-            $this->clearDeliveryMethods();
-        }
+        $this->clearDeliveryMethods();
+
         parent::afterDelete();
     }
 
+    /**
+     *
+     */
     public function clearDeliveryMethods()
     {
         DeliveryPayment::model()->deleteAllByAttributes(['payment_id' => $this->id]);
     }
 
+    /**
+     * @param $settings
+     */
     public function setPaymentSystemSettings($settings)
     {
         $this->_paymentSettings = $settings;
     }
 
+    /**
+     * @return array
+     */
     public function getPaymentSystemSettings()
     {
         return $this->_paymentSettings;
     }
 
+    /**
+     * @param Order $order
+     * @return string
+     */
     public function getPaymentForm(Order $order)
     {
         $paymentSystem = Yii::app()->paymentManager->getPaymentSystemObject($this->module);
 
-        return $paymentSystem ? $paymentSystem->renderCheckoutForm($this, $order, true) : "";
+        return $paymentSystem ? $paymentSystem->renderCheckoutForm($this, $order, true) : null;
     }
 }

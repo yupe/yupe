@@ -34,9 +34,16 @@ $this->widget(
             [
                 'name' => 'name',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->name, array("/payment/paymentBackend/update", "id" => $data->id))'
+                'value' => function($data){
+                    return CHtml::link($data->name, ["/payment/paymentBackend/update", "id" => $data->id]);
+                }
             ],
-            'module',
+            [
+                'name' => 'module',
+                'value' => function($data){
+                    return $data->module ? $data->module : Yii::t('PaymentModule.payment', 'Manual processing');
+                }
+            ],
             [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',

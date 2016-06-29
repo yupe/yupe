@@ -15,7 +15,12 @@ return [
             ],
         ],
         'paymentManager' => [
-            'class' => 'application.modules.payment.components.PaymentManager'
+            'class' => 'application.modules.payment.components.PaymentManager',
+            'paymentSystems' => [
+                'manual' => [
+                    'class' => 'application.modules.payment.components.ManualPaymentSystem',
+                ]
+            ],
         ],
     ],
     'rules' => [

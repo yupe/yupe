@@ -66,6 +66,9 @@ class Order extends yupe\models\YModel
      */
     const SCENARIO_ADMIN = 'admin';
 
+    /**
+     * @var null
+     */
     public $couponId = null;
 
     /**
@@ -115,14 +118,16 @@ class Order extends yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
             ['status_id, delivery_id', 'required'],
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
             ['name, email, phone, zipcode, country, city, street, house, apartment', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
-            ['delivery_id, separate_delivery, payment_method_id, paid, user_id, couponId, manager_id', 'numerical', 'integerOnly' => true],
+            [
+                'delivery_id, separate_delivery, payment_method_id, paid, user_id, couponId, manager_id',
+                'numerical',
+                'integerOnly' => true,
+            ],
             ['delivery_price, total_price, discount, coupon_discount', 'store\components\validators\NumberValidator'],
             ['name, phone, email, city, street', 'length', 'max' => 255],
             ['comment, note', 'length', 'max' => 1024],
@@ -724,19 +729,23 @@ class Order extends yupe\models\YModel
         return (int)$this->paid === static::PAID_STATUS_PAID;
     }
 
+
     /**
      * @param Payment $payment
+     * @param int $paid
      * @return bool
      */
-    public function pay(Payment $payment)
+    public function pay(Payment $payment, $paid = self::PAID_STATUS_PAID)
     {
         if ($this->isPaid()) {
             return true;
         }
 
-        $this->paid = static::PAID_STATUS_PAID;
-        $this->payment_method_id = $payment->id;
-        $this->payment_time = new CDbExpression('now()');
+        $this->setAttributes([
+            'paid' => (int)$paid,
+            'payment_method_id' => $payment->id,
+            'payment_time' => new CDbExpression('now()'),
+        ]);
 
         $result = $this->save();
 
@@ -805,13 +814,13 @@ class Order extends yupe\models\YModel
     {
         return new CActiveDataProvider(
             'OrderProduct', [
-            'criteria' => [
-                'condition' => 'order_id = :id',
-                'params' => [
-                    ':id' => $this->id,
+                'criteria' => [
+                    'condition' => 'order_id = :id',
+                    'params' => [
+                        ':id' => $this->id,
+                    ],
                 ],
-            ],
-        ]
+            ]
         );
     }
 

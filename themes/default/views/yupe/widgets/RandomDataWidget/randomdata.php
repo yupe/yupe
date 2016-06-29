@@ -9,7 +9,7 @@
                 'Авторские вебинары по Yii2 !',
                 ['style' => 'width: 100%']
             ),
-            'http://www.elisdn.ru/blog/70/programming-webinars?utm_source=yupe&utm_medium=banner&utm_campaign=blog',
+            'http://www.elisdn.ru/oop-week?utm_medium=affiliate&utm_source=yupe',
             ['title' => 'Авторские вебинары по Yii2 !', 'target' => '_blank']
         );?>
         <hr/>

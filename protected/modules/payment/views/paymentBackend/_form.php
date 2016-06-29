@@ -45,8 +45,7 @@ $form = $this->beginWidget(
                 'widgetOptions' => [
                     'data' => Yii::app()->paymentManager->getSystemsFormattedList(),
                     'htmlOptions' => [
-                        'id' => 'payment-system',
-                        'empty' => Yii::t("PaymentModule.payment", 'Manual processing')
+                        'id' => 'payment-system'
                     ]
                 ]
             ]
