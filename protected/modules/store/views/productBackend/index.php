@@ -155,7 +155,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
                         Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
-                'filter' => CHtml::activeTextField($model, 'price', ['class' => 'form-control']),
+                'filter' => CHtml::activeTextField($model, 'quantity', ['class' => 'form-control']),
             ],
             [
                 'class' => 'yupe\widgets\EditableStatusColumn',
