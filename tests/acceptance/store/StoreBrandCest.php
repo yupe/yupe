@@ -26,9 +26,23 @@ class StoreBrandCest
         $I->amGoingTo('visit a brand page');
         $I->click('Intel');
         $I->seeInCurrentUrl('/store/brand/intel');
+        $I->seeInTitle('Intel');
         $I->see('Все товары производителя «Intel»', 'h2');
         $I->see('Описание бренда Intel', 'p');
+        $I->see('Нет результатов.');
         $I->seeLink('Все бренды');
+        $I->click('Все бренды');
+        $I->seeInCurrentUrl(self::FRONTEND_BRANDS_PATH);
+        $I->click('Dell');
+        $I->see('Все товары производителя «Dell»', 'h2');
+        $I->dontSee('Нет результатов.');
+        $I->see('Сортировка:');
+        $I->seeLink('Артикул');
+        $I->seeLink('Название');
+        $I->seeLink('Цена');
+        $I->seeLink('Обновлено');
+        $I->seeLink('Dell U2715H');
+        $I->seeLink('Dell P2214H');
 
         $I->amGoingTo('visit inactive brand page');
         $I->expectTo('see 404 error');
