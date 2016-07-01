@@ -333,6 +333,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->compare('type_id', $this->type_id);
         $criteria->compare('t.name', $this->name, true);
         $criteria->compare('price', $this->price);
+        $criteria->compare('discount_price', $this->discount_price);
         $criteria->compare('sku', $this->sku, true);
         $criteria->compare('short_description', $this->short_description, true);
         $criteria->compare('description', $this->description, true);
