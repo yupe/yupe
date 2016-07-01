@@ -1010,6 +1010,13 @@ CREATE TABLE `yupe_store_product` (
   CONSTRAINT `fk_yupe_store_product_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_product` (`id`, `type_id`, `producer_id`, `category_id`, `sku`, `name`, `slug`, `price`, `discount_price`, `discount`, `description`, `short_description`, `data`, `is_special`, `length`, `width`, `height`, `weight`, `quantity`, `in_stock`, `status`, `create_time`, `update_time`, `meta_title`, `meta_keywords`, `meta_description`, `image`, `average_price`, `purchase_price`, `recommended_price`, `position`, `external_id`, `title`, `meta_canonical`, `image_alt`, `image_title`) VALUES
+  (1,	1,	2,	2,	'TST1',	'Dell U2715H',	'dell-u2715h',	38000.000,	NULL,	5.000,	'<p>Описание монитора Dell U2715H</p>',	'<p>Короткое описание монитора Dell U2715H</p>',	'<p>Данные монитора Dell U2715H</p>',	0,	613.000,	410.000,	205.000,	7.380,	10,	1,	1,	'2016-06-29 16:18:33',	'2016-06-29 16:57:21',	'Монитор Dell. Заголовок страницы',	'Монитор Dell. Meta keywords',	'Монитор Dell. Meta description',	'54eb4b69ff464333b30db808ed14ebfb.jpg',	0.000,	0.000,	0.000,	1,	NULL,	'Монитор Dell. Заголовок h1',	'',	'Монитор Dell U2715H',	'Монитор Dell U2715H'),
+  (2,	1,	2,	2,	'TST2',	'Dell P2214H',	'dell-p2214h',	13320.000,	NULL,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	5,	0,	1,	'2016-06-29 16:29:44',	'2016-06-29 16:51:59',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	2,	NULL,	'',	'',	'',	''),
+  (3,	NULL,	2,	2,	'TST3',	'Dell U2415',	'dell-u2415',	22575.000,	21500.000,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	2,	'2016-06-29 16:51:41',	'2016-06-29 16:51:41',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	3,	NULL,	'',	'',	'',	''),
+  (4,	NULL,	4,	2,	'TST4',	'Samsung U28E590D',	'samsung-u28e590d',	28090.000,	NULL,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	1,	'2016-06-29 16:54:32',	'2016-06-29 16:54:32',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	4,	NULL,	'',	'',	'',	''),
+  (5,	NULL,	3,	3,	'TST5',	'A4Tech B314 Black USB',	'a4tech-b314-black-usb',	3000.000,	2500.000,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	1,	'2016-06-29 16:56:34',	'2016-06-29 16:56:34',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	5,	NULL,	'',	'',	'',	'');
+
 DROP TABLE IF EXISTS `yupe_store_product_attribute_value`;
 CREATE TABLE `yupe_store_product_attribute_value` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1030,6 +1037,12 @@ CREATE TABLE `yupe_store_product_attribute_value` (
   CONSTRAINT `yupe_fk_product_attribute_option` FOREIGN KEY (`option_value`) REFERENCES `yupe_store_attribute_option` (`id`) ON DELETE CASCADE,
   CONSTRAINT `yupe_fk_product_attribute_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `yupe_store_product_attribute_value` (`id`, `product_id`, `attribute_id`, `number_value`, `string_value`, `text_value`, `option_value`, `create_time`) VALUES
+  (1,	1,	1,	27,	NULL,	NULL,	NULL,	NULL),
+  (2,	1,	2,	NULL,	'TFT AH-IPS',	NULL,	NULL,	NULL),
+  (3,	2,	1,	21,	NULL,	NULL,	NULL,	NULL),
+  (4,	2,	2,	NULL,	'TFT IPS',	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `yupe_store_product_category`;
 CREATE TABLE `yupe_store_product_category` (
@@ -1059,6 +1072,9 @@ CREATE TABLE `yupe_store_product_image` (
   CONSTRAINT `fk_yupe_store_product_image_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_product_image` (`id`, `product_id`, `name`, `title`, `alt`, `group_id`) VALUES
+  (1,	1,	'bd04a85cf4a4e30e30a11e4570875345.jpg',	'Дополнительное изображение',	'Дополнительное изображение',	NULL);
+
 DROP TABLE IF EXISTS `yupe_store_product_image_group`;
 CREATE TABLE `yupe_store_product_image_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1080,6 +1096,10 @@ CREATE TABLE `yupe_store_product_link` (
   CONSTRAINT `fk_yupe_store_product_link_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_product_link_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_product_link_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `yupe_store_product_link` (`id`, `type_id`, `product_id`, `linked_product_id`) VALUES
+  (1,	1,	1,	2),
+  (2,	1,	1,	3);
 
 DROP TABLE IF EXISTS `yupe_store_product_link_type`;
 CREATE TABLE `yupe_store_product_link_type` (
@@ -1112,6 +1132,9 @@ CREATE TABLE `yupe_store_product_variant` (
   CONSTRAINT `fk_yupe_store_product_variant_attribute` FOREIGN KEY (`attribute_id`) REFERENCES `yupe_store_attribute` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_product_variant_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `yupe_store_product_variant` (`id`, `product_id`, `attribute_id`, `attribute_value`, `amount`, `type`, `sku`, `position`) VALUES
+  (2,	1,	1,	'32',	2500,	0,	'TST1.1',	1);
 
 DROP TABLE IF EXISTS `yupe_store_type`;
 CREATE TABLE `yupe_store_type` (

@@ -26,7 +26,19 @@ class StoreCategoryCest
         $I->amGoingTo('visit a category page');
         $I->click('Компьютеры');
         $I->seeInCurrentUrl('/store/computer');
+        $I->seeInTitle('Компьютеры');
         $I->see('Компьютеры', 'h1');
+        $I->seeLink('Dell U2715H');
+        $I->seeLink('Samsung U28E590D');
+        $I->seeLink('A4Tech B314 Black USB');
+        $I->amOnPage(self::FRONTEND_CATEGORIES_PATH);
+        $I->click('Мониторы');
+        $I->seeInCurrentUrl('/store/computer/display');
+        $I->seeInTitle('Мониторы');
+        $I->see('Мониторы', 'h1');
+        $I->seeLink('Dell U2715H');
+        $I->seeLink('Samsung U28E590D');
+        $I->dontSeeLink('A4Tech B314 Black USB');
 
         $I->amGoingTo('visit a draft category page');
         $I->expectTo('see 404 error');
