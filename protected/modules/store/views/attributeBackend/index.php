@@ -118,6 +118,26 @@ $this->menu = [
                         'filter' => $model->getTypesList(),
                     ],
                     [
+                        'class' => 'yupe\widgets\EditableStatusColumn',
+                        'name' => 'required',
+                        'url' => $this->createUrl('/store/attributeBackend/inlineattr'),
+                        'source' => $model->getYesNoList(),
+                        'options' => [
+                            ['class' => 'label-default'],
+                            ['class' => 'label-success'],
+                        ],
+                    ],
+                    [
+                        'class' => 'yupe\widgets\EditableStatusColumn',
+                        'name' => 'is_filter',
+                        'url' => $this->createUrl('/store/attributeBackend/inlineattr'),
+                        'source' => $model->getYesNoList(),
+                        'options' => [
+                            ['class' => 'label-default'],
+                            ['class' => 'label-success'],
+                        ],
+                    ],
+                    [
                         'class' => 'yupe\widgets\CustomButtonColumn',
                         'template' => '{update}{delete}',
                     ],

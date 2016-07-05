@@ -44,6 +44,11 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                 'model' => 'AttributeOption',
                 'validAttributes' => ['value'],
             ],
+            'inlineattr' => [
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Attribute',
+                'validAttributes' => ['required', 'is_filter'],
+            ],
             'sortable' => [
                 'class' => 'yupe\components\actions\SortAction',
                 'model' => 'AttributeGroup',

@@ -32,6 +32,8 @@ class StoreAttributeCest
         $I->see('Алиас', '.sort-link');
         $I->see('Группа', '.sort-link');
         $I->see('Тип атрибута', '.sort-link');
+        $I->see('Обязательный', '.sort-link');
+        $I->see('Участвует в фильтре', '.sort-link');
         $I->seeLink('Тип клавиатуры');
         $I->seeLink('Матрица');
         $I->seeLink('Диагональ');
@@ -66,6 +68,24 @@ class StoreAttributeCest
         $I->seeLink('Диагональ');
         $I->dontSeeLink('Тип клавиатуры');
         $I->dontSeeLink('Матрица');
+        $I->amOnPage(self::BACKEND_ATTR_PATH);
+        $I->selectOption('Attribute[required]', 'Да');
+        $I->wait(1);
+        $I->see('Нет результатов.');
+        $I->selectOption('Attribute[required]', 'Нет');
+        $I->wait(1);
+        $I->seeLink('Матрица');
+        $I->seeLink('Диагональ');
+        $I->seeLink('Тип клавиатуры');
+        $I->amOnPage(self::BACKEND_ATTR_PATH);
+        $I->selectOption('Attribute[is_filter]', 'Нет');
+        $I->wait(1);
+        $I->see('Нет результатов.');
+        $I->selectOption('Attribute[is_filter]', 'Да');
+        $I->wait(1);
+        $I->seeLink('Матрица');
+        $I->seeLink('Диагональ');
+        $I->seeLink('Тип клавиатуры');
 
         $I->amGoingTo('add a new attr');
         $I->amOnPage(self::BACKEND_ATTR_PATH . '/create');

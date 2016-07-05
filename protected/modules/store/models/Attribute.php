@@ -159,6 +159,7 @@ class Attribute extends \yupe\models\YModel
         $criteria->compare('type', $this->type);
         $criteria->compare('group_id', $this->group_id);
         $criteria->compare('is_filter', $this->is_filter);
+        $criteria->compare('required', $this->required);
 
         $sort = new CSort;
         $sort->defaultOrder = 't.sort DESC';
@@ -390,5 +391,16 @@ class Attribute extends \yupe\models\YModel
     public function isMultipleValues()
     {
          return $this->type == self::TYPE_DROPDOWN || $this->type == self::TYPE_CHECKBOX_LIST;
+    }
+
+    /**
+     * @return array
+     */
+    public function getYesNoList()
+    {
+        return [
+            Yii::t('StoreModule.store', 'No'),
+            Yii::t('StoreModule.store', 'Yes'),
+        ];
     }
 }
