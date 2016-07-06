@@ -8,6 +8,7 @@ use tests\acceptance\user\steps\UserSteps;
 
 class StoreProductCest
 {
+    const FRONTEND_PRODUCT_PATH = '/store';
     const BACKEND_PRODUCT_PATH = '/backend/store/product';
 
     public function tryToTestProductList(WebGuy $I, $scenario)
@@ -15,7 +16,7 @@ class StoreProductCest
         $I->wantToTest('product list page');
 
         $I->am('normal user');
-        $I->amOnPage('/store');
+        $I->amOnPage(self::FRONTEND_PRODUCT_PATH);
 
         $I->see('Каталог товаров', 'h2');
 
@@ -105,9 +106,74 @@ class StoreProductCest
         $I->see('21500 руб.', '.price-text-color');
     }
 
+    public function tryToTestProductSearch(WebGuy $I, $scenario)
+    {
+        $I->wantToTest('product search');
+
+        $I->amOnPage(self::FRONTEND_PRODUCT_PATH);
+
+        $I->seeElement('#q');
+        $I->seeLink('Dell U2715H');
+        $I->seeLink('Dell P2214H');
+        $I->seeLink('Samsung U28E590D');
+        $I->seeLink('A4Tech B314 Black USB');
+
+        $I->fillField('#q', 'Sams');
+        $I->pressKey('#q', WebDriverKeys::ENTER);
+        $I->seeLink('Samsung U28E590D');
+        $I->dontSeeLink('Dell U2715H');
+        $I->dontSeeLink('Dell P2214H');
+        $I->dontSeeLink('A4Tech B314 Black USB');
+
+        $I->fillField('#q', 'Intel');
+        $I->pressKey('#q', WebDriverKeys::ENTER);
+        $I->see('Нет результатов.', 'span');
+    }
+
     public function tryToTestProductFilter(WebGuy $I, $scenario)
     {
+        $I->wantToTest('product filter');
 
+        $I->amOnPage(self::FRONTEND_PRODUCT_PATH);
+        $I->see('По цене', 'strong');
+        $I->see('По размерам', 'strong');
+        $I->see('Категории', 'strong');
+        $I->see('Бренды', 'strong');
+        $I->see('Тип клавиатуры', 'strong');
+        $I->see('Матрица', 'strong');
+        $I->see('Диагональ', 'strong');
+
+        $I->seeLink('Dell U2715H');
+        $I->seeLink('Dell P2214H');
+        $I->seeLink('Samsung U28E590D');
+        $I->seeLink('A4Tech B314 Black USB');
+
+        $I->fillField('price[from]', 30000);
+        $I->click('Подобрать');
+        $I->seeLink('Dell U2715H');
+        $I->dontSeeLink('Dell P2214H');
+        $I->dontSeeLink('Samsung U28E590D');
+        $I->dontSeeLink('A4Tech B314 Black USB');
+
+        $I->amOnPage(self::FRONTEND_PRODUCT_PATH);
+        $I->checkOption('#brand_2');
+        $I->click('Подобрать');
+        $I->seeLink('Dell U2715H');
+        $I->seeLink('Dell P2214H');
+        $I->dontSeeLink('Samsung U28E590D');
+        $I->dontSeeLink('A4Tech B314 Black USB');
+        $I->fillField('price[to]', 15000);
+        $I->click('Подобрать');
+        $I->seeLink('Dell P2214H');
+        $I->dontSeeLink('Dell U2715H');
+
+        $I->amOnPage(self::FRONTEND_PRODUCT_PATH);
+        $I->fillField('#matrica', 'TFT IPS');
+        $I->click('Подобрать');
+        $I->seeLink('Dell P2214H');
+        $I->dontSeeLink('Dell U2715H');
+        $I->dontSeeLink('Samsung U28E590D');
+        $I->dontSeeLink('A4Tech B314 Black USB');
     }
 
     public function tryToTestBackendProductList(WebGuy $I, $scenario)
@@ -363,7 +429,7 @@ class StoreProductCest
         $I->see('Количество', 'th');
         $I->see('1', 'td');
 
-        $I->amOnPage('/store');
+        $I->amOnPage(self::FRONTEND_PRODUCT_PATH);
         $I->seeLink('A4Tech Bloody B740 White USB');
     }
     
@@ -375,7 +441,7 @@ class StoreProductCest
         $I->loginAsAdminAndGoToThePanel(CommonPage::TEST_USER_NAME, CommonPage::TEST_PASSWORD);
         $I->am('administrator');
 
-        $I->amOnPage('/store');
+        $I->amOnPage(self::FRONTEND_PRODUCT_PATH);
         $I->dontSeeLink('Dell U2415');
 
         $I->amOnPage(self::BACKEND_PRODUCT_PATH . '/update/3');
@@ -393,7 +459,7 @@ class StoreProductCest
         $I->seeInCurrentUrl(self::BACKEND_PRODUCT_PATH);
         $I->see('Запись изменена!', '.alert-success');
 
-        $I->amOnPage('/store');
+        $I->amOnPage(self::FRONTEND_PRODUCT_PATH);
         $I->seeLink('Dell U2415');
     }
     
