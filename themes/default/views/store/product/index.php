@@ -37,7 +37,10 @@ $this->breadcrumbs = [Yii::t("StoreModule.store", "Catalog")];
                 <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
             </div>
         </form>
-        <?php $this->widget('application.modules.store.widgets.CategoryWidget', ['view' => 'category-with-count']); ?>
+        <?php if($this->beginCache('store::category::count')):?>
+            <?php $this->widget('application.modules.store.widgets.CategoryWidget', ['view' => 'category-with-count']); ?>
+            <?php $this->endCache(); ?>
+        <?php endif;?>
     </div>
     <div class="col-sm-9">
         <section>

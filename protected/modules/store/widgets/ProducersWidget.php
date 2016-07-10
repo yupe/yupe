@@ -34,15 +34,18 @@ class ProducersWidget extends \yupe\widgets\YWidget
      */
     protected $producerRepository;
 
+    /**
+     *
+     */
     public function init()
     {
+        parent::init();
+
         $this->producerRepository = Yii::app()->getComponent('producerRepository');
 
         if (!$this->title) {
             $this->title = Yii::t('StoreModule.store', 'Producers list');
         }
-
-        parent::init();
     }
 
     /**
@@ -56,14 +59,8 @@ class ProducersWidget extends \yupe\widgets\YWidget
             'scopes' => ['published']
         ]);
 
-        if (null === $this->category) {
-            $producers = Producer::model()->findAll($criteria);
-        } else {
-            $producers = $this->producerRepository->getForCategory($this->category, $criteria);
-        }
-
         $this->render($this->view, [
-            'brands' => $producers,
+            'brands' => $this->category ? $this->producerRepository->getForCategory($this->category, $criteria) : Producer::model()->findAll($criteria),
             'title' => $this->title
         ]);
     }

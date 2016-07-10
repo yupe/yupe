@@ -25,13 +25,13 @@ class ProductRepository extends CApplicationComponent
      */
     public function getByFilter(array $mainSearchAttributes, array $typeSearchAttributes)
     {
-        $criteria = new CDbCriteria();
-        $criteria->select = 't.*';
-        $criteria->params = [];
+        $criteria = new CDbCriteria([
+            'select' => 't.*',
+            'distinct' => true,
+            'params' => [],
+        ]);
         $criteria->addCondition('t.status = :status');
         $criteria->params['status'] = Product::STATUS_ACTIVE;
-        $criteria->distinct = true;
-
 
         //поиск по категории, производителю и цене
         foreach ($this->attributeFilter->getMainSearchParams() as $param => $field) {
@@ -41,6 +41,7 @@ class ProductRepository extends CApplicationComponent
             }
 
             if ($param === 'category') {
+
                 $categories = [];
 
                 foreach ($mainSearchAttributes[$param] as $categoryId) {
@@ -51,7 +52,6 @@ class ProductRepository extends CApplicationComponent
                 $criteria->with = ['categoryRelation' => ['together' => true]];
                 $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
                 $criteria->addInCondition('t.category_id', array_unique($categories), 'OR');
-                $criteria->group = 't.id';
                 continue;
             }
 
@@ -75,7 +75,8 @@ class ProductRepository extends CApplicationComponent
         //поиск по названию и артикулу
         if (!empty($mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME])) {
             $criteria->addSearchCondition('name', $mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME], true);
-            $criteria->addSearchCondition('sku', $mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME], true, 'OR');
+            $criteria->addSearchCondition('sku', $mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME], true,
+                'OR');
         }
 
         $criteria->mergeWith($this->buildCriteriaForTypeAttributes($typeSearchAttributes));
@@ -203,17 +204,17 @@ class ProductRepository extends CApplicationComponent
         $categories = $category->getChildsArray();
         $categories[] = $category->id;
 
-        $criteria = new CDbCriteria();
-        $criteria->select = 't.*';
-        $criteria->with = ['categoryRelation' => ['together' => true]];
+        $criteria = new CDbCriteria([
+            'with' => ['categoryRelation' => ['together' => true]],
+            'scopes' => ['published'],
+        ]);
+
         $criteria->addInCondition('categoryRelation.category_id', $categories);
         $criteria->addInCondition('t.category_id', $categories, 'OR');
-        $criteria->group = 't.id';
-        $criteria->scopes = ['published'];
 
         if ($limit) {
             $pagination = false;
-            $criteria->limit = $limit;
+            $criteria->limit = (int)$limit;
         }
 
         return new CActiveDataProvider(
@@ -274,8 +275,8 @@ class ProductRepository extends CApplicationComponent
         $criteria->addSearchCondition('name', $name);
         $provider = new CActiveDataProvider(
             Product::model()->published(), [
-            'criteria' => $criteria,
-        ]
+                'criteria' => $criteria,
+            ]
         );
 
         return new CDataProviderIterator($provider);
@@ -298,16 +299,16 @@ class ProductRepository extends CApplicationComponent
 
         return new CActiveDataProvider(
             Product::model(), [
-            'criteria' => $criteria,
-            'pagination' => [
-                'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
-                'pageVar' => 'page',
-            ],
-            'sort' => [
-                'sortVar' => 'sort',
-                'defaultOrder' => 't.position',
-            ],
-        ]
+                'criteria' => $criteria,
+                'pagination' => [
+                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                    'pageVar' => 'page',
+                ],
+                'sort' => [
+                    'sortVar' => 'sort',
+                    'defaultOrder' => 't.position',
+                ],
+            ]
         );
     }
 
