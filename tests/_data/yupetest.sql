@@ -839,6 +839,12 @@ CREATE TABLE `yupe_store_delivery_payment` (
   CONSTRAINT `fk_yupe_store_delivery_payment_payment` FOREIGN KEY (`payment_id`) REFERENCES `yupe_store_payment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_delivery_payment` (`delivery_id`, `payment_id`) VALUES
+  (1,	1),
+  (2,	1),
+  (3,	1),
+  (4,	1);
+
 DROP TABLE IF EXISTS `yupe_store_order`;
 CREATE TABLE `yupe_store_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -939,6 +945,10 @@ CREATE TABLE `yupe_store_payment` (
   PRIMARY KEY (`id`),
   KEY `idx_yupe_store_payment_position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `yupe_store_payment` (`id`, `module`, `name`, `description`, `settings`, `currency_id`, `position`, `status`) VALUES
+  (1,	'manual',	'Наличными',	'',	'a:0:{}',	NULL,	1,	1),
+  (2,	'robokassa',	'Робокасса',	'',	'a:5:{s:5:\"login\";s:4:\"yupe\";s:9:\"password1\";s:8:\"testpass\";s:9:\"password2\";s:8:\"testpass\";s:8:\"language\";s:2:\"ru\";s:8:\"testmode\";s:1:\"1\";}',	NULL,	2,	0);
 
 DROP TABLE IF EXISTS `yupe_store_producer`;
 CREATE TABLE `yupe_store_producer` (
