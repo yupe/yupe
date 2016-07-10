@@ -802,6 +802,12 @@ CREATE TABLE `yupe_store_coupon` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_coupon` (`id`, `name`, `code`, `type`, `value`, `min_order_price`, `registered_user`, `free_shipping`, `start_time`, `end_time`, `quantity`, `quantity_per_user`, `status`) VALUES
+  (1,	'Купон1',	'CPN1',	0,	500.00,	0.00,	0,	0,	NULL,	NULL,	NULL,	NULL,	1),
+  (2,	'Купон2',	'CPN2',	1,	5.00,	0.00,	0,	0,	NULL,	NULL,	NULL,	NULL,	1),
+  (3,	'Купон3',	'CPN3',	0,	500.00,	0.00,	0,	0,	NULL,	'2016-07-01 00:00:00',	NULL,	NULL,	1),
+  (4,	'Купон4',	'CPN4',	0,	500.00,	0.00,	0,	0,	NULL,	NULL,	NULL,	NULL,	0);
+
 DROP TABLE IF EXISTS `yupe_store_delivery`;
 CREATE TABLE `yupe_store_delivery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
