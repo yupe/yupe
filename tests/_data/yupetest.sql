@@ -823,6 +823,12 @@ CREATE TABLE `yupe_store_delivery` (
   KEY `idx_yupe_store_delivery_position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_delivery` (`id`, `name`, `description`, `price`, `free_from`, `available_from`, `position`, `status`, `separate_payment`) VALUES
+  (1,	'Самовывоз',	'',	0.00,	NULL,	NULL,	1,	1,	0),
+  (2,	'Курьером',	'<p>Описание доставки курьером</p>',	500.00,	30000.00,	NULL,	2,	1,	0),
+  (3,	'Транспортная компания',	'',	700.00,	NULL,	10000.00,	3,	1,	0),
+  (4,	'Пункт выдачи',	'',	200.00,	NULL,	NULL,	4,	0,	0);
+
 DROP TABLE IF EXISTS `yupe_store_delivery_payment`;
 CREATE TABLE `yupe_store_delivery_payment` (
   `delivery_id` int(11) NOT NULL,
