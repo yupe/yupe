@@ -165,7 +165,6 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
                 'options' => [
                     Product::STATUS_ACTIVE => ['class' => 'label-success'],
                     Product::STATUS_NOT_ACTIVE => ['class' => 'label-info'],
-                    Product::STATUS_ZERO => ['class' => 'label-default'],
                 ],
             ],
             [
