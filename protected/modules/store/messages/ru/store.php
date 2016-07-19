@@ -121,7 +121,7 @@ return [
     'Fields with' => 'Поля, отмеченные',
     'File uploads directory (relative to "{path}")' => 'Каталог для загрузки файлов относительно "{path}"',
     'File' => 'Файл',
-    'Filter' => 'Участвует в фильтре',
+    'Filter' => 'Фильтр',
     'Find category' => 'Поиск категорий',
     'First you need to save the product.' => 'Сначала необходимо сохранить товар.',
     'Fix price with discount' => 'Фиксированная цена со скидкой',
