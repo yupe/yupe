@@ -12,7 +12,7 @@ class AttributesRepository extends CApplicationComponent
     public function getForCategory(StoreCategory $category)
     {
         $criteria = new CDbCriteria([
-            'condition' => 't.is_filter = 1 AND t.type != :type AND (products.category_id = :category)',
+            'condition' => 't.is_filter = 1 AND t.type != :type AND products.category_id = :category',
             'params' => [
                 ':category' => $category->id,
                 ':type' => Attribute::TYPE_TEXT
@@ -26,7 +26,12 @@ class AttributesRepository extends CApplicationComponent
         $categories = $category->getChildsArray();
 
         if(!empty($categories)) {
-            $categoriesCriteria = new CDbCriteria();
+            $categoriesCriteria = new CDbCriteria([
+                'condition' => 't.is_filter = 1 AND t.type != :type',
+                'params' => [
+                    ':type' => Attribute::TYPE_TEXT
+                ],
+            ]);
             $categoriesCriteria->addInCondition('products.category_id', $categories);
             $criteria->mergeWith($categoriesCriteria, 'OR');
         }
