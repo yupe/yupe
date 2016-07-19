@@ -572,7 +572,8 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
   (123,	'callback',	'm160621_075232_add_date_to_callback',	1466603703),
   (124,	'order',	'm160618_145025_add_status_color',	1466603708),
   (125,	'store',	'm160602_091243_add_position_product_index',	1466603715),
-  (126,	'store',	'm160602_091909_add_producer_sort_index',	1466603715);
+  (126,	'store',	'm160602_091909_add_producer_sort_index',	1466603715),
+  (127,	'store',	'm160713_105449_remove_irrelevant_product_status',	1468413312);
 
 DROP TABLE IF EXISTS `yupe_news_news`;
 CREATE TABLE `yupe_news_news` (
@@ -839,6 +840,12 @@ CREATE TABLE `yupe_store_delivery_payment` (
   CONSTRAINT `fk_yupe_store_delivery_payment_payment` FOREIGN KEY (`payment_id`) REFERENCES `yupe_store_payment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_delivery_payment` (`delivery_id`, `payment_id`) VALUES
+  (1,	1),
+  (2,	1),
+  (3,	1),
+  (4,	1);
+
 DROP TABLE IF EXISTS `yupe_store_order`;
 CREATE TABLE `yupe_store_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -940,6 +947,10 @@ CREATE TABLE `yupe_store_payment` (
   KEY `idx_yupe_store_payment_position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_payment` (`id`, `module`, `name`, `description`, `settings`, `currency_id`, `position`, `status`) VALUES
+  (1,	'manual',	'Наличными',	'',	'a:0:{}',	NULL,	1,	1),
+  (2,	'robokassa',	'Робокасса',	'',	'a:5:{s:5:\"login\";s:4:\"yupe\";s:9:\"password1\";s:8:\"testpass\";s:9:\"password2\";s:8:\"testpass\";s:8:\"language\";s:2:\"ru\";s:8:\"testmode\";s:1:\"1\";}',	NULL,	2,	0);
+
 DROP TABLE IF EXISTS `yupe_store_producer`;
 CREATE TABLE `yupe_store_producer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1025,7 +1036,7 @@ CREATE TABLE `yupe_store_product` (
 INSERT INTO `yupe_store_product` (`id`, `type_id`, `producer_id`, `category_id`, `sku`, `name`, `slug`, `price`, `discount_price`, `discount`, `description`, `short_description`, `data`, `is_special`, `length`, `width`, `height`, `weight`, `quantity`, `in_stock`, `status`, `create_time`, `update_time`, `meta_title`, `meta_keywords`, `meta_description`, `image`, `average_price`, `purchase_price`, `recommended_price`, `position`, `external_id`, `title`, `meta_canonical`, `image_alt`, `image_title`) VALUES
   (1,	1,	2,	2,	'TST1',	'Dell U2715H',	'dell-u2715h',	38000.000,	NULL,	5.000,	'<p>Описание монитора Dell U2715H</p>',	'<p>Короткое описание монитора Dell U2715H</p>',	'<p>Данные монитора Dell U2715H</p>',	0,	613.000,	410.000,	205.000,	7.380,	10,	1,	1,	'2016-06-29 16:18:33',	'2016-06-29 16:57:21',	'Монитор Dell. Заголовок страницы',	'Монитор Dell. Meta keywords',	'Монитор Dell. Meta description',	'54eb4b69ff464333b30db808ed14ebfb.jpg',	0.000,	0.000,	0.000,	1,	NULL,	'Монитор Dell. Заголовок h1',	'',	'Монитор Dell U2715H',	'Монитор Dell U2715H'),
   (2,	1,	2,	2,	'TST2',	'Dell P2214H',	'dell-p2214h',	13320.000,	NULL,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	5,	0,	1,	'2016-06-29 16:29:44',	'2016-06-29 16:51:59',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	2,	NULL,	'',	'',	'',	''),
-  (3,	NULL,	2,	2,	'TST3',	'Dell U2415',	'dell-u2415',	22575.000,	21500.000,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	2,	'2016-06-29 16:51:41',	'2016-06-29 16:51:41',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	3,	NULL,	'',	'',	'',	''),
+  (3,	NULL,	2,	2,	'TST3',	'Dell U2415',	'dell-u2415',	22575.000,	21500.000,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	0,	'2016-06-29 16:51:41',	'2016-06-29 16:51:41',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	3,	NULL,	'',	'',	'',	''),
   (4,	NULL,	4,	2,	'TST4',	'Samsung U28E590D',	'samsung-u28e590d',	28090.000,	NULL,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	1,	'2016-06-29 16:54:32',	'2016-06-29 16:54:32',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	4,	NULL,	'',	'',	'',	''),
   (5,	NULL,	3,	3,	'TST5',	'A4Tech B314 Black USB',	'a4tech-b314-black-usb',	3000.000,	2500.000,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	1,	'2016-06-29 16:56:34',	'2016-06-29 16:56:34',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	5,	NULL,	'',	'',	'',	'');
 

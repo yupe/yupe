@@ -67,15 +67,11 @@ class Product extends yupe\models\YModel implements ICommentable
     /**
      *
      */
-    const STATUS_ZERO = 0;
+    const STATUS_NOT_ACTIVE = 0;
     /**
      *
      */
     const STATUS_ACTIVE = 1;
-    /**
-     *
-     */
-    const STATUS_NOT_ACTIVE = 2;
 
     /**
      *
@@ -442,7 +438,6 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getStatusList()
     {
         return [
-            self::STATUS_ZERO => Yii::t('StoreModule.store', 'Not available'),
             self::STATUS_ACTIVE => Yii::t('StoreModule.store', 'Active'),
             self::STATUS_NOT_ACTIVE => Yii::t('StoreModule.store', 'Not active'),
         ];
