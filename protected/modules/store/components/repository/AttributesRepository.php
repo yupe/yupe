@@ -23,10 +23,13 @@ class AttributesRepository extends CApplicationComponent
             'distinct' => true
         ]);
 
-        $categoriesCriteria = new CDbCriteria();
-        $categoriesCriteria->addInCondition('products.category_id', $category->getChildsArray());
+        $categories = $category->getChildsArray();
 
-        $criteria->mergeWith($categoriesCriteria, 'OR');
+        if(!empty($categories)) {
+            $categoriesCriteria = new CDbCriteria();
+            $categoriesCriteria->addInCondition('products.category_id', $categories);
+            $criteria->mergeWith($categoriesCriteria, 'OR');
+        }
 
         return Attribute::model()->findAll($criteria);
     }
