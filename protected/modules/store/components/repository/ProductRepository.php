@@ -40,7 +40,7 @@ class ProductRepository extends CApplicationComponent
                 continue;
             }
 
-            if ($param === 'category') {
+            if ('category' === $param) {
 
                 $categories = [];
 
@@ -49,7 +49,11 @@ class ProductRepository extends CApplicationComponent
                     $categories = CMap::mergeArray($categories, StoreCategory::model()->getChildsArray($categoryId));
                 }
 
-                $criteria->with = ['categoryRelation' => ['together' => true]];
+                $criteria->with = [
+                    'categoryRelation' => [
+                        'together' => true
+                    ]
+                ];
                 $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
                 $criteria->addInCondition('t.category_id', array_unique($categories), 'OR');
                 continue;
@@ -189,28 +193,39 @@ class ProductRepository extends CApplicationComponent
         );
     }
 
+
     /**
      * @param StoreCategory $category
-     * @param integer $limit
+     * @param bool $withChild
+     * @param null $limit
      * @return CActiveDataProvider
      */
-    public function getListForCategory(StoreCategory $category, $limit = null)
+    public function getListForCategory(StoreCategory $category, $withChild = true, $limit = null)
     {
+        $categories = [];
+
+        if (true === $withChild) {
+            $categories = $category->getChildsArray();
+        }
+
+        $categories[] = $category->id;
+
+        $criteria = new CDbCriteria([
+            'with' => [
+                'categoryRelation' => [
+                    'together' => true
+                ],
+            ],
+            'scopes' => ['published'],
+        ]);
+
+        $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
+        $criteria->addInCondition('t.category_id', array_unique($categories), 'OR');
+
         $pagination = [
             'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
             'pageVar' => 'page',
         ];
-
-        $categories = $category->getChildsArray();
-        $categories[] = $category->id;
-
-        $criteria = new CDbCriteria([
-            'with' => ['categoryRelation' => ['together' => true]],
-            'scopes' => ['published'],
-        ]);
-
-        $criteria->addInCondition('categoryRelation.category_id', $categories);
-        $criteria->addInCondition('t.category_id', $categories, 'OR');
 
         if ($limit) {
             $pagination = false;

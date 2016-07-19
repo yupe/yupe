@@ -31,10 +31,12 @@ $this->breadcrumbs = array_merge(
     <form id="store-filter" name="store-filter" method="get">
         <div class="col-sm-3">
             <div>
-                <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget'); ?>
+                <?php $this->widget('application.modules.store.widgets.filters.ProducerFilterWidget', ['limit' => 30]); ?>
             </div>
             <div>
-                <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', ['attributes' => '*']); ?>
+                <?php $this->widget('application.modules.store.widgets.filters.FilterBlockWidget', [
+                    'category' => $category
+                ]); ?>
             </div>
         </div>
     </form>
