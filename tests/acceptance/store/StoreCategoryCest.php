@@ -145,7 +145,7 @@ class StoreCategoryCest
         $I->seeLink('Просмотреть категорию');
         $I->seeLink('Удалить категорию');
         $I->amOnPage(self::FRONTEND_CATEGORIES_PATH);
-        $I->seeLink('Телефоны', '/store/telefony');
+        $I->seeLink('Телефоны');
         $I->click('Телефоны');
         $I->seeInCurrentUrl('/store/telefony');
         $I->see('Телефоны. Заголовок h1', 'h1');
