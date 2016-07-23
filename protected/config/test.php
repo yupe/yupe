@@ -5,7 +5,6 @@ Yii::setPathOfAlias('application', dirname(__FILE__) . '/../');
 Yii::setPathOfAlias('public', dirname($_SERVER['SCRIPT_FILENAME']));
 Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../modules/yupe/');
 Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
-
 return CMap::mergeArray(
     require(dirname(__FILE__) . '/main.php'),
     [
@@ -20,10 +19,6 @@ return CMap::mergeArray(
             'application.modules.yupe.widgets.*',
         ],
         'components' => [
-            'debug' => [
-                'class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
-                'enabled' => false,
-            ],
             'bootstrap'    => [
                 'class'          => 'bootstrap.components.Booster',
                 'responsiveCss'  => true,
@@ -36,7 +31,7 @@ return CMap::mergeArray(
             'db'           => file_exists(__DIR__ . '/db-test.php') ? require_once __DIR__ . '/db-test.php' : [],
             'themeManager' => ['basePath' => dirname(__DIR__) . '/../themes',],
             'cache'        => [
-                'class'     => 'CFileCache',
+                'class'     => 'CDummyCache',
                 'behaviors' => ['clear' => ['class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',],],
             ],
             'fixture'      => ['class' => 'system.test.CDbFixtureManager',],

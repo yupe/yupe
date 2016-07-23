@@ -37,7 +37,7 @@ class AttributesRepository extends CApplicationComponent
             $criteria->addCondition('products.category_id = :category');
             $criteria->params[':category'] = $category->id;
         }
-
+        
         return Attribute::model()->findAll($criteria);
     }
 }

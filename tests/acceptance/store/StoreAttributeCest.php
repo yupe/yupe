@@ -33,7 +33,7 @@ class StoreAttributeCest
         $I->see('Группа', '.sort-link');
         $I->see('Тип атрибута', '.sort-link');
         $I->see('Обязательный', '.sort-link');
-        $I->see('Участвует в фильтре', '.sort-link');
+        $I->see('Фильтр', '.sort-link');
         $I->seeLink('Тип клавиатуры');
         $I->seeLink('Матрица');
         $I->seeLink('Диагональ');

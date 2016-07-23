@@ -5,8 +5,10 @@
 <div class="filter-block">
     <div class="filter-attributes">
         <?php $this->widget(
-            'application.modules.store.widgets.filters.AttributesFilterWidget',
-            ['attributes' => $attributes]
+            'application.modules.store.widgets.filters.AttributesFilterWidget',  [
+                'attributes' => $attributes,
+                'category' => $category
+            ]
         ) ?>
     </div>
     <br/>
