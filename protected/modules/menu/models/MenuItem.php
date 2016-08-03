@@ -276,7 +276,7 @@ class MenuItem extends yupe\models\YModel
      */
     public function getParentTree()
     {
-        return array_merge([Yii::t('MenuModule.menu', 'Menu root')], $this->getParentTreeIterator());
+        return [Yii::t('MenuModule.menu', 'Menu root')] + $this->getParentTreeIterator();
     }
 
     /**
