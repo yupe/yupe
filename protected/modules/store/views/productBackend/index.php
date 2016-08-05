@@ -13,7 +13,7 @@ $this->breadcrumbs = [
 
 $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
 ?>
-<div class="page-header">
+<div>
     <h1>
         <?= Yii::t('StoreModule.store', 'Products'); ?>
         <small><?= Yii::t('StoreModule.store', 'administration'); ?></small>

@@ -45,7 +45,7 @@ $form = $this->beginWidget(
         ); ?>
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <?= $form->dropDownListGroup(
             $model,
             'group_id',
@@ -63,31 +63,34 @@ $form = $this->beginWidget(
 
 
 <div class='row'>
-    <div class="col-sm-7">
+    <div class="col-sm-4">
         <?= $form->textFieldGroup($model, 'title'); ?>
     </div>
-</div>
-
-<div class='row'>
-    <div class="col-sm-7">
+    <div class="col-sm-4">
         <?= $form->slugFieldGroup($model, 'name', ['sourceAttribute' => 'title']); ?>
     </div>
 </div>
 
 <div class='row'>
-    <div class="col-sm-7">
+    <div class="col-sm-8">
+        <?= $form->textAreaGroup($model, 'description', ['rows' => 30, 'class' => 'form-control']); ?>
+    </div>
+</div>
+
+<div class='row'>
+    <div class="col-sm-4">
         <?= $form->textFieldGroup($model, 'unit'); ?>
     </div>
 </div>
 
 <div class='row'>
-    <div class="col-sm-7">
+    <div class="col-sm-8">
         <?= $form->checkBoxGroup($model, 'required'); ?>
     </div>
 </div>
 
 <div class='row'>
-    <div class="col-sm-7">
+    <div class="col-sm-8">
         <?= $form->checkBoxGroup($model, 'is_filter'); ?>
     </div>
 </div>

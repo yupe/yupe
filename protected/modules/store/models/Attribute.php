@@ -13,7 +13,7 @@
  * @property string $unit
  * @property integer $sort
  * @property integer $is_filter
- *
+ * @property string $description
  * @property-read AttributeOption[] $options
  * @property-read AttributeGroup $group
  *
@@ -79,7 +79,8 @@ class Attribute extends \yupe\models\YModel
     public function rules()
     {
         return [
-            ['name, title', 'filter', 'filter' => 'trim'],
+            ['name, title, description', 'filter', 'filter' => 'trim'],
+            ['name, title, description', 'filter', 'filter' => 'strip_tags'],
             ['name, type, title', 'required'],
             ['name', 'unique'],
             [
@@ -126,6 +127,7 @@ class Attribute extends \yupe\models\YModel
             'unit' => Yii::t('StoreModule.store', 'Unit'),
             'sort' => Yii::t('StoreModule.store', 'Sort'),
             'is_filter' => Yii::t('StoreModule.store', 'Filter'),
+            'description' => Yii::t('StoreModule.store', 'Description'),
         ];
     }
 
@@ -191,7 +193,7 @@ class Attribute extends \yupe\models\YModel
             self::TYPE_CHECKBOX => Yii::t('StoreModule.store', 'Checkbox'),
             self::TYPE_NUMBER => Yii::t('StoreModule.store', 'Number'),
             self::TYPE_FILE => Yii::t('StoreModule.store', 'File'),
-            self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.store', 'Checkbox list')
+            self::TYPE_CHECKBOX_LIST => Yii::t('StoreModule.store', 'Checkbox list'),
         ];
     }
 
@@ -355,7 +357,7 @@ class Attribute extends \yupe\models\YModel
      */
     public function setMultipleValuesAttributes(array $attributes)
     {
-        if(!$this->isMultipleValues()){
+        if (!$this->isMultipleValues()) {
             return true;
         }
 
@@ -390,7 +392,7 @@ class Attribute extends \yupe\models\YModel
      */
     public function isMultipleValues()
     {
-         return $this->type == self::TYPE_DROPDOWN || $this->type == self::TYPE_CHECKBOX_LIST;
+        return $this->type == self::TYPE_DROPDOWN || $this->type == self::TYPE_CHECKBOX_LIST;
     }
 
     /**

@@ -41,7 +41,7 @@ $this->menu = [
     ],
 ];
 ?>
-<div class="">
+<div>
     <h1>
         <?= Yii::t('OrderModule.order', 'Orders'); ?>
         <small><?= Yii::t('OrderModule.order', 'manage'); ?></small>

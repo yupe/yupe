@@ -102,20 +102,20 @@ $this->menu = [
                         },
                     ],
                     [
-                        'name' => 'group_id',
-                        'value' => function ($data) {
-                            return $data->getGroupTitle();
-                        },
-                        'filter' => CHtml::activeDropDownList($model, 'group_id',
-                            AttributeGroup::model()->getFormattedList(), ['empty' => '', 'class' => 'form-control']),
-                    ],
-                    [
                         'name' => 'type',
                         'type' => 'text',
                         'value' => function ($data) {
                             return $data->getTypeTitle($data->type);
                         },
                         'filter' => $model->getTypesList(),
+                    ],
+                    [
+                        'name' => 'group_id',
+                        'value' => function ($data) {
+                            return $data->getGroupTitle();
+                        },
+                        'filter' => CHtml::activeDropDownList($model, 'group_id',
+                            AttributeGroup::model()->getFormattedList(), ['empty' => '', 'class' => 'form-control']),
                     ],
                     [
                         'class' => 'yupe\widgets\EditableStatusColumn',
