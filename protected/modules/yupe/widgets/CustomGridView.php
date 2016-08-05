@@ -201,7 +201,7 @@ class CustomGridView extends \TbExtendedGridView
      */
     public function renderSorter()
     {
-        if($this->sorter) {
+        if ($this->sorter) {
 
             $columns = ['' => Yii::t('YupeModule.yupe', '--sort by--')];
 
@@ -211,7 +211,7 @@ class CustomGridView extends \TbExtendedGridView
 
             $sorterName = sprintf('sorter-%s', $this->getId());
 
-            Yii::app()->getClientScript()->registerScript($sorterName,<<<JS
+            Yii::app()->getClientScript()->registerScript($sorterName, <<<JS
 
 $('body').on('click', '#{$sorterName}', function(event){
     alert($(this).val());
@@ -222,7 +222,7 @@ $('body').on('click', '#{$sorterName}', function(event){
 });
 
 JS
-);
+            );
 
             return '<div class="pull-left">'.CHtml::dropDownList(
                 $sorterName,
@@ -555,11 +555,10 @@ JS
                     url: url,
                     type: "POST",
                     dataType: "json",
-                    data: "'.Yii::app()->getRequest()->csrfTokenName.'='.Yii::app()->getRequest()->getCsrfToken(
-            ).'&model='.$this->_modelName.'&do=" + action + "&" + queryString,
+                    data: "'.Yii::app()->getRequest()->csrfTokenName.'='.Yii::app()->getRequest()->getCsrfToken().'&model='.$this->_modelName.'&do=" + action + "&" + queryString,
                     success: function (data) {
                         if (data.result) {
-                            $.fn.yiiGridView.update("'.$this->id.'");
+                            jQuery("#'.$this->id.'").yiiGridView("update",{url: document.location.href });
                         } else {
                             alert(data.data);
                         }
