@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class TagCloudWidget
+ */
 class TagCloudWidget extends yupe\widgets\YWidget
 {
     /**
@@ -7,6 +10,9 @@ class TagCloudWidget extends yupe\widgets\YWidget
      */
     public $limit = 50;
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $model = Post::model();
@@ -23,7 +29,7 @@ class TagCloudWidget extends yupe\widgets\YWidget
         );
 
         $this->render('tagsCloud', [
-            'tags' => $model->getAllTagsWithModelsCount($criteria)
+            'tags' => $model->getAllTagsWithModelsCount($criteria),
         ]);
     }
 }

@@ -78,7 +78,7 @@ return [
     'Create post and continue' => 'Добавить запись и продолжить',
     'Create user' => 'Добавить участника',
     'Create' => 'Добавление',
-    'Created at' => 'Дата создания',
+    'Created at' => 'Создан',
     'Created' => 'Создал',
     'Creating blog' => 'Создание блога',
     'Creating member' => 'Создание участника',

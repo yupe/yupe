@@ -213,6 +213,18 @@ $this->menu = [
                 ),
             ],
             [
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/blog/postBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Post::STATUS_PUBLISHED => ['class' => 'label-success'],
+                    Post::STATUS_SCHEDULED => ['class' => 'label-info'],
+                    Post::STATUS_DRAFT     => ['class' => 'label-default'],
+                    Post::STATUS_MODERATED => ['class' => 'label-warning'],
+                ],
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => [
                     'url'     => $this->createUrl('/blog/postBackend/inline'),
@@ -230,18 +242,6 @@ $this->menu = [
                 'header' => "<i class=\"fa fa-comment\"></i>",
                 'value'  => 'CHtml::link(($data->commentsCount>0) ? $data->commentsCount-1 : 0,array("/comment/commentBackend/index/","Comment[model]" => "Post","Comment[model_id]" => $data->id))',
                 'type'   => 'raw',
-            ],
-            [
-                'class'   => 'yupe\widgets\EditableStatusColumn',
-                'name'    => 'status',
-                'url'     => $this->createUrl('/blog/postBackend/inline'),
-                'source'  => $model->getStatusList(),
-                'options' => [
-                    Post::STATUS_PUBLISHED => ['class' => 'label-success'],
-                    Post::STATUS_SCHEDULED => ['class' => 'label-info'],
-                    Post::STATUS_DRAFT     => ['class' => 'label-default'],
-                    Post::STATUS_MODERATED => ['class' => 'label-warning'],
-                ],
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',

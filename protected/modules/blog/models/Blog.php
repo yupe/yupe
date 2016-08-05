@@ -87,8 +87,7 @@ class Blog extends yupe\models\YModel
     public function rules()
     {
         return [
-            ['name, description, slug', 'required', 'except' => 'search'],
-            ['name, description, slug', 'required', 'on' => ['update', 'insert']],
+            ['name, description, slug', 'required'],
             [
                 'type, status, create_user_id, update_user_id, create_time, update_time, category_id, member_status, post_status',
                 'numerical',
@@ -138,8 +137,6 @@ class Blog extends yupe\models\YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return [
             'createUser'   => [self::BELONGS_TO, 'User', 'create_user_id'],
             'updateUser'   => [self::BELONGS_TO, 'User', 'update_user_id'],
@@ -269,20 +266,13 @@ class Blog extends yupe\models\YModel
         ];
     }
 
+
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     *
-     * @return CActiveDataProvider the data provider that can return the models
-     *                             based on the search/filter conditions.
+     * @return CActiveDataProvider
      */
     public function search()
     {
         $criteria = new CDbCriteria();
-
-        $criteria->select = 't.*, count(post.id) as postsCount, count(member.id) as membersCount';
-        $criteria->join = ' LEFT JOIN {{blog_post}} post ON post.blog_id = t.id
-                            LEFT JOIN {{blog_user_to_blog}} member ON member.blog_id = t.id';
-        $criteria->group = 't.id';
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('t.name', $this->name, true);
@@ -296,31 +286,8 @@ class Blog extends yupe\models\YModel
         $criteria->compare('t.create_time', $this->create_time);
         $criteria->compare('t.update_time', $this->update_time);
 
-        $criteria->with = ['createUser', 'updateUser', 'postsCount', 'membersCount'];
-
-        $sort = new CSort();
-        $sort->defaultOrder = [
-            'postsCount' => CSort::SORT_DESC
-        ];
-
-        $sort->attributes = [
-            'postsCount'   => [
-                'asc'   => 'postsCount ASC',
-                'desc'  => 'postsCount DESC',
-                'label' => Yii::t('BlogModule.blog', 'Posts count')
-            ],
-            'membersCount' => [
-                'asc'   => 'membersCount ASC',
-                'desc'  => 'membersCount DESC',
-                'label' => Yii::t('BlogModule.blog', 'Members count')
-            ],
-            '*', // add all of the other columns as sortable
-        ];
-
         return new CActiveDataProvider(get_class($this), [
             'criteria'   => $criteria,
-            'pagination' => ['pageSize' => 10],
-            'sort'       => $sort
         ]);
     }
 
@@ -664,6 +631,10 @@ class Blog extends yupe\models\YModel
         return $this->create_user_id == $userId;
     }
 
+    /**
+     * @param $userId
+     * @return mixed
+     */
     public function getPrivateBlogsForUser($userId)
     {
         return $this->published()->findAll('create_user_id = :id AND type = :type', [
@@ -672,9 +643,12 @@ class Blog extends yupe\models\YModel
         ]);
     }
 
+    /**
+     * @param $userId
+     * @return array|mixed
+     */
     public function getListForUser($userId)
     {
         return CMap::mergeArray($this->getMembershipListForUser($userId), $this->getPrivateBlogsForUser($userId));
     }
-
 }

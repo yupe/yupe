@@ -187,22 +187,6 @@ $this->menu = [
                 'filter' => User::getFullNameList(),
             ],
             [
-                'name' => 'create_time',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_time, "short", "short")',
-                'filter' => false,
-            ],
-            [
-                'header' => Yii::t('BlogModule.blog', 'Posts'),
-                'value' => 'CHtml::link($data->postsCount, array("/blog/postBackend/index","Post[blog_id]" => $data->id ))',
-                'type' => 'html',
-            ],
-            [
-                'header' => Yii::t('BlogModule.blog', 'Members'),
-                'value' => 'CHtml::link($data->membersCount, array("/blog/userToBlogBackend/index","UserToBlog[blog_id]" => $data->id ))',
-                'type' => 'html',
-            ],
-
-            [
                 'class' => 'yupe\widgets\CustomButtonColumn',
                 'frontViewButtonUrl' => function ($data) {
                     return Yii::app()->createUrl('/blog/blog/view', ['slug' => $data->slug]);

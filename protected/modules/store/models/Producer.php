@@ -44,8 +44,6 @@ class Producer extends yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
             ['name_short, name, slug, status', 'required'],
             ['name_short, name, slug, short_description, description', 'filter', 'filter' => 'trim'],
