@@ -15,9 +15,9 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
      */
     public function init()
     {
-        $this->productRepository = Yii::app()->getComponent('productRepository');
-
         parent::init();
+
+        $this->productRepository = Yii::app()->getComponent('productRepository');
     }
 
     /**
