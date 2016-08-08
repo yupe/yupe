@@ -573,7 +573,8 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
   (124,	'order',	'm160618_145025_add_status_color',	1466603708),
   (125,	'store',	'm160602_091243_add_position_product_index',	1466603715),
   (126,	'store',	'm160602_091909_add_producer_sort_index',	1466603715),
-  (127,	'store',	'm160713_105449_remove_irrelevant_product_status',	1468413312);
+  (127,	'store',	'm160713_105449_remove_irrelevant_product_status',	1468413312),
+  (128,	'store',	'm160805_070905_add_attribute_description',	1470643316);
 
 DROP TABLE IF EXISTS `yupe_news_news`;
 CREATE TABLE `yupe_news_news` (
@@ -711,6 +712,7 @@ CREATE TABLE `yupe_store_attribute` (
   `required` tinyint(1) NOT NULL DEFAULT '0',
   `sort` int(11) NOT NULL DEFAULT '0',
   `is_filter` smallint(6) NOT NULL DEFAULT '1',
+  `description` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_store_attribute_name_group` (`name`,`group_id`),
   KEY `ix_yupe_store_attribute_title` (`title`),
@@ -718,10 +720,10 @@ CREATE TABLE `yupe_store_attribute` (
   CONSTRAINT `fk_yupe_store_attribute_group` FOREIGN KEY (`group_id`) REFERENCES `yupe_store_attribute_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `yupe_store_attribute` (`id`, `group_id`, `name`, `title`, `type`, `unit`, `required`, `sort`, `is_filter`) VALUES
-  (1,	1,	'diagonal',	'Диагональ',	6,	'',	0,	1,	1),
-  (2,	1,	'matrica',	'Матрица',	1,	'',	0,	2,	1),
-  (3,	2,	'tip-klaviatury',	'Тип клавиатуры',	2,	'',	0,	3,	1);
+INSERT INTO `yupe_store_attribute` (`id`, `group_id`, `name`, `title`, `type`, `unit`, `required`, `sort`, `is_filter`, `description`) VALUES
+  (1,	1,	'diagonal',	'Диагональ',	6,	'',	0,	1,	1,	NULL),
+  (2,	1,	'matrica',	'Матрица',	1,	'',	0,	2,	1,	NULL),
+  (3,	2,	'tip-klaviatury',	'Тип клавиатуры',	2,	'',	0,	3,	1,	NULL);
 
 DROP TABLE IF EXISTS `yupe_store_attribute_group`;
 CREATE TABLE `yupe_store_attribute_group` (
