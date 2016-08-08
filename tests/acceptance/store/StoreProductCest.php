@@ -335,7 +335,7 @@ class StoreProductCest
 
         $I->expectTo('see product details table');
         $I->seeElement('table', ['class' => 'detail-view table table-striped table-condensed']);
-        $I->see('Тип атрибута', 'th');
+        $I->see('Тип', 'th');
         $I->see('Мониторы', 'td');
         $I->see('Название', 'th');
         $I->see('Dell U2715H', 'td');
@@ -410,7 +410,7 @@ class StoreProductCest
         $I->see('Просмотр товара', 'h1');
         $I->see('«A4Tech Bloody B740 White USB»', 'small');
 
-        $I->see('Тип атрибута', 'th');
+        $I->see('Тип', 'th');
         $I->see('Клавиатуры', 'td');
         $I->see('Название', 'th');
         $I->see('A4Tech Bloody B740 White USB', 'td');
