@@ -28,6 +28,7 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
     public function init()
     {
         parent::init();
+        ob_start();
 
         $this->attributesRepository = new AttributesRepository();
     }
@@ -37,6 +38,8 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
      */
     public function run()
     {
+        $content = ob_get_clean();
+        
         if ($this->category) {
             $this->attributes = $this->attributesRepository->getForCategory($this->category);
         }
@@ -90,5 +93,7 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
                 }
             }
         }
+        
+        echo empty($this->attributes) ? '' : $content;
     }
 } 
