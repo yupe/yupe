@@ -935,6 +935,12 @@ CREATE TABLE `yupe_store_order_status` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_order_status` (`id`, `name`, `is_system`, `color`) VALUES
+  (1,	'Новый',	1,	'default'),
+  (2,	'Принят',	1,	'info'),
+  (3,	'Выполнен',	1,	'success'),
+  (4,	'Удален',	1,	'danger');
+
 DROP TABLE IF EXISTS `yupe_store_payment`;
 CREATE TABLE `yupe_store_payment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
