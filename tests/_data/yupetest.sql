@@ -895,6 +895,11 @@ CREATE TABLE `yupe_store_order` (
   CONSTRAINT `fk_yupe_store_order_user` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `yupe_store_order` (`id`, `delivery_id`, `delivery_price`, `payment_method_id`, `paid`, `payment_time`, `payment_details`, `total_price`, `discount`, `coupon_discount`, `separate_delivery`, `status_id`, `date`, `user_id`, `name`, `street`, `phone`, `email`, `comment`, `ip`, `url`, `note`, `modified`, `zipcode`, `country`, `city`, `house`, `apartment`, `manager_id`) VALUES
+  (1,	1,	0.00,	1,	1,	NULL,	NULL,	38600.00,	0.00,	0.00,	0,	2,	'2016-08-14 12:05:26',	1,	'yupe',	'',	'',	'yupe@yupe.local',	'',	'127.0.0.1',	'c8d31e026fc79b4aef0f836e36a7aa38',	'',	'2016-08-14 17:16:49',	'',	'',	'',	'',	'',	NULL),
+  (2,	1,	0.00,	1,	0,	NULL,	NULL,	2500.00,	0.00,	0.00,	0,	1,	'2016-08-14 16:54:09',	1,	'yupe',	'Тестовая',	'+7(123)345-56-67',	'yupe@yupe.local',	'',	'127.0.0.1',	'bc63f565472e18a246401b22fd39b2ad',	'',	'2016-08-14 17:16:42',	'010203',	'Россия',	'Багополис',	'345',	'12',	NULL),
+  (3,	2,	500.00,	1,	1,	NULL,	NULL,	13320.00,	0.00,	0.00,	0,	3,	'2016-08-14 19:46:58',	2,	'Платежеспособный Клиент Бабосович',	'',	'',	'test@my.app',	'',	'127.0.0.1',	'bb11db07dcbae5807cd67113ccfc3aba',	'',	'2016-08-14 19:47:32',	'',	'',	'',	'',	'',	NULL);
+
 DROP TABLE IF EXISTS `yupe_store_order_coupon`;
 CREATE TABLE `yupe_store_order_coupon` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -925,6 +930,12 @@ CREATE TABLE `yupe_store_order_product` (
   CONSTRAINT `fk_yupe_store_order_product_order` FOREIGN KEY (`order_id`) REFERENCES `yupe_store_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_yupe_store_order_product_product` FOREIGN KEY (`product_id`) REFERENCES `yupe_store_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `yupe_store_order_product` (`id`, `order_id`, `product_id`, `product_name`, `variants`, `variants_text`, `price`, `quantity`, `sku`) VALUES
+  (1,	1,	1,	'Dell U2715H',	'a:0:{}',	NULL,	36100.00,	1,	'TST1'),
+  (2,	1,	5,	'A4Tech B314 Black USB',	'a:0:{}',	NULL,	2500.00,	1,	'TST5'),
+  (3,	2,	5,	'A4Tech B314 Black USB',	'a:0:{}',	NULL,	2500.00,	1,	'TST5'),
+  (4,	3,	2,	'Dell P2214H',	'a:0:{}',	NULL,	13320.00,	1,	'TST2');
 
 DROP TABLE IF EXISTS `yupe_store_order_status`;
 CREATE TABLE `yupe_store_order_status` (
@@ -1211,7 +1222,9 @@ CREATE TABLE `yupe_user_tokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `yupe_user_tokens` (`id`, `user_id`, `token`, `type`, `status`, `create_time`, `update_time`, `ip`, `expire_time`) VALUES
-  (1,	1,	'ef5145bedaca7f17957350d817fd9807',	1,	1,	'2013-11-05 20:02:30',	'2013-11-05 20:02:31',	'127.0.0.1',	'0000-00-00 00:00:00');
+  (1,	1,	'ef5145bedaca7f17957350d817fd9807',	1,	1,	'2013-11-05 20:02:30',	'2013-11-05 20:02:31',	'127.0.0.1',	'0000-00-00 00:00:00'),
+  (5,	1,	'~6k3yLuZHR8o2JsEkXQ5mtIpq3GUFgP6',	4,	0,	'2016-08-14 19:36:47',	'2016-08-14 19:36:47',	'127.0.0.1',	'0000-00-00 00:00:00'),
+  (6,	2,	'a6MGCS1kJTUt71OWlSpjYYlWQQaA8yCB',	4,	0,	'2016-08-14 19:46:39',	'2016-08-14 19:46:39',	'127.0.0.1',	'0000-00-00 00:00:00');
 
 DROP TABLE IF EXISTS `yupe_user_user`;
 CREATE TABLE `yupe_user_user` (
@@ -1242,7 +1255,8 @@ CREATE TABLE `yupe_user_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `yupe_user_user` (`id`, `update_time`, `first_name`, `middle_name`, `last_name`, `nick_name`, `email`, `gender`, `birth_date`, `site`, `about`, `location`, `status`, `access_level`, `visit_time`, `create_time`, `avatar`, `hash`, `email_confirm`, `phone`) VALUES
-  (1,	'2013-11-05 20:02:30',	'',	'',	'',	'yupe',	'yupe@yupe.local',	0,	NULL,	'',	'',	'',	1,	1,	'2015-12-27 10:36:10',	'2013-11-05 20:02:30',	NULL,	'$2a$13$kV7qdBBM3MPYW.6LAKeiv.iIAMDa4BZFhwzjMWhCm78UmDT8wDH7G',	1,	NULL);
+  (1,	'2016-08-14 17:17:50',	'Тестер',	'Петрович',	'Багин',	'yupe',	'yupe@yupe.local',	0,	NULL,	'',	'',	'',	1,	1,	'2016-08-14 19:36:47',	'2013-11-05 20:02:30',	NULL,	'$2a$13$kV7qdBBM3MPYW.6LAKeiv.iIAMDa4BZFhwzjMWhCm78UmDT8wDH7G',	1,	''),
+  (2,	'2016-08-14 19:41:01',	'Клиент',	'Бабосович',	'Платежеспособный',	'tester',	'test@my.app',	0,	NULL,	'',	'',	'',	1,	0,	'2016-08-14 19:46:39',	'2016-08-14 19:39:21',	NULL,	'$2y$13$6UH8Ar9DEfK2YJIQ0YEKRusAcNJeLzgW7W.RdrGRO1JUn6CdPXWK6',	1,	'+7(123)345-56-67');
 
 DROP TABLE IF EXISTS `yupe_user_user_auth_assignment`;
 CREATE TABLE `yupe_user_user_auth_assignment` (
