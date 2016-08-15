@@ -8,6 +8,7 @@ use tests\acceptance\user\steps\UserSteps;
 
 class StoreOrderCest
 {
+    const BACKEND_ORDER_PATH = '/backend/order/order';
     const BACKEND_ORDER_STATUS_PATH = '/backend/order/status';
     const BACKEND_ORDER_CLIENT_PATH = '/backend/order/client';
 
@@ -226,5 +227,98 @@ class StoreOrderCest
         $I->see('Комментарии 0');
         $I->seeElement('textarea', ['name' => 'Comment[text]']);
         $I->see('Добавить комментарий');
+    }
+
+    public function tryToTestOrderListBackend(WebGuy $I, $scenario)
+    {
+        $I->wantToTest('order backend');
+
+        $I = new UserSteps($scenario);
+        $I->loginAsAdminAndGoToThePanel(CommonPage::TEST_USER_NAME, CommonPage::TEST_PASSWORD);
+        $I->am('administrator');
+
+        $I->amOnPage(self::BACKEND_ORDER_PATH);
+
+        $I->see('Заказы', 'h1');
+        $I->see('управление', 'small');
+
+        $I->expectTo('see sidebar menu');
+        $I->seeLink('Все заказы');
+        $I->seeLink('Добавить заказ');
+        $I->seeLink('Статусы заказов');
+        $I->seeLink('Добавить статус');
+
+        $I->see('Элементы 1—3 из 3.', '.summary');
+        $I->see('Добавить', '.btn-success');
+        $I->see('Удалить', '#delete-order');
+        $I->see('№', '.sort-link');
+        $I->see('Создан', '.sort-link');
+        $I->see('Клиент', '.sort-link');
+        $I->see('Сумма', '.sort-link');
+        $I->see('Статус', '.sort-link');
+        $I->see('Оплата', '.sort-link');
+        $I->see('Оплачено', '.sort-link');
+        $I->see('Доставка', '.sort-link');
+        $I->see('Менеджер', '.sort-link');
+        $I->seeLink('Платежеспособный Клиент Бабосович');
+        $I->seeLink('Багин Тестер Петрович');
+        $I->see('13 320,00 руб.', 'td');
+        $I->see('38 600,00 руб.', 'td');
+        $I->see('Наличными', 'td');
+        $I->see('Курьером');
+        $I->see('Самовывоз');
+
+        $I->amGoingTo('test order table filter');
+        $I->seeElement('input', ['name' => 'Order[id]']);
+        $I->seeElement('input', ['name' => 'Order[name]']);
+        $I->seeElement('input', ['name' => 'Order[total_price]']);
+        $I->seeElement('select', ['name' => 'Order[status_id]']);
+        $I->seeElement('select', ['name' => 'Order[payment_method_id]']);
+        $I->seeElement('select', ['name' => 'Order[paid]']);
+        $I->seeElement('select', ['name' => 'Order[delivery_id]']);
+        $I->seeElement('select', ['name' => 'Order[manager_id]']);
+
+        $I->fillField('Order[id]', 3);
+        $I->pressKey('#Order_id', WebDriverKeys::ENTER);
+        $I->wait(1);
+        $I->seeLink('Платежеспособный Клиент Бабосович');
+        $I->dontSeeLink('Багин Тестер Петрович');
+        $I->amOnPage(self::BACKEND_ORDER_PATH);
+        $I->fillField('Order[name]', 'баг');
+        $I->pressKey('#Order_name', WebDriverKeys::ENTER);
+        $I->wait(1);
+        $I->seeLink('Багин Тестер Петрович');
+        $I->dontSeeLink('Платежеспособный Клиент Бабосович');
+        $I->amOnPage(self::BACKEND_ORDER_PATH);
+        $I->fillField('Order[total_price]', 13320);
+        $I->pressKey('#Order_total_price', WebDriverKeys::ENTER);
+        $I->wait(1);
+        $I->seeLink('Платежеспособный Клиент Бабосович');
+        $I->dontSeeLink('Багин Тестер Петрович');
+        $I->amOnPage(self::BACKEND_ORDER_PATH);
+        $I->selectOption('Order[status_id]', 'Новый');
+        $I->wait(1);
+        $I->seeLink('Багин Тестер Петрович');
+        $I->dontSeeLink('Платежеспособный Клиент Бабосович');
+        $I->amOnPage(self::BACKEND_ORDER_PATH);
+        $I->selectOption('Order[payment_method_id]', 'Робокасса');
+        $I->wait(1);
+        $I->see('Нет результатов.');
+        $I->amOnPage(self::BACKEND_ORDER_PATH);
+        $I->selectOption('Order[paid]', 'Не оплачен');
+        $I->wait(1);
+        $I->seeLink('Багин Тестер Петрович');
+        $I->dontSeeLink('Платежеспособный Клиент Бабосович');
+        $I->amOnPage(self::BACKEND_ORDER_PATH);
+        $I->selectOption('Order[delivery_id]', 'Курьером');
+        $I->wait(1);
+        $I->seeLink('Платежеспособный Клиент Бабосович');
+        $I->dontSeeLink('Багин Тестер Петрович');
+        $I->amOnPage(self::BACKEND_ORDER_PATH);
+        $I->selectOption('Order[manager_id]', 'Багин Тестер Петрович');
+        $I->wait(1);
+        $I->seeLink('Платежеспособный Клиент Бабосович');
+        $I->dontSeeLink('Багин Тестер Петрович');
+        $I->amOnPage(self::BACKEND_ORDER_PATH);
     }
 }

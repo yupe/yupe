@@ -898,7 +898,7 @@ CREATE TABLE `yupe_store_order` (
 INSERT INTO `yupe_store_order` (`id`, `delivery_id`, `delivery_price`, `payment_method_id`, `paid`, `payment_time`, `payment_details`, `total_price`, `discount`, `coupon_discount`, `separate_delivery`, `status_id`, `date`, `user_id`, `name`, `street`, `phone`, `email`, `comment`, `ip`, `url`, `note`, `modified`, `zipcode`, `country`, `city`, `house`, `apartment`, `manager_id`) VALUES
   (1,	1,	0.00,	1,	1,	NULL,	NULL,	38600.00,	0.00,	0.00,	0,	2,	'2016-08-14 12:05:26',	1,	'yupe',	'',	'',	'yupe@yupe.local',	'',	'127.0.0.1',	'c8d31e026fc79b4aef0f836e36a7aa38',	'',	'2016-08-14 17:16:49',	'',	'',	'',	'',	'',	NULL),
   (2,	1,	0.00,	1,	0,	NULL,	NULL,	2500.00,	0.00,	0.00,	0,	1,	'2016-08-14 16:54:09',	1,	'yupe',	'Тестовая',	'+7(123)345-56-67',	'yupe@yupe.local',	'',	'127.0.0.1',	'bc63f565472e18a246401b22fd39b2ad',	'',	'2016-08-14 17:16:42',	'010203',	'Россия',	'Багополис',	'345',	'12',	NULL),
-  (3,	2,	500.00,	1,	1,	NULL,	NULL,	13320.00,	0.00,	0.00,	0,	3,	'2016-08-14 19:46:58',	2,	'Платежеспособный Клиент Бабосович',	'',	'',	'test@my.app',	'',	'127.0.0.1',	'bb11db07dcbae5807cd67113ccfc3aba',	'',	'2016-08-14 19:47:32',	'',	'',	'',	'',	'',	NULL);
+  (3,	2,	500.00,	1,	1,	NULL,	NULL,	13320.00,	0.00,	0.00,	0,	3,	'2016-08-14 19:46:58',	2,	'Платежеспособный Клиент Бабосович',	'',	'',	'test@my.app',	'',	'127.0.0.1',	'bb11db07dcbae5807cd67113ccfc3aba',	'',	'2016-08-15 20:41:08',	'',	'',	'',	'',	'',	1);
 
 DROP TABLE IF EXISTS `yupe_store_order_coupon`;
 CREATE TABLE `yupe_store_order_coupon` (

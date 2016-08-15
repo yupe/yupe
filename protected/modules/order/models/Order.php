@@ -240,7 +240,7 @@ class Order extends yupe\models\YModel
         $criteria = new CDbCriteria;
         $criteria->with = ['delivery', 'payment', 'client', 'status'];
 
-        $criteria->compare('id', $this->id);
+        $criteria->compare('t.id', $this->id);
         $criteria->compare('t.name', $this->name, true);
         $criteria->compare('delivery_id', $this->delivery_id);
         $criteria->compare('delivery_price', $this->delivery_price);
