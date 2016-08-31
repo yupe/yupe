@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * Class UserBlogsWidget
+ */
 class UserBlogsWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'userblogs';
 
+    /**
+     * @var
+     */
     public $userId;
 
+    /**
+     * @throws CException
+     */
     public function init()
     {
         if (!$this->userId) {
@@ -15,6 +27,9 @@ class UserBlogsWidget extends yupe\widgets\YWidget
         parent::init();
     }
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $this->render($this->view, ['models' => Blog::model()->getMembershipListForUser($this->userId)]);

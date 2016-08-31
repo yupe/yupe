@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * Class UserPostCommentsWidget
+ */
 class UserPostCommentsWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'userpostcomments';
 
+    /**
+     * @var
+     */
     public $userId;
 
+    /**
+     * @throws CException
+     */
     public function init()
     {
         if (!$this->userId) {
@@ -15,6 +27,9 @@ class UserPostCommentsWidget extends yupe\widgets\YWidget
         parent::init();
     }
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         Yii::import('application.modules.comment.CommentModule');

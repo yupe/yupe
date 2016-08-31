@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class PanelStatWidget
+ */
 class PanelStatWidget extends \yupe\widgets\YWidget
 {
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $dataProvider = new CActiveDataProvider('Post', [

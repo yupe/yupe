@@ -12,6 +12,9 @@
  */
 class BlogRssController extends yupe\components\controllers\RssController
 {
+    /**
+     * @throws CHttpException
+     */
     public function loadData()
     {
         if (!($limit = (int)$this->module->rssCount)) {
@@ -64,6 +67,9 @@ class BlogRssController extends yupe\components\controllers\RssController
         }
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [

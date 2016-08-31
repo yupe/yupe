@@ -13,6 +13,9 @@
  */
 class QueueBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -26,6 +29,9 @@ class QueueBackendController extends yupe\components\controllers\BackController
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [

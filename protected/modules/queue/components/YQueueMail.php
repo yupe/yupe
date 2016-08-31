@@ -26,15 +26,6 @@ class YQueueMail extends yupe\components\Mail
      * @var
      */
     private $_queue;
-
-    /**
-     *
-     */
-    public function init()
-    {
-        parent::init();
-    }
-
     /**
      * @return mixed
      * @throws Exception

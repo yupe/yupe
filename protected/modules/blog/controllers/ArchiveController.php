@@ -12,6 +12,9 @@
  */
 class ArchiveController extends \yupe\components\controllers\FrontController
 {
+    /**
+     *
+     */
     public function actionIndex()
     {
         $this->render(

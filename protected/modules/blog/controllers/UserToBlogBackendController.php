@@ -12,6 +12,9 @@
  */
 class UserToBlogBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -25,6 +28,9 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [

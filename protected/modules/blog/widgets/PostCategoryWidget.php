@@ -12,8 +12,14 @@
  */
 class PostCategoryWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'post-category';
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $data = Yii::app()->db->cache($this->cacheTime)->createCommand()

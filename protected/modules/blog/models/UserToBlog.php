@@ -32,13 +32,34 @@
  */
 class UserToBlog extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const ROLE_USER = 1;
+    /**
+     *
+     */
     const ROLE_MODERATOR = 2;
+    /**
+     *
+     */
     const ROLE_ADMIN = 3;
 
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
+    /**
+     *
+     */
     const STATUS_BLOCK = 2;
+    /**
+     *
+     */
     const STATUS_DELETED = 3;
+    /**
+     *
+     */
     const STATUS_CONFIRMATION = 4;
 
     /**
@@ -64,8 +85,6 @@ class UserToBlog extends yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
             ['user_id, blog_id', 'required', 'except' => 'search'],
             ['role, status, user_id, blog_id, create_time, update_time', 'numerical', 'integerOnly' => true],
@@ -83,24 +102,28 @@ class UserToBlog extends yupe\models\YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return [
             'blog' => [self::BELONGS_TO, 'Blog', 'blog_id'],
             'user' => [self::BELONGS_TO, 'User', 'user_id'],
         ];
     }
 
+    /**
+     *
+     */
     public function afterSave()
     {
-        Yii::app()->cache->delete("Blog::Blog::members::{$this->user_id}");
+        Yii::app()->getCache()->delete("Blog::Blog::members::{$this->user_id}");
 
         return parent::afterSave();
     }
 
+    /**
+     * @return bool
+     */
     public function beforeDelete()
     {
-        Yii::app()->cache->delete("Blog::Blog::members::{$this->user_id}");
+        Yii::app()->getCache()->delete("Blog::Blog::members::{$this->user_id}");
 
         return parent::beforeDelete();
     }
@@ -149,9 +172,6 @@ class UserToBlog extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
@@ -175,6 +195,9 @@ class UserToBlog extends yupe\models\YModel
         ]);
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -185,6 +208,9 @@ class UserToBlog extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getRoleList()
     {
         return [
@@ -194,6 +220,9 @@ class UserToBlog extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getRole()
     {
         $data = $this->getRoleList();
@@ -201,6 +230,9 @@ class UserToBlog extends yupe\models\YModel
         return isset($data[$this->role]) ? $data[$this->role] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
@@ -211,6 +243,9 @@ class UserToBlog extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
@@ -218,26 +253,37 @@ class UserToBlog extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
+    /**
+     * @return bool
+     */
     public function isDeleted()
     {
         return $this->status == self::STATUS_DELETED;
     }
 
+    /**
+     * @return bool
+     */
     public function isActive()
     {
         return $this->status === self::STATUS_ACTIVE;
     }
 
+    /**
+     * @return bool
+     */
     public function isConfirmation()
     {
         return $this->status === self::STATUS_CONFIRMATION;
     }
 
+    /**
+     * @return $this
+     */
     public function activate()
     {
         $this->status = self::STATUS_ACTIVE;
 
         return $this;
     }
-
 }

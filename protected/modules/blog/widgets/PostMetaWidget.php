@@ -12,10 +12,19 @@
  */
 class PostMetaWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var
+     */
     public $post;
 
+    /**
+     * @var string
+     */
     public $view = 'post-meta';
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $this->render($this->view, ['post' => $this->post]);

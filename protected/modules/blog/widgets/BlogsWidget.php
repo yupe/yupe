@@ -13,10 +13,19 @@
 
 Yii::import('application.modules.blog.models.Blog');
 
+/**
+ * Class BlogsWidget
+ */
 class BlogsWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'blogswidget';
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $models = Blog::model()->public()->published()->cache($this->cacheTime)->with(

@@ -12,12 +12,24 @@
  */
 Yii::import('application.modules.blog.models.*');
 
+/**
+ * Class LastPostsWidget
+ */
 class LastPostsWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'lastposts';
 
+    /**
+     * @var
+     */
     public $criteria;
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $criteria = [

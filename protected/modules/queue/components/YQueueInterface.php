@@ -14,7 +14,16 @@
  */
 interface YQueueInterface
 {
+    /**
+     * @param $worker
+     * @param array $task
+     * @return mixed
+     */
     public function add($worker, array $task);
 
+    /**
+     * @param null $worker
+     * @return mixed
+     */
     public function flush($worker = null);
 }

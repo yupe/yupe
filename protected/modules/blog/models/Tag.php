@@ -47,13 +47,9 @@ class Tag extends yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return [
             ['name', 'required'],
             ['name', 'length', 'max' => 255],
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             ['id, name', 'safe', 'on' => 'search'],
         ];
     }
@@ -63,8 +59,6 @@ class Tag extends yupe\models\YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return [
             'yupePosts' => [self::MANY_MANY, 'Post', '{{post_to_tag}}(tag_id, post_id)'],
         ];
@@ -87,9 +81,6 @@ class Tag extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);

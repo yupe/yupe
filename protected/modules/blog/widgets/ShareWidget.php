@@ -12,8 +12,14 @@
  */
 class ShareWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'share';
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $this->render($this->view);

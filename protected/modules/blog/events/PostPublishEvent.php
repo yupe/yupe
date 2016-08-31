@@ -2,12 +2,26 @@
 
 use yupe\components\Event;
 
+/**
+ * Class PostPublishEvent
+ */
 class PostPublishEvent extends Event
 {
+    /**
+     * @var Post
+     */
     protected $post;
 
+    /**
+     * @var IWebUser
+     */
     protected $user;
 
+    /**
+     * PostPublishEvent constructor.
+     * @param Post $post
+     * @param IWebUser $user
+     */
     public function __construct(Post $post, IWebUser $user)
     {
         $this->post = $post;

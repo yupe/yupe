@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class PublisherController
+ */
 class PublisherController extends \yupe\components\controllers\FrontController
 {
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -18,6 +24,9 @@ class PublisherController extends \yupe\components\controllers\FrontController
         ];
     }
 
+    /**
+     * @return array
+     */
     public function filters()
     {
         return [
@@ -25,6 +34,9 @@ class PublisherController extends \yupe\components\controllers\FrontController
         ];
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionWrite()
     {
         $post = new Post();
@@ -79,11 +91,17 @@ class PublisherController extends \yupe\components\controllers\FrontController
         ]);
     }
 
+    /**
+     *
+     */
     public function actionMy()
     {
         $this->render('my', ['posts' => (new Post())->getForUser(Yii::app()->getUser()->getId())]);
     }
 
+    /**
+     *
+     */
     public function actionDelete()
     {
         if ((new Post())->deleteUserPost(Yii::app()->getRequest()->getQuery('id'), Yii::app()->getUser()->getId())) {
