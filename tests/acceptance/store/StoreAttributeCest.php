@@ -31,7 +31,7 @@ class StoreAttributeCest
         $I->see('Название', '.sort-link');
         $I->see('Алиас', '.sort-link');
         $I->see('Группа', '.sort-link');
-        $I->see('Тип атрибута', '.sort-link');
+        $I->see('Тип', '.sort-link');
         $I->see('Обязательный', '.sort-link');
         $I->see('Фильтр', '.sort-link');
         $I->seeLink('Тип клавиатуры');
@@ -92,7 +92,7 @@ class StoreAttributeCest
         $I->see('Атрибут', 'h1');
         $I->expectTo('see validation errors');
         $I->click('Добавить атрибут и закрыть');
-        $I->see('Необходимо заполнить поле «Тип атрибута»', '.error');
+        $I->see('Необходимо заполнить поле «Тип»', '.error');
         $I->see('Необходимо заполнить поле «Название»', '.error');
         $I->see('Необходимо заполнить поле «Алиас»', '.error');
 
