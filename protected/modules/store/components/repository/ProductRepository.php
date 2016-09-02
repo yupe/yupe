@@ -151,6 +151,13 @@ class ProductRepository extends CApplicationComponent
                 } else {
                     $in = new CDbCriteria();
                     $in->addInCondition("{$alias}.".$params['column'], $params['value']);
+                    
+                    //@TODO подумать как улучшить
+                    $use_greed_search = Attribute::model()->findByAttributes(['name' => $attribute])->is_greed_search;
+                    if( intval($use_greed_search)) {
+                        $in->group = "t.id";
+                        $in->having = "COUNT({$alias}.id) = ".count($params['value']);
+                    }
                     $criteria->mergeWith($in);
                 }
             } else {
