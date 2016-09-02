@@ -126,6 +126,7 @@ return [
     'First you need to save the product.' => 'Сначала необходимо сохранить товар.',
     'Fix price with discount' => 'Фиксированная цена со скидкой',
     'from' => 'от',
+    'Greed' => 'Включить строгий поиск в фильтре',
     'Group title' => 'Название группы',
     'Group' => 'Группа',
     'Height' => 'Высота',
