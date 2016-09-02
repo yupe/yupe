@@ -13,6 +13,7 @@
  * @property string $unit
  * @property integer $sort
  * @property integer $is_filter
+ * @property integer $is_greed_search
  * @property string $description
  * @property-read AttributeOption[] $options
  * @property-read AttributeGroup $group
@@ -89,7 +90,7 @@ class Attribute extends \yupe\models\YModel
                 'pattern' => '/^([a-z0-9._-])+$/i',
                 'message' => Yii::t('StoreModule.store', 'The name can contain only letters, numbers and underscores.'),
             ],
-            ['type, group_id, sort, is_filter', 'numerical', 'integerOnly' => true],
+            ['type, group_id, sort, is_filter, is_greed_search', 'numerical', 'integerOnly' => true],
             ['required', 'boolean'],
             ['unit', 'length', 'max' => 30],
             ['rawOptions', 'safe'],
@@ -127,6 +128,7 @@ class Attribute extends \yupe\models\YModel
             'unit' => Yii::t('StoreModule.store', 'Unit'),
             'sort' => Yii::t('StoreModule.store', 'Sort'),
             'is_filter' => Yii::t('StoreModule.store', 'Filter'),
+            'is_greed_search' => Yii::t('StoreModule.store', 'Greed'),
             'description' => Yii::t('StoreModule.store', 'Description'),
         ];
     }
@@ -161,6 +163,7 @@ class Attribute extends \yupe\models\YModel
         $criteria->compare('type', $this->type);
         $criteria->compare('group_id', $this->group_id);
         $criteria->compare('is_filter', $this->is_filter);
+        $criteria->compare('is_greed_search', $this->is_greed_search);
         $criteria->compare('required', $this->required);
 
         $sort = new CSort;
