@@ -65,6 +65,7 @@ return [
     'Find category' => '',
     'Find products' => '',
     'First you need to save the product.' => '',
+    'Greed' => 'Use strict search',
     'Height, m.' => '',
     'http://yupe.ru' => '',
     'ID' => '',
