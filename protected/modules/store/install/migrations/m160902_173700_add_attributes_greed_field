@@ -1,0 +1,14 @@
+<?php
+
+class m160902_173700_add_attributes_greed_field extends yupe\components\DbMigration
+{
+    public function safeUp()
+    {
+        $this->addColumn('{{store_attribute}}', 'is_greed_search', 'SMALLINT NOT NULL DEFAULT 0');
+    }
+
+    public function safeDown()
+    {
+        $this->dropColumn('{{store_attribute}}', 'is_greed_search');
+    }
+}
