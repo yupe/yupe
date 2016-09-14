@@ -76,7 +76,7 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-5">
         <?= $form->textFieldGroup(
             $model,
             'title',
@@ -86,6 +86,22 @@ $form = $this->beginWidget(
                         'class' => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('title'),
                         'data-content' => $model->getAttributeDescription('title'),
+                    ],
+                ],
+            ]
+        ); ?>
+    </div>
+    <div class="col-sm-2">
+        <?= $form->dropDownListGroup(
+            $model,
+            'status',
+            [
+                'widgetOptions' => [
+                    'data' => $model->getStatusList(),
+                    'htmlOptions' => [
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('status'),
+                        'data-content' => $model->getAttributeDescription('status'),
                     ],
                 ],
             ]
@@ -132,25 +148,6 @@ $form = $this->beginWidget(
 <div class="row hidden">
     <div class="col-sm-7">
         <?= $form->textFieldGroup($model, 'sort'); ?>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-2">
-        <?= $form->dropDownListGroup(
-            $model,
-            'status',
-            [
-                'widgetOptions' => [
-                    'data' => $model->getStatusList(),
-                    'htmlOptions' => [
-                        'class' => 'popover-help',
-                        'data-original-title' => $model->getAttributeLabel('status'),
-                        'data-content' => $model->getAttributeDescription('status'),
-                    ],
-                ],
-            ]
-        ); ?>
     </div>
 </div>
 

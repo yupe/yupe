@@ -44,6 +44,11 @@ class PageBackendController extends yupe\components\controllers\BackController
                 'model' => 'Page',
                 'validAttributes' => ['title', 'slug', 'status', 'title_short'],
             ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Page',
+                'attribute' => 'order',
+            ],
         ];
     }
 
@@ -80,15 +85,14 @@ class PageBackendController extends yupe\components\controllers\BackController
 
         if (($data = Yii::app()->getRequest()->getPost('Page')) !== null) {
             $model->setAttributes($data);
-            $transaction = Yii::app()->db->beginTransaction();
+            $transaction = Yii::app()->getDb()->beginTransaction();
             try {
-                if ($model->save()) {
-                    // если активен модуль "Меню" - сохраним в меню
+                if (true === $model->save()) {
                     if (Yii::app()->hasModule('menu')) {
                         $menuId = (int)Yii::app()->getRequest()->getPost('menu_id');
                         $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
                         $menu = Menu::model()->findByPk($menuId);
-                        if ($menu) {
+                        if (null !== $menu) {
                             if (!$menu->addItem(
                                 $model->title,
                                 Yii::app()->createUrl('/page/page/view', ['slug' => $model->slug]),
@@ -160,14 +164,17 @@ class PageBackendController extends yupe\components\controllers\BackController
                 )
             );
 
-            $model->lang = $lang;
-            $model->slug = $page->slug;
-            $model->category_id = $page->category_id;
-            $model->title = $page->title;
-            $model->title_short = $page->title_short;
-            $model->parent_id = $page->parent_id;
-            $model->order = $page->order;
-            $model->layout = $page->layout;
+            $model->setAttributes([
+                'lang' => $lang,
+                'slug' => $page->slug,
+                'category_id' => $page->category_id,
+                'title' => $page->title,
+                'title_short' => $page->title_short,
+                'parent_id' => $page->parent_id,
+                'order' => $page->order,
+                'layout' => $page->layout
+            ]);
+
         } else {
             $model->lang = Yii::app()->getLanguage();
         }

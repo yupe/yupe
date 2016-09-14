@@ -361,6 +361,11 @@ class MenuItem extends yupe\models\YModel
         );
     }
 
+    /**
+     * @param $name
+     * @param $condition_denial
+     * @return bool
+     */
     public function getConditionVisible($name, $condition_denial)
     {
         if (empty($name)) {

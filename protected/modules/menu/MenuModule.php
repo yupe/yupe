@@ -219,5 +219,4 @@ class MenuModule extends yupe\components\WebModule
             ],
         ];
     }
-
 }

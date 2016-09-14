@@ -64,7 +64,10 @@ $this->menu = [
         'id'           => 'page-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'sortField'    => 'order',
+        'sortableRows'      => true,
+        'sortableAjaxSave'  => true,
+        'sortableAttribute' => 'order',
+        'sortableAction'    => '/page/pageBackend/sortable',
         'columns'      => [
             [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
@@ -73,7 +76,7 @@ $this->menu = [
                     'url'    => $this->createUrl('/page/pageBackend/inline'),
                     'mode'   => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter'   => CHtml::activeTextField($model, 'title', ['class' => 'form-control']),
@@ -85,7 +88,7 @@ $this->menu = [
                     'url'    => $this->createUrl('/page/pageBackend/inline'),
                     'mode'   => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter'   => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
@@ -104,11 +107,6 @@ $this->menu = [
                 'name'   => 'parent_id',
                 'value'  => '$data->parentName',
                 'filter' => CHtml::listData(Page::model()->findAll(), 'id', 'title')
-            ],
-            [
-                'name'  => 'order',
-                'type'  => 'raw',
-                'value' => '$this->grid->getUpDownButtons($data)',
             ],
             [
                 'name'    => 'lang',

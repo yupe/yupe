@@ -21,7 +21,7 @@ class SortableBehavior extends CActiveRecordBehavior
     public function beforeSave($event)
     {
         if ($this->getOwner()->getIsNewRecord()) {
-            $position = Yii::app()->getDb()->createCommand("select max({$this->attributeName}) from {$this->getOwner()->tableName()}")->queryScalar();
+            $position = Yii::app()->getDb()->createCommand("select max(`{$this->attributeName}`) from {$this->getOwner()->tableName()}")->queryScalar();
             $this->getOwner()->{$this->attributeName} = (int)$position + 1;
         }
 

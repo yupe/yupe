@@ -296,12 +296,15 @@ class Menu extends yupe\models\YModel
     public function addItem($title, $href, $parentId, $regularLink = false)
     {
         $menuItem = new MenuItem();
-        $menuItem->parent_id = (int)$parentId;
-        $menuItem->menu_id = $this->id;
-        $menuItem->title = $title;
-        $menuItem->href = $href;
-        $menuItem->regular_link = $regularLink;
-        if ($menuItem->save()) {
+
+        $menuItem->setAttributes([
+            'parent_id' => (int)$parentId,
+            'menu_id' => $this->id,
+            'title' => $title,
+            'href' => $href,
+            'regular_link' => $regularLink,
+        ]);
+        if (true === $menuItem->save()) {
             Yii::app()->getCache()->clear(['menu', $this->code]);
 
             return true;
@@ -335,6 +338,7 @@ class Menu extends yupe\models\YModel
 
         if ($menuItem->save()) {
             Yii::app()->getCache()->clear(['menu', $this->code]);
+
             return true;
         }
 

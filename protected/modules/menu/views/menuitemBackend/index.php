@@ -56,7 +56,7 @@ $this->menu = [
 
 <div id="search-toggle" class="collapse out search-form">
     <?php
-    Yii::app()->clientScript->registerScript(
+    Yii::app()->getClientScript()->registerScript(
         'search',
         "
     $('.search-form form').submit(function () {

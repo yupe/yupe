@@ -39,11 +39,26 @@ use yupe\components\Event;
  */
 class Page extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_DRAFT = 0;
+    /**
+     *
+     */
     const STATUS_PUBLISHED = 1;
+    /**
+     *
+     */
     const STATUS_MODERATION = 2;
 
+    /**
+     *
+     */
     const PROTECTED_NO = false;
+    /**
+     *
+     */
     const PROTECTED_YES = true;
 
     /**
@@ -99,12 +114,19 @@ class Page extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
             'CTimestampBehavior' => [
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+                'attributeName' => 'order',
             ],
         ];
     }
@@ -197,6 +219,9 @@ class Page extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         if (!$this->slug) {
@@ -210,6 +235,9 @@ class Page extends yupe\models\YModel
         return parent::beforeValidate();
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
         $this->change_user_id = Yii::app()->getUser()->getId();
@@ -221,6 +249,9 @@ class Page extends yupe\models\YModel
         return parent::beforeSave();
     }
 
+    /**
+     *
+     */
     public function afterSave()
     {
         Yii::app()->eventManager->fire(PageEvents::PAGE_AFTER_SAVE, new Event($this));
@@ -228,6 +259,9 @@ class Page extends yupe\models\YModel
         return parent::afterSave();
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
@@ -246,6 +280,10 @@ class Page extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @param $slug
+     * @return static
+     */
     public function findBySlug($slug)
     {
         return $this->find('slug = :slug', [':slug' => trim($slug)]);
@@ -286,6 +324,9 @@ class Page extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
@@ -295,6 +336,9 @@ class Page extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
@@ -302,6 +346,9 @@ class Page extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('PageModule.page', '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getProtectedStatusList()
     {
         return [
@@ -310,6 +357,9 @@ class Page extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getProtectedStatus()
     {
         $data = $this->getProtectedStatusList();
@@ -317,6 +367,10 @@ class Page extends yupe\models\YModel
         return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('PageModule.page', '*unknown*');
     }
 
+    /**
+     * @param bool $selfId
+     * @return array
+     */
     public function getAllPagesList($selfId = false)
     {
         $criteria = new CDbCriteria();
@@ -331,6 +385,10 @@ class Page extends yupe\models\YModel
         return CHtml::listData($this->findAll($criteria), 'id', 'title');
     }
 
+    /**
+     * @param bool $slug
+     * @return array
+     */
     public function getAllPagesListBySlug($slug = false)
     {
         $params = ['order' => 't.order DESC, t.create_time DESC'];
@@ -345,16 +403,25 @@ class Page extends yupe\models\YModel
         return CHtml::listData($this->findAll($params), 'id', 'title');
     }
 
+    /**
+     * @return string
+     */
     public function getCategoryName()
     {
         return ($this->category === null) ? '---' : $this->category->name;
     }
 
+    /**
+     * @return string
+     */
     public function getParentName()
     {
         return ($this->parentPage === null) ? '---' : $this->parentPage->title;
     }
 
+    /**
+     * @return bool
+     */
     public function isProtected()
     {
         return (bool)$this->is_protected === self::PROTECTED_YES;
