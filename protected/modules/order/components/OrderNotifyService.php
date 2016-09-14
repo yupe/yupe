@@ -33,7 +33,7 @@ class OrderNotifyService extends CApplicationComponent
             $this->mail = Yii::app()->mail;
         }
 
-        $this->view = Yii::app()->controller;
+        $this->view = Yii::app()->getController();
 
         $this->module = Yii::app()->getModule('order');
     }

@@ -142,6 +142,9 @@ class OrderProduct extends \yupe\models\YModel
         return (float)$this->price * $this->quantity;
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [

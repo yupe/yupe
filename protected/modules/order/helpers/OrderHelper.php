@@ -1,23 +1,66 @@
 <?php
+
+/**
+ * Class OrderHelper
+ */
 class OrderHelper
 {
+    /**
+     *
+     */
     const STATUS_COLOR_BLACK = 'black';
+    /**
+     *
+     */
     const STATUS_COLOR_BLUE = 'primary';
+    /**
+     *
+     */
     const STATUS_COLOR_CYAN = 'info';
+    /**
+     *
+     */
     const STATUS_COLOR_GREEN = 'success';
+    /**
+     *
+     */
     const STATUS_COLOR_GREY = 'default';
+    /**
+     *
+     */
     const STATUS_COLOR_MINT = 'mint';
+    /**
+     *
+     */
     const STATUS_COLOR_ORANGE = 'warning';
+    /**
+     *
+     */
     const STATUS_COLOR_PISTACHIO = 'pistachio';
+    /**
+     *
+     */
     const STATUS_COLOR_PURPLE = 'purple';
+    /**
+     *
+     */
     const STATUS_COLOR_RED = 'danger';
+    /**
+     *
+     */
     const STATUS_COLOR_YELLOW = 'yellow';
 
+    /**
+     * @return array
+     */
     public static function statusList()
     {
         return CHtml::listData(OrderStatus::model()->findAll(), 'id', 'name');
     }
 
+    /**
+     * @return array
+     */
     public static function labelList()
     {
         $labels = [];
@@ -32,6 +75,9 @@ class OrderHelper
         return $labels;
     }
 
+    /**
+     * @return array
+     */
     public static function colorNames()
     {
         return [
@@ -49,6 +95,9 @@ class OrderHelper
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function colorValues()
     {
         return [

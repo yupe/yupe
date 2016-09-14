@@ -1,9 +1,17 @@
 <?php
-
+/**
+ * Class CheckOrderForm
+ */
 class CheckOrderForm extends CFormModel
 {
+    /**
+     * @var
+     */
     public $number;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -11,6 +19,9 @@ class CheckOrderForm extends CFormModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [

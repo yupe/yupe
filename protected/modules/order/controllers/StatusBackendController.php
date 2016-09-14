@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class StatusBackendController
+ */
 class StatusBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -14,6 +20,9 @@ class StatusBackendController extends yupe\components\controllers\BackController
         ];
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new OrderStatus('search');
@@ -26,6 +35,9 @@ class StatusBackendController extends yupe\components\controllers\BackController
         $this->render('index', ['model' => $model]);
     }
 
+    /**
+     *
+     */
     public function actionCreate()
     {
         $model = new OrderStatus();
@@ -51,6 +63,10 @@ class StatusBackendController extends yupe\components\controllers\BackController
         $this->render('create', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
@@ -76,6 +92,11 @@ class StatusBackendController extends yupe\components\controllers\BackController
         $this->render('update', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CDbException
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
@@ -112,5 +133,4 @@ class StatusBackendController extends yupe\components\controllers\BackController
 
         return $model;
     }
-
 }
