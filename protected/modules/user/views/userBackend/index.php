@@ -58,7 +58,7 @@ $this->menu = [
 
 <div id="search-toggle" class="collapse out search-form">
     <?php
-    Yii::app()->clientScript->registerScript(
+    Yii::app()->getClientScript()->registerScript(
         'search',
         "
     $('.search-form form').submit(function () {
@@ -167,20 +167,37 @@ $this->menu = [
             ],
             [
                 'name'   => 'create_time',
-                'filter' => false,
                 'value'  => function($data){
                     return Yii::app()->getDateFormatter()->formatDateTime($data->create_time);
                 },
+                'filter' => $this->widget('booster.widgets.TbDatePicker', [
+                    'model' => $model,
+                    'attribute' => 'create_time',
+                    'options' => [
+                        'format' => 'yyyy-mm-dd',
+                    ],
+                    'htmlOptions' => [
+                        'class' => 'form-control',
+                    ],
+                ], true),
             ],
             [
                 'name'   => 'visit_time',
                 'value'  => function($data){
                     return Yii::app()->getDateFormatter()->formatDateTime($data->visit_time);
                 },
-                'filter' => false
+                'filter' => $this->widget('booster.widgets.TbDatePicker', [
+                    'model' => $model,
+                    'attribute' => 'visit_time',
+                    'options' => [
+                        'format' => 'yyyy-mm-dd',
+                    ],
+                    'htmlOptions' => [
+                        'class' => 'form-control',
+                    ],
+                ], true),
             ],
             [
-                'header'      => Yii::t('UserModule.user', 'Management'),
                 'class'       => 'yupe\widgets\CustomButtonColumn',
                 'template'    => '{view}{update}{password}{sendactivation}{delete}',
                 'buttons'     => [

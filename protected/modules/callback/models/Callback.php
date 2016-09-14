@@ -13,19 +13,35 @@
  */
 class Callback extends \yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_NEW = 0;
+    /**
+     *
+     */
     const STATUS_PROCESSED = 1;
 
+    /**
+     * @return string
+     */
     public function tableName()
     {
         return '{{callback}}';
     }
 
+    /**
+     * @param null|string $className
+     * @return $this
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -51,6 +67,9 @@ class Callback extends \yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -63,6 +82,9 @@ class Callback extends \yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
@@ -86,16 +108,22 @@ class Callback extends \yupe\models\YModel
             'CTimestampBehavior' => [
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'create_time',
-                'updateAttribute' => false,
+                'updateAttribute' => null,
             ],
         ];
     }
 
+    /**
+     * @return CActiveDataProvider
+     */
     public function search()
     {
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->id);
         $criteria->compare('comment', $this->comment, true);
+        $criteria->compare('name', $this->name, true);
+        $criteria->compare('phone', $this->phone, true);
+        $criteria->compare('time', $this->time, true);
         $criteria->compare('status', $this->status);
         $criteria->compare('create_time', $this->create_time, true);
 
@@ -107,6 +135,9 @@ class Callback extends \yupe\models\YModel
         );
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
@@ -115,6 +146,9 @@ class Callback extends \yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getStatusLabelList()
     {
         return [

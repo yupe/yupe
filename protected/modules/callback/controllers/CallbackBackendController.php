@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class CallbackBackendController
+ */
 class CallbackBackendController extends \yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -16,6 +22,9 @@ class CallbackBackendController extends \yupe\components\controllers\BackControl
         ];
     }
 
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -27,6 +36,9 @@ class CallbackBackendController extends \yupe\components\controllers\BackControl
         ];
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $model = new Callback('search');
@@ -40,6 +52,10 @@ class CallbackBackendController extends \yupe\components\controllers\BackControl
         $this->render('index', ['model' => $model]);
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {

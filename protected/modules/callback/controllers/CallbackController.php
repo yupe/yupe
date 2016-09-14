@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class CallbackController
+ */
 class CallbackController extends \yupe\components\controllers\FrontController
 {
+    /**
+     * @throws CHttpException
+     */
     public function actionSend()
     {
         if (!Yii::app()->getRequest()->getIsPostRequest() && !Yii::app()->getRequest()->getPost('Callback')) {

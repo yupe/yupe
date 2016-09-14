@@ -1,19 +1,34 @@
 <?php
+
+/**
+ * Class CallbackManager
+ */
 class CallbackManager extends CApplicationComponent
 {
     /** @var CallbackController */
     private $view;
 
+    /**
+     * @var
+     */
     private $mailer;
 
     /** @var CallbackModule */
     private $module;
 
+    /**
+     * @var
+     */
     private $adminEmail;
 
+    /**
+     *
+     */
     public function init()
     {
-        $this->view = Yii::app()->controller;
+        parent::init();
+
+        $this->view = Yii::app()->getController();
         $this->mailer = Yii::app()->mail;
         $this->module = Yii::app()->getModule('callback');
         $this->adminEmail = Yii::app()->getModule('yupe')->email;

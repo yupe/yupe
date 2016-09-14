@@ -35,18 +35,9 @@ $this->widget(
         'filter' => $model,
         'actionsButtons' => false,
         'columns' => [
-            [
-                'name' => 'name',
-                'filter' => false
-            ],
-            [
-                'name' => 'phone',
-                'filter' => false
-            ],
-            [
-                'name' => 'time',
-                'filter' => false
-            ],
+            'name',
+            'phone',
+            'time',
             [
                 'class' => 'bootstrap.widgets.TbEditableColumn',
                 'name' => 'comment',
@@ -58,7 +49,7 @@ $this->widget(
                     'inputclass' => 'input-large',
                     'title' => Yii::t('CallbackModule.callback', 'Comment'),
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter' => CHtml::activeTextField($model, 'comment', ['class' => 'form-control']),

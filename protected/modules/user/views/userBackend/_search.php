@@ -27,58 +27,6 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-3">
-        <?=  $form->datePickerGroup(
-            $model,
-            'create_time',
-            [
-                'widgetOptions' => [
-                    'options' => [
-                        'format'    => 'dd-mm-yyyy',
-                        'weekStart' => 1,
-                        'autoclose' => true,
-                    ],
-                ],
-                'prepend'       => '<i class="fa fa-calendar"></i>',
-            ]
-        );
-        ?>
-    </div>
-
-    <div class="col-sm-3">
-        <?=  $form->datepickerGroup(
-            $model,
-            'visit_time',
-            [
-                'widgetOptions' => [
-                    'options' => [
-                        'format'    => 'dd-mm-yyyy',
-                        'weekStart' => 1,
-                        'autoclose' => true,
-                    ],
-                ],
-                'prepend'       => '<i class="fa fa-calendar"></i>',
-            ]
-        );
-        ?>
-    </div>
-    <div class="col-sm-3">
-        <?=  $form->dropDownListGroup(
-            $model,
-            'gender',
-            [
-                'widgetOptions' => [
-                    'data'        => $model->getGendersList(),
-                    'htmlOptions' => [
-                        'empty' => '---',
-                    ],
-                ],
-            ]
-        ); ?>
-    </div>
-</div>
-
-<div class="row">
     <div class="col-sm-6">
         <?=  $form->dropDownListGroup(
             $model,
@@ -100,6 +48,23 @@ $form = $this->beginWidget(
             [
                 'widgetOptions' => [
                     'data'        => $model->getAccessLevelsList(),
+                    'htmlOptions' => [
+                        'empty' => '---',
+                    ],
+                ],
+            ]
+        ); ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <?=  $form->dropDownListGroup(
+            $model,
+            'gender',
+            [
+                'widgetOptions' => [
+                    'data'        => $model->getGendersList(),
                     'htmlOptions' => [
                         'empty' => '---',
                     ],
