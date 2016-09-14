@@ -12,36 +12,46 @@
  **/
 class ImageBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
             ['allow', 'roles' => ['admin']],
             ['allow', 'actions' => ['index'], 'roles' => ['Image.ImageBackend.Index']],
             ['allow', 'actions' => ['view'], 'roles' => ['Image.ImageBackend.View']],
-            ['allow', 'actions' => ['create','AjaxImageUpload','AjaxImageChoose'], 'roles' => ['Image.ImageBackend.Create']],
+            [
+                'allow',
+                'actions' => ['create', 'AjaxImageUpload', 'AjaxImageChoose'],
+                'roles' => ['Image.ImageBackend.Create'],
+            ],
             ['allow', 'actions' => ['update', 'sortable'], 'roles' => ['Image.ImageBackend.Update']],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Image.ImageBackend.Delete']],
-            ['deny']
+            ['deny'],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             'AjaxImageUpload' => [
-                'class'     => 'yupe\components\actions\YAjaxImageUploadAction',
-                'maxSize'   => $this->module->maxSize,
+                'class' => 'yupe\components\actions\YAjaxImageUploadAction',
+                'maxSize' => $this->module->maxSize,
                 'mimeTypes' => $this->module->mimeTypes,
-                'types'     => $this->module->allowedExtensions
+                'types' => $this->module->allowedExtensions,
             ],
             'AjaxImageChoose' => [
-                'class' => 'yupe\components\actions\YAjaxImageChooseAction'
+                'class' => 'yupe\components\actions\YAjaxImageChooseAction',
             ],
             'sortable' => [
                 'class' => 'yupe\components\actions\SortAction',
                 'model' => 'Image',
-                'attribute' => 'sort'
-            ]
+                'attribute' => 'sort',
+            ],
         ];
     }
 
@@ -71,7 +81,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
 
             $model->setAttributes($data);
 
-            $transaction = Yii::app()->db->beginTransaction();
+            $transaction = Yii::app()->getDb()->beginTransaction();
 
             try {
 
@@ -88,7 +98,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash(
+                    Yii::app()->getUser()->setFlash(
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('ImageModule.image', 'Image created!')
                     );
@@ -103,7 +113,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
             } catch (Exception $e) {
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     $e->getMessage()
                 );
@@ -130,7 +140,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ImageModule.image', 'Image updated!')
                 );
@@ -164,7 +174,7 @@ class ImageBackendController extends yupe\components\controllers\BackController
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('ImageModule.image', 'Image removed!')
             );
