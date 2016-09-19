@@ -352,44 +352,6 @@ JS
     }
 
     /**
-     *   Function for rendering Up/Down buttons:
-     *
-     * @param class $data - incomming model instance
-     *
-     * @return UpDownLinks
-     */
-    public function getUpDownButtons($data)
-    {
-        $downUrlImage = '<i class="fa fa-fw fa-arrow-circle-down"></i>';
-
-        $upUrlImage = '<i class="fa fa-fw fa-arrow-circle-up"></i>';
-
-        $urlUp = Yii::app()->getController()->createUrl(
-            "sort",
-            [
-                'model' => $this->_modelName,
-                'id' => $data->id,
-                'sortField' => $this->sortField,
-                'direction' => 'up',
-            ]
-        );
-
-        $urlDown = Yii::app()->getController()->createUrl(
-            "sort",
-            [
-                'model' => $this->_modelName,
-                'id' => $data->id,
-                'sortField' => $this->sortField,
-                'direction' => 'down',
-            ]
-        );
-
-        $options = ['onclick' => 'ajaxSetSort(this, "'.$this->id.'"); return false;',];
-
-        return CHtml::link($upUrlImage, $urlUp, $options).' '.CHtml::link($downUrlImage, $urlDown, $options);
-    }
-
-    /**
      * Обновление размера страницы
      *
      * @return void
