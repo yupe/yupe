@@ -18,38 +18,53 @@
 <?=  $form->errorSummary($model); ?>
 
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-4">
         <?=  $form->textFieldGroup(
             $model,
             'nick_name'
         ); ?>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-5">
         <?=  $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-3">
         <?=  $form->textFieldGroup($model, 'last_name'); ?>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-3">
         <?=  $form->textFieldGroup($model, 'first_name'); ?>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-3">
         <?=  $form->textFieldGroup($model, 'middle_name'); ?>
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-3">
+        <div class="form-group">
+            <?=  $form->labelEx($model,'phone',['class' => 'control-label']); ?>
+            <?php $this->widget(
+                'CMaskedTextField',
+                [
+                    'model' => $model,
+                    'attribute' => 'phone',
+                    'mask' => $this->module->phoneMask,
+                    'placeholder' => '*',
+                    'htmlOptions' => [
+                        'class' => 'form-control'
+                    ]
+                ]
+            ); ?>
+            <?=  $form->error($model,'phone'); ?>
+        </div>
+    </div>
+    <div class="col-sm-3">
         <?=  $form->textFieldGroup($model, 'site'); ?>
     </div>
 </div>
+
+
+
 <div class="row">
     <div class="col-sm-3">
         <?=  $form->datePickerGroup(
@@ -69,23 +84,16 @@
             ]
         ); ?>
     </div>
-    <div class="col-sm-2">
-        <div class="form-group">
-            <?=  $form->labelEx($model,'phone',['class' => 'control-label']); ?>
-            <?php $this->widget(
-                'CMaskedTextField',
-                [
-                    'model' => $model,
-                    'attribute' => 'phone',
-                    'mask' => $this->module->phoneMask,
-                    'placeholder' => '*',
-                    'htmlOptions' => [
-                        'class' => 'form-control'
-                    ]
-                ]
-            ); ?>
-            <?=  $form->error($model,'phone'); ?>
-        </div>
+    <div class="col-sm-3">
+        <?=  $form->dropDownListGroup(
+            $model,
+            'gender',
+            [
+                'widgetOptions' => [
+                    'data' => $model->getGendersList(),
+                ],
+            ]
+        ); ?>
     </div>
 </div>
 <div class="row">
@@ -101,24 +109,19 @@
         ); ?>
     </div>
 </div>
-
-<br/>
-
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-3">
         <?=  $form->dropDownListGroup(
             $model,
-            'gender',
+            'access_level',
             [
                 'widgetOptions' => [
-                    'data' => $model->getGendersList(),
+                    'data' => $model->getAccessLevelsList(),
                 ],
             ]
         ); ?>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-3">
         <?=  $form->dropDownListGroup(
             $model,
             'status',
@@ -129,30 +132,13 @@
             ]
         ); ?>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-3">
         <?=  $form->dropDownListGroup(
             $model,
             'email_confirm',
             [
                 'widgetOptions' => [
                     'data' => $model->getEmailConfirmStatusList(),
-                ],
-            ]
-        ); ?>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-7">
-        <?=  $form->dropDownListGroup(
-            $model,
-            'access_level',
-            [
-                'widgetOptions' => [
-                    'data' => $model->getAccessLevelsList(),
                 ],
             ]
         ); ?>
