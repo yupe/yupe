@@ -13,13 +13,22 @@
  **/
 Yii::import('application.modules.news.models.*');
 
+/**
+ * Class LastNewsWidget
+ */
 class LastNewsWidget extends yupe\widgets\YWidget
 {
     /** @var $categories mixed Список категорий, из которых выбирать новости. NULL - все */
     public $categories = null;
 
+    /**
+     * @var string
+     */
     public $view = 'lastnewswidget';
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $criteria = new CDbCriteria();

@@ -12,12 +12,16 @@
  */
 class NewsController extends \yupe\components\controllers\FrontController
 {
+    /**
+     * @param $slug
+     * @throws CHttpException
+     */
     public function actionView($slug)
     {
         $model = News::model()->published();
 
         $model = ($this->isMultilang())
-            ? $model->language(Yii::app()->language)->find('slug = :slug', [':slug' => $slug])
+            ? $model->language(Yii::app()->getLanguage())->find('slug = :slug', [':slug' => $slug])
             : $model->find('slug = :slug', [':slug' => $slug]);
 
         if (!$model) {
@@ -25,7 +29,7 @@ class NewsController extends \yupe\components\controllers\FrontController
         }
 
         // проверим что пользователь может просматривать эту новость
-        if ($model->is_protected == News::PROTECTED_YES && !Yii::app()->user->isAuthenticated()) {
+        if ($model->is_protected == News::PROTECTED_YES && !Yii::app()->getUser()->isAuthenticated()) {
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('NewsModule.news', 'You must be an authorized user for view this page!')
@@ -37,6 +41,9 @@ class NewsController extends \yupe\components\controllers\FrontController
         $this->render('view', ['model' => $model]);
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
         $dbCriteria = new CDbCriteria([
@@ -53,8 +60,8 @@ class NewsController extends \yupe\components\controllers\FrontController
                 [
                     'condition' => 'is_protected = :is_protected',
                     'params' => [
-                        ':is_protected' => News::PROTECTED_NO
-                    ]
+                        ':is_protected' => News::PROTECTED_NO,
+                    ],
                 ]
             );
         }
@@ -63,7 +70,7 @@ class NewsController extends \yupe\components\controllers\FrontController
             $dbCriteria->mergeWith(
                 [
                     'condition' => 't.lang = :lang',
-                    'params' => [':lang' => Yii::app()->language],
+                    'params' => [':lang' => Yii::app()->getLanguage()],
                 ]
             );
         }
@@ -71,9 +78,10 @@ class NewsController extends \yupe\components\controllers\FrontController
         $dataProvider = new CActiveDataProvider('News', [
             'criteria' => $dbCriteria,
             'pagination' => [
-                'pageSize' => $this->getModule()->perPage
-            ]
+                'pageSize' => $this->getModule()->perPage,
+            ],
         ]);
+        
         $this->render('index', ['dataProvider' => $dataProvider]);
     }
 }

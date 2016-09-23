@@ -2,8 +2,14 @@
 
 use yupe\components\controllers\FrontController;
 
+/**
+ * Class NewsCategoryController
+ */
 class NewsCategoryController extends FrontController
 {
+    /**
+     *
+     */
     public function actionIndex()
     {
         $categoryId = $this->getModule()->mainCategory;
@@ -13,11 +19,15 @@ class NewsCategoryController extends FrontController
         ]);
     }
 
+    /**
+     * @param $slug
+     * @throws CHttpException
+     */
     public function actionView($slug)
     {
         $category = Category::model()->getByAlias($slug);
 
-        if (is_null($category)) {
+        if (null === $category) {
             throw new CHttpException(404, Yii::t('NewsModule.news', 'Requested page was not found!'));
         }
 
@@ -35,8 +45,8 @@ class NewsCategoryController extends FrontController
                 [
                     'condition' => 'is_protected = :is_protected',
                     'params' => [
-                        ':is_protected' => News::PROTECTED_NO
-                    ]
+                        ':is_protected' => News::PROTECTED_NO,
+                    ],
                 ]
             );
         }
@@ -45,7 +55,7 @@ class NewsCategoryController extends FrontController
             $dbCriteria->mergeWith(
                 [
                     'condition' => 't.lang = :lang',
-                    'params' => [':lang' => Yii::app()->language],
+                    'params' => [':lang' => Yii::app()->getLanguage()],
                 ]
             );
         }
@@ -53,8 +63,8 @@ class NewsCategoryController extends FrontController
         $dataProvider = new CActiveDataProvider('News', [
             'criteria' => $dbCriteria,
             'pagination' => [
-                'pageSize' => $this->getModule()->perPage
-            ]
+                'pageSize' => $this->getModule()->perPage,
+            ],
         ]);
 
         $this->render('view', [

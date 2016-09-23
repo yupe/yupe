@@ -117,7 +117,7 @@ class ZendSearchModule extends yupe\components\WebModule
      */
     public function getAuthor()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'amylabs');
+        return Yii::t('ZendSearchModule.zendsearch', 'yupe team');
     }
 
     /**
@@ -125,7 +125,7 @@ class ZendSearchModule extends yupe\components\WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'hello@amylabs.ru');
+        return Yii::t('ZendSearchModule.zendsearch', 'support@yupe.ru');
     }
 
     /**
@@ -133,7 +133,7 @@ class ZendSearchModule extends yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'http://amylabs.ru');
+        return Yii::t('ZendSearchModule.zendsearch', 'http://yupe.ru');
     }
 
     /**
