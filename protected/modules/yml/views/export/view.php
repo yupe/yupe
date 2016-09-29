@@ -22,7 +22,7 @@
     <offers>
         <?php foreach($offers as $offer):?>
             <offer id="<?= $offer->id?>" type="vendor.model" available="<?= $offer->isInStock() ? 'true' : 'false';?>">
-                <url><?= Yii::app()->createAbsoluteUrl('/store/product/view', ['name' => $offer->slug]);?></url>
+                <url><?= CHtml::normalizeUrl(Yii::app()->getBaseUrl(true) . ProductHelper::getUrl($offer)); ?></url>
                 <price><?= $offer->getResultPrice();?></price>
                 <oldprice><?= $offer->getBasePrice();?></oldprice>
                 <currencyId><?= Yii::app()->getModule('store')->currency;?></currencyId>

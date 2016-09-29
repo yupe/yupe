@@ -78,7 +78,7 @@ class NewsController extends \yupe\components\controllers\FrontController
         $dataProvider = new CActiveDataProvider('News', [
             'criteria' => $dbCriteria,
             'pagination' => [
-                'pageSize' => $this->getModule()->perPage,
+                'pageSize' => (int)$this->getModule()->perPage,
             ],
         ]);
         

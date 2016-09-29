@@ -5,6 +5,6 @@ return [
         'class' => 'application.modules.yml.YmlModule',
     ],
     'rules' => [
-        '/yml/export/<id:\d+>' => 'yml/export/view',
+        '/yml/export/<id:\d+>.yml' => 'yml/export/view',
     ],
 ];
