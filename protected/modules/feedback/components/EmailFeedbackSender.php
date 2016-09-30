@@ -3,7 +3,7 @@
 /**
  * Class EmailFeedbackSender
  */
-class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
+class EmailFeedbackSender extends DbFeedbackSender
 {
     /**
      * @param IFeedbackForm $form
@@ -13,8 +13,15 @@ class EmailFeedbackSender extends DbFeedbackSender implements IFeedbackSender
     {
         $emailBody = Yii::app()->getController()->renderPartial('feedbackEmail', ['model' => $form], true);
 
-        foreach (explode(',', $this->module->emails) as $mail) {
-            $this->mail->send($form->getEmail(), $mail, $form->getTheme(), $emailBody);
+        foreach (explode(',', $this->module->emails) as $email) {
+            $this->mail->send(
+                $this->module->notifyEmailFrom,
+                $email,
+                $form->getTheme(),
+                $emailBody,
+                false,
+                [$form->getEmail() => $form->getName()]
+            );
         }
 
         if ($this->module->sendConfirmation) {

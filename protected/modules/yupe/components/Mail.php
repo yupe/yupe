@@ -151,10 +151,11 @@ class Mail extends CApplicationComponent
      * @param string $theme - тема письма
      * @param string $body - тело письма
      * @param bool $isText - является ли тело письма текстом
+     * @param array $replyTo добавляет заголовок Reply-To, формат [email => имя]
      *
      * @return bool отправилось ли письмо
      **/
-    public function send($from, $to, $theme, $body, $isText = false)
+    public function send($from, $to, $theme, $body, $isText = false, $replyTo = [])
     {
         $this->_mailer->clearAllRecipients();
 
@@ -175,6 +176,13 @@ class Mail extends CApplicationComponent
             $this->_mailer->isHTML(false);
         } else {
             $this->_mailer->msgHTML($body, \Yii::app()->basePath);
+        }
+
+        if (!empty($replyTo)) {
+            $this->_mailer->clearReplyTos();
+            foreach ($replyTo as $email => $name) {
+                $this->_mailer->addReplyTo($email, $name);
+            }
         }
 
         try {
