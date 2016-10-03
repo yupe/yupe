@@ -11,9 +11,8 @@
 namespace yupe\components\urlManager;
 
 use CBehavior;
-use Yii;
-use CException;
 use CHttpCookie;
+use Yii;
 
 /**
  * Class LanguageBehavior
@@ -22,27 +21,20 @@ use CHttpCookie;
 class LanguageBehavior extends CBehavior
 {
     /**
-     * @var bool
+     * @var string
      */
-    public $lang = false;
+    private $_lang;
     /**
-     * @var bool
+     * @var string
      */
-    private $_lang = false;
-    /**
-     * @var bool
-     */
-    private $_langFromUrl = false;
-
+    private $_langFromUrl;
     /**
      * @var LangUrlManager
      */
     private $lm;
 
     /**
-     * Подключение события
-     * @param CComponent $owner - 'хозяин' события
-     * @return void
+     * @param \CWebApplication $owner
      */
     public function attach($owner)
     {
@@ -53,34 +45,39 @@ class LanguageBehavior extends CBehavior
     }
 
     /**
-     * Язык
-     *
-     * @return string
+     * @return null|string
      */
     public function getLang()
     {
-        if (false === $this->_lang) {
-            $lang = $this->getUrlLang() ?: ($this->getCookieLang() ?: $this->lm->getAppLang());
-            $this->_lang = in_array($lang, $this->lm->languages) ? $lang : null;
+        if (null === $this->_lang) {
+            $lang = $this->getUrlLang();
+            if (null === $lang) {
+                $lang = $this->getCookieLang() ?: $this->lm->getAppLang();
+            }
+            $this->_lang = in_array($lang, $this->lm->languages, true) ? $lang : null;
         }
 
         return $this->_lang;
     }
 
     /**
-     * Язык из url
-     * @return bool|null
-     * @throws CException
+     * @return null|string
      */
     public function getUrlLang()
     {
-        if ($this->_langFromUrl === false) {
-            $path = explode('/', Yii::app()->getRequest()->getPathInfo());
+        if (null === $this->_langFromUrl) {
+
+            /* @var $request \CHttpRequest */
+            $request = Yii::app()->getRequest();
+
+            $path = explode('/', $request->getPathInfo());
             $lang = !empty($path[0]) ? $path[0] : null;
+
             if ($lang === null) {
-                $lang = isset($_GET[$this->lm->langParam]) ? $_GET[$this->lm->langParam] : null;
+                $lang = $request->getQuery($this->lm->langParam);
             }
-            $lang = in_array($lang, $this->lm->languages) ? $lang : null;
+
+            $lang = in_array($lang, $this->lm->languages, true) ? $lang : null;
             $this->_langFromUrl = $lang;
         }
 
@@ -94,8 +91,16 @@ class LanguageBehavior extends CBehavior
      */
     public function getCookieLang()
     {
-        return isset(Yii::app()->getRequest()->cookies[$this->lm->langParam]) ? Yii::app()->getRequest(
-        )->cookies[$this->lm->langParam]->value : null;
+        /* @var $request \CHttpRequest */
+        $request = Yii::app()->getRequest();
+
+        if (isset($request->cookies[$this->lm->langParam])) {
+            $lang = $request->cookies[$this->lm->langParam]->value;
+
+            return in_array($lang, $this->lm->languages, true) ? $lang : null;
+        }
+
+        return null;
     }
 
     /**
@@ -106,32 +111,34 @@ class LanguageBehavior extends CBehavior
      */
     public function handleLanguageBehavior($event)
     {
-        $this->setLanguage($this->getLang());
+        /* @var $request \CHttpRequest */
+        $request = Yii::app()->getRequest();
+        $current = $this->getLang();
+        $default = $this->lm->getAppLang();
+        $fromUrl = $this->getUrlLang();
 
-        $this->lang = ($this->lm->getAppLang() === $this->getLang() ? false : $this->getLang());
+        $this->setLanguage($current);
 
-        // язык передан в url, но он равен дефолтному языку
-        if ($this->getUrlLang() !== null && $this->lang === false) {
+        if (null === $fromUrl && $current !== $default) {
+            $request->redirect(
+                Yii::app()->getHomeUrl() . $this->lm->replaceLangUrl($request->getUrl(), $current)
+            );
+        }
 
-            Yii::app()->getRequest()->redirect(
-                Yii::app()->getHomeUrl().$this->lm->getCleanUrl(Yii::app()->getRequest()->url)
+        if (null !== $fromUrl && $current === $default) {
+            $request->redirect(
+                Yii::app()->getHomeUrl() . $this->lm->getCleanUrl($request->getUrl())
             );
         }
     }
 
     /**
-     * Устанавливаем язык приложения
-     *
-     * @param string $language - требуемый язык
+     * @param string $language
      */
     protected function setLanguage($language)
     {
-        // Устанавливаем состояние языка:
         Yii::app()->getUser()->setState($this->lm->langParam, $language);
-
         Yii::app()->getRequest()->cookies[$this->lm->langParam] = new CHttpCookie($this->lm->langParam, $language);
-
-        // И наконец, выставляем язык приложения:
         Yii::app()->setLanguage($language);
     }
 }
