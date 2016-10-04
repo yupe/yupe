@@ -469,7 +469,9 @@ class YupeModule extends WebModule
     {
         $langs = [];
         foreach (explode(',', $this->availableLanguages) as $lang) {
-            $langs[$lang] = Yii::app()->getLocale()->getLocaleDisplayName($lang);
+            $langs[$lang] = Yii::app()->getLocale()->getLocaleDisplayName(
+                strpos($lang, '_') !== false ? explode('_', $lang)[0] : $lang
+            );
         }
 
         return $langs;

@@ -105,7 +105,9 @@ class LangUrlManager extends CUrlManager
     public function getDefaultLang()
     {
         if (null === $this->_defaultLang) {
-            $this->_defaultLang = $this->yupe->defaultLanguage;
+            $this->_defaultLang = $this->isBackend()
+                ? $this->yupe->defaultBackendLanguage
+                : $this->yupe->defaultLanguage;
         }
 
         return $this->_defaultLang;
@@ -162,14 +164,19 @@ class LangUrlManager extends CUrlManager
             /* @var $request \CHttpRequest */
             $request = Yii::app()->getRequest();
 
-            if (isset($request->cookies[$this->langParam])) {
-                $language = $request->cookies[$this->langParam]->value;
+            if (isset($request->cookies[$this->getCookieKey()])) {
+                $language = $request->cookies[$this->getCookieKey()]->value;
 
                 $this->_langFromCookie = in_array($language, $this->_languages, true) ? $language : null;
             }
         }
 
         return $this->_langFromCookie;
+    }
+
+    public function getCookieKey()
+    {
+        return $this->langParam . '_' . ($this->isBackend() ? 'backend' : 'frontend');
     }
 
 
@@ -280,5 +287,12 @@ class LangUrlManager extends CUrlManager
     public function removeLangFromUrl($url)
     {
         return $this->replaceLangInUrl($url);
+    }
+
+    public function isBackend()
+    {
+        $url = trim($this->removeLangFromUrl(Yii::app()->getRequest()->getUrl()), '/');
+
+        return strpos($url, 'backend') === 0;
     }
 }

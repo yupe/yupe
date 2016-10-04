@@ -71,8 +71,8 @@ class LanguageBehavior extends CBehavior
      */
     protected function setLanguage($language)
     {
-        Yii::app()->getUser()->setState($this->lm->langParam, $language);
-        Yii::app()->getRequest()->cookies[$this->lm->langParam] = new CHttpCookie($this->lm->langParam, $language);
+        Yii::app()->getUser()->setState($this->lm->getCookieKey(), $language);
+        Yii::app()->getRequest()->cookies[$this->lm->getCookieKey()] = new CHttpCookie($this->lm->getCookieKey(), $language);
         Yii::app()->setLanguage($language);
     }
 }
