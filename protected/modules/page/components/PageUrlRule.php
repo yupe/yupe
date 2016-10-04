@@ -1,8 +1,5 @@
 <?php
 
-Yii::import('CUrlRule');
-
-
 /**
  * Class PageUrlRule
  */
