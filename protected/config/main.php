@@ -69,7 +69,7 @@ return [
         ),*/
     ],
     'behaviors' => [
-        'onBeginRequest' => [
+        'languageBehavior' => [
             'class' => 'yupe\components\urlManager\LanguageBehavior'
         ]
     ],
@@ -120,7 +120,7 @@ return [
          */
         'urlManager' => [
             'class' => 'yupe\components\urlManager\LangUrlManager',
-            'languageInPath' => true,
+            'langInPath' => true,
             'langParam' => 'language',
             'urlFormat' => 'path',
             'urlSuffix' => '',

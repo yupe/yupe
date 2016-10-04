@@ -21,14 +21,6 @@ use Yii;
 class LanguageBehavior extends CBehavior
 {
     /**
-     * @var string
-     */
-    private $_lang;
-    /**
-     * @var string
-     */
-    private $_langFromUrl;
-    /**
      * @var LangUrlManager
      */
     private $lm;
@@ -39,68 +31,9 @@ class LanguageBehavior extends CBehavior
     public function attach($owner)
     {
         $this->lm = $owner->getUrlManager();
-        if (is_array($this->lm->languages) && count($this->lm->languages) > 1) {
+        if (count($this->lm->getAvailableLanguages()) > 1) {
             $owner->attachEventHandler('onBeginRequest', [$this, 'handleLanguageBehavior']);
         }
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getLang()
-    {
-        if (null === $this->_lang) {
-            $lang = $this->getUrlLang();
-            if (null === $lang) {
-                $lang = $this->getCookieLang() ?: $this->lm->getAppLang();
-            }
-            $this->_lang = in_array($lang, $this->lm->languages, true) ? $lang : null;
-        }
-
-        return $this->_lang;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getUrlLang()
-    {
-        if (null === $this->_langFromUrl) {
-
-            /* @var $request \CHttpRequest */
-            $request = Yii::app()->getRequest();
-
-            $path = explode('/', $request->getPathInfo());
-            $lang = !empty($path[0]) ? $path[0] : null;
-
-            if ($lang === null) {
-                $lang = $request->getQuery($this->lm->langParam);
-            }
-
-            $lang = in_array($lang, $this->lm->languages, true) ? $lang : null;
-            $this->_langFromUrl = $lang;
-        }
-
-        return $this->_langFromUrl;
-    }
-
-    /**
-     * Получаем язык из кукисов
-     *
-     * @return string
-     */
-    public function getCookieLang()
-    {
-        /* @var $request \CHttpRequest */
-        $request = Yii::app()->getRequest();
-
-        if (isset($request->cookies[$this->lm->langParam])) {
-            $lang = $request->cookies[$this->lm->langParam]->value;
-
-            return in_array($lang, $this->lm->languages, true) ? $lang : null;
-        }
-
-        return null;
     }
 
     /**
@@ -113,21 +46,22 @@ class LanguageBehavior extends CBehavior
     {
         /* @var $request \CHttpRequest */
         $request = Yii::app()->getRequest();
-        $current = $this->getLang();
-        $default = $this->lm->getAppLang();
-        $fromUrl = $this->getUrlLang();
 
+        $current = $this->lm->getCurrentLang();
         $this->setLanguage($current);
+
+        $default = $this->lm->getDefaultLang();
+        $fromUrl = $this->lm->getLangFromUrl();
 
         if (null === $fromUrl && $current !== $default) {
             $request->redirect(
-                Yii::app()->getHomeUrl() . $this->lm->replaceLangUrl($request->getUrl(), $current)
+                $this->lm->replaceLangInUrl($request->getUrl(), $current)
             );
         }
 
         if (null !== $fromUrl && $current === $default) {
             $request->redirect(
-                Yii::app()->getHomeUrl() . $this->lm->getCleanUrl($request->getUrl())
+                $this->lm->removeLangFromUrl($request->getUrl())
             );
         }
     }
