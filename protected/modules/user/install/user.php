@@ -73,7 +73,7 @@ return [
         '/user/account/captcha/refresh/<v>' => 'user/account/captcha/refresh',
         '/user/account/captcha/<v>' => 'user/account/captcha/',
         '/users' => 'user/people/index',
-        '/users/<username:\w+>/' => 'user/people/userInfo',
+        '/users/<username>/' => 'user/people/userInfo',
         '/profile' => 'user/profile/profile',
         '/profile/password' => 'user/profile/password',
         '/profile/email' => 'user/profile/email',
