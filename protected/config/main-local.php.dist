@@ -1,0 +1,35 @@
+<?php
+
+return [
+    'preload' => [
+        'debug'
+    ],
+    'modules' => [
+        /*'gii' => [ // you can access gii by following url http://site.com/gii/default/login
+            'class' => 'system.gii.GiiModule',
+            'password' => 'giiYupe',
+            'generatorPaths' => [
+                'application.modules.yupe.extensions.yupe.gii',
+            ],
+            'ipFilters' => [],
+        ],*/
+    ],
+    'components' => [
+        'assetManager' => [
+            'linkAssets' => true,
+            //'forceCopy' => true
+        ],
+        'debug' => [
+            'class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+            'internalUrls' => true
+        ],
+        'cache' => [
+            'class' => 'CDummyCache',
+        ],
+        'urlManager' => [
+            'rules' => [
+                '/gii/<controller:\w+>/<action:\w+>' => 'gii/<controller>/<action>',
+            ]
+        ],
+    ]
+];
