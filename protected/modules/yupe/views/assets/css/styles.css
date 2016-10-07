@@ -484,3 +484,20 @@ input.form-control[type="file"] {
 #news-form .ct-form-control {
     min-width: 100px;
 }
+
+.grid-view .headline {
+    float: right;
+    margin-top: 26px;
+}
+
+.grid-view .grid-toolbar {
+    padding-right: 0;
+}
+
+.grid-view .grid-toolbar button {
+    float: right;
+}
+
+.grid-view .grid-toolbar #copy-products {
+    margin-right: 8px !important;
+}

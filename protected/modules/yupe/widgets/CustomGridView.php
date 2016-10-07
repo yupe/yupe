@@ -108,7 +108,7 @@ class CustomGridView extends \TbExtendedGridView
     /**
      * @var string
      */
-    public $template = "{sorter}{summary}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right'>{headline}</div>";
+    public $template = "{sorter}{summary}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='headline'>{headline}</div>";
 
     /**
      * @var
