@@ -207,4 +207,32 @@ class ContentBlock extends yupe\models\YModel
             self::STATUS_ACTIVE     => Yii::t('ContentBlockModule.contentblock', 'Enabled'),
         ];
     }
+
+    /**
+     * Фильтр заменяет в тексте страницы теги [!<имя контентного блока>]
+     * Пример использования в layout:
+     *     подключить модель
+     *        <?php Yii::import('application.modules.contentblock.models.ContentBlock'); ?>
+     *     замена кодов при выводе 
+     *        <?= ContentBlock::parseContentBlocks($content); ?>
+     */
+    public static function parseContentBlocks($content)
+    {
+    	//Yii::import('application.modules.contentblock.models.ContentBlock');
+    	return preg_replace_callback('/\[!([\w\-_]+)\]/', function( $matches ){    	       	
+        	$cacheName = "ContentBlock{$matches[1]}";
+		$output = Yii::app()->getCache()->get($cacheName);
+		if ($output === false) {
+		  $b = ContentBlock::model()->findByAttributes(array('code'=>$matches[1]));
+		  if($b && $b->status == ContentBlock::STATUS_ACTIVE)
+		  {
+		    $output = $b->getContent();
+		  } else {
+		    $output = '';
+		  }
+		  Yii::app()->getCache()->set($cacheName, $output);
+		}            
+    		return $output;
+    	}, $content);
+    }
 }
