@@ -12,14 +12,25 @@ return [
     'module' => [
         'class' => 'application.modules.news.NewsModule',
     ],
-    'import' => [],
+    'import' => [
+        'application.modules.news.events.*',
+        'application.modules.news.listeners.*',
+        'application.modules.news.helpers.*',
+    ],
     'component' => [
         'eventManager' => [
             'class' => 'yupe\components\EventManager',
             'events' => [
                 'sitemap.before.generate' => [
                     ['\NewsSitemapGeneratorListener', 'onGenerate']
-                ]
+                ],
+                'news.after.save' => [
+                    ['\NewsListener', 'onAfterSave']
+                ],
+                'news.after.delete' => [
+                    ['\NewsListener', 'onAfterDelete']
+                ],
+
             ]
         ]
     ],
@@ -27,6 +38,7 @@ return [
         '/news/' => 'news/news/index',
         '/news/categories' => 'news/newsCategory/index',
         '/news/<slug>' => 'news/newsCategory/view',
+        '/rss/news/' => 'news/newsRss/feed',
         ['news/news/view', 'pattern' => '/news/<slug>', 'urlSuffix' => '.html'],
     ],
 ];
