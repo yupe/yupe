@@ -11,9 +11,8 @@
 namespace yupe\components\urlManager;
 
 use CBehavior;
-use Yii;
-use CException;
 use CHttpCookie;
+use Yii;
 
 /**
  * Class LanguageBehavior
@@ -22,80 +21,19 @@ use CHttpCookie;
 class LanguageBehavior extends CBehavior
 {
     /**
-     * @var bool
-     */
-    public $lang = false;
-    /**
-     * @var bool
-     */
-    private $_lang = false;
-    /**
-     * @var bool
-     */
-    private $_langFromUrl = false;
-
-    /**
      * @var LangUrlManager
      */
     private $lm;
 
     /**
-     * Подключение события
-     * @param CComponent $owner - 'хозяин' события
-     * @return void
+     * @param \CWebApplication $owner
      */
     public function attach($owner)
     {
         $this->lm = $owner->getUrlManager();
-        if (is_array($this->lm->languages) && count($this->lm->languages) > 1) {
+        if (count($this->lm->getAvailableLanguages()) > 1) {
             $owner->attachEventHandler('onBeginRequest', [$this, 'handleLanguageBehavior']);
         }
-    }
-
-    /**
-     * Язык
-     *
-     * @return string
-     */
-    public function getLang()
-    {
-        if (false === $this->_lang) {
-            $lang = $this->getUrlLang() ?: ($this->getCookieLang() ?: $this->lm->getAppLang());
-            $this->_lang = in_array($lang, $this->lm->languages) ? $lang : null;
-        }
-
-        return $this->_lang;
-    }
-
-    /**
-     * Язык из url
-     * @return bool|null
-     * @throws CException
-     */
-    public function getUrlLang()
-    {
-        if ($this->_langFromUrl === false) {
-            $path = explode('/', Yii::app()->getRequest()->getPathInfo());
-            $lang = !empty($path[0]) ? $path[0] : null;
-            if ($lang === null) {
-                $lang = isset($_GET[$this->lm->langParam]) ? $_GET[$this->lm->langParam] : null;
-            }
-            $lang = in_array($lang, $this->lm->languages) ? $lang : null;
-            $this->_langFromUrl = $lang;
-        }
-
-        return $this->_langFromUrl;
-    }
-
-    /**
-     * Получаем язык из кукисов
-     *
-     * @return string
-     */
-    public function getCookieLang()
-    {
-        return isset(Yii::app()->getRequest()->cookies[$this->lm->langParam]) ? Yii::app()->getRequest(
-        )->cookies[$this->lm->langParam]->value : null;
     }
 
     /**
@@ -106,32 +44,36 @@ class LanguageBehavior extends CBehavior
      */
     public function handleLanguageBehavior($event)
     {
-        $this->setLanguage($this->getLang());
 
-        $this->lang = ($this->lm->getAppLang() === $this->getLang() ? false : $this->getLang());
+        /* @var $request \CHttpRequest */
+        $request = Yii::app()->getRequest();
 
-        // язык передан в url, но он равен дефолтному языку
-        if ($this->getUrlLang() !== null && $this->lang === false) {
+        $current = $this->lm->getCurrentLang();
+        $this->setLanguage($current);
 
-            Yii::app()->getRequest()->redirect(
-                Yii::app()->getHomeUrl().$this->lm->getCleanUrl(Yii::app()->getRequest()->url)
+        $default = $this->lm->getDefaultLang();
+        $fromUrl = $this->lm->getLangFromUrl();
+
+        if (null === $fromUrl && $current !== $default) {
+            $request->redirect(
+                $this->lm->replaceLangInUrl($request->getUrl(), $current)
+            );
+        }
+
+        if (null !== $fromUrl && $current === $default) {
+            $request->redirect(
+                $this->lm->removeLangFromUrl($request->getUrl())
             );
         }
     }
 
     /**
-     * Устанавливаем язык приложения
-     *
-     * @param string $language - требуемый язык
+     * @param string $language
      */
     protected function setLanguage($language)
     {
-        // Устанавливаем состояние языка:
-        Yii::app()->getUser()->setState($this->lm->langParam, $language);
-
-        Yii::app()->getRequest()->cookies[$this->lm->langParam] = new CHttpCookie($this->lm->langParam, $language);
-
-        // И наконец, выставляем язык приложения:
+        Yii::app()->getUser()->setState($this->lm->getCookieKey(), $language);
+        Yii::app()->getRequest()->cookies[$this->lm->getCookieKey()] = new CHttpCookie($this->lm->getCookieKey(), $language);
         Yii::app()->setLanguage($language);
     }
 }

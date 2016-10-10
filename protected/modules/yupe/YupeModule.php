@@ -87,7 +87,7 @@ class YupeModule extends WebModule
     /**
      * @var string
      */
-    public $availableLanguages = 'ru,uk,en,zh_cn';
+    public $availableLanguages = 'ru,uk_ua,en,zh_cn';
     /**
      * @var string
      */
@@ -469,7 +469,9 @@ class YupeModule extends WebModule
     {
         $langs = [];
         foreach (explode(',', $this->availableLanguages) as $lang) {
-            $langs[$lang] = Yii::app()->getLocale()->getLocaleDisplayName($lang);
+            $langs[$lang] = Yii::app()->getLocale()->getLocaleDisplayName(
+                strpos($lang, '_') !== false ? explode('_', $lang)[0] : $lang
+            );
         }
 
         return $langs;
@@ -765,9 +767,7 @@ class YupeModule extends WebModule
 
         $items = [];
         $currentLanguage = Yii::app()->getLanguage();
-
-        $homeUrl = Yii::app()->getHomeUrl().(Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : '');
-        $cp = Yii::app()->urlManager->getCleanUrl(Yii::app()->getRequest()->url);
+        $cp = Yii::app()->getRequest()->url;
 
         foreach ($langs as $lang) {
             $lang = trim($lang);
@@ -775,16 +775,16 @@ class YupeModule extends WebModule
                 continue;
             } else {
                 $items[] = [
-                    'icon' => 'iconflags iconflags-'.$lang,
+                    'icon' => 'iconflags iconflags-' . $lang,
                     'label' => Yii::t('YupeModule.yupe', $lang),
-                    'url' => $homeUrl.Yii::app()->urlManager->replaceLangUrl($cp, $lang),
+                    'url' => Yii::app()->urlManager->replaceLangInUrl($cp, $lang),
                 ];
             }
         }
 
         return [
             [
-                'icon' => 'iconflags iconflags-'.$currentLanguage,
+                'icon' => 'iconflags iconflags-' . $currentLanguage,
                 'label' => Yii::t('YupeModule.yupe', $currentLanguage),
                 'items' => $items,
                 'submenuOptions' => ['style' => 'min-width: 20px;'],

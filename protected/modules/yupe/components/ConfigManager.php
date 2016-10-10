@@ -274,8 +274,10 @@ class ConfigManager extends \CApplicationComponent
             }
         }
 
-        //смерджим файл /protected/config/project.php
-        return $this->mergeSettings(CMap::mergeArray($settings, require $this->basePath . '/config/project.php'));
+        return CMap::mergeArray(
+            $this->mergeSettings($settings),
+            is_file($this->basePath . '/config/main-local.php') ? require $this->basePath . '/config/main-local.php' : []
+        );
     }
 
     /**

@@ -1,6 +1,4 @@
 <?php
-use yupe\components\Event;
-
 /**
  * News основная моделька для новостей
  *
@@ -34,11 +32,26 @@ use yupe\components\Event;
  */
 class News extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_DRAFT = 0;
+    /**
+     *
+     */
     const STATUS_PUBLISHED = 1;
+    /**
+     *
+     */
     const STATUS_MODERATION = 2;
 
+    /**
+     *
+     */
     const PROTECTED_NO = 0;
+    /**
+     *
+     */
     const PROTECTED_YES = 1;
 
     /**
@@ -92,6 +105,9 @@ class News extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         $module = Yii::app()->getModule('news');
@@ -119,6 +135,9 @@ class News extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
@@ -141,6 +160,10 @@ class News extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @param $num
+     * @return $this
+     */
     public function last($num)
     {
         $this->getDbCriteria()->mergeWith(
@@ -153,6 +176,10 @@ class News extends yupe\models\YModel
         return $this;
     }
 
+    /**
+     * @param $lang
+     * @return $this
+     */
     public function language($lang)
     {
         $this->getDbCriteria()->mergeWith(
@@ -165,6 +192,10 @@ class News extends yupe\models\YModel
         return $this;
     }
 
+    /**
+     * @param $category_id
+     * @return $this
+     */
     public function category($category_id)
     {
         $this->getDbCriteria()->mergeWith(
@@ -203,6 +234,9 @@ class News extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         if (!$this->slug) {
@@ -216,12 +250,15 @@ class News extends yupe\models\YModel
         return parent::beforeValidate();
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
         $this->update_time = new CDbExpression('NOW()');
         $this->date = date('Y-m-d', strtotime($this->date));
 
-        if ($this->isNewRecord) {
+        if ($this->getIsNewRecord()) {
             $this->create_time = $this->update_time;
             $this->user_id = Yii::app()->getUser()->getId();
         }
@@ -256,9 +293,6 @@ class News extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
@@ -284,6 +318,9 @@ class News extends yupe\models\YModel
         ]);
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
@@ -293,6 +330,9 @@ class News extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
@@ -300,6 +340,9 @@ class News extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('NewsModule.news', '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getProtectedStatusList()
     {
         return [
@@ -308,6 +351,9 @@ class News extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getProtectedStatus()
     {
         $data = $this->getProtectedStatusList();
@@ -315,11 +361,17 @@ class News extends yupe\models\YModel
         return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('NewsModule.news', '*unknown*');
     }
 
+    /**
+     * @return string
+     */
     public function getCategoryName()
     {
         return ($this->category === null) ? '---' : $this->category->name;
     }
 
+    /**
+     * @return string
+     */
     public function getFlag()
     {
         return yupe\helpers\YText::langToflag($this->lang);

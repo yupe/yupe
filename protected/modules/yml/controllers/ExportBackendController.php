@@ -29,10 +29,11 @@ class ExportBackendController extends yupe\components\controllers\BackController
         $model = new Export();
         $model->setAttributes([
             'shop_platform' => Yii::app()->name,
-            'shop_version'  => Yii::app()->getModule('yupe')->version
+            'shop_version' => Yii::app()->getModule('yupe')->version,
         ]);
 
         if (($data = Yii::app()->getRequest()->getPost('Export')) !== null) {
+
             $model->setAttributes($data);
 
             if ($model->save()) {
@@ -59,6 +60,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Export')) !== null) {
+
             $model->setAttributes($data);
 
             if ($model->save()) {
@@ -85,24 +87,7 @@ class ExportBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            $transaction = Yii::app()->db->beginTransaction();
-            try {
-                $this->loadModel($id)->delete();
-                $transaction->commit();
-                if (!isset($_GET['ajax'])) {
-                    $this->redirect(
-                        (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
-                    );
-                }
-            } catch (Exception $e) {
-                $transaction->rollback();
-                Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-            }
-        } else {
-            throw new CHttpException(
-                400,
-                Yii::t('YmlModule.default', 'Unknown request. Don\'t repeat it please!')
-            );
+            $this->loadModel($id)->delete();
         }
     }
 
@@ -135,23 +120,5 @@ class ExportBackendController extends yupe\components\controllers\BackController
         }
 
         return $model;
-    }
-
-    /**
-     * Производит AJAX-валидацию
-     *
-     * @param CModel $model - модель, которую необходимо валидировать
-     *
-     * @return void
-     */
-    protected function performAjaxValidation(Attribute $model)
-    {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
-                'ajax'
-            ) === 'export-form'
-        ) {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

@@ -34,9 +34,6 @@ return [
             ],
         ],
     ],
-    'behaviors' => [
-        'page' => ['class' => 'application.modules.page.behaviors.PageBehavior']
-    ],
     'rules' => [
         [
             'class' => 'application.modules.page.components.PageUrlRule',

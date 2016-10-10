@@ -38,7 +38,6 @@ return [
     'layout' => 'yupe',
     'charset' => 'UTF-8',
     'controllerNamespace' => 'application\controllers',
-    'preload' => defined('YII_DEBUG') && YII_DEBUG ? ['debug'] : [],
     'aliases' => [
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src')
     ],
@@ -55,25 +54,16 @@ return [
             'class' => 'application.modules.yupe.YupeModule',
             'cache' => true
         ],
-        /**
-         * On production `gii` recommended disable
-         * @link http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
-         */
-        /*'gii'   => array(
-            'class'          => 'system.gii.GiiModule',
-            'password'       => 'giiYupe',
-            'generatorPaths' => array(
-                'application.modules.yupe.extensions.yupe.gii',
-            ),
-            'ipFilters'=>array(),
-        ),*/
     ],
     'behaviors' => [
-        'onBeginRequest' => [
+        'languageBehavior' => [
             'class' => 'yupe\components\urlManager\LanguageBehavior'
         ]
     ],
-    'params' => require __DIR__. '/params.php',
+    'params' => CMap::mergeArray(
+        require __DIR__ . '/params.php',
+        is_file(__DIR__ . '/params-local.php') ? require __DIR__ . '/params-local.php' : []
+    ),
     /**
      * Configuration base components
      * @link http://www.yiiframework.ru/doc/guide/ru/basics.component
@@ -88,7 +78,6 @@ return [
             'globals' => ['html' => 'CHtml'],
             'filters' => ['jencode' => 'CJSON::encode']
         ],
-        'debug' => ['class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug', 'internalUrls' => true],
         /**
          * Database settings be used only after Yupe install         *
          * @link http://www.yiiframework.ru/doc/guide/ru/database.overview
@@ -120,7 +109,6 @@ return [
          */
         'urlManager' => [
             'class' => 'yupe\components\urlManager\LangUrlManager',
-            'languageInPath' => true,
             'langParam' => 'language',
             'urlFormat' => 'path',
             'urlSuffix' => '',
@@ -141,9 +129,7 @@ return [
                 '/backend/<module:\w+>/<controller:\w+>' => '/<module>/<controller>Backend/index',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '/<module>/<controller>Backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>' => '/<module>/<controller>Backend/<action>',
-                '/gii/<controller:\w+>/<action:\w+>' => 'gii/<controller>/<action>',
                 '/site/<action:\w+>' => 'site/<action>',
-                '/debug/<controller:\w+>/<action:\w+>' => 'debug/<controller>/<action>'
             ]
         ],
         /**

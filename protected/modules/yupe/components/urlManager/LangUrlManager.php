@@ -17,6 +17,7 @@ namespace yupe\components\urlManager;
 
 use CUrlManager;
 use Yii;
+use YupeModule;
 
 /**
  * Class LangUrlManager
@@ -25,121 +26,175 @@ use Yii;
 class LangUrlManager extends CUrlManager
 {
     /**
-     * @var
-     */
-    public $languages;
-    /**
-     * @var
-     */
-    public $langs;
-    /**
      * @var string
      */
     public $langParam = 'language';
     /**
-     * @var bool
+     * @var string
      */
-    public $languageInPath = true;
+    protected $_defaultLang;
     /**
-     * @var bool
+     * @var string
      */
-    public $preferredLanguage = false;
+    protected $_currentLang;
+    /**
+     * @var string
+     */
+    protected $_langFromUrl;
+    /**
+     * @var string
+     */
+    protected $_langFromCookie;
+    /**
+     * @var array
+     */
+    protected $_languages;
+    /**
+     * @var YupeModule
+     */
+    protected $yupe;
 
     /**
-     * @var bool
-     */
-    private $_appLang = false;
-
-    /**
-     * Инициализация компонента:
-     * Здесь мы дополняем правила маршрутизации в соответствии с существующими языками,
-     * если языков используется всего один, то обработка не требуется.
+     * @inheritdoc
      */
     public function init()
     {
-        // Получаем список языков:
-        $this->loadLangs();
+        $this->yupe = Yii::app()->getModule('yupe');
+        $languages = $this->getAvailableLanguages();
 
-        // Если указаны - добавляем правила для обработки, иначе ничего не трогаем вообще
-        if ($this->languageInPath && count($this->languages) > 1) {
-            // Применяем преобразование для строки с языками:
-            $langs = implode('|', $this->languages);
+        if ('path' === $this->urlFormat && count($languages) > 1) {
 
-            // Обходим массив правил и выполняем
-            // преобразования для новых правил:
-            $newRules = [];
+            $languages = implode('|', $languages);
+            $rules = [];
+            $langPattern = '/<' . $this->langParam . ':(' . $languages . ')>/';
 
-            foreach ($this->rules as $rule => $p) {
-                $rule = '/<'.$this->langParam.':('.$langs.')>/'.ltrim($rule, '/');
-                $newRules[$rule] = $p;
+            foreach ($this->rules as $pattern => $route) {
+                if (is_array($route)) {
+                    if (isset($route['pattern'])) {
+                        $route['pattern'] = $langPattern . ltrim($route['pattern'], '/');
+                        $rules[] = $route;
+                    }
+                } else {
+                    $pattern = $langPattern . ltrim($pattern, '/');
+                    $rules[$pattern] = $route;
+                }
             }
 
-            // Добавляем новые правила:
-            $this->rules = array_merge($newRules, $this->rules);
+            $this->rules = array_merge($rules, $this->rules);
         }
 
         parent::init();
     }
 
+    public function getAvailableLanguages()
+    {
+        if (null === $this->_languages) {
+            $this->_languages = explode(',', $this->yupe->availableLanguages);
+        }
+
+        return $this->_languages;
+    }
+
     /**
-     * Получаем язык приложения:
-     *
      * @return string
      */
-    public function getAppLang()
+    public function getDefaultLang()
     {
-        if ($this->_appLang === false) {
-            $this->_appLang = Yii::app()->getModule('yupe')->defaultLanguage;
+        if (null === $this->_defaultLang) {
+            $this->_defaultLang = $this->isBackend()
+                ? $this->yupe->defaultBackendLanguage
+                : $this->yupe->defaultLanguage;
         }
 
-        return $this->_appLang;
+        return $this->_defaultLang;
     }
 
     /**
-     * Метод получения списка системных языков
-     *
-     * @return void
+     * @return null|string
      */
-    public function loadLangs()
+    public function getCurrentLang()
     {
-        if (empty($this->languages)) {
-            // Получаем из настроек доступные языки:
-            $this->langs = Yii::app()->getModule('yupe')->availableLanguages;
+        if (null === $this->_currentLang) {
+            $language = $this->getLangFromUrl();
 
-            // Разделяем на массив и удаляем пустые элементы:
-            $this->languages = explode(',', $this->langs);
+            if (null === $language) {
+                $language = $this->getLangFromCookie() ?: $this->getDefaultLang();
+            }
+
+            $this->_currentLang = in_array($language, $this->_languages, true) ? $language : null;
         }
+
+        return $this->_currentLang;
     }
 
     /**
-     * Метод создания URL.
-     * Здесь немного поправлена логика для работы с подмножеством языков:
-     *
-     * @param string $route - маршрут к обработке
-     * @param array $params - список GET параметров
-     * @param string $ampersand - маркер отделения пар имя-значение в URL. По умолчанию '&'.
-     *
-     * @return string parent::createUrl()
+     * @return null|string
+     */
+    public function getLangFromUrl()
+    {
+        if (null === $this->_langFromUrl) {
+
+            /* @var $request \CHttpRequest */
+            $request = Yii::app()->getRequest();
+
+            $path = explode('/', $request->getPathInfo());
+            $language = !empty($path[0]) ? $path[0] : null;
+
+            if ($language === null) {
+                $language = $request->getQuery($this->langParam);
+            }
+
+            $language = in_array($language, $this->_languages, true) ? $language : null;
+            $this->_langFromUrl = $language;
+        }
+
+        return $this->_langFromUrl;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getLangFromCookie()
+    {
+        if (null === $this->_langFromCookie) {
+            /* @var $request \CHttpRequest */
+            $request = Yii::app()->getRequest();
+
+            if (isset($request->cookies[$this->getCookieKey()])) {
+                $language = $request->cookies[$this->getCookieKey()]->value;
+
+                $this->_langFromCookie = in_array($language, $this->_languages, true) ? $language : null;
+            }
+        }
+
+        return $this->_langFromCookie;
+    }
+
+    public function getCookieKey()
+    {
+        return $this->langParam . '_' . ($this->isBackend() ? 'backend' : 'frontend');
+    }
+
+
+    /**
+     * @param string $route
+     * @param array $params
+     * @param string $ampersand
+     * @return mixed|string
      */
     public function createUrl($route, $params = [], $ampersand = '&')
     {
-        // Если используемых языков менее двух обработка не требуется
-        if (count($this->languages) > 1) {
-            // Если язык не указан - берем текущий
+        if (count($this->_languages) > 1) {
+
+
             if (!isset($params[$this->langParam])) {
-                $params[$this->langParam] = Yii::app()->getLanguage();
+                $params[$this->langParam] = $this->getCurrentLang();
             }
 
-            // Если указан "нативный" язык и к тому же он текущий,
-            // то делаем URL без него, т.к. он соответсвует пустому пути:
-            if ($this->getAppLang() == $params[$this->langParam]) {
+            if ($this->getDefaultLang() === $params[$this->langParam]) {
                 unset($params[$this->langParam]);
-            } else {
-                if (trim($route, '/') == "") {
-                    ;
-
-                    return Yii::app()->getHomeUrl().$params[$this->langParam];
-                }
+            } elseif (trim($route, '/') === '') {
+                return Yii::app()->getHomeUrl() . $params[$this->langParam];
             }
         }
 
@@ -147,75 +202,102 @@ class LangUrlManager extends CUrlManager
     }
 
     /**
-     * Выполняет очистку адреса от языка
-     *
-     * @param string $url - URL к очистке
-     * @param string|bool $param - параметры
-     *
-     * @return string обработанную строку адреса
+     * @param $url
+     * @param null
+     * @return string
      */
-    public function getCleanUrl($url, $param = false)
+    public function replaceLangInUrl($url, $lang = null)
     {
-        // Если в URL имеются параметры, получаем их:
-        if (strstr($url, '?') !== false) {
-            list($url, $param) = explode("?", $url);
+        $parsed = parse_url($url);
+        $result = '';
+
+        if (isset($parsed['scheme'])) {
+            $result .= $parsed['scheme'] . '://';
         }
 
-        // Убираем homeUrl из адреса:
-        $url = preg_replace(
-            "#^(".Yii::app()->getRequest()->scriptUrl."|".Yii::app()->getRequest()->baseUrl.")#",
-            '',
-            $url
-        );
-
-        // Убираем из пути адреса языковой параметр
-        if ($url != '' && $url != '/') {
-            if ($url[0] == '/') {
-                $url = substr($url, 1);
+        if (isset($parsed['user'])) {
+            $result .= $parsed['user'];
+            if (isset($parsed['pass'])) {
+                $result .= ':' . $parsed['pass'];
             }
-            if ($url[strlen($url) - 1] != '/') {
-                $url .= '/';
-            }
-            $url = preg_replace("#^(".implode("|", $this->languages).")/#", '', $url);
-        }
-        // Убираем косую черту в конце пути для единоообразия
-        if ($url != '' && $url[strlen($url) - 1] == '/') {
-            $url = substr($url, 0, strlen($url) - 1);
+            $result .= '@';
         }
 
-        // Убираем из GET-параметров адреса языковой параметр
-        if ($param != false) {
-            parse_str($param, $param);
-            if (isset($param[$this->langParam])) {
-                unset($param[$this->langParam]);
+        if (isset($parsed['host'])) {
+            $result .= $parsed['host'] . '/';
+        }
+
+        if ('path' === $this->urlFormat && isset($parsed['path'])) {
+            $path = trim($parsed['path'], '/');
+
+            $replaced = preg_replace(
+                '#^(' . implode('|', $this->_languages) . '){1}#',
+                $lang,
+                $path
+            );
+            $replaced = trim($replaced, '/');
+
+            if ($path === $replaced && null !== $lang) {
+                $replaced = $lang;
+                if ($path !== '') {
+                    $replaced .= '/' . $path;
+                }
             }
-            if ($param != []) {
-                $url .= '?'.http_build_query($param);
+
+            $result .= $replaced;
+
+            if ($result !== '') {
+                if (strpos($url, '/') === 0) {
+                    $result = '/' . $result;
+                }
+
+                if (substr($url, -1) === '/') {
+                    $result .= '/';
+                }
             }
         }
 
-        return $url;
+        if ('get' === $this->urlFormat) {
+            $queryParams = [];
+
+            if (isset($parsed['query'])) {
+                parse_str($parsed['query'], $queryParams);
+            }
+
+            if (null === $lang && isset($queryParams[$this->langParam])) {
+                unset($queryParams[$this->langParam]);
+            } else {
+                $queryParams[$this->langParam] = $lang;
+            }
+
+            $query = urldecode(http_build_query($queryParams));
+
+            if ($query !== '') {
+                $result .= '?' . $query;
+            }
+        }
+
+        if ($result === '') {
+            $result .= '/';
+        }
+
+        return $result;
     }
 
     /**
-     * При принудительном изменении языка, определяет как добавлять язык
-     * первый параметр url должен быть очищен от языкового параметра с помощью getCleanUrl.
-     *
-     * @param string $url - Url для обработки
-     * @param string|bool $lang - язык, по умолчанию - false
-     *
-     * @return string обработанную строку адреса
+     * @param $url
+     * @param bool $lang
+     * @return mixed|string
      */
-    public function replaceLangUrl($url, $lang = false)
+    public function removeLangFromUrl($url)
     {
-        $url = $this->getCleanUrl($url);
+        return $this->replaceLangInUrl($url);
+    }
 
-        return $lang !== false
-            ? (
-            $this->languageInPath
-                ? $lang.($url != '' ? '/'.$url : '')
-                : $url.(strstr($url, '?') ? '&' : '?').$this->langParam.'='.$lang
-            )
-            : $url;
+    public function isBackend()
+    {
+        $url = trim($this->removeLangFromUrl(Yii::app()->getRequest()->getUrl()), '/');
+
+        return strpos($url, 'backend') === 0;
     }
 }

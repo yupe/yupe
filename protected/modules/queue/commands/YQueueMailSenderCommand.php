@@ -82,8 +82,10 @@ class YQueueMailSenderCommand extends ConsoleCommand
             }
 
             $from = $this->from ? $this->from : $data['from'];
+            $replyTo = isset($data['replyTo']) ? $data['replyTo'] : [];
+            $sender = Yii::app()->getComponent($this->sender);
 
-            if (Yii::app()->getComponent($this->sender)->send($from, $data['to'], $data['theme'], $data['body'])) {
+            if ($sender->send($from, $data['to'], $data['theme'], $data['body'], false, $replyTo)) {
                 $model->complete();
 
                 $this->log("Success send mail");

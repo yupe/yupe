@@ -22,14 +22,27 @@ class PageUrlRule extends CBaseUrlRule
     }
 
     /**
-     * @param CUrlManager $manager
-     * @param CHttpRequest $route
-     * @param string $params
-     * @param string $amp
-     * @return bool
+     * @param \yupe\components\urlManager\LangUrlManager $manager
+     * @param CHttpRequest $request
+     * @param string $pathInfo
+     * @param string $rawPathInfo
+     * @return bool|string
      */
-    public function parseUrl($manager, $route, $params, $amp)
+    public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)
     {
+        $parts = explode('/', $manager->removeLangFromUrl($pathInfo));
+
+        if (!empty($parts)) {
+            $slug = $parts[0];
+            $page = Page::model()->findBySlug($slug);
+
+            if (null === $page) {
+                return false;
+            }
+
+            return 'page/page/view/slug/' . $page->slug;
+        }
+
         return false;
     }
 }

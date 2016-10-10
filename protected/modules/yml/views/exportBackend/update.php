@@ -11,7 +11,7 @@ $this->pageTitle = Yii::t('YmlModule.default', 'Products export - edition');
 $this->menu = [
     ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('YmlModule.default', 'Manage export lists'), 'url' => ['/yml/exportBackend/index']],
     ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('YmlModule.default', 'Create export list'), 'url' => ['/yml/exportBackend/create']],
-    ['label' => Yii::t('YmlModule.default', 'Export list') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    ['label' => Yii::t('YmlModule.default', 'Export list') . ' «' . mb_substr(CHtml::encode($model->name), 0, 32) . '»'],
     [
         'icon' => 'fa fa-fw fa-pencil',
         'label' => Yii::t('YmlModule.default', 'Update export list'),
@@ -36,7 +36,7 @@ $this->menu = [
 <div class="page-header">
     <h1>
         <?= Yii::t('YmlModule.default', 'Updating export list'); ?><br/>
-        <small>&laquo;<?= $model->name; ?>&raquo;</small>
+        <small>&laquo;<?= CHtml::encode($model->name); ?>&raquo;</small>
     </h1>
 </div>
 

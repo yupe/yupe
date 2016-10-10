@@ -8,11 +8,6 @@ use yupe\components\ContentType;
  */
 class ExportController extends application\components\Controller
 {
-    /**
-     * @var string
-     */
-    public $cacheKey = 'yml::export::';
-
     public function actionView($id)
     {
         $model = Export::model()->findByPk($id);
@@ -22,10 +17,12 @@ class ExportController extends application\components\Controller
         }
 
         $criteria = new CDbCriteria();
+        $categoryCriteria = new CDbCriteria();
         $criteria->compare('t.status', Product::STATUS_ACTIVE);
 
         if (!empty($model->categories)) {
             $criteria->addInCondition('t.category_id', (array)$model->categories);
+            $categoryCriteria->addInCondition('t.id', (array)$model->categories);
         }
 
         if (!empty($model->brands)) {
@@ -43,7 +40,7 @@ class ExportController extends application\components\Controller
             [
                 'model' => $model,
                 'currencies' => Yii::app()->getModule('store')->getCurrencyList(),
-                'categories' => StoreCategory::model()->published()->findAll(),
+                'categories' => StoreCategory::model()->published()->findAll($categoryCriteria),
                 'offers' => $offers,
             ]
         );
