@@ -256,10 +256,14 @@ class LangUrlManager extends CUrlManager
             }
         }
 
-        if ('get' === $this->urlFormat && isset($parsed['query'])) {
-            parse_str($parsed['query'], $queryParams);
+        if ('get' === $this->urlFormat) {
+            $queryParams = [];
 
-            if (isset($queryParams[$this->langParam]) && null === $lang) {
+            if (isset($parsed['query'])) {
+                parse_str($parsed['query'], $queryParams);
+            }
+
+            if (null === $lang && isset($queryParams[$this->langParam])) {
                 unset($queryParams[$this->langParam]);
             } else {
                 $queryParams[$this->langParam] = $lang;
