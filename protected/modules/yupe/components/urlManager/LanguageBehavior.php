@@ -54,7 +54,6 @@ class LanguageBehavior extends CBehavior
         $default = $this->lm->getDefaultLang();
         $fromUrl = $this->lm->getLangFromUrl();
 
-
         if (null === $fromUrl && $current !== $default) {
             $request->redirect(
                 $this->lm->replaceLangInUrl($request->getUrl(), $current)

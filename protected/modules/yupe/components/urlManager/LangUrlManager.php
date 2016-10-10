@@ -228,7 +228,6 @@ class LangUrlManager extends CUrlManager
         }
 
         if ('path' === $this->urlFormat && isset($parsed['path'])) {
-
             $path = trim($parsed['path'], '/');
 
             $replaced = preg_replace(
@@ -247,12 +246,14 @@ class LangUrlManager extends CUrlManager
 
             $result .= $replaced;
 
-            if (strpos($url, '/') === 0) {
-                $result = '/' . $result;
-            }
+            if ($result !== '') {
+                if (strpos($url, '/') === 0) {
+                    $result = '/' . $result;
+                }
 
-            if (substr($url, -1) === '/') {
-                $result .= '/';
+                if (substr($url, -1) === '/') {
+                    $result .= '/';
+                }
             }
         }
 
@@ -274,6 +275,10 @@ class LangUrlManager extends CUrlManager
             if ($query !== '') {
                 $result .= '?' . $query;
             }
+        }
+
+        if ($result === '') {
+            $result .= '/';
         }
 
         return $result;
