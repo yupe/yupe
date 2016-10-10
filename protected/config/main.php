@@ -109,7 +109,6 @@ return [
          */
         'urlManager' => [
             'class' => 'yupe\components\urlManager\LangUrlManager',
-            'langInPath' => true,
             'langParam' => 'language',
             'urlFormat' => 'path',
             'urlSuffix' => '',

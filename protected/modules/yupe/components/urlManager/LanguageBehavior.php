@@ -44,6 +44,7 @@ class LanguageBehavior extends CBehavior
      */
     public function handleLanguageBehavior($event)
     {
+
         /* @var $request \CHttpRequest */
         $request = Yii::app()->getRequest();
 
@@ -52,6 +53,7 @@ class LanguageBehavior extends CBehavior
 
         $default = $this->lm->getDefaultLang();
         $fromUrl = $this->lm->getLangFromUrl();
+
 
         if (null === $fromUrl && $current !== $default) {
             $request->redirect(

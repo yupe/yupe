@@ -30,10 +30,6 @@ class LangUrlManager extends CUrlManager
      */
     public $langParam = 'language';
     /**
-     * @var bool
-     */
-    public $langInPath = true;
-    /**
      * @var string
      */
     protected $_defaultLang;
@@ -66,7 +62,7 @@ class LangUrlManager extends CUrlManager
         $this->yupe = Yii::app()->getModule('yupe');
         $languages = $this->getAvailableLanguages();
 
-        if ($this->langInPath && count($languages) > 1) {
+        if ('path' === $this->urlFormat && count($languages) > 1) {
 
             $languages = implode('|', $languages);
             $rules = [];
@@ -231,7 +227,8 @@ class LangUrlManager extends CUrlManager
             $result .= $parsed['host'] . '/';
         }
 
-        if (true === $this->langInPath && isset($parsed['path'])) {
+        if ('path' === $this->urlFormat && isset($parsed['path'])) {
+
             $path = trim($parsed['path'], '/');
 
             $replaced = preg_replace(
@@ -259,17 +256,16 @@ class LangUrlManager extends CUrlManager
             }
         }
 
-        if (false === $this->langInPath && isset($parsed['query'])) {
+        if ('get' === $this->urlFormat && isset($parsed['query'])) {
             parse_str($parsed['query'], $queryParams);
-            if (isset($queryParams[$this->langParam])) {
-                if (null === $lang) {
-                    unset($queryParams[$this->langParam]);
-                } else {
-                    $queryParams[$this->langParam] = $lang;
-                }
+
+            if (isset($queryParams[$this->langParam]) && null === $lang) {
+                unset($queryParams[$this->langParam]);
+            } else {
+                $queryParams[$this->langParam] = $lang;
             }
 
-            $query = http_build_query($queryParams);
+            $query = urldecode(http_build_query($queryParams));
 
             if ($query !== '') {
                 $result .= '?' . $query;
