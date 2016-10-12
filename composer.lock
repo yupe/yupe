@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "52bd13c5483b99bdf048f513992b4b8f",
-    "content-hash": "d6da5d0883fc9ce4842fdf437c750ca0",
+    "hash": "48f52745743ccd9dcf71bbf80e0122d2",
+    "content-hash": "265b5727e565b956fcf2133600b6d584",
     "packages": [
         {
             "name": "2amigos/transliterator-helper",
@@ -533,16 +533,16 @@
         },
         {
             "name": "yiiext/imperavi-redactor-widget",
-            "version": "v1.3.17",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiiext/imperavi-redactor-widget.git",
-                "reference": "7fa41cee0fd79b15357959608ec0c408d8f88c85"
+                "reference": "9c4f76b7d0660b8efb13676a2a5ad0256b019d3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/7fa41cee0fd79b15357959608ec0c408d8f88c85",
-                "reference": "7fa41cee0fd79b15357959608ec0c408d8f88c85",
+                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/9c4f76b7d0660b8efb13676a2a5ad0256b019d3f",
+                "reference": "9c4f76b7d0660b8efb13676a2a5ad0256b019d3f",
                 "shasum": ""
             },
             "type": "library",
@@ -568,7 +568,7 @@
                 "wysiwyg",
                 "yii"
             ],
-            "time": "2015-10-07 11:59:49"
+            "time": "2015-11-17 16:29:58"
         },
         {
             "name": "yiiext/migrate-command",
@@ -2962,6 +2962,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "yiiext/nested-set-behavior": 20,
+        "yiiext/imperavi-redactor-widget": 20,
         "nodge/yii-eauth": 20,
         "2amigos/transliterator-helper": 20,
         "yiiext/migrate-command": 20
