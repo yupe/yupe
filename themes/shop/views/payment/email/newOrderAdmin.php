@@ -88,10 +88,7 @@
 <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
 
     <?php foreach ($order->products as $orderProduct): ?>
-        <?php $productUrl = Yii::app()->createAbsoluteUrl(
-            '/store/product/view',
-            ['name' => $orderProduct->product->slug]
-        ); ?>
+        <?php $productUrl = ProductHelper::getUrl($orderProduct->product, true);?>
         <tr>
             <td align="center"
                 style="padding:6px; width:100; padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">

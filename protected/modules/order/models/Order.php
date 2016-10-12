@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @property integer $id
  * @property integer $delivery_id
@@ -727,6 +726,14 @@ class Order extends yupe\models\YModel
     public function isPaid()
     {
         return (int)$this->paid === static::PAID_STATUS_PAID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function isPaymentMethodSelected()
+    {
+        return $this->payment_method_id;
     }
 
 

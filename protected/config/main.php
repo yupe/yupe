@@ -125,6 +125,7 @@ return [
                 '/install/default/<action:\w+>' => '/install/default/<action>',
                 '/backend' => '/yupe/backend/index',
                 '/backend/login' => '/user/account/backendlogin',
+                '/backend/<action:\w+>' => '/yupe/backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>' => '/<module>/<controller>Backend/index',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '/<module>/<controller>Backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>' => '/<module>/<controller>Backend/<action>',

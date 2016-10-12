@@ -22,8 +22,8 @@ $currency = Yii::app()->getModule('store')->currency;
                             </div>
                             <div class="cart-mini__info">
                                 <div class="cart-mini__title">
-                                    <?= CHtml::link($product->title, ['/store/product/view', 'name' => $product->slug],
-                                        ['class' => 'cart-mini__link']) ?>
+                                    <?= CHtml::link($product->title, ProductHelper::getUrl($product),
+                                        ['class' => 'cart-mini__link']); ?>
                                 </div>
                                 <div class="cart-mini__base-price">
                                     <?= $price ?>

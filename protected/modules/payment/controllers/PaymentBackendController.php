@@ -55,7 +55,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
             $model->setAttributes(Yii::app()->getRequest()->getPost('Payment'));
             $model->setPaymentSystemSettings(Yii::app()->getRequest()->getPost('PaymentSettings', []));
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('PaymentModule.payment', 'Record was created!')
                 );
@@ -89,7 +89,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
             $model->setAttributes(Yii::app()->getRequest()->getPost('Payment'));
             $model->setPaymentSystemSettings(Yii::app()->getRequest()->getPost('PaymentSettings', []));
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('PaymentModule.payment', 'Record was updated!')
                 );
@@ -114,7 +114,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         if (Yii::app()->getRequest()->getIsPostRequest()) {
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('PaymentModule.payment', 'Record was removed!')
             );

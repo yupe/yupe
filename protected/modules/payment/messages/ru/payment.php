@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Success get pay info!' => 'Информация об оплате успешно получена!',
     '*unknown*' => '*неизвестно*',
     'Active' => 'Активен',
     'Add payment and close' => 'Добавить способ оплаты и закрыть',

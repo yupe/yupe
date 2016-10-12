@@ -72,7 +72,7 @@ $this->title = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
         </div>
     </div>
 
-    <?php if (!$model->isPaid()  && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
+    <?php if (!$model->isPaid() && !$model->isPaymentMethodSelected() && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
         <div class="order-box">
             <div class="order-box__header order-box__header_normal"><?= Yii::t("OrderModule.order", "Payment"); ?></div>
             <div class="order-box__body">

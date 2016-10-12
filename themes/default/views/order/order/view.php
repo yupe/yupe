@@ -17,7 +17,7 @@ $this->title = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
                 <tr>
                     <td class="col-sm-5">
                         <div class="media">
-                            <?php $productUrl = Yii::app()->createUrl('/store/product/view', ['name' => $position->product->slug]); ?>
+                            <?php $productUrl = ProductHelper::getUrl($position->product); ?>
                             <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
                                 <img class="media-object" src="<?= $position->product->getImageUrl(72, 72); ?>">
                             </a>
@@ -189,7 +189,7 @@ $this->title = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
                 </td>
 
             </tr>
-            <?php if (!$model->isPaid() && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
+            <?php if (!$model->isPaid() && !$model->isPaymentMethodSelected() && !empty($model->delivery) && $model->delivery->hasPaymentMethods()): ?>
                 <tr>
                     <td colspan="3">
                         <ul id="payment-methods">
@@ -230,7 +230,7 @@ $this->title = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
                 <tr>
                     <td colspan="3">
                         <p class="text-right">
-                            <span class="aler alert-warning"><?= $model->getPaidStatus(); ?></span>
+                            <span class="aler alert-warning"><?= $model->getPaidStatus(); ?> <?= CHtml::encode($model->payment->name);?></span>
                         </p>
                     </td>
                 </tr>
