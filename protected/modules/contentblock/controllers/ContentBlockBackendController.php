@@ -12,6 +12,9 @@
  */
 class ContentBlockBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -19,22 +22,29 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
             ['allow', 'actions' => ['index'], 'roles' => ['ContentBlock.ContentblockBackend.Index']],
             ['allow', 'actions' => ['view'], 'roles' => ['ContentBlock.ContentblockBackend.View']],
             ['allow', 'actions' => ['create'], 'roles' => ['ContentBlock.ContentblockBackend.Create']],
-            ['allow', 'actions' => ['update', 'toggle', 'inline'], 'roles' => ['ContentBlock.ContentblockBackend.Update']],
+            [
+                'allow',
+                'actions' => ['update', 'toggle', 'inline'],
+                'roles' => ['ContentBlock.ContentblockBackend.Update'],
+            ],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['ContentBlock.ContentblockBackend.Delete']],
-            ['deny']
+            ['deny'],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             'inline' => [
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'ContentBlock',
-                'validAttributes' => ['name', 'code', 'type', 'description']
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'ContentBlock',
+                'validAttributes' => ['name', 'code', 'type', 'description'],
             ],
             'toggle' => [
-                'class'     => 'booster.actions.TbToggleAction',
+                'class' => 'booster.actions.TbToggleAction',
                 'modelName' => 'ContentBlock',
             ],
         ];
@@ -62,9 +72,9 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
         $this->render(
             'view',
             [
-                'model'           => $model,
-                'example'         => $example,
-                'exampleCategory' => $exampleCategory
+                'model' => $model,
+                'example' => $example,
+                'exampleCategory' => $exampleCategory,
             ]
         );
     }
@@ -83,7 +93,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
             $model->setAttributes($data);
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ContentBlockModule.contentblock', 'New content block was added!')
                 );
@@ -115,7 +125,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
             $model->setAttributes($data);
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ContentBlockModule.contentblock', 'Content block was changed!')
                 );

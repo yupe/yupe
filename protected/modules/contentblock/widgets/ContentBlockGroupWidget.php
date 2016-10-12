@@ -77,7 +77,7 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
     {
         $cacheName = "ContentBlock{$this->category}".Yii::app()->language;
 
-        $blocks = Yii::app()->cache->get($cacheName);
+        $blocks = Yii::app()->getCache()->get($cacheName);
 
         if ($blocks === false) {
 
@@ -111,7 +111,7 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                 );
             }
 
-            Yii::app()->cache->set($cacheName, $blocks, $this->cacheTime);
+            Yii::app()->getCache()->set($cacheName, $blocks, $this->cacheTime);
         }
 
         $this->render($this->view, ['blocks' => $blocks]);

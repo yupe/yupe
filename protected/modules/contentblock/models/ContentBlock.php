@@ -29,11 +29,26 @@
  */
 class ContentBlock extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const SIMPLE_TEXT = 1;
+    /**
+     *
+     */
     const HTML_TEXT = 3;
+    /**
+     *
+     */
     const RAW_TEXT = 4;
 
+    /**
+     *
+     */
     const STATUS_NOT_ACTIVE = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVE = 1;
 
     /**
@@ -82,6 +97,9 @@ class ContentBlock extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
         return [
@@ -97,8 +115,6 @@ class ContentBlock extends yupe\models\YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return [
             'category' => [self::BELONGS_TO, 'Category', 'category_id']
         ];
@@ -127,9 +143,6 @@ class ContentBlock extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following name to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
         $criteria->compare($this->tableAlias . '.id', $this->id);
         $criteria->compare($this->tableAlias . '.name', $this->name, true);
@@ -143,6 +156,9 @@ class ContentBlock extends yupe\models\YModel
         return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
+    /**
+     * @return array
+     */
     public function getTypes()
     {
         return [
@@ -152,6 +168,9 @@ class ContentBlock extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getType()
     {
         $data = $this->getTypes();
@@ -162,6 +181,9 @@ class ContentBlock extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return string
+     */
     public function getContent()
     {
         $content = '';
@@ -179,27 +201,35 @@ class ContentBlock extends yupe\models\YModel
         return $content;
     }
 
+    /**
+     * @return bool
+     */
     protected function beforeSave()
     {
-        if (parent::beforeSave()) {
-            Yii::app()->cache->delete("ContentBlock{$this->code}" . Yii::app()->language);
+        Yii::app()->getCache()->delete("ContentBlock{$this->code}" . Yii::app()->language);
 
-            return true;
-        }
-
-        return false;
+        return parent::beforeSave();
     }
 
+    /**
+     * @return string
+     */
     public function getCategoryName()
     {
         return empty($this->category) ? Yii::t('ContentBlockModule.contentblock', '--not selected--') : $this->category->name;
     }
 
+    /**
+     * @return string
+     */
     public function getCategoryAlias()
     {
         return empty($this->category) ? '<code_category>' : $this->category->slug;
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
         return [
