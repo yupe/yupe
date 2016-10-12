@@ -56,12 +56,12 @@ class ContentBlockWidget extends yupe\widgets\YWidget
 
         $output = Yii::app()->getCache()->get($cacheName);
 
-        if ($output === false) {
+        if (false === $output) {
 
             $block = ContentBlock::model()->findByAttributes(['code' => $this->code]);
 
             if (null === $block) {
-                if ($this->silent === false) {
+                if (false === $this->silent) {
                     throw new CException(
                         Yii::t(
                             'ContentBlockModule.contentblock',
@@ -76,11 +76,8 @@ class ContentBlockWidget extends yupe\widgets\YWidget
                 $output = '';
 
             } else {
-                if ($block->status == ContentBlock::STATUS_ACTIVE) {
-                    $output = $block->getContent();
-                } else {
-                    $output = '';
-                }
+
+                $output = $block->status == ContentBlock::STATUS_ACTIVE ? $block->getContent() : '';
             }
 
             Yii::app()->getCache()->set($cacheName, $output);
