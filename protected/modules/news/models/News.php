@@ -30,6 +30,9 @@
  * @property string $description
  * @property string $keywords
  */
+
+use yupe\components\Event;
+
 class News extends yupe\models\YModel
 {
     /**
