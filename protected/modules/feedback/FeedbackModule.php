@@ -406,5 +406,4 @@ class FeedbackModule extends WebModule
             ],
         ];
     }
-
 }

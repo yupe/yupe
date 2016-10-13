@@ -43,7 +43,6 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
         ];
     }
 
-    // FeedBack $model
     /**
      * @var
      */
@@ -58,7 +57,6 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
      */
     public function actionView($id = null)
     {
-        // Обработка при Ajax-запросе:
         if (Yii::app()->getRequest()->getIsAjaxRequest()) {
             return Yii::app()->ajax->success(
                 [
@@ -178,14 +176,12 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             ]
         );
 
-        // Обработка при Ajax-запросе:
         if (Yii::app()->getRequest()->getIsAjaxRequest()) {
 
             if ($this->saveAnswer($form, $model) === true) {
                 return true;
             }
 
-            // Если уже отправили сообщение:
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 return Yii::app()->ajax->failure(
                     [
@@ -299,10 +295,9 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     public function actionDelete()
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            // we only allow deletion via POST request
+
             $this->loadModel()->delete();
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             Yii::app()->getRequest()->getIsAjaxRequest() || $this->redirect(
                 (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );

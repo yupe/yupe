@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class PanelFeedbackStatWidget
+ */
 class PanelFeedbackStatWidget extends \yupe\widgets\YWidget
 {
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $dataProvider = new CActiveDataProvider('FeedBack', [
@@ -13,7 +19,7 @@ class PanelFeedbackStatWidget extends \yupe\widgets\YWidget
             ],
         ]);
 
-        $cacheTime = Yii::app()->controller->yupe->coreCacheTime;
+        $cacheTime = Yii::app()->getController()->yupe->coreCacheTime;
 
         $this->render(
             'panel-feedback-stat',

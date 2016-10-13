@@ -1,10 +1,19 @@
 <?php
 use yupe\widgets\YWidget;
 
+/**
+ * Class FeedbackWidget
+ */
 class FeedbackWidget extends YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'default';
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $model = new FeedBackForm();

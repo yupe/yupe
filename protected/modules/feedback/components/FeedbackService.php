@@ -12,10 +12,6 @@ class FeedbackService extends CApplicationComponent
      */
     public function send(FeedBackForm $form, FeedbackModule $module)
     {
-        if (false === $form->validate()) {
-            return false;
-        }
-
         $backEnd = array_unique($module->backEnd);
 
         $success = true;
@@ -32,7 +28,7 @@ class FeedbackService extends CApplicationComponent
             }
         }
 
-        if(true === $success){
+        if (true === $success) {
             Yii::app()->eventManager->fire(FeedbackEvents::SEND_SUCCESS, new FeedbackSendEvent(
                 Yii::app()->getUser(),
                 $form
