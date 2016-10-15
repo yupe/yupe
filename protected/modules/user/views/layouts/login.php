@@ -76,21 +76,15 @@
                                         'linkOptions' => ['target' => '_blank'],
                                     ],
                                     [
-                                        'icon'        => 'fa fa-fw fa-globe',
-                                        'label'       => Yii::t('YupeModule.yupe', 'Community'),
-                                        'url'         => 'http://yupe.ru?from=help',
-                                        'linkOptions' => ['target' => '_blank'],
-                                    ],
-                                    [
                                         'icon'        => 'fa fa-fw fa-book',
                                         'label'       => Yii::t('YupeModule.yupe', 'Official docs'),
-                                        'url'         => 'http://yupe.ru/docs/index.html?from=help',
+                                        'url'         => 'http://docs.yupe.ru/?from=help',
                                         'linkOptions' => ['target' => '_blank'],
                                     ],
                                     [
                                         'icon'        => 'fa fa-fw fa-th-large',
                                         'label'       => Yii::t('YupeModule.yupe', 'Additional modules'),
-                                        'url'         => 'https://github.com/yupe/yupe-ext',
+                                        'url'         => 'http://yupe.ru/store',
                                         'linkOptions' => ['target' => '_blank'],
                                     ],
                                     [

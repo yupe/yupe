@@ -43,7 +43,7 @@ class YmlModule extends WebModule
      */
     public function getCategory()
     {
-        return Yii::t('YmlModule.default', 'Store');
+        return Yii::t('YmlModule.default', 'Service');
     }
 
     /**

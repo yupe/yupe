@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Service' => 'Сервисы',
     '*unknown*' => '*неизвестно*',
     'Active' => 'Активен',
     'Add delivery and close' => 'Добавить доставку и закрыть',

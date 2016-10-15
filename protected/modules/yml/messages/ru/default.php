@@ -1,5 +1,6 @@
 <?php
 return [
+    'Service' => 'Сервисы',
     'Yml export' => 'Экспорт в YML',
     'Add list and close' => 'Добавить выгрузку и закрыть',
     'Add list and continue' => 'Добавить выгрузку и продолжить',

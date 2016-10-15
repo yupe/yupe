@@ -75,7 +75,7 @@ $this->widget(
                                 [
                                     'icon' => 'fa fa-fw fa-th-large',
                                     'label' => Yii::t('YupeModule.yupe', 'Additional modules'),
-                                    'url' => 'http://yupe.ru/marketplace?from=help',
+                                    'url' => 'http://yupe.ru/store?from=help',
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [

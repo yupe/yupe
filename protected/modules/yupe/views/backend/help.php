@@ -71,7 +71,7 @@ $this->breadcrumbs = [
 
 <?= CHtml::link(
     Yii::t('YupeModule.yupe', 'Official Yupe! docs', ['target' => '_blank']),
-    'http://yupe.ru/docs/index.html?form=help'
+    'http://docs.yupe.ru/?form=help'
 ); ?> - <?= Yii::t(
     'YupeModule.yupe',
     ' We are working with it =)'

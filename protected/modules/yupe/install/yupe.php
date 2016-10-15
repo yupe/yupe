@@ -25,7 +25,7 @@ return [
     'component' => [
         // Массив компонентов, которые требует данный модуль
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
-        // конфигурирование memcache в юпи http://yupe.ru/docs/memcached.html
+        // конфигурирование memcache в юпи http://docs.yupe.ru/memcached/
         'cache' => [
             'class' => 'CFileCache',
             'behaviors' => [
