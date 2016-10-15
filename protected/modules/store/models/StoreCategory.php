@@ -12,7 +12,7 @@ use yupe\components\Event;
  * @property integer $status
  * @property integer $parent_id
  * @property integer $sort
- * @property integer $external_id
+ * @property string $external_id
  * @property string $title
  * @property string $meta_canonical
  * @property string $image_alt
@@ -68,13 +68,14 @@ class StoreCategory extends \yupe\models\YModel
             ],
             ['name, slug', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['name, slug', 'required'],
-            ['parent_id, status, sort, external_id', 'numerical', 'integerOnly' => true],
+            ['parent_id, status, sort', 'numerical', 'integerOnly' => true],
             ['parent_id, status', 'length', 'max' => 11],
             ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
             ['status', 'numerical', 'integerOnly' => true],
             ['status', 'length', 'max' => 11],
             ['name, title, image, image_alt, image_title, meta_title, meta_keywords, meta_description, meta_canonical', 'length', 'max' => 250],
             ['slug', 'length', 'max' => 150],
+            ['external_id', 'length', 'max' => 100],
             [
                 'slug',
                 'yupe\components\validators\YSLugValidator',

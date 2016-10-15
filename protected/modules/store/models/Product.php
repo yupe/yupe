@@ -34,7 +34,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property double $purchase_price
  * @property double $recommended_price
  * @property integer $position
- * @property integer $external_id
+ * @property string $external_id
  * @property string $title
  * @property string $meta_canonical
  * @property string $image_alt
@@ -134,7 +134,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'filter' => 'trim',
             ],
             [
-                'status, is_special, producer_id, type_id, quantity, in_stock, category_id, external_id',
+                'status, is_special, producer_id, type_id, quantity, in_stock, category_id',
                 'numerical',
                 'integerOnly' => true,
             ],
@@ -150,6 +150,7 @@ class Product extends yupe\models\YModel implements ICommentable
             ['discount_price, discount, average_price, purchase_price, recommended_price', 'default', 'value' => null],
             ['sku', 'length', 'max' => 100],
             ['slug', 'length', 'max' => 150],
+            ['external_id', 'length', 'max' => 100],
             [
                 'slug',
                 'yupe\components\validators\YSLugValidator',
