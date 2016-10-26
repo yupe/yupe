@@ -76,7 +76,12 @@ $this->breadcrumbs = array_merge(
                                     </h4>
                                     <table>
                                         <tbody>
-                                            <?php foreach ($items as $attribute): { ?>
+                                            <?php
+                                            foreach ($items as $attribute): {
+                                                $value = $product->attribute($attribute);
+
+                                                if (empty($value)) continue;
+                                            ?>
                                                 <tr>
                                                     <td class="key">
                                                         <span><?= CHtml::encode($attribute->title); ?></span>
