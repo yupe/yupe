@@ -1,23 +1,12 @@
 <?php
 return [
-    'module'    => [
+    'module' => [
         'class' => 'application.modules.notify.NotifyModule',
     ],
-    'import'    => [
+    'import' => [
         'application.modules.notify.listeners.*',
     ],
     'component' => [
-        'eventManager'   => [
-            'class'  => 'yupe\components\EventManager',
-            'events' => [
-                'user.success.activate' => [
-                    ['UserActivationListener', 'onUserActivate']
-                ],
-                'comment.add.success' => [
-                    ['NotifyNewCommentListener', 'onNewComment']
-                ],
-            ]
-        ],
         'notify' => [
             'class' => 'notify\components\Notify',
             'mail' => [

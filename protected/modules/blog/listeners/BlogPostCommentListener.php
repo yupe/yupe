@@ -5,7 +5,7 @@ Yii::import('application.modules.notify.NotifyModule');
 Yii::import('application.modules.blog.models.Post');
 Yii::import('application.modules.blog.models.Blog');
 
-class NotifyNewCommentListener
+class BlogPostCommentListener
 {
     public static function onNewComment(CommentEvent $event)
     {
@@ -50,7 +50,7 @@ class NotifyNewCommentListener
             if (null !== $post) {
 
                 //пропускаем автора поста + если отвечают на комментарий автора поста - он уже получил уведомление выше
-                if($comment->user_id != $post->create_user_id) {
+                if ($comment->user_id != $post->create_user_id) {
 
                     $notify = NotifySettings::model()->getForUser($post->create_user_id);
 

@@ -18,8 +18,6 @@ class NotifyModule extends WebModule
     public function getDependencies()
     {
         return [
-            'comment',
-            'blog',
             'mail',
         ];
     }
