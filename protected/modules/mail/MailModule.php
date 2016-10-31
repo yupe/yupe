@@ -193,6 +193,18 @@ class MailModule extends yupe\components\WebModule
     }
 
     /**
+     * Получаем массив с именами модулей, от которых зависит работа данного модуля
+     *
+     * @return array Массив с именами модулей, от которых зависит работа данного модуля
+     *
+     * @since 0.5
+     */
+    public function getDependencies()
+    {
+        return ['user'];
+    }
+
+    /**
      * @return array
      */
     public function getAuthItems()
