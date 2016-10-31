@@ -79,7 +79,7 @@ $this->menu = [
 
 <div id="search-toggle" class="collapse out search-form">
     <?php
-    Yii::app()->clientScript->registerScript(
+    Yii::app()->getClientScript()->registerScript(
         'search',
         "
     $('.search-form form').submit(function () {
@@ -133,7 +133,7 @@ $this->menu = [
                     'url'    => $this->createUrl('/blog/postBackend/inline'),
                     'mode'   => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter'   => CHtml::activeTextField($model, 'title', ['class' => 'form-control']),
@@ -145,7 +145,7 @@ $this->menu = [
                     'url'    => $this->createUrl('/blog/postBackend/inline'),
                     'mode'   => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'filter'   => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
@@ -155,7 +155,6 @@ $this->menu = [
                 'name'     => 'publish_time',
                 'editable' => [
                     'url'        => $this->createUrl('/blog/postBackend/inline'),
-                    //'mode' => 'inline',
                     'type'       => 'datetime',
                     'options'    => [
                         'datetimepicker' => [
@@ -169,16 +168,20 @@ $this->menu = [
                     ],
                     'viewformat' => 'dd-mm-yyyy hh:ii',
                     'params'     => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
-                'value'    => '$data->publish_time',
+                'value'    => function($data){
+                    return $data->publish_time;
+                },
                 'filter'   => CHtml::activeTextField($model, 'publish_time', ['class' => 'form-control']),
             ],
             [
                 'name'   => 'create_user_id',
                 'type'   => 'raw',
-                'value'  => 'CHtml::link($data->createUser->getFullName(), array("/user/userBackend/view", "id" => $data->createUser->id))',
+                'value'  => function($data){
+                    return CHtml::link($data->createUser->getFullName(), array("/user/userBackend/view", "id" => $data->createUser->id));
+                },
                 'filter' => CHtml::activeDropDownList(
                     $model,
                     'create_user_id',
@@ -204,7 +207,9 @@ $this->menu = [
                 ],
                 'name'     => 'comment_status',
                 'type'     => 'raw',
-                'value'    => '$data->getCommentStatus()',
+                'value'    => function($data){
+                    return $data->getCommentStatus();
+                },
                 'filter'   => CHtml::activeDropDownList(
                     $model,
                     'comment_status',
@@ -225,22 +230,17 @@ $this->menu = [
                 ],
             ],
             [
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => [
-                    'url'     => $this->createUrl('/blog/postBackend/inline'),
-                    'mode'    => 'inline',
-                    'type'    => 'select2',
-                    'select2' => [
-                        'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
-                    ],
-                ],
                 'name'     => 'tags',
-                'value'    => 'join(", ", $data->getTags())',
+                'value'    => function($data){
+                    return implode(", ", $data->getTags());
+                },
                 'filter'   => false,
             ],
             [
                 'header' => "<i class=\"fa fa-comment\"></i>",
-                'value'  => 'CHtml::link(($data->commentsCount>0) ? $data->commentsCount-1 : 0,array("/comment/commentBackend/index/","Comment[model]" => "Post","Comment[model_id]" => $data->id))',
+                'value'  => function($data){
+                    return CHtml::link(($data->commentsCount>0) ? $data->commentsCount-1 : 0,array("/comment/commentBackend/index/","Comment[model]" => "Post","Comment[model_id]" => $data->id));
+                },
                 'type'   => 'raw',
             ],
             [

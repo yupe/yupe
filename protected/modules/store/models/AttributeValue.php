@@ -14,8 +14,8 @@
  * @property string $create_time
  *
  * The followings are the available model relations:
- * @property StoreAttribute $attribute
- * @property StoreProduct $product
+ * @property Attribute $attribute
+ * @property Product $product
  */
 class AttributeValue extends yupe\models\YModel
 {
