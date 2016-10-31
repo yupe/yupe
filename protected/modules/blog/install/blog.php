@@ -27,8 +27,11 @@ return [
             'class' => 'yupe\components\EventManager',
             'events' => [
                 'sitemap.before.generate' => [
-                    ['\SitemapGeneratorListener', 'onGenerate']
-                ]
+                    ['SitemapGeneratorListener', 'onGenerate']
+                ],
+                'comment.add.success' => [
+                    ['BlogPostCommentListener', 'onNewComment']
+                ],
             ]
         ]
     ],

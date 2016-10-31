@@ -8,12 +8,12 @@ class UserEvents
     /**
      *
      */
-    const SUCCESS_ACTIVATE_ACCOUNT = 'user.success.activate';
+    const SUCCESS_ACTIVATE_ACCOUNT = 'user.success.activate.account';
 
     /**
      *
      */
-    const FAILURE_ACTIVATE_ACCOUNT = 'user.failure.activate';
+    const FAILURE_ACTIVATE_ACCOUNT = 'user.failure.activate.account';
 
     /**
      *

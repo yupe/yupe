@@ -64,6 +64,7 @@ class BlogModule extends yupe\components\WebModule
             'category',
             'comment',
             'image',
+            'notify',
         ];
     }
 

@@ -1,20 +1,19 @@
 <?php
+
 namespace application\modules\social\components\services;
 
-class Google extends \GoogleOAuthService
-{
-    protected $scope = 'https://www.googleapis.com/auth/userinfo.email';
-    protected $name = 'google';
+class Odnoklassniki extends \OdnoklassnikiOAuthService {
 
     const AUTH_DATA_KEY = 'authData';
 
     public function authenticate()
     {
         if (parent::authenticate()) {
+
             $this->setState(
                 self::AUTH_DATA_KEY,
                 [
-                    'email'   => $this->email,
+                    'email'   => $this->getAttribute('email'),
                     'uid'     => $this->getId(),
                     'service' => $this->getServiceName(),
                     'type'    => $this->getServiceType(),
@@ -38,14 +37,17 @@ class Google extends \GoogleOAuthService
     }
 
     protected function fetchAttributes() {
-        $info = (array)$this->makeSignedRequest('https://www.googleapis.com/oauth2/v1/userinfo');
+        $info = $this->makeSignedRequest('http://api.odnoklassniki.ru/fb.do', array(
+            'query' => array(
+                'method' => 'users.getCurrentUser',
+                'format' => 'JSON',
+                'application_key' => $this->client_public,
+                'client_id' => $this->client_id,
+            ),
+        ));
 
-        $this->attributes['id'] = $info['id'];
-        $this->attributes['name'] = $info['name'];
-        $this->attributes['email'] = $info['email'];
-
-        if (!empty($info['link'])) {
-            $this->attributes['url'] = $info['link'];
-        }
+        $this->attributes = json_decode(json_encode($info), true);
+        $this->attributes['id'] = $info->uid;
+        $this->attributes['name'] = $info->first_name . ' ' . $info->last_name;
     }
 }

@@ -654,7 +654,11 @@ class Product extends yupe\models\YModel implements ICommentable
         if (is_array($this->_attributesValues[$attributeName])) {
             $values = [];
             foreach ($this->_attributesValues[$attributeName] as $attribute) {
-                $values[] = $attribute->value($default);
+                $value = $attribute->value($default);
+
+                if (is_null($value)) continue;
+
+                $values[] = $value;
             }
 
             return $values;

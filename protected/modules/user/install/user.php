@@ -53,12 +53,15 @@ return [
                 'user.success.activate.password' => [
                     ['UserManagerListener', 'onSuccessActivatePassword'],
                 ],
+                'user.success.activate.account' => [
+                    ['UserManagerListener', 'onSuccessActivateAccount']
+                ],
                 'user.success.email.confirm' => [
                     ['UserManagerListener', 'onSuccessEmailConfirm'],
                 ],
                 'user.success.email.change' => [
                     ['UserManagerListener', 'onSuccessEmailChange'],
-                ],
+                ]
             ],
         ],
     ],

@@ -1,4 +1,7 @@
 <?php
+
+/* @var $model RegistrationForm */
+
 $this->title = Yii::t('UserModule.user', 'Sign up');
 $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 ?>
@@ -24,25 +27,24 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
     </div>
 </div>
 
-<?php if (!isset($authData['email'])): { ?>
+<?php if (!$model->email): ?>
     <div class='row'>
         <div class="col-sm-6">
             <?= $form->textFieldGroup($model, 'email'); ?>
         </div>
     </div>
-<?php } endif; ?>
+<?php endif; ?>
 
-<div class="row">
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton',
-        [
-            'buttonType' => 'submit',
-            'context'    => 'primary',
-            'label'      => Yii::t('UserModule.user', 'Sign up'),
-        ]
-    ); ?>
-</div>
+
+<?php
+$this->widget(
+    'bootstrap.widgets.TbButton',
+    [
+        'buttonType' => 'submit',
+        'context'    => 'primary',
+        'label'      => Yii::t('UserModule.user', 'Sign up'),
+    ]
+); ?>
 
 <?php $this->endWidget(); ?>
 <!-- form -->

@@ -27,9 +27,9 @@ $this->breadcrumbs = [Yii::t('GalleryModule.gallery', 'Image galleries')];
         'bootstrap.widgets.TbListView',
         [
             'dataProvider' => $dataProvider,
-            'itemView'     => '_item',
-            'template'     => "{items}\n{pager}",
-            'separator'    => '<hr>',
+            'itemView' => '_item',
+            'template' => "{items}\n{pager}",
+            'separator' => '<hr>',
         ]
     ); ?>
 </div>

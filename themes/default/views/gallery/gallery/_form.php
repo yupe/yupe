@@ -13,9 +13,9 @@
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
         [
-            'id'                     => 'add-image-form',
+            'id' => 'add-image-form',
             'enableClientValidation' => true,
-            'htmlOptions'            => ['enctype' => 'multipart/form-data']
+            'htmlOptions' => ['enctype' => 'multipart/form-data']
         ]
     ); ?>
 
@@ -80,11 +80,11 @@
         'bootstrap.widgets.TbButton',
         [
             'buttonType' => 'submit',
-            'context'    => 'primary',
-            'icon'       => 'glyphicon glyphicon-picture',
-            'label'      => $model->getIsNewRecord()
-                    ? Yii::t('GalleryModule.gallery', 'Create image')
-                    : Yii::t('GalleryModule.gallery', 'Refresh image')
+            'context' => 'primary',
+            'icon' => 'glyphicon glyphicon-picture',
+            'label' => $model->getIsNewRecord()
+                ? Yii::t('GalleryModule.gallery', 'Create image')
+                : Yii::t('GalleryModule.gallery', 'Refresh image')
         ]
     ); ?>
 

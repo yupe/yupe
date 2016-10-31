@@ -39,6 +39,13 @@ return [
                     'client_id'     => '',
                     'client_secret' => '',
                 ],
+                'odnoklassniki' => [
+                    'scope' => 'GET_EMAIL', // https://apiok.ru/ext/oauth/permissions
+                    'class' => 'application\modules\social\components\services\Odnoklassniki',
+                    'client_id' => '',
+                    'client_public' => '',
+                    'client_secret' => '',
+                ],
             ],
         ],
         'loid'  => [
@@ -46,8 +53,8 @@ return [
         ],
     ],
     'rules'     => [
-        '/social/login/service/<service:(google|facebook|vkontakte|twitter|github)>'    => 'social/user/login',
-        '/social/connect/service/<service:(google|facebook|vkontakte|twitter|github)>'  => 'social/user/connect',
-        '/social/register/service/<service:(google|facebook|vkontakte|twitter|github)>' => 'social/user/register',
+        '/social/login/service/<service:(google|facebook|vkontakte|twitter|github|odnoklassniki)>'    => 'social/user/login',
+        '/social/connect/service/<service:(google|facebook|vkontakte|twitter|github|odnoklassniki)>'  => 'social/user/connect',
+        '/social/register/service/<service:(google|facebook|vkontakte|twitter|github|odnoklassniki)>' => 'social/user/register',
     ],
 ];
