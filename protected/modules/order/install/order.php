@@ -20,6 +20,9 @@ return [
                 'order.pay.success' => [
                     ['PayOrderListener', 'onSuccessPay']
                 ],
+                'order.create.success' => [
+                    ['OrderListener', 'onCreate']
+                ]
             ]
         ],
         'orderNotifyService' => [

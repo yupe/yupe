@@ -136,12 +136,4 @@ class CartModule extends WebModule
             ]
         );
     }
-
-    /**
-     *
-     */
-    public function clearCart()
-    {
-        Yii::app()->cart->clear();
-    }
 }

@@ -217,6 +217,7 @@ class OrderModule extends WebModule
             [
                 'order.models.*',
                 'order.forms.*',
+                'order.listeners.*',
             ]
         );
     }

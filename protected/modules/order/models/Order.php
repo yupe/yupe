@@ -40,6 +40,7 @@
 Yii::import('application.modules.order.OrderModule');
 Yii::import('application.modules.order.events.OrderEvents');
 Yii::import('application.modules.order.events.PayOrderEvent');
+Yii::import('application.modules.order.events.OrderEvent');
 Yii::import('application.modules.order.events.OrderChangeStatusEvent');
 
 /**
@@ -479,6 +480,8 @@ class Order extends yupe\models\YModel
                 return false;
             }
 
+            Yii::app()->eventManager->fire(OrderEvents::SUCCESS_CREATED, new OrderEvent($this));
+
             $transaction->commit();
 
             return true;
@@ -751,7 +754,7 @@ class Order extends yupe\models\YModel
         $this->setAttributes([
             'paid' => (int)$paid,
             'payment_method_id' => $payment->id,
-            'payment_time' => new CDbExpression('now()'),
+            'payment_time' => new CDbExpression('NOW()'),
         ]);
 
         $result = $this->save();

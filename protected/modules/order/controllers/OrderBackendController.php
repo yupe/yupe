@@ -17,7 +17,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
     public function init()
     {
         parent::init();
-        
+
         $this->productRepository = Yii::app()->getComponent('productRepository');
     }
 
