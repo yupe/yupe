@@ -55,13 +55,13 @@ class YLanguageSelector extends YWidget
             Yii::app()->getClientScript()->registerCssFile(Yii::app()->getTheme()->getAssetsUrl().'/css/flags.css');
         }
 
+
         $this->render(
             $this->view,
             [
                 'langs' => $langs,
                 'currentLanguage' => Yii::app()->getLanguage(),
-                'cleanUrl' => Yii::app()->getUrlManager()->removeLangFromUrl(Yii::app()->getRequest()->getUrl()),
-                'homeUrl' => Yii::app()->getHomeUrl() . (Yii::app()->getHomeUrl()[strlen(Yii::app()->getHomeUrl()) - 1] !== '/' ? '/' : ''),
+                'currentUrl' => Yii::app()->getRequest()->getUrl(),
             ]
         );
     }
