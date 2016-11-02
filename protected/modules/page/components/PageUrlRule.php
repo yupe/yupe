@@ -1,7 +1,5 @@
 <?php
 
-Yii::import('application.modules.page.PageModule');
-
 /**
  * Class PageUrlRule
  */
