@@ -1,10 +1,14 @@
 <?php
 
+Yii::import('application.modules.page.PageModule');
+
 /**
  * Class PageUrlRule
  */
 class PageUrlRule extends CBaseUrlRule
 {
+    const CACHE_KEY = 'page::slugs';
+
     /**
      * @param CUrlManager $manager
      * @param string $route
@@ -30,17 +34,29 @@ class PageUrlRule extends CBaseUrlRule
      */
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)
     {
+        $slugs = Yii::app()->getCache()->get(self::CACHE_KEY);
+
+        if (false === $slugs) {
+            /* @var $cmd CDbCommand */
+            $cmd = Yii::app()->getDb()->createCommand();
+
+            $slugs = $cmd
+                ->setFetchMode(PDO::FETCH_COLUMN, 0)
+                ->from('{{page_page}}')
+                ->select('slug')
+                ->queryAll();
+
+            Yii::app()->getCache()->set(self::CACHE_KEY, $slugs, 0);
+        }
+
         $parts = explode('/', $manager->removeLangFromUrl($pathInfo));
 
         if (!empty($parts)) {
             $slug = $parts[0];
-            $page = Page::model()->findBySlug($slug);
-
-            if (null === $page) {
-                return false;
+            if (in_array($slug, $slugs, true)) {
+                return 'page/page/view/slug/' . $slug;
             }
 
-            return 'page/page/view/slug/' . $page->slug;
         }
 
         return false;
