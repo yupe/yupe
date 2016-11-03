@@ -89,13 +89,13 @@ class FeedBackCest
         $I->see('Задайте вопрос?!', '.btn');
         $I->seeLink('test_theme');
         $I->click('test_theme');
-        $I->seeLink('Подробнее...', FeedBackPage::routeFaq(1));
+        $I->seeLink('Подробнее...');
         $I->click('Подробнее...');
 
         $I->see('test_theme #1', 'h1');
         $I->see('Задайте вопрос?!', '.btn');
 
-        $check = ['test_name', 'test_theme', 'test_text', 'test_answer', 'yupe'];
+        $check = ['test_name', 'test_theme', 'test_text', 'test_answer'];
 
         foreach ($check as $ch) {
             $I->see($ch);

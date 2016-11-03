@@ -134,6 +134,7 @@ CREATE TABLE `yupe_blog_user_to_blog` (
   CONSTRAINT `fk_yupe_blog_user_to_blog_blog_user_to_blog_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 DROP TABLE IF EXISTS `yupe_callback`;
 CREATE TABLE `yupe_callback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -145,6 +146,7 @@ CREATE TABLE `yupe_callback` (
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_category_category`;
 CREATE TABLE `yupe_category_category` (
@@ -205,6 +207,7 @@ CREATE TABLE `yupe_comment_comment` (
   CONSTRAINT `fk_yupe_comment_comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 DROP TABLE IF EXISTS `yupe_contentblock_content_block`;
 CREATE TABLE `yupe_contentblock_content_block` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -220,6 +223,7 @@ CREATE TABLE `yupe_contentblock_content_block` (
   KEY `ix_yupe_contentblock_content_block_type` (`type`),
   KEY `ix_yupe_contentblock_content_block_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_dictionary_dictionary_data`;
 CREATE TABLE `yupe_dictionary_dictionary_data` (
@@ -245,6 +249,7 @@ CREATE TABLE `yupe_dictionary_dictionary_data` (
   CONSTRAINT `fk_yupe_dictionary_dictionary_data_update_user_id` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 DROP TABLE IF EXISTS `yupe_dictionary_dictionary_group`;
 CREATE TABLE `yupe_dictionary_dictionary_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -262,6 +267,7 @@ CREATE TABLE `yupe_dictionary_dictionary_group` (
   CONSTRAINT `fk_yupe_dictionary_dictionary_group_create_user_id` FOREIGN KEY (`create_user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
   CONSTRAINT `fk_yupe_dictionary_dictionary_group_update_user_id` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_feedback_feedback`;
 CREATE TABLE `yupe_feedback_feedback` (
@@ -290,6 +296,7 @@ CREATE TABLE `yupe_feedback_feedback` (
   CONSTRAINT `fk_yupe_feedback_feedback_answer_user` FOREIGN KEY (`answer_user`) REFERENCES `yupe_user_user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
   CONSTRAINT `fk_yupe_feedback_feedback_category` FOREIGN KEY (`category_id`) REFERENCES `yupe_category_category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_gallery_gallery`;
 CREATE TABLE `yupe_gallery_gallery` (
@@ -370,6 +377,7 @@ CREATE TABLE `yupe_mail_mail_event` (
   UNIQUE KEY `ux_yupe_mail_mail_event_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 DROP TABLE IF EXISTS `yupe_mail_mail_template`;
 CREATE TABLE `yupe_mail_mail_template` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -388,6 +396,7 @@ CREATE TABLE `yupe_mail_mail_template` (
   KEY `ix_yupe_mail_mail_template_event_id` (`event_id`),
   CONSTRAINT `fk_yupe_mail_mail_template_event_id` FOREIGN KEY (`event_id`) REFERENCES `yupe_mail_mail_event` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_menu_menu`;
 CREATE TABLE `yupe_menu_menu` (
@@ -412,12 +421,12 @@ CREATE TABLE `yupe_menu_menu_item` (
   `regular_link` tinyint(1) NOT NULL DEFAULT '0',
   `title` varchar(150) NOT NULL,
   `href` varchar(150) NOT NULL,
-  `class` varchar(150) NOT NULL,
-  `title_attr` varchar(150) NOT NULL,
-  `before_link` varchar(150) NOT NULL,
-  `after_link` varchar(150) NOT NULL,
-  `target` varchar(150) NOT NULL,
-  `rel` varchar(150) NOT NULL,
+  `class` varchar(150) DEFAULT NULL,
+  `title_attr` varchar(150) DEFAULT NULL,
+  `before_link` varchar(150) DEFAULT NULL,
+  `after_link` varchar(150) DEFAULT NULL,
+  `target` varchar(150) DEFAULT NULL,
+  `rel` varchar(150) DEFAULT NULL,
   `condition_name` varchar(150) DEFAULT '0',
   `condition_denial` int(11) DEFAULT '0',
   `sort` int(11) NOT NULL DEFAULT '1',
@@ -574,7 +583,9 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
   (125,	'store',	'm160602_091243_add_position_product_index',	1466603715),
   (126,	'store',	'm160602_091909_add_producer_sort_index',	1466603715),
   (127,	'store',	'm160713_105449_remove_irrelevant_product_status',	1468413312),
-  (128,	'store',	'm160805_070905_add_attribute_description',	1470643316);
+  (128,	'store',	'm160805_070905_add_attribute_description',	1470643316),
+  (129,	'menu',	'm160914_134555_fix_menu_item_default_values',	1478195040),
+  (130,	'store',	'm161015_121915_change_product_external_id_type',	1478195045);
 
 DROP TABLE IF EXISTS `yupe_news_news`;
 CREATE TABLE `yupe_news_news` (
@@ -621,6 +632,7 @@ CREATE TABLE `yupe_notify_settings` (
   KEY `ix_yupe_notify_settings_user_id` (`user_id`),
   CONSTRAINT `fk_yupe_notify_settings_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_page_page`;
 CREATE TABLE `yupe_page_page` (
@@ -677,6 +689,7 @@ CREATE TABLE `yupe_queue_queue` (
   KEY `ux_yupe_queue_queue_priority` (`priority`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 DROP TABLE IF EXISTS `yupe_sitemap_page`;
 CREATE TABLE `yupe_sitemap_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -687,6 +700,7 @@ CREATE TABLE `yupe_sitemap_page` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_sitemap_page_url` (`url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_social_user`;
 CREATE TABLE `yupe_social_user` (
@@ -700,6 +714,7 @@ CREATE TABLE `yupe_social_user` (
   KEY `fk_yupe_social_user_user_id` (`user_id`),
   CONSTRAINT `fk_yupe_social_user_user_id` FOREIGN KEY (`user_id`) REFERENCES `yupe_user_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_store_attribute`;
 CREATE TABLE `yupe_store_attribute` (
@@ -769,7 +784,7 @@ CREATE TABLE `yupe_store_category` (
   `meta_keywords` varchar(250) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL DEFAULT '1',
-  `external_id` int(11) DEFAULT NULL,
+  `external_id` varchar(100) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `meta_canonical` varchar(255) DEFAULT NULL,
   `image_alt` varchar(255) DEFAULT NULL,
@@ -913,6 +928,7 @@ CREATE TABLE `yupe_store_order_coupon` (
   CONSTRAINT `fk_yupe_store_order_coupon_order` FOREIGN KEY (`order_id`) REFERENCES `yupe_store_order` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 DROP TABLE IF EXISTS `yupe_store_order_product`;
 CREATE TABLE `yupe_store_order_product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1028,7 +1044,7 @@ CREATE TABLE `yupe_store_product` (
   `purchase_price` decimal(19,3) DEFAULT NULL,
   `recommended_price` decimal(19,3) DEFAULT NULL,
   `position` int(11) NOT NULL DEFAULT '1',
-  `external_id` int(11) DEFAULT NULL,
+  `external_id` varchar(100) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `meta_canonical` varchar(255) DEFAULT NULL,
   `image_alt` varchar(255) DEFAULT NULL,
@@ -1123,6 +1139,7 @@ CREATE TABLE `yupe_store_product_image_group` (
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_store_product_link`;
 CREATE TABLE `yupe_store_product_link` (
@@ -1297,6 +1314,7 @@ CREATE TABLE `yupe_user_user_auth_item_child` (
   CONSTRAINT `fk_yupe_user_user_auth_itemchild_parent` FOREIGN KEY (`parent`) REFERENCES `yupe_user_user_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 DROP TABLE IF EXISTS `yupe_yml_export`;
 CREATE TABLE `yupe_yml_export` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1304,6 +1322,7 @@ CREATE TABLE `yupe_yml_export` (
   `settings` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `yupe_yupe_settings`;
 CREATE TABLE `yupe_yupe_settings` (
