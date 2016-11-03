@@ -72,7 +72,6 @@ return [
         'viewRenderer' => [
             'class' => 'vendor.yiiext.twig-renderer.ETwigViewRenderer',
             'twigPathAlias' => 'vendor.twig.twig.lib.Twig',
-            // All parameters below are optional, change them to your needs
             'fileExtension' => '.twig',
             'options' => ['autoescape' => true],
             'globals' => ['html' => 'CHtml'],
@@ -125,7 +124,7 @@ return [
                 '/install/default/<action:\w+>' => '/install/default/<action>',
                 '/backend' => '/yupe/backend/index',
                 '/backend/login' => '/user/account/backendlogin',
-                '/backend/<action:\w+>' => '/yupe/backend/<action>',
+                '/backend/<action:(AjaxFileUpload|AjaxImageUpload|AjaxImageUploadCKE|index|settings|flushDumpSettings|modulesettings|saveModulesettings|themesettings|modupdate|help|ajaxflush|transliterate)>' => '/yupe/backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>' => '/<module>/<controller>Backend/index',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '/<module>/<controller>Backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>' => '/<module>/<controller>Backend/<action>',
@@ -164,7 +163,7 @@ return [
                 ]
             ]
         ],
-        'errorHandler' => [ // Use 'site/error' action to display errors
+        'errorHandler' => [
             'errorAction' => 'site/error'
         ]
     ],
