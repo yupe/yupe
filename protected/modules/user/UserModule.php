@@ -144,16 +144,6 @@ class UserModule extends WebModule
     private $defaultAvatar;
 
     /**
-     * @return array
-     */
-    public function getDependencies()
-    {
-        return [
-            'notify',
-        ];
-    }
-
-    /**
      * @return string
      */
     public function getUploadPath()

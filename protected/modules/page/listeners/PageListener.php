@@ -13,6 +13,6 @@ class PageListener
      */
     public static function onAfterSave(Event $event)
     {
-        
+        Yii::app()->cache->delete(PageUrlRule::CACHE_KEY);
     }
 }

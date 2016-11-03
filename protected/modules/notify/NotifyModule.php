@@ -19,7 +19,16 @@ class NotifyModule extends WebModule
     {
         return [
             'mail',
+            'user',
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsNoDisable()
+    {
+        return true;
     }
 
     /**
