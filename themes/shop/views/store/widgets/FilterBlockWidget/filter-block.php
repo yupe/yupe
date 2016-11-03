@@ -5,8 +5,10 @@
 <?php $this->widget(
     'application.modules.store.widgets.filters.AttributesFilterWidget', [
         'attributes' => $attributes,
-        'category' => $category
+        'category' => $category,
     ]
 ) ?>
 
-<div class="catalog-filter__button"><input type="submit" value="Подобрать" class="btn btn_wide"/></div>
+<?php if (!empty($attributes)): ?>
+    <div class="catalog-filter__button"><input type="submit" value="Подобрать" class="btn btn_wide"/></div>
+<?php endif; ?>

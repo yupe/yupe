@@ -5,15 +5,15 @@
 <div class="filter-block">
     <div class="filter-attributes">
         <?php $this->widget(
-            'application.modules.store.widgets.filters.AttributesFilterWidget',  [
+            'application.modules.store.widgets.filters.AttributesFilterWidget', [
                 'attributes' => $attributes,
-                'category' => $category
+                'category' => $category,
             ]
         ) ?>
     </div>
-    <br/>
-
-    <div>
-        <input type="submit" value="Подобрать" class="btn btn-primary"/>
-    </div>
+    <?php if (!empty($attributes)): ?>
+        <div>
+            <input type="submit" value="Подобрать" class="btn btn-primary"/>
+        </div>
+    <?php endif; ?>
 </div>

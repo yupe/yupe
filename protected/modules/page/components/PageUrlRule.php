@@ -33,14 +33,8 @@ class PageUrlRule extends CBaseUrlRule
         $parts = explode('/', $manager->removeLangFromUrl($pathInfo));
 
         if (!empty($parts)) {
-            $slug = $parts[0];
-            $page = Page::model()->findBySlug($slug);
-
-            if (null === $page) {
-                return false;
-            }
-
-            return 'page/page/view/slug/' . $page->slug;
+            $page = Page::model()->published()->findBySlug($parts[0]);
+            return null === $page ? false : 'page/page/view/slug/' . $page->slug;
         }
 
         return false;

@@ -219,6 +219,7 @@ class ProductRepository extends CApplicationComponent
             'scopes' => ['published'],
         ]);
 
+        
         $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
         $criteria->addInCondition('t.category_id', array_unique($categories), 'OR');
 
