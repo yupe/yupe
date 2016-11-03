@@ -11,7 +11,7 @@
             ]
         ) ?>
     </div>
-    <?php if (!empty($attributes)): ?>
+    <?php if (!empty($attributes) || !empty($category)): ?>
         <div>
             <input type="submit" value="Подобрать" class="btn btn-primary"/>
         </div>

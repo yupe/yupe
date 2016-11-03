@@ -325,43 +325,41 @@ class Product extends yupe\models\YModel implements ICommentable
     public function search()
     {
         $criteria = new CDbCriteria;
-
-        $criteria->compare('id', $this->id);
-        $criteria->compare('type_id', $this->type_id);
-        $criteria->compare('t.name', $this->name, true);
-        $criteria->compare('price', $this->price);
-        $criteria->compare('discount_price', $this->discount_price);
-        $criteria->compare('sku', $this->sku, true);
-        $criteria->compare('short_description', $this->short_description, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('slug', $this->slug, true);
-        $criteria->compare('data', $this->data, true);
-        $criteria->compare('is_special', $this->is_special);
-        $criteria->compare('t.status', $this->status);
-        $criteria->compare('create_time', $this->create_time, true);
-        $criteria->compare('update_time', $this->update_time, true);
-        $criteria->compare('producer_id', $this->producer_id);
-        $criteria->compare('purchase_price', $this->purchase_price);
-        $criteria->compare('average_price', $this->average_price);
-        $criteria->compare('recommended_price', $this->recommended_price);
-        $criteria->compare('in_stock', $this->in_stock);
-        $criteria->compare('quantity', $this->quantity);
         $criteria->with = ['category', 'categories'];
 
+        $criteria->compare('id', $this->id);
+        $criteria->compare('t.type_id', $this->type_id);
+        $criteria->compare('t.name', $this->name, true);
+        $criteria->compare('t.price', $this->price);
+        $criteria->compare('t.discount_price', $this->discount_price);
+        $criteria->compare('t.sku', $this->sku, true);
+        $criteria->compare('t.short_description', $this->short_description, true);
+        $criteria->compare('t.description', $this->description, true);
+        $criteria->compare('t.slug', $this->slug, true);
+        $criteria->compare('t.data', $this->data, true);
+        $criteria->compare('t.is_special', $this->is_special);
+        $criteria->compare('t.status', $this->status);
+        $criteria->compare('t.create_time', $this->create_time, true);
+        $criteria->compare('t.update_time', $this->update_time, true);
+        $criteria->compare('t.producer_id', $this->producer_id);
+        $criteria->compare('t.purchase_price', $this->purchase_price);
+        $criteria->compare('t.average_price', $this->average_price);
+        $criteria->compare('t.recommended_price', $this->recommended_price);
+        $criteria->compare('t.in_stock', $this->in_stock);
+        $criteria->compare('t.quantity', $this->quantity);
+
         if ($this->category_id) {
-            $criteria->with = [
-                'categoryRelation' =>
-                    [
-                        'together' => true,
-                        'on' => 't.category_id = categoryRelation.category_id',
-                    ],
-            ];
-            $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
-            $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category_id]);
+            $categoryCriteria = new CDbCriteria();
+            $categoryCriteria->compare('t.category_id', $this->category_id);
+            $categoryCriteria->addCondition(sprintf('t.id IN (SELECT product_id FROM {{store_product_category}} WHERE category_id = :category_id)'),
+                'OR');
+            $categoryCriteria->params = CMap::mergeArray($categoryCriteria->params,
+                [':category_id' => $this->category_id]);
+            $criteria->mergeWith($categoryCriteria);
         }
 
         return new CActiveDataProvider(
-            get_class($this), [
+            'Product', [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 't.update_time DESC, t.create_time DESC'],
             ]

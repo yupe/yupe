@@ -9,6 +9,6 @@
     ]
 ) ?>
 
-<?php if (!empty($attributes)): ?>
+<?php if (!empty($attributes) || !empty($category)): ?>
     <div class="catalog-filter__button"><input type="submit" value="Подобрать" class="btn btn_wide"/></div>
 <?php endif; ?>

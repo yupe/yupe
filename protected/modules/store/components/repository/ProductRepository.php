@@ -45,18 +45,16 @@ class ProductRepository extends CApplicationComponent
                 $categories = [];
 
                 foreach ($mainSearchAttributes[$param] as $categoryId) {
-                    $categories[] = $categoryId;
+                    $categories[] = (int)$categoryId;
                     $categories = CMap::mergeArray($categories, StoreCategory::model()->getChildsArray($categoryId));
                 }
 
-                $criteria->with = [
-                    'categoryRelation' => [
-                        'together' => true,
-                        'on' => 't.category_id = categoryRelation.category_id'
-                    ]
-                ];
-                $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
-                $criteria->addInCondition('t.category_id', array_unique($categories), 'OR');
+                $builder = new CDbCommandBuilder(Yii::app()->getDb()->getSchema());
+
+                $criteria->addInCondition('t.category_id', array_unique($categories));
+                $criteria->addCondition(sprintf('t.id IN (SELECT product_id FROM {{store_product_category}} WHERE %s)',
+                    $builder->createInCondition('{{store_product_category}}', 'category_id', $categories)), 'OR');
+
                 continue;
             }
 
@@ -212,18 +210,14 @@ class ProductRepository extends CApplicationComponent
         $categories[] = $category->id;
 
         $criteria = new CDbCriteria([
-            'with' => [
-                'categoryRelation' => [
-                    'together' => true,
-                    'on' => 't.category_id = categoryRelation.category_id'
-                ],
-            ],
             'scopes' => ['published'],
         ]);
 
+        $builder = new CDbCommandBuilder(Yii::app()->getDb()->getSchema());
 
-        $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
-        $criteria->addInCondition('t.category_id', array_unique($categories), 'OR');
+        $criteria->addInCondition('t.category_id', array_unique($categories));
+        $criteria->addCondition(sprintf('t.id IN (SELECT product_id FROM {{store_product_category}} WHERE %s)',
+            $builder->createInCondition('{{store_product_category}}', 'category_id', $categories)), 'OR');
 
         $pagination = [
             'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,

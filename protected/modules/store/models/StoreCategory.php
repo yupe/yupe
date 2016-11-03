@@ -296,6 +296,9 @@ class StoreCategory extends \yupe\models\YModel
         return $this->parent ? $this->parent->name : '---';
     }
 
+    /**
+     * @return string
+     */
     public function getTitle()
     {
         return $this->title ?: $this->name;
