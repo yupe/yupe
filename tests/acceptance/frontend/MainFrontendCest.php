@@ -13,7 +13,7 @@ class MainFrontendCest
     public function tryToTestFrontend(WebGuy $I, $scenario)
     {
         $I->amGoingTo('test main modules on frontend');
-        $I->amOnPage('/ru/');
+        $I->amOnPage('/');
         $I->see('Первая публичная запись в опубликованном блоге');
 
         //blogs
@@ -74,7 +74,7 @@ class MainFrontendCest
         $I->seeLink('FAQ');
         $I->seeLink('Contacts');
 
-        $I->amOnPage('/ru/');
+        $I->amOnPage('/');
         $I->seeLink('Документация');
         $I->seeLink('Форум');
         $I->seeLink('Вопросы и ответы');
