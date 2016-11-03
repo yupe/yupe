@@ -51,7 +51,8 @@ class ProductRepository extends CApplicationComponent
 
                 $criteria->with = [
                     'categoryRelation' => [
-                        'together' => true
+                        'together' => true,
+                        'on' => 't.category_id = categoryRelation.category_id'
                     ]
                 ];
                 $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
@@ -213,13 +214,14 @@ class ProductRepository extends CApplicationComponent
         $criteria = new CDbCriteria([
             'with' => [
                 'categoryRelation' => [
-                    'together' => true
+                    'together' => true,
+                    'on' => 't.category_id = categoryRelation.category_id'
                 ],
             ],
             'scopes' => ['published'],
         ]);
 
-        
+
         $criteria->addInCondition('categoryRelation.category_id', array_unique($categories));
         $criteria->addInCondition('t.category_id', array_unique($categories), 'OR');
 

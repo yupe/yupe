@@ -349,7 +349,13 @@ class Product extends yupe\models\YModel implements ICommentable
         $criteria->with = ['category', 'categories'];
 
         if ($this->category_id) {
-            $criteria->with = ['categoryRelation' => ['together' => true]];
+            $criteria->with = [
+                'categoryRelation' =>
+                    [
+                        'together' => true,
+                        'on' => 't.category_id = categoryRelation.category_id',
+                    ],
+            ];
             $criteria->addCondition('categoryRelation.category_id = :category_id OR t.category_id = :category_id');
             $criteria->params = CMap::mergeArray($criteria->params, [':category_id' => $this->category_id]);
         }
@@ -656,7 +662,9 @@ class Product extends yupe\models\YModel implements ICommentable
             foreach ($this->_attributesValues[$attributeName] as $attribute) {
                 $value = $attribute->value($default);
 
-                if (is_null($value)) continue;
+                if (is_null($value)) {
+                    continue;
+                }
 
                 $values[] = $value;
             }
