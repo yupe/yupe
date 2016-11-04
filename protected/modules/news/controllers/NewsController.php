@@ -29,7 +29,7 @@ class NewsController extends \yupe\components\controllers\FrontController
         }
 
         // проверим что пользователь может просматривать эту новость
-        if ($model->is_protected == News::PROTECTED_YES && !Yii::app()->getUser()->isAuthenticated()) {
+        if ($model->isProtected() && !Yii::app()->getUser()->isAuthenticated()) {
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('NewsModule.news', 'You must be an authorized user for view this page!')
@@ -81,7 +81,7 @@ class NewsController extends \yupe\components\controllers\FrontController
                 'pageSize' => (int)$this->getModule()->perPage,
             ],
         ]);
-        
+
         $this->render('index', ['dataProvider' => $dataProvider]);
     }
 }

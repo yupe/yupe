@@ -33,6 +33,9 @@
 
 use yupe\components\Event;
 
+/**
+ * Class News
+ */
 class News extends yupe\models\YModel
 {
     /**
@@ -269,6 +272,9 @@ class News extends yupe\models\YModel
         return parent::beforeSave();
     }
 
+    /**
+     *
+     */
     public function afterSave()
     {
         Yii::app()->eventManager->fire(NewsEvents::NEWS_AFTER_SAVE, new Event($this));
@@ -276,6 +282,9 @@ class News extends yupe\models\YModel
         return parent::afterSave();
     }
 
+    /**
+     *
+     */
     public function afterDelete()
     {
         Yii::app()->eventManager->fire(NewsEvents::NEWS_AFTER_DELETE, new Event($this));
@@ -283,6 +292,9 @@ class News extends yupe\models\YModel
         parent::afterDelete();
     }
 
+    /**
+     *
+     */
     public function afterFind()
     {
         $this->date = date('d-m-Y', strtotime($this->date));
@@ -378,5 +390,13 @@ class News extends yupe\models\YModel
     public function getFlag()
     {
         return yupe\helpers\YText::langToflag($this->lang);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProtected()
+    {
+        return $this->is_protected == self::PROTECTED_YES;
     }
 }
