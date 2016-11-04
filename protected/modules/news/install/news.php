@@ -37,8 +37,11 @@ return [
     'rules' => [
         '/news/' => 'news/news/index',
         '/news/categories' => 'news/newsCategory/index',
+        [
+            'news/news/view',
+            'pattern' => '/news/<slug>', 'urlSuffix' => '.html'
+        ],
         '/news/<slug>' => 'news/newsCategory/view',
         '/rss/news/' => 'news/newsRss/feed',
-        ['news/news/view', 'pattern' => '/news/<slug>', 'urlSuffix' => '.html'],
     ],
 ];
