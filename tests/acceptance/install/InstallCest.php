@@ -32,14 +32,19 @@ class InstallCest
         $I->click('русский');
 
         $I->amGoingTo('test change language');
+
         $I->amOnPage('/en/install/default/environment');
         $I->see('On this step Yupe checks access right for needed directories');
+
         $I->amOnPage('/ru/install/default/environment');
+        $I->amOnPage('/install/default/environment');
         $I->see('На данном этапе Юпи! проверяет права доступа для всех необходимых каталогов.');
 
         $I->amOnPage('/en/install/default/environment');
         $I->see('On this step Yupe checks access right for needed directories');
+
         $I->amOnPage('/ru/install/default/environment');
+        $I->amOnPage('/install/default/environment');
         $I->see('На данном этапе Юпи! проверяет права доступа для всех необходимых каталогов.');
 
         // environment check
