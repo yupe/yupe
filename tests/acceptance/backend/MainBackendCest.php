@@ -79,13 +79,19 @@ class MainBackendCest
         $I->see('Пользователи', 'h1');
 
         $I->amGoingTo('change backend language');
+
         $I->amOnPage('/en/backend');
         $I->see('Control panel "Yupe!"', 'h1');
+
         $I->amOnPage('/ru/backend');
+        $I->amOnPage('/backend');
         $I->see('Панель управления "Юпи!"', 'h1');
+
         $I->amOnPage('/en/backend');
         $I->see('Control panel "Yupe!"', 'h1');
+
         $I->amOnPage('/ru/backend');
+        $I->amOnPage('/backend');
         $I->see('Панель управления "Юпи!"', 'h1');
 
         $I->amGoingTo('change theme settings');
