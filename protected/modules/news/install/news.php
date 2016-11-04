@@ -39,7 +39,8 @@ return [
         '/news/categories' => 'news/newsCategory/index',
         [
             'news/news/view',
-            'pattern' => '/news/<slug>', 'urlSuffix' => '.html'
+            'pattern' => '/news/<slug>',
+            'urlSuffix' => '.html'
         ],
         '/news/<slug>' => 'news/newsCategory/view',
         '/rss/news/' => 'news/newsRss/feed',
