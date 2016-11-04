@@ -31,4 +31,5 @@ return [
     'Wrong email or password!' => 'Неправильные email или пароль!',
     'You successfully logged in!' => 'Вы успешно вошли!',
     'You\'ve successfully logged in, please complete the registration!' => 'Вы успешно авторизовались, пожалуйста, завершите регистрацию!',
+    'You need to activate your account. Check your email.' => 'Вам нужно активирвоать свой аккаунт. Проверьте свою почту.'
 ];

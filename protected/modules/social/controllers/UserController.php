@@ -1,15 +1,15 @@
 <?php
 namespace application\modules\social\controllers;
 
-use yupe\widgets\YFlashMessages;
 use application\modules\social\components\UserIdentity;
 use application\modules\social\models\SocialUser;
-
-use Yii;
-use EAuthException;
 use CHttpException;
-use RegistrationForm;
+use EAuthException;
 use LoginForm;
+use RegistrationForm;
+use User;
+use Yii;
+use yupe\widgets\YFlashMessages;
 
 class UserController extends \yupe\components\controllers\FrontController
 {
@@ -19,7 +19,7 @@ class UserController extends \yupe\components\controllers\FrontController
     {
         return [
             'captcha' => [
-                'class'     => 'yupe\components\actions\YCaptchaAction',
+                'class' => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1,
                 'minLength' => Yii::app()->getModule('user')->minCaptchaLength,
@@ -64,9 +64,36 @@ class UserController extends \yupe\components\controllers\FrontController
                     $this->redirect(Yii::app()->getUser()->getReturnUrl($redirect));
                 }
 
-                if ($this->service->hasAttribute('email')) {
+                /* @var $user User */
+                if ($this->service->hasAttribute('email') &&
+                    ($user = Yii::app()->userManager->findUserByEmail($this->service->email))
+                ) {
 
-                    if (Yii::app()->userManager->isUserExist($this->service->email)) {
+                    if ($user->status == User::STATUS_NOT_ACTIVE) {
+                        Yii::app()->getUser()->setFlash(
+                            YFlashMessages::INFO_MESSAGE,
+                            Yii::t(
+                                'SocialModule.social',
+                                'You need to activate your account. Check your email.'
+                            )
+                        );
+
+                        $this->redirect(['/user/account/login']);
+                    }
+
+                    if ($user->status == User::STATUS_BLOCK) {
+                        Yii::app()->getUser()->setFlash(
+                            YFlashMessages::WARNING_MESSAGE,
+                            Yii::t(
+                                'SocialModule.social',
+                                'You account is blocked.'
+                            )
+                        );
+
+                        $this->redirect(['/user/account/login']);
+                    }
+
+                    if ($user->status == User::STATUS_ACTIVE) {
                         Yii::app()->getUser()->setFlash(
                             YFlashMessages::INFO_MESSAGE,
                             Yii::t(
@@ -77,9 +104,6 @@ class UserController extends \yupe\components\controllers\FrontController
 
                         $this->redirect(['/social/connect', 'service' => $this->service->getServiceName()]);
                     }
-
-
-
                 }
 
                 Yii::app()->getUser()->setFlash(
@@ -142,8 +166,8 @@ class UserController extends \yupe\components\controllers\FrontController
 
             $form->setAttributes(
                 [
-                    'password'   => $password,
-                    'cPassword'  => $password,
+                    'password' => $password,
+                    'cPassword' => $password,
                     'verifyCode' => null
                 ]
             );

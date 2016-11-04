@@ -83,7 +83,7 @@ class UserManager extends CApplicationComponent
                         UserEvents::SUCCESS_REGISTRATION,
                         new UserRegistrationEvent($form, $user, $token)
                     );
-                }else{
+                } else {
                     Yii::app()->eventManager->fire(
                         UserEvents::SUCCESS_REGISTRATION_NEED_ACTIVATION,
                         new UserRegistrationEvent($form, $user, $token)
@@ -387,10 +387,32 @@ class UserManager extends CApplicationComponent
 
     /**
      * @param $email
-     * @return mixed
+     * @param int $status
+     * @return User
      */
-    public function isUserExist($email)
+    public function isUserExist($email, $status = User::STATUS_ACTIVE)
     {
-        return User::model()->active()->find('email = :email', ['email' => $email]);
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(['email' => $email]);
+        $criteria->addColumnCondition(['status' => $status]);
+
+        return User::model()->find($criteria);
+    }
+
+    /**
+     * @param $email
+     * @param null $status
+     * @return User
+     */
+    public function findUserByEmail($email, $status = null)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(['email' => $email]);
+
+        if (null !== $status) {
+            $criteria->addColumnCondition(['status' => $status]);
+        }
+
+        return User::model()->find($criteria);
     }
 }
