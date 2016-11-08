@@ -99,7 +99,7 @@ $this->widget(
                                 [
                                     'icon' => 'fa fa-fw fa-thumbs-up',
                                     'label' => Yii::t('YupeModule.yupe', 'Order development and support'),
-                                    'url' => 'http://amylabs.ru/contact?from=help-support',
+                                    'url' => 'http://yupe.ru/service/development?from=help-support',
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [

@@ -7,10 +7,6 @@ $this->breadcrumbs = [
 
 <h1><?= Yii::t('YupeModule.yupe', 'About Yupe!'); ?></h1>
 
-<p> <?= Yii::t('YupeModule.yupe', 'Any project must have About page. So it is here =)'); ?></p>
-
-<br/>
-
 <p>
     <?= Yii::t('YupeModule.yupe', 'You use Yii version'); ?>
     <small class="label label-info" title="<?= Yii::getVersion(); ?>"><?= Yii::getVersion(); ?></small>
@@ -24,27 +20,6 @@ $this->breadcrumbs = [
     <small class="label label-info" title="<?= phpversion(); ?>"><?= phpversion(); ?></small>
 </p>
 
-<br/>
-
-<div class="alert alert-warning">
-    <p>
-        <?= Yii::t(
-            'YupeModule.yupe',
-            ' Yupe! developed and maintained by a team of enthusiasts, you can use Yupe! and any part of it <b>absolutely for free</b>!'
-        ); ?>
-    </p>
-    <?= CHtml::link(
-        Yii::t('YupeModule.yupe', 'There is a page for tahnks =)'),
-        'http://yupe.ru/pages/help?form=help',
-        ['target' => '_blank']
-    ); ?>
-    <p><b>
-            <?= Yii::t(
-                'YupeModule.yupe',
-                'On business support and development you can always <a href="http://yupe.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/contacts/?form=help" target="_blank">http://yupe.ru/contacts</a>)'
-            ); ?>
-        </b></p>
-</div>
 
 <p><b><?= Yii::t('YupeModule.yupe', 'Interesting resources:'); ?></b></p>
 
