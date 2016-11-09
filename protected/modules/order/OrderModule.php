@@ -10,7 +10,7 @@ class OrderModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.0';
+    const VERSION = '1.1';
 
     /**
      * @var
@@ -52,7 +52,7 @@ class OrderModule extends WebModule
      */
     public function getDependencies()
     {
-        return ['store', 'payment', 'delivery', 'mail', 'comment'];
+        return ['store', 'payment', 'delivery', 'mail'];
     }
 
     /**

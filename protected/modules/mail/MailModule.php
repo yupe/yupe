@@ -15,7 +15,7 @@ class MailModule extends yupe\components\WebModule
     /**
      *
      */
-    const VERSION = '1.0';
+    const VERSION = '1.1';
 
     /**
      * @return array
@@ -192,16 +192,21 @@ class MailModule extends yupe\components\WebModule
         parent::init();
     }
 
+
     /**
-     * Получаем массив с именами модулей, от которых зависит работа данного модуля
-     *
-     * @return array Массив с именами модулей, от которых зависит работа данного модуля
-     *
-     * @since 0.5
+     * @return array
      */
     public function getDependencies()
     {
         return ['user'];
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsNoDisable()
+    {
+        return true;
     }
 
     /**

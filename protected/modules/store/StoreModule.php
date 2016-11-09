@@ -10,7 +10,7 @@ class StoreModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.0';
+    const VERSION = '1.1';
 
     /**
      * @var
@@ -60,6 +60,15 @@ class StoreModule extends WebModule
      */
     public $itemsPerPage = 20;
 
+    /**
+     * @return array
+     */
+    public function getDependencies()
+    {
+        return [
+            'comment',
+        ];
+    }
 
     /**
      * @return string
@@ -104,7 +113,7 @@ class StoreModule extends WebModule
             'EUR' => 'EUR',
             'KZT' => 'KZT',
             'BYB' => 'BYB',
-            'UAH' => 'UAH'
+            'UAH' => 'UAH',
         ];
     }
 
