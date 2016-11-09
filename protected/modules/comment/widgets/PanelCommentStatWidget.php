@@ -1,15 +1,21 @@
 <?php
 
+/**
+ * Class PanelCommentStatWidget
+ */
 class PanelCommentStatWidget extends \yupe\widgets\YWidget
 {
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $criteria = new CDbCriteria();
         $criteria->addCondition('level <> 1');
 
         $dataProvider = new CActiveDataProvider('Comment', [
-            'criteria'   => $criteria,
-            'sort'       => [
+            'criteria' => $criteria,
+            'sort' => [
                 'defaultOrder' => 'id DESC',
             ],
             'pagination' => [
@@ -22,13 +28,13 @@ class PanelCommentStatWidget extends \yupe\widgets\YWidget
         $this->render(
             'panel-stat',
             [
-                'commentsCount'  => Comment::model()->cache($cacheTime)->count(
-                        'create_time >= :time AND level <> 1',
-                        [':time' => time() - 24 * 60 * 60]
-                    ),
+                'commentsCount' => Comment::model()->cache($cacheTime)->count(
+                    'create_time >= :time AND level <> 1',
+                    [':time' => time() - 24 * 60 * 60]
+                ),
                 'allCommentsCnt' => Comment::model()->cache($cacheTime)->all()->count(),
-                'newCnt'         => Comment::model()->cache($cacheTime)->new()->count(),
-                'dataProvider'   => $dataProvider
+                'newCnt' => Comment::model()->cache($cacheTime)->new()->count(),
+                'dataProvider' => $dataProvider,
             ]
         );
     }

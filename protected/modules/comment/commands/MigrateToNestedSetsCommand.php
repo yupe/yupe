@@ -11,14 +11,32 @@
  */
 use yupe\components\Migrator;
 
+/**
+ * Class MigrateToNestedSetsCommand
+ */
 class MigrateToNestedSetsCommand extends CConsoleCommand
 {
+    /**
+     *
+     */
     const NS_MIGRATION_NAME = 'm130704_095200_comment_nestedsets';
+    /**
+     *
+     */
     const LOCK_FILE_NAME = 'MigrateToNestedSetsCommand.lock~';
 
+    /**
+     * @var
+     */
     public $migrator;
+    /**
+     * @var
+     */
     public $db;
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -27,7 +45,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         Yii::import('application.modules.comment.models.*');
 
         $this->migrator = (is_object($this->migrator)) ? $this->migrator : new Migrator();
-        $this->db = (is_object($this->db)) ? $this->db : Yii::app()->db;
+        $this->db = (is_object($this->db)) ? $this->db : Yii::app()->getDb();
     }
 
     /**
@@ -53,6 +71,9 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         }
     }
 
+    /**
+     *
+     */
     public function actionUnlock()
     {
         if (file_exists(dirname(__FILE__) . '/' . self::LOCK_FILE_NAME)) {
@@ -97,6 +118,9 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         }
     }
 
+    /**
+     *
+     */
     protected function createRootElementsForOldComments()
     {
         $db = $this->db;
@@ -168,6 +192,9 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         $db->createCommand()->update('{{comment_comment}}', ['text' => ""], "text='root'");
     }
 
+    /**
+     *
+     */
     protected function buildNestedSetsTree()
     {
         $db = $this->db;
@@ -210,11 +237,17 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         echo "Converted succesfully.\n";
     }
 
+    /**
+     *
+     */
     public function lockConverter()
     {
         file_put_contents(dirname(__FILE__) . '/' . self::LOCK_FILE_NAME, ' ');
     }
 
+    /**
+     * @return bool
+     */
     public function converterLocked()
     {
         if (file_exists(dirname(__FILE__) . '/' . self::LOCK_FILE_NAME)) {

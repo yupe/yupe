@@ -12,6 +12,9 @@
  */
 class CommentBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [
@@ -25,15 +28,18 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         ];
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionInline()
     {
-        if (!Yii::app()->request->getIsAjaxRequest() || !Yii::app()->request->getIsPostRequest()) {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
             throw new CHttpException(404);
         }
 
-        $name = Yii::app()->request->getPost('name');
-        $value = Yii::app()->request->getPost('value');
-        $pk = (int)Yii::app()->request->getPost('pk');
+        $name = Yii::app()->getRequest()->getPost('name');
+        $value = Yii::app()->getRequest()->getPost('value');
+        $pk = (int)Yii::app()->getRequest()->getPost('pk');
 
         if (!isset($name, $value, $pk)) {
             throw new CHttpException(404);
@@ -161,7 +167,6 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
-            // we only allow deletion via POST request
             $model = $this->loadModel($id);
 
             Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
@@ -198,6 +203,9 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         $this->render('index', ['model' => $model]);
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionMultiaction()
     {
         if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
@@ -228,6 +236,9 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         }
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionApprove()
     {
         if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {

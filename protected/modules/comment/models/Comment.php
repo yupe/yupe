@@ -36,18 +36,39 @@
  */
 class Comment extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_NEED_CHECK = 0;
 
+    /**
+     *
+     */
     const STATUS_APPROVED = 1;
 
+    /**
+     *
+     */
     const STATUS_SPAM = 2;
 
+    /**
+     *
+     */
     const STATUS_DELETED = 3;
 
+    /**
+     * @var
+     */
     public $verifyCode;
 
+    /**
+     * @var
+     */
     public $spamField;
 
+    /**
+     * @var
+     */
     public $comment;
 
     /**
@@ -112,6 +133,10 @@ class Comment extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     */
     public function purifyText($attribute, $params)
     {
         $module = Yii::app()->getModule('comment');
@@ -183,6 +208,9 @@ class Comment extends yupe\models\YModel
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -293,6 +321,11 @@ class Comment extends yupe\models\YModel
         return ($this->author) ? $this->author->nick_name : $this->name;
     }
 
+    /**
+     * @param int $size
+     * @param array $params
+     * @return string
+     */
     public function getAuthorAvatar($size = 32, array $params = ['width' => 32, 'height' => 32])
     {
         if ($this->author) {
@@ -302,6 +335,10 @@ class Comment extends yupe\models\YModel
         return CHtml::image(Yii::app()->getModule('user')->defaultAvatar, $this->name, $params);
     }
 
+    /**
+     * @param array $params
+     * @return string
+     */
     public function getAuthorLink(array $params = ['rel' => 'nofollow'])
     {
         if ($this->author) {
@@ -319,6 +356,10 @@ class Comment extends yupe\models\YModel
         return $this->name;
     }
 
+    /**
+     * @param array $params
+     * @return null|string
+     */
     public function getAuthorUrl(array $params = ['rel' => 'nofollow'])
     {
         if ($this->author) {
@@ -336,6 +377,9 @@ class Comment extends yupe\models\YModel
         return null;
     }
 
+    /**
+     * @return string
+     */
     public function getText()
     {
         return (Yii::app()->getModule('comment')->stripTags)
@@ -360,6 +404,11 @@ class Comment extends yupe\models\YModel
         );
     }
 
+    /**
+     * @param $model
+     * @param $model_id
+     * @return bool|CActiveRecord|Comment
+     */
     public function createRootOfCommentsIfNotExists($model, $model_id)
     {
         $rootNode = $this->getRootOfCommentsTree($model, $model_id);
@@ -390,6 +439,9 @@ class Comment extends yupe\models\YModel
         return false;
     }
 
+    /**
+     * @return int|mixed|null
+     */
     public function getLevel()
     {
         $level = $this->level < 10 ? $this->level - 2 : 10;
@@ -397,6 +449,10 @@ class Comment extends yupe\models\YModel
         return $level > 0 ? $level : 0;
     }
 
+    /**
+     * @param array $with
+     * @return array|mixed|null|string|static
+     */
     public function getTarget(array $with = [])
     {
         if (!class_exists($this->model)) {
@@ -419,6 +475,9 @@ class Comment extends yupe\models\YModel
         return $this->model;
     }
 
+    /**
+     * @return string
+     */
     public function getTargetTitle()
     {
         $target = $this->getTarget();
@@ -430,6 +489,10 @@ class Comment extends yupe\models\YModel
         return $this->model;
     }
 
+    /**
+     * @param array|null $options
+     * @return array|Comment|mixed|null|string
+     */
     public function getTargetTitleLink(array $options = null)
     {
         $target = $this->getTarget();
@@ -441,21 +504,36 @@ class Comment extends yupe\models\YModel
         return $target;
     }
 
+    /**
+     * @return bool
+     */
     public function isApproved()
     {
         return $this->status == self::STATUS_APPROVED;
     }
 
+    /**
+     * @return int
+     */
     public function hasParent()
     {
         return $this->parent_id;
     }
 
+    /**
+     * @param int $cache
+     * @return array|mixed|null
+     */
     public function getParent($cache = 3600)
     {
         return $this->cache((int)$cache)->findByPk($this->parent_id);
     }
 
+    /**
+     * @param array $items
+     * @return int
+     * @throws CDbException
+     */
     public function multiDelete(array $items)
     {
         $count = 0;
@@ -489,6 +567,9 @@ class Comment extends yupe\models\YModel
         return $count;
     }
 
+    /**
+     * @return mixed
+     */
     public function approve()
     {
         $this->status = self::STATUS_APPROVED;

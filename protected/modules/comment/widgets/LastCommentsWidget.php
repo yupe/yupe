@@ -13,12 +13,30 @@
  **/
 class LastCommentsWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var
+     */
     public $model;
+    /**
+     * @var
+     */
     public $commentStatus;
+    /**
+     * @var int
+     */
     public $limit = 10;
+    /**
+     * @var bool
+     */
     public $onlyWithAuthor = true;
+    /**
+     * @var string
+     */
     public $view = 'lastcomments';
 
+    /**
+     *
+     */
     public function init()
     {
         if ($this->model) {
@@ -28,13 +46,16 @@ class LastCommentsWidget extends yupe\widgets\YWidget
         $this->commentStatus || ($this->commentStatus = Comment::STATUS_APPROVED);
     }
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $criteria = new CDbCriteria([
             'condition' => 'status = :status AND id<>root',
-            'params'    => [':status' => $this->commentStatus],
-            'limit'     => $this->limit,
-            'order'     => 'id DESC',
+            'params' => [':status' => $this->commentStatus],
+            'limit' => $this->limit,
+            'order' => 'id DESC',
         ]);
 
         if ($this->model) {

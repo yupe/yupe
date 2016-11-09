@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class NewCommentListener
+ */
 class NewCommentListener
 {
+    /**
+     * @param CommentEvent $event
+     */
     public static function onAfterSaveComment(CommentEvent $event)
     {
         if ($cache = Yii::app()->getCache()) {
@@ -9,6 +15,9 @@ class NewCommentListener
         }
     }
 
+    /**
+     * @param CommentEvent $event
+     */
     public static function onAfterDeleteComment(CommentEvent $event)
     {
         if ($cache = Yii::app()->getCache()) {
@@ -16,6 +25,10 @@ class NewCommentListener
         }
     }
 
+    /**
+     * @param CommentEvent $event
+     * @throws CException
+     */
     public static function onBeforeAddComment(CommentEvent $event)
     {
         // проверка на таймаут добавления нового комментария
@@ -38,6 +51,9 @@ class NewCommentListener
         }
     }
 
+    /**
+     * @param CommentEvent $event
+     */
     public static function onSuccessAddComment(CommentEvent $event)
     {
         $user = $event->getUser();
