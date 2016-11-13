@@ -8,7 +8,7 @@
                 <?= Yii::t('CallbackModule.callback', 'Name') ?>
             </td>
             <td style="padding:6px; width:330px; background-color:#ffffff; border:1px solid #e0e0e0;">
-                <?= $model->name; ?>
+                <?= CHtml::encode($model->name); ?>
             </td>
         </tr>
         <tr>
@@ -16,16 +16,16 @@
                 <?= Yii::t('CallbackModule.callback', 'Phone') ?>
             </td>
             <td style="padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
-                <?= $model->phone; ?>
+                <?= CHtml::encode($model->phone); ?>
             </td>
         </tr>
-        <?php if ($model->time): ?>
+        <?php if (!empty($model->time)): ?>
             <tr>
                 <td style="padding:6px; background-color:#f0f0f0; border:1px solid #e0e0e0;">
                     <?= Yii::t('CallbackModule.callback', 'Time') ?>
                 </td>
                 <td style="padding:6px; background-color:#ffffff; border:1px solid #e0e0e0;">
-                    <?= $model->time; ?>
+                    <?= CHtml::encode($model->time); ?>
                 </td>
             </tr>
         <?php endif; ?>
