@@ -158,6 +158,7 @@ $this->menu = [
                     'city',
                     'street',
                     'house',
+                    'apartment'
                 ],
             ]
         ); ?>

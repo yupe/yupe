@@ -8,8 +8,8 @@ $this->breadcrumbs = [
 ?>
 
 <h1>
-    <?=  Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?=  CHtml::encode($this->getModule()->name); ?>"
-    <small><?=  Yii::t('YupeModule.yupe', 'version'); ?> <?=  CHtml::encode($this->getModule()->version); ?></small>
+    <?= Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?= CHtml::encode($this->getModule()->name); ?>"
+    <small><?= Yii::t('YupeModule.yupe', 'version'); ?> <?= CHtml::encode($this->getModule()->version); ?></small>
 </h1>
 
 <?php $this->widget(
@@ -18,7 +18,7 @@ $this->breadcrumbs = [
         'buttonType' => 'submit',
         'context' => 'primary',
         'label' => Yii::t('SitemapModule.sitemap', 'Regenerate sitemap'),
-        'id' => 'regenerate-site-map'
+        'id' => 'regenerate-site-map',
     ]
 ); ?>
 
@@ -29,7 +29,7 @@ $this->breadcrumbs = [
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#add-toggle">
         <i class="glyphicon glyphicon-plus">&nbsp;</i>
-        <?=  Yii::t('SitemapModule.sitemap', 'Add'); ?>
+        <?= Yii::t('SitemapModule.sitemap', 'Add'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -48,22 +48,25 @@ $this->breadcrumbs = [
         ]
     ); ?>
     <div class="alert alert-info">
-        <?=  Yii::t('SitemapModule.sitemap', 'Fields with'); ?>
+        <?= Yii::t('SitemapModule.sitemap', 'Fields with'); ?>
         <span class="required">*</span>
-        <?=  Yii::t('SitemapModule.sitemap', 'are required.'); ?>
+        <?= Yii::t('SitemapModule.sitemap', 'are required.'); ?>
     </div>
 
-    <?=  $form->errorSummary($sitemapPage); ?>
+    <?= $form->errorSummary($page); ?>
 
     <div class="row">
-        <div class="col-sm-6">
-            <?=  $form->textFieldGroup($sitemapPage, 'url'); ?>
+        <div class="col-sm-4">
+            <?= $form->textFieldGroup($page, 'url'); ?>
+        </div>
+        <div class="col-sm-2">
+            <?= $form->textFieldGroup($page, 'priority'); ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            <?=  $form->dropDownListGroup(
-                $sitemapPage,
+        <div class="col-sm-3">
+            <?= $form->dropDownListGroup(
+                $page,
                 'changefreq',
                 [
                     'widgetOptions' => [
@@ -72,16 +75,13 @@ $this->breadcrumbs = [
                 ]
             ); ?>
         </div>
-        <div class="col-sm-2">
-            <?=  $form->textFieldGroup($sitemapPage, 'priority'); ?>
-        </div>
-        <div class="col-sm-2">
-            <?=  $form->dropDownListGroup(
-                $sitemapPage,
+        <div class="col-sm-3">
+            <?= $form->dropDownListGroup(
+                $page,
                 'status',
                 [
                     'widgetOptions' => [
-                        'data' => $sitemapPage->getStatusList(),
+                        'data' => $page->getStatusList(),
                     ],
                 ]
             ); ?>
@@ -106,10 +106,9 @@ $this->breadcrumbs = [
     'yupe\widgets\CustomGridView',
     [
         'id' => 'page-grid',
-        'dataProvider' => $sitemapPage->search(),
-        'filter' => $sitemapPage,
+        'dataProvider' => $pages,
+        'filter' => $pages,
         'sortField' => 'order',
-        'template' => "{multiaction}\n{items}\n{pager}",
         'actionsButtons' => false,
         'columns' => [
             [
@@ -119,10 +118,10 @@ $this->breadcrumbs = [
                     'url' => $this->createUrl('/sitemap/sitemapBackend/inlinePage'),
                     'mode' => 'inline',
                     'params' => [
-                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-                    ]
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
+                    ],
                 ],
-                'filter' => CHtml::activeTextField($sitemapPage, 'url', ['class' => 'form-control']),
+                'filter' => CHtml::activeTextField($page, 'url', ['class' => 'form-control']),
             ],
             [
                 'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -133,10 +132,11 @@ $this->breadcrumbs = [
                     'type' => 'select',
                     'source' => SitemapHelper::getChangeFreqList(),
                     'params' => [
-                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-                    ]
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
+                    ],
                 ],
-                'filter' => CHtml::activeDropDownList($sitemapPage, 'changefreq', SitemapHelper::getChangeFreqList(), ['class' => 'form-control', 'empty' => '']),
+                'filter' => CHtml::activeDropDownList($page, 'changefreq', SitemapHelper::getChangeFreqList(),
+                    ['class' => 'form-control', 'empty' => '']),
                 'htmlOptions' => ['style' => 'width: 250px;'],
             ],
             [
@@ -146,22 +146,24 @@ $this->breadcrumbs = [
                     'url' => $this->createUrl('/sitemap/sitemapBackend/inlinePage'),
                     'mode' => 'inline',
                     'params' => [
-                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
-                    ]
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
+                    ],
                 ],
-                'filter' => CHtml::activeTextField($sitemapPage, 'priority', ['class' => 'form-control']),
+                'filter' => CHtml::activeTextField($page, 'priority', ['class' => 'form-control']),
                 'htmlOptions' => ['style' => 'width: 250px;'],
             ],
             [
                 'class' => 'yupe\widgets\EditableStatusColumn',
                 'name' => 'status',
                 'url' => $this->createUrl('/sitemap/sitemapBackend/inlinePage'),
-                'source' => $sitemapPage->getStatusList(),
+                'source' => $page->getStatusList(),
                 'options' => [
                     SitemapPage::STATUS_ACTIVE => ['class' => 'label-success'],
                     SitemapPage::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
                 ],
                 'htmlOptions' => ['style' => 'width: 150px;'],
+                'filter' => CHtml::activeDropDownList($page, 'status', $page->getStatusList(),
+                    ['class' => 'form-control', 'empty' => '']),
             ],
         ],
     ]
@@ -169,13 +171,13 @@ $this->breadcrumbs = [
 ?>
 
 <script type="text/javascript">
-    $('#regenerate-site-map').on('click', function(event){
+    $('#regenerate-site-map').on('click', function (event) {
         event.preventDefault();
         $.post('<?= Yii::app()->createUrl('/sitemap/sitemapBackend/regenerate');?>', {
-            'do' : true,
-            '<?= Yii::app()->getRequest()->csrfTokenName?>' : '<?= Yii::app()->getRequest()->csrfToken?>'
-        }, function(response){
-                 window.location.reload();
+            'do': true,
+            '<?= Yii::app()->getRequest()->csrfTokenName?>': '<?= Yii::app()->getRequest()->csrfToken;?>'
+        }, function (response) {
+            window.location.reload();
         }, 'json')
     });
 </script>

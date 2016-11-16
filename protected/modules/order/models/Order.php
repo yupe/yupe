@@ -119,9 +119,10 @@ class Order extends yupe\models\YModel
     public function rules()
     {
         return [
+            ['name, email, phone, zipcode, country, city, street, house, apartment', 'filter', 'filter' => 'trim'],
+            ['name, email, phone, zipcode, country, city, street, house, apartment, comment', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['status_id, delivery_id', 'required'],
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
-            ['name, email, phone, zipcode, country, city, street, house, apartment', 'filter', 'filter' => 'trim'],
             ['email', 'email'],
             [
                 'delivery_id, separate_delivery, payment_method_id, paid, user_id, couponId, manager_id',

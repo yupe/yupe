@@ -44,10 +44,12 @@ class SitemapBackendController extends BackController
      */
     public function actionSettings()
     {
-        $sitemapPage = new SitemapPage('search');
-        $sitemapPage->unsetAttributes();
-        $sitemapPage->setAttributes(Yii::app()->getRequest()->getParam('SitemapPage', []));
-        $this->render('settings', ['sitemapPage' => $sitemapPage]);
+        $pages = new SitemapPage('search');
+        $pages->unsetAttributes();
+        $pages->setAttributes(
+            Yii::app()->getRequest()->getParam('SitemapPage', [])
+        );
+        $this->render('settings', ['pages' => $pages->search(), 'page' => $pages]);
     }
 
     /**
@@ -55,12 +57,18 @@ class SitemapBackendController extends BackController
      */
     public function actionCreatePage()
     {
+        $model = new SitemapPage('search');
+
         if ($data = Yii::app()->getRequest()->getPost('SitemapPage')) {
-            $model = new SitemapPage();
             $model->setAttributes($data);
-            $model->save();
+            if($model->save()){
+                Yii::app()->getUser()->setFlash(YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('SitemapModule.sitemap', 'Page added!'));
+                $this->redirect(['settings']);
+            }
         }
-        $this->redirect(['settings']);
+
+        $this->render('settings', ['pages' => $model->search(), 'page' => $model]);
     }
 
     /**
