@@ -26,5 +26,28 @@ class StoreSitemapGeneratorListener
                 0.5
             );
         }
+
+        $brandProvider = new CActiveDataProvider(Producer::model()->published());
+
+        foreach (new CDataProviderIterator($brandProvider) as $item) {
+            $generator->addItem(
+                Yii::app()->createAbsoluteUrl('/store/producer/view', ['slug' => $item->slug]),
+                null,
+                SitemapHelper::FREQUENCY_DAILY,
+                0.5
+            );
+        }
+
+
+        $categoryProvider = new CActiveDataProvider(StoreCategory::model()->published());
+
+        foreach (new CDataProviderIterator($categoryProvider) as $item) {
+            $generator->addItem(
+                Yii::app()->createAbsoluteUrl('/store/category/view', ['path' => $item->path]),
+                null,
+                SitemapHelper::FREQUENCY_DAILY,
+                0.5
+            );
+        }
     }
 } 
