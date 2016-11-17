@@ -47,7 +47,7 @@ class SitemapPage extends yupe\models\YModel
             ['url', 'unique'],
             ['url', 'length', 'max' => 250],
             ['changefreq', 'length', 'max' => 20],
-            ['priority', 'numerical'],
+            ['priority', 'numerical', 'max' => 1],
             ['status', 'numerical', 'integerOnly' => true],
             ['id, url, changefreq, priority, status', 'safe', 'on' => 'search'],
         ];

@@ -1,5 +1,8 @@
 <?php
 return [
+    'Zip code' => 'Почтовый индекс',
+    'City' => 'Город',
+    'Address' => 'Адрес',
     '% to the price' => '% к цене',
     '*unknown*' => '*неизвестно*',
     '--choose--' => '--выберите--',
@@ -110,7 +113,7 @@ return [
     'Edited' => 'Изменено',
     'Edition' => 'Редактирование',
     'Editor' => 'Изменил',
-    'Email' => 'Email магазина',
+    'Email' => 'Email',
     'Enter {field}' => 'Введите {field}',
     'Error uploading some files...'  => 'При загрузке некоторых файлов произошла ошибка...',
     'Error uploading some images...' => 'При загрузке некоторых изображений произошла ошибка...',
@@ -188,7 +191,7 @@ return [
     'Order' => 'Порядок сортировки',
     'Page not found!' => 'Запрошенная страница не найдена!',
     'Parent' => 'Родитель',
-    'Phone' => 'Телефон магазина',
+    'Phone' => 'Телефон',
     'Position' => 'Позиция',
     'Price filter'   => 'По цене',
     'Price type' => 'Тип стоимости',

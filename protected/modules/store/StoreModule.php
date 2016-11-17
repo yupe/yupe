@@ -15,6 +15,26 @@ class StoreModule extends WebModule
     /**
      * @var
      */
+    public $zipcode;
+
+    /**
+     * @var
+     */
+    public $city;
+
+    /**
+     * @var
+     */
+    public $title;
+
+    /**
+     * @var
+     */
+    public $address;
+
+    /**
+     * @var
+     */
     public $phone;
 
     /**
@@ -131,6 +151,10 @@ class StoreModule extends WebModule
             'phone',
             'email',
             'currency' => $this->getCurrencyList(),
+            'title',
+            'address',
+            'city',
+            'zipcode'
         ];
     }
 
@@ -151,6 +175,10 @@ class StoreModule extends WebModule
             'phone' => Yii::t('StoreModule.store', 'Phone'),
             'email' => Yii::t('StoreModule.store', 'Email'),
             'currency' => Yii::t('StoreModule.store', 'Currency'),
+            'address' => Yii::t('StoreModule.store', 'Address'),
+            'title' => Yii::t('StoreModule.store', 'Name'),
+            'city' => Yii::t('StoreModule.store', 'City'),
+            'zipcode' => Yii::t('StoreModule.store', 'Zip code')
         ];
     }
 
@@ -163,15 +191,19 @@ class StoreModule extends WebModule
             '0.store' => [
                 'label' => Yii::t('StoreModule.store', 'Store'),
                 'items' => [
+                    'title',
+                    'city',
+                    'address',
+                    'zipcode',
                     'phone',
                     'email',
-                    'itemsPerPage',
+                    'currency',
                 ],
             ],
-            '1.store' => [
-                'label' => Yii::t('StoreModule.store', 'Currency'),
+            '1.catalog' => [
+                'label' => Yii::t('StoreModule.store', 'Catalog'),
                 'items' => [
-                    'currency',
+                    'itemsPerPage',
                 ],
             ],
             '2.main' => [
@@ -181,7 +213,7 @@ class StoreModule extends WebModule
                     'defaultImage',
                 ],
             ],
-            '3.main' => [
+            '3.editors' => [
                 'label' => Yii::t('StoreModule.store', 'Visual editor settings'),
                 'items' => [
                     'editor',
