@@ -40,7 +40,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property string $image_alt
  * @property string $image_title
  *
- * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
+ * @method getImageUrl
  *
  * The followings are the available model relations:
  * @property Type $type
@@ -1115,61 +1115,23 @@ class Product extends yupe\models\YModel implements ICommentable
         return null;
     }
 
+
     /**
-     * Связывает продукты
-     * @param $product Product|int Ид продукта или продукт
-     * @param null $type_id Тип связи
+     * @param $product
+     * @param null $typeId
      * @return bool
      */
-    public function link($product, $type_id = null)
+    public function link($product, $typeId = null)
     {
         $link = new ProductLink();
-        $link->product_id = $this->id;
-        $link->linked_product_id = ($product instanceof Product ? $product->id : $product);
-        $link->type_id = $type_id;
+
+        $link->setAttributes([
+            'product_id' => $this->id,
+            'linked_product_id' => ($product instanceof Product ? $product->id : $product),
+            'type_id' => $typeId
+        ]);
 
         return $link->save();
-    }
-
-    /**
-     * @param null|string $typeCode
-     * @return CDbCriteria
-     */
-    public function getLinkedProductsCriteria($typeCode = null)
-    {
-        $criteria = new CDbCriteria();
-
-        $criteria->join .= ' JOIN {{store_product_link}} linked ON t.id = linked.linked_product_id';
-        $criteria->compare('linked.product_id', $this->id);
-        if (null !== $typeCode) {
-            $criteria->join .= ' JOIN {{store_product_link_type}} type ON type.id = linked.type_id';
-            $criteria->compare('type.code', $typeCode);
-        }
-
-        return $criteria;
-    }
-
-    /**
-     * Список связанных с продуктом продуктов
-     * @param null|string $typeCode
-     * @return Product[]
-     */
-    public function getLinkedProducts($typeCode = null)
-    {
-        return Product::model()->findAll($this->getLinkedProductsCriteria($typeCode));
-    }
-
-    /**
-     * @param null|string $typeCode
-     * @return CActiveDataProvider
-     */
-    public function getLinkedProductsDataProvider($typeCode = null)
-    {
-        return new CActiveDataProvider(
-            get_class($this), [
-                'criteria' => $this->getLinkedProductsCriteria($typeCode),
-            ]
-        );
     }
 
 

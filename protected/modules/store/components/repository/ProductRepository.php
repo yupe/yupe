@@ -348,4 +348,27 @@ class ProductRepository extends CApplicationComponent
             ]
         );
     }
+
+    /**
+     * @param Product $product
+     * @param null $typeCode
+     * @return CActiveDataProvider
+     */
+    public function getLinkedProductsDataProvider(Product $product, $typeCode = null)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->scopes = ['published'];
+        $criteria->join = ' JOIN {{store_product_link}} linked ON t.id = linked.linked_product_id';
+        $criteria->compare('linked.product_id', $product->id);
+        if (null !== $typeCode) {
+            $criteria->join .= ' JOIN {{store_product_link_type}} type ON type.id = linked.type_id';
+            $criteria->compare('type.code', $typeCode);
+        }
+
+        return new CActiveDataProvider(
+            'Product', [
+                'criteria' => $criteria,
+            ]
+        );
+    }
 }

@@ -20,6 +20,19 @@ class LinkedProductsWidget extends \yupe\widgets\YWidget
     public $product;
 
     /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
+
+    /**
+     *
+     */
+    public function init()
+    {
+        $this->productRepository = new ProductRepository();
+    }
+
+    /**
      * @throws CException
      */
     public function run()
@@ -28,6 +41,7 @@ class LinkedProductsWidget extends \yupe\widgets\YWidget
             return;
         }
 
-        $this->render($this->view, ['dataProvider' => $this->product->getLinkedProductsDataProvider($this->code)]);
+        $this->render($this->view,
+            ['dataProvider' => $this->productRepository->getLinkedProductsDataProvider($this->product, $this->code)]);
     }
 } 
