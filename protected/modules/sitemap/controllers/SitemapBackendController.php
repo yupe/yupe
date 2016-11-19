@@ -61,7 +61,7 @@ class SitemapBackendController extends BackController
 
         if ($data = Yii::app()->getRequest()->getPost('SitemapPage')) {
             $model->setAttributes($data);
-            if($model->save()){
+            if ($model->save()) {
                 Yii::app()->getUser()->setFlash(YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('SitemapModule.sitemap', 'Page added!'));
                 $this->redirect(['settings']);
@@ -89,5 +89,27 @@ class SitemapBackendController extends BackController
         Yii::app()->getUser()->setFlash(YFlashMessages::ERROR_MESSAGE,
             Yii::t('SitemapModule.sitemap', 'Sitemap is not deleted!'));
         Yii::app()->ajax->failure();
+    }
+
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
+    public function actionDelete($id)
+    {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
+
+            $page = SitemapPage::model()->findByPk($id);
+
+            if (null === $page) {
+                throw new CHttpException(404);
+            }
+
+            $page->delete();
+
+            if (!isset($_GET['ajax'])) {
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
+            }
+        }
     }
 }

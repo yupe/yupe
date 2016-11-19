@@ -165,6 +165,20 @@ $this->breadcrumbs = [
                 'filter' => CHtml::activeDropDownList($page, 'status', $page->getStatusList(),
                     ['class' => 'form-control', 'empty' => '']),
             ],
+            [
+                'class' => 'yupe\widgets\CustomButtonColumn',
+                'template' => '{front_view}{delete}',
+                'frontViewButtonUrl' => function ($data) {
+                    return Yii::app()->createAbsoluteUrl($data->url);
+                },
+                'buttons' => [
+                    'front_view' => [
+                        'visible' => function ($row, $data) {
+                            return $data->status == SitemapPage::STATUS_ACTIVE;
+                        },
+                    ],
+                ],
+            ],
         ],
     ]
 );
