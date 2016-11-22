@@ -1,5 +1,7 @@
 <?php
 return [
+    'Templates settings' => 'Настройки шаблона',
+    'Template' => 'Шаблон',
     'Zip code' => 'Почтовый индекс',
     'City' => 'Город',
     'Address' => 'Адрес',

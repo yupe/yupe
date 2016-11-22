@@ -264,6 +264,30 @@ $form = $this->beginWidget(
                 <?= $form->error($model, 'data'); ?>
             </div>
         </div>
+
+        <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
+        <div class="panel-group" id="template-options">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a data-toggle="collapse" data-parent="#template-options" href="#collapse-template">
+                            <?= Yii::t('StoreModule.store', 'Templates settings'); ?>
+                        </a>
+                    </div>
+                </div>
+                <div id="collapse-template" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <?= $form->textFieldGroup($model, 'view'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php $this->endWidget(); ?>
+
     </div>
 
     <div class="tab-pane" id="stock">

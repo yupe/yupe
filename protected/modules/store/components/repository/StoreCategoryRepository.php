@@ -1,11 +1,14 @@
 <?php
 
+/**
+ * Class StoreCategoryRepository
+ */
 class StoreCategoryRepository extends CApplicationComponent
 {
+
     /**
      * @param $slug
-     *
-     * @return array|mixed|null
+     * @return static
      */
     public function getByAlias($slug)
     {
@@ -15,5 +18,27 @@ class StoreCategoryRepository extends CApplicationComponent
                 ':slug' => $slug,
             ]
         );
+    }
+
+    /**
+     *
+     */
+    public function getAllDataProvider()
+    {
+        new CArrayDataProvider(
+            StoreCategory::model()->published()->getMenuList(1), [
+                'id' => 'id',
+                'pagination' => false,
+            ]
+        );
+    }
+
+    /**
+     * @param $path
+     * @return mixed
+     */
+    public function getByPath($path)
+    {
+        return StoreCategory::model()->published()->findByPath($path);
     }
 }

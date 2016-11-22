@@ -77,7 +77,8 @@ $this->menu = [
             ],
             'meta_title',
             'meta_keywords',
-            'meta_description'
+            'meta_description',
+            'view'
         ],
     ]
 ); ?>

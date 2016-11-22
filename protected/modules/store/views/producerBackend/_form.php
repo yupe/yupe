@@ -38,13 +38,13 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-6">
         <?= $form->textFieldGroup($model, 'name_short'); ?>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-6">
         <?= $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
@@ -134,6 +134,29 @@ $form = $this->beginWidget(
                 <div class="row">
                     <div class="col-sm-7">
                         <?= $form->textAreaGroup($model, 'meta_description'); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->endWidget(); ?>
+
+<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
+<div class="panel-group" id="template-options">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <a data-toggle="collapse" data-parent="#template-options" href="#collapse-template">
+                    <?= Yii::t('StoreModule.store', 'Templates settings'); ?>
+                </a>
+            </div>
+        </div>
+        <div id="collapse-template" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <?= $form->textFieldGroup($model, 'view'); ?>
                     </div>
                 </div>
             </div>

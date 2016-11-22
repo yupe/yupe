@@ -75,6 +75,6 @@ class ProductController extends FrontController
 
         Yii::app()->eventManager->fire(StoreEvents::PRODUCT_OPEN, new ProductOpenEvent($product));
 
-        $this->render('view', ['product' => $product]);
+        $this->render($product->view ?:'view', ['product' => $product]);
     }
 }

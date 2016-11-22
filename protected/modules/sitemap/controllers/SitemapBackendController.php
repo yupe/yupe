@@ -108,7 +108,7 @@ class SitemapBackendController extends BackController
             $page->delete();
 
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['settings']);
             }
         }
     }

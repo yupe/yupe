@@ -17,13 +17,14 @@ use yupe\components\Event;
  * @property string $meta_canonical
  * @property string $image_alt
  * @property string $image_title
+ * @property string $view
  *
  * @property-read StoreCategory $parent
  * @property-read StoreCategory[] $children
  *
- * @method StoreCategory published()
- * @method StoreCategory roots()
- * @method getImageUrl($width = 0, $height = 0, $crop = true, $defaultImage = null)
+ * @method StoreCategory published
+ * @method StoreCategory roots
+ * @method getImageUrl
  *
  */
 class StoreCategory extends \yupe\models\YModel
@@ -75,7 +76,7 @@ class StoreCategory extends \yupe\models\YModel
             ['status', 'length', 'max' => 11],
             ['name, title, image, image_alt, image_title, meta_title, meta_keywords, meta_description, meta_canonical', 'length', 'max' => 250],
             ['slug', 'length', 'max' => 150],
-            ['external_id', 'length', 'max' => 100],
+            ['external_id, view', 'length', 'max' => 100],
             [
                 'slug',
                 'yupe\components\validators\YSLugValidator',
@@ -207,6 +208,7 @@ class StoreCategory extends \yupe\models\YModel
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
             'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
             'image_title' => Yii::t('StoreModule.store', 'Image title'),
+            'view' => Yii::t('StoreModule.store', 'Template'),
         ];
     }
 
@@ -232,6 +234,7 @@ class StoreCategory extends \yupe\models\YModel
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
             'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
             'image_title' => Yii::t('StoreModule.store', 'Image title'),
+            'view' => Yii::t('StoreModule.store', 'Template'),
         ];
     }
 

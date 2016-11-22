@@ -12,6 +12,11 @@ class CategoryController extends FrontController
     protected $productRepository;
 
     /**
+     * @var StoreCategoryRepository
+     */
+    protected $categoryRepository;
+
+    /**
      * @var AttributeFilter
      */
     protected $attributeFilter;
@@ -24,6 +29,7 @@ class CategoryController extends FrontController
         parent::init();
         $this->productRepository = Yii::app()->getComponent('productRepository');
         $this->attributeFilter = Yii::app()->getComponent('attributesFilter');
+        $this->categoryRepository = Yii::app()->getComponent('categoryRepository');
     }
 
     /**
@@ -34,12 +40,7 @@ class CategoryController extends FrontController
         $this->render(
             'index',
             [
-                'dataProvider' => new CArrayDataProvider(
-                    StoreCategory::model()->published()->getMenuList(1), [
-                        'id' => 'id',
-                        'pagination' => false,
-                    ]
-                ),
+                'dataProvider' => $this->categoryRepository->getAllDataProvider(),
             ]
         );
     }
@@ -50,7 +51,7 @@ class CategoryController extends FrontController
      */
     public function actionView($path)
     {
-        $category = StoreCategory::model()->published()->findByPath($path);
+        $category = $this->categoryRepository->getByPath($path);
 
         if (null === $category) {
             throw new CHttpException(404);
@@ -65,7 +66,7 @@ class CategoryController extends FrontController
         ) : $this->productRepository->getListForCategory($category);
 
         $this->render(
-            'view',
+            $category->view ?: 'view',
             [
                 'dataProvider' => $data,
                 'category' => $category,

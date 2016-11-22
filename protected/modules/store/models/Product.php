@@ -39,6 +39,7 @@ Yii::import('application.modules.comment.components.ICommentable');
  * @property string $meta_canonical
  * @property string $image_alt
  * @property string $image_title
+ * @property string $view
  *
  * @method getImageUrl
  *
@@ -127,12 +128,17 @@ class Product extends yupe\models\YModel implements ICommentable
     public function rules()
     {
         return [
-            ['name, slug', 'required', 'except' => 'search'],
             [
                 'name, title, description, short_description, slug, price, discount_price, discount, data, status, is_special',
                 'filter',
                 'filter' => 'trim',
             ],
+            [
+                'name, title, description, short_description, slug, price, discount_price, discount, data, status, is_special',
+                'filter',
+                'filter' => [$obj = new CHtmlPurifier(), 'purify'],
+            ],
+            ['name, slug', 'required'],
             [
                 'status, is_special, producer_id, type_id, quantity, in_stock, category_id',
                 'numerical',
@@ -148,7 +154,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'max' => 250,
             ],
             ['discount_price, discount, average_price, purchase_price, recommended_price', 'default', 'value' => null],
-            ['sku', 'length', 'max' => 100],
+            ['sku, view', 'length', 'max' => 100],
             ['slug', 'length', 'max' => 150],
             ['external_id', 'length', 'max' => 100],
             [
@@ -277,6 +283,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
             'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
             'image_title' => Yii::t('StoreModule.store', 'Image title'),
+            'view' => Yii::t('StoreModule.store', 'Template'),
         ];
     }
 
@@ -315,6 +322,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
             'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
             'image_title' => Yii::t('StoreModule.store', 'Image title'),
+            'view' => Yii::t('StoreModule.store', 'Template'),
         ];
     }
 
@@ -1128,7 +1136,7 @@ class Product extends yupe\models\YModel implements ICommentable
         $link->setAttributes([
             'product_id' => $this->id,
             'linked_product_id' => ($product instanceof Product ? $product->id : $product),
-            'type_id' => $typeId
+            'type_id' => $typeId,
         ]);
 
         return $link->save();

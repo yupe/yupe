@@ -12,11 +12,18 @@ class ProducerController extends FrontController
     protected $productRepository;
 
     /**
+     * @var ProducerRepository
+     */
+    protected $producerRepository;
+
+    /**
      *
      */
     public function init()
     {
         $this->productRepository = Yii::app()->getComponent('productRepository');
+
+        $this->producerRepository = Yii::app()->getComponent('producerRepository');
 
         parent::init();
     }
@@ -29,7 +36,7 @@ class ProducerController extends FrontController
         $this->render(
             'index',
             [
-                'brands' => Producer::model()->getAllDataProvider(),
+                'brands' => $this->producerRepository->getAllDataProvider(),
             ]
         );
     }
@@ -40,14 +47,14 @@ class ProducerController extends FrontController
      */
     public function actionView($slug)
     {
-        $producer = Producer::model()->getBySlug($slug);
+        $producer = $this->producerRepository->getBySlug($slug);
 
-        if (!$producer) {
+        if (null === $producer) {
             throw new CHttpException(404, Yii::t('StoreModule.store', 'Page not found!'));
         }
 
         $this->render(
-            'view',
+            $producer->view ?: 'view',
             [
                 'brand' => $producer,
                 'products' => $this->productRepository->getByBrandProvider($producer),
