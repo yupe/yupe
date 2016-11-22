@@ -24,6 +24,10 @@ $linkTypes = CHtml::listData(ProductLinkType::model()->findAll(['order' => 'titl
                 'filter' => $linked,
                 'actionsButtons' => false,
                 'bulkActions' => [false],
+                'sortableRows'      => true,
+                'sortableAjaxSave'  => true,
+                'sortableAttribute' => 'position',
+                'sortableAction'    => '/store/productBackend/sortrelated',
                 'ajaxUrl' => ['/store/productBackend/update', 'id' => $product->id],
                 'columns' => [
                     [

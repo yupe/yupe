@@ -45,6 +45,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 'class' => 'yupe\components\actions\SortAction',
                 'model' => 'Product',
             ],
+            'sortrelated' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'ProductLink',
+            ],
         ];
     }
 

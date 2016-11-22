@@ -358,7 +358,8 @@ class ProductRepository extends CApplicationComponent
     {
         $criteria = new CDbCriteria();
         $criteria->scopes = ['published'];
-        $criteria->join = ' JOIN {{store_product_link}} linked ON t.id = linked.linked_product_id';
+        $criteria->order = 'linked.position DESC';
+        $criteria->join  = ' JOIN {{store_product_link}} linked ON t.id = linked.linked_product_id';
         $criteria->compare('linked.product_id', $product->id);
         if (null !== $typeCode) {
             $criteria->join .= ' JOIN {{store_product_link_type}} type ON type.id = linked.type_id';

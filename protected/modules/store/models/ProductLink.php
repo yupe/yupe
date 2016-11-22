@@ -5,6 +5,7 @@
  * @property integer $type_id
  * @property integer $product_id
  * @property integer $linked_product_id
+ * @property integer $position
  *
  * @property Product $product
  * @property Product $linkedProduct
@@ -36,7 +37,7 @@ class ProductLink extends yupe\models\YModel
     {
         return [
             ['product_id, linked_product_id, type_id', 'required'],
-            ['product_id, linked_product_id, ', 'numerical', 'integerOnly' => true],
+            ['product_id, linked_product_id, position', 'numerical', 'integerOnly' => true],
             [
                 'product_id',
                 'unique',
@@ -74,6 +75,7 @@ class ProductLink extends yupe\models\YModel
             'product_id' => Yii::t('StoreModule.store', 'Product'),
             'linked_product_id' => Yii::t('StoreModule.store', 'Linked product'),
             'type_id' => Yii::t('StoreModule.store', 'Link type'),
+            'position' => Yii::t('StoreModule.store', 'Position'),
         ];
     }
 
@@ -92,7 +94,22 @@ class ProductLink extends yupe\models\YModel
         return new CActiveDataProvider(
             $this, [
                 'criteria' => $criteria,
+                'sort' => [
+                    'defaultOrder' => 't.position DESC'
+                ]
             ]
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+            ],
+        ];
     }
 }
