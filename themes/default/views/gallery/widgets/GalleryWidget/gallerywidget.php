@@ -31,6 +31,8 @@ $this->widget(
         'lang'   => 'ru',
         'config' => [
             'rel' => '.gallery-image',
+            'maxWidth' => '100%',
+            'maxHeight' => '100%',
         ],
     ]
 ); ?>
