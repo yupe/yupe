@@ -9,13 +9,13 @@ class GalleryCategoryController extends FrontController
         $categoryId = $this->getModule()->mainCategory;
 
         $this->render('index', [
-            'categories' => Category::model()->getDescendants($categoryId),
+            'categories' => Yii::app()->getComponent('categoriesRepository')->getDescendants($categoryId),
         ]);
     }
 
     public function actionView($slug = null)
     {
-        $category = Category::model()->getByAlias($slug);
+        $category = Yii::app()->getComponent('categoriesRepository')->getByAlias($slug);
 
         if (is_null($category)) {
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Requested page was not found.'));

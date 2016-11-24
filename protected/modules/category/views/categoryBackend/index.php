@@ -8,28 +8,28 @@ $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - manage');
 
 $this->menu = [
     [
-        'icon'  => 'fa fa-fw fa-list-alt',
+        'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CategoryModule.category', 'Category manage'),
-        'url'   => ['/category/categoryBackend/index']
+        'url' => ['/category/categoryBackend/index']
     ],
     [
-        'icon'  => 'fa fa-fw fa-plus-square',
+        'icon' => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CategoryModule.category', 'Create category'),
-        'url'   => ['/category/categoryBackend/create']
+        'url' => ['/category/categoryBackend/create']
     ],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?=  Yii::t('CategoryModule.category', 'Categories'); ?>
-        <small><?=  Yii::t('CategoryModule.category', 'manage'); ?></small>
+        <?= Yii::t('CategoryModule.category', 'Categories'); ?>
+        <small><?= Yii::t('CategoryModule.category', 'manage'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?=  Yii::t('CategoryModule.category', 'Find category'); ?>
+        <?= Yii::t('CategoryModule.category', 'Find category'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -55,70 +55,70 @@ $this->menu = [
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
     [
-        'id'           => 'category-grid',
+        'id' => 'category-grid',
         'dataProvider' => $model->search(),
-        'filter'       => $model,
-        'columns'      => [
+        'filter' => $model,
+        'columns' => [
             [
-                'name'        => 'id',
+                'name' => 'id',
                 'htmlOptions' => ['style' => 'width:20px'],
-                'type'        => 'raw',
-                'value'       => 'CHtml::link($data->id, array("/category/categoryBackend/update", "id" => $data->id))'
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->id, array("/category/categoryBackend/update", "id" => $data->id))'
             ],
             [
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'name',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'name',
                 'editable' => [
-                    'url'    => $this->createUrl('/category/categoryBackend/inline'),
-                    'mode'   => 'inline',
+                    'url' => $this->createUrl('/category/categoryBackend/inline'),
+                    'mode' => 'inline',
                     'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     ]
                 ],
-                'filter'   => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
+                'filter' => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
             ],
             [
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'slug',
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'slug',
                 'editable' => [
-                    'url'    => $this->createUrl('/category/categoryBackend/inline'),
-                    'mode'   => 'inline',
+                    'url' => $this->createUrl('/category/categoryBackend/inline'),
+                    'mode' => 'inline',
                     'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     ]
                 ],
-                'filter'   => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
+                'filter' => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
             ],
             [
-                'name'   => 'parent_id',
-                'value'  => '$data->getParentName()',
+                'name' => 'parent_id',
+                'value' => '$data->getParentName()',
                 'filter' => CHtml::activeDropDownList(
                     $model,
                     'parent_id',
-                    Category::model()->getFormattedList(),
+                    Yii::app()->getComponent('categoriesRepository')->getFormattedList(),
                     ['encode' => false, 'empty' => '', 'class' => 'form-control']
                 )
             ],
             [
-                'name'   => 'image',
-                'type'   => 'raw',
-                'value'  => '$data->image ? CHtml::image($data->getImageUrl(50, 50), $data->name, array("width"  => 50, "height" => 50)) : "---"',
+                'name' => 'image',
+                'type' => 'raw',
+                'value' => '$data->image ? CHtml::image($data->getImageUrl(50, 50), $data->name, array("width"  => 50, "height" => 50)) : "---"',
                 'filter' => false
             ],
             [
-                'class'   => 'yupe\widgets\EditableStatusColumn',
-                'name'    => 'status',
-                'url'     => $this->createUrl('/category/categoryBackend/inline'),
-                'source'  => $model->getStatusList(),
+                'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'status',
+                'url' => $this->createUrl('/category/categoryBackend/inline'),
+                'source' => $model->getStatusList(),
                 'options' => [
-                    Category::STATUS_PUBLISHED  => ['class' => 'label-success'],
+                    Category::STATUS_PUBLISHED => ['class' => 'label-success'],
                     Category::STATUS_MODERATION => ['class' => 'label-warning'],
-                    Category::STATUS_DRAFT      => ['class' => 'label-default'],
+                    Category::STATUS_DRAFT => ['class' => 'label-default'],
                 ],
             ],
             [
-                'name'   => 'lang',
-                'value'  => '$data->lang',
+                'name' => 'lang',
+                'value' => '$data->lang',
                 'filter' => $this->yupe->getLanguagesList()
             ],
             [
@@ -126,4 +126,4 @@ $this->menu = [
             ],
         ],
     ]
-); ?>
+);

@@ -9,12 +9,6 @@
  * @package yupe.modules.category.models
  * @since 0.1
  *
- */
-
-/**
- * This is the model class for table "Category".
- *
- * The followings are the available columns in table 'Category':
  * @property string $id
  * @property string $name
  * @property string $description
@@ -29,6 +23,9 @@
  * @method Category published()
  * @method Category roots()
  */
+
+use yupe\components\Event;
+
 class Category extends yupe\models\YModel
 {
     const STATUS_DRAFT = 0;
@@ -88,9 +85,9 @@ class Category extends yupe\models\YModel
 
         return [
             'imageUpload' => [
-                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
+                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
                 'attributeName' => 'image',
-                'uploadPath'    => $module->uploadPath,
+                'uploadPath' => $module->uploadPath,
             ],
         ];
     }
@@ -98,7 +95,7 @@ class Category extends yupe\models\YModel
     public function relations()
     {
         return [
-            'parent'   => [self::BELONGS_TO, 'Category', 'parent_id'],
+            'parent' => [self::BELONGS_TO, 'Category', 'parent_id'],
             'children' => [self::HAS_MANY, 'Category', 'parent_id'],
         ];
     }
@@ -108,9 +105,9 @@ class Category extends yupe\models\YModel
         return [
             'published' => [
                 'condition' => 'status = :status',
-                'params'    => [':status' => self::STATUS_PUBLISHED],
+                'params' => [':status' => self::STATUS_PUBLISHED],
             ],
-            'roots'     => [
+            'roots' => [
                 'condition' => 'parent_id IS NULL',
             ],
         ];
@@ -130,20 +127,40 @@ class Category extends yupe\models\YModel
     }
 
     /**
+     *
+     */
+    public function afterSave()
+    {
+        Yii::app()->eventManager->fire(CategoryEvents::CATEGORY_AFTER_SAVE, new Event($this));
+
+        return parent::afterSave();
+    }
+
+    /**
+     *
+     */
+    public function afterDelete()
+    {
+        Yii::app()->eventManager->fire(CategoryEvents::CATEGORY_AFTER_DELETE, new Event($this));
+
+        parent::afterDelete();
+    }
+
+    /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
     {
         return [
-            'id'                => Yii::t('CategoryModule.category', 'Id'),
-            'lang'              => Yii::t('CategoryModule.category', 'Language'),
-            'parent_id'         => Yii::t('CategoryModule.category', 'Parent'),
-            'name'              => Yii::t('CategoryModule.category', 'Title'),
-            'image'             => Yii::t('CategoryModule.category', 'Image'),
+            'id' => Yii::t('CategoryModule.category', 'Id'),
+            'lang' => Yii::t('CategoryModule.category', 'Language'),
+            'parent_id' => Yii::t('CategoryModule.category', 'Parent'),
+            'name' => Yii::t('CategoryModule.category', 'Title'),
+            'image' => Yii::t('CategoryModule.category', 'Image'),
             'short_description' => Yii::t('CategoryModule.category', 'Short description'),
-            'description'       => Yii::t('CategoryModule.category', 'Description'),
-            'slug'             => Yii::t('CategoryModule.category', 'Alias'),
-            'status'            => Yii::t('CategoryModule.category', 'Status'),
+            'description' => Yii::t('CategoryModule.category', 'Description'),
+            'slug' => Yii::t('CategoryModule.category', 'Alias'),
+            'status' => Yii::t('CategoryModule.category', 'Status'),
         ];
     }
 
@@ -153,15 +170,15 @@ class Category extends yupe\models\YModel
     public function attributeDescriptions()
     {
         return [
-            'id'                => Yii::t('CategoryModule.category', 'Id'),
-            'lang'              => Yii::t('CategoryModule.category', 'Language'),
-            'parent_id'         => Yii::t('CategoryModule.category', 'Parent'),
-            'name'              => Yii::t('CategoryModule.category', 'Title'),
-            'image'             => Yii::t('CategoryModule.category', 'Image'),
+            'id' => Yii::t('CategoryModule.category', 'Id'),
+            'lang' => Yii::t('CategoryModule.category', 'Language'),
+            'parent_id' => Yii::t('CategoryModule.category', 'Parent'),
+            'name' => Yii::t('CategoryModule.category', 'Title'),
+            'image' => Yii::t('CategoryModule.category', 'Image'),
             'short_description' => Yii::t('CategoryModule.category', 'Short description'),
-            'description'       => Yii::t('CategoryModule.category', 'Description'),
-            'slug'             => Yii::t('CategoryModule.category', 'Alias'),
-            'status'            => Yii::t('CategoryModule.category', 'Status'),
+            'description' => Yii::t('CategoryModule.category', 'Description'),
+            'slug' => Yii::t('CategoryModule.category', 'Alias'),
+            'status' => Yii::t('CategoryModule.category', 'Status'),
         ];
     }
 
@@ -187,15 +204,25 @@ class Category extends yupe\models\YModel
         return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
+    /**
+     * Returns available status list
+     *
+     * @return array
+     */
     public function getStatusList()
     {
         return [
-            self::STATUS_DRAFT      => Yii::t('CategoryModule.category', 'Draft'),
-            self::STATUS_PUBLISHED  => Yii::t('CategoryModule.category', 'Published'),
+            self::STATUS_DRAFT => Yii::t('CategoryModule.category', 'Draft'),
+            self::STATUS_PUBLISHED => Yii::t('CategoryModule.category', 'Published'),
             self::STATUS_MODERATION => Yii::t('CategoryModule.category', 'On moderation'),
         ];
     }
 
+    /**
+     * Returns current status name
+     *
+     * @return string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
@@ -203,89 +230,14 @@ class Category extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('CategoryModule.category', '*unknown*');
     }
 
-    public function getAllCategoryList($selfId = false)
-    {
-        $conditionArray = ($selfId)
-            ? ['condition' => 'id != :id', 'params' => [':id' => $selfId]]
-            : [];
-
-        $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($conditionArray);
-
-        return CHtml::listData($category, 'id', 'name');
-    }
-
-    public function getDescendants($parent = null)
-    {
-        $out = [];
-
-        $parent = $parent === null ? (int)$this->id : (int)$parent;
-
-        $models = self::findAll(
-            'parent_id = :id',
-            [
-                ':id' => $parent
-            ]
-        );
-
-        foreach ($models as $model) {
-            $out[] = $model;
-            $out = CMap::mergeArray($out, $model->getDescendants((int)$model->id));
-        }
-
-        return $out;
-    }
-
     /**
-     * Возвращает отформатированный список в соответствии со вложенность категорий.
+     * Returns parent category name
      *
-     * @param null|int $parentId
-     * @param int $level
-     * @param null|array|CDbCriteria $criteria
-     * @return array
+     * @param string $empty Text shown if the category have no parent. Default: ---
+     * @return string
      */
-    public function getFormattedList($parentId = null, $level = 0, $criteria = null)
+    public function getParentName($empty = '---')
     {
-        if (empty($parentId)) {
-            $parentId = null;
-        }
-
-        $categories = Category::model()->findAllByAttributes(['parent_id' => $parentId], $criteria);
-
-        $list = [];
-
-        foreach ($categories as $category) {
-
-            $category->name = str_repeat('&emsp;', $level) . $category->name;
-
-            $list[$category->id] = $category->name;
-
-            $list = CMap::mergeArray($list, $this->getFormattedList($category->id, $level + 1, $criteria));
-        }
-
-        return $list;
-    }
-
-    public function getParentName()
-    {
-        if ($model = $this->parent) {
-            return $model->name;
-        }
-
-        return '---';
-    }
-
-    public function getByAlias($slug)
-    {
-        return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->find(
-            'slug = :slug',
-            [
-                ':slug' => $slug
-            ]
-        );
-    }
-
-    public function getById($id)
-    {
-        return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findByPk((int)$id);
+        return isset($this->parent) ? $this->parent->name : $empty;
     }
 }

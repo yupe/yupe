@@ -335,7 +335,7 @@ $form = $this->beginWidget(
                                     'category_id',
                                     [
                                         'widgetOptions' => [
-                                            'data'        => Category::model()->getFormattedList($this->getModule()->mainCategory),
+                                            'data'        => Yii::app()->getComponent('categoriesRepository')->getFormattedList($this->getModule()->mainCategory),
                                             'htmlOptions' => [
                                                 'class'               => 'popover-help',
                                                 'empty'               => Yii::t('PageModule.page', '--choose--'),

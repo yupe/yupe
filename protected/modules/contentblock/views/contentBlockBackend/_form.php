@@ -50,7 +50,7 @@ $form = $this->beginWidget(
             'category_id',
             [
                 'widgetOptions' => [
-                    'data'        => Category::model()->getFormattedList(),
+                    'data'        => Yii::app()->getComponent('categoriesRepository')->getFormattedList(),
                     'htmlOptions' => [
                         'empty'               => Yii::t('ContentBlockModule.contentblock', '--choose--'),
                         'class'               => 'popover-help',

@@ -77,7 +77,7 @@ $form = $this->beginWidget(
             'category_id',
             [
                 'widgetOptions' => [
-                    'data'        => Category::model()->getFormattedList(),
+                    'data'        => Yii::app()->getComponent('categoriesRepository')->getFormattedList(),
                     'htmlOptions' => ['empty' => Yii::t('ImageModule.image', '--choose--'), 'encode' => false],
                 ],
             ]

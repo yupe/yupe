@@ -109,7 +109,7 @@ $this->menu = [
                 'filter' => CHtml::activeDropDownList(
                     $model,
                     'category_id',
-                    Category::model()->getFormattedList(Yii::app()->getModule('gallery')->mainCategory),
+                    Yii::app()->getComponent('categoriesRepository')->getFormattedList(Yii::app()->getModule('gallery')->mainCategory),
                     ['class' => 'form-control', 'encode' => false, 'empty' => '']
                 ),
             ],

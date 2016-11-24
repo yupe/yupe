@@ -2,55 +2,55 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'action'      => Yii::app()->createUrl($this->route),
-        'method'      => 'get',
-        'type'        => 'vertical',
+        'action' => Yii::app()->createUrl($this->route),
+        'method' => 'get',
+        'type' => 'vertical',
         'htmlOptions' => ['class' => 'well'],
     ]
 ); ?>
 <fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <?=  $form->textFieldGroup($model, 'name'); ?>
+            <?= $form->textFieldGroup($model, 'name'); ?>
         </div>
         <div class="col-sm-3">
-            <?=  $form->textFieldGroup($model, 'slug'); ?>
+            <?= $form->textFieldGroup($model, 'slug'); ?>
         </div>
         <div class="col-sm-3">
-            <?=  $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'status',
                 [
                     'widgetOptions' => [
-                        'data'        => $model->getStatusList(),
+                        'data' => $model->getStatusList(),
                         'htmlOptions' => [
                             'empty' => '---',
                         ],
                     ]
                 ]
-            );?>
+            ); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?=  $form->textFieldGroup($model, 'short_description'); ?>
+            <?= $form->textFieldGroup($model, 'short_description'); ?>
         </div>
         <div class="col-sm-3">
-            <?=  $form->textFieldGroup($model, 'description'); ?>
+            <?= $form->textFieldGroup($model, 'description'); ?>
         </div>
         <div class="col-sm-3">
-            <?=  $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'parent_id',
                 [
                     'widgetOptions' => [
-                        'data'        => Category::model()->getFormattedList(),
+                        'data' => Yii::app()->getComponent('categoriesRepository')->getFormattedList(),
                         'htmlOptions' => [
                             'empty' => '---',
                         ],
                     ]
                 ]
-            );?>
+            ); ?>
         </div>
     </div>
 
@@ -59,10 +59,10 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'context'     => 'primary',
+        'context' => 'primary',
         'encodeLabel' => false,
-        'buttonType'  => 'submit',
-        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
+        'buttonType' => 'submit',
+        'label' => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'CategoryModule.category',
                 'Find category'
             ),
