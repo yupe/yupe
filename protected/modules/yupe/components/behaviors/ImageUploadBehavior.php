@@ -29,8 +29,8 @@ class ImageUploadBehavior extends FileUploadBehavior
         'width' => 950,
         'height' => 950,
         'quality' => [
-            'jpegQuality' => 75,
-            'pngCompressionLevel' => 7,
+            'jpeg_quality' => 75,
+            'png_compression_level' => 7,
         ],
     ];
 
