@@ -8,25 +8,25 @@
 $form = $this->beginWidget(
     '\yupe\widgets\ActiveForm',
     [
-        'id'                     => 'category-form',
-        'enableAjaxValidation'   => false,
+        'id' => 'category-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+        'type' => 'vertical',
+        'htmlOptions' => ['class' => 'well', 'enctype' => 'multipart/form-data'],
     ]
 ); ?>
 <div class="alert alert-info">
-    <?=  Yii::t('CategoryModule.category', 'Fields with'); ?>
+    <?= Yii::t('CategoryModule.category', 'Fields with'); ?>
     <span class="required">*</span>
-    <?=  Yii::t('CategoryModule.category', 'are required'); ?>
+    <?= Yii::t('CategoryModule.category', 'are required'); ?>
 </div>
 
-<?=  $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
 
     <div class='col-sm-3'>
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
             [
@@ -41,12 +41,12 @@ $form = $this->beginWidget(
     <div class="col-sm-4">
 
         <?php if (count($languages) > 1): { ?>
-            <?=  $form->dropDownListGroup(
+            <?= $form->dropDownListGroup(
                 $model,
                 'lang',
                 [
                     'widgetOptions' => [
-                        'data'        => $languages,
+                        'data' => $languages,
                         'htmlOptions' => [
                             'empty' => Yii::t('CategoryModule.category', '--choose--'),
                         ],
@@ -57,19 +57,19 @@ $form = $this->beginWidget(
                 <?php foreach ($languages as $k => $v): { ?>
                     <?php if ($k !== $model->lang): { ?>
                         <?php if (empty($langModels[$k])): { ?>
-                            <a href="<?=  $this->createUrl(
+                            <a href="<?= $this->createUrl(
                                 '/category/categoryBackend/create',
                                 ['id' => $model->id, 'lang' => $k]
-                            ); ?>"><i class="iconflags iconflags-<?=  $k; ?>" title="<?=  Yii::t(
+                            ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
                                     'CategoryModule.category',
                                     'Add translate in to {lang}',
                                     ['{lang}' => $v]
                                 ) ?>"></i></a>
                         <?php } else: { ?>
-                            <a href="<?=  $this->createUrl(
+                            <a href="<?= $this->createUrl(
                                 '/category/categoryBackend/update',
                                 ['id' => $langModels[$k]]
-                            ); ?>"><i class="iconflags iconflags-<?=  $k; ?>" title="<?=  Yii::t(
+                            ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
                                     'CategoryModule.category',
                                     'Change translation in to {lang}',
                                     ['{lang}' => $v]
@@ -79,7 +79,7 @@ $form = $this->beginWidget(
                 <?php } endforeach; ?>
             <?php } endif; ?>
         <?php } else: { ?>
-            <?=  $form->hiddenField($model, 'lang'); ?>
+            <?= $form->hiddenField($model, 'lang'); ?>
         <?php } endif; ?>
 
     </div>
@@ -88,14 +88,14 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?=  $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'parent_id',
             [
                 'widgetOptions' => [
-                    'data'        => Category::model()->getFormattedList(),
+                    'data' => Yii::app()->getComponent('categoriesRepository')->getFormattedList(),
                     'htmlOptions' => [
-                        'empty'  => Yii::t('CategoryModule.category', '--no--'),
+                        'empty' => Yii::t('CategoryModule.category', '--no--'),
                         'encode' => false,
                     ],
                 ],
@@ -105,12 +105,12 @@ $form = $this->beginWidget(
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?=  $form->textFieldGroup($model, 'name'); ?>
+        <?= $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?=  $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'name']); ?>
+        <?= $form->slugFieldGroup($model, 'slug', ['sourceAttribute' => 'name']); ?>
     </div>
 </div>
 <div class='row'>
@@ -133,14 +133,14 @@ $form = $this->beginWidget(
             </div>
         <?php endif; ?>
 
-        <?=  $form->fileFieldGroup(
+        <?= $form->fileFieldGroup(
             $model,
             'image',
             [
                 'widgetOptions' => [
                     'htmlOptions' => [
                         'onchange' => 'readURL(this);',
-                        'style'    => 'background-color: inherit;'
+                        'style' => 'background-color: inherit;'
                     ]
                 ]
             ]
@@ -151,15 +151,15 @@ $form = $this->beginWidget(
 <div class='row'>
     <div class="col-sm-12">
         <div class="form-group">
-            <?=  $form->labelEx($model, 'description'); ?>
+            <?= $form->labelEx($model, 'description'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
                 [
-                    'model'     => $model,
+                    'model' => $model,
                     'attribute' => 'description',
                 ]
             ); ?>
-            <?=  $form->error($model, 'description', ['class' => 'help-block error']); ?>
+            <?= $form->error($model, 'description', ['class' => 'help-block error']); ?>
         </div>
     </div>
 </div>
@@ -167,16 +167,16 @@ $form = $this->beginWidget(
 <div class='row'>
     <div class="col-sm-12">
         <div class="form-group">
-            <?=  $form->labelEx($model, 'short_description'); ?>
+            <?= $form->labelEx($model, 'short_description'); ?>
             <?php $this->widget(
                 $this->module->getVisualEditor(),
                 [
-                    'model'     => $model,
+                    'model' => $model,
                     'attribute' => 'short_description',
                 ]
             ); ?>
             <br/>
-            <?=  $form->error($model, 'short_description', ['class' => 'help-block error']); ?>
+            <?= $form->error($model, 'short_description', ['class' => 'help-block error']); ?>
         </div>
     </div>
 </div>
@@ -185,8 +185,8 @@ $form = $this->beginWidget(
     'bootstrap.widgets.TbButton',
     [
         'buttonType' => 'submit',
-        'context'    => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t(
+        'context' => 'primary',
+        'label' => $model->isNewRecord ? Yii::t(
             'CategoryModule.category',
             'Create category and continue'
         ) : Yii::t(
@@ -199,9 +199,9 @@ $form = $this->beginWidget(
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
     [
-        'buttonType'  => 'submit',
+        'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label'       => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and close') : Yii::t(
+        'label' => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and close') : Yii::t(
             'CategoryModule.category',
             'Save category and close'
         ),

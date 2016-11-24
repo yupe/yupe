@@ -15,7 +15,7 @@ class NewsCategoryController extends FrontController
         $categoryId = $this->getModule()->mainCategory;
 
         $this->render('index', [
-            'categories' => Category::model()->getDescendants($categoryId),
+            'categories' => Yii::app()->getComponent('categoriesRepository')->getDescendants($categoryId),
         ]);
     }
 
@@ -25,7 +25,7 @@ class NewsCategoryController extends FrontController
      */
     public function actionView($slug)
     {
-        $category = Category::model()->getByAlias($slug);
+        $category = Yii::app()->getComponent('categoriesRepository')->getByAlias($slug);
 
         if (null === $category) {
             throw new CHttpException(404, Yii::t('NewsModule.news', 'Requested page was not found!'));

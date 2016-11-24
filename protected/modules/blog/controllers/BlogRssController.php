@@ -47,7 +47,7 @@ class BlogRssController extends yupe\components\controllers\RssController
         $categoryId = (int)Yii::app()->getRequest()->getQuery('category');
 
         if (!empty($categoryId)) {
-            $category = Category::model()->cache($yupe->coreCacheTime)->published()->findByPk($categoryId);
+            $category = Yii::app()->getComponent('categoriesRepository')->getById($categoryId);
             if (null === $category) {
                 throw new CHttpException(404);
             }

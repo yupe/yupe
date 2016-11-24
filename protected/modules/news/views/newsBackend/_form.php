@@ -107,7 +107,7 @@ $form = $this->beginWidget(
             'category_id',
             [
                 'widgetOptions' => [
-                    'data' => Category::model()->getFormattedList(
+                    'data' => Yii::app()->getComponent('categoriesRepository')->getFormattedList(
                         (int)Yii::app()->getModule('news')->mainCategory
                     ),
                     'htmlOptions' => [

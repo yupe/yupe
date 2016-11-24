@@ -8,22 +8,22 @@ $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - create');
 
 $this->menu = [
     [
-        'icon'  => 'fa fa-fw fa-list-alt',
+        'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CategoryModule.category', 'Category manage'),
-        'url'   => ['/category/categoryBackend/index']
+        'url' => ['/category/categoryBackend/index']
     ],
     [
-        'icon'  => 'fa fa-fw fa-plus-square',
+        'icon' => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CategoryModule.category', 'Create category'),
-        'url'   => ['/category/categoryBackend/create']
+        'url' => ['/category/categoryBackend/create']
     ],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?=  Yii::t('CategoryModule.category', 'Category'); ?>
-        <small><?=  Yii::t('CategoryModule.category', 'create'); ?></small>
+        <?= Yii::t('CategoryModule.category', 'Category'); ?>
+        <small><?= Yii::t('CategoryModule.category', 'create'); ?></small>
     </h1>
 </div>
 
-<?=  $this->renderPartial('_form', ['model' => $model, 'languages' => $languages]); ?>
+<?= $this->renderPartial('_form', ['model' => $model, 'languages' => $languages]); ?>

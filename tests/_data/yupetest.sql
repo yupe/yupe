@@ -585,7 +585,9 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
   (127,	'store',	'm160713_105449_remove_irrelevant_product_status',	1468413312),
   (128,	'store',	'm160805_070905_add_attribute_description',	1470643316),
   (129,	'menu',	'm160914_134555_fix_menu_item_default_values',	1478195040),
-  (130,	'store',	'm161015_121915_change_product_external_id_type',	1478195045);
+  (130,	'store',	'm161015_121915_change_product_external_id_type',	1478195045),
+  (131,	'store',	'm161122_090922_add_sort_product_position',	1480012568),
+  (132,	'store',	'm161122_093736_add_store_layouts',	1480012568);
 
 DROP TABLE IF EXISTS `yupe_news_news`;
 CREATE TABLE `yupe_news_news` (
@@ -789,6 +791,7 @@ CREATE TABLE `yupe_store_category` (
   `meta_canonical` varchar(255) DEFAULT NULL,
   `image_alt` varchar(255) DEFAULT NULL,
   `image_title` varchar(255) DEFAULT NULL,
+  `view` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_store_category_alias` (`slug`),
   KEY `ix_yupe_store_category_parent_id` (`parent_id`),
@@ -797,10 +800,10 @@ CREATE TABLE `yupe_store_category` (
   CONSTRAINT `fk_yupe_store_category_parent` FOREIGN KEY (`parent_id`) REFERENCES `yupe_store_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `yupe_store_category` (`id`, `parent_id`, `slug`, `name`, `image`, `short_description`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `status`, `sort`, `external_id`, `title`, `meta_canonical`, `image_alt`, `image_title`) VALUES
-  (1,	NULL,	'computer',	'Компьютеры',	NULL,	'',	'',	'',	'',	'',	1,	1,	NULL,	'',	'',	'',	''),
-  (2,	1,	'display',	'Мониторы',	NULL,	'',	'',	'',	'',	'',	1,	2,	NULL,	'',	'',	'',	''),
-  (3,	1,	'keyboard',	'Клавиатуры',	NULL,	'',	'',	'',	'',	'',	0,	3,	NULL,	'',	'',	'',	'');
+INSERT INTO `yupe_store_category` (`id`, `parent_id`, `slug`, `name`, `image`, `short_description`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `status`, `sort`, `external_id`, `title`, `meta_canonical`, `image_alt`, `image_title`, `view`) VALUES
+  (1,	NULL,	'computer',	'Компьютеры',	NULL,	'',	'',	'',	'',	'',	1,	1,	NULL,	'',	'',	'',	'',	NULL),
+  (2,	1,	'display',	'Мониторы',	NULL,	'',	'',	'',	'',	'',	1,	2,	NULL,	'',	'',	'',	'',	NULL),
+  (3,	1,	'keyboard',	'Клавиатуры',	NULL,	'',	'',	'',	'',	'',	0,	3,	NULL,	'',	'',	'',	'',	NULL);
 
 DROP TABLE IF EXISTS `yupe_store_coupon`;
 CREATE TABLE `yupe_store_coupon` (
@@ -1000,16 +1003,17 @@ CREATE TABLE `yupe_store_producer` (
   `meta_description` varchar(250) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL DEFAULT '0',
+  `view` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ix_yupe_store_producer_slug` (`slug`),
   KEY `ix_yupe_store_producer_sort` (`sort`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `yupe_store_producer` (`id`, `name_short`, `name`, `slug`, `image`, `short_description`, `description`, `meta_title`, `meta_keywords`, `meta_description`, `status`, `sort`) VALUES
-  (1,	'Intel',	'Intel',	'intel',	NULL,	'<p>Краткое описание бренда Intel</p>',	'<p>Описание бренда Intel</p>',	'',	'',	'',	1,	1),
-  (2,	'Dell',	'Dell',	'dell',	NULL,	'',	'',	'',	'',	'',	1,	2),
-  (3,	'A4Tech',	'A4Tech',	'a4tech',	NULL,	'',	'',	'',	'',	'',	0,	3),
-  (4,	'Samsung',	'Samsung',	'samsung',	NULL,	'',	'',	'',	'',	'',	2,	4);
+INSERT INTO `yupe_store_producer` (`id`, `name_short`, `name`, `slug`, `image`, `short_description`, `description`, `meta_title`, `meta_keywords`, `meta_description`, `status`, `sort`, `view`) VALUES
+  (1,	'Intel',	'Intel',	'intel',	NULL,	'<p>Краткое описание бренда Intel</p>',	'<p>Описание бренда Intel</p>',	'',	'',	'',	1,	1,	NULL),
+  (2,	'Dell',	'Dell',	'dell',	NULL,	'',	'',	'',	'',	'',	1,	2,	NULL),
+  (3,	'A4Tech',	'A4Tech',	'a4tech',	NULL,	'',	'',	'',	'',	'',	0,	3,	NULL),
+  (4,	'Samsung',	'Samsung',	'samsung',	NULL,	'',	'',	'',	'',	'',	2,	4,	NULL);
 
 DROP TABLE IF EXISTS `yupe_store_product`;
 CREATE TABLE `yupe_store_product` (
@@ -1049,6 +1053,7 @@ CREATE TABLE `yupe_store_product` (
   `meta_canonical` varchar(255) DEFAULT NULL,
   `image_alt` varchar(255) DEFAULT NULL,
   `image_title` varchar(255) DEFAULT NULL,
+  `view` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_store_product_alias` (`slug`),
   KEY `ix_yupe_store_product_status` (`status`),
@@ -1068,12 +1073,12 @@ CREATE TABLE `yupe_store_product` (
   CONSTRAINT `fk_yupe_store_product_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `yupe_store_product` (`id`, `type_id`, `producer_id`, `category_id`, `sku`, `name`, `slug`, `price`, `discount_price`, `discount`, `description`, `short_description`, `data`, `is_special`, `length`, `width`, `height`, `weight`, `quantity`, `in_stock`, `status`, `create_time`, `update_time`, `meta_title`, `meta_keywords`, `meta_description`, `image`, `average_price`, `purchase_price`, `recommended_price`, `position`, `external_id`, `title`, `meta_canonical`, `image_alt`, `image_title`) VALUES
-  (1,	1,	2,	2,	'TST1',	'Dell U2715H',	'dell-u2715h',	38000.000,	NULL,	5.000,	'<p>Описание монитора Dell U2715H</p>',	'<p>Короткое описание монитора Dell U2715H</p>',	'<p>Данные монитора Dell U2715H</p>',	0,	613.000,	410.000,	205.000,	7.380,	10,	1,	1,	'2016-06-29 16:18:33',	'2016-06-29 16:57:21',	'Монитор Dell. Заголовок страницы',	'Монитор Dell. Meta keywords',	'Монитор Dell. Meta description',	'54eb4b69ff464333b30db808ed14ebfb.jpg',	0.000,	0.000,	0.000,	1,	NULL,	'Монитор Dell. Заголовок h1',	'',	'Монитор Dell U2715H',	'Монитор Dell U2715H'),
-  (2,	1,	2,	2,	'TST2',	'Dell P2214H',	'dell-p2214h',	13320.000,	NULL,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	5,	0,	1,	'2016-06-29 16:29:44',	'2016-06-29 16:51:59',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	2,	NULL,	'',	'',	'',	''),
-  (3,	NULL,	2,	2,	'TST3',	'Dell U2415',	'dell-u2415',	22575.000,	21500.000,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	0,	'2016-06-29 16:51:41',	'2016-06-29 16:51:41',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	3,	NULL,	'',	'',	'',	''),
-  (4,	NULL,	4,	2,	'TST4',	'Samsung U28E590D',	'samsung-u28e590d',	28090.000,	NULL,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	1,	'2016-06-29 16:54:32',	'2016-06-29 16:54:32',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	4,	NULL,	'',	'',	'',	''),
-  (5,	NULL,	3,	3,	'TST5',	'A4Tech B314 Black USB',	'a4tech-b314-black-usb',	3000.000,	2500.000,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	1,	'2016-06-29 16:56:34',	'2016-06-29 16:56:34',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	5,	NULL,	'',	'',	'',	'');
+INSERT INTO `yupe_store_product` (`id`, `type_id`, `producer_id`, `category_id`, `sku`, `name`, `slug`, `price`, `discount_price`, `discount`, `description`, `short_description`, `data`, `is_special`, `length`, `width`, `height`, `weight`, `quantity`, `in_stock`, `status`, `create_time`, `update_time`, `meta_title`, `meta_keywords`, `meta_description`, `image`, `average_price`, `purchase_price`, `recommended_price`, `position`, `external_id`, `title`, `meta_canonical`, `image_alt`, `image_title`, `view`) VALUES
+  (1,	1,	2,	2,	'TST1',	'Dell U2715H',	'dell-u2715h',	38000.000,	NULL,	5.000,	'<p>Описание монитора Dell U2715H</p>',	'<p>Короткое описание монитора Dell U2715H</p>',	'<p>Данные монитора Dell U2715H</p>',	0,	613.000,	410.000,	205.000,	7.380,	10,	1,	1,	'2016-06-29 16:18:33',	'2016-06-29 16:57:21',	'Монитор Dell. Заголовок страницы',	'Монитор Dell. Meta keywords',	'Монитор Dell. Meta description',	'54eb4b69ff464333b30db808ed14ebfb.jpg',	0.000,	0.000,	0.000,	1,	NULL,	'Монитор Dell. Заголовок h1',	'',	'Монитор Dell U2715H',	'Монитор Dell U2715H',	NULL),
+  (2,	1,	2,	2,	'TST2',	'Dell P2214H',	'dell-p2214h',	13320.000,	NULL,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	5,	0,	1,	'2016-06-29 16:29:44',	'2016-06-29 16:51:59',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	2,	NULL,	'',	'',	'',	'',	NULL),
+  (3,	NULL,	2,	2,	'TST3',	'Dell U2415',	'dell-u2415',	22575.000,	21500.000,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	0,	'2016-06-29 16:51:41',	'2016-06-29 16:51:41',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	3,	NULL,	'',	'',	'',	'',	NULL),
+  (4,	NULL,	4,	2,	'TST4',	'Samsung U28E590D',	'samsung-u28e590d',	28090.000,	NULL,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	1,	'2016-06-29 16:54:32',	'2016-06-29 16:54:32',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	4,	NULL,	'',	'',	'',	'',	NULL),
+  (5,	NULL,	3,	3,	'TST5',	'A4Tech B314 Black USB',	'a4tech-b314-black-usb',	3000.000,	2500.000,	NULL,	'',	'',	'',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	1,	'2016-06-29 16:56:34',	'2016-06-29 16:56:34',	'',	'',	'',	NULL,	0.000,	0.000,	0.000,	5,	NULL,	'',	'',	'',	'',	NULL);
 
 DROP TABLE IF EXISTS `yupe_store_product_attribute_value`;
 CREATE TABLE `yupe_store_product_attribute_value` (
@@ -1147,6 +1152,7 @@ CREATE TABLE `yupe_store_product_link` (
   `type_id` int(11) DEFAULT NULL,
   `product_id` int(11) NOT NULL,
   `linked_product_id` int(11) NOT NULL,
+  `position` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_yupe_store_product_link_product` (`product_id`,`linked_product_id`),
   KEY `fk_yupe_store_product_link_linked_product` (`linked_product_id`),
@@ -1156,9 +1162,9 @@ CREATE TABLE `yupe_store_product_link` (
   CONSTRAINT `fk_yupe_store_product_link_type` FOREIGN KEY (`type_id`) REFERENCES `yupe_store_product_link_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `yupe_store_product_link` (`id`, `type_id`, `product_id`, `linked_product_id`) VALUES
-  (1,	1,	1,	2),
-  (2,	1,	1,	3);
+INSERT INTO `yupe_store_product_link` (`id`, `type_id`, `product_id`, `linked_product_id`, `position`) VALUES
+  (1,	1,	1,	2,	1),
+  (2,	1,	1,	3,	2);
 
 DROP TABLE IF EXISTS `yupe_store_product_link_type`;
 CREATE TABLE `yupe_store_product_link_type` (

@@ -53,7 +53,7 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                 'Insert group content block title for ContentBlockGroupWidget!'
             ));
         } else {
-            $category = Category::model()->findByAttributes(['slug' => $this->category]);
+            $category = Yii::app()->getComponent('categoriesRepository')->getByAlias($this->category);
 
             if (null === $category) {
                 throw new CException(Yii::t(
@@ -81,7 +81,7 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
 
         if ($blocks === false) {
 
-            $category = Category::model()->findByAttributes(['slug' => $this->category]);
+            $category = Yii::app()->getComponent('categoriesRepository')->getByAlias($this->category);
 
             $criteria = new CDbCriteria([
                 'scopes' => ['active'],

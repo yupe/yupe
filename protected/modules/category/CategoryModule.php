@@ -20,7 +20,7 @@ class CategoryModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.0';
+    const VERSION = '1.1';
 
     /**
      * @var string
@@ -34,7 +34,7 @@ class CategoryModule extends WebModule
     {
         $messages = [];
 
-        $uploadPath = Yii::app()->uploadManager->getBasePath().DIRECTORY_SEPARATOR.$this->uploadPath;
+        $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
 
         if (!is_writable($uploadPath)) {
             $messages[WebModule::CHECK_ERROR][] = [
@@ -65,7 +65,7 @@ class CategoryModule extends WebModule
     public function getInstall()
     {
         if (parent::getInstall()) {
-            @mkdir(Yii::app()->uploadManager->getBasePath().DIRECTORY_SEPARATOR.$this->uploadPath, 0755);
+            @mkdir(Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath, 0755);
         }
 
         return false;
@@ -87,10 +87,7 @@ class CategoryModule extends WebModule
     public function getParamsLabels()
     {
         return [
-            'uploadPath' => Yii::t(
-                'CategoryModule.category',
-                'File uploading catalog (uploads)'
-            ),
+            'uploadPath' => Yii::t('CategoryModule.category', 'File uploading catalog (uploads)'),
         ];
     }
 
