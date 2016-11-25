@@ -8,7 +8,7 @@
     <div class="col-item">
         <div class="photo">
             <a href="<?= ProductHelper::getUrl($data); ?>">
-                <img src="<?= $data->getImageUrl(190, 190, false); ?>"/>
+                <img src="<?= StoreImage::product($data, 190, 190, false); ?>"/>
             </a>
         </div>
         <div class="info separator">

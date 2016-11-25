@@ -1,12 +1,11 @@
 <?php
 namespace yupe\components\image;
 
-use Yii;
 use CException;
-use yupe\helpers\YFile;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
-use Imagine\Image\Point;
+use Yii;
+use yupe\helpers\YFile;
 
 /**
  * Class Thumbnailer
@@ -36,8 +35,8 @@ class Thumbnailer extends \CApplicationComponent
     /**
      * @param string $file Полный путь к исходному файлу в файловой системе
      * @param string $uploadDir Подпапка в папке с миниатюрами куда надо поместить изображение
-     * @param float $width Ширина изображения. Если не указана - будет вычислена из высоты
-     * @param float $height Высота изображения. Если не указана - будет вычислена из ширины
+     * @param int $width Ширина изображения. Если не указана - будет вычислена из высоты
+     * @param int $height Высота изображения. Если не указана - будет вычислена из ширины
      * @param boolean $crop Обрезка миниатюры по размеру
      * @return string
      * @throws CException
@@ -53,7 +52,8 @@ class Thumbnailer extends \CApplicationComponent
             throw new CException("Incorrect width/height");
         }
 
-        $name = $width . 'x' . $height . '_' . basename($file);
+        $prefix = $crop ? 'cropped_' : '';
+        $name = $width . 'x' . $height . '_' . $prefix . basename($file);
         $uploadPath = $this->getBasePath() . DIRECTORY_SEPARATOR . $uploadDir;
         $thumbFile = $uploadPath . DIRECTORY_SEPARATOR . $name;
         $thumbMode = $crop ? ImageInterface::THUMBNAIL_OUTBOUND : ImageInterface::THUMBNAIL_INSET;
