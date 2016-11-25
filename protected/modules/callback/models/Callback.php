@@ -10,6 +10,7 @@
  * @property string $comment
  * @property integer $status
  * @property string $create_time
+ * @property string $url
  */
 class Callback extends \yupe\models\YModel
 {
@@ -63,7 +64,8 @@ class Callback extends \yupe\models\YModel
             ],
             ['comment', 'length', 'max' => 255],
             ['status', 'numerical', 'integerOnly' => true],
-            ['id, name, phone, time, comment, status, create_time', 'safe', 'on' => 'search'],
+            ['url', 'url'],
+            ['id, name, phone, time, comment, status, create_time, url', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -79,6 +81,7 @@ class Callback extends \yupe\models\YModel
             'comment' => Yii::t('CallbackModule.callback', 'Comment'),
             'status' => Yii::t('CallbackModule.callback', 'Status'),
             'create_time' => Yii::t('CallbackModule.callback', 'Created At'),
+            'url' => Yii::t('CallbackModule.callback', 'Url'),
         ];
     }
 
@@ -126,6 +129,7 @@ class Callback extends \yupe\models\YModel
         $criteria->compare('time', $this->time, true);
         $criteria->compare('status', $this->status);
         $criteria->compare('create_time', $this->create_time, true);
+        $criteria->compare('url', $this->url, true);
 
         return new CActiveDataProvider(
             $this, [

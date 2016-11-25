@@ -75,9 +75,20 @@ $this->widget(
                         'class' => 'form-control',
                     ],
                 ], true),
-                'value' => function ($data) {
+                'value' => function (Callback $data) {
                     return Yii::app()->getDateFormatter()->formatDateTime($data->create_time, 'medium');
                 },
+            ],
+            [
+                'name' => 'url',
+                'type' => 'raw',
+                'value' => function (Callback $data) {
+                    return CHtml::link(mb_strimwidth($data->url, 0, 80, '&#8230;'), $data->url, [
+                        'data-toggle' => 'tooltip',
+                        'title' => $data->url,
+                        'target' => '_blank',
+                    ]);
+                }
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',

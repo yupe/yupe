@@ -32,6 +32,7 @@ return [
     'Time' => 'Позвонить в',
     'Unknown request. Don\'t repeat it please!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
     'Update messages' => 'Изменение сообщений',
+    'Url' => 'Страница',
     'View messages list' => 'Просмотр списка сообщений',
     'Your message has been successfully sent.' => 'Ваше сообщение было успешно отправлено.',
 ];
