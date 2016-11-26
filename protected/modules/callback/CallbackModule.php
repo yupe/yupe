@@ -5,9 +5,9 @@
  * @package  yupe.modules.callback
  * @author   Oleg Filimonov <olegsabian@gmail.com>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.9.9
+ * @version  1.1
  **/
-use \yupe\components\WebModule;
+use yupe\components\WebModule;
 
 /**
  * Class CallbackModule
@@ -17,7 +17,7 @@ class CallbackModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.0';
+    const VERSION = '1.1';
 
     /**
      * @var

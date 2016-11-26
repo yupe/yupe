@@ -21,9 +21,6 @@ class CallbackManager extends CApplicationComponent
      */
     private $adminEmail;
 
-    /** @var null|string */
-    private $referrerUrl = null;
-
     /**
      *
      */
@@ -35,16 +32,16 @@ class CallbackManager extends CApplicationComponent
         $this->mailer = Yii::app()->mail;
         $this->module = Yii::app()->getModule('callback');
         $this->adminEmail = Yii::app()->getModule('yupe')->email;
-        $this->referrerUrl = Yii::app()->getRequest()->getUrlReferrer();
     }
 
     /**
      * Add callback request to DB
      *
-     * @param $data
+     * @param array $data Form data
+     * @param string $referrer Referrer page url
      * @return bool
      */
-    public function add($data)
+    public function add($data, $referrer = null)
     {
         if(!$data) {
             return false;
@@ -52,7 +49,7 @@ class CallbackManager extends CApplicationComponent
 
         $model = new Callback();
         $model->setAttributes($data);
-        $model->url = $this->referrerUrl;
+        $model->url = $referrer;
 
         if($model->save()) {
             $this->sendNotification($model);
