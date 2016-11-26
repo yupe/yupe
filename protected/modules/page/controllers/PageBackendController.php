@@ -172,11 +172,11 @@ class PageBackendController extends yupe\components\controllers\BackController
                 'title_short' => $page->title_short,
                 'parent_id' => $page->parent_id,
                 'order' => $page->order,
-                'layout' => $page->layout
+                'layout' => $page->layout,
             ]);
 
         } else {
-            $model->lang = Yii::app()->getLanguage();
+            $model->lang = $this->yupe->defaultLanguage;
         }
 
         $this->render(
@@ -203,7 +203,6 @@ class PageBackendController extends yupe\components\controllers\BackController
      */
     public function actionUpdate($id)
     {
-        // Указан ID страницы, редактируем только ее
         $model = $this->loadModel($id);
 
         $oldTitle = $model->title;

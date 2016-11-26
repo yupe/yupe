@@ -30,14 +30,14 @@ class PageController extends FrontController
                 'slug = :slug AND (lang=:lang OR (lang IS NULL))',
                 [
                     ':slug' => $slug,
-                    ':lang' => Yii::app()->language,
+                    ':lang' => Yii::app()->getLanguage(),
                 ]
             )
             : Page::model()->published()->find(
                 'slug = :slug AND (lang = :lang OR (lang = :deflang))',
                 [
                     ':slug' => $slug,
-                    ':lang' => Yii::app()->language,
+                    ':lang' => Yii::app()->getLanguage(),
                     ':deflang' => $this->yupe->defaultLanguage,
                 ]
             );
@@ -58,9 +58,7 @@ class PageController extends FrontController
 
         $this->currentPage = $model;
 
-        $view = $model->view ? $model->view : 'view';
-
-        $this->render($view, ['model' => $model]);
+        $this->render($model->view ?: 'view', ['model' => $model]);
     }
 
     /**

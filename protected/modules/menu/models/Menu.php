@@ -77,8 +77,6 @@ class Menu extends yupe\models\YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return [
             'menuItems' => [self::HAS_MANY, 'MenuItem', 'menu_id'],
         ];
@@ -330,11 +328,13 @@ class Menu extends yupe\models\YModel
             return $this->addItem($newTitle, $href, $parentId, $regularLink);
         }
 
-        $menuItem->parent_id = (int)$parentId;
-        $menuItem->menu_id = $this->id;
-        $menuItem->title = $newTitle;
-        $menuItem->href = $href;
-        $menuItem->regular_link = $regularLink;
+        $menuItem->setAttributes([
+            'parent_id' => (int)$parentId,
+            'menu_id' => $this->id,
+            'title' => $newTitle,
+            'href' => $href,
+            'regular_link' => $regularLink,
+        ]);
 
         if ($menuItem->save()) {
             Yii::app()->getCache()->clear(['menu', $this->code]);

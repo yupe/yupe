@@ -15,7 +15,7 @@ class PageModule extends yupe\components\WebModule
     /**
      *
      */
-    const VERSION = '1.0';
+    const VERSION = '1.1';
 
     /**
      * @return array
@@ -136,7 +136,6 @@ class PageModule extends yupe\components\WebModule
             ]
         );
 
-        // Если у модуля не задан редактор - спросим у ядра
         if (!$this->editor) {
             $this->editor = Yii::app()->getModule('yupe')->editor;
         }
