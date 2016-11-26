@@ -48,7 +48,11 @@ class Type extends \yupe\models\YModel
     public function relations()
     {
         return [
-            'attributeRelation' => [self::HAS_MANY, 'TypeAttribute', 'type_id'],
+            'attributeRelation' => [
+                self::HAS_MANY,
+                'TypeAttribute',
+                'type_id'
+            ],
             'typeAttributes' => [
                 self::HAS_MANY,
                 'Attribute',

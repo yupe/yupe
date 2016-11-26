@@ -348,7 +348,7 @@ class StoreModule extends WebModule
      */
     public function getAdminPageLink()
     {
-        return '/store/storeBackend/index';
+        return '/store/productBackend/index';
     }
 
     /**

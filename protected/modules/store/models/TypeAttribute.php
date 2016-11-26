@@ -34,6 +34,7 @@ class TypeAttribute extends \yupe\models\YModel
     {
         return [
             'type' => [self::BELONGS_TO, 'Type', 'type_id'],
+            'attribute' => [self::BELONGS_TO, 'Attribute', 'attribute_id']
         ];
     }
 
