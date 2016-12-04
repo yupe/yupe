@@ -79,6 +79,14 @@ class StoreModule extends WebModule
      * @var int
      */
     public $itemsPerPage = 20;
+    /**
+     * @var string
+     */
+    public $defaultSort = 'position';
+    /**
+     * @var string
+     */
+    public $defaultSortDirection = 'ASC';
 
     /**
      * @return array
@@ -137,6 +145,28 @@ class StoreModule extends WebModule
         ];
     }
 
+    /**
+     * @return array
+     */
+    public function getSortList()
+    {
+        return [
+            'position' => Yii::t('StoreModule.store', 'Position'),
+            'sku' => Yii::t('StoreModule.store', 'SKU'),
+            'name' => Yii::t('StoreModule.store', 'Name'),
+            'price' => Yii::t('StoreModule.store', 'Price'),
+            'create_time' => Yii::t('StoreModule.store', 'Create time'),
+            'update_time' => Yii::t('StoreModule.store', 'Update time'),
+        ];
+    }
+
+    public function getSortDirectionList()
+    {
+        return [
+            'ASC' => Yii::t('StoreModule.store', 'ASC'),
+            'DESC' => Yii::t('StoreModule.store', 'DESC'),
+        ];
+    }
 
     /**
      * @return array
@@ -154,7 +184,9 @@ class StoreModule extends WebModule
             'title',
             'address',
             'city',
-            'zipcode'
+            'zipcode',
+            'defaultSort' => $this->getSortList(),
+            'defaultSortDirection' => $this->getSortDirectionList(),
         ];
     }
 
@@ -178,7 +210,9 @@ class StoreModule extends WebModule
             'address' => Yii::t('StoreModule.store', 'Address'),
             'title' => Yii::t('StoreModule.store', 'Name'),
             'city' => Yii::t('StoreModule.store', 'City'),
-            'zipcode' => Yii::t('StoreModule.store', 'Zip code')
+            'zipcode' => Yii::t('StoreModule.store', 'Zip code'),
+            'defaultSort' => Yii::t('StoreModule.store', 'Default sort'),
+            'defaultSortDirection' => Yii::t('StoreModule.store', 'Default sort direction'),
         ];
     }
 
@@ -204,6 +238,8 @@ class StoreModule extends WebModule
                 'label' => Yii::t('StoreModule.store', 'Catalog'),
                 'items' => [
                     'itemsPerPage',
+                    'defaultSort',
+                    'defaultSortDirection',
                 ],
             ],
             '2.main' => [
@@ -605,5 +641,16 @@ class StoreModule extends WebModule
                 ],
             ],
         ];
+    }
+
+    /**
+     * Returns default product sort attribute and direction
+     *
+     * @param string $table
+     * @return string
+     */
+    public function getDefaultSort($table = 't')
+    {
+        return $table . '.' . $this->defaultSort . ' ' . $this->defaultSortDirection;
     }
 }

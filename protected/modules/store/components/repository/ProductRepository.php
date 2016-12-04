@@ -25,6 +25,9 @@ class ProductRepository extends CApplicationComponent
      */
     public function getByFilter(array $mainSearchAttributes, array $typeSearchAttributes)
     {
+        /** @var StoreModule $module */
+        $module = Yii::app()->getModule('store');
+
         $criteria = new CDbCriteria([
             'select' => 't.*',
             'distinct' => true,
@@ -89,12 +92,12 @@ class ProductRepository extends CApplicationComponent
             [
                 'criteria' => $criteria,
                 'pagination' => [
-                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                    'pageSize' => (int)$module->itemsPerPage,
                     'pageVar' => 'page',
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
-                    'defaultOrder' => 't.position',
+                    'defaultOrder' => $module->getDefaultSort(),
                 ],
             ]
         );
@@ -166,12 +169,14 @@ class ProductRepository extends CApplicationComponent
         return $criteria;
     }
 
-
     /**
      * @return CActiveDataProvider
      */
     public function getListForIndexPage()
     {
+        /** @var StoreModule $module */
+        $module = Yii::app()->getModule('store');
+
         $criteria = new CDbCriteria();
         $criteria->select = 't.*';
         $criteria->scopes = ['published'];
@@ -181,17 +186,16 @@ class ProductRepository extends CApplicationComponent
             [
                 'criteria' => $criteria,
                 'pagination' => [
-                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                    'pageSize' => (int)$module->itemsPerPage,
                     'pageVar' => 'page',
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
-                    'defaultOrder' => 't.position',
+                    'defaultOrder' => $module->getDefaultSort(),
                 ],
             ]
         );
     }
-
 
     /**
      * @param StoreCategory $category
@@ -202,6 +206,8 @@ class ProductRepository extends CApplicationComponent
     public function getListForCategory(StoreCategory $category, $withChild = true, $limit = null)
     {
         $categories = [];
+        /** @var StoreModule $module */
+        $module = Yii::app()->getModule('store');
 
         if (true === $withChild) {
             $categories = $category->getChildsArray();
@@ -220,7 +226,7 @@ class ProductRepository extends CApplicationComponent
             $builder->createInCondition('{{store_product_category}}', 'category_id', $categories)), 'OR');
 
         $pagination = [
-            'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+            'pageSize' => (int)$module->itemsPerPage,
             'pageVar' => 'page',
         ];
 
@@ -236,7 +242,7 @@ class ProductRepository extends CApplicationComponent
                 'pagination' => $pagination,
                 'sort' => [
                     'sortVar' => 'sort',
-                    'defaultOrder' => 't.position',
+                    'defaultOrder' => $module->getDefaultSort(),
                 ],
             ]
         );
@@ -302,6 +308,9 @@ class ProductRepository extends CApplicationComponent
      */
     public function getByBrandProvider(Producer $producer)
     {
+        /** @var StoreModule $module */
+        $module = Yii::app()->getModule('store');
+
         $criteria = new CDbCriteria();
         $criteria->condition = 'producer_id = :producer_id';
         $criteria->scopes = ['published'];
@@ -313,12 +322,12 @@ class ProductRepository extends CApplicationComponent
             Product::model(), [
                 'criteria' => $criteria,
                 'pagination' => [
-                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                    'pageSize' => (int)$module->itemsPerPage,
                     'pageVar' => 'page',
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
-                    'defaultOrder' => 't.position',
+                    'defaultOrder' => $module->getDefaultSort(),
                 ],
             ]
         );
@@ -330,6 +339,9 @@ class ProductRepository extends CApplicationComponent
      */
     public function getByIds(array $ids)
     {
+        /** @var StoreModule $module */
+        $module = Yii::app()->getModule('store');
+
         $criteria = new CDbCriteria();
         $criteria->scopes = ['published'];
         $criteria->addInCondition('t.id', $ids);
@@ -338,12 +350,12 @@ class ProductRepository extends CApplicationComponent
             Product::model(), [
                 'criteria' => $criteria,
                 'pagination' => [
-                    'pageSize' => (int)Yii::app()->getModule('store')->itemsPerPage,
+                    'pageSize' => (int)$module->itemsPerPage,
                     'pageVar' => 'page',
                 ],
                 'sort' => [
                     'sortVar' => 'sort',
-                    'defaultOrder' => 't.position',
+                    'defaultOrder' => $module->getDefaultSort(),
                 ],
             ]
         );
