@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    'Yupe! store' => 'Магазин "Юпи!"',
+    'My modules' => 'Мои модули',
     'Store' => 'Магазин',
     '--sort by--' => '--сортировать по--',
     ' run in: {time}' => ' выполнение: {time}',

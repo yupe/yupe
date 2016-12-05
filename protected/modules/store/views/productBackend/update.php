@@ -33,6 +33,15 @@ $this->menu = [
         ]
     ],
     [
+        'icon' => 'fa fa-fw fa-external-link-square',
+        'label' => Yii::t('StoreModule.store', 'View product on site'),
+        'url' => ProductHelper::getUrl($model),
+        'linkOptions' => [
+            'target' => '_blank',
+        ],
+        'visible' => $model->status == Product::STATUS_ACTIVE
+    ],
+    [
         'icon' => 'fa fa-fw fa-trash-o',
         'label' => Yii::t('StoreModule.store', 'Delete product'),
         'url' => '#',

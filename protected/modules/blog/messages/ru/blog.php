@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return [
+    'View post on site' => 'Смотреть на сайте',
     "You can't write in this blog!" => 'Вы не можете писать в этот блог!',
     '*unknown*' => '*неизвестно*',
     '--choose blog--' => '--выберите блог--',

@@ -328,9 +328,10 @@ class Post extends yupe\models\YModel implements ICommentable
     }
 
     /**
+     * @param int $limit
      * @return CActiveDataProvider
      */
-    public function allPosts()
+    public function allPosts($limit = 10)
     {
         $criteria = new CDbCriteria();
         $criteria->addCondition('t.status = :status');
@@ -343,7 +344,12 @@ class Post extends yupe\models\YModel implements ICommentable
         $criteria->order = 'publish_time DESC';
 
         return new CActiveDataProvider(
-            'Post', ['criteria' => $criteria]
+            'Post', [
+                'criteria' => $criteria,
+                'pagination' => [
+                    'pageSize' => (int)$limit,
+                ],
+            ]
         );
     }
 

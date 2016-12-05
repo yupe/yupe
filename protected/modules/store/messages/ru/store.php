@@ -1,5 +1,6 @@
 <?php
 return [
+    'View product on site' => 'Смотреть на сайте',
     '% to the price' => '% к цене',
     '*unknown*' => '*неизвестно*',
     '--choose--' => '--выберите--',

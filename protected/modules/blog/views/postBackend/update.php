@@ -10,7 +10,7 @@
  **/
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Posts') => ['/blog/postBackend/index'],
-    $model->title                      => ['/blog/postBackend/view', 'id' => $model->id],
+    $model->title => ['/blog/postBackend/view', 'id' => $model->id],
     Yii::t('BlogModule.blog', 'Edit'),
 ];
 
@@ -18,94 +18,66 @@ $this->pageTitle = Yii::t('BlogModule.blog', 'Posts - edit');
 
 $this->menu = [
     [
-        'label' => Yii::t('BlogModule.blog', 'Blogs'),
-        'items' => [
-            [
-                'icon'  => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('BlogModule.blog', 'Manage blogs'),
-                'url'   => ['/blog/blogBackend/index']
-            ],
-            [
-                'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('BlogModule.blog', 'Add a blog'),
-                'url'   => ['/blog/blogBackend/create']
-            ],
-        ]
-    ],
-    [
         'label' => Yii::t('BlogModule.blog', 'Posts'),
         'items' => [
+            ['label' => Yii::t('BlogModule.blog', 'Post').' «'.mb_substr($model->title, 0, 32).'»', 'utf-8'],
             [
-                'icon'  => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('BlogModule.blog', 'Manage posts'),
-                'url'   => ['/blog/postBackend/index']
-            ],
-            [
-                'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('BlogModule.blog', 'Add a post'),
-                'url'   => ['/blog/postBackend/create']
-            ],
-            ['label' => Yii::t('BlogModule.blog', 'Post') . ' «' . mb_substr($model->title, 0, 32) . '»', 'utf-8'],
-            [
-                'icon'  => 'fa fa-fw fa-pencil',
+                'icon' => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('BlogModule.blog', 'Edit posts'),
-                'url'   => [
+                'url' => [
                     '/blog/postBackend/update',
-                    'id' => $model->id
-                ]
+                    'id' => $model->id,
+                ],
             ],
             [
-                'icon'  => 'fa fa-fw fa-comment',
+                'icon' => 'fa fa-fw fa-comment',
                 'label' => Yii::t('BlogModule.blog', 'Comments'),
-                'url'   => [
+                'url' => [
                     '/comment/commentBackend/index',
                     'Comment[model_id]' => $model->id,
-                    'Comment[model]'    => 'Post'
+                    'Comment[model]' => 'Post',
 
-                ]
+                ],
             ],
             [
-                'icon'  => 'fa fa-fw fa-eye',
+                'icon' => 'fa fa-fw fa-eye',
                 'label' => Yii::t('BlogModule.blog', 'View post'),
-                'url'   => [
+                'url' => [
                     '/blog/postBackend/view',
-                    'id' => $model->id
-                ]
+                    'id' => $model->id,
+                ],
             ],
             [
-                'icon'        => 'fa fa-fw fa-trash-o',
-                'label'       => Yii::t('BlogModule.blog', 'Remove post'),
-                'url'         => '#',
+                'icon' => 'fa fa-fw fa-external-link-square',
+                'label' => Yii::t('BlogModule.blog', 'View post on site'),
+                'url' => [
+                    '/blog/post/view',
+                    'slug' => $model->slug,
+                ],
                 'linkOptions' => [
-                    'submit'  => ['/blog/postBackend/delete', 'id' => $model->id],
+                    'target' => '_blank',
+                ],
+                'visible' => $model->status == Post::STATUS_PUBLISHED
+            ],
+            [
+                'icon' => 'fa fa-fw fa-trash-o',
+                'label' => Yii::t('BlogModule.blog', 'Remove post'),
+                'url' => '#',
+                'linkOptions' => [
+                    'submit' => ['/blog/postBackend/delete', 'id' => $model->id],
                     'confirm' => Yii::t('BlogModule.blog', 'Do you really want to delete selected post?'),
-                    'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
-                ]
+                    'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
+                ],
             ],
-        ]
-    ],
-    [
-        'label' => Yii::t('BlogModule.blog', 'Members'),
-        'items' => [
-            [
-                'icon'  => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('BlogModule.blog', 'Manage members'),
-                'url'   => ['/blog/userToBlogBackend/index']
-            ],
-            [
-                'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('BlogModule.blog', 'Add a member'),
-                'url'   => ['/blog/userToBlogBackend/create']
-            ],
-        ]
+        ],
     ],
 ];
 ?>
 <div class="page-header">
     <h1>
-        <?=  Yii::t('BlogModule.blog', 'Edit post'); ?><br/>
-        <small>&laquo;<?=  $model->title; ?>&raquo;</small>
+        <?= Yii::t('BlogModule.blog', 'Edit post'); ?><br/>
+        <small>&laquo;<?= $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
-<?=  $this->renderPartial('_form', ['model' => $model]); ?>
+<?= $this->renderPartial('_form', ['model' => $model]); ?>

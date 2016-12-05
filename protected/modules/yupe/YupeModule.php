@@ -546,7 +546,7 @@ class YupeModule extends WebModule
             ],
             [
                 'icon' => "fa fa-fw fa-th",
-                'label' => Yii::t('YupeModule.yupe', 'Modules'),
+                'label' => Yii::t('YupeModule.yupe', 'My modules'),
                 'url' => ['/yupe/backend/settings'],
             ],
             [
@@ -558,6 +558,14 @@ class YupeModule extends WebModule
                 'icon' => 'fa fa-fw fa-wrench',
                 'label' => Yii::t('YupeModule.yupe', 'Site settings'),
                 'url' => $this->getSettingsUrl(),
+            ],
+            [
+                'icon' => 'fa fa-fw fa-shopping-cart',
+                'label' => Yii::t('YupeModule.yupe', 'Yupe! store'),
+                'url' => 'https://yupe.ru/store?from=panel-yupe-store',
+                'linkOptions' => [
+                    'target' => '_blank'
+                ]
             ],
             [
                 'icon' => "fa fa-fw fa-question-circle",

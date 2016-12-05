@@ -79,7 +79,7 @@ $this->menu = [
 
 <div id="search-toggle" class="collapse out search-form">
     <?php
-    Yii::app()->clientScript->registerScript(
+    Yii::app()->getClientScript()->registerScript(
         'search',
         "
     $('.search-form form').submit(function () {
@@ -105,7 +105,9 @@ $this->menu = [
                 'name' => 'icon',
                 'header' => false,
                 'type' => 'raw',
-                'value' => 'CHtml::image($data->getImageUrl(64, 64), $data->name, array("width"  => 64, "height" => 64))',
+                'value' => function($data){
+                    return CHtml::image($data->getImageUrl(64, 64), $data->name, array("width"  => 64, "height" => 64));
+                },
                 'filter' => false,
             ],
             [
@@ -115,7 +117,7 @@ $this->menu = [
                     'url' => $this->createUrl('/blog/blogBackend/inline'),
                     'mode' => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
                     ],
                 ],
                 'filter' => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
@@ -127,7 +129,7 @@ $this->menu = [
                     'url' => $this->createUrl('/blog/blogBackend/inline'),
                     'mode' => 'inline',
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
                     ],
                 ],
                 'filter' => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
@@ -145,7 +147,7 @@ $this->menu = [
                     ),
                     'source' => $model->getTypeList(),
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
                     ],
                 ],
                 'name' => 'type',

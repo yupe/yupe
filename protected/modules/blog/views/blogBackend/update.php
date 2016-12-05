@@ -20,16 +20,6 @@ $this->menu = [
     [
         'label' => Yii::t('BlogModule.blog', 'Blogs'),
         'items' => [
-            [
-                'icon'  => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('BlogModule.blog', 'Manage blogs'),
-                'url'   => ['/blog/blogBackend/index']
-            ],
-            [
-                'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('BlogModule.blog', 'Add a blog'),
-                'url'   => ['/blog/blogBackend/create']
-            ],
             ['label' => Yii::t('BlogModule.blog', 'Blog') . ' «' . mb_substr($model->name, 0, 32) . '»', 'utf-8'],
             [
                 'icon'  => 'fa fa-fw fa-pencil',
@@ -48,6 +38,18 @@ $this->menu = [
                 ]
             ],
             [
+                'icon' => 'fa fa-fw fa-external-link-square',
+                'label' => Yii::t('BlogModule.blog', 'View post on site'),
+                'url' => [
+                    '/blog/blog/view',
+                    'slug' => $model->slug,
+                ],
+                'linkOptions' => [
+                    'target' => '_blank',
+                ],
+                'visible' => $model->status == Blog::STATUS_ACTIVE
+            ],
+            [
                 'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('BlogModule.blog', 'Remove blog'),
                 'url'         => '#',
@@ -56,36 +58,6 @@ $this->menu = [
                     'confirm' => Yii::t('BlogModule.blog', 'Do you really want to remove the blog?'),
                     'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
                 ]
-            ],
-        ]
-    ],
-    [
-        'label' => Yii::t('BlogModule.blog', 'Posts'),
-        'items' => [
-            [
-                'icon'  => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('BlogModule.blog', 'Manage posts'),
-                'url'   => ['/blog/postBackend/index']
-            ],
-            [
-                'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('BlogModule.blog', 'Add a post'),
-                'url'   => ['/blog/postBackend/create/', 'blog' => $model->id]
-            ],
-        ]
-    ],
-    [
-        'label' => Yii::t('BlogModule.blog', 'Members'),
-        'items' => [
-            [
-                'icon'  => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t('BlogModule.blog', 'Manage members'),
-                'url'   => ['/blog/userToBlogBackend/index']
-            ],
-            [
-                'icon'  => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t('BlogModule.blog', 'Add a member'),
-                'url'   => ['/blog/userToBlogBackend/create']
             ],
         ]
     ],

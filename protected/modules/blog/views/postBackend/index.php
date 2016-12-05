@@ -102,6 +102,15 @@ $this->menu = [
         'filter'       => $model,
         'columns'      => [
             [
+                'name' => 'icon',
+                'header' => false,
+                'type' => 'raw',
+                'value' => function($data){
+                    return CHtml::image($data->getImageUrl(64, 64), $data->title, array("width"  => 64, "height" => 64));
+                },
+                'filter' => false,
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => [
                     'url'    => $this->createUrl('/blog/postBackend/inline'),
@@ -114,7 +123,7 @@ $this->menu = [
                     ),
                     'source' => CHtml::listData(Blog::model()->findAll(), 'id', 'name'),
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'name'     => 'blog_id',
@@ -202,7 +211,7 @@ $this->menu = [
                     ),
                     'source' => array_merge(['' => '---'], $model->getCommentStatusList()),
                     'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
                 'name'     => 'comment_status',
