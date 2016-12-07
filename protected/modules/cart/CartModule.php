@@ -10,7 +10,7 @@ class CartModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.0';
+    const VERSION = '1.1';
 
     /**
      * @var string
@@ -86,7 +86,7 @@ class CartModule extends WebModule
      */
     public function getAuthor()
     {
-        return Yii::t('CartModule.cart', 'amylabs team');
+        return Yii::t('CartModule.cart', 'yupe team');
     }
 
     /**
@@ -94,7 +94,7 @@ class CartModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('CartModule.cart', 'hello@amylabs.ru');
+        return Yii::t('CartModule.cart', 'support@yupe.ru');
     }
 
     /**
@@ -102,7 +102,7 @@ class CartModule extends WebModule
      */
     public function getAuthorUrl()
     {
-        return Yii::t('CartModule.cart', 'http://amylabs.ru');
+        return Yii::t('CartModule.cart', 'https://yupe.ru');
     }
 
     /**
@@ -119,21 +119,5 @@ class CartModule extends WebModule
     public function getIcon()
     {
         return 'fa fa-fw fa-shopping-cart';
-    }
-
-    /**
-     *
-     */
-    public function init()
-    {
-        parent::init();
-
-        $this->setImport(
-            [
-                'cart.components.shopping-cart.*',
-                'cart.widgets.ShoppingCartWidget',
-                'cart.models.*',
-            ]
-        );
     }
 }

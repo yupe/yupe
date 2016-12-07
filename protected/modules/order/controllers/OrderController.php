@@ -41,6 +41,8 @@ class OrderController extends \yupe\components\controllers\FrontController
 
             if ($model->store($order, $products, Yii::app()->getUser()->getId(), (int)Yii::app()->getModule('order')->defaultStatus)) {
 
+                Yii::app()->cart->clear();
+
                 if (!empty($coupons)) {
                     $model->applyCoupons($coupons);
                 }
@@ -64,7 +66,7 @@ class OrderController extends \yupe\components\controllers\FrontController
             }
         }
 
-        $this->redirect(Yii::app()->getUser()->getReturnUrl($_SERVER['HTTP_REFERER']));
+        $this->redirect(Yii::app()->getUser()->getReturnUrl());
     }
 
     /**

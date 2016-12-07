@@ -12,10 +12,6 @@ class OrderListener
      */
     public static function onCreate(Event $event)
     {
-        if (Yii::app()->hasModule('cart')) {
-            Yii::app()->cart->clear();
-        }
-
         $order = $event->getOrder();
 
         Yii::app()->orderNotifyService->sendOrderCreatedAdminNotify($order);

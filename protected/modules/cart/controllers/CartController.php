@@ -1,9 +1,11 @@
 <?php
 
+use yupe\components\controllers\FrontController;
+
 /**
  * Class CartController
  */
-class CartController extends \yupe\components\controllers\FrontController
+class CartController extends FrontController
 {
     /**
      *
@@ -14,9 +16,11 @@ class CartController extends \yupe\components\controllers\FrontController
         $order = new Order(Order::SCENARIO_USER);
         if (Yii::app()->getUser()->isAuthenticated()) {
             $user = Yii::app()->getUser()->getProfile();
-            $order->name = $user->getFullName();
-            $order->email = $user->email;
-            $order->city = $user->location;
+            $order->setAttributes([
+                'name' => $user->getFullName(),
+                'email' => $user->email,
+                'city' => $user->location,
+            ]);
         }
 
         $coupons = [];
@@ -53,7 +57,7 @@ class CartController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        $model = CartProduct::model()->findByPk((int)$product['id']);
+        $model = CartProduct::model()->published()->findByPk((int)$product['id']);
 
         if (null === $model) {
             throw new CHttpException(404);
@@ -122,8 +126,6 @@ class CartController extends \yupe\components\controllers\FrontController
      */
     public function actionWidget()
     {
-        //$this->renderPartial('//cart/widgets/views/shoppingCart');
-        // хочет отправить куки новые для авторизации каждый раз
         $this->widget('cart.widgets.ShoppingCartWidget', ['id' => 'shopping-cart-widget']);
     }
 }
