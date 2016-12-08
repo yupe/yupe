@@ -93,7 +93,7 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->getIsNewRecord() ? Yii::t('YmlModule.default', 'Add list and close') : Yii::t('YmlModule.default', 'Save list and continue'),
+        'label' => $model->getIsNewRecord() ? Yii::t('YmlModule.default', 'Add list and continue') : Yii::t('YmlModule.default', 'Save list and continue'),
     ]
 ); ?>
 
