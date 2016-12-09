@@ -161,6 +161,10 @@ class StoreCategory extends \yupe\models\YModel
             'roots' => [
                 'condition' => 'parent_id IS NULL',
             ],
+            'child' => [
+                'condition' => 'parent_id = :id',
+                'params' => [':id' => $this->id],
+            ]
         ];
     }
 

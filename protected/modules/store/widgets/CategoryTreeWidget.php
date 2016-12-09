@@ -2,6 +2,9 @@
 
 Yii::import('application.modules.store.models.*');
 
+/**
+ * Class CategoryTreeWidget
+ */
 class CategoryTreeWidget extends yupe\widgets\YWidget
 {
     /**
@@ -32,10 +35,19 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
      */
     protected $cs;
 
+    /**
+     * @var array
+     */
     public $selectedCategories = [];
 
+    /**
+     * @var string
+     */
     public $view = 'store.views.widgets.CategoryTreeWidget';
 
+    /**
+     *
+     */
     public function init()
     {
         $moduleAssets = Yii::app()->getModule('store')->getAssetsUrl();
@@ -47,6 +59,9 @@ class CategoryTreeWidget extends yupe\widgets\YWidget
         }
     }
 
+    /**
+     *
+     */
     public function run()
     {
         $options = CJavaScript::encode($this->options);
