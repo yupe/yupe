@@ -164,7 +164,7 @@ class Attribute extends \yupe\models\YModel
         $criteria->compare('required', $this->required);
 
         $sort = new CSort;
-        $sort->defaultOrder = 't.sort DESC';
+        $sort->defaultOrder = 't.sort ASC';
         $sort->attributes = [
             '*',
             'title' => [

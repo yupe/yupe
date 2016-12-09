@@ -58,8 +58,8 @@ class Type extends \yupe\models\YModel
                 'Attribute',
                 ['attribute_id' => 'id'],
                 'through' => 'attributeRelation',
-                'with' => 'group',
-                'order' => 'group.position ASC',
+                'with' => ['group'],
+                'order' => 'group.position ASC, typeAttributes.sort ASC',
             ],
             'productCount' => [self::STAT, 'Product', 'type_id'],
             'products' => [self::HAS_MANY, 'Product', 'type_id']
@@ -150,7 +150,7 @@ class Type extends \yupe\models\YModel
                 $attributeGroups[Yii::t('StoreModule.store', 'Without a group')][] = $attribute;
             }
         }
-
+        
         return $attributeGroups;
     }
 }
