@@ -245,7 +245,11 @@ class BlogModule extends yupe\components\WebModule
             [
                 'icon' => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('BlogModule.blog', 'Blogs categories'),
-                'url' => ['/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory],
+                'url' => [
+                    '/category/categoryBackend/index',
+                    'module' => $this->getId(),
+                    'parent' => $this->mainCategory ?: null
+                ],
             ],
             ['label' => Yii::t('BlogModule.blog', 'Posts')],
             [
@@ -261,7 +265,11 @@ class BlogModule extends yupe\components\WebModule
             [
                 'icon' => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('BlogModule.blog', 'Posts categories'),
-                'url' => ['/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory],
+                'url' => [
+                    '/category/categoryBackend/index',
+                    'module' => $this->getId(),
+                    'parent' => $this->mainPostCategory ?: null
+                ],
             ],
             ['label' => Yii::t('BlogModule.blog', 'Members')],
             [

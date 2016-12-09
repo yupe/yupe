@@ -227,13 +227,17 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      *
      * @return void
      */
-    public function actionIndex()
+    public function actionIndex($module = null, $parent = null)
     {
         $model = new Category('search');
         $model->unsetAttributes(); // clear any default values
 
         if (isset($_GET['Category'])) {
             $model->attributes = $_GET['Category'];
+        }
+
+        if (null !== $module && null !== $parent) {
+            $model->parent_id = $parent;
         }
 
         $this->render('index', ['model' => $model]);
