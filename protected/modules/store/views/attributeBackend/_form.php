@@ -146,6 +146,10 @@ $form = $this->beginWidget(
                                     'condition' => 'attribute_id = :id',
                                     'params' => [':id' => $model->id],
                                 ],
+                                'pagination' => false,
+                                'sort' => [
+                                    'defaultOrder' => 'position ASC',
+                                ],
                             ]
                         ),
                         'columns' => [

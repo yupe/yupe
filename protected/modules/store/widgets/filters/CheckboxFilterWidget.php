@@ -25,7 +25,7 @@ class CheckboxFilterWidget extends \yupe\widgets\YWidget
         }
 
         if (!($this->attribute instanceof Attribute) || $this->attribute->type != Attribute::TYPE_CHECKBOX) {
-            throw new Exception('Атрибут не найден или неправильного типа');
+            throw new Exception(Yii::t('StoreModulle.store','Attribute error!'));
         }
 
         parent::init();
