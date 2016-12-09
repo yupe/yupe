@@ -57,13 +57,21 @@ class CategoryController extends FrontController
             throw new CHttpException(404);
         }
 
-        $data = Yii::app()->getRequest()->getQueryString() ? $this->productRepository->getByFilter(
-            $this->attributeFilter->getMainAttributesForSearchFromQuery(
-                Yii::app()->getRequest(),
-                [AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => [$category->id]]
-            ),
-            $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest())
-        ) : $this->productRepository->getListForCategory($category);
+        $typesSearchParam = $this->attributeFilter->getTypeAttributesForSearchFromQuery(Yii::app()->getRequest());
+
+        $mainSearchParam = $this->attributeFilter->getMainAttributesForSearchFromQuery(
+            Yii::app()->getRequest(),
+            [
+                AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => Yii::app()->getRequest()->getQuery('category',
+                    [$category->id]),
+            ]
+        );
+
+        if (!empty($mainSearchParam) || !empty($typesSearchParam)) {
+            $data = $this->productRepository->getByFilter($mainSearchParam, $typesSearchParam);
+        } else {
+            $data = $this->productRepository->getListForCategory($category);
+        }
 
         $this->render(
             $category->view ?: 'view',
