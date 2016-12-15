@@ -73,7 +73,7 @@ $this->breadcrumbs = [
                                 <div class="media">
                                     <?php $productUrl = ProductHelper::getUrl($position); ?>
                                     <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
-                                        <img class="media-object" src="<?= $position->getProductModel()->getImageUrl(72, 72); ?>">
+                                        <img class="media-object" src="<?= StoreImage::product($position->getProductModel(), 72, 72); ?>">
                                     </a>
 
                                     <div class="media-body">
@@ -87,8 +87,8 @@ $this->breadcrumbs = [
                                         <span>
                                             <?= Yii::t("CartModule.cart", "Status"); ?>:
                                         </span>
-                                        <span class="text-<?= $position->in_stock ? "success" : "warning"; ?>">
-                                            <strong><?= $position->in_stock ? Yii::t("CartModule.cart", "In stock") : Yii::t("CartModule.cart", "Not in stock"); ?></strong>
+                                        <span class="text-<?= $position->isInStock() ? "success" : "warning"; ?>">
+                                            <strong><?= $position->isInStock() ? Yii::t("CartModule.cart", "In stock") : Yii::t("CartModule.cart", "Not in stock"); ?></strong>
                                         </span>
                                     </div>
                                 </div>

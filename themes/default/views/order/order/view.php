@@ -19,7 +19,7 @@ $this->title = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
                         <div class="media">
                             <?php $productUrl = ProductHelper::getUrl($position->product); ?>
                             <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
-                                <img class="media-object" src="<?= $position->product->getImageUrl(72, 72); ?>">
+                                <img class="media-object" src="<?= StoreImage::product($position->product, 72, 72); ?>">
                             </a>
 
                             <div class="media-body">

@@ -66,7 +66,7 @@ return [
     'Clean settings cache' => '',
     'Community on github' => '',
     'Content' => '',
-    'Control panel "{app}"' => 'qqq {app}',
+    'Control panel "{app}"' => '',
     'Creating table for store migration versions {table}' => '',
     'Creation date' => '',
     'Current backend theme' => '',
