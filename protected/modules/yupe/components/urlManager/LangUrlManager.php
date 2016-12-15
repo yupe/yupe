@@ -67,7 +67,6 @@ class LangUrlManager extends CUrlManager
             $languages = implode('|', $languages);
             $rules = [];
             $langPattern = '/<'.$this->langParam.':('.$languages.')>/';
-
             foreach ($this->rules as $pattern => $route) {
                 if (is_array($route)) {
                     if (isset($route['pattern'])) {
@@ -148,6 +147,7 @@ class LangUrlManager extends CUrlManager
             }
 
             $language = in_array($language, $this->_languages, true) ? $language : null;
+
             $this->_langFromUrl = $language;
         }
 
@@ -192,7 +192,6 @@ class LangUrlManager extends CUrlManager
     {
         if (count($this->_languages) > 1) {
 
-
             if (!isset($params[$this->langParam])) {
                 $params[$this->langParam] = $this->getCurrentLang();
             }
@@ -215,6 +214,7 @@ class LangUrlManager extends CUrlManager
     public function replaceLangInUrl($url, $lang = null)
     {
         $parsed = parse_url($url);
+
         $result = '';
 
         if (isset($parsed['scheme'])) {

@@ -79,16 +79,18 @@ class CustomButtonColumn extends \TbButtonColumn
 
         $this->template = '<div class="btn-group">'.$this->template.'</div>';
 
-        if ($this->frontViewButtonLabel === null) {
-            $this->frontViewButtonLabel = Yii::t('zii', 'View');
-        }
-
         if ($this->frontViewButtonUrl) {
+
+            if ($this->frontViewButtonLabel === null) {
+                $this->frontViewButtonLabel = Yii::t('zii', 'View');
+            }
+
             $this->buttons['front_view'] = [
                 'label' => $this->frontViewButtonLabel,
                 'url' => $this->frontViewButtonUrl,
                 'options' => $this->frontViewButtonOptions,
                 'icon' => $this->frontViewButtonIcon,
+                'visible' => $this->buttons['front_view']['visible'],
             ];
         } else {
             $this->buttons['front_view'] = [

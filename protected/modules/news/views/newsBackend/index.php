@@ -119,16 +119,16 @@ $this->menu = [
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-                'frontViewButtonUrl' => function($data){
+                'frontViewButtonUrl' => function ($data) {
                     return Yii::app()->createUrl('/news/news/view', ['slug' => $data->slug]);
                 },
                 'buttons' => [
                     'front_view' => [
                         'visible' => function ($row, $data) {
                             return $data->status == News::STATUS_PUBLISHED;
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ],
         ],
     ]

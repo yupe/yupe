@@ -99,7 +99,7 @@ abstract class Controller extends \CController
      **/
     public function isMultilang()
     {
-        return isset(Yii::app()->getUrlManager()->languages) && is_array(Yii::app()->getUrlManager()->languages);
+        return count(explode(',', $this->yupe->availableLanguages)) > 1;
     }
 
     /**
