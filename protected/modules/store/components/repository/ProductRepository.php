@@ -80,9 +80,16 @@ class ProductRepository extends CApplicationComponent
 
         //поиск по названию и артикулу
         if (!empty($mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME])) {
-            $criteria->addSearchCondition('name', $mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME], true);
-            $criteria->addSearchCondition('sku', $mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME], true,
-                'OR');
+
+            $term = trim($mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME]);
+
+            $words = explode(' ', $term);
+
+            foreach ($words as $word) {
+                $word = trim($word);
+                $criteria->addSearchCondition('t.name', $word, true, 'AND');
+                $criteria->addSearchCondition('t.sku', $word, true, 'OR');
+            }
         }
 
         $criteria->mergeWith($this->buildCriteriaForTypeAttributes($typeSearchAttributes));
