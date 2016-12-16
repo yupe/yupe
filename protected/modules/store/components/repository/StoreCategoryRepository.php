@@ -8,7 +8,7 @@ class StoreCategoryRepository extends CApplicationComponent
 
     /**
      * @param $slug
-     * @return static
+     * @return StoreCategory
      */
     public function getByAlias($slug)
     {

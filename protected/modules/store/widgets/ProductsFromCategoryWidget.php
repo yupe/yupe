@@ -62,7 +62,7 @@ class ProductsFromCategoryWidget extends \yupe\widgets\YWidget
             $this->view,
             [
                 'category' => $category,
-                'products' => $this->productRepository->getListForCategory($category, $this->limit),
+                'products' => $this->productRepository->getListForCategory($category, true, $this->limit),
             ]
         );
     }
