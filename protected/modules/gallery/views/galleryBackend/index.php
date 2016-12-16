@@ -152,6 +152,11 @@ $this->menu = [
                         'url' => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
                         'options' => ['class' => 'btn btn-sm btn-default'],
                     ],
+                    'front_view' => [
+                        'visible' => function ($row, $data) {
+                            return $data->status == Gallery::STATUS_PUBLIC;
+                        }
+                    ]
                 ],
                 'frontViewButtonUrl' => function($data){
                     return Yii::app()->createUrl('/gallery/gallery/view', ['id' => $data->id]);
