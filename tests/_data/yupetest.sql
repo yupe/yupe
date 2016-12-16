@@ -144,6 +144,7 @@ CREATE TABLE `yupe_callback` (
   `comment` varchar(255) DEFAULT NULL,
   `status` int(11) DEFAULT '0',
   `create_time` datetime DEFAULT NULL,
+  `url` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -587,7 +588,9 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
   (129,	'menu',	'm160914_134555_fix_menu_item_default_values',	1478195040),
   (130,	'store',	'm161015_121915_change_product_external_id_type',	1478195045),
   (131,	'store',	'm161122_090922_add_sort_product_position',	1480012568),
-  (132,	'store',	'm161122_093736_add_store_layouts',	1480012568);
+  (132,	'store',	'm161122_093736_add_store_layouts',	1480012568),
+  (133,	'callback',	'm161125_181730_add_url_to_callback',	1481913108),
+  (134,	'callback',	'm161204_122528_update_callback_encoding',	1481913108);
 
 DROP TABLE IF EXISTS `yupe_news_news`;
 CREATE TABLE `yupe_news_news` (
