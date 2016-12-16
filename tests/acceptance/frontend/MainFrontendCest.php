@@ -2,11 +2,11 @@
 
 namespace tests\acceptance\frontend;
 
-use \WebGuy;
 use tests\acceptance\pages\BlogPage;
-use tests\acceptance\pages\NewsPage;
-use tests\acceptance\pages\GalleryPage;
 use tests\acceptance\pages\FeedBackPage;
+use tests\acceptance\pages\GalleryPage;
+use tests\acceptance\pages\NewsPage;
+use WebGuy;
 
 class MainFrontendCest
 {
@@ -74,6 +74,7 @@ class MainFrontendCest
         $I->seeLink('FAQ');
         $I->seeLink('Contacts');
 
+        $I->amOnPage('/ru/');
         $I->amOnPage('/');
         $I->seeLink('Документация');
         $I->seeLink('Форум');
