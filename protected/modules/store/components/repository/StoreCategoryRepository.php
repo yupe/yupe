@@ -25,7 +25,7 @@ class StoreCategoryRepository extends CApplicationComponent
      */
     public function getAllDataProvider()
     {
-        new CArrayDataProvider(
+        return new CArrayDataProvider(
             StoreCategory::model()->published()->getMenuList(1), [
                 'id' => 'id',
                 'pagination' => false,
