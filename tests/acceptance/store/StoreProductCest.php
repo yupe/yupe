@@ -1,10 +1,10 @@
 <?php
 namespace tests\acceptance\store;
 
-use \WebGuy;
 use Facebook\WebDriver\WebDriverKeys;
 use tests\acceptance\pages\CommonPage;
 use tests\acceptance\user\steps\UserSteps;
+use WebGuy;
 
 class StoreProductCest
 {
@@ -101,9 +101,7 @@ class StoreProductCest
         $I->amGoingTo('test related products widget');
         $I->see('Связанные товары', 'h3');
         $I->seeLink('Dell P2214H');
-        $I->seeLink('Dell U2415');
         $I->see('13320 руб.', '.price-text-color');
-        $I->see('21500 руб.', '.price-text-color');
     }
 
     public function tryToTestProductSearch(WebGuy $I, $scenario)
