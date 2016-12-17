@@ -90,7 +90,9 @@ class CustomButtonColumn extends \TbButtonColumn
                 'url' => $this->frontViewButtonUrl,
                 'options' => $this->frontViewButtonOptions,
                 'icon' => $this->frontViewButtonIcon,
-                'visible' => $this->buttons['front_view']['visible'],
+                'visible' => isset($this->buttons['front_view']['visible'])
+                    ? $this->buttons['front_view']['visible']
+                    : function () { return true; },
             ];
         } else {
             $this->buttons['front_view'] = [
