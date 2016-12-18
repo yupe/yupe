@@ -29,7 +29,7 @@
 
 <hr/>
 
-<?= CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), ['/'],
+<?= CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), '/',
     ['class' => 'btn btn-info']); ?>
 
 <?= Yii::t('InstallModule.install', 'or'); ?>
