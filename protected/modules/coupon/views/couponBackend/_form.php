@@ -112,7 +112,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <?=  $form->datePickerGroup(
                     $model,
                     'start_time',
@@ -241,7 +241,7 @@
                             'name' => 'status_id',
                             'type' => 'raw',
                             'value' => function (Order $data) {
-                                return $data->status->getTitle();
+                                return $data->getStatusTitle();
                             },
                             'filter' => CHtml::listData(OrderStatus::model()->findAll(), 'id', 'name'),
                         ],

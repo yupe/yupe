@@ -440,15 +440,14 @@ class Order extends yupe\models\YModel
     public function getCouponDiscount(array $coupons)
     {
         $productsTotalPrice = $this->getProductsCost();
-        $delta = 0.00; // суммарная скидка по купонам
-        /* посчитаем скидку */
+        $delta = 0.00;
         if ($this->isCouponsAvailable()) {
             foreach ($coupons as $coupon) {
                 switch ($coupon->type) {
-                    case Coupon::TYPE_SUM:
+                    case CouponType::TYPE_SUM:
                         $delta += $coupon->value;
                         break;
-                    case Coupon::TYPE_PERCENT:
+                    case CouponType::TYPE_PERCENT:
                         $delta += ($coupon->value / 100) * $productsTotalPrice;
                         break;
                 }
