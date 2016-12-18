@@ -9,11 +9,6 @@ use yupe\components\controllers\FrontController;
 class CouponController extends FrontController
 {
     /**
-     * @var EShoppingCart
-     */
-    protected $cart;
-
-    /**
      * @var CouponManager
      */
     protected $couponManager;
@@ -23,11 +18,14 @@ class CouponController extends FrontController
      */
     public function init()
     {
-        $this->cart = Yii::app()->cart;
-        $this->couponManager = Yii::app()->cart->couponManager;
         parent::init();
+
+        $this->couponManager = Yii::app()->cart->couponManager;
     }
 
+    /**
+     * @return array
+     */
     public function filters()
     {
         return [

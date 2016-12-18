@@ -1,5 +1,7 @@
 <?php
 Yii::import('application.modules.coupon.components.CouponManager');
+Yii::import('application.modules.cart.controllers.*');
+Yii::import('application.modules.cart.CartModule');
 
 /**
  * Shopping cart class
