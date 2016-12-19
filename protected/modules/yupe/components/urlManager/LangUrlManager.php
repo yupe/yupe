@@ -66,15 +66,15 @@ class LangUrlManager extends CUrlManager
 
             $languages = implode('|', $languages);
             $rules = [];
-            $langPattern = '/<'.$this->langParam.':('.$languages.')>/';
+            $langPattern = '/<' . $this->langParam . ':(' . $languages . ')>/';
             foreach ($this->rules as $pattern => $route) {
                 if (is_array($route)) {
                     if (isset($route['pattern'])) {
-                        $route['pattern'] = $langPattern.ltrim($route['pattern'], '/');
+                        $route['pattern'] = $langPattern . ltrim($route['pattern'], '/');
                         $rules[] = $route;
                     }
                 } else {
-                    $pattern = $langPattern.ltrim($pattern, '/');
+                    $pattern = $langPattern . ltrim($pattern, '/');
                     $rules[$pattern] = $route;
                 }
             }
@@ -178,7 +178,7 @@ class LangUrlManager extends CUrlManager
      */
     public function getCookieKey()
     {
-        return $this->langParam.'_'.($this->isBackend() ? 'backend' : 'frontend');
+        return $this->langParam . '_' . ($this->isBackend() ? 'backend' : 'frontend');
     }
 
 
@@ -199,7 +199,7 @@ class LangUrlManager extends CUrlManager
             if ($this->getDefaultLang() === $params[$this->langParam]) {
                 unset($params[$this->langParam]);
             } elseif (trim($route, '/') === '') {
-                return Yii::app()->getHomeUrl().$params[$this->langParam];
+                return Yii::app()->getHomeUrl() . $params[$this->langParam];
             }
         }
 
@@ -218,26 +218,26 @@ class LangUrlManager extends CUrlManager
         $result = '';
 
         if (isset($parsed['scheme'])) {
-            $result .= $parsed['scheme'].'://';
+            $result .= $parsed['scheme'] . '://';
         }
 
         if (isset($parsed['user'])) {
             $result .= $parsed['user'];
             if (isset($parsed['pass'])) {
-                $result .= ':'.$parsed['pass'];
+                $result .= ':' . $parsed['pass'];
             }
             $result .= '@';
         }
 
         if (isset($parsed['host'])) {
-            $result .= $parsed['host'].'/';
+            $result .= $parsed['host'] . '/';
         }
 
         if ('path' === $this->urlFormat && isset($parsed['path'])) {
             $path = trim($parsed['path'], '/');
 
             $replaced = preg_replace(
-                '#^('.implode('|', $this->_languages).'){1}#',
+                '#^(' . implode('|', $this->_languages) . '/){1}#',
                 $lang,
                 $path
             );
@@ -246,7 +246,7 @@ class LangUrlManager extends CUrlManager
             if ($path === $replaced && null !== $lang) {
                 $replaced = $lang;
                 if ($path !== '') {
-                    $replaced .= '/'.$path;
+                    $replaced .= '/' . $path;
                 }
             }
 
@@ -254,7 +254,7 @@ class LangUrlManager extends CUrlManager
 
             if ($result !== '') {
                 if (strpos($url, '/') === 0) {
-                    $result = '/'.$result;
+                    $result = '/' . $result;
                 }
 
                 if (substr($url, -1) === '/') {
@@ -279,7 +279,7 @@ class LangUrlManager extends CUrlManager
             $query = urldecode(http_build_query($queryParams));
 
             if ($query !== '') {
-                $result .= '?'.$query;
+                $result .= '?' . $query;
             }
         }
 
