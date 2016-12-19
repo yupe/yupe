@@ -16,6 +16,7 @@
 namespace yupe\components\urlManager;
 
 use CUrlManager;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use Yii;
 use YupeModule;
 
@@ -236,11 +237,14 @@ class LangUrlManager extends CUrlManager
         if ('path' === $this->urlFormat && isset($parsed['path'])) {
             $path = trim($parsed['path'], '/');
 
-            $replaced = preg_replace(
-                '#^('.implode('|', $this->_languages).'){1}#',
-                $lang,
+            $replaced = preg_replace_callback(
+                '#^(' . implode('|', $this->_languages) . '){1}(\/.*)?$#',
+                function($matches) use ($lang) {
+                    return $lang . (isset($matches[2]) ? $matches[2] : '');
+                },
                 $path
             );
+
             $replaced = trim($replaced, '/');
 
             if ($path === $replaced && null !== $lang) {
