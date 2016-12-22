@@ -230,7 +230,12 @@ $this->title = Yii::t('OrderModule.order', 'Order #{n}', [$model->id]);
                 <tr>
                     <td colspan="3">
                         <p class="text-right">
-                            <span class="aler alert-warning"><?= $model->getPaidStatus(); ?> <?= CHtml::encode($model->payment->name);?></span>
+                            <span class="aler alert-warning">
+                                <?= $model->getPaidStatus(); ?>
+                                <?php if($model->payment):?>
+                                    <?= CHtml::encode($model->payment->name);?>
+                                <?php endif;?>
+                            </span>
                         </p>
                     </td>
                 </tr>
