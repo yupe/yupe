@@ -43,6 +43,7 @@ class StoreProductCest
     public function tryToTestProductPage(WebGuy $I, $scenario)
     {
         $I->wantToTest('single product page');
+        $I->amOnPage(self::FRONTEND_PRODUCT_PATH);
 
         $I->click('Dell U2715H');
         $I->seeInCurrentUrl('/store/computer/display/dell-u2715h.html');
@@ -73,6 +74,12 @@ class StoreProductCest
         $I->seeElement('button', ['class' => 'btn btn-default product-quantity-decrease']);
         $I->seeElement('button', ['class' => 'btn btn-default product-quantity-increase']);
         $I->seeElement('button', ['id' => 'add-product-to-cart']);
+
+        //check breadcrumbs
+        $I->see('Каталог', 'ul.breadcrumb > li');
+        $I->see('Компьютеры', 'ul.breadcrumb > li');
+        $I->see('Мониторы', 'ul.breadcrumb > li');
+
 
         $I->amGoingTo('test product info tabs');
         $I->seeLink('Описание');
@@ -126,6 +133,12 @@ class StoreProductCest
         $I->fillField('#q', 'Intel');
         $I->pressKey('#q', WebDriverKeys::ENTER);
         $I->see('Нет результатов.', 'span');
+
+        //new search
+        $I->fillField('#q', 'U28E590D SAMSUNG');
+        $I->pressKey('#q', WebDriverKeys::ENTER);
+        $I->seeLink('Samsung U28E590D');
+        $I->dontSeeLink('Dell P2214H');
     }
 
     public function tryToTestProductFilter(WebGuy $I, $scenario)
