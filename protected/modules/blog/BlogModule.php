@@ -138,9 +138,9 @@ class BlogModule extends yupe\components\WebModule
      */
     public function getUploadPath()
     {
-        return Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.Yii::app()->getModule(
-            "yupe"
-        )->uploadPath.DIRECTORY_SEPARATOR.$this->uploadPath;
+        return Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule(
+                "yupe"
+            )->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath;
     }
 
     /**
@@ -156,7 +156,7 @@ class BlogModule extends yupe\components\WebModule
                 'BlogModule.blog',
                 'File directory (relatively {path})',
                 [
-                    '{path}' => Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.Yii::app()->getModule(
+                    '{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule(
                             "yupe"
                         )->uploadPath,
                 ]
@@ -388,9 +388,7 @@ class BlogModule extends yupe\components\WebModule
                 'description' => Yii::t('BlogModule.blog', 'Manage blogs'),
                 'type' => AuthItem::TYPE_TASK,
                 'items' => [
-
                     //blogs
-
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'Blog.BlogBackend.Create',
@@ -417,7 +415,6 @@ class BlogModule extends yupe\components\WebModule
                         'description' => Yii::t('BlogModule.blog', 'Viewing blogs'),
                     ],
                     //posts
-
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'Blog.PostBackend.Create',
@@ -444,7 +441,6 @@ class BlogModule extends yupe\components\WebModule
                         'description' => Yii::t('BlogModule.blog', 'Viewing post'),
                     ],
                     //members
-
                     [
                         'type' => AuthItem::TYPE_OPERATION,
                         'name' => 'Blog.UserToBlogBackend.Create',

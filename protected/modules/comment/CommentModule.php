@@ -338,10 +338,13 @@ class CommentModule extends WebModule
      */
     public function init()
     {
+        parent::init();
+
         $import = ['application.modules.comment.models.*'];
 
         foreach (Yii::app()->getModules() as $module => $data) {
             $import[] = "application.modules.{$module}.models.*";
+            $import[] = "application.modules.{$module}.listeners.*";
         }
 
         $this->setImport($import);
@@ -351,8 +354,6 @@ class CommentModule extends WebModule
         }
 
         $this->defaultCommentStatus = Comment::STATUS_NEED_CHECK;
-
-        parent::init();
     }
 
     /**

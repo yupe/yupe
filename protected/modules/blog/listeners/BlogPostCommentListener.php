@@ -5,8 +5,14 @@ Yii::import('application.modules.notify.NotifyModule');
 Yii::import('application.modules.blog.models.Post');
 Yii::import('application.modules.blog.models.Blog');
 
+/**
+ * Class BlogPostCommentListener
+ */
 class BlogPostCommentListener
 {
+    /**
+     * @param CommentEvent $event
+     */
     public static function onNewComment(CommentEvent $event)
     {
         $comment = $event->getComment();
@@ -15,35 +21,36 @@ class BlogPostCommentListener
 
         $parent = $comment->getParent();
 
-        //ответ на комментарий
-        if ($comment->hasParent()) {
-
-            if (null !== $parent && $parent->user_id) {
-
-                $notify = NotifySettings::model()->getForUser($parent->user_id);
-
-                if (null !== $notify && $notify->isNeedSendForCommentAnswer()) {
-
-                    Yii::app()->mail->send(
-                        $module->email,
-                        $parent->email,
-                        Yii::t(
-                            'NotifyModule.notify',
-                            'Reply to your comment on the website "{app}"!',
-                            ['{app}' => CHtml::encode(Yii::app()->name)]
-                        ),
-                        Yii::app()->getController()->renderPartial(
-                            'comment-reply-notify-email',
-                            ['model' => $comment],
-                            true
-                        )
-                    );
-                }
-            }
-        }
-
         //нотификация автору поста
         if ('Post' === $comment->model) {
+
+            //ответ на комментарий
+            if ($comment->hasParent()) {
+
+                if (null !== $parent && $parent->user_id) {
+
+                    $notify = NotifySettings::model()->getForUser($parent->user_id);
+
+                    if (null !== $notify && $notify->isNeedSendForCommentAnswer()) {
+
+                        Yii::app()->mail->send(
+                            $module->email,
+                            $parent->email,
+                            Yii::t(
+                                'NotifyModule.notify',
+                                'Reply to your comment on the website "{app}"!',
+                                ['{app}' => CHtml::encode(Yii::app()->name)]
+                            ),
+                            Yii::app()->getController()->renderPartial(
+                                'comment-reply-notify-email',
+                                ['model' => $comment],
+                                true
+                            )
+                        );
+                    }
+                }
+            }
+
 
             $post = Post::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->with(['createUser'])->get((int)$comment->model_id);
 
