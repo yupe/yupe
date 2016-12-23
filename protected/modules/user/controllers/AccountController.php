@@ -13,6 +13,9 @@
  **/
 class AccountController extends \yupe\components\controllers\FrontController
 {
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [

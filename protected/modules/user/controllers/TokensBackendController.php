@@ -14,6 +14,9 @@
  **/
 class TokensBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
         return [

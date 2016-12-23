@@ -13,7 +13,9 @@
  **/
 class PeopleController extends \yupe\components\controllers\FrontController
 {
-    // Вывод публичной страницы всех пользователей
+    /**
+     *
+     */
     public function actionIndex()
     {
         $users = new User('search');
@@ -28,6 +30,10 @@ class PeopleController extends \yupe\components\controllers\FrontController
     }
 
     // Вывод публичной страницы пользователя
+    /**
+     * @param $username
+     * @throws CHttpException
+     */
     public function actionUserInfo($username)
     {
         $user = User::model()->active()->findByAttributes(["nick_name" => $username]);

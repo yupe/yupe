@@ -112,7 +112,7 @@ class Comment extends yupe\models\YModel
             ['model', 'length', 'max' => 100],
             ['ip', 'length', 'max' => 20],
             ['email', 'email'],
-            ['url', 'yupe\components\validators\YUrlValidator'],
+            ['url', 'yupe\components\validators\YUrlValidator', 'defaultScheme' => 'http'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             [
                 'verifyCode',

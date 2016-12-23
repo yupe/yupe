@@ -14,8 +14,14 @@
  **/
 class ProfileController extends \yupe\components\controllers\FrontController
 {
+    /**
+     * @var null
+     */
     public $user = null;
 
+    /**
+     * @return array
+     */
     public function filters()
     {
         return [
@@ -23,6 +29,10 @@ class ProfileController extends \yupe\components\controllers\FrontController
         ];
     }
 
+    /**
+     * @param $action
+     * @return bool
+     */
     public function beforeAction($action)
     {
         $this->user = Yii::app()->getUser()->getProfile();
@@ -44,6 +54,9 @@ class ProfileController extends \yupe\components\controllers\FrontController
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
