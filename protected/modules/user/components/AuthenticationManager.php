@@ -18,12 +18,6 @@ class AuthenticationManager extends CApplicationComponent
     {
         Yii::app()->eventManager->fire(UserEvents::BEFORE_LOGOUT, new UserLogoutEvent(Yii::app()->getUser()));
 
-        Yii::log(
-            Yii::t('UserModule.user', 'User {user} was logout!', ['{user}' => $user->getState('nick_name')]),
-            CLogger::LEVEL_INFO,
-            UserModule::$logCategory
-        );
-
         $user->logout();
 
         Yii::app()->eventManager->fire(UserEvents::AFTER_LOGOUT, new UserLogoutEvent());
@@ -61,39 +55,12 @@ class AuthenticationManager extends CApplicationComponent
 
             $user->login($identity, $duration);
 
-            Yii::log(
-                Yii::t(
-                    'UserModule.user',
-                    'User with {email} was logined with IP-address {ip}!',
-                    [
-                        '{email}' => $form->email,
-                        '{ip}' => $request->getUserHostAddress(),
-                    ]
-                ),
-                CLogger::LEVEL_INFO,
-                UserModule::$logCategory
-            );
-
             Yii::app()->eventManager->fire(UserEvents::SUCCESS_LOGIN, new UserLoginEvent($form, $user, $identity));
 
             return true;
         }
 
         Yii::app()->eventManager->fire(UserEvents::FAILURE_LOGIN, new UserLoginEvent($form, $user, $identity));
-
-        Yii::log(
-            Yii::t(
-                'UserModule.user',
-                'Authorization error with IP-address {ip}! email => {email}, Password => {password}!',
-                [
-                    '{email}' => $form->email,
-                    '{password}' => $form->password,
-                    '{ip}' => $request->getUserHostAddress(),
-                ]
-            ),
-            CLogger::LEVEL_ERROR,
-            UserModule::$logCategory
-        );
 
         return false;
     }
