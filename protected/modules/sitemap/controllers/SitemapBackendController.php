@@ -82,12 +82,12 @@ class SitemapBackendController extends BackController
 
         if (\yupe\helpers\YFile::rmIfExists($this->getModule()->getSiteMapPath())) {
             Yii::app()->getUser()->setFlash(YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('SitemapModule.sitemap', 'Sitemap is deleted!'));
+                Yii::t('SitemapModule.sitemap', 'message.success'));
             Yii::app()->ajax->success();
         }
 
         Yii::app()->getUser()->setFlash(YFlashMessages::ERROR_MESSAGE,
-            Yii::t('SitemapModule.sitemap', 'Sitemap is not deleted!'));
+            Yii::t('SitemapModule.sitemap', 'message.error'));
         Yii::app()->ajax->failure();
     }
 
