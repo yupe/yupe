@@ -60,7 +60,8 @@
         "2amigos/transliterator-helper": "dev-master",
         "yiiext/migrate-command": "dev-master",
         "samdark/sitemap": "2.0.*",
-        "ckeditor/ckeditor": "4.*"
+        "ckeditor/ckeditor": "4.*",
+        "wikimedia/composer-merge-plugin": "dev-master"
     },
     "repositories": {
         
@@ -124,6 +125,14 @@
             "protected/config/db.php",
             "protected/config/modules",
             "protected/config/modulesBack"
-        ]
+        ],
+        "merge-plugin": {
+            "include": [
+                "protected/modules/*/composer.json"
+            ],
+            "recurse": false,
+            "replace": false,
+            "merge-extra": true
+        }
     }
 }
