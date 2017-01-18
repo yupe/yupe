@@ -43,7 +43,7 @@ class CallbackManager extends CApplicationComponent
      */
     public function add($data, $referrer = null)
     {
-        if(!$data) {
+        if (!$data) {
             return false;
         }
 
@@ -51,7 +51,12 @@ class CallbackManager extends CApplicationComponent
         $model->setAttributes($data);
         $model->url = $referrer;
 
-        if($model->save()) {
+        if ($model->save()) {
+            Yii::app()->eventManager->fire(
+                CallbackEvents::ADD,
+                new CallbackAddEvent($model)
+            );
+
             $this->sendNotification($model);
             return true;
         }
@@ -67,7 +72,7 @@ class CallbackManager extends CApplicationComponent
      */
     private function sendNotification(Callback $model)
     {
-        $from = $this->module->notifyEmailFrom ? : $this->adminEmail;
+        $from = $this->module->notifyEmailFrom ?: $this->adminEmail;
         $to = $this->module->getNotifyTo();
         $theme = Yii::t('CallbackModule.callback', 'Callback request');
         $body = $this->view->renderPartial('/callback/email/request', ['model' => $model], true);

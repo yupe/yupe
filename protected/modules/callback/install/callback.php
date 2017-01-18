@@ -17,6 +17,9 @@ return [
                 'template.head.end' => [
                     ['CallbackTemplateListener', 'js'],
                 ],
+                'callback.add' => [
+                    ['CallbackTemplateListener', 'add']
+                ]
             ],
         ],
     ],
