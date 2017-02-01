@@ -201,14 +201,22 @@ function sendModuleStatus(name, status) {
     });
 }
 
-function readURL(input) {
+function readURL(input, selector) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
-        reader.onload = function (e) {
-            $('.preview-image-wrapper').removeClass('hidden');
-            $('.preview-image').attr('src', e.target.result).show();
-        };
+        if(selector === undefined) {
+            reader.onload = function (e) {
+                $('.preview-image-wrapper').removeClass('hidden');
+                $('.preview-image').attr('src', e.target.result).show();
+            };
+        } else {
+            reader.onload = function (e) {
+                var block = $(selector);
+                block.closest('.preview-image-wrapper').removeClass('hidden');
+                block.attr('src', e.target.result).show();
+            };
+        }
 
         reader.readAsDataURL(input.files[0]);
     }
