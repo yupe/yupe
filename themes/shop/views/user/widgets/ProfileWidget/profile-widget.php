@@ -25,29 +25,19 @@
                 <p>
                 <ul class="user-info">
                     <li>
-                        <?php $this->widget(
-                            'bootstrap.widgets.TbButton',
-                            [
-                                'label'      => Yii::t('UserModule.user', 'Edit profile'),
-                                'icon'       => 'glyphicon glyphicon-pencil',
-                                'buttonType' => 'link',
-                                'context'    => 'link',
-                                'url'        => ['/user/profile/profile/'],
-                            ]
-                        ); ?>
+                        <?= CHtml::link(
+                            Yii::t('UserModule.user', 'Edit profile'),
+                            Yii::app()->createUrl('/user/profile/profile/'),
+                            ['class' => 'btn btn_big btn_wide btn_white']
+                        ) ?>
                     </li>
-                    <?php if(Yii::app()->hasModule('notify')):?>
-                        <?php $this->widget(
-                            'bootstrap.widgets.TbButton',
-                            [
-                                'label'      => Yii::t('UserModule.user', 'Notify settings'),
-                                'icon'       => 'glyphicon glyphicon-pencil',
-                                'buttonType' => 'link',
-                                'context'    => 'link',
-                                'url'        => ['/notify/notify/settings/'],
-                            ]
-                        ); ?>
-                    <?php endif;?>
+                    <?php if (Yii::app()->hasModule('notify')): ?>
+                        <?= CHtml::link(
+                            Yii::t('UserModule.user', 'Notify settings'),
+                            Yii::app()->createUrl('/notify/notify/settings/'),
+                            ['class' => 'btn btn_big btn_wide btn_white']
+                        ) ?>
+                    <?php endif; ?>
                     <li>
                         <i class="glyphicon glyphicon-envelope"></i> <?= $user->email; ?>
                     </li>
