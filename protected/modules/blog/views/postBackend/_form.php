@@ -167,7 +167,7 @@ $form = $this->beginWidget(
             !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
             $model->title,
             [
-                'class' => 'preview-image',
+                'class' => 'preview-image img-responsive',
                 'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none',
             ]
         ); ?>
