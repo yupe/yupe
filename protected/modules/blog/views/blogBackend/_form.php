@@ -170,7 +170,7 @@ $form = $this->beginWidget(
             $model->getImageUrl(),
             $model->name,
             [
-                'class' => 'preview-image',
+                'class' => 'preview-image img-responsive',
             ]
         ); ?>
 
