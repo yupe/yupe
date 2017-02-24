@@ -22,8 +22,8 @@ return [
         ]
     ],
     'rules' => [
-        '/favorite/add' => '/favorite/default/add',
-        '/favorite/remove' => '/favorite/default/remove',
-        '/favorite' => '/favorite/default/index',
+        '/favorite/add' => '/favorite/favorite/add',
+        '/favorite/remove' => '/favorite/favorite/remove',
+        '/favorite' => '/favorite/favorite/index',
     ],
 ];
