@@ -448,12 +448,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-sm-12">
-        <label class="checkbox">
-            <input class="" name="notify_user" value="1" type="checkbox"><?= Yii::t(
-                'OrderModule.order',
-                'Inform buyer about order status'
-            ); ?>
-        </label>
+        <?= $form->checkboxGroup($model, 'notifyUser'); ?>
     </div>
 </div>
 
