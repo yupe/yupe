@@ -8,7 +8,22 @@ class OrderEvents
     /**
      *
      */
-    const SUCCESS_CREATED = 'order.create.success';
+    const CREATED_HTTP = 'http.order.created';
+
+    /**
+     *
+     */
+    const UPDATED_HTTP = 'http.order.updated';
+
+    /**
+     *
+     */
+    const CREATED = 'order.created';
+
+    /**
+     *
+     */
+    const UPDATED = 'order.updated';
 
     /**
      *

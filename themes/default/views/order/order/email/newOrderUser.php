@@ -6,7 +6,7 @@ $currency = Yii::t('StoreModule.store', Yii::app()->getModule('store')->currency
 </head>
 <body>
 <h1 style="font-weight:normal;">
-    Ваш заказ на сумму <?= $order->getTotalPrice();?> <?= $currency ?> в магазине "<?= Yii::app()->getModule('yupe')->siteName;?>".
+    Ваш заказ на сумму <?= $order->getTotalPriceWithDelivery();?> <?= $currency ?> в магазине "<?= Yii::app()->getModule('yupe')->siteName;?>".
 </h1>
 <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
     <tr>

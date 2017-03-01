@@ -16,8 +16,16 @@ class OrderListener
 
         Yii::app()->orderNotifyService->sendOrderCreatedAdminNotify($order);
 
-        if ($order->notifyUser) {
-            Yii::app()->orderNotifyService->sendOrderCreatedUserNotify($order);
-        }
+        Yii::app()->orderNotifyService->sendOrderCreatedUserNotify($order);
+    }
+
+    /**
+     * @param Event $event
+     */
+    public static function onUpdate(Event $event)
+    {
+        $order = $event->getOrder();
+
+        Yii::app()->orderNotifyService->sendOrderChangesNotify($order);
     }
 }

@@ -72,11 +72,6 @@ class Order extends yupe\models\YModel
     public $couponId = null;
 
     /**
-     * @var bool
-     */
-    public $notifyUser = false;
-
-    /**
      * @var OrderProduct[]
      */
     private $_orderProducts = [];
@@ -127,7 +122,6 @@ class Order extends yupe\models\YModel
             ['name, email, phone, zipcode, country, city, street, house, apartment', 'filter', 'filter' => 'trim'],
             ['name, email, phone, zipcode, country, city, street, house, apartment, comment', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['status_id, delivery_id', 'required'],
-            ['notifyUser', 'boolean'],
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
             ['email', 'email'],
             [
@@ -236,7 +230,6 @@ class Order extends yupe\models\YModel
             'house' => Yii::t('OrderModule.order', 'House'),
             'apartment' => Yii::t('OrderModule.order', 'Apartment'),
             'manager_id' => Yii::t('OrderModule.order', 'Manager'),
-            'notifyUser' => Yii::t('OrderModule.order', 'Inform buyer about order status'),
         ];
     }
 
@@ -474,6 +467,7 @@ class Order extends yupe\models\YModel
      */
     public function store(array $attributes, array $products, $client = null, $status = OrderStatus::STATUS_NEW)
     {
+        $isNew = $this->getIsNewRecord();
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
@@ -487,7 +481,10 @@ class Order extends yupe\models\YModel
                 return false;
             }
 
-            Yii::app()->eventManager->fire(OrderEvents::SUCCESS_CREATED, new OrderEvent($this));
+            Yii::app()->eventManager->fire(
+                $isNew ? OrderEvents::CREATED : OrderEvents::UPDATED,
+                new OrderEvent($this)
+            );
 
             $transaction->commit();
 
