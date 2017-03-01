@@ -130,7 +130,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 );
 
                 // отправить уведомление о смене статуса заказа
-                if (Yii::app()->getRequest()->getParam('notify_user', false)) {
+                if ($model->notifyUser) {
 
                     Yii::app()->orderNotifyService->sendOrderChangesNotify($model);
 
