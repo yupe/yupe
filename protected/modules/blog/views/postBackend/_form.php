@@ -204,10 +204,7 @@ $form = $this->beginWidget(
             $this->module->getVisualEditor(),
             [
                 'model' => $model,
-                'attribute' => 'content',
-                'options' => [
-                    'imageUpload' => Yii::app()->createUrl('/blog/postBackend/imageUpload'),
-                ],
+                'attribute' => 'content'
             ]
         ); ?>
     </div>
