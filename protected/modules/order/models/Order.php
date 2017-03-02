@@ -37,6 +37,8 @@
  * @property OrderStatus $status
  *
  */
+use yupe\widgets\YPurifier;
+
 Yii::import('application.modules.order.OrderModule');
 Yii::import('application.modules.order.events.OrderEvents');
 Yii::import('application.modules.order.events.PayOrderEvent');
@@ -120,7 +122,7 @@ class Order extends yupe\models\YModel
     {
         return [
             ['name, email, phone, zipcode, country, city, street, house, apartment', 'filter', 'filter' => 'trim'],
-            ['name, email, phone, zipcode, country, city, street, house, apartment, comment', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['name, email, phone, zipcode, country, city, street, house, apartment, comment', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
             ['status_id, delivery_id', 'required'],
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
             ['email', 'email'],

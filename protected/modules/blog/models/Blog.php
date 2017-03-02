@@ -12,6 +12,7 @@
  * @since 0.1
  *
  */
+use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "blog".
@@ -106,7 +107,7 @@ class Blog extends yupe\models\YModel
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['member_status', 'in', 'range' => array_keys($this->getMemberStatusList())],
             ['post_status', 'in', 'range' => array_keys($this->getPostStatusList())],
-            ['name, slug, description', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['name, slug, description', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['slug', 'unique'],
             [
                 'id, name, description, slug, type, status, create_user_id, update_user_id, create_time, update_time, lang, category_id',

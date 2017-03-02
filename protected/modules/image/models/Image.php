@@ -10,6 +10,7 @@
  * @since 0.1
  *
  */
+use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "Image".
@@ -88,7 +89,7 @@ class Image extends yupe\models\YModel
     public function rules()
     {
         return [
-            ['name, description, alt', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['name, description, alt', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['name , alt, type', 'required'],
             ['galleryId', 'numerical'],
             ['name, description, alt', 'filter', 'filter' => 'trim'],

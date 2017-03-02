@@ -11,6 +11,7 @@
  * @since 0.1
  *
  */
+use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "post".
@@ -152,7 +153,7 @@ class Post extends yupe\models\YModel implements ICommentable
             [
                 'title, slug, link, keywords, description, publish_time',
                 'filter',
-                'filter' => [$obj = new CHtmlPurifier(), 'purify'],
+                'filter' => [$obj = new YPurifier(), 'purify'],
             ],
             ['slug', 'unique'],
             ['tags', 'safe'],

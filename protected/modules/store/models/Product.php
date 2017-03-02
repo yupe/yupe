@@ -1,4 +1,6 @@
 <?php
+use yupe\widgets\YPurifier;
+
 Yii::import('zii.behaviors.CTimestampBehavior');
 Yii::import('application.modules.comment.components.ICommentable');
 
@@ -136,7 +138,7 @@ class Product extends yupe\models\YModel implements ICommentable
             [
                 'name, title, description, short_description, slug, price, discount_price, discount, data, status, is_special',
                 'filter',
-                'filter' => [$obj = new CHtmlPurifier(), 'purify'],
+                'filter' => [$obj = new YPurifier(), 'purify'],
             ],
             ['name, slug', 'required'],
             [

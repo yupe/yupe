@@ -9,6 +9,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
+use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "ContentBlock".
@@ -76,7 +77,7 @@ class ContentBlock extends yupe\models\YModel
     {
         return [
             ['name, code, content, type', 'filter', 'filter' => 'trim'],
-            ['name, code', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['name, code', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['name, code, type, status', 'required'],
             ['type, category_id, status', 'numerical', 'integerOnly' => true],
             ['type', 'length', 'max' => 11],

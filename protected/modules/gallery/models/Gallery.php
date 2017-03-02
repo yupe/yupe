@@ -1,4 +1,5 @@
 <?php
+use yupe\widgets\YPurifier;
 
 /**
  * Gallery
@@ -53,7 +54,7 @@ class Gallery extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['name, description', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['name, description', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['name, description, owner', 'required'],
             ['status, owner, preview_id, category_id', 'numerical', 'integerOnly' => true],
             ['name', 'length', 'max' => 250],
