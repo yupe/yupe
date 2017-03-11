@@ -63,7 +63,12 @@ $this->breadcrumbs = [
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($positions as $position): ?>
+                    <?php
+                    foreach ($positions as $position):
+                        $productModel = $position->getProductModel();
+
+                        if (is_null($productModel)) continue;
+                        ?>
                         <tr class="cart-position">
                             <td class="col-sm-5">
                                 <?php $positionId = $position->getId(); ?>
@@ -73,7 +78,7 @@ $this->breadcrumbs = [
                                 <div class="media">
                                     <?php $productUrl = ProductHelper::getUrl($position); ?>
                                     <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
-                                        <img class="media-object" src="<?= StoreImage::product($position->getProductModel(), 72, 72); ?>">
+                                        <img class="media-object" src="<?= StoreImage::product($productModel, 72, 72); ?>">
                                     </a>
 
                                     <div class="media-body">
