@@ -96,16 +96,18 @@ class ManageBackendController extends yupe\components\controllers\BackController
 
                         foreach ($searchNodes as $node) {
                             $doc = new Zend_Search_Lucene_Document();
+                            $titleColumn = $model['titleColumn'];
+                            $linkColumn = $model['linkColumn'];
                             $doc->addField(
                                 Zend_Search_Lucene_Field::Text(
                                     'title',
-                                    CHtml::encode($node->$model['titleColumn']),
+                                    CHtml::encode($node->$titleColumn),
                                     'UTF-8'
                                 )
                             );
                             $link = str_replace(
                                 '{'.$model['linkColumn'].'}',
-                                $node->$model['linkColumn'],
+                                $node->$linkColumn,
                                 $model['linkPattern']
                             );
                             $doc->addField(Zend_Search_Lucene_Field::Text('link', $link, 'UTF-8'));
