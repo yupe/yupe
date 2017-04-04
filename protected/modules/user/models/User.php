@@ -516,7 +516,7 @@ class User extends yupe\models\YModel
 
         // если это граватар
         if ($this->use_gravatar && $this->email) {
-            return 'http://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size . "&d=" . urlencode(
+            return 'https://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size . "&d=" . urlencode(
                 Yii::app()->createAbsoluteUrl('/') . $userModule->getDefaultAvatar()
             );
         }
