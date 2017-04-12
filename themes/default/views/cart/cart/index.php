@@ -85,6 +85,14 @@ $this->breadcrumbs = [
                                         <h4 class="media-heading">
                                             <a href="<?= $productUrl; ?>"><?= $position->name; ?></a>
                                         </h4>
+                                        <?php if (isset($productModel->category)): ?>
+                                            <p>Категория:
+                                                <?= CHtml::link(
+                                                    CHtml::encode($productModel->category->name),
+                                                    ['/store/category/view', 'path' => $productModel->category->getPath()]
+                                                ) ?>
+                                            </p>
+                                        <?php endif; ?>
                                         <?php foreach ($position->selectedVariants as $variant): ?>
                                             <h6><?= $variant->attribute->title; ?>: <?= $variant->getOptionValue(); ?></h6>
                                             <?= CHtml::hiddenField('OrderProduct[' . $positionId . '][variant_ids][]', $variant->id); ?>
