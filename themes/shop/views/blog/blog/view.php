@@ -3,7 +3,7 @@
  * @var $this BlogController
  * @var $blog Blog
  */
-$this->title = CHtml::encode($blog->name);
+$this->pageTitle = CHtml::encode($blog->name);
 $this->description = CHtml::encode($blog->name);
 $this->keywords = CHtml::encode($blog->name);
 ?>
