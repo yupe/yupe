@@ -32,7 +32,7 @@
         {
             "name": "Oleg Filimonov",
             "email": "olegsabian@gmail.com",
-            "homepage": "http://amylabs.ru",
+            "homepage": "http://olegfilimonov.ru",
             "role": "Developer"
         }
     ],
@@ -45,7 +45,7 @@
     },
     "require": {
         "php": ">=5.4",
-        "yiisoft/yii": "1.1.17",
+        "yiisoft/yii": "1.1.18",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
