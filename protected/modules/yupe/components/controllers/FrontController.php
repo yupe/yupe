@@ -45,4 +45,12 @@ abstract class FrontController extends Controller
             require $bootstrap;
         }
     }
+	
+	public function behaviors() {
+        return [
+            'TextWidgetsBehavior'=> [
+                'class'=> 'yupe\components\behaviors\TextWidgetsBehavior',
+            ],
+        ];
+    }
 }
