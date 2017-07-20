@@ -88,7 +88,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
                     $categoryList = '<span class="label label-primary">'. (isset($data->category) ? $data->category->name : '---') . '</span>';
 
                     foreach ($data->categories as $category) {
-                        $categoryList .= '</span>&nbsp;<span class="label label-primary">' . $category->name .'</span>';
+                        $categoryList .= '</span>&nbsp;<span class="label label-default">' . $category->name .'</span>';
                     }
 
                     return $categoryList;

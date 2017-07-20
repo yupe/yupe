@@ -334,6 +334,7 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function search()
     {
+        $module = Yii::app()->getModule('store');
         $criteria = new CDbCriteria;
         $criteria->with = ['category', 'categories'];
 
@@ -371,7 +372,9 @@ class Product extends yupe\models\YModel implements ICommentable
         return new CActiveDataProvider(
             'Product', [
                 'criteria' => $criteria,
-                'sort' => ['defaultOrder' => 't.update_time DESC, t.create_time DESC'],
+                'sort' => [
+                    'defaultOrder' => $module->getDefaultSort(),
+                ],
             ]
         );
     }
