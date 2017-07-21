@@ -11,6 +11,9 @@ class YPurifier extends CHtmlPurifier
 
         $params = [
             'Attr.AllowedFrameTargets' => ['_blank', '_self', '_parent', '_top'],
+            'HTML.SafeIframe' => true,
+            'CSS.Trusted' => true,
+            'URI.SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/|rutube.ru\/play\/embed)%',
         ];
 
         return $this->setOptions($params);
