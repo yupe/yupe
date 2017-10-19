@@ -9,7 +9,7 @@
 <?= CHtml::hiddenField('shopId', $settings['shopid']) ?>
 <?= CHtml::hiddenField('scid', $settings['scid']) ?>
 <?= CHtml::hiddenField('sum', $order->getTotalPriceWithDelivery()) ?>
-<?= CHtml::hiddenField('customerNumber', $order->id) ?>
+<?= CHtml::hiddenField('customerNumber', !empty($order->user_id)? $order->user_id : $order->email) ?>
 <?= CHtml::hiddenField('paymentType', $settings['type']) ?>
 <?= CHtml::hiddenField('orderNumber', $order->id) ?>
 <?= CHtml::hiddenField('cps_phone', CHtml::encode($order->phone)) ?>
