@@ -16,5 +16,6 @@
 <?= CHtml::hiddenField('cps_email', CHtml::encode($order->email)) ?>
 <?= CHtml::hiddenField('shopSuccessURL', Yii::app()->createAbsoluteUrl('/order/order/view', ['url' => $order->url])) ?>
 <?= CHtml::hiddenField('shopFailURL', Yii::app()->createAbsoluteUrl('/order/order/view', ['url' => $order->url])) ?>
+<?= CHtml::hiddenField('ym_merchant_receipt', json_encode($ym_merchant_receipt, JSON_UNESCAPED_UNICODE)) ?>
 <?= CHtml::submitButton(Yii::t('YandexMoneyModule.ymoney', 'Pay')) ?>
 <?= CHtml::endForm() ?>
