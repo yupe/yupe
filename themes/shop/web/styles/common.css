@@ -4173,8 +4173,7 @@ p.wysiwyg__lead {
 
 .notifications {
     display: none;
-    position: fixed;
-    z-index: 9999
+    position: fixed
 }
 
 .notifications.top-right {
@@ -4184,6 +4183,7 @@ p.wysiwyg__lead {
 
 .notifications > div {
     position: relative;
+    z-index: 9999;
     background-color: #22b5cd;
     color: #fff;
     padding: 10px 15px;

@@ -15,7 +15,7 @@ $currency = Yii::t('StoreModule.store', Yii::app()->getModule('store')->currency
         "Заказ №{$order->id}",
         Yii::app()->createAbsoluteUrl('/order/orderBackend/update', ['id' => $order->id])
     ); ?>
-    на сумму <?= $order->getTotalPriceWithDelivery(); ?> <?= $currency ?>
+    на сумму <?= $order->getTotalPrice(); ?> <?= $currency ?>
 </h1>
 <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
     <tr>

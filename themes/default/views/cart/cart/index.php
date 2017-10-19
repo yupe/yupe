@@ -63,12 +63,7 @@ $this->breadcrumbs = [
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    foreach ($positions as $position):
-                        $productModel = $position->getProductModel();
-
-                        if (is_null($productModel)) continue;
-                        ?>
+                    <?php foreach ($positions as $position): ?>
                         <tr class="cart-position">
                             <td class="col-sm-5">
                                 <?php $positionId = $position->getId(); ?>
@@ -78,21 +73,13 @@ $this->breadcrumbs = [
                                 <div class="media">
                                     <?php $productUrl = ProductHelper::getUrl($position); ?>
                                     <a class="img-thumbnail pull-left" href="<?= $productUrl; ?>">
-                                        <img class="media-object" src="<?= StoreImage::product($productModel, 72, 72); ?>">
+                                        <img class="media-object" src="<?= StoreImage::product($position->getProductModel(), 72, 72); ?>">
                                     </a>
 
                                     <div class="media-body">
                                         <h4 class="media-heading">
                                             <a href="<?= $productUrl; ?>"><?= $position->name; ?></a>
                                         </h4>
-                                        <?php if (isset($productModel->category)): ?>
-                                            <p>Категория:
-                                                <?= CHtml::link(
-                                                    CHtml::encode($productModel->category->name),
-                                                    ['/store/category/view', 'path' => $productModel->category->getPath()]
-                                                ) ?>
-                                            </p>
-                                        <?php endif; ?>
                                         <?php foreach ($position->selectedVariants as $variant): ?>
                                             <h6><?= $variant->attribute->title; ?>: <?= $variant->getOptionValue(); ?></h6>
                                             <?= CHtml::hiddenField('OrderProduct[' . $positionId . '][variant_ids][]', $variant->id); ?>

@@ -9,7 +9,6 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "ContentBlock".
@@ -77,7 +76,7 @@ class ContentBlock extends yupe\models\YModel
     {
         return [
             ['name, code, content, type', 'filter', 'filter' => 'trim'],
-            ['name, code', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['name, code', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
             ['name, code, type, status', 'required'],
             ['type, category_id, status', 'numerical', 'integerOnly' => true],
             ['type', 'length', 'max' => 11],
@@ -106,7 +105,7 @@ class ContentBlock extends yupe\models\YModel
         return [
             'active' => [
                 'condition' => $this->tableAlias . '.status = :status',
-                'params' => [':status' => self::STATUS_ACTIVE],
+                'params'    => [':status' => self::STATUS_ACTIVE],
             ],
         ];
     }
@@ -127,14 +126,14 @@ class ContentBlock extends yupe\models\YModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('ContentBlockModule.contentblock', 'id'),
-            'name' => Yii::t('ContentBlockModule.contentblock', 'Title'),
-            'code' => Yii::t('ContentBlockModule.contentblock', 'Code'),
-            'type' => Yii::t('ContentBlockModule.contentblock', 'Type'),
-            'content' => Yii::t('ContentBlockModule.contentblock', 'Content'),
+            'id'          => Yii::t('ContentBlockModule.contentblock', 'id'),
+            'name'        => Yii::t('ContentBlockModule.contentblock', 'Title'),
+            'code'        => Yii::t('ContentBlockModule.contentblock', 'Code'),
+            'type'        => Yii::t('ContentBlockModule.contentblock', 'Type'),
+            'content'     => Yii::t('ContentBlockModule.contentblock', 'Content'),
             'description' => Yii::t('ContentBlockModule.contentblock', 'Description'),
             'category_id' => Yii::t('ContentBlockModule.contentblock', 'Category'),
-            'status' => Yii::t('ContentBlockModule.contentblock', 'Status'),
+            'status'      => Yii::t('ContentBlockModule.contentblock', 'Status'),
         ];
     }
 
@@ -164,8 +163,8 @@ class ContentBlock extends yupe\models\YModel
     {
         return [
             self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Simple text'),
-            self::HTML_TEXT => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
-            self::RAW_TEXT => Yii::t('ContentBlockModule.contentblock', 'Raw text'),
+            self::HTML_TEXT   => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
+            self::RAW_TEXT    => Yii::t('ContentBlockModule.contentblock', 'Raw text'),
         ];
     }
 
@@ -207,7 +206,7 @@ class ContentBlock extends yupe\models\YModel
      */
     protected function beforeSave()
     {
-        Yii::app()->getCache()->delete("ContentBlock{$this->code}");
+        Yii::app()->getCache()->delete("ContentBlock{$this->code}" . Yii::app()->language);
 
         return parent::beforeSave();
     }
@@ -235,7 +234,7 @@ class ContentBlock extends yupe\models\YModel
     {
         return [
             self::STATUS_NOT_ACTIVE => Yii::t('ContentBlockModule.contentblock', 'Disabled'),
-            self::STATUS_ACTIVE => Yii::t('ContentBlockModule.contentblock', 'Enabled'),
+            self::STATUS_ACTIVE     => Yii::t('ContentBlockModule.contentblock', 'Enabled'),
         ];
     }
 }

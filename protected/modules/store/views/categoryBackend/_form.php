@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $this CatalogBackendController
- * @var $model StoreCategory
+ * @var $model Category
  * @var $form \yupe\widgets\ActiveForm
  */
 $form = $this->beginWidget(

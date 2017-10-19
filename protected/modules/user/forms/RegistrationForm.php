@@ -1,5 +1,4 @@
 <?php
-use yupe\widgets\YPurifier;
 
 /**
  * Форма регистрации
@@ -40,7 +39,7 @@ class RegistrationForm extends CFormModel
 
         return [
             ['nick_name, email', 'filter', 'filter' => 'trim'],
-            ['nick_name, email', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['nick_name, email', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
             ['nick_name, email, password, cPassword', 'required'],
             ['nick_name, email', 'length', 'max' => 50],
             ['password, cPassword', 'length', 'min' => $module->minPasswordLength],

@@ -267,7 +267,7 @@ $this->breadcrumbs = array_merge(
                                 </dt>
                                 <dd class="product-spec-item__value">
                                     <span class="product-spec-item__value-inner">
-                                        <?= round($product->weight, 2); ?> <?= Yii::t("StoreModule.store", "kg"); ?>
+                                        <?= round($product->weight, 2); ?> <?= Yii::t("StoreModule.store", "m"); ?>
                                     </span>
                                 </dd>
                             </dl>

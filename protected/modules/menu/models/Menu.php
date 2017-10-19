@@ -9,7 +9,6 @@
  * @since 0.1
  *
  */
-use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "menu".
@@ -63,7 +62,7 @@ class Menu extends yupe\models\YModel
         return [
             ['name, code, description', 'required', 'except' => 'search'],
             ['status', 'numerical', 'integerOnly' => true],
-            ['name, code, description', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
+            ['name, code, description', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['name, description', 'length', 'max' => 255],
             ['code', 'length', 'max' => 100],
             ['code', 'yupe\components\validators\YSLugValidator'],

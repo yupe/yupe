@@ -32,7 +32,7 @@
         {
             "name": "Oleg Filimonov",
             "email": "olegsabian@gmail.com",
-            "homepage": "http://olegfilimonov.ru",
+            "homepage": "http://amylabs.ru",
             "role": "Developer"
         }
     ],
@@ -45,7 +45,7 @@
     },
     "require": {
         "php": ">=5.4",
-        "yiisoft/yii": "1.1.19",
+        "yiisoft/yii": "1.1.17",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
@@ -60,8 +60,7 @@
         "2amigos/transliterator-helper": "dev-master",
         "yiiext/migrate-command": "dev-master",
         "samdark/sitemap": "2.0.*",
-        "ckeditor/ckeditor": "4.*",
-        "wikimedia/composer-merge-plugin": "dev-master"
+        "ckeditor/ckeditor": "4.*"
     },
     "repositories": {
         
@@ -125,14 +124,6 @@
             "protected/config/db.php",
             "protected/config/modules",
             "protected/config/modulesBack"
-        ],
-        "merge-plugin": {
-            "include": [
-                "protected/modules/*/composer.json"
-            ],
-            "recurse": false,
-            "replace": false,
-            "merge-extra": true
-        }
+        ]
     }
 }

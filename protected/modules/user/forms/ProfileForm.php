@@ -1,5 +1,4 @@
 <?php
-use yupe\widgets\YPurifier;
 
 /**
  * Форма профиля
@@ -37,7 +36,7 @@ class ProfileForm extends CFormModel
             [
                 'nick_name, first_name, last_name, middle_name, about',
                 'filter',
-                'filter' => [$obj = new YPurifier(), 'purify']
+                'filter' => [$obj = new CHtmlPurifier(), 'purify']
             ],
             ['nick_name', 'required'],
             ['gender', 'numerical', 'min' => 0, 'max' => 3, 'integerOnly' => true],

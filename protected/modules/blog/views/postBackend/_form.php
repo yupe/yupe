@@ -167,7 +167,7 @@ $form = $this->beginWidget(
             !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
             $model->title,
             [
-                'class' => 'preview-image img-responsive',
+                'class' => 'preview-image',
                 'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none',
             ]
         ); ?>
@@ -204,7 +204,10 @@ $form = $this->beginWidget(
             $this->module->getVisualEditor(),
             [
                 'model' => $model,
-                'attribute' => 'content'
+                'attribute' => 'content',
+                'options' => [
+                    'imageUpload' => Yii::app()->createUrl('/blog/postBackend/imageUpload'),
+                ],
             ]
         ); ?>
     </div>

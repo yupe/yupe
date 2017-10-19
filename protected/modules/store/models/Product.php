@@ -1,6 +1,4 @@
 <?php
-use yupe\widgets\YPurifier;
-
 Yii::import('zii.behaviors.CTimestampBehavior');
 Yii::import('application.modules.comment.components.ICommentable');
 
@@ -138,7 +136,7 @@ class Product extends yupe\models\YModel implements ICommentable
             [
                 'name, title, description, short_description, slug, price, discount_price, discount, data, status, is_special',
                 'filter',
-                'filter' => [$obj = new YPurifier(), 'purify'],
+                'filter' => [$obj = new CHtmlPurifier(), 'purify'],
             ],
             ['name, slug', 'required'],
             [
@@ -334,7 +332,6 @@ class Product extends yupe\models\YModel implements ICommentable
      */
     public function search()
     {
-        $module = Yii::app()->getModule('store');
         $criteria = new CDbCriteria;
         $criteria->with = ['category', 'categories'];
 
@@ -372,9 +369,7 @@ class Product extends yupe\models\YModel implements ICommentable
         return new CActiveDataProvider(
             'Product', [
                 'criteria' => $criteria,
-                'sort' => [
-                    'defaultOrder' => $module->getDefaultSort(),
-                ],
+                'sort' => ['defaultOrder' => 't.update_time DESC, t.create_time DESC'],
             ]
         );
     }

@@ -120,7 +120,7 @@ $form = $this->beginWidget(
             !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
             $model->name,
             [
-                'class' => 'preview-image img-responsive',
+                'class' => 'preview-image',
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
             ]
         ); ?>

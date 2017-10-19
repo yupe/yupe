@@ -20,11 +20,8 @@ return [
                 'order.pay.success' => [
                     ['PayOrderListener', 'onSuccessPay']
                 ],
-                'http.order.created' => [
+                'order.create.success' => [
                     ['OrderListener', 'onCreate']
-                ],
-                'http.order.updated' => [
-                    ['OrderListener', 'onUpdate']
                 ]
             ]
         ],

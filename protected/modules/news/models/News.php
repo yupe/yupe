@@ -32,7 +32,6 @@
  */
 
 use yupe\components\Event;
-use yupe\widgets\YPurifier;
 
 /**
  * Class News
@@ -86,7 +85,7 @@ class News extends yupe\models\YModel
     {
         return [
             ['title, slug, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'],
-            ['title, slug, keywords, description', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['title, slug, keywords, description', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
             ['date, title, slug, full_text', 'required', 'on' => ['update', 'insert']],
             ['status, is_protected, category_id', 'numerical', 'integerOnly' => true],
             ['title, slug, keywords', 'length', 'max' => 150],

@@ -12,7 +12,7 @@
                 [
                     '{link}' => CHtml::link(
                         Yii::t('default', 'go to home page'),
-                        '/',
+                        $this->createUrl("/" . Yii::app()->defaultController . '/index'),
                         [
                             'title' => Yii::t('default', 'go to home page'),
                             'alt'   => Yii::t('default', 'go to home page'),

@@ -98,7 +98,7 @@ $this->widget(
             [
                 'name' => 'total_price',
                 'value' => function ($data) {
-                    return Yii::app()->getNumberFormatter()->formatCurrency($data->getTotalPriceWithDelivery(),
+                    return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price,
                         Yii::app()->getModule('store')->currency);
                 },
             ],

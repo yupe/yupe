@@ -8,7 +8,7 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
 <div class="main__cart-box grid">
     <div class="grid-module-6">
 
-        <?php $form = $this->beginWidget('CActiveForm', ['id' => 'login-form']); ?>
+        <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', ['id' => 'login-form']); ?>
 
         <?= $form->errorSummary($model); ?>
 

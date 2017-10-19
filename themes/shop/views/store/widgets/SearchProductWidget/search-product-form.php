@@ -1,5 +1,5 @@
 <?php $form = $this->beginWidget(
-    'CActiveForm',
+    'bootstrap.widgets.TbActiveForm',
     [
         'action' => ['/store/product/index'],
         'method' => 'GET',

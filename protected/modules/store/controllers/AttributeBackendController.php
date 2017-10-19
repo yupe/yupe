@@ -16,17 +16,7 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             ['allow', 'actions' => ['create', 'groupCreate'], 'roles' => ['Store.AttributeBackend.Create'],],
             [
                 'allow',
-                'actions' => [
-                    'update',
-                    'sortable',
-                    'sortattr',
-                    'sortoptions',
-                    'inlineEditGroup',
-                    'groupCreate',
-                    'addOption',
-                    'deleteOption',
-                    'inlineattr',
-                ],
+                'actions' => ['update', 'sortable', 'inlineEditGroup', 'groupCreate'],
                 'roles' => ['Store.AttributeBackend.Update'],
             ],
             [

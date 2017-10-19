@@ -20,11 +20,24 @@ class YandexMoneyPaymentSystem extends PaymentSystem
      */
     public function renderCheckoutForm(Payment $payment, Order $order, $return = false)
     {
+        $ym_merchant_receipt["customerContact"] = $order->email;
+        $ym_merchant_receipt["taxSystem"] = 1;
+        $ym_merchant_receipt["items"] = [];
+        $arr = [];
+        foreach ($order->products as $product){
+            $arr["quantity"] = $product->quantity;
+            $arr["price"]['amount'] = $product->price;
+            $arr["tax"] = 1;
+            $arr["text"] = $product->product_name;
+            $ym_merchant_receipt["items"][] = $arr;
+        }
+        
         return Yii::app()->getController()->renderPartial(
             'application.modules.yandexmoney.views.form',
             [
                 'settings' => $payment->getPaymentSystemSettings(),
                 'order' => $order,
+                'ym_merchant_receipt' => $ym_merchant_receipt
             ],
             $return
         );

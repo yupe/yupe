@@ -1,5 +1,4 @@
 <?php
-use yupe\widgets\YPurifier;
 
 /**
  * Форма изменения email профиля
@@ -20,7 +19,7 @@ class ProfileEmailForm extends CFormModel
     {
         return [
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
+            ['email', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['email', 'required'],
             ['email', 'length', 'max' => 50],
             ['email', 'email'],

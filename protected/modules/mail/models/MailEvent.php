@@ -1,5 +1,4 @@
 <?php
-use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "mail_event".
@@ -57,7 +56,7 @@ class MailEvent extends yupe\models\YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['name, code, description', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
+            ['name, code, description', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['code, name', 'required'],
             ['code', 'length', 'max' => 100],
             ['name', 'length', 'max' => 300],

@@ -12,7 +12,6 @@
  * @since 0.1
  *
  */
-use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "user_to_blog".
@@ -93,7 +92,7 @@ class UserToBlog extends yupe\models\YModel
             ['note', 'length', 'max' => 250],
             ['role', 'in', 'range' => array_keys($this->getRoleList())],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['note', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
+            ['note', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
             ['id, user_id, blog_id, create_time, update_time, role, status, note', 'safe', 'on' => 'search'],
         ];
     }
