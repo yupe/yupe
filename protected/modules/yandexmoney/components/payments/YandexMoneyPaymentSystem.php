@@ -20,7 +20,7 @@ class YandexMoneyPaymentSystem extends PaymentSystem
      */
     public function renderCheckoutForm(Payment $payment, Order $order, $return = false)
     {
-        $ym_merchant_receipt["customerContact"] = Yii::app()->user->getState('email');
+        $ym_merchant_receipt["customerContact"] = $order->email;
         $ym_merchant_receipt["taxSystem"] = 1;
         $ym_merchant_receipt["items"] = [];
         $arr = [];
