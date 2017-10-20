@@ -32,7 +32,7 @@ class YandexMoneyPaymentSystem extends PaymentSystem
             $arr["text"] = $product->product_name;
             $ym_merchant_receipt["items"][] = $arr;
         }
-        $arr["quantity"] = 1;
+        $arr["quantity"] = 1; // доставка всегда одна штука в заказе
         $arr["price"]['amount'] = $order->delivery->price;
         $arr["tax"] = $settings['ym_merchant_receipt_tax'];
         $arr["text"] = Yii::t('DeliveryModule.delivery', 'Delivery').": ".$order->delivery->name;
