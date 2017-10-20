@@ -32,6 +32,11 @@ class YandexMoneyPaymentSystem extends PaymentSystem
             $arr["text"] = $product->product_name;
             $ym_merchant_receipt["items"][] = $arr;
         }
+        $arr["quantity"] = 1;
+        $arr["price"]['amount'] = $order->delivery->price;
+        $arr["tax"] = $settings['ym_merchant_receipt_tax'];
+        $arr["text"] = Yii::t('DeliveryModule.delivery', 'Delivery').": ".$order->delivery->name;
+        $ym_merchant_receipt["items"][] = $arr;
 
         return Yii::app()->getController()->renderPartial(
             'application.modules.yandexmoney.views.form',
