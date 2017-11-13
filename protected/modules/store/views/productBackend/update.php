@@ -52,6 +52,14 @@ $this->menu = [
             'csrf' => true,
         ]
     ],
+    [
+        'icon' => 'fa fa-fw fa-picture-o',
+        'label' => Yii::t('StoreModule.store', 'Mass image upload'),
+        'url' => [
+            '/store/productImageBackend/index',
+            'id' => $model->id
+        ]
+    ],
 ];
 ?>
 <div class="page-header">

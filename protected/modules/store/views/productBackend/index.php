@@ -172,12 +172,23 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
                 'frontViewButtonUrl' => function($data){
                     return ProductHelper::getUrl($data);
                 },
+                'template' => '{front_view} {view} {update} {images} {delete}',
                 'buttons' => [
                     'front_view' => [
                         'visible' => function ($row, $data) {
-                                return $data->status == Product::STATUS_ACTIVE;
-                            }
-                    ]
+                            return $data->status == Product::STATUS_ACTIVE;
+                        }
+                    ],
+                    'images' => [
+                        'icon' => 'fa fa-fw fa-picture-o',
+                        'label' => Yii::t('StoreModule.store', 'Images'),
+                        'url' => function ($data) {
+                            return Yii::app()->createUrl('/store/productImageBackend/index', ['id' => $data->id]);
+                        },
+                        'options' => [
+                            'class' => 'images btn btn-sm btn-default',
+                        ]
+                    ],
                 ]
             ],
         ],
