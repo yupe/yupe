@@ -23,6 +23,19 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     /**
      * @return array
      */
+    public function filters()
+    {
+        return CMap::mergeArray(
+            parent::filters(),
+            [
+                'postOnly + batch',
+            ]
+        );
+    }
+
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
