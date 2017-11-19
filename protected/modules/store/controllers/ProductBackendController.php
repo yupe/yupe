@@ -61,10 +61,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'roles' => ['admin'],],
             ['allow', 'actions' => ['index'], 'roles' => ['Store.ProductBackend.Index'],],
             ['allow', 'actions' => ['view'], 'roles' => ['Store.ProductBackend.View'],],
-            ['allow', 'actions' => ['create', 'copy'], 'roles' => ['Store.ProductBackend.Create'],],
+            ['allow', 'actions' => ['create', 'copy', 'batch'], 'roles' => ['Store.ProductBackend.Create'],],
             [
                 'allow',
-                'actions' => ['update', 'inline', 'sortable', 'deleteImage'],
+                'actions' => ['update', 'inline', 'sortable', 'deleteImage', 'batch'],
                 'roles' => ['Store.ProductBackend.Update'],
             ],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Store.ProductBackend.Delete'],],
@@ -306,7 +306,10 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 Yii::app()->getRequest()->getQuery('Product')
             );
         }
-        $this->render('index', ['model' => $model]);
+        $this->render('index', [
+            'model' => $model,
+            'batchModel' => new ProductBatchForm(),
+        ]);
     }
 
     /**
@@ -407,5 +410,24 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
 
             Yii::app()->ajax->success();
         }
+    }
+
+    /**
+     *
+     */
+    public function actionBatch()
+    {
+        $form = new ProductBatchForm();
+        $form->setAttributes(Yii::app()->getRequest()->getPost('ProductBatchForm'));
+
+        if ($form->validate() === false) {
+            Yii::app()->ajax->failure(Yii::t('StoreModule.store', 'Wrong data'));
+        }
+
+        if ($this->productRepository->batchUpdate($form, explode(',', Yii::app()->getRequest()->getPost('ids')))) {
+            Yii::app()->ajax->success('ok');
+        }
+
+        Yii::app()->ajax->failure();
     }
 }
