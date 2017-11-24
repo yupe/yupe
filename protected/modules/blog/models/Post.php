@@ -11,6 +11,7 @@
  * @since 0.1
  *
  */
+use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "post".
@@ -152,7 +153,7 @@ class Post extends yupe\models\YModel implements ICommentable
             [
                 'title, slug, link, keywords, description, publish_time',
                 'filter',
-                'filter' => [$obj = new CHtmlPurifier(), 'purify'],
+                'filter' => [$obj = new YPurifier(), 'purify'],
             ],
             ['slug', 'unique'],
             ['tags', 'safe'],
@@ -288,11 +289,12 @@ class Post extends yupe\models\YModel implements ICommentable
         ];
     }
 
+
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     * @param null $limit
+     * @return CActiveDataProvider
      */
-    public function search()
+    public function search($limit = null)
     {
         $criteria = new CDbCriteria();
 
@@ -317,14 +319,20 @@ class Post extends yupe\models\YModel implements ICommentable
 
         $criteria->with = ['createUser', 'updateUser', 'blog'];
 
-        return new CActiveDataProvider(
-            'Post', [
-                'criteria' => $criteria,
-                'sort' => [
-                    'defaultOrder' => 't.publish_time DESC, t.id DESC',
-                ],
-            ]
-        );
+        $config = [
+            'criteria' => $criteria,
+            'sort' => [
+                'defaultOrder' => 't.publish_time DESC, t.id DESC',
+            ],
+        ];
+
+        if(null !== $limit) {
+            $config['pagination'] = [
+                'pageSize' => $limit
+            ];
+        }
+
+        return new CActiveDataProvider('Post',$config);
     }
 
     /**
@@ -381,6 +389,12 @@ class Post extends yupe\models\YModel implements ICommentable
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
                 'uploadPath' => $module->uploadPath,
+                'resizeOptions' => [
+                    'quality' => [
+                        'jpeg_quality' => 100,
+                        'png_compression_level' => 3,
+                    ],
+                ]
             ],
         ];
     }

@@ -1,4 +1,5 @@
 <?php
+use yupe\widgets\YFlashMessages;
 
 /**
  * Class OrderBackendController
@@ -80,15 +81,15 @@ class OrderBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
                 Yii::app()->getUser()->setFlash(
-                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('OrderModule.order', 'Record created!')
                 );
 
-                if (!isset($_POST['submit-type'])) {
-                    $this->redirect(['update', 'id' => $model->id]);
+                if (Yii::app()->getRequest()->getPost('submit-type')) {
+                    $this->redirect(Yii::app()->getRequest()->getPost('submit-type'));
                 }
 
-                $this->redirect([$_POST['submit-type']]);
+                $this->redirect(['update', 'id' => $model->id]);
             }
         }
 
@@ -104,9 +105,12 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (false === $model->checkManager(Yii::app()->getUser())) {
-            Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                Yii::t('OrderModule.order', 'Responsible manager is {user}...',
-                    ['{user}' => $model->manager->getFullName()]));
+            Yii::app()->getUser()->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                Yii::t('OrderModule.order', 'Responsible manager is {user}...', [
+                    '{user}' => $model->manager->getFullName()
+                ]));
+
             $this->redirect(['/order/orderBackend/view', 'id' => $model->id]);
         }
 
@@ -125,26 +129,25 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 }
 
                 Yii::app()->getUser()->setFlash(
-                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('OrderModule.order', 'Record updated!')
                 );
 
                 // отправить уведомление о смене статуса заказа
                 if (Yii::app()->getRequest()->getParam('notify_user', false)) {
-
-                    Yii::app()->orderNotifyService->sendOrderChangesNotify($model);
+                    Yii::app()->eventManager->fire(OrderEvents::UPDATED_HTTP, new OrderEvent($model));
 
                     Yii::app()->getUser()->setFlash(
-                        yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('OrderModule.order', 'Record updated! Notification is sent!')
                     );
                 }
 
-                if (!isset($_POST['submit-type'])) {
-                    $this->redirect(['update', 'id' => $model->id]);
-                } else {
-                    $this->redirect([$_POST['submit-type']]);
+                if (Yii::app()->getRequest()->getPost('submit-type')) {
+                    $this->redirect(Yii::app()->getRequest()->getPost('submit-type'));
                 }
+
+                $this->redirect(['update', 'id' => $model->id]);
             }
         }
         $this->render('update', ['model' => $model]);
@@ -160,9 +163,12 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (false === $model->checkManager(Yii::app()->getUser())) {
-            Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                Yii::t('OrderModule.order', 'Responsible manager is {user}...',
-                    ['{user}' => $model->manager->getFullName()]));
+            Yii::app()->getUser()->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                Yii::t('OrderModule.order', 'Responsible manager is {user}...', [
+                    '{user}' => $model->manager->getFullName()
+                ]));
+
             $this->redirect(['/order/orderBackend/view', 'id' => $model->id]);
         }
 
@@ -171,20 +177,15 @@ class OrderBackendController extends yupe\components\controllers\BackController
             $model->delete();
 
             Yii::app()->getUser()->setFlash(
-                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('OrderModule.order', 'Record removed!')
             );
 
-            if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
+            if (!Yii::app()->getRequest()->getQuery('ajax')) {
+                $this->redirect(Yii::app()->getRequest()->getPost('returnUrl', ['index']));
             }
         } else {
-            throw new CHttpException(
-                400, Yii::t(
-                'OrderModule.order',
-                'Unknown request. Don\'t repeat it please!'
-            )
-            );
+            throw new CHttpException(400, Yii::t('OrderModule.order', 'Unknown request. Don\'t repeat it please!'));
         }
     }
 
@@ -195,11 +196,13 @@ class OrderBackendController extends yupe\components\controllers\BackController
     {
         $model = new Order('search');
         $model->unsetAttributes(); // clear any default values
+
         if (Yii::app()->getRequest()->getQuery('Order')) {
             $model->setAttributes(
                 Yii::app()->getRequest()->getQuery('Order')
             );
         }
+
         $this->render('index', ['model' => $model]);
     }
 
@@ -224,7 +227,7 @@ class OrderBackendController extends yupe\components\controllers\BackController
      */
     protected function performAjaxValidation(Order $model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'order-form') {
+        if (Yii::app()->getRequest()->getPost('ajax') === 'order-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
@@ -288,8 +291,10 @@ class OrderBackendController extends yupe\components\controllers\BackController
         foreach ($model as $product) {
             $data[] = [
                 'id' => $product->id,
-                'name' => $product->name.($product->sku ? " ({$product->sku}) " : ' ').$product->getPrice().' '.Yii::t('StoreModule.store',
-                        Yii::app()->getModule('store')->currency),
+                'name' => $product->name .
+                    ($product->sku ? " ({$product->sku}) " : ' ') .
+                    $product->getPrice() . ' ' .
+                    Yii::t('StoreModule.store', Yii::app()->getModule('store')->currency),
                 'thumb' => $product->image ? $product->getImageUrl(50, 50) : '',
             ];
         }

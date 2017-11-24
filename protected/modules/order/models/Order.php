@@ -37,6 +37,8 @@
  * @property OrderStatus $status
  *
  */
+use yupe\widgets\YPurifier;
+
 Yii::import('application.modules.order.OrderModule');
 Yii::import('application.modules.order.events.OrderEvents');
 Yii::import('application.modules.order.events.PayOrderEvent');
@@ -120,7 +122,7 @@ class Order extends yupe\models\YModel
     {
         return [
             ['name, email, phone, zipcode, country, city, street, house, apartment', 'filter', 'filter' => 'trim'],
-            ['name, email, phone, zipcode, country, city, street, house, apartment, comment', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['name, email, phone, zipcode, country, city, street, house, apartment, comment', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
             ['status_id, delivery_id', 'required'],
             ['name, email', 'required', 'on' => self::SCENARIO_USER],
             ['email', 'email'],
@@ -467,6 +469,7 @@ class Order extends yupe\models\YModel
      */
     public function store(array $attributes, array $products, $client = null, $status = OrderStatus::STATUS_NEW)
     {
+        $isNew = $this->getIsNewRecord();
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
@@ -480,7 +483,10 @@ class Order extends yupe\models\YModel
                 return false;
             }
 
-            Yii::app()->eventManager->fire(OrderEvents::SUCCESS_CREATED, new OrderEvent($this));
+            Yii::app()->eventManager->fire(
+                $isNew ? OrderEvents::CREATED : OrderEvents::UPDATED,
+                new OrderEvent($this)
+            );
 
             $transaction->commit();
 

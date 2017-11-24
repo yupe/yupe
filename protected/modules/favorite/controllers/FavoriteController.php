@@ -3,9 +3,9 @@
 use yupe\components\controllers\FrontController;
 
 /**
- * Class DefaultController
+ * Class FavoriteController
  */
-class DefaultController extends FrontController
+class FavoriteController extends FrontController
 {
     /**
      * @var FavoriteService

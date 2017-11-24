@@ -391,4 +391,67 @@ class ProductRepository extends CApplicationComponent
             ]
         );
     }
+
+    /**
+     * @param ProductBatchForm $form
+     * @param array $ids
+     * @return int
+     */
+    public function batchUpdate(ProductBatchForm $form, array $ids)
+    {
+        $attributes = $form->loadQueryAttributes();
+
+        if (null !== $form->price) {
+            $attributes['price'] = $this->getPriceQuery(
+                'price',
+                $form->price,
+                (int)$form->price_op,
+                (int)$form->price_op_unit
+            );
+        }
+
+        if (null !== $form->discount_price) {
+            $attributes['discount_price'] = $this->getPriceQuery(
+                'discount_price',
+                $form->discount_price,
+                (int)$form->discount_price_op,
+                (int)$form->discount_price_op_unit
+            );
+        }
+
+        if (count($attributes) === 0) {
+            return true;
+        }
+
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('id', $ids);
+
+        return Product::model()->updateAll($attributes, $criteria);
+    }
+
+    /**
+     * @param $field
+     * @param $price
+     * @param $operation
+     * @param $unit
+     * @return float|CDbExpression
+     */
+    private function getPriceQuery($field, $price, $operation, $unit)
+    {
+        if (ProductBatchHelper::PRICE_EQUAL === $operation) {
+            return $price;
+        }
+
+        $sign = ProductBatchHelper::PRICE_ADD === $operation ? '+' : '-';
+
+        if (ProductBatchHelper::OP_PERCENT === $unit) {
+            return new CDbExpression(sprintf('%s %s ((%s / 100) * :percent)', $field, $sign, $field), [
+                ':percent' => $price
+            ]);
+        }
+
+        return new CDbExpression(sprintf('%s %s :price', $field, $sign), [
+            ':price' => $price
+        ]);
+    }
 }

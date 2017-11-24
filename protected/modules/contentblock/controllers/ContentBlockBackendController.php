@@ -24,7 +24,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
             ['allow', 'actions' => ['create'], 'roles' => ['ContentBlock.ContentblockBackend.Create']],
             [
                 'allow',
-                'actions' => ['update', 'toggle', 'inline'],
+                'actions' => ['update', 'inline'],
                 'roles' => ['ContentBlock.ContentblockBackend.Update'],
             ],
             ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['ContentBlock.ContentblockBackend.Delete']],
@@ -41,11 +41,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
             'inline' => [
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'ContentBlock',
-                'validAttributes' => ['name', 'code', 'type', 'description'],
-            ],
-            'toggle' => [
-                'class' => 'booster.actions.TbToggleAction',
-                'modelName' => 'ContentBlock',
+                'validAttributes' => ['name', 'code', 'type', 'description', 'status'],
             ],
         ];
     }

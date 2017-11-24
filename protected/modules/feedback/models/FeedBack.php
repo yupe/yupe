@@ -9,6 +9,7 @@
  * @link     http://yupe.ru
  *
  **/
+use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "{{FeedBack}}".
@@ -87,7 +88,7 @@ class FeedBack extends yupe\models\YModel
     {
         return [
             ['name, email, theme, text', 'required'],
-            ['name, email, theme, text, phone', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['name, email, theme, text, phone', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
             ['type, status, answer_user, is_faq, type, category_id', 'numerical', 'integerOnly' => true],
             ['is_faq', 'in', 'range' => array_keys($this->getIsFaqList())],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],

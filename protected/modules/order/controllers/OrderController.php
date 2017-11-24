@@ -52,6 +52,8 @@ class OrderController extends \yupe\components\controllers\FrontController
                     Yii::t('OrderModule.order', 'The order created')
                 );
 
+                Yii::app()->eventManager->fire(OrderEvents::CREATED_HTTP, new OrderEvent($model));
+
                 if (Yii::app()->getModule('order')->showOrder) {
                     $this->redirect(['/order/order/view', 'url' => $model->url]);
                 }

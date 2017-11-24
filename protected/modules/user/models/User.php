@@ -1,4 +1,5 @@
 <?php
+use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "{{user_user}}".
@@ -115,7 +116,7 @@ class User extends yupe\models\YModel
             [
                 'birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email',
                 'filter',
-                'filter' => [$obj = new CHtmlPurifier(), 'purify']
+                'filter' => [$obj = new YPurifier(), 'purify']
             ],
             ['nick_name, email, hash', 'required'],
             ['first_name, last_name, middle_name, nick_name, email', 'length', 'max' => 50],
@@ -515,7 +516,7 @@ class User extends yupe\models\YModel
 
         // если это граватар
         if ($this->use_gravatar && $this->email) {
-            return 'http://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size . "&d=" . urlencode(
+            return 'https://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size . "&d=" . urlencode(
                 Yii::app()->createAbsoluteUrl('/') . $userModule->getDefaultAvatar()
             );
         }

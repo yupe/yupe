@@ -99,13 +99,13 @@ class ManageBackendController extends yupe\components\controllers\BackController
                             $doc->addField(
                                 Zend_Search_Lucene_Field::Text(
                                     'title',
-                                    CHtml::encode($node->$model['titleColumn']),
+                                    CHtml::encode($node->{$model['titleColumn']}),
                                     'UTF-8'
                                 )
                             );
                             $link = str_replace(
                                 '{'.$model['linkColumn'].'}',
-                                $node->$model['linkColumn'],
+                                $node->{$model['linkColumn']},
                                 $model['linkPattern']
                             );
                             $doc->addField(Zend_Search_Lucene_Field::Text('link', $link, 'UTF-8'));

@@ -1,5 +1,6 @@
 <?php
 use yupe\components\Event;
+use yupe\widgets\YPurifier;
 
 /**
  * @property string $id
@@ -67,7 +68,7 @@ class StoreCategory extends \yupe\models\YModel
                 'filter',
                 'filter' => 'trim',
             ],
-            ['name, slug', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['name, slug', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
             ['name, slug', 'required'],
             ['parent_id, status, sort', 'numerical', 'integerOnly' => true],
             ['parent_id, status', 'length', 'max' => 11],

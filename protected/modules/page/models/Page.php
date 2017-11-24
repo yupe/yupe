@@ -1,5 +1,6 @@
 <?php
 use yupe\components\Event;
+use yupe\widgets\YPurifier;
 
 /**
  * Page модель
@@ -98,7 +99,7 @@ class Page extends yupe\models\YModel
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())],
             ['title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'],
-            ['title, title_short, slug, description, keywords', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['title, title_short, slug, description, keywords', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['slug', 'yupe\components\validators\YSLugValidator'],
             [
                 'lang',

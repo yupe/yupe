@@ -9,7 +9,7 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 <div class="main__cart-box grid">
     <div class="grid-module-6">
 
-        <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', ['id' => 'social-registration-form']); ?>
+        <?php $form = $this->beginWidget('CActiveForm', ['id' => 'social-registration-form']); ?>
 
         <?= $form->errorSummary($model); ?>
 

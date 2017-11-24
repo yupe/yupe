@@ -60,23 +60,27 @@ $this->breadcrumbs = [
                 </div>
             </div>
             <div class="cart-list">
-                <?php foreach ($positions as $position): ?>
+                <?php
+                foreach ($positions as $position):
+                    $product = $position->getProductModel();
+
+                    if (is_null($product)) continue;
+                    ?>
                     <div class="cart-list__item">
                         <?php $positionId = $position->getId(); ?>
-                        <?php $productUrl = ProductHelper::getUrl($position->getProductModel()); ?>
+                        <?php $productUrl = ProductHelper::getUrl($product); ?>
                         <?= CHtml::hiddenField('OrderProduct['.$positionId.'][product_id]', $position->id); ?>
                         <input type="hidden" class="position-id" value="<?= $positionId; ?>"/>
 
                         <div class="cart-item js-cart__item">
                             <div class="cart-item__info">
                                 <div class="cart-item__thumbnail">
-                                    <img src="<?= $position->getProductModel()->getImageUrl(90, 90, false); ?>"
+                                    <img src="<?= $product->getImageUrl(90, 90, false); ?>"
                                          class="cart-item__img"/>
                                 </div>
                                 <div class="cart-item__content grid-module-4">
-                                    <?php if ($position->getProductModel()->getCategoryId()): ?>
-                                        <div class="cart-item__category"><?= $position->getProductModel(
-                                            )->category->name ?></div>
+                                    <?php if ($product->getCategoryId()): ?>
+                                        <div class="cart-item__category"><?= $product->category->name ?></div>
                                     <?php endif; ?>
                                     <div class="cart-item__title">
                                         <a href="<?= $productUrl; ?>" class="cart-item__link"><?= CHtml::encode(

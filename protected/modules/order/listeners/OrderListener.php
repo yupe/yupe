@@ -18,4 +18,14 @@ class OrderListener
 
         Yii::app()->orderNotifyService->sendOrderCreatedUserNotify($order);
     }
+
+    /**
+     * @param Event $event
+     */
+    public static function onUpdate(Event $event)
+    {
+        $order = $event->getOrder();
+
+        Yii::app()->orderNotifyService->sendOrderChangesNotify($order);
+    }
 }

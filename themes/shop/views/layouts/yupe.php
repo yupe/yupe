@@ -54,7 +54,7 @@
                 <div class="navbar__personal">
                     <div class="navbar__toolbar">
                         <?php if(Yii::app()->hasModule('favorite')):?>
-                            <a href="<?= Yii::app()->createUrl('/favorite/default/index');?>" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-heart-o fa-lg fa-fw"></i> Избранное</span><span class="badge badge_light-blue" id="yupe-store-favorite-total"><?= Yii::app()->favorite->count();?></span></a>
+                            <a href="<?= Yii::app()->createUrl('/favorite/favorite/index');?>" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-heart-o fa-lg fa-fw"></i> Избранное</span><span class="badge badge_light-blue" id="yupe-store-favorite-total"><?= Yii::app()->favorite->count();?></span></a>
                         <?php endif;?>
                         <?php if(Yii::app()->hasModule('compare')):?>
                             <a href="javascript:void(0);" class="toolbar-button"><span class="toolbar-button__label"><i class="fa fa-balance-scale fa-lg fa-fw"></i> Сравнение</span><span class="badge badge_light-blue">0</span></a>

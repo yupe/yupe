@@ -1,4 +1,5 @@
 <?php
+use yupe\widgets\YPurifier;
 
 /**
  * Comment model class:
@@ -104,7 +105,7 @@ class Comment extends yupe\models\YModel
 
         return [
             ['model, name, email, text, url', 'filter', 'filter' => 'trim'],
-            ['model, name, email, url', 'filter', 'filter' => [$obj = new CHtmlPurifier(), 'purify']],
+            ['model, name, email, url', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
             ['text', 'purifyText'],
             ['model, model_id, name, email, text', 'required'],
             ['status, user_id, model_id, parent_id', 'numerical', 'integerOnly' => true],

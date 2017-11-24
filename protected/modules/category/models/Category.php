@@ -25,6 +25,7 @@
  */
 
 use yupe\components\Event;
+use yupe\widgets\YPurifier;
 
 class Category extends yupe\models\YModel
 {
@@ -58,7 +59,7 @@ class Category extends yupe\models\YModel
         // will receive user inputs.
         return [
             ['name, description, short_description, slug', 'filter', 'filter' => 'trim'],
-            ['name, slug', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['name, slug', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['name, slug, lang', 'required'],
             ['parent_id, status', 'numerical', 'integerOnly' => true],
             ['parent_id, status', 'length', 'max' => 11],

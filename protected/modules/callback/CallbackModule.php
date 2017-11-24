@@ -211,6 +211,7 @@ class CallbackModule extends WebModule
 
         $this->setImport([
             'callback.models.*',
+            'callback.events.*',
         ]);
     }
 
