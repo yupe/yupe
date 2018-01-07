@@ -63,18 +63,35 @@ class ProductRepository extends CApplicationComponent
 
             if (isset($mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to'])) {
                 $criteria->addBetweenCondition(
-                    "t.".$field,
-                    $mainSearchAttributes[$param]['from'],
-                    $mainSearchAttributes[$param]['to']
+                  "t." . $field,
+                  $mainSearchAttributes[$param]['from'],
+                  $mainSearchAttributes[$param]['to']
                 );
+                if ($param == 'price') {
+                  $criteria->addBetweenCondition(
+                    "t.discount_price",
+                    $mainSearchAttributes[$param]['from'],
+                    $mainSearchAttributes[$param]['to'],
+                    'OR'
+                  );
+                }
             } elseif (isset($mainSearchAttributes[$param]['from']) && !isset($mainSearchAttributes[$param]['to'])) {
                 $criteria->addCondition("t.{$field} >= :attr_{$field}");
                 $criteria->params[":attr_{$field}"] = $mainSearchAttributes[$param]['from'];
+                if ($param == 'price') {
+                  $criteria->addCondition("t.discount_price >= :attr_discount_price", 'OR');
+                  $criteria->params[":attr_discount_price"] = $mainSearchAttributes[$param]['from'];
+                }
             } elseif (isset($mainSearchAttributes[$param]['to']) && !isset($mainSearchAttributes[$param]['from'])) {
                 $criteria->addCondition("t.{$field} <= :attr_{$field}");
                 $criteria->params[":attr_{$field}"] = $mainSearchAttributes[$param]['to'];
+                if ($param == 'price') {
+                  $criteria->addCondition("t.discount_price <= :attr_discount_price", 'OR');
+                  $criteria->params[":attr_discount_price"] = $mainSearchAttributes[$param]['to'];
+                }
             } else {
-                $criteria->addInCondition("t.".$field, $mainSearchAttributes[$param]);
+                $criteria->addInCondition("t." . $field,
+                  $mainSearchAttributes[$param]);
             }
         }
 
