@@ -8,5 +8,6 @@ return [
     'The order #{n} is already payed.' => 'Заказ №{n} уже оплачен.',
     'Wrong checksum' => 'Неправильная контрольная сумма',
     'Wrong payment amount' => 'Некорректная сумма оплаты',
-    'The order #{n} has been payed successfully.' => 'Заказ №{n} успешно оплачен.'
+    'The order #{n} has been payed successfully.' => 'Заказ №{n} успешно оплачен.',
+    'Delivery' => 'Доставка'
 ];

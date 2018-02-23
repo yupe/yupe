@@ -329,6 +329,15 @@ $form = $this->beginWidget(
     </div>
 
     <div class="tab-pane" id="images">
+        <?php if ($model->getIsNewRecord()): ?>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="alert alert-success">
+                        <?= Yii::t("StoreModule.store", "Mass upload alert"); ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="row form-group">
             <div class="col-xs-2">
                 <?= Yii::t("StoreModule.store", "Images"); ?>
