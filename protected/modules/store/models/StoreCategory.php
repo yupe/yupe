@@ -315,7 +315,7 @@ class StoreCategory extends \yupe\models\YModel
     /**
      * @return string
      */
-    public function getMetaTile()
+    public function getMetaTitle()
     {
         return $this->meta_title ?: $this->name;
     }
