@@ -127,4 +127,5 @@ return [
     'You add translation for {lang}' => 'Вы добавляете перевод на {lang} язык!',
     'You must be authorized user for view this page!' => 'Для просмотра этой страницы Вам необходимо авторизоваться!',
     'yupe team' => 'yupe team',
+    'General' => 'Общие данные',
 ];
