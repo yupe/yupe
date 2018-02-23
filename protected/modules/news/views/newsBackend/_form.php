@@ -3,7 +3,13 @@
  * @var $this NewsBackendController
  * @var $model News
  * @var $form \yupe\widgets\ActiveForm
- */
+ */ ?>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("NewsModule.news", "General"); ?></a></li>
+    <li><a href="#seo" data-toggle="tab"><?= Yii::t("NewsModule.news", "SEO"); ?></a></li>
+</ul>
+
+<?php
 $form = $this->beginWidget(
     '\yupe\widgets\ActiveForm',
     [
@@ -21,6 +27,9 @@ $form = $this->beginWidget(
 </div>
 
 <?= $form->errorSummary($model); ?>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="common">
 
 <div class="row">
 
@@ -218,34 +227,22 @@ $form = $this->beginWidget(
         <?= $form->checkBoxGroup($model, 'is_protected', $model->getProtectedStatusList()); ?>
     </div>
 </div>
+    </div>
 
-<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
-<div class="panel-group" id="extended-options">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title">
-                <a data-toggle="collapse" data-parent="#extended-options" href="#collapseOne">
-                    <?= Yii::t('NewsModule.news', 'Data for SEO'); ?>
-                </a>
+    <div class="tab-pane" id="seo">
+        <div class="row">
+            <div class="col-sm-7">
+                <?= $form->textFieldGroup($model, 'keywords'); ?>
             </div>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?= $form->textFieldGroup($model, 'keywords'); ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?= $form->textAreaGroup($model, 'description'); ?>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <?= $form->textAreaGroup($model, 'description'); ?>
             </div>
         </div>
     </div>
 </div>
-<?php $this->endWidget(); ?>
+
 
 <br/>
 

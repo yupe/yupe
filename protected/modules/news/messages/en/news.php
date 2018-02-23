@@ -107,4 +107,6 @@ return [
     'management'                                                       => '',
     'read...'                                                          => '',
     'Select {field}'                                                   => '',
+    'General'                                                          => '',
+    'SEO'                                                              => '',
 ];
