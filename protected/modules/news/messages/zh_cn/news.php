@@ -110,4 +110,6 @@ return [
     'are required'                                                     => '',
     'management'                                                       => '',
     'read...'                                                          => '',
+    'General'                                                          => '',
+    'SEO'                                                              => '',
 ];

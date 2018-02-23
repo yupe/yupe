@@ -4,7 +4,7 @@ Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/store-fronten
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 /* @var $category StoreCategory */
 
-$this->title =  $category->getMetaTile();
+$this->title =  $category->getMetaTitle();
 $this->description = $category->getMetaDescription();
 $this->keywords =  $category->getMetaKeywords();
 $this->canonical = $category->getMetaCanonical();

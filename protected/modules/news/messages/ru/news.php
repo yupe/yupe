@@ -122,4 +122,6 @@ return [
     'You inserting translation for {lang} language' => 'Вы добавляете перевод на {lang} язык!',
     'You must be an authorized user for view this page!' => 'Для просмотра этой страницы Вам необходимо авторизоваться!',
     'yupe team' => 'yupe team',
+    'General' => 'Общие данные',
+    'SEO' => 'Настройки SEO',
 ];
