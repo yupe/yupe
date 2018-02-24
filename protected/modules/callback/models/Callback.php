@@ -11,6 +11,8 @@
  * @property integer $status
  * @property string $create_time
  * @property string $url
+ * @property integer $agree
+ *
  */
 class Callback extends \yupe\models\YModel
 {
@@ -46,7 +48,7 @@ class Callback extends \yupe\models\YModel
     public function rules()
     {
         return [
-            ['name, phone', 'required'],
+            ['name, phone, agree', 'required'],
             ['name, comment', 'filter', 'filter' => 'trim'],
             ['name', 'length', 'max' => 30],
             ['time', 'length', 'max' => 5],
@@ -65,7 +67,7 @@ class Callback extends \yupe\models\YModel
             ['comment', 'length', 'max' => 255],
             ['status', 'numerical', 'integerOnly' => true],
             ['url', 'url'],
-            ['id, name, phone, time, comment, status, create_time, url', 'safe', 'on' => 'search'],
+            ['id, name, phone, time, comment, status, create_time, url, agree', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -82,6 +84,7 @@ class Callback extends \yupe\models\YModel
             'status' => Yii::t('CallbackModule.callback', 'Status'),
             'create_time' => Yii::t('CallbackModule.callback', 'Created At'),
             'url' => Yii::t('CallbackModule.callback', 'Url'),
+            'agree' => Yii::t('CallbackModule.callback', 'I agree to the processing of data'),
         ];
     }
 
@@ -130,6 +133,7 @@ class Callback extends \yupe\models\YModel
         $criteria->compare('status', $this->status);
         $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('url', $this->url, true);
+        $criteria->compare('agree', $this->agree, true);
 
         return new CActiveDataProvider(
             $this, [
