@@ -190,7 +190,7 @@ return [
     'Menu items order' => 'Порядок следования в меню',
     'Meta description' => 'Описание',
     'Meta keywords' => 'Ключевые слова',
-    'Meta title' => 'Заголовок страницы',
+    'Meta title' => 'Параметр title страницы',
     'Minimum size (in bytes)' => 'Минимальный размер (в байтах)',
     'Module for categories/sections management' => 'Модуль для управления категориями/разделами сайта',
     'Name' => 'Название',

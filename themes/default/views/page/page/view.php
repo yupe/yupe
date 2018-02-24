@@ -6,7 +6,7 @@ if ($model->layout) {
     $this->layout = "//layouts/{$model->layout}";
 }
 
-$this->title = $model->title;
+$this->title = $model->meta_title ?: $model->title;
 $this->breadcrumbs = $this->getBreadCrumbs();
 $this->description = $model->description ?: Yii::app()->getModule('yupe')->siteDescription;
 $this->keywords = $model->keywords ?: Yii::app()->getModule('yupe')->siteKeyWords;

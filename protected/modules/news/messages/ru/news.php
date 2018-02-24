@@ -124,4 +124,5 @@ return [
     'yupe team' => 'yupe team',
     'General' => 'Общие данные',
     'SEO' => 'Настройки SEO',
+    'Page title (SEO)' => 'Тег title для страницы'
 ];

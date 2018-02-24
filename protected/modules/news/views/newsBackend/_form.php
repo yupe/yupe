@@ -235,6 +235,12 @@ $form = $this->beginWidget(
     <div class="tab-pane" id="seo">
         <div class="row">
             <div class="col-sm-7">
+                <?= $form->textFieldGroup($model, 'meta_title'); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-7">
                 <?= $form->textFieldGroup($model, 'keywords'); ?>
             </div>
         </div>
@@ -245,7 +251,6 @@ $form = $this->beginWidget(
         </div>
     </div>
 </div>
-
 
 <br/>
 

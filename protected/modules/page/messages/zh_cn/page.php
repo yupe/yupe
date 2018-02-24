@@ -118,4 +118,5 @@ return [
     'manage' => '',
     'Removed' => '',
     'General' => '',
+    'Page title (SEO)' => '',
 ];

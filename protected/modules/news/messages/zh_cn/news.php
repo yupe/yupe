@@ -112,4 +112,5 @@ return [
     'read...'                                                          => '',
     'General'                                                          => '',
     'SEO'                                                              => '',
+    'Page title (SEO)'                                                 => ''
 ];

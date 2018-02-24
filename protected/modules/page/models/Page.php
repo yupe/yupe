@@ -28,6 +28,7 @@ use yupe\widgets\YPurifier;
  * @property string $slug
  * @property string $lang
  * @property string $body
+ * @property string $meta_title
  * @property string $keywords
  * @property string $description
  * @property integer $status
@@ -94,12 +95,12 @@ class Page extends yupe\models\YModel
             ['lang', 'length', 'max' => 2],
             ['lang', 'default', 'value' => Yii::app()->sourceLanguage],
             ['title_short, slug', 'length', 'max' => 150],
-            ['title, keywords, description, layout, view', 'length', 'max' => 250],
+            ['title, meta_title, keywords, description, layout, view', 'length', 'max' => 250],
             ['slug', 'yupe\components\validators\YUniqueSlugValidator'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())],
-            ['title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'],
-            ['title, title_short, slug, description, keywords', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['title, title_short, slug, body, meta_title, description, keywords', 'filter', 'filter' => 'trim'],
+            ['title, title_short, slug, meta_title, description, keywords', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['slug', 'yupe\components\validators\YSLugValidator'],
             [
                 'lang',
@@ -108,7 +109,7 @@ class Page extends yupe\models\YModel
                 'message' => Yii::t('PageModule.page', 'Bad characters in {attribute} field'),
             ],
             [
-                'lang, id, parent_id, create_time, update_time, title, title_short, slug, body, keywords, description, status, order, lang',
+                'lang, id, parent_id, create_time, update_time, title, title_short, slug, body, meta_title, keywords, description, status, order, lang',
                 'safe',
                 'on' => 'search',
             ],
@@ -162,6 +163,7 @@ class Page extends yupe\models\YModel
             'slug' => Yii::t('PageModule.page', 'Url'),
             'lang' => Yii::t('PageModule.page', 'Language'),
             'body' => Yii::t('PageModule.page', 'Text'),
+            'meta_title' => Yii::t('PageModule.page', 'Page title (SEO)'),
             'keywords' => Yii::t('PageModule.page', 'Keywords (SEO)'),
             'description' => Yii::t('PageModule.page', 'Description (SEO)'),
             'status' => Yii::t('PageModule.page', 'Status'),
@@ -199,6 +201,10 @@ class Page extends yupe\models\YModel
             ),
             'lang' => Yii::t('PageModule.page', 'Page language'),
             'body' => Yii::t('PageModule.page', 'Page text'),
+            'meta_title' => Yii::t(
+                'PageModule.page',
+                'Page title for SEO optimization'
+            ),
             'keywords' => Yii::t(
                 'PageModule.page',
                 'Keywords for SEO optimization. Insert a few words which have sense in article context. For example: <pre>address, road map, contacts.</pre>'

@@ -119,4 +119,5 @@ return [
     'Removed' => '',
     'Select {field}' => '',
     'General' => '',
+    'Page title (SEO)' => '',
 ];

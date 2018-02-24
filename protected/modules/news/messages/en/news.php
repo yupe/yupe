@@ -109,4 +109,5 @@ return [
     'Select {field}'                                                   => '',
     'General'                                                          => '',
     'SEO'                                                              => '',
+    'Page title (SEO)'                                                 => ''
 ];
