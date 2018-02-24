@@ -200,6 +200,9 @@ class StoreModule extends WebModule
             'zipcode',
             'defaultSort' => $this->getSortList(),
             'defaultSortDirection' => $this->getSortDirectionList(),
+            'metaTitle',
+            'metaDescription',
+            'metaKeyWords',
         ];
     }
 
