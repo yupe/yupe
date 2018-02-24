@@ -347,8 +347,8 @@ return [
     'yupe team' => 'yupe team',
     'Zip code' => 'Почтовый индекс',
     '{title} attribute is required' => 'Атрибут "title" обязателен для заполнения',
-    'metaTitle' => 'Тег title для раздела родительского раздела магазина',
-    'metaDescription' => 'Тег description для раздела родительского раздела магазина',
-    'metaKeyWords' => 'Тег keywords для раздела родительского раздела магазина',
+    'Title tag for the store section' => 'Тег title для раздела родительского раздела магазина',
+    'Description for the store section' => 'Тег description для раздела родительского раздела магазина',
+    'KeyWords for the store section' => 'Тег keywords для раздела родительского раздела магазина',
     'SEO setting'=>'Настройки SEO'
 ];
