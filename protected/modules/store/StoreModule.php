@@ -87,6 +87,18 @@ class StoreModule extends WebModule
      * @var string
      */
     public $defaultSortDirection = 'ASC';
+    /**
+     * @var
+     */
+    public $metaTitle;
+    /**
+     * @var
+     */
+    public $metaDescription;
+    /**
+     * @var
+     */
+    public $metaKeyWords;
 
     /**
      * @return array
@@ -214,6 +226,9 @@ class StoreModule extends WebModule
             'zipcode' => Yii::t('StoreModule.store', 'Zip code'),
             'defaultSort' => Yii::t('StoreModule.store', 'Default sort'),
             'defaultSortDirection' => Yii::t('StoreModule.store', 'Default sort direction'),
+            'metaTitle' => Yii::t('StoreModule.store', 'Title tag for the store section'),
+            'metaDescription' => Yii::t('StoreModule.store', 'Description for the store section'),
+            'metaKeyWords' => Yii::t('StoreModule.store', 'KeyWords for the store section'),
         ];
     }
 
@@ -250,7 +265,15 @@ class StoreModule extends WebModule
                     'defaultImage',
                 ],
             ],
-            '3.editors' => [
+            '3.seo' => [
+                'label' => Yii::t('StoreModule.store', 'SEO setting'),
+                'items' => [
+                    'metaTitle',
+                    'metaDescription',
+                    'metaKeyWords',
+                ],
+            ],
+            '4.editors' => [
                 'label' => Yii::t('StoreModule.store', 'Visual editor settings'),
                 'items' => [
                     'editor',
