@@ -34,7 +34,7 @@ $this->breadcrumbs = [
     <div class="row">
         <div class="col-sm-12">
             <?php if ($model->image): ?>
-                <?= CHtml::image($model->getImageUrl(), $model->title); ?>
+                <?= CHtml::image($model->getImageUrl(), $model->title, ['class' => 'img-responsive']); ?>
             <?php endif; ?>
             <p> <?= $model->full_text; ?></p>
         </div>

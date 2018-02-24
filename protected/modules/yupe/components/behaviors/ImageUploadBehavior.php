@@ -131,7 +131,7 @@ class ImageUploadBehavior extends FileUploadBehavior
     {
         $file = $this->getFilePath();
         $webRoot = Yii::getPathOfAlias('webroot');
-        $defaultImage = $defaultImage ?: $this->defaultImage;
+        $defaultImage = $defaultImage ?:  static::getDefaultImage() ;
 
         if (null === $file && (null === $defaultImage || !is_file($webRoot.$defaultImage))) {
             return null;
@@ -148,5 +148,11 @@ class ImageUploadBehavior extends FileUploadBehavior
         }
 
         return $file ? $this->getFileUrl() : $defaultImage;
+    }
+
+    public static function getDefaultImage()
+    {
+        $theme = Yii::app()->getTheme();
+        return $theme->getAssetsUrl() . Yii::app()->getModule('yupe')->defaultImage;
     }
 }
