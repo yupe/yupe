@@ -131,7 +131,7 @@ class ImageUploadBehavior extends FileUploadBehavior
     {
         $file = $this->getFilePath();
         $webRoot = Yii::getPathOfAlias('webroot');
-        $defaultImage = $defaultImage ?: getDefaultImage();
+        $defaultImage = $defaultImage ?: $this->getDefaultImage();
 
         if (null === $file && (null === $defaultImage || !is_file($webRoot . $defaultImage))) {
             return null;
