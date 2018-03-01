@@ -127,4 +127,8 @@ return [
     'You add translation for {lang}' => 'Вы добавляете перевод на {lang} язык!',
     'You must be authorized user for view this page!' => 'Для просмотра этой страницы Вам необходимо авторизоваться!',
     'yupe team' => 'yupe team',
+    'General' => 'Общие данные',
+    'Page title (SEO)' => 'Тег title для страницы',
+    'Page title for SEO optimization' => 'Тег title страницы для поисковой оптимизации',
+
 ];

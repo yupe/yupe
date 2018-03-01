@@ -163,8 +163,16 @@ $(document).ready(function () {
 
     $('body').on('click', '.quick-add-product-to-cart', function (e) {
         e.preventDefault();
-        var el = $(this);
-        var data = {'Product[id]': el.data('product-id')};
+
+        var el = $(this),
+            data = {'Product[id]': el.data('product-id')},
+            classProcessing = 'i-processing';
+
+        if (el.hasClass(classProcessing)) {
+            return false;
+        }
+
+        el.addClass(classProcessing);
         data[yupeTokenName] = yupeToken;
         $.ajax({
             url: el.data('cart-add-url'),
@@ -174,12 +182,21 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result) {
                     updateCartWidget();
-                    el.off('click','.quick-add-product-to-cart');
+                    el.off('click', '.quick-add-product-to-cart');
                     el.removeClass('btn_cart')
                         .addClass('btn_success')
                         .html('Оформить заказ')
                         .attr('href', '/cart');
                 }
+
+                el.removeClass(classProcessing);
+
+                el.on('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.location = '/cart';
+                });
+
                 showNotify(el, data.result ? 'success' : 'danger', data.data);
             }
         });
