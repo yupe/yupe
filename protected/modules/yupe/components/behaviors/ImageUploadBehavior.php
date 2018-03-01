@@ -78,7 +78,7 @@ class ImageUploadBehavior extends FileUploadBehavior
         $filename = pathinfo($this->getFilePath(), PATHINFO_BASENAME);
 
         $iterator = new \GlobIterator(
-            $this->thumbnailer->getBasePath().'/'.$this->uploadPath.'/'.'*_'.$filename
+            $this->thumbnailer->getBasePath() . '/' . $this->uploadPath . '/' . '*_' . $filename
         );
 
         foreach ($iterator as $file) {
@@ -131,15 +131,15 @@ class ImageUploadBehavior extends FileUploadBehavior
     {
         $file = $this->getFilePath();
         $webRoot = Yii::getPathOfAlias('webroot');
-        $defaultImage = $defaultImage ?:  static::getDefaultImage() ;
+        $defaultImage = $defaultImage ?: getDefaultImage();
 
-        if (null === $file && (null === $defaultImage || !is_file($webRoot.$defaultImage))) {
+        if (null === $file && (null === $defaultImage || !is_file($webRoot . $defaultImage))) {
             return null;
         }
 
         if ($width || $height) {
             return $this->thumbnailer->thumbnail(
-                $file ?: $webRoot.$defaultImage,
+                $file ?: $webRoot . $defaultImage,
                 $this->uploadPath,
                 $width,
                 $height,
@@ -150,7 +150,7 @@ class ImageUploadBehavior extends FileUploadBehavior
         return $file ? $this->getFileUrl() : $defaultImage;
     }
 
-    public static function getDefaultImage()
+    public function getDefaultImage()
     {
         $theme = Yii::app()->getTheme();
         return $theme->getAssetsUrl() . Yii::app()->getModule('yupe')->defaultImage;
