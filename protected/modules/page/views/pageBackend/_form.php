@@ -372,6 +372,24 @@ $form = $this->beginWidget(
             <div class="col-xs-7">
                 <?= $form->textFieldGroup(
                     $model,
+                    'meta_title',
+                    [
+                        'widgetOptions' => [
+                            'htmlOptions' => [
+                                'class' => 'popover-help',
+                                'data-original-title' => $model->getAttributeLabel('meta_title'),
+                                'data-content' => $model->getAttributeDescription('meta_title'),
+                            ],
+                        ],
+                    ]
+                ); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-7">
+                <?= $form->textFieldGroup(
+                    $model,
                     'keywords',
                     [
                         'widgetOptions' => [
