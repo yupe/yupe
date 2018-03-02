@@ -13,7 +13,7 @@
  **/
 ?>
 <?php
-$this->title = $model->title;
+$this->title = $model->meta_title ?: $model->title;
 $this->description = $model->description;
 $this->keywords = $model->keywords;
 ?>

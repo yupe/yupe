@@ -25,7 +25,7 @@ class YupeModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.2';
+    const VERSION = '1.3-dev';
 
     /**
      * @var
@@ -120,6 +120,11 @@ class YupeModule extends WebModule
      * @var string
      */
     public $logo = 'images/logo.png';
+
+    /**
+     * @var string
+     */
+    public $defaultImage = '/images/nophoto.jpg';
 
     /**
      * @var array
@@ -365,6 +370,7 @@ class YupeModule extends WebModule
             'allowedExtensions',
             'mimeTypes',
             'maxSize',
+            'defaultImage',
         ];
     }
 
@@ -408,6 +414,7 @@ class YupeModule extends WebModule
                     'allowedExtensions',
                     'mimeTypes',
                     'maxSize',
+                    'defaultImage',
                 ],
             ],
             'main' => [

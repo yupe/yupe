@@ -110,4 +110,10 @@ return [
     'are required'                                                     => '',
     'management'                                                       => '',
     'read...'                                                          => '',
+    'General'                                                          => '',
+    'SEO'                                                              => '',
+    'Page title (SEO)'                                                 => '',
+    'Title tag for the news section'                                   => '',
+    'Description for the news section'                                 => '',
+    'KeyWords for the news section'                                    => '',
 ];

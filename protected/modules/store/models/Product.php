@@ -477,7 +477,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return [
             self::SPECIAL_NOT_ACTIVE => Yii::t('StoreModule.store', 'No'),
-            self::STATUS_ACTIVE => Yii::t('StoreModule.store', 'Yes'),
+            self::SPECIAL_ACTIVE => Yii::t('StoreModule.store', 'Yes'),
         ];
     }
 

@@ -61,6 +61,11 @@
                         <?= $form->error($model, 'time') ?>
                     </div>
                 </div>
+                <div class="fast-order__inputs">
+                    <?= $form->checkBox($model, 'agree'); ?>
+                    <?= $form->labelEx($model, 'agree'); ?>
+                    <?= $form->error($model, 'agree') ?>
+                </div>
 
                 <div class="fast-order__inputs">
                     <button type="submit" class="btn btn_big btn_primary" id="callback-send">
