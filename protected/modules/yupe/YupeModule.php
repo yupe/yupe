@@ -340,6 +340,7 @@ class YupeModule extends WebModule
             'allowedExtensions' => Yii::t('YupeModule.yupe', 'Allowed extensions (separated by comma)'),
             'mimeTypes' => Yii::t('YupeModule.yupe', 'Mime types'),
             'maxSize' => Yii::t('YupeModule.yupe', 'Maximum size (in bytes)'),
+            'defaultImage' => Yii::t('YupeModule.yupe', 'DefaultImage'),
 
         ];
     }
