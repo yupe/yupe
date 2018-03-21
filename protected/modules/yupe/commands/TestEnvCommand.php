@@ -26,15 +26,15 @@ class TestEnvCommand extends CConsoleCommand
     /**
      *
      */
-    const ROOT_DIR = "/../..";
+    const ROOT_DIR = "/../../../..";
     /**
      *
      */
-    const CONFIG_DIR = "/../config";
+    const CONFIG_DIR = "/../../../config";
     /**
      *
      */
-    const TESTS_DIR = "/../../tests";
+    const TESTS_DIR = "/../../../../tests";
 
     /**
      * @var array
