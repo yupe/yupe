@@ -25,11 +25,15 @@ class VKontakte extends VKontakteOAuthService
 
         return false;
     }
+    /** Request user attributes
+     *
+     * @return void
+     */
     protected function fetchAttributes() {
         $info = (array)$this->makeSignedRequest('https://api.vk.com/method/users.get.json', array(
             'query' => array(
                 'user_ids' => $this->uid,
-                'version'    => '5.50',
+                'version'    => '5.50', // без указания данного параметра, контакт теперь не работает
                 'fields' => '', // uid, first_name and last_name is always available
                 //'fields' => 'nickname, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_rec',
             ),
@@ -42,6 +46,13 @@ class VKontakte extends VKontakteOAuthService
         $this->attributes['url'] = 'http://vk.com/id' . $info->uid;
 
     }
+
+    /**
+     * Returns the url to request to get OAuth2 code.
+     *
+     * @param string $redirect_uri url to redirect after user confirmation.
+     * @return string url to request.
+     */
     protected function getCodeUrl($redirect_uri) {
         $this->setState('redirect_uri', $redirect_uri);
 
@@ -55,6 +66,13 @@ class VKontakte extends VKontakteOAuthService
         }
         return $url;
     }
+
+    /**
+     * Returns the url to request to get OAuth2 access token.
+     *
+     * @param string $code
+     * @return string url to request.
+     */
     protected function getTokenUrl($code) {
         $url = parent::getTokenUrl($code);
         $url_parts = parse_url($url);
@@ -63,10 +81,12 @@ class VKontakte extends VKontakteOAuthService
         }
         return $url;
     }
+
     public function getAuthData()
     {
         return $this->getState(self::AUTH_DATA_KEY);
     }
+
 
     public function cleanAuthData()
     {
