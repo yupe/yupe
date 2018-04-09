@@ -1,5 +1,11 @@
 <?php
 /**
+ * @category YupeView
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
+ *
  * @var $this PageBackendController
  * @var $model Page
  * @var $form \yupe\widgets\ActiveForm
@@ -48,15 +54,7 @@
 </ul>
 
 <?php
-/**
- * Отображение для default/_form:
- *
- * @category YupeView
- * @package  yupe
- * @author   Yupe Team <team@yupe.ru>
- * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
- **/
+
 $form = $this->beginWidget(
     'yupe\widgets\ActiveForm',
     [
@@ -311,9 +309,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class="tab-pane" id="options">
-        <div class="row">
 
-        </div>
         <div class="row">
             <div class="col-sm-3">
                 <?= $form->dropDownListGroup(

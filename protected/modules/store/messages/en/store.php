@@ -149,5 +149,6 @@ return [
     'metaTitle' => '',
     'metaDescription' => '',
     'metaKeyWords' => '',
-    'SEO setting'=>''
+    'SEO setting'=>'',
+    'More options' => ''
 ];
