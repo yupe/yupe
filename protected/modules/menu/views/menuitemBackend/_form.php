@@ -1,6 +1,25 @@
 <?php
+/**
+ * @category YupeView
+ * @package  yupe
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ * @link     http://yupe.ru
+ *
+ * @var $this MenuitemBackendController
+ * @var $model MenuItem
+ * @var $form \yupe\widgets\ActiveForm
+ */
+?>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("MenuModule.menu", "General"); ?></a></li>
+    <li><a href="#options" data-toggle="tab"><?= Yii::t("MenuModule.menu", "Extended settings"); ?></a></li>
+</ul>
+
+<?php
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
+    'yupe\widgets\ActiveForm',
     [
         'id' => 'menu-item-form',
         'enableAjaxValidation' => false,
@@ -16,6 +35,9 @@ $form = $this->beginWidget(
 </div>
 
 <?= $form->errorSummary($model); ?>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="common">
 
 <div class="row">
     <?php
@@ -150,19 +172,9 @@ $form = $this->beginWidget(
         <?= $form->textFieldGroup($model, 'sort'); ?>
     </div>
 </div>
+    </div>
+    <div class="tab-pane" id="options">
 
-<?php $collapse = $this->beginWidget('booster.widgets.TbCollapse'); ?>
-<div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    <?= Yii::t('MenuModule.menu', 'Extended settings'); ?>
-                </a>
-            </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse">
-            <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-7">
                         <?= $form->textFieldGroup(
@@ -305,9 +317,6 @@ $form = $this->beginWidget(
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<?php $this->endWidget(); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',

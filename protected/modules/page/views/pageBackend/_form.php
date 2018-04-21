@@ -303,8 +303,6 @@ $form = $this->beginWidget(
             </div>
         </div>
 
-
-
         <br/>
     </div>
 
