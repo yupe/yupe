@@ -14,8 +14,8 @@
 ?>
 <?php
 $this->title = $model->meta_title ?: $model->title;
-$this->description = $model->description;
-$this->keywords = $model->keywords;
+$this->description = $model->meta_description;
+$this->keywords = $model->meta_keywords;
 ?>
 
 <?php

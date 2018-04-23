@@ -29,8 +29,8 @@ use yupe\widgets\YPurifier;
  * @property string $lang
  * @property string $body
  * @property string $meta_title
- * @property string $keywords
- * @property string $description
+ * @property string $meta_keywords
+ * @property string $meta_description
  * @property integer $status
  * @property integer $is_protected
  * @property integer $user_id
@@ -95,12 +95,12 @@ class Page extends yupe\models\YModel
             ['lang', 'length', 'max' => 2],
             ['lang', 'default', 'value' => Yii::app()->sourceLanguage],
             ['title_short, slug', 'length', 'max' => 150],
-            ['title, meta_title, keywords, description, layout, view', 'length', 'max' => 250],
+            ['title, meta_title, meta_keywords, meta_description, layout, view', 'length', 'max' => 250],
             ['slug', 'yupe\components\validators\YUniqueSlugValidator'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())],
-            ['title, title_short, slug, body, meta_title, description, keywords', 'filter', 'filter' => 'trim'],
-            ['title, title_short, slug, meta_title, description, keywords', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['title, title_short, slug, body, meta_title, meta_description, meta_keywords', 'filter', 'filter' => 'trim'],
+            ['title, title_short, slug, meta_title, meta_description, meta_keywords', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['slug', 'yupe\components\validators\YSLugValidator'],
             [
                 'lang',
@@ -109,7 +109,7 @@ class Page extends yupe\models\YModel
                 'message' => Yii::t('PageModule.page', 'Bad characters in {attribute} field'),
             ],
             [
-                'lang, id, parent_id, create_time, update_time, title, title_short, slug, body, meta_title, keywords, description, status, order, lang',
+                'lang, id, parent_id, create_time, update_time, title, title_short, slug, body, meta_title, meta_keywords, meta_description, status, order, lang',
                 'safe',
                 'on' => 'search',
             ],
@@ -164,8 +164,8 @@ class Page extends yupe\models\YModel
             'lang' => Yii::t('PageModule.page', 'Language'),
             'body' => Yii::t('PageModule.page', 'Text'),
             'meta_title' => Yii::t('PageModule.page', 'Page title (SEO)'),
-            'keywords' => Yii::t('PageModule.page', 'Keywords (SEO)'),
-            'description' => Yii::t('PageModule.page', 'Description (SEO)'),
+            'meta_keywords' => Yii::t('PageModule.page', 'Keywords (SEO)'),
+            'meta_description' => Yii::t('PageModule.page', 'Description (SEO)'),
             'status' => Yii::t('PageModule.page', 'Status'),
             'is_protected' => Yii::t('PageModule.page', 'Access: * Only for authorized members'),
             'user_id' => Yii::t('PageModule.page', 'Created by'),
@@ -177,7 +177,7 @@ class Page extends yupe\models\YModel
     }
 
     /**
-     * @return array customized attribute descriptions (name=>description)
+     * @return array customized attribute meta_descriptions (name=>meta_description)
      */
     public function attributeDescriptions()
     {
@@ -205,13 +205,13 @@ class Page extends yupe\models\YModel
                 'PageModule.page',
                 'Page title for SEO optimization'
             ),
-            'keywords' => Yii::t(
+            'meta_keywords' => Yii::t(
                 'PageModule.page',
                 'Keywords for SEO optimization. Insert a few words which have sense in article context. For example: <pre>address, road map, contacts.</pre>'
             ),
-            'description' => Yii::t(
+            'meta_description' => Yii::t(
                 'PageModule.page',
-                'Short page description. About one or two sentences. Usually this is the main idea. For example: <pre>Contact information about my company</pre>This text very frequently falls in <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>of search engines.'
+                'Short page meta_description. About one or two sentences. Usually this is the main idea. For example: <pre>Contact information about my company</pre>This text very frequently falls in <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>of search engines.'
             ),
             'status' => Yii::t(
                 'PageModule.page',
@@ -316,8 +316,8 @@ class Page extends yupe\models\YModel
         $criteria->compare('slug', $this->slug, true);
         $criteria->compare('lang', $this->lang);
         $criteria->compare('body', $this->body);
-        $criteria->compare('keywords', $this->keywords);
-        $criteria->compare('description', $this->description);
+        $criteria->compare('meta_keywords', $this->meta_keywords);
+        $criteria->compare('meta_description', $this->meta_description);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('category_id', $this->category_id);
         $criteria->compare('is_protected', $this->is_protected);
