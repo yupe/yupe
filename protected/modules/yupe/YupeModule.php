@@ -830,7 +830,7 @@ class YupeModule extends WebModule
                 $text,
                 ['alt' => CHtml::encode($text)]
             ),
-            'http://yupe.ru?from=pb',
+            'https://yupe.ru?from=pb',
             [
                 'title' => CHtml::encode($text),
                 'target' => '_blank',
