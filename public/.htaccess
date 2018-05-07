@@ -2,6 +2,13 @@ AddDefaultCharset utf-8
 <IfModule mod_rewrite.c>
     RewriteEngine on
     
+    #Убираем в конце '/' что бы не плодить дубли
+    
+    RewriteBase /
+    RewriteCond %{HTTP_HOST} (.*)
+    RewriteCond %{REQUEST_URI} /$ [NC]
+    RewriteRule ^(.*)(/)$ $1 [L,R=301]
+    
     # Универсальный редирект с домена С www. на домен БEЗ www
     # при необходимости - раскомментировать:
     #
