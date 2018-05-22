@@ -59,7 +59,7 @@ class MenuWidget extends yupe\widgets\YWidget
     {
         $this->params['items'] = Menu::model()->getItems($this->name, $this->parent_id);
         $this->render(
-            $this->layout,
+            $this->view,
             [
                 'params' => $this->params,
                 'viewParams' => $this->viewParams,

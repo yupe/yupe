@@ -164,7 +164,7 @@
                         <?php if (Yii::app()->hasModule('menu')): ?>
                             <?php $this->widget('application.modules.menu.widgets.MenuWidget', [
                                 'name' => 'top-menu',
-                                'layout' => 'footer'
+                                'view' => 'footer'
                             ]); ?>
                         <?php endif; ?>
                     </div>
