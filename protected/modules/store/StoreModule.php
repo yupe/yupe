@@ -153,7 +153,7 @@ class StoreModule extends WebModule
             'RUB' => 'RUB',
             'EUR' => 'EUR',
             'KZT' => 'KZT',
-            'BYB' => 'BYB',
+            'BYN' => 'BYN',
             'UAH' => 'UAH',
         ];
     }
