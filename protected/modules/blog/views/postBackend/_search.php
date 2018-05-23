@@ -165,14 +165,14 @@ $form = $this->beginWidget(
         <div class="col-sm-3">
             <?=  $form->textFieldGroup(
                 $model,
-                'description',
+                'meta_description',
                 [
                     'widgetOptions' => [
                         'htmlOptions' => [
                             'empty'               => '---',
                             'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('description'),
-                            'data-content'        => $model->getAttributeDescription('description'),
+                            'data-original-title' => $model->getAttributeLabel('meta_description'),
+                            'data-content'        => $model->getAttributeDescription('meta_description'),
                         ],
                     ],
                 ]
