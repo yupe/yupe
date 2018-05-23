@@ -89,7 +89,7 @@ return [
     'Default status for public posts' => 'Статус по умолчанию для публичных постов',
     'Delete' => 'Удалить',
     'Deleted' => 'Удален',
-    'Description' => 'Описание',
+    'Description' => 'Mета-описание',
     'description' => 'Описание',
     'Discuss' => 'Обсуждают',
     'Do you really want to delete selected items?' => 'Вы уверены, что хотите удалить выбранные элементы?',

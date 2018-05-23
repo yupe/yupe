@@ -282,7 +282,7 @@ class Post extends yupe\models\YModel implements ICommentable
             'comment_status' => Yii::t('BlogModule.blog', 'Comments'),
             'access_type' => Yii::t('BlogModule.blog', 'Access'),
             'meta_keywords' => Yii::t('BlogModule.blog', 'Keywords'),
-            'meta_description' => Yii::t('BlogModule.blog', 'meta_description'),
+            'meta_description' => Yii::t('BlogModule.blog', 'Description'),
             'tags' => Yii::t('BlogModule.blog', 'Tags'),
             'image' => Yii::t('BlogModule.blog', 'Image'),
             'category_id' => Yii::t('BlogModule.blog', 'Category'),
