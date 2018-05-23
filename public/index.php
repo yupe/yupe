@@ -23,13 +23,17 @@ if (!ini_get('mbstring.internal_encoding')) {
     mb_internal_encoding('UTF-8');
 }
 
-// Comment next two lines on production
-define('YII_DEBUG', true);
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
+if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
+    define('YII_DEBUG', true);
+    defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
+    require __DIR__ . '/../vendor/yiisoft/yii/framework/yii.php';
+    $base = require __DIR__ . '/../protected/config/dev.php';
 
-require __DIR__ . '/../vendor/yiisoft/yii/framework/yii.php';
-
-$base = require __DIR__ . '/../protected/config/main.php';
+} else {
+    define('YII_DEBUG', false);
+    require __DIR__ . '/../vendor/yiisoft/yii/framework/yiilite.php';
+    $base = require __DIR__ . '/../protected/config/main.php';
+}
 
 $confManager = new yupe\components\ConfigManager();
 $confManager->sentEnv(\yupe\components\ConfigManager::ENV_WEB);
