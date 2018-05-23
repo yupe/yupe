@@ -131,15 +131,20 @@
     <div class="main__breadcrumbs grid">
         <div class="breadcrumbs">
             <?php $this->widget(
-                'zii.widgets.CBreadcrumbs',
+                'yupe.widgets.YBreadcrumbs',
                 [
                     'links' => $this->breadcrumbs,
                     'tagName' => 'ul',
                     'separator' => '',
-                    'homeLink' => '<li><a href="/">' . Yii::t('Yii.zii', 'Home') . '</a>',
-                    'activeLinkTemplate' => '<li><a href="{url}">{label}</a>',
-                    'inactiveLinkTemplate' => '<li><a>{label}</a>',
-                    'htmlOptions' => [],
+                    'htmlOptions' => ['itemscope' => 'itemscope', 'itemtype' => 'http://schema.org/BreadcrumbList'],
+                    'activeLinkTemplate' => '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                                <a href="{url}" title="{label}" itemprop="item"><span itemprop="name">{label}</span></a>
+                                                <meta itemprop="position" content="{position}" />
+                                             </li>',
+                    'inactiveLinkTemplate' => '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                                <span itemprop="name">{label}</span>
+                                                <meta itemprop="position" content="{position}" />
+                                               </li>',
                     'encodeLabel' => false
                 ]
             );?>
