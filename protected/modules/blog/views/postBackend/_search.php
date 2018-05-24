@@ -181,14 +181,14 @@ $form = $this->beginWidget(
         <div class="col-sm-3">
             <?=  $form->textFieldGroup(
                 $model,
-                'keywords',
+                'meta_keywords',
                 [
                     'widgetOptions' => [
                         'htmlOptions' => [
                             'empty'               => '---',
                             'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('keywords'),
-                            'data-content'        => $model->getAttributeDescription('keywords'),
+                            'data-original-title' => $model->getAttributeLabel('meta_keywords'),
+                            'data-content'        => $model->getAttributeDescription('meta_keywords'),
                         ],
                     ],
                 ]

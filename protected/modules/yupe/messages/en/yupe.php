@@ -328,4 +328,6 @@ return [
     'Record was deleted!' => '',
     'Record was not found!' => '',
     'Delete the file' => '',
+    'defaultImage' => ''
+
 ];

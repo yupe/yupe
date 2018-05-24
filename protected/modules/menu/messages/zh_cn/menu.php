@@ -125,5 +125,6 @@ return [
     'negation'                                                                                                                                                                                                                                            => '',
     'manage'                                                                                                                                                                                                                                              => '管理',
     'New item was added to menu!'                                                                                                                                                                                                                         => '新菜单项已加入菜单！',
-    'Menu was created!'                                                                                                                                                                                                                                   => '菜单创建成功！'
+    'Menu was created!'                                                                                                                                                                                                                                   => '菜单创建成功！',
+    'General' => ''
 ];

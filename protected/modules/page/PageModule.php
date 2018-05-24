@@ -15,7 +15,7 @@ class PageModule extends yupe\components\WebModule
     /**
      *
      */
-    const VERSION = '1.1';
+    const VERSION = '1.3';
 
     /**
      * @return array

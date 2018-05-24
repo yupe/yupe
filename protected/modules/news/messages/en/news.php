@@ -107,4 +107,10 @@ return [
     'management'                                                       => '',
     'read...'                                                          => '',
     'Select {field}'                                                   => '',
+    'General'                                                          => '',
+    'SEO'                                                              => '',
+    'Page title (SEO)'                                                 => '',
+    'Title tag for the news section'                                   => '',
+    'Description for the news section'                                 => '',
+    'KeyWords for the news section'                                    => '',
 ];
