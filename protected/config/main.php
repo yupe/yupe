@@ -91,7 +91,8 @@ return [
         'bootstrap' => [
             'class' => 'bootstrap.components.Booster',
             'responsiveCss' => true,
-            'fontAwesomeCss' => true
+            'fontAwesomeCss' => true,
+            'coreCss' => true 
         ],
         'themeManager' => [
             'class' => 'CThemeManager',
