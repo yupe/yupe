@@ -28,8 +28,8 @@
  * @property string $link
  * @property string $image
  * @property string $meta_title
- * @property string $description
- * @property string $keywords
+ * @property string $meta_description
+ * @property string $meta_keywords
  */
 
 use yupe\components\Event;
@@ -86,8 +86,8 @@ class News extends yupe\models\YModel
     public function rules()
     {
         return [
-            ['title, slug, short_text, full_text, meta_title, keywords, description', 'filter', 'filter' => 'trim'],
-            ['title, slug, meta_title, keywords, description', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['title, slug, short_text, full_text, meta_title, meta_keywords, meta_description', 'filter', 'filter' => 'trim'],
+            ['title, slug, meta_title, meta_keywords, meta_description', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['date, title, slug, full_text', 'required', 'on' => ['update', 'insert']],
             ['status, is_protected, category_id', 'numerical', 'integerOnly' => true],
             ['title, slug', 'length', 'max' => 150],
@@ -96,7 +96,7 @@ class News extends yupe\models\YModel
             ['lang', 'in', 'range' => array_keys(Yii::app()->getModule('yupe')->getLanguagesList())],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['slug', 'yupe\components\validators\YUniqueSlugValidator'],
-            ['meta_title, keywords, description', 'length', 'max' => 250],
+            ['meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
             ['link', 'length', 'max' => 250],
             ['link', 'yupe\components\validators\YUrlValidator'],
             [
@@ -106,7 +106,7 @@ class News extends yupe\models\YModel
             ],
             ['category_id', 'default', 'setOnEmpty' => true, 'value' => null],
             [
-                'id, meta_title, keywords, description, create_time, update_time, date, title, slug, short_text, full_text, user_id, status, is_protected, lang',
+                'id, meta_title, meta_keywords, meta_description, create_time, update_time, date, title, slug, short_text, full_text, user_id, status, is_protected, lang',
                 'safe',
                 'on' => 'search'
             ],
@@ -238,8 +238,8 @@ class News extends yupe\models\YModel
             'status' => Yii::t('NewsModule.news', 'Status'),
             'is_protected' => Yii::t('NewsModule.news', 'Access only for authorized'),
             'meta_title' => Yii::t('NewsModule.news', 'Page title (SEO)'),
-            'keywords' => Yii::t('NewsModule.news', 'Keywords (SEO)'),
-            'description' => Yii::t('NewsModule.news', 'Description (SEO)'),
+            'meta_keywords' => Yii::t('NewsModule.news', 'Keywords (SEO)'),
+            'meta_description' => Yii::t('NewsModule.news', 'Description (SEO)'),
         ];
     }
 

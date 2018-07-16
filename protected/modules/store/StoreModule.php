@@ -10,7 +10,7 @@ class StoreModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.2';
+    const VERSION = '1.3';
 
     /**
      * @var
@@ -153,7 +153,7 @@ class StoreModule extends WebModule
             'RUB' => 'RUB',
             'EUR' => 'EUR',
             'KZT' => 'KZT',
-            'BYB' => 'BYB',
+            'BYN' => 'BYN',
             'UAH' => 'UAH',
         ];
     }

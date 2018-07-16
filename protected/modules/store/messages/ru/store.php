@@ -264,7 +264,7 @@ return [
     'Search' => 'Поиск',
     'search' => 'поиск',
     'Select {field}' => 'Выберите {field}',
-    'SEO_Title' => 'Заголовок H1',
+    'SEO_title' => 'Заголовок H1',
     'Short description' => 'Короткое описание',
     'Short text (up to 250 characters)' => 'Короткий текст (до 250 символов)',
     'Short title' => 'Короткое название',
@@ -350,5 +350,6 @@ return [
     'Title tag for the store section' => 'Тег title для раздела родительского раздела магазина',
     'Description for the store section' => 'Тег description для раздела родительского раздела магазина',
     'KeyWords for the store section' => 'Тег keywords для раздела родительского раздела магазина',
-    'SEO setting'=>'Настройки SEO'
+    'SEO setting'=>'Настройки SEO',
+    'More options' => 'Дополнительные параметры'
 ];

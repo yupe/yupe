@@ -241,12 +241,12 @@ $form = $this->beginWidget(
 
         <div class="row">
             <div class="col-sm-7">
-                <?= $form->textFieldGroup($model, 'keywords'); ?>
+                <?= $form->textFieldGroup($model, 'meta_keywords'); ?>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-7">
-                <?= $form->textAreaGroup($model, 'description'); ?>
+                <?= $form->textAreaGroup($model, 'meta_description'); ?>
             </div>
         </div>
     </div>

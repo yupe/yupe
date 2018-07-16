@@ -90,7 +90,7 @@ class YDbQueue extends YQueue
             $command->bindValue(':task', $data, PDO::PARAM_STR);
 
             return $command->execute();
-        } catch (Exceprion $e) {
+        } catch (Exception $e) {
             return false;
         }
     }

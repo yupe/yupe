@@ -21,7 +21,7 @@ $this->widget(
                     'type' => 'navbar',
                     'items' => $this->params['items'],
                 ],
-                $layoutParams
+                $viewParams
             ),
             [
                 'class' => 'bootstrap.widgets.TbMenu',

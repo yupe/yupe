@@ -93,6 +93,6 @@ Yupe community will be appreciate you if you place an reference on [yupe.ru/](ht
 
 
 
-(c) 2012 - 2015 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)
+(c) 2012 - 2018 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)
 
 ![amyLabs](http://amylabs.ru/images/logo.png)
