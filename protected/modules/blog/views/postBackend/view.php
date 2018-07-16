@@ -150,8 +150,8 @@ $this->menu = [
                 'name'  => 'access_type',
                 'value' => $model->getAccessType(),
             ],
-            'keywords',
-            'description',
+            'meta_keywords',
+            'meta_description',
         ],
     ]
 ); ?>

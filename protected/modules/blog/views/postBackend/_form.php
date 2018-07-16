@@ -315,13 +315,13 @@ $form = $this->beginWidget(
                         <div class="col-sm-7">
                             <?= $form->textFieldGroup(
                                 $model,
-                                'keywords',
+                                'meta_keywords',
                                 [
                                     'widgetOptions' => [
                                         'htmlOptions' => [
                                             'class' => 'popover-help',
-                                            'data-original-title' => $model->getAttributeLabel('keywords'),
-                                            'data-content' => $model->getAttributeDescription('keywords'),
+                                            'data-original-title' => $model->getAttributeLabel('meta_keywords'),
+                                            'data-content' => $model->getAttributeDescription('meta_keywords'),
                                         ],
                                     ],
                                 ]
@@ -332,13 +332,13 @@ $form = $this->beginWidget(
                         <div class="col-sm-7">
                             <?= $form->textAreaGroup(
                                 $model,
-                                'description',
+                                'meta_description',
                                 [
                                     'widgetOptions' => [
                                         'htmlOptions' => [
                                             'class' => 'popover-help',
-                                            'data-original-title' => $model->getAttributeLabel('description'),
-                                            'data-content' => $model->getAttributeDescription('description'),
+                                            'data-original-title' => $model->getAttributeLabel('meta_description'),
+                                            'data-content' => $model->getAttributeDescription('meta_description'),
                                         ],
                                     ],
                                 ]

@@ -116,7 +116,7 @@ return [
     'Products' => 'Товары',
     'Public ordering page' => 'Отображать публичную страницу заказа',
     'Purple' => 'Пурпурный',
-    'Quantity' => 'Кличество',
+    'Quantity' => 'Количество',
     'Recipients of notifications (comma separated)' => 'Получатели оповещений (через запятую)',
     'Record created!' => 'Запись добавлена!',
     'Record removed!' => 'Запись удалена!',

@@ -51,13 +51,13 @@ $form = $this->beginWidget(
             <?= $form->textFieldGroup($model, 'title_short'); ?>
         </div>
         <div class="col-sm-3">
-            <?= $form->textFieldGroup($model, 'keywords'); ?>
+            <?= $form->textFieldGroup($model, 'meta_keywords'); ?>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-3">
-            <?= $form->textFieldGroup($model, 'description'); ?>
+            <?= $form->textFieldGroup($model, 'meta_description'); ?>
         </div>
         <div class="col-sm-3">
             <?= $form->dropDownListGroup(

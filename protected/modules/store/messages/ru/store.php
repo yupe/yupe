@@ -190,7 +190,7 @@ return [
     'Menu items order' => 'Порядок следования в меню',
     'Meta description' => 'Описание',
     'Meta keywords' => 'Ключевые слова',
-    'Meta title' => 'Заголовок страницы',
+    'Meta title' => 'Параметр title страницы',
     'Minimum size (in bytes)' => 'Минимальный размер (в байтах)',
     'Module for categories/sections management' => 'Модуль для управления категориями/разделами сайта',
     'Name' => 'Название',
@@ -264,7 +264,7 @@ return [
     'Search' => 'Поиск',
     'search' => 'поиск',
     'Select {field}' => 'Выберите {field}',
-    'SEO_Title' => 'Заголовок H1',
+    'SEO_title' => 'Заголовок H1',
     'Short description' => 'Короткое описание',
     'Short text (up to 250 characters)' => 'Короткий текст (до 250 символов)',
     'Short title' => 'Короткое название',
@@ -347,4 +347,9 @@ return [
     'yupe team' => 'yupe team',
     'Zip code' => 'Почтовый индекс',
     '{title} attribute is required' => 'Атрибут "title" обязателен для заполнения',
+    'Title tag for the store section' => 'Тег title для раздела родительского раздела магазина',
+    'Description for the store section' => 'Тег description для раздела родительского раздела магазина',
+    'KeyWords for the store section' => 'Тег keywords для раздела родительского раздела магазина',
+    'SEO setting'=>'Настройки SEO',
+    'More options' => 'Дополнительные параметры'
 ];

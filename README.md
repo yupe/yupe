@@ -90,4 +90,4 @@
 ![amyLabs](http://amylabs.ru/assets/6e689601/images/logo1.png)
 
 
-(c) 2012 - 2017 [amylabs](https://amylabs.ru) && [Yupe! team](https://yupe.ru/)  ![Юпи!](https://yupe.ru/web/images/logo.png)
+(c) 2012 - 2018 [amylabs](https://amylabs.ru) && [Yupe! team](https://yupe.ru/)  ![Юпи!](https://yupe.ru/web/images/logo.png)

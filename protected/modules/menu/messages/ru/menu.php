@@ -143,4 +143,5 @@ return [
     'Viewing menu' => 'Просмотр меню',
     'yes' => 'да',
     'yupe team' => 'yupe team',
+    'General' => 'Основное',
 ];

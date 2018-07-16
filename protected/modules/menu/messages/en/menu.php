@@ -127,4 +127,5 @@ return [
     'New item was added to menu!'                                                                                                                                                                                                                         => '',
     'Menu was created!'                                                                                                                                                                                                                                   => '',
     'Select {field}'                                                                                                                                                                                                                                      => '',
+    'General' => ''
 ];
