@@ -5,7 +5,7 @@
  *
  * @author    yupe team <team@yupe.ru>
  * @link      http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.queue.controllers
  * @license   BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version   0.6
@@ -13,18 +13,34 @@
  */
 class QueueBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Queue.QueueBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Queue.QueueBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Queue.QueueBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Queue.QueueBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Queue.QueueBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Queue.QueueBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Queue.QueueBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Queue.QueueBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Queue.QueueBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Queue.QueueBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Queue.QueueBackend.Delete']],
+            ['deny']
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return [
+            'inline' => [
+                'class'           => 'yupe\components\actions\YInLineEditAction',
+                'model'           => 'Queue',
+                'validAttributes' => ['status', 'priority'],
+            ]
+        ];
     }
 
     /**
@@ -36,7 +52,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -63,13 +79,13 @@ class QueueBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -97,12 +113,12 @@ class QueueBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -153,11 +169,11 @@ class QueueBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Queue',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**
@@ -177,7 +193,7 @@ class QueueBackendController extends yupe\components\controllers\BackController
         $this->redirect(
             ($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null
                 ? $referrer
-                : array("/yupe/backend/index")
+                : ['/yupe/backend/index']
         );
     }
 

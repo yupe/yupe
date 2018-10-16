@@ -4,7 +4,7 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2013 amylabs && Yupe! team
  * @package yupe.modules.install
  * @since 0.1
  *
@@ -21,16 +21,16 @@ class InstallModule extends WebModule
      **/
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
 
         if ($this->getIsActive()) {
-            $messages[WebModule::CHECK_ERROR][] = array(
+            $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'InstallModule.install',
-                        'You have "Insatll" module active! After install it need to be disabled!'
-                    )
-            );
+                    'InstallModule.install',
+                    'You have "Insatll" module active! After install it need to be disabled!'
+                )
+            ];
         }
 
         return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
@@ -55,7 +55,7 @@ class InstallModule extends WebModule
      */
     public function getInstallSteps($stepName = false)
     {
-        $installSteps = array(
+        $installSteps = [
             'index'          => Yii::t('InstallModule.install', 'Step 1 of 8: Welcome!'),
             'environment'    => Yii::t('InstallModule.install', 'Step 2 of 8: Environment check!'),
             'requirements'   => Yii::t('InstallModule.install', 'Step 3 of 8: System requirements'),
@@ -64,7 +64,7 @@ class InstallModule extends WebModule
             'createuser'     => Yii::t('InstallModule.install', 'Step 6 of 8: Creating administrator'),
             'sitesettings'   => Yii::t('InstallModule.install', 'Step 7 of 8: Project settings'),
             'finish'         => Yii::t('InstallModule.install', 'Step 8 of 8: Finish'),
-        );
+        ];
         if (isset($installSteps[$stepName])) {
             return $installSteps[$stepName];
         } else {
@@ -82,7 +82,7 @@ class InstallModule extends WebModule
     public function isStepFinished($actionId = false)
     {
         if (!isset(Yii::app()->session['InstallForm'])) {
-            Yii::app()->session['InstallForm'] = array();
+            Yii::app()->session['InstallForm'] = [];
         }
         $session = Yii::app()->session['InstallForm'];
 
@@ -99,7 +99,7 @@ class InstallModule extends WebModule
      **/
     public function prevSteps()
     {
-        return array(
+        return [
             'index'          => 'index',
             'environment'    => 'index',
             'requirements'   => 'environment',
@@ -108,7 +108,7 @@ class InstallModule extends WebModule
             'createuser'     => 'modulesinstall',
             'sitesettings'   => 'createuser',
             'finish'         => 'sitesettings',
-        );
+        ];
     }
 
     /**
@@ -118,7 +118,7 @@ class InstallModule extends WebModule
      **/
     public function nextSteps()
     {
-        return array(
+        return [
             'index'          => 'environment',
             'environment'    => 'requirements',
             'requirements'   => 'dbsettings',
@@ -127,7 +127,7 @@ class InstallModule extends WebModule
             'createuser'     => 'sitesettings',
             'sitesettings'   => 'finish',
             'finish'         => 'finish',
-        );
+        ];
     }
 
     /**
@@ -180,32 +180,18 @@ class InstallModule extends WebModule
     public function getInstallMenu()
     {
         $installSteps = $this->getInstallSteps();
-        $installMenu = array();
+        $installMenu = [];
         $startUrl = '/' . Yii::app()->controller->module->getId() . '/' . Yii::app()->controller->id . '/';
         foreach ($installSteps as $key => $value) {
+            $active = Yii::app()->controller->action->id == $key;
+
             $installMenu[] = array_merge(
-                array(
-                    'label'       => $value,
-                    'icon'        => (
-                        Yii::app()->controller->action->id == $key
-                            ? 'arrow-right'
-                            : (
-                        $this->isStepFinished($key)
-                            ? 'ok'
-                            : 'remove'
-                        )
-                        ),
-                    'itemOptions' => array('class' => (Yii::app()->controller->action->id == $key) ? 'current' : '')
-                ),
-                (
-                $this->isStepFinished($key) !== true
-                    ? array(
-                    'disabled' => true,
-                )
-                    : array(
-                    'url' => Yii::app()->createUrl($startUrl . $key),
-                )
-                )
+                [
+                    'label'  => $value,
+                    'icon'   => $active ? 'fa fa-fw fa-arrow-right' : ($this->isStepFinished($key) ? 'fa fa-fw fa-check' : 'fa fa-fw fa-times'),
+                    'active' => Yii::app()->controller->action->id == $key,
+                ],
+                $this->isStepFinished($key) !== true && !$active ? ['disabled' => true, 'url' => false] : ['url' => Yii::app()->createUrl($startUrl . $key)]
             );
         }
 
@@ -319,7 +305,7 @@ class InstallModule extends WebModule
      **/
     public function getIcon()
     {
-        return "fa fa-fw fa-download-alt";
+        return "fa fa-fw fa-download";
     }
 
     /**
@@ -330,11 +316,11 @@ class InstallModule extends WebModule
     public function init()
     {
         $this->setImport(
-            array(
+            [
                 'install.forms.*',
                 'install.models.*',
                 'install.components.*',
-            )
+            ]
         );
     }
 

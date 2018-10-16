@@ -11,29 +11,34 @@
  **/
 class EventBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Mail.EventBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Mail.EventBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Mail.EventBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Mail.EventBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Mail.EventBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Mail.EventBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Mail.EventBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Mail.EventBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Mail.EventBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Mail.EventBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Mail.EventBackend.Delete']],
+            ['deny']
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'MailEvent',
-                'validAttributes' => array('name', 'code', 'description')
-            )
-        );
+                'validAttributes' => ['name', 'code', 'description']
+            ]
+        ];
     }
 
     /**
@@ -45,7 +50,7 @@ class EventBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -70,12 +75,12 @@ class EventBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -101,12 +106,12 @@ class EventBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -156,22 +161,18 @@ class EventBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'MailEvent',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
+
     /**
-     * Возвращает модель по указанному идентификатору
-     * Если модель не будет найдена - возникнет HTTP-исключение.
-     *
-     * @param integer $id - integer идентификатор нужной модели
-     *
-     * @return void
-     *
-     * @throws CHttpExcetption
+     * @param $id
+     * @return array|mixed|null
+     * @throws CHttpException
      */
     public function loadModel($id)
     {

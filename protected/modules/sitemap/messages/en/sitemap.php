@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'Module for management sitemap.xml' => '',
+    'The cache sitemap in hours' => '',
+    'Services' => '',
+    'Modules' => '',
+    'Pages' => '',
+    'Module' => '',
+    'Model' => '',
+    'Change frequency' => '',
+    'Priority' => '',
+    'Status' => '',
+    'Enabled' => '',
+    'Disabled' => '',
+    'always' => '',
+    'daily' => '',
+    'hourly' => '',
+    'monthly' => '',
+    'never' => '',
+    'weekly' => '',
+    'yearly' => '',
+    'Url' => '',
+    'Add' => '',
+    'Fields with' => '',
+    'are required.' => '',
+];

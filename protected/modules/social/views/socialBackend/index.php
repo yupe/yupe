@@ -8,33 +8,33 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
  **/
-$this->breadcrumbs = array(
-    Yii::app()->getModule('social')->getCategory() => array(),
-    Yii::t('SocialModule.social', 'Аккаунты')      => array('/social/socialBackend/index'),
-    Yii::t('SocialModule.social', 'Управление'),
-);
+$this->breadcrumbs = [
+    Yii::app()->getModule('social')->getCategory() => [],
+    Yii::t('SocialModule.social', 'Accounts')      => ['/social/socialBackend/index'],
+    Yii::t('SocialModule.social', 'Manage'),
+];
 
-$this->pageTitle = Yii::t('SocialModule.social', 'Аккаунты - управление');
+$this->pageTitle = Yii::t('SocialModule.social', 'Accounts - manage');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
-        'label' => Yii::t('SocialModule.social', 'Управление аккаунтами'),
-        'url'   => array('/social/socialBackend/index')
-    ),
-);
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
+        'label' => Yii::t('SocialModule.social', 'Manage social accounts'),
+        'url'   => ['/social/socialBackend/index']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('SocialModule.social', 'Аккаунты'); ?>
-        <small><?php echo Yii::t('SocialModule.social', 'управление'); ?></small>
+        <?=  Yii::t('SocialModule.social', 'Accounts'); ?>
+        <small><?=  Yii::t('SocialModule.social', 'manage'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
-        <?php echo Yii::t('SocialModule.social', 'Поиск аккаунтов'); ?>
+        <i class="fa fa-search">&nbsp;</i>
+        <?=  Yii::t('SocialModule.social', 'Account search'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -53,30 +53,31 @@ $this->menu = array(
     });
     "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php
 $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'social-user-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'bulkActions'  => array(false),
-        'columns'      => array(
-            array(
+        'bulkActions'  => [false],
+        'actionsButtons' => false,
+        'columns'      => [
+            [
                 'name'   => 'user_id',
                 'value'  => '$data->user->getFullName()',
                 'filter' => CHtml::listData(User::model()->findAll(), 'id', 'fullName')
-            ),
+            ],
             'provider',
             'uid',
-            array(
-                'class'    => 'bootstrap.widgets.TbButtonColumn',
+            [
+                'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{view}{delete}'
-            ),
-        ),
-    )
+            ],
+        ],
+    ]
 ); ?>

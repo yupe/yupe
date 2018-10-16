@@ -10,7 +10,7 @@
  * @since 0.1
  *
  */
-class BlogController extends yupe\components\controllers\FrontController
+class BlogController extends \yupe\components\controllers\FrontController
 {
     /**
      * Выводит список блогов
@@ -27,7 +27,7 @@ class BlogController extends yupe\components\controllers\FrontController
             $blogs->name = CHtml::encode($_GET['Blog']['name']);
         }
 
-        $this->render('index', array('blogs' => $blogs));
+        $this->render('index', ['blogs' => $blogs]);
     }
 
     /**
@@ -38,7 +38,7 @@ class BlogController extends yupe\components\controllers\FrontController
      *
      * @return void
      */
-    public function actionShow($slug = null)
+    public function actionView($slug = null)
     {
         $blog = Blog::model()->getBySlug($slug);
 
@@ -46,20 +46,17 @@ class BlogController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t(
                 'BlogModule.blog',
                 'Blog "{blog}" was not found!',
-                array('{blog}' => $slug)
+                ['{blog}' => $slug]
             ));
         }
 
-        $this->render('show', array('blog' => $blog));
+        $this->render('view', ['blog' => $blog]);
     }
 
     /**
      * "вступление" в блог
      *
-     * @param int $blogId - id-блога
      * @throw CHttpException
-     *
-     * @return void
      */
     public function actionJoin()
     {
@@ -94,9 +91,7 @@ class BlogController extends yupe\components\controllers\FrontController
     /**
      * "покинуть" блог
      *
-     * @param  int $blogId - id-блога
      * @throw CHttpException
-     * @return void
      */
     public function actionLeave()
     {
@@ -135,6 +130,6 @@ class BlogController extends yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        $this->render('members', array('blog' => $blog, 'members' => $blog->getMembersList()));
+        $this->render('members', ['blog' => $blog, 'members' => $blog->getMembersList()]);
     }
 }

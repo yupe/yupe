@@ -64,15 +64,15 @@ jQuery(document).ready(function ($) {
             type: 'post',
             success: function (data) {
                 if (typeof data.data != 'undefined' && typeof data.result != 'undefined')
-                    bootbox.alert('<i class=" icon-' + (data.result ? 'ok' : 'remove') + '-sign"></i> ' + data.data);
+                    bootbox.alert('<i class="fa fa-fw fa-' + (data.result ? 'check' : 'times') + '-circle"></i> ' + data.data);
                 else
-                    bootbox.alert('<i class="icon-remove-sign"></i> ' + actionToken.error);
+                    bootbox.alert('<i class="fa fa-fw fa-times-circle"></i> ' + actionToken.error);
             },
             error: function (data) {
                 if (typeof data.data != 'undefined' && typeof data.result != 'undefined')
-                    bootbox.alert('<i class=" icon-' + (data.result ? 'ok' : 'remove') + '-sign"></i> ' + data.data);
+                    bootbox.alert('<i class="fa fa-fw fa-' + (data.result ? 'check' : 'times') + '-circle"></i> ' + data.data);
                 else
-                    bootbox.alert('<i class="icon-remove-sign"></i> ' + actionToken.error);
+                    bootbox.alert('<i class="fa fa-fw fa-times-circle"></i> ' + actionToken.error);
             }
         });
         return false;
@@ -206,6 +206,7 @@ function readURL(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
+            $('.preview-image-wrapper').removeClass('hidden');
             $('.preview-image').attr('src', e.target.result).show();
         };
 

@@ -1,110 +1,75 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'nick_name'); ?>
+        <?=  $form->textFieldGroup($model, 'nick_name'); ?>
     </div>
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'email'); ?>
+        <?=  $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'first_name'); ?>
+        <?=  $form->textFieldGroup($model, 'first_name'); ?>
     </div>
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'last_name'); ?>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-3">
-        <?php echo $form->datePickerGroup(
-            $model,
-            'registration_date',
-            array(
-                'widgetOptions' => array(
-                    'options' => array(
-                        'format'    => 'dd-mm-yyyy',
-                        'weekStart' => 1,
-                        'autoclose' => true,
-                    ),
-                ),
-                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
-            )
-        );
-        ?>
-    </div>
-
-    <div class="col-sm-3">
-        <?php echo $form->datepickerGroup(
-            $model,
-            'last_visit',
-            array(
-                'widgetOptions' => array(
-                    'options' => array(
-                        'format'    => 'dd-mm-yyyy',
-                        'weekStart' => 1,
-                        'autoclose' => true,
-                    ),
-                ),
-                'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
-            )
-        );
-        ?>
-    </div>
-    <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
-            $model,
-            'gender',
-            array(
-                'widgetOptions' => array(
-                    'data'        => $model->getGendersList(),
-                    'htmlOptions' => array(
-                        'empty' => '---',
-                    ),
-                ),
-            )
-        ); ?>
+        <?=  $form->textFieldGroup($model, 'last_name'); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-6">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-6">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'access_level',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getAccessLevelsList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'empty' => '---',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
+        ); ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <?=  $form->dropDownListGroup(
+            $model,
+            'gender',
+            [
+                'widgetOptions' => [
+                    'data'        => $model->getGendersList(),
+                    'htmlOptions' => [
+                        'empty' => '---',
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -112,22 +77,22 @@ $form = $this->beginWidget(
 <div class="form-actions">
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'buttonType' => 'submit',
             'context'    => 'primary',
-            'icon'       => 'glyphicon glyphicon-search',
+            'icon'       => 'fa fa-search',
             'label'      => Yii::t('UserModule.user', 'Find user'),
-        )
+        ]
     ); ?>
 
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'buttonType' => 'reset',
             'context'    => 'danger',
-            'icon'       => 'glyphicon glyphicon-remove',
+            'icon'       => 'fa fa-times',
             'label'      => Yii::t('UserModule.user', 'Reset'),
-        )
+        ]
     ); ?>
 </div>
 

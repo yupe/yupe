@@ -1,8 +1,20 @@
 <?php
 
+/**
+ * Interface IFeedbackSender
+ */
 interface IFeedbackSender
 {
-    public function send(FeedBackForm $form);
+    /**
+     * @param IFeedbackForm $form
+     * @return mixed
+     */
+    public function send(IFeedbackForm $form);
 
-    public function sendConfirmation(FeedBackForm $form, FeedBack $feedBack = null);
+    /**
+     * @param IFeedbackForm $form
+     * @param FeedBack|null $feedBack
+     * @return mixed
+     */
+    public function sendConfirmation(IFeedbackForm $form, FeedBack $feedBack = null);
 }

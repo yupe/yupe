@@ -17,7 +17,7 @@ class m000000_000000_news_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{news_news}}',
-            array(
+            [
                 'id'            => 'pk',
                 'category_id'   => 'integer DEFAULT NULL',
                 'lang'          => 'char(2) DEFAULT NULL',
@@ -35,7 +35,7 @@ class m000000_000000_news_base extends yupe\components\DbMigration
                 'is_protected'  => "boolean NOT NULL DEFAULT '0'",
                 'keywords'      => 'varchar(250) NOT NULL',
                 'description'   => 'varchar(250) NOT NULL',
-            ),
+            ],
             $this->getOptions()
         );
 

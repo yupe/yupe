@@ -17,12 +17,16 @@ use CHtml;
 use Yii;
 use CException;
 use CHttpException;
-use yupe\widgets\YWidget;
 
+/**
+ * Class Controller
+ * @package yupe\components\controllers
+ *
+ */
 abstract class Controller extends \CController
 {
     /**
-     * @var
+     * @var \YupeModule
      */
     public $yupe;
 
@@ -34,22 +38,12 @@ abstract class Controller extends \CController
     /**
      * Хлебные крошки сайта, меняется в админке
      */
-    public $breadcrumbs = array();
-
-    /**
-     * Описание сайта, меняется в админке
-     */
-    public $description;
-
-    /**
-     * Ключевые слова сайта, меняется в админке
-     */
-    public $keywords;
+    public $breadcrumbs = [];
 
     /**
      * Contains data for "CMenu" widget (provides view for menu on the site)
      */
-    public $menu = array();
+    public $menu = [];
 
     /**
      * Тип заголовка, подробнее в yupe\components\ContentType
@@ -57,27 +51,55 @@ abstract class Controller extends \CController
      */
     public $headerTypeId = ContentType::TYPE_HTML;
 
+    public $title;
+
     /**
-     * Устанавливает заголовок страниц
-     * @param string $title заголовок
+     * @var
      */
-    public function setPageTitle($title, $savePrev = false, $separator = '|')
+    public $description;
+
+    /**
+     * @var
+     */
+    public $keywords;
+
+    /**
+     * Canonical url
+     *
+     * @var null
+     */
+    public $canonical = null;
+
+    /**
+     * For backward capability
+     *
+     * @deprecated
+     * @param string $value
+     */
+    public function setDescription($value)
     {
-        if ($savePrev) {
-            $this->pageTitle = $this->pageTitle . CHtml::encode($separator) . CHtml::encode($title);
-        } else {
-            $this->pageTitle = CHtml::encode($title);
-        }
+        $this->metaDescription = $value;
+    }
+
+    /**
+     * For backward capability
+     *
+     * @deprecated
+     * @param string $value
+     */
+    public function setKeywords($value)
+    {
+        $this->metaKeywords = $value;
     }
 
     /**
      * Функци определяющая мультиязычность:
      *
-     * @return bool isMultilang
+     * @return bool
      **/
     public function isMultilang()
     {
-        return isset(Yii::app()->getUrlManager()->languages) && is_array(Yii::app()->getUrlManager()->languages);
+        return count(explode(',', $this->yupe->availableLanguages)) > 1;
     }
 
     /**
@@ -101,7 +123,7 @@ abstract class Controller extends \CController
      * @return mixed Инстанс виджета в случае, когда $captureOutput является ложным,
      *               или вывод виджета, когда $captureOutput - истина
      **/
-    public function widget($className, $properties = array(), $captureOutput = false)
+    public function widget($className, $properties = [], $captureOutput = false)
     {
         try {
 
@@ -118,10 +140,10 @@ abstract class Controller extends \CController
                         Yii::t(
                             'YupeModule.yupe',
                             'Widget "{widget}" was not found! Please enable "{module}" module!',
-                            array(
+                            [
                                 '{widget}' => $className,
-                                '{module}' => $modulePath[2]
-                            )
+                                '{module}' => $modulePath[2],
+                            ]
                         ), 1
                     );
                 } elseif (class_exists($className) === false) {
@@ -130,9 +152,9 @@ abstract class Controller extends \CController
                         Yii::t(
                             'YupeModule.yupe',
                             'Widget "{widget}" was not found!',
-                            array(
+                            [
                                 '{widget}' => $className,
-                            )
+                            ]
                         )
                     );
                 }
@@ -144,18 +166,18 @@ abstract class Controller extends \CController
 
             echo CHtml::tag(
                 'p',
-                array(
-                    'class' => 'alert alert-danger'
-                ),
+                [
+                    'class' => 'alert alert-danger',
+                ],
                 $e->getCode()
                     ? $e->getMessage()
                     : Yii::t(
                     'YupeModule.yupe',
                     'Error occurred during the render widget ({widget}): {error}',
-                    array(
-                        '{error}'  => $e->getMessage(),
+                    [
+                        '{error}' => $e->getMessage(),
                         '{widget}' => $className,
-                    )
+                    ]
                 )
             );
 
@@ -180,20 +202,19 @@ abstract class Controller extends \CController
         return parent::processOutput($output);
     }
 
+
     /**
-     * Если вызван ошибочный запрос:
-     *
-     * @param string $message - сообщение
-     * @param integer $error - код ошибки
-     *
-     * @return void
+     * @param null $message
+     * @param int $error
+     * @return mixed
+     * @throws CHttpException
      */
     protected function badRequest($message = null, $error = 400)
     {
         // Если сообщение не установленно - выставляем
         // дефолтное
         $message = $message
-            ? : Yii::t(
+            ?: Yii::t(
                 'YupeModule.yupe',
                 'Bad request. Please don\'t use similar requests anymore!'
             );
@@ -217,13 +238,13 @@ abstract class Controller extends \CController
             foreach (Yii::app()->getComponent('log')->routes as $route) {
                 if (in_array(
                     get_class($route),
-                    array(
+                    [
                         'CFileLogRoute',
                         'CProfileLogRoute',
                         'CWebLogRoute',
                         'YiiDebugToolbarRoute',
-                        'DbProfileLogRoute'
-                    )
+                        'DbProfileLogRoute',
+                    ]
                 )
                 ) {
                     $route->enabled = false;

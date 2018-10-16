@@ -29,10 +29,10 @@ class UserIdentity extends CBaseUserIdentity
             ->with('user')
             ->find(
                 'provider = :provider AND uid = :uid',
-                array(
+                [
                     ':provider' => $this->service->getServiceName(),
                     ':uid'      => $this->service->getId(),
-                )
+                ]
             );
 
         if (null === $storage || !$storage->user->isActive()) {
@@ -45,8 +45,8 @@ class UserIdentity extends CBaseUserIdentity
         Yii::app()->getUser()->setState(YWebUser::STATE_ACCESS_LEVEL, $storage->user->access_level);
         Yii::app()->getUser()->setState(YWebUser::STATE_NICK_NAME, $storage->user->nick_name);
 
-        $storage->user->last_visit = new CDbExpression('NOW()');
-        $storage->user->update(array('last_visit'));
+        $storage->user->visit_time = new CDbExpression('NOW()');
+        $storage->user->update(['visit_time']);
         $this->errorCode = self::ERROR_NONE;
 
         return true;

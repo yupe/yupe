@@ -10,12 +10,11 @@
  * @link     http://yupe.ru
  *
  **/
-class HpController extends yupe\components\controllers\FrontController
+class HpController extends \yupe\components\controllers\FrontController
 {
+
     /**
-     * Index action:
-     *
-     * @return void
+     * @throws CHttpException
      */
     public function actionIndex()
     {
@@ -24,33 +23,58 @@ class HpController extends yupe\components\controllers\FrontController
         $view = $data = null;
 
         if ($module->mode == HomepageModule::MODE_PAGE) {
-            $view = 'page';
 
-            $data = array(
-                'page' => Page::model()->findByPk($module->target)
+            $target = Page::model()->findByPk($module->target);
+            if (null === $target) {
+                throw new CHttpException('404', Yii::t('HomepageModule.page', 'Page was not found'));
+            }
+            $page = Page::model()->published()->find(
+                'slug = :slug AND lang = :lang',
+                [
+                    ':slug' => $target->slug,
+                    ':lang' => Yii::app()->getLanguage(),
+                ]
             );
+            $page = $page ? : $target;
+            $view = $page->view ? : 'page';
+
+            $data = [
+                'page' => $page
+            ];
         }
 
         if ($module->mode == HomepageModule::MODE_POSTS) {
             $view = 'posts';
 
             $dataProvider = new CActiveDataProvider(
-                'Post', array(
+                'Post', [
                     'criteria' => new CDbCriteria(
-                            array(
+                            [
                                 'condition' => 't.status = :status',
-                                'params'    => array(':status' => Post::STATUS_PUBLISHED),
-                                'limit'     => $module->limit,
-                                'order'     => 't.id DESC',
-                                'with'      => array('createUser', 'blog', 'commentsCount'),
-                            )
+                                'params' => [':status' => Post::STATUS_PUBLISHED],
+                                'limit' => $module->limit,
+                                'order' => 't.publish_time DESC',
+                                'with' => ['createUser', 'blog', 'commentsCount'],
+                            ]
                         ),
-                )
+                ]
             );
 
-            $data = array(
+            $data = [
                 'dataProvider' => $dataProvider
-            );
+            ];
+        }
+
+        if($module->mode == HomepageModule::MODE_STORE) {
+
+            $view = 'store';
+
+            Yii::import('application.modules.store.components.repository.ProductRepository');
+
+            $data = [
+                'dataProvider' => (new ProductRepository())->getListForIndexPage()
+            ];
+
         }
 
         $this->render($view, $data);

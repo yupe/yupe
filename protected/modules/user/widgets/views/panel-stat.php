@@ -1,5 +1,9 @@
 <?php $box = $this->beginWidget(
-    'bootstrap.widgets.TbCollapse'
+    'bootstrap.widgets.TbCollapse', [
+        'htmlOptions' => [
+            'id' => 'panel-user-stat'
+        ]
+    ]
 );?>
 
 
@@ -7,12 +11,12 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="glyphicon glyphicon-user"></i> <?php echo Yii::t('UserModule.user', 'Users'); ?>
+                <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId();?>">
+                    <i class="fa fa-fw fa-user"></i> <?=  Yii::t('UserModule.user', 'Users'); ?>
                 </a>
-                <span class="badge alert-success"><?php echo $usersCount; ?></span>
-                <span class="badge alert-info"><?php echo $allUsersCnt; ?></span>
-                <span class="badge alert-danger"><?php echo $registeredCnt; ?></span>
+                <span class="badge alert-success"><?=  $usersCount; ?></span>
+                <span class="badge alert-info"><?=  $allUsersCnt; ?></span>
+                <span class="badge alert-danger"><?=  $registeredCnt; ?></span>
             </h4>
         </div>
 
@@ -24,27 +28,27 @@
                     <div class="col-sm-8">
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
-                            array(
+                            [
                                 'id'           => 'user-grid',
                                 'type'         => 'striped condensed',
                                 'dataProvider' => $dataProvider,
                                 'template'     => '{items}',
-                                'htmlOptions'  => array(
+                                'htmlOptions'  => [
                                     'class' => false
-                                ),
-                                'columns'      => array(
-                                    array(
+                                ],
+                                'columns'      => [
+                                    [
                                         'name'  => 'nick_name',
                                         'value' => 'CHtml::link($data->getFullName(), array("/user/userBackend/update","id" => $data->id))',
                                         'type'  => 'html'
-                                    ),
-                                    'registration_date',
-                                    array(
+                                    ],
+                                    'create_time',
+                                    [
                                         'name'  => 'status',
                                         'value' => '$data->getStatus()',
-                                    ),
-                                ),
-                            )
+                                    ],
+                                ],
+                            ]
                         ); ?>
                     </div>
                     <div class="col-sm-4">
@@ -53,20 +57,20 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('UserModule.user', 'Users (last day / all)'); ?>:
+                                        <?=  Yii::t('UserModule.user', 'Users (last day / all)'); ?>:
 
                                     </td>
                                     <td>
-                                        <span class="badge alert-success"><?php echo $usersCount; ?></span>
-                                        <span class="badge alert-info"><?php echo $allUsersCnt; ?></span>
+                                        <span class="badge alert-success"><?=  $usersCount; ?></span>
+                                        <span class="badge alert-info"><?=  $allUsersCnt; ?></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('UserModule.user', 'Not active'); ?>:
+                                        <?=  Yii::t('UserModule.user', 'Not active'); ?>:
                                     </td>
                                     <td>
-                                        <span class="badge alert-danger"><?php echo $registeredCnt; ?></span>
+                                        <span class="badge alert-danger"><?=  $registeredCnt; ?></span>
                                     </td>
                                 </tr>
                                 </tbody>

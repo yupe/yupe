@@ -1,35 +1,35 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('QueueModule.queue', 'Tasks') => array('/queue/queueBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('QueueModule.queue', 'Tasks') => ['/queue/queueBackend/index'],
     Yii::t('QueueModule.queue', 'Management'),
-);
+];
 
 $this->pageTitle = Yii::t('QueueModule.queue', 'Tasks - manage');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('QueueModule.queue', 'Task list'),
-        'url'   => array('/queue/queueBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/queue/queueBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('QueueModule.queue', 'Task creation'),
-        'url'   => array('/queue/queueBackend/create')
-    ),
-);
+        'url'   => ['/queue/queueBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('QueueModule.queue', 'Tasks'); ?>
-        <small><?php echo Yii::t('QueueModule.queue', 'management'); ?></small>
+        <?=  Yii::t('QueueModule.queue', 'Tasks'); ?>
+        <small><?=  Yii::t('QueueModule.queue', 'management'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
-        <?php echo Yii::t('QueueModule.queue', 'Find tasks'); ?>
+        <i class="fa fa-search">&nbsp;</i>
+        <?=  Yii::t('QueueModule.queue', 'Find tasks'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -48,42 +48,53 @@ $this->menu = array(
     });
 "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'queue-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'columns'      => array(
+        'columns'      => [
             'id',
-            array(
+            [
                 'name'   => 'worker',
                 'value'  => '$data->getWorkerName()',
                 'filter' => Yii::app()->getModule('queue')->getWorkerNamesMap()
-            ),
+            ],
             'create_time',
             'start_time',
             'complete_time',
-            array(
-                'name'   => 'priority',
-                'type'   => 'raw',
-                'value'  => "'<span class=\"label label-'.(\$data->priority?((\$data->priority==Queue::PRIORITY_HIGH)?'warning':((\$data->priority==Queue::PRIORITY_LOW)?'success':'danger')):'info').'\">'.\$data->getPriority().'</span>'",
-                'filter' => $model->getPriorityList(),
-            ),
-            array(
-                'name'   => 'status',
-                'type'   => 'raw',
-                'value'  => "'<span class=\"label label-'.(\$data->status?((\$data->status==1)?'warning':((\$data->status==3)?'success':'default')):'info').'\">'.\$data->getStatus().'</span>'",
-                'filter' => $model->getStatusList(),
-            ),
+            [
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'priority',
+                'url'     => $this->createUrl('/queue/queueBackend/inline'),
+                'source'  => $model->getPriorityList(),
+                'options' => [
+                    Queue::PRIORITY_HIGH   => ['class' => 'label-warning'],
+                    Queue::PRIORITY_LOW    => ['class' => 'label-default'],
+                    Queue::PRIORITY_NORMAL => ['class' => 'label-info'],
+                ],
+            ],
+            [
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/queue/queueBackend/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Queue::STATUS_COMPLETED => ['class' => 'label-success'],
+                    Queue::STATUS_ERROR     => ['class' => 'label-danger'],
+                    Queue::STATUS_NEW       => ['class' => 'label-info'],
+                    Queue::STATUS_PROGRESS  => ['class' => 'label-warning'],
+                ],
+            ],
             'notice',
-            array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
-            ),
-        ),
-    )
+            [
+                'class' => 'yupe\widgets\CustomButtonColumn',
+            ],
+        ],
+    ]
 ); ?>

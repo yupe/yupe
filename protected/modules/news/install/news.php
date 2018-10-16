@@ -8,14 +8,41 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-return array(
-    'module'    => array(
+return [
+    'module' => [
         'class' => 'application.modules.news.NewsModule',
-    ),
-    'import'    => array(),
-    'component' => array(),
-    'rules'     => array(
-        '/news/'        => 'news/news/index',
-        '/news/<alias>' => 'news/news/show',
-    ),
-);
+    ],
+    'import' => [
+        'application.modules.news.events.*',
+        'application.modules.news.listeners.*',
+        'application.modules.news.helpers.*',
+    ],
+    'component' => [
+        'eventManager' => [
+            'class' => 'yupe\components\EventManager',
+            'events' => [
+                'sitemap.before.generate' => [
+                    ['\NewsSitemapGeneratorListener', 'onGenerate']
+                ],
+                'news.after.save' => [
+                    ['\NewsListener', 'onAfterSave']
+                ],
+                'news.after.delete' => [
+                    ['\NewsListener', 'onAfterDelete']
+                ],
+
+            ]
+        ]
+    ],
+    'rules' => [
+        '/news/' => 'news/news/index',
+        '/news/categories' => 'news/newsCategory/index',
+        [
+            'news/news/view',
+            'pattern' => '/news/<slug>',
+            'urlSuffix' => '.html'
+        ],
+        '/news/<slug>' => 'news/newsCategory/view',
+        '/rss/news/' => 'news/newsRss/feed',
+    ],
+];

@@ -1,5 +1,9 @@
 <?php $box = $this->beginWidget(
-    'bootstrap.widgets.TbCollapse'
+    'bootstrap.widgets.TbCollapse', [
+        'htmlOptions' => [
+            'id' => 'panel-feedback-stat'
+        ]
+    ]
 );?>
 
 
@@ -8,14 +12,14 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="glyphicon glyphicon-retweet"></i> <?php echo Yii::t(
+                    <i class="fa fa-retweet"></i> <?=  Yii::t(
                         'FeedbackModule.feedback',
                         'Feedback'
                     ); ?>
                 </a>
-                <span class="badge alert-success"><?php echo $feedbackCount; ?></span>
-                <span class="badge alert-info"><?php echo $allFeedbackCount; ?></span>
-                <span class="badge alert-danger"><?php echo $needAnswerCount; ?></span>
+                <span class="badge alert-success"><?=  $feedbackCount; ?></span>
+                <span class="badge alert-info"><?=  $allFeedbackCount; ?></span>
+                <span class="badge alert-danger"><?=  $needAnswerCount; ?></span>
             </h4>
         </div>
 
@@ -27,27 +31,27 @@
                     <div class="col-sm-8">
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
-                            array(
-                                'id'           => 'feedback-grid',
-                                'type'         => 'striped condensed',
+                            [
+                                'id' => 'feedback-grid',
+                                'type' => 'striped condensed',
                                 'dataProvider' => $dataProvider,
-                                'template'     => '{items}',
-                                'htmlOptions'  => array(
+                                'template' => '{items}',
+                                'htmlOptions' => [
                                     'class' => false
-                                ),
-                                'columns'      => array(
-                                    array(
-                                        'name'  => 'theme',
+                                ],
+                                'columns' => [
+                                    [
+                                        'name' => 'theme',
                                         'value' => 'CHtml::link($data->theme, array("/feedback/feedbackBackend/update","id" => $data->id))',
-                                        'type'  => 'html'
-                                    ),
-                                    'creation_date',
-                                    array(
-                                        'name'  => 'status',
+                                        'type' => 'html'
+                                    ],
+                                    'create_time',
+                                    [
+                                        'name' => 'status',
                                         'value' => '$data->getStatus()',
-                                    ),
-                                ),
-                            )
+                                    ],
+                                ],
+                            ]
                         ); ?>
                     </div>
                     <div class="col-sm-4">
@@ -56,19 +60,19 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('FeedbackModule.feedback', 'Feedback (last day / all)'); ?>:
+                                        <?=  Yii::t('FeedbackModule.feedback', 'Feedback (last day / all)'); ?>:
                                     </td>
                                     <td>
-                                        <span class="badge alert-success"><?php echo $feedbackCount; ?></span>
-                                        <span class="badge alert-info"><?php echo $allFeedbackCount; ?></span>
+                                        <span class="badge alert-success"><?=  $feedbackCount; ?></span>
+                                        <span class="badge alert-info"><?=  $allFeedbackCount; ?></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <?php echo Yii::t('FeedbackModule.feedback', 'Need answer'); ?>:
+                                        <?=  Yii::t('FeedbackModule.feedback', 'Need answer'); ?>:
                                     </td>
                                     <td>
-                                        <span class="badge alert-danger"><?php echo $needAnswerCount; ?></span>
+                                        <span class="badge alert-danger"><?=  $needAnswerCount; ?></span>
                                     </td>
                                 </tr>
                                 </tbody>

@@ -1,8 +1,17 @@
 /*------------------------------------------------------------------
 [ Shortcuts / .shortcuts ]
 */
+
+.form-control {
+    border-radius: 0px;
+}
+
 .shortcuts {
     text-align: left;
+}
+
+.grid-action-column .btn-group{
+    display: flex;
 }
 
 .shortcuts .shortcut {
@@ -16,13 +25,6 @@
     text-decoration: none;
     background: #F3F3F3;
     background-color: #f8f8f8;
-    background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#eeeeee));
-    background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
-    background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
-    background-image: linear-gradient(to bottom, #ffffff, #eeeeee);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);
     border: 1px solid #ddd;
     box-sizing: border-box;
     border-radius: 5px;
@@ -39,13 +41,7 @@
 .shortcuts .shortcut:hover {
     background: #E8E8E8;
     background-color: #f0f0f0;
-    background-image: -moz-linear-gradient(top, #fafafa, #e1e1e1);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#e1e1e1));
-    background-image: -webkit-linear-gradient(top, #fafafa, #e1e1e1);
-    background-image: -o-linear-gradient(top, #fafafa, #e1e1e1);
-    background-image: linear-gradient(to bottom, #fafafa, #e1e1e1);
     background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffafafa', endColorstr='#ffe1e1e1', GradientType=0);
 }
 
 .shortcuts .shortcut:hover .shortcut-icon {
@@ -82,11 +78,9 @@ a.shortcut {
     position: absolute;
     top: 3px;
     right: 3px;
-    padding: 3px 5px;
+    padding: 5px;
     display: block;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+    font-size: 100%;
 }
 
 .shortcut .cn {
@@ -108,7 +102,6 @@ a.shortcut {
 html,
 body {
     height: 100%;
-    min-width: 960px !important;
 }
 
 #overall-wrap {
@@ -118,7 +111,10 @@ body {
 
 .navbar-fixed-top {
     border-bottom: 2px solid #FF9600;
-    min-width: 960px !important;
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+    z-index: 1055;
 }
 
 footer {
@@ -235,9 +231,8 @@ table .button-column {
     white-space: nowrap;
 }
 
-.button-column a {
+.button-column a, td.toggle-column a {
     color: #333;
-    padding-left: 3px;
     text-decoration: none;
 }
 
@@ -274,12 +269,16 @@ table .button-column {
     background: #fff;
 }
 
-.glyphicon {
-    padding-right: 2px;
-}
-
 .nav-tabs {
     margin-bottom: 10px;
+}
+
+input.form-control[type="file"] {
+    background: inherit;
+}
+
+.treeview .checkbox {
+    margin: 0;
 }
 
 /* постраничная навигация в гридах */
@@ -289,4 +288,216 @@ table .button-column {
 
 .pager-container .pagination {
     margin: 26px 0 0 0;
+}
+
+/* Override redactor styles */
+
+.redactor-toolbar-tooltip {
+    z-index: 1055;
+}
+
+/* Modal */
+.modal-backdrop {
+    z-index: 1057;
+}
+
+.modal {
+    z-index: 1058;
+}
+
+/* грид */
+
+.grid-toolbar {
+    height: 40px;
+    padding-left: 0px;
+}
+
+/*navbar*/
+.navbar-default .navbar-nav>li>a {
+    padding: 15px 5px;
+}
+
+.navbar-brand {
+    padding: 7px 5px 15px 15px;
+}
+
+/* Начала блока комментариев */
+.comments-section {
+    font: 13px arial, helvetica, sans-serif;
+    color: #333333;
+}
+
+.comments-section-count-feed {
+    padding: 0 0 0 7px;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.comments-add-form {
+    padding: 0 0 0 86px;
+    position: relative;
+    margin: 0 0 -10px 0;
+}
+
+.comments-add-text textarea {
+    background: #f5f5f5;
+    padding: 0 15px;
+    margin: 0 0 0 -34px;
+    line-height: 36px;
+    height: 36px;
+    width: 100%;
+    border: 1px solid #eeeeee;
+    resize: none;
+    box-shadow: -1px -1px 0 #dddddd, 1px -1px 0 #dddddd, 0px -2px 0 #c6c6c6, -1px -2px 0 #c6c6c6, 1px -2px 0 #c6c6c6;
+}
+
+.comments-item {
+    position: relative;
+    margin: 20px 0 0 0;
+}
+
+.comments-item-avatar, .comments-add-ava {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+}
+
+.comments-item-avatar img, .comments-add-ava img {
+    width: 38px;
+    height: 38px;
+    border-radius: 5px;
+    border: 1px solid #d6d6d6;
+}
+
+.comments-item-main {
+    padding: 0 0 0 54px;
+}
+
+.comments-item-author {
+    padding: 0px 0 7px 0;
+    font-weight: bold;
+    font-size: 15px;
+    color: #8f8f8f;
+}
+
+.comments-item-author a {
+    color: #8f8f8f;
+}
+
+.comments-item-top, .comments-item-top a {
+    color: #a5a5a5;
+    font-size: 14px;
+}
+
+.comments-item-info {
+    overflow: hidden;
+    display: block;
+}
+
+.comments-item-date {
+    padding: 0 0 0 22px;
+    line-height: 20px;
+    font-weight: normal;
+    height: 15px;
+    background: url('../images/cal-reply.png') no-repeat 0 0;
+}
+
+.comments-item-reply {
+    float: right;
+    padding: 0 0 0 24px;
+    height: 14px;
+    line-height: 14px;
+    background: url('../images/cal-reply.png') no-repeat 0 -15px;
+}
+
+.comments-item-reply a {
+    text-decoration: underline;
+}
+
+.comments-item-reply a:hover {
+    text-decoration: none;
+}
+
+.comments-item-message {
+    padding: 5px 0;
+    font-size: 13px;
+    color: #333333;
+    line-height: 19px;
+    overflow: hidden;
+}
+
+/* Вложенные комментарии */
+.comments-item-child {
+    background: #f5f5f5;
+    margin: 10px 0 0 0;
+}
+
+.comments-item-child .comments-item-main:before {
+    display: block;
+    content: '';
+    background: url('../images/comment-marker.png') no-repeat;
+    width: 34px;
+    height: 13px;
+    margin: -31px 0 18px 0;
+}
+
+.comments-item-child .comments-item-main {
+    margin: 18px 20px;
+    padding: 18px 0 10px 54px;
+}
+
+.comments-item-child .comments-item-avatar {
+    left: 20px;
+    top: 18px;
+}
+
+.comments-item-child .comments-item-date {
+    background-position: 0 -29px;
+}
+
+.preview-image-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.preview-image-wrapper button {
+    opacity: 0.9;
+}
+
+.preview-image-wrapper .dropdown-menu {
+    min-width: 350px;
+}
+
+.image-settings {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    z-index: 99;
+}
+
+.btn-group .btn {
+    margin-left: -1px;
+}
+
+#news-form .ct-form-control {
+    min-width: 100px;
+}
+
+.grid-view .headline {
+    float: right;
+    margin-top: 26px;
+}
+
+.grid-view .grid-toolbar {
+    padding-right: 0;
+}
+
+.grid-view .grid-toolbar button {
+    float: right;
+}
+
+.grid-view .grid-toolbar #copy-products {
+    margin-right: 8px !important;
 }

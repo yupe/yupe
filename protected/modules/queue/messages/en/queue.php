@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '-unknown-'                                                                                                               => '',
     '0.1'                                                                                                                     => '',
     'CDbQueue.connectionId "{id}" is invalid. Please make sure it refers to the ID of a CDbConnection application component.' => '',
@@ -78,4 +78,4 @@ return array(
     'creation'                                                                                                                => '',
     'are required'                                                                                                            => '',
     'management'                                                                                                              => '',
-);
+];

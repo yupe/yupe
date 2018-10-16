@@ -10,24 +10,38 @@
  * @link     http://yupe.ru
  *
  **/
-class GalleryController extends yupe\components\controllers\FrontController
+class GalleryController extends \yupe\components\controllers\FrontController
 {
+    /**
+     *
+     */
     const GALLERY_PER_PAGE = 10;
 
-    public function actionList()
+    /**
+     *
+     */
+    public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider(
-            'Gallery', array(
-                'criteria' => array(
+            'Gallery', [
+                'criteria' => [
                     'scopes' => 'published'
-                )
-            )
+                ],
+                'sort' => [
+                    'defaultOrder' => 'id DESC',
+                ]
+            ]
         );
 
-        $this->render('list', array('dataProvider' => $dataProvider));
+        $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
-    public function actionShow($id)
+    /**
+     * @param $id
+     * @throws CDbException
+     * @throws CHttpException
+     */
+    public function actionView($id)
     {
         if (($gallery = Gallery::model()->published()->findByPk($id)) === null) {
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
@@ -46,7 +60,7 @@ class GalleryController extends yupe\components\controllers\FrontController
                         yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
-                    $this->redirect(array('/gallery/gallery/show', 'id' => $gallery->id));
+                    $this->redirect(['/gallery/gallery/view', 'id' => $gallery->id]);
                 }
             } catch (Exception $e) {
                 $transaction->rollback();
@@ -62,14 +76,18 @@ class GalleryController extends yupe\components\controllers\FrontController
         }
 
         $this->render(
-            'show',
-            array(
+            'view',
+            [
                 'image' => $image,
                 'model' => $gallery,
-            )
+            ]
         );
     }
 
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionImage($id)
     {
         $model = Image::model()->findByPk((int)$id);
@@ -78,16 +96,14 @@ class GalleryController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
         }
 
-        $this->render('image', array('model' => $model));
+        $this->render('image', ['model' => $model]);
     }
 
+
     /**
-     * Ajax/Get-обёртка для удаления изображения:
-     *
-     * @param int $id - id-изображения
-     *
-     * @return void
-     **/
+     * @param null $id
+     * @throws CHttpException
+     */
     public function actionDeleteImage($id = null)
     {
         if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false) {
@@ -97,12 +113,12 @@ class GalleryController extends yupe\components\controllers\FrontController
         $message = Yii::t(
             'GalleryModule.gallery',
             'Image #{id} {result} deleted',
-            array(
-                '{id}'     => $id,
+            [
+                '{id}' => $id,
                 '{result}' => ($result = $image->delete())
-                        ? Yii::t('GalleryModule.gallery', 'успешно')
-                        : Yii::t('GalleryModule.gallery', 'не')
-            )
+                    ? Yii::t('GalleryModule.gallery', 'успешно')
+                    : Yii::t('GalleryModule.gallery', 'не')
+            ]
         );
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
@@ -123,13 +139,12 @@ class GalleryController extends yupe\components\controllers\FrontController
         );
     }
 
+
     /**
-     * Ajax/Get-обёртка для редактирования изображения:
-     *
-     * @param int $id - id-изображения
-     *
-     * @return void
-     **/
+     * @param null $id
+     * @throws CException
+     * @throws CHttpException
+     */
     public function actionEditImage($id = null)
     {
         if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false) {
@@ -147,17 +162,17 @@ class GalleryController extends yupe\components\controllers\FrontController
                 $message = Yii::t(
                     'GalleryModule.gallery',
                     'Image #{id} edited',
-                    array(
+                    [
                         '{id}' => $id,
-                    )
+                    ]
                 );
 
                 if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
                     Yii::app()->ajax->success(
-                        array(
+                        [
                             'message' => $message,
-                            'type'    => 'saved',
-                        )
+                            'type' => 'saved',
+                        ]
                     );
                 }
 
@@ -167,18 +182,18 @@ class GalleryController extends yupe\components\controllers\FrontController
                 );
 
                 $this->redirect(
-                    array('/gallery/gallery/show', 'id' => $image->gallery->id)
+                    ['/gallery/gallery/view', 'id' => $image->gallery->id]
                 );
             }
         }
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
             Yii::app()->ajax->success(
-                array(
-                    'form' => $this->renderPartial('_form', array('model' => $image), true)
-                )
+                [
+                    'form' => $this->renderPartial('_form', ['model' => $image], true)
+                ]
             );
         }
-        $this->render('edit-image', array('model' => $image));
+        $this->render('edit-image', ['model' => $image]);
     }
 }

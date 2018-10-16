@@ -1,14 +1,17 @@
 <?php
-$this->pageTitle = Yii::t('NewsModule.news', 'News');
-$this->breadcrumbs = array(Yii::t('NewsModule.news', 'News'));
+$this->title = Yii::app()->getModule('news')->metaTitle ?: Yii::t('NewsModule.news', 'News');
+$this->description = Yii::app()->getModule('news')->metaDescription;
+$this->keywords = Yii::app()->getModule('news')->metaKeyWords;
+
+$this->breadcrumbs = [Yii::t('NewsModule.news', 'News')];
 ?>
 
-<h1>Новости</h1>
+<h1><?= Yii::t('NewsModule.news', 'News') ?></h1>
 
 <?php $this->widget(
-    'zii.widgets.CListView',
-    array(
+    'bootstrap.widgets.TbListView',
+    [
         'dataProvider' => $dataProvider,
-        'itemView'     => '_view',
-    )
+        'itemView' => '_item',
+    ]
 ); ?>

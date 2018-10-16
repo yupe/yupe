@@ -18,6 +18,10 @@ use ReflectionClass;
 use CWidget;
 use Yii;
 
+/**
+ * Class YWidget
+ * @package yupe\widgets
+ */
 abstract class YWidget extends CWidget
 {
     /**
@@ -62,17 +66,43 @@ abstract class YWidget extends CWidget
 
         $themeView = null;
         $reflection = new ReflectionClass(get_class($this));
-        $path = explode(Yii::app()->getModulePath() . DIRECTORY_SEPARATOR, $reflection->getFileName(), 2);
+        $path = explode(Yii::app()->getModulePath().DIRECTORY_SEPARATOR, $reflection->getFileName(), 2);
         if (isset($path[1])) {
             $path = explode(DIRECTORY_SEPARATOR, $path[1], 2);
-            $themeView = Yii::app()->getThemeManager()->getBasePath() . DIRECTORY_SEPARATOR .
-                Yii::app()->getTheme()->getName() . DIRECTORY_SEPARATOR .
-                'views' . DIRECTORY_SEPARATOR .
-                $path[0] . DIRECTORY_SEPARATOR .
-                'widgets' . DIRECTORY_SEPARATOR .
+            $themeView = Yii::app()->getThemeManager()->getBasePath().DIRECTORY_SEPARATOR.
+                Yii::app()->getTheme()->getName().DIRECTORY_SEPARATOR.
+                'views'.DIRECTORY_SEPARATOR.
+                $path[0].DIRECTORY_SEPARATOR.
+                'widgets'.DIRECTORY_SEPARATOR.
                 $reflection->getShortName();
+
+            if ($themeView && file_exists($themeView)) {
+                return $themeView;
+            }
+
+            $themeView = implode(
+                DIRECTORY_SEPARATOR,
+                [Yii::app()->getModulePath(), $path[0], 'views', 'widgets', $reflection->getShortName()]
+            );
+
+            if ($themeView && file_exists($themeView)) {
+                return $themeView;
+            }
         }
 
-        return $themeView && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
+        return parent::getViewPath($checkTheme);
     }
+
+    /**
+     *
+     */
+    public function init()
+    {
+        if (!$this->cacheTime && $this->cacheTime !== 0) {
+            $this->cacheTime = (int)Yii::app()->getModule('yupe')->coreCacheTime;
+        }
+
+        parent::init();
+    }
+
 }

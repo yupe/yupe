@@ -14,15 +14,22 @@
  */
 class YQueueMail extends yupe\components\Mail
 {
+    /**
+     * @var string
+     */
     public $queueComponent = 'queue';
+    /**
+     * @var int
+     */
     public $queueMailWorkerId = 1;
+    /**
+     * @var
+     */
     private $_queue;
-
-    public function init()
-    {
-        parent::init();
-    }
-
+    /**
+     * @return mixed
+     * @throws Exception
+     */
     public function getQueueComponent()
     {
         if ($this->_queue !== null) {
@@ -32,22 +39,34 @@ class YQueueMail extends yupe\components\Mail
                 return $this->_queue;
             }
         }
-        throw new Exception(Yii::t(
-            'QueueModule.queue',
-            'YQuemail.queueComponent contains bad identifier of queue component!'
-        ));
+        throw new Exception(
+            Yii::t(
+                'QueueModule.queue',
+                'YQuemail.queueComponent contains bad identifier of queue component!'
+            )
+        );
     }
 
-    public function send($from, $to, $theme, $body, $isText = false)
+    /**
+     * @param string $from
+     * @param array|string $to
+     * @param string $theme
+     * @param string $body
+     * @param bool|false $isText
+     * @return mixed
+     * @throws Exception
+     */
+    public function send($from, $to, $theme, $body, $isText = false, $replyTo = [])
     {
         return $this->getQueueComponent()->add(
             $this->queueMailWorkerId,
-            array(
-                'from'  => $from,
-                'to'    => $to,
+            [
+                'from' => $from,
+                'to' => $to,
                 'theme' => $theme,
-                'body'  => $body,
-            )
+                'body' => $body,
+                'replyTo' => $replyTo
+            ]
         );
     }
 }

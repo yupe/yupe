@@ -17,7 +17,8 @@
  * @property string $id
  * @property string $image_id
  * @property string $gallery_id
- * @property string $creation_date
+ * @property string $create_time
+ * @property integer $position
  *
  * The followings are the available model relations:
  * @property Gallery $gallery
@@ -48,11 +49,11 @@ class ImageToGallery extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('image_id, gallery_id', 'required'),
-            array('image_id, gallery_id', 'numerical', 'integerOnly' => true),
-            array('id, image_id, gallery_id, creation_date', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['image_id, gallery_id', 'required'],
+            ['image_id, gallery_id, position', 'numerical', 'integerOnly' => true],
+            ['id, image_id, gallery_id, create_time', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -62,10 +63,19 @@ class ImageToGallery extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'gallery' => array(self::BELONGS_TO, 'Gallery', 'gallery_id'),
-            'image'   => array(self::BELONGS_TO, 'Image', 'image_id'),
-        );
+        return [
+            'gallery' => [self::BELONGS_TO, 'Gallery', 'gallery_id'],
+            'image' => [self::BELONGS_TO, 'Image', 'image_id'],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+            ],
+        ];
     }
 
     /**
@@ -73,12 +83,12 @@ class ImageToGallery extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
-            'id'            => Yii::t('GalleryModule.gallery', 'id'),
-            'image_id'      => Yii::t('GalleryModule.gallery', 'Image'),
-            'gallery_id'    => Yii::t('GalleryModule.gallery', 'Gallery'),
-            'creation_date' => Yii::t('GalleryModule.gallery', 'Created at'),
-        );
+        return [
+            'id' => Yii::t('GalleryModule.gallery', 'id'),
+            'image_id' => Yii::t('GalleryModule.gallery', 'Image'),
+            'gallery_id' => Yii::t('GalleryModule.gallery', 'Gallery'),
+            'create_time' => Yii::t('GalleryModule.gallery', 'Created at'),
+        ];
     }
 
     /**
@@ -95,15 +105,15 @@ class ImageToGallery extends yupe\models\YModel
         $criteria->compare('id', $this->id, true);
         $criteria->compare('image_id', $this->image_id, true);
         $criteria->compare('gallery_id', $this->gallery_id, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
     public function beforeSave()
     {
         if ($this->isNewRecord) {
-            $this->creation_date = new CDbExpression('NOW()');
+            $this->create_time = new CDbExpression('NOW()');
         }
 
         return parent::beforeSave();

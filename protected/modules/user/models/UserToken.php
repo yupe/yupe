@@ -9,10 +9,10 @@
  * @property string $token
  * @property integer $type
  * @property integer $status
- * @property string $created
- * @property string $updated
+ * @property string $create_time
+ * @property string $update_time
  * @property string $ip
- * @property string $expire
+ * @property string $expire_time
  */
 class UserToken extends yupe\models\YModel
 {
@@ -25,8 +25,17 @@ class UserToken extends yupe\models\YModel
      * cookie_auth     - авторизация через куки
      */
     const TYPE_ACTIVATE = 1;
+    /**
+     *
+     */
     const TYPE_CHANGE_PASSWORD = 2;
+    /**
+     *
+     */
     const TYPE_EMAIL_VERIFY = 3;
+    /**
+     *
+     */
     const TYPE_COOKIE_AUTH = 4;
 
     /**
@@ -37,7 +46,13 @@ class UserToken extends yupe\models\YModel
      * fail     - истёк/компроментирован
      */
     const STATUS_NEW = 0;
+    /**
+     *
+     */
     const STATUS_ACTIVATE = 1;
+    /**
+     *
+     */
     const STATUS_FAIL = 2;
 
     /**
@@ -60,17 +75,13 @@ class UserToken extends yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return array(
-            array('user_id, type, ip, token, expire', 'required'),
-            array('user_id, type, status', 'numerical', 'integerOnly' => true),
-            array('token, ip', 'length', 'max' => 255),
-            array('updated', 'safe'),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, token, type, status, created, updated, ip', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['user_id, type, ip, token, expire_time', 'required'],
+            ['user_id, type, status', 'numerical', 'integerOnly' => true],
+            ['token, ip', 'length', 'max' => 255],
+            ['update_time', 'safe'],
+            ['id, user_id, token, type, status, create_time, update_time, ip', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -78,11 +89,9 @@ class UserToken extends yupe\models\YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-        );
+        return [
+            'user' => [self::BELONGS_TO, 'User', 'user_id'],
+        ];
     }
 
     /**
@@ -90,17 +99,17 @@ class UserToken extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
-            'id'      => 'ID',
+        return [
+            'id' => 'ID',
             'user_id' => Yii::t('UserModule.user', 'User'),
-            'token'   => Yii::t('UserModule.user', 'Token'),
-            'type'    => Yii::t('UserModule.user', 'Type'),
-            'status'  => Yii::t('UserModule.user', 'Status'),
-            'created' => Yii::t('UserModule.user', 'Created'),
-            'updated' => Yii::t('UserModule.user', 'Updated'),
-            'ip'      => Yii::t('UserModule.user', 'Ip'),
-            'expire'  => Yii::t('UserModule.user', 'Expire')
-        );
+            'token' => Yii::t('UserModule.user', 'Token'),
+            'type' => Yii::t('UserModule.user', 'Type'),
+            'status' => Yii::t('UserModule.user', 'Status'),
+            'create_time' => Yii::t('UserModule.user', 'Created'),
+            'update_time' => Yii::t('UserModule.user', 'Updated'),
+            'ip' => Yii::t('UserModule.user', 'Ip'),
+            'expire_time' => Yii::t('UserModule.user', 'Expire'),
+        ];
     }
 
     /**
@@ -117,11 +126,9 @@ class UserToken extends yupe\models\YModel
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria();
 
-        $criteria->with = array('user');
+        $criteria->with = ['user'];
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('t.user_id', $this->user_id);
@@ -130,29 +137,31 @@ class UserToken extends yupe\models\YModel
         $criteria->compare('t.status', $this->status);
 
         // Критерия для поля "Дата создания":
-        if (!empty($this->created) && strlen($this->created) == 10) {
-            $criteria->addBetweenCondition('t.created', $this->created . ' 00:00:00', $this->created . ' 23:59:59');
+        if (!empty($this->create_time) && strlen($this->create_time) == 10) {
+            $criteria->addBetweenCondition('t.create_time', $this->create_time.' 00:00:00',
+                $this->create_time.' 23:59:59');
         } else {
-            $criteria->compare('t.created', $this->created, true);
+            $criteria->compare('t.create_time', $this->create_time, true);
         }
 
         // Критерия для поля "Дата изменения":
-        if (!empty($this->updated) && strlen($this->updated) == 10) {
-            $criteria->addBetweenCondition('t.updated', $this->updated . ' 00:00:00', $this->updated . ' 23:59:59');
+        if (!empty($this->update_time) && strlen($this->update_time) == 10) {
+            $criteria->addBetweenCondition('t.update_time', $this->update_time.' 00:00:00',
+                $this->update_time.' 23:59:59');
         } else {
-            $criteria->compare('t.updated', $this->updated, true);
+            $criteria->compare('t.update_time', $this->update_time, true);
         }
 
         $criteria->compare('t.ip', $this->ip, true);
-        $criteria->compare('t.expire', $this->expire, true);
+        $criteria->compare('t.expire_time', $this->expire_time, true);
 
         return new CActiveDataProvider(
-            $this, array(
+            $this, [
                 'criteria' => $criteria,
-                'sort'     => array(
+                'sort' => [
                     'defaultOrder' => 't.id DESC',
-                )
-            )
+                ],
+            ]
         );
     }
 
@@ -179,11 +188,11 @@ class UserToken extends yupe\models\YModel
      */
     public function getStatusList()
     {
-        return array(
-            self::STATUS_NEW      => Yii::t('UserModule.user', 'New'),
+        return [
+            self::STATUS_NEW => Yii::t('UserModule.user', 'New'),
             self::STATUS_ACTIVATE => Yii::t('UserModule.user', 'Activated'),
-            self::STATUS_FAIL     => Yii::t('UserModule.user', 'Compromised by'),
-        );
+            self::STATUS_FAIL => Yii::t('UserModule.user', 'Compromised by'),
+        ];
     }
 
     /**
@@ -193,12 +202,12 @@ class UserToken extends yupe\models\YModel
      */
     public static function getTypeList()
     {
-        return array(
-            self::TYPE_ACTIVATE        => Yii::t('UserModule.user', 'User activate'),
+        return [
+            self::TYPE_ACTIVATE => Yii::t('UserModule.user', 'User activate'),
             self::TYPE_CHANGE_PASSWORD => Yii::t('UserModule.user', 'Change/reset password'),
-            self::TYPE_EMAIL_VERIFY    => Yii::t('UserModule.user', 'Email verification'),
-            self::TYPE_COOKIE_AUTH     => Yii::t('UserModule.user', 'Cookie auth'),
-        );
+            self::TYPE_EMAIL_VERIFY => Yii::t('UserModule.user', 'Email verification'),
+            self::TYPE_COOKIE_AUTH => Yii::t('UserModule.user', 'Cookie auth'),
+        ];
     }
 
     /**
@@ -208,21 +217,21 @@ class UserToken extends yupe\models\YModel
      *
      * @return array
      */
-    public static function getDateList($dateField = 'created')
+    public static function getDateList($dateField = 'create_time')
     {
-        $sql = 'left(' . $dateField . ', 10)';
+        $sql = 'left('.$dateField.', 10)';
 
         // Список дат, обрезаем до формата YYYY-MM-DD и кешируем запрос:
         $dateList = self::model()->cache(
             3600,
-            new TagsCache('user-tokens-dateList', 'dateList-' . $dateField)
+            new TagsCache('user-tokens-dateList', 'dateList-'.$dateField)
         )->findAll(
-                array(
-                    'select' => $sql . ' as ' . $dateField,
-                    'group'  => $dateField,
-                    'order'  => $dateField . ' DESC'
-                )
-            );
+            [
+                'select' => $sql.' as '.$dateField,
+                'group' => $dateField,
+                'order' => $dateField.' DESC',
+            ]
+        );
 
         return CHtml::listData($dateList, $dateField, $dateField);
     }
@@ -255,11 +264,17 @@ class UserToken extends yupe\models\YModel
         return isset($statusList[$status]) ? $statusList[$status] : $status;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsCompromised()
     {
         return (int)$this->status === self::STATUS_FAIL;
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         if (!$this->ip) {
@@ -269,20 +284,17 @@ class UserToken extends yupe\models\YModel
         return parent::beforeValidate();
     }
 
+
     /**
-     * Перед сохранением необходимо:
-     * - если новая запись указать время создания
-     * - если обновляется запись, то выставить время обновления
-     *
-     * @return void
+     * @return bool
      */
     public function beforeSave()
     {
         if ($this->getIsNewRecord()) {
-            $this->created = new CDbExpression('NOW()');
+            $this->create_time = new CDbExpression('NOW()');
         }
 
-        $this->updated = new CDbExpression('NOW()');
+        $this->update_time = new CDbExpression('NOW()');
 
         return parent::beforeSave();
     }
@@ -323,6 +335,9 @@ class UserToken extends yupe\models\YModel
         return parent::model($className);
     }
 
+    /**
+     * @return bool
+     */
     public function compromise()
     {
         $this->status = self::STATUS_FAIL;

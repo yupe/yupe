@@ -13,11 +13,26 @@
  */
 class YDbQueue extends YQueue
 {
+    /**
+     * @var null
+     */
     public $queueTableName = null;
+    /**
+     * @var
+     */
     public $connectionId;
+    /**
+     * @var
+     */
     public $workerNamesMap;
+    /**
+     * @var
+     */
     private $_db;
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -25,6 +40,10 @@ class YDbQueue extends YQueue
         $this->queueTableName = Queue::model()->tableName();
     }
 
+    /**
+     * @return mixed
+     * @throws CException
+     */
     public function getDbConnection()
     {
         if ($this->_db !== null) {
@@ -35,18 +54,29 @@ class YDbQueue extends YQueue
             }
         }
 
-        throw new CException(Yii::t(
-            'QueueModule.queue',
-            'CDbQueue.connectionId "{id}" is invalid. Please make sure it refers to the ID of a CDbConnection application component.',
-            array('{id}' => $id)
-        ));
+        throw new CException(
+            Yii::t(
+                'QueueModule.queue',
+                'CDbQueue.connectionId "{id}" is invalid. Please make sure it refers to the ID of a CDbConnection application component.',
+                ['{id}' => $id]
+            )
+        );
     }
 
+    /**
+     * @param $value
+     */
     public function setDbConnection($value)
     {
         $this->_db = $value;
     }
 
+    /**
+     * @param $worker
+     * @param array $data
+     * @return bool
+     * @throws CException
+     */
     public function add($worker, array $data)
     {
         if (($data = json_encode($data)) === false) {
@@ -60,11 +90,16 @@ class YDbQueue extends YQueue
             $command->bindValue(':task', $data, PDO::PARAM_STR);
 
             return $command->execute();
-        } catch (Exceprion $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
 
+    /**
+     * @param null $worker
+     * @return bool
+     * @throws CException
+     */
     public function flush($worker = null)
     {
         $sql = "DELETE FROM {$this->queueTableName}";

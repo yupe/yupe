@@ -14,13 +14,17 @@
 class TagsCache implements ICacheDependency
 {
 
+    /**
+     * @var
+     */
     protected $timestamp;
+    /**
+     * @var array
+     */
     protected $tags;
 
     /**
-     * В качестве параметров передается список тегов
-     *
-     * @return void
+     * TagsCache constructor.
      */
     public function __construct()
     {
@@ -45,13 +49,13 @@ class TagsCache implements ICacheDependency
      */
     public function getHasChanged()
     {
-        $tags = array();
+        $tags = [];
 
         foreach ($this->tags as $tag) {
-            $tags[] = TaggingCacheBehavior::PREFIX . $tag;
+            $tags[] = TaggingCacheBehavior::PREFIX.$tag;
         }
 
-        $values = Yii::app()->cache->mget($tags);
+        $values = Yii::app()->getCache()->mget($tags);
 
         foreach ($values as $value) {
             if ((float)$value > $this->timestamp) {

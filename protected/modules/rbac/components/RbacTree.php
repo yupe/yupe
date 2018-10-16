@@ -9,23 +9,23 @@ class RbacTree
     /**
      * @var array - правила, сгруппированыые по типам, формат array(2 => array(AuthItem1, AuthItem2), 1 => array(), 0 => array())
      */
-    private $itemsGroupedByTypes = array(
-        AuthItem::TYPE_OPERATION => array(),
-        AuthItem::TYPE_TASK      => array(),
-        AuthItem::TYPE_ROLE      => array()
-    );
+    private $itemsGroupedByTypes = [
+        AuthItem::TYPE_OPERATION => [],
+        AuthItem::TYPE_TASK => [],
+        AuthItem::TYPE_ROLE => [],
+    ];
     /**
      * @var array - список правил в формате name => AuthItem object
      */
-    private $itemsList = array();
+    private $itemsList = [];
     /**
      * @var array - связи элементов в формате itemName => array(itemName1, itemName2)
      */
-    private $hierarchy = array();
+    private $hierarchy = [];
     /**
      * @var array - список ролей, которые были в иерархии в качестве потомков
      */
-    private $wereChildren = array();
+    private $wereChildren = [];
 
     /**
      * @var User - пользователь, для которого строится дерево
@@ -33,11 +33,11 @@ class RbacTree
     private $user;
 
     /* кэш для доступности роли, формат 'name' => value */
-    private $permissionList = array();
+    private $permissionList = [];
 
     public function __construct($user = null)
     {
-        $this->user = $user ? : Yii::app()->user;
+        $this->user = $user ?: Yii::app()->user;
         $this->getData();
     }
 
@@ -47,11 +47,11 @@ class RbacTree
     private function getData()
     {
         $userAssign = CHtml::listData(
-            AuthAssignment::model()->findAllByAttributes(array('userid' => $this->user->id)),
+            AuthAssignment::model()->findAllByAttributes(['userid' => $this->user->id]),
             'itemname',
             'userid'
         );
-        $authItems = AuthItem::model()->findAll(array('order' => 'type DESC, description ASC'));
+        $authItems = AuthItem::model()->findAll(['order' => 'type DESC, description ASC']);
         foreach ((array)$authItems as $item) {
             $this->itemsGroupedByTypes[$item->type][$item->name] = $item;
             $this->itemsList[$item->name] = $item;
@@ -74,7 +74,7 @@ class RbacTree
      */
     private function getTextTree($type)
     {
-        $tree = array();
+        $tree = [];
         foreach ($this->itemsGroupedByTypes[$type] as $name => $item) {
             $tree[] = $this->getTextNode($name);
         }
@@ -91,10 +91,10 @@ class RbacTree
     {
         $children = $this->getTextItemChildren($itemName);
 
-        return array(
-            'text'     => $this->getTextItem($this->itemsList[$itemName]),
+        return [
+            'text' => $this->getTextItem($this->itemsList[$itemName]),
             'children' => $children,
-        );
+        ];
     }
 
     /**
@@ -104,7 +104,7 @@ class RbacTree
      */
     private function getTextItemChildren($name)
     {
-        $res = array();
+        $res = [];
         foreach ($this->hierarchy as $key => $items) {
             if ($key == $name) {
                 foreach ($items as $item) {
@@ -123,15 +123,15 @@ class RbacTree
      */
     private function getTextItem($item)
     {
-        return Chtml::tag(
+        return CHtml::tag(
             'div',
-            array('class' => 'checkbox'),
+            ['class' => 'checkbox'],
             CHtml::label(
                 CHtml::checkBox(
                     'AuthItem[]',
                     $this->permissionList[$item['name']],
-                    array('class' => 'auth-item', 'value' => $item['name'], 'id' => 'auth-item-' . uniqid())
-                ) . $this->getItemDescription($item),
+                    ['class' => 'auth-item', 'value' => $item['name'], 'id' => 'auth-item-'.uniqid()]
+                ).$this->getItemDescription($item),
                 null
             )
         );
@@ -139,7 +139,7 @@ class RbacTree
 
     private function getItemDescription($item)
     {
-        return $item->description . " ({$item->getType()} <span class='text-muted'>{$item->name}</span>)";
+        return $item->description." ({$item->getType()} <span class='text-muted'>{$item->name}</span>)";
     }
 
     /**
@@ -150,7 +150,7 @@ class RbacTree
      */
     private function getTreeForUnusedElements($type)
     {
-        $tree = array();
+        $tree = [];
 
         // цикл идет по элементам определенной роли, которые не были упомянуты в качестве потомков
         foreach (array_diff(array_keys((array)$this->itemsGroupedByTypes[$type]), $this->wereChildren) as $name) {
@@ -189,7 +189,7 @@ class RbacTree
      */
     public function getItemsList($type)
     {
-        $res = array();
+        $res = [];
         foreach ($this->itemsGroupedByTypes[$type] as $name => $item) {
             $res[$name] = $this->getItemDescription($item);
         }

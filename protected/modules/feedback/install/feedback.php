@@ -9,26 +9,30 @@
  * @link     http://yupe.ru
  *
  **/
-return array(
-    'module'    => array(
-        'class'           => 'application.modules.feedback.FeedbackModule',
-        'notifyEmailFrom' => 'test@test.ru',
-        'emails'          => 'test_1@test.ru, test_2@test.ru',
-        'panelWidgets'    => array(
-            'application.modules.feedback.widgets.PanelFeedbackStatWidget' => array(
+return [
+    'module' => [
+        'class' => 'application.modules.feedback.FeedbackModule',
+        'panelWidgets' => [
+            'application.modules.feedback.widgets.PanelFeedbackStatWidget' => [
                 'limit' => 5
-            )
-        )
-    ),
-    'import'    => array(
-        'application.modules.yupe.YupeModule'
-    ),
-    'component' => array(),
-    'rules'     => array(
-        '/contacts'                             => 'feedback/contact/index',
-        '/faq'                                  => 'feedback/contact/faq',
-        '/faq/<id:\d+>'                         => 'feedback/contact/faqView',
+            ]
+        ]
+    ],
+    'import' => [
+        'application.modules.yupe.YupeModule',
+        'application.modules.feedback.models.*',
+        'application.modules.feedback.components.*',
+    ],
+    'component' => [
+        'feedback' => [
+            'class' => 'application.modules.feedback.components.FeedbackService'
+        ]
+    ],
+    'rules' => [
+        '/contacts' => '/feedback/contact/index',
+        '/faq' => '/feedback/contact/faq',
+        '/faq/<id:\d+>' => '/feedback/contact/faqView',
         '/feedback/contact/captcha/refresh/<v>' => '/feedback/contact/captcha/refresh',
-        '/feedback/contact/captcha/<v>'         => '/feedback/contact/captcha/'
-    ),
-);
+        '/feedback/contact/captcha/<v>' => '/feedback/contact/captcha/'
+    ],
+];

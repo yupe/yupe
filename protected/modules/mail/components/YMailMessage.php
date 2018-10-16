@@ -13,9 +13,18 @@
 Yii::import('application.modules.mail.MailModule');
 Yii::import('application.modules.mail.models.*');
 
+/**
+ * Class YMailMessage
+ */
 class YMailMessage extends CApplicationComponent
 {
+    /**
+     * @var string
+     */
     public $mailComponent = 'mail';
+    /**
+     * @var
+     */
     private $_mail;
 
     /**
@@ -58,24 +67,28 @@ class YMailMessage extends CApplicationComponent
     public function raiseMailEvent($code, array $data)
     {
         $mailEvent = MailEvent::model()->with('templates')->find(
-            array(
+            [
                 'condition' => 't.code = :code',
-                'params'    => array(':code' => $code),
-            )
+                'params' => [':code' => $code],
+            ]
         );
 
         if (!$mailEvent) {
-            throw new CException(Yii::t(
-                'MailModule.mail',
-                'MainEvent with "{code}" code was not found!'
-            ), array(':code' => $code));
+            throw new CException(
+                Yii::t(
+                    'MailModule.mail',
+                    'MainEvent with "{code}" code was not found!'
+                ), [':code' => $code]
+            );
         }
 
         if (!count($mailEvent->templates)) {
-            throw new CException(Yii::t(
-                'MailModule.mail',
-                'MainEvent with code "{code}" don\'t contain any of active templates!'
-            ), array(':code' => $code));
+            throw new CException(
+                Yii::t(
+                    'MailModule.mail',
+                    'MainEvent with code "{code}" don\'t contain any of active templates!'
+                ), [':code' => $code]
+            );
         }
 
         foreach ($mailEvent->templates as $template) {
@@ -106,17 +119,19 @@ class YMailMessage extends CApplicationComponent
     public function sendTemplate($code, array $data)
     {
         $template = MailTemplate::model()->find(
-            array(
+            [
                 'condition' => 't.code = :code',
-                'params'    => array(':code' => $code),
-            )
+                'params' => [':code' => $code],
+            ]
         );
 
         if (!$template) {
-            throw new CException(Yii::t(
-                'MailModule.mail',
-                'Template with "{code}" was not found!'
-            ), array('{code}' => $code));
+            throw new CException(
+                Yii::t(
+                    'MailModule.mail',
+                    'Template with "{code}" was not found!'
+                ), ['{code}' => $code]
+            );
         }
 
         $parsedData = $this->parseTemplate($template, $data);
@@ -149,12 +164,12 @@ class YMailMessage extends CApplicationComponent
         return str_replace(
             array_keys($data),
             array_values($data),
-            array(
-                'to'    => $template->to,
-                'from'  => $template->from,
+            [
+                'to' => $template->to,
+                'from' => $template->from,
                 'theme' => $template->theme,
-                'body'  => $template->body,
-            )
+                'body' => $template->body,
+            ]
         );
     }
 }

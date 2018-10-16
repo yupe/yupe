@@ -1,18 +1,18 @@
 <div class="alert alert-warning">
-    <p><b><?php echo Yii::t(
+    <p><b><?= Yii::t(
                 'InstallModule.install',
                 'If you have problems with installation, please check {link} or {feedback}',
-                array(
-                    '{link}'     => CHtml::link(
-                            Yii::t('InstallModule.install', 'our forum'),
-                            'http://yupe.ru/talk/viewforum.php?id=10',
-                            array('target' => '_blank')
-                        ),
+                [
+                    '{link}' => CHtml::link(
+                        Yii::t('InstallModule.install', 'our forum'),
+                        'http://talk.yupe.ru/?from=install',
+                        ['target' => '_blank']
+                    ),
                     '{feedback}' => CHtml::link(
-                            Yii::t('InstallModule.install', 'contact us'),
-                            'http://yupe.ru/contacts?from=install',
-                            array('target' => '_blank')
-                        ),
-                )
-            );?></b></p>
+                        Yii::t('InstallModule.install', 'contact us'),
+                        'http://yupe.ru/contacts?from=install',
+                        ['target' => '_blank']
+                    ),
+                ]
+            ); ?></b></p>
 </div>

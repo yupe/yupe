@@ -12,80 +12,80 @@
 <div class="form well">
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
-        array(
-            'id'                     => 'add-image-form',
+        [
+            'id' => 'add-image-form',
             'enableClientValidation' => true,
-            'htmlOptions'            => array('enctype' => 'multipart/form-data')
-        )
+            'htmlOptions' => ['enctype' => 'multipart/form-data']
+        ]
     ); ?>
 
     <legend>
-        <?php echo $model->getIsNewRecord()
+        <?= $model->getIsNewRecord()
             ? Yii::t('GalleryModule.gallery', 'Image creation')
             : Yii::t('GalleryModule.gallery', 'Image edition'); ?>
     </legend>
 
-    <?php echo $form->errorSummary($model); ?>
+    <?= $form->errorSummary($model); ?>
 
-    <?php if ($model->file !== null) : { ?>
+    <?php if ($model->file !== null): ?>
         <div class="row">
-            <?php echo CHtml::image($model->getUrl(190), $model->alt); ?>
+            <?= CHtml::image($model->getImageUrl(190, 190), $model->alt); ?>
         </div>
-    <?php } endif; ?>
+    <?php endif; ?>
 
     <div class='row'>
         <div class="col-sm-7">
-            <?php echo $form->fileFieldGroup(
+            <?= $form->fileFieldGroup(
                 $model,
                 'file',
-                array(
-                    'widgetOptions' => array(
-                        'htmlOptions' => array('style' => 'background-color: inherit;'),
-                    ),
-                )
+                [
+                    'widgetOptions' => [
+                        'htmlOptions' => ['style' => 'background-color: inherit;'],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
 
     <div class='row'>
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'name'); ?>
+            <?= $form->textFieldGroup($model, 'name'); ?>
         </div>
     </div>
 
     <div class='row'>
         <div class="col-sm-12">
-            <?php echo $form->textAreaGroup(
+            <?= $form->textAreaGroup(
                 $model,
                 'description',
-                array(
-                    'widgetOptions' => array(
-                        'htmlOptions' => array(
+                [
+                    'widgetOptions' => [
+                        'htmlOptions' => [
                             'rows' => 7,
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
 
     <div class='row'>
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'alt'); ?>
+            <?= $form->textFieldGroup($model, 'alt'); ?>
         </div>
     </div>
 
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'buttonType' => 'submit',
-            'context'    => 'primary',
-            'icon'       => 'glyphicon glyphicon-picture',
-            'label'      => $model->getIsNewRecord()
-                    ? Yii::t('GalleryModule.gallery', 'Create image')
-                    : Yii::t('GalleryModule.gallery', 'Refresh image')
-        )
+            'context' => 'primary',
+            'icon' => 'glyphicon glyphicon-picture',
+            'label' => $model->getIsNewRecord()
+                ? Yii::t('GalleryModule.gallery', 'Create image')
+                : Yii::t('GalleryModule.gallery', 'Refresh image')
+        ]
     ); ?>
 
     <?php $this->endWidget(); ?>

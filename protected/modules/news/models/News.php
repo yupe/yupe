@@ -15,27 +15,51 @@
  *
  * The followings are the available columns in table 'News':
  * @property integer $id
- * @property string $creation_date
- * @property string $change_date
+ * @property string $create_time
+ * @property string $update_time
  * @property string $date
  * @property string $title
- * @property string $alias
+ * @property string $slug
  * @property string $short_text
  * @property string $full_text
  * @property integer $user_id
  * @property integer $status
  * @property integer $is_protected
- * @property string  $link
- * @property string  $image
+ * @property string $link
+ * @property string $image
+ * @property string $meta_title
+ * @property string $meta_description
+ * @property string $meta_keywords
+ */
+
+use yupe\components\Event;
+use yupe\widgets\YPurifier;
+
+/**
+ * Class News
  */
 class News extends yupe\models\YModel
 {
-
+    /**
+     *
+     */
     const STATUS_DRAFT = 0;
+    /**
+     *
+     */
     const STATUS_PUBLISHED = 1;
+    /**
+     *
+     */
     const STATUS_MODERATION = 2;
 
+    /**
+     *
+     */
     const PROTECTED_NO = 0;
+    /**
+     *
+     */
     const PROTECTED_YES = 1;
 
     /**
@@ -61,55 +85,51 @@ class News extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
-            array('title, alias, keywords, description', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
-            array('date, title, alias, full_text', 'required', 'on' => array('update', 'insert')),
-            array('status, is_protected, category_id', 'numerical', 'integerOnly' => true),
-            array('title, alias, keywords', 'length', 'max' => 150),
-            array('lang', 'length', 'max' => 2),
-            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
-            array('lang', 'in', 'range' => array_keys(Yii::app()->getModule('yupe')->getLanguagesList())),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('alias', 'yupe\components\validators\YUniqueSlugValidator'),
-            array('description', 'length', 'max' => 250),
-            array('link', 'length', 'max' => 250),
-            array('link', 'yupe\components\validators\YUrlValidator'),
-            array(
-                'alias',
+        return [
+            ['title, slug, short_text, full_text, meta_title, meta_keywords, meta_description', 'filter', 'filter' => 'trim'],
+            ['title, slug, meta_title, meta_keywords, meta_description', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['date, title, slug, full_text', 'required', 'on' => ['update', 'insert']],
+            ['status, is_protected, category_id', 'numerical', 'integerOnly' => true],
+            ['title, slug', 'length', 'max' => 150],
+            ['lang', 'length', 'max' => 2],
+            ['lang', 'default', 'value' => Yii::app()->sourceLanguage],
+            ['lang', 'in', 'range' => array_keys(Yii::app()->getModule('yupe')->getLanguagesList())],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['slug', 'yupe\components\validators\YUniqueSlugValidator'],
+            ['meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
+            ['link', 'length', 'max' => 250],
+            ['link', 'yupe\components\validators\YUrlValidator'],
+            [
+                'slug',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t('NewsModule.news', 'Bad characters in {attribute} field')
-            ),
-            array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array(
-                'id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected, lang',
+            ],
+            ['category_id', 'default', 'setOnEmpty' => true, 'value' => null],
+            [
+                'id, meta_title, meta_keywords, meta_description, create_time, update_time, date, title, slug, short_text, full_text, user_id, status, is_protected, lang',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         $module = Yii::app()->getModule('news');
 
-        return array(
-            'imageUpload' => array(
-                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
-                'scenarios'     => array('insert', 'update'),
+        return [
+            'imageUpload' => [
+                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
                 'attributeName' => 'image',
-                'minSize'       => $module->minSize,
-                'maxSize'       => $module->maxSize,
-                'types'         => $module->allowedExtensions,
-                'uploadPath'    => $module->uploadPath,
-                'fileName'      => array($this, 'generateFileName'),
-            ),
-        );
-    }
-
-    public function generateFileName()
-    {
-        return md5($this->title . microtime(true) . uniqid());
+                'minSize' => $module->minSize,
+                'maxSize' => $module->maxSize,
+                'types' => $module->allowedExtensions,
+                'uploadPath' => $module->uploadPath,
+            ],
+        ];
     }
 
     /**
@@ -117,65 +137,80 @@ class News extends yupe\models\YModel
      */
     public function relations()
     {
-        return array(
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'user'     => array(self::BELONGS_TO, 'User', 'user_id'),
-        );
+        return [
+            'category' => [self::BELONGS_TO, 'Category', 'category_id'],
+            'user' => [self::BELONGS_TO, 'User', 'user_id'],
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 't.status = :status',
-                'params'    => array(':status' => self::STATUS_PUBLISHED),
-            ),
-            'protected' => array(
+                'params' => [':status' => self::STATUS_PUBLISHED],
+            ],
+            'protected' => [
                 'condition' => 't.is_protected = :is_protected',
-                'params'    => array(':is_protected' => self::PROTECTED_YES),
-            ),
-            'public'    => array(
+                'params' => [':is_protected' => self::PROTECTED_YES],
+            ],
+            'public' => [
                 'condition' => 't.is_protected = :is_protected',
-                'params'    => array(':is_protected' => self::PROTECTED_NO),
-            ),
-            'recent'    => array(
-                'order' => 'creation_date DESC',
+                'params' => [':is_protected' => self::PROTECTED_NO],
+            ],
+            'recent' => [
+                'order' => 'create_time DESC',
                 'limit' => 5,
-            )
-        );
+            ]
+        ];
     }
 
+    /**
+     * @param $num
+     * @return $this
+     */
     public function last($num)
     {
         $this->getDbCriteria()->mergeWith(
-            array(
+            [
                 'order' => 'date DESC',
                 'limit' => $num,
-            )
+            ]
         );
 
         return $this;
     }
 
+    /**
+     * @param $lang
+     * @return $this
+     */
     public function language($lang)
     {
         $this->getDbCriteria()->mergeWith(
-            array(
+            [
                 'condition' => 'lang = :lang',
-                'params'    => array(':lang' => $lang),
-            )
+                'params' => [':lang' => $lang],
+            ]
         );
 
         return $this;
     }
 
+    /**
+     * @param $category_id
+     * @return $this
+     */
     public function category($category_id)
     {
         $this->getDbCriteria()->mergeWith(
-            array(
+            [
                 'condition' => 'category_id = :category_id',
-                'params'    => array(':category_id' => $category_id),
-            )
+                'params' => [':category_id' => $category_id],
+            ]
         );
 
         return $this;
@@ -186,31 +221,35 @@ class News extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
-            'id'            => Yii::t('NewsModule.news', 'Id'),
-            'category_id'   => Yii::t('NewsModule.news', 'Category'),
-            'creation_date' => Yii::t('NewsModule.news', 'Created at'),
-            'change_date'   => Yii::t('NewsModule.news', 'Updated at'),
-            'date'          => Yii::t('NewsModule.news', 'Date'),
-            'title'         => Yii::t('NewsModule.news', 'Title'),
-            'alias'         => Yii::t('NewsModule.news', 'Alias'),
-            'image'         => Yii::t('NewsModule.news', 'Image'),
-            'link'          => Yii::t('NewsModule.news', 'Link'),
-            'lang'          => Yii::t('NewsModule.news', 'Language'),
-            'short_text'    => Yii::t('NewsModule.news', 'Short text'),
-            'full_text'     => Yii::t('NewsModule.news', 'Full text'),
-            'user_id'       => Yii::t('NewsModule.news', 'Author'),
-            'status'        => Yii::t('NewsModule.news', 'Status'),
-            'is_protected'  => Yii::t('NewsModule.news', 'Access only for authorized'),
-            'keywords'      => Yii::t('NewsModule.news', 'Keywords (SEO)'),
-            'description'   => Yii::t('NewsModule.news', 'Description (SEO)'),
-        );
+        return [
+            'id' => Yii::t('NewsModule.news', 'Id'),
+            'category_id' => Yii::t('NewsModule.news', 'Category'),
+            'create_time' => Yii::t('NewsModule.news', 'Created at'),
+            'update_time' => Yii::t('NewsModule.news', 'Updated at'),
+            'date' => Yii::t('NewsModule.news', 'Date'),
+            'title' => Yii::t('NewsModule.news', 'Title'),
+            'slug' => Yii::t('NewsModule.news', 'Alias'),
+            'image' => Yii::t('NewsModule.news', 'Image'),
+            'link' => Yii::t('NewsModule.news', 'Link'),
+            'lang' => Yii::t('NewsModule.news', 'Language'),
+            'short_text' => Yii::t('NewsModule.news', 'Short text'),
+            'full_text' => Yii::t('NewsModule.news', 'Full text'),
+            'user_id' => Yii::t('NewsModule.news', 'Author'),
+            'status' => Yii::t('NewsModule.news', 'Status'),
+            'is_protected' => Yii::t('NewsModule.news', 'Access only for authorized'),
+            'meta_title' => Yii::t('NewsModule.news', 'Page title (SEO)'),
+            'meta_keywords' => Yii::t('NewsModule.news', 'Keywords (SEO)'),
+            'meta_description' => Yii::t('NewsModule.news', 'Description (SEO)'),
+        ];
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
-        if (!$this->alias) {
-            $this->alias = yupe\helpers\YText::translit($this->title);
+        if (!$this->slug) {
+            $this->slug = yupe\helpers\YText::translit($this->title);
         }
 
         if (!$this->lang) {
@@ -220,19 +259,45 @@ class News extends yupe\models\YModel
         return parent::beforeValidate();
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression('NOW()');
+        $this->update_time = new CDbExpression('NOW()');
         $this->date = date('Y-m-d', strtotime($this->date));
 
-        if ($this->isNewRecord) {
-            $this->creation_date = $this->change_date;
+        if ($this->getIsNewRecord()) {
+            $this->create_time = $this->update_time;
             $this->user_id = Yii::app()->getUser()->getId();
         }
 
         return parent::beforeSave();
     }
 
+    /**
+     *
+     */
+    public function afterSave()
+    {
+        Yii::app()->eventManager->fire(NewsEvents::NEWS_AFTER_SAVE, new Event($this));
+
+        return parent::afterSave();
+    }
+
+    /**
+     *
+     */
+    public function afterDelete()
+    {
+        Yii::app()->eventManager->fire(NewsEvents::NEWS_AFTER_DELETE, new Event($this));
+
+        parent::afterDelete();
+    }
+
+    /**
+     *
+     */
     public function afterFind()
     {
         $this->date = date('d-m-Y', strtotime($this->date));
@@ -246,19 +311,16 @@ class News extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('change_date', $this->change_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
+        $criteria->compare('update_time', $this->update_time, true);
         if ($this->date) {
             $criteria->compare('date', date('Y-m-d', strtotime($this->date)));
         }
         $criteria->compare('title', $this->title, true);
-        $criteria->compare('t.alias', $this->alias, true);
+        $criteria->compare('t.slug', $this->slug, true);
         $criteria->compare('short_text', $this->short_text, true);
         $criteria->compare('full_text', $this->full_text, true);
         $criteria->compare('user_id', $this->user_id);
@@ -266,28 +328,29 @@ class News extends yupe\models\YModel
         $criteria->compare('category_id', $this->category_id, true);
         $criteria->compare('is_protected', $this->is_protected);
         $criteria->compare('t.lang', $this->lang);
-        $criteria->with = array('category');
+        $criteria->with = ['category'];
 
-        return new CActiveDataProvider(get_class($this), array(
+        return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort'     => array('defaultOrder' => 'date DESC'),
-        ));
+            'sort' => ['defaultOrder' => 'date DESC'],
+        ]);
     }
 
-    public function getPermaLink()
-    {
-        return Yii::app()->createAbsoluteUrl('/news/news/show/', array('alias' => $this->alias));
-    }
-
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
-        return array(
-            self::STATUS_DRAFT      => Yii::t('NewsModule.news', 'Draft'),
-            self::STATUS_PUBLISHED  => Yii::t('NewsModule.news', 'Published'),
+        return [
+            self::STATUS_DRAFT => Yii::t('NewsModule.news', 'Draft'),
+            self::STATUS_PUBLISHED => Yii::t('NewsModule.news', 'Published'),
             self::STATUS_MODERATION => Yii::t('NewsModule.news', 'On moderation'),
-        );
+        ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
@@ -295,14 +358,20 @@ class News extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('NewsModule.news', '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getProtectedStatusList()
     {
-        return array(
-            self::PROTECTED_NO  => Yii::t('NewsModule.news', 'no'),
+        return [
+            self::PROTECTED_NO => Yii::t('NewsModule.news', 'no'),
             self::PROTECTED_YES => Yii::t('NewsModule.news', 'yes'),
-        );
+        ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getProtectedStatus()
     {
         $data = $this->getProtectedStatusList();
@@ -310,31 +379,27 @@ class News extends yupe\models\YModel
         return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('NewsModule.news', '*unknown*');
     }
 
+    /**
+     * @return string
+     */
     public function getCategoryName()
     {
         return ($this->category === null) ? '---' : $this->category->name;
     }
 
-    public function getImageUrl($width = 75, $height = 75)
-    {
-        if ($this->image) {
-
-            $module = Yii::app()->getModule('news');
-
-            return Yii::app()->image->makeThumbnail(
-                $this->image,
-                $module->uploadPath,
-                $width,
-                $height,
-                \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
-            );
-        }
-
-        return false;
-    }
-
+    /**
+     * @return string
+     */
     public function getFlag()
     {
         return yupe\helpers\YText::langToflag($this->lang);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProtected()
+    {
+        return $this->is_protected == self::PROTECTED_YES;
     }
 }

@@ -39,14 +39,14 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
      *
      * @var array
      */
-    private $_links = array();
+    private $_links = [];
 
     /**
      * List of document header links
      *
      * @var array
      */
-    private $_headerLinks = array();
+    private $_headerLinks = [];
 
     /**
      * Stored DOM representation
@@ -71,7 +71,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
      *
      * @var array
      */
-    private $_inlineTags = array(
+    private $_inlineTags = [
         'a',
         'abbr',
         'acronym',
@@ -98,7 +98,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
         'q',
         'sub',
         'sup'
-    );
+    ];
 
     /**
      * Object constructor
@@ -320,7 +320,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
         $analyzer = Zend_Search_Lucene_Analysis_Analyzer::getDefault();
         $analyzer->setInput($node->nodeValue, 'UTF-8');
 
-        $matchedTokens = array();
+        $matchedTokens = [];
 
         while (($token = $analyzer->nextToken()) !== null) {
             if (isset($wordsToHighlight[$token->getTermText()])) {
@@ -384,7 +384,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
      */
     protected function _highlightNodeRecursive(DOMNode $contextNode, $wordsToHighlight, $callback, $params)
     {
-        $textNodes = array();
+        $textNodes = [];
 
         if (!$contextNode->hasChildNodes()) {
             return;
@@ -428,7 +428,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
      */
     public function highlight($words, $colour = '#66ffff')
     {
-        return $this->highlightExtended($words, array($this, 'applyColour'), array($colour));
+        return $this->highlightExtended($words, [$this, 'applyColour'], [$colour]);
     }
 
     /**
@@ -441,16 +441,16 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
      * @return string
      * @throws Zend_Search_Lucene_Exception
      */
-    public function highlightExtended($words, $callback, $params = array())
+    public function highlightExtended($words, $callback, $params = [])
     {
         /** Zend_Search_Lucene_Analysis_Analyzer */
         require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
 
         if (!is_array($words)) {
-            $words = array($words);
+            $words = [$words];
         }
 
-        $wordsToHighlightList = array();
+        $wordsToHighlightList = [[]];
         $analyzer = Zend_Search_Lucene_Analysis_Analyzer::getDefault();
         foreach ($words as $wordString) {
             $wordsToHighlightList[] = $analyzer->tokenize($wordString, 'UTF-8');
@@ -461,7 +461,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
             return $this->_doc->saveHTML();
         }
 
-        $wordsToHighlightFlipped = array();
+        $wordsToHighlightFlipped = [];
         foreach ($wordsToHighlight as $id => $token) {
             $wordsToHighlightFlipped[$token->getTermText()] = $id;
         }
@@ -499,7 +499,7 @@ class Zend_Search_Lucene_Document_Html extends Zend_Search_Lucene_Document
         $xpath = new DOMXPath($this->_doc);
         $bodyNodes = $xpath->query('/html/body')->item(0)->childNodes;
 
-        $outputFragments = array();
+        $outputFragments = [];
         for ($count = 0; $count < $bodyNodes->length; $count++) {
             $outputFragments[] = $this->_doc->saveXML($bodyNodes->item($count));
         }

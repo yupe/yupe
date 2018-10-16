@@ -26,6 +26,9 @@
 
 Yii::import('application.modules.menu.models.*');
 
+/**
+ * Class MenuWidget
+ */
 class MenuWidget extends yupe\widgets\YWidget
 {
     /**
@@ -39,25 +42,28 @@ class MenuWidget extends yupe\widgets\YWidget
     /**
      * string данный параметр указывает название layout
      */
-    public $layout = 'main';
+    public $view = 'main';
     /**
      * @var array особенные параметры передаваемые в layout
      */
-    public $layoutParams = array();
+    public $viewParams = [];
     /**
      * @var array параметры виджета zii.widgets.CMenu
      */
-    public $params = array();
+    public $params = [];
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $this->params['items'] = Menu::model()->getItems($this->name, $this->parent_id);
         $this->render(
-            $this->layout,
-            array(
-                'params'       => $this->params,
-                'layoutParams' => $this->layoutParams,
-            )
+            $this->view,
+            [
+                'params' => $this->params,
+                'viewParams' => $this->viewParams,
+            ]
         );
     }
 }

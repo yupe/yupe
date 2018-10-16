@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'News lists'                                                       => '',
     'General module settings'                                          => '',
     'Images settings'                                                  => '',
@@ -110,4 +110,10 @@ return array(
     'are required'                                                     => '',
     'management'                                                       => '',
     'read...'                                                          => '',
-);
+    'General'                                                          => '',
+    'SEO'                                                              => '',
+    'Page title (SEO)'                                                 => '',
+    'Title tag for the news section'                                   => '',
+    'Description for the news section'                                 => '',
+    'KeyWords for the news section'                                    => '',
+];

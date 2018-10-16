@@ -14,8 +14,16 @@ namespace yupe\components\validators;
 use CValidator;
 use Yii;
 
+/**
+ * Class YSLugValidator
+ * @package yupe\components\validators
+ */
 class YSLugValidator extends CValidator
 {
+    /**
+     * @param \CModel $object
+     * @param string $attribute
+     */
     public function validateAttribute($object, $attribute)
     {
         $value = $object->$attribute;

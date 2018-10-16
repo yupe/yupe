@@ -2,12 +2,26 @@
 
 use yupe\components\Mail;
 
+/**
+ * Class DbFeedbackSender
+ */
 class DbFeedbackSender implements IFeedbackSender
 {
+    /**
+     * @var Mail
+     */
     protected $mail;
 
+    /**
+     * @var FeedbackModule
+     */
     protected $module;
 
+    /**
+     * DbFeedbackSender constructor.
+     * @param Mail $mail
+     * @param FeedbackModule $module
+     */
     public function __construct(Mail $mail, FeedbackModule $module)
     {
         $this->mail = $mail;
@@ -15,19 +29,23 @@ class DbFeedbackSender implements IFeedbackSender
         $this->module = $module;
     }
 
-    public function send(FeedBackForm $form)
+    /**
+     * @param IFeedbackForm $form
+     * @return bool
+     */
+    public function send(IFeedbackForm $form)
     {
         $feedback = new FeedBack();
 
         $feedback->setAttributes(
-            array(
-                'name'  => $form->name,
-                'email' => $form->email,
-                'theme' => $form->theme,
-                'text'  => $form->text,
-                'phone' => $form->phone,
-                'type'  => $form->type,
-            )
+            [
+                'name' => $form->getName(),
+                'email' => $form->getEmail(),
+                'theme' => $form->getTheme(),
+                'text' => $form->getText(),
+                'phone' => $form->getPhone(),
+                'type' => $form->getType(),
+            ]
         );
 
         if ($feedback->save()) {
@@ -42,38 +60,29 @@ class DbFeedbackSender implements IFeedbackSender
         return false;
     }
 
-    public function sendConfirmation(FeedBackForm $form, FeedBack $feedBack = null)
+    /**
+     * @param IFeedbackForm $form
+     * @param FeedBack|null $feedBack
+     * @return bool
+     */
+    public function sendConfirmation(IFeedbackForm $form, FeedBack $feedBack = null)
     {
-        $emailBody = Yii::app()->controller->renderPartial(
+        $emailBody = Yii::app()->getController()->renderPartial(
             'feedbackConfirmationEmail',
-            array('model' => $feedBack),
+            ['model' => $feedBack],
             true
         );
 
-        $result = $this->mail->send(
+        return $this->mail->send(
             $this->module->notifyEmailFrom,
-            $form->email,
+            $form->getEmail(),
             Yii::t(
                 'FeedbackModule.feedback',
                 'Your proposition on site "{site}" was received',
-                array('{site}' => Yii::app()->name)
+                ['{site}' => Yii::app()->name]
             ),
             $emailBody
         );
-
-        if ($result) {
-            Yii::log(
-                Yii::t('FeedbackModule.feedback', 'Feedback: Notification for user was sent to email successfully'),
-                CLogger::LEVEL_INFO,
-                FeedbackModule::$logCategory
-            );
-        } else {
-            Yii::log(
-                Yii::t('FeedbackModule.feedback', 'Feedback: can\'t send message'),
-                CLogger::LEVEL_INFO,
-                FeedbackModule::$logCategory
-            );
-        }
 
         return $result;
     }

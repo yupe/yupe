@@ -1,24 +1,51 @@
 <?php
 
-class PublisherController extends yupe\components\controllers\FrontController
+/**
+ * Class PublisherController
+ */
+class PublisherController extends \yupe\components\controllers\FrontController
 {
-    public function filters()
+    /**
+     * @return array
+     */
+    public function actions()
     {
-        return array(
-            array('yupe\filters\YFrontAccessControl'),
-        );
+        return [
+            'imageUpload' => [
+                'class'      => 'yupe\components\actions\YAjaxImageUploadAction',
+                'maxSize'    => $this->module->maxSize,
+                'mimeTypes'  => $this->module->mimeTypes,
+                'types'      => $this->module->allowedExtensions,
+                'uploadPath' => $this->module->getUploadPath()
+            ],
+            'imageChoose' => [
+                'class' => 'yupe\components\actions\YAjaxImageChooseAction'
+            ],
+        ];
     }
 
+    /**
+     * @return array
+     */
+    public function filters()
+    {
+        return [
+            ['yupe\filters\YFrontAccessControl'],
+        ];
+    }
+
+    /**
+     * @throws CHttpException
+     */
     public function actionWrite()
     {
         $post = new Post();
-
+        $post->blog_id = Yii::app()->getRequest()->getParam('blog-id');
         if (($postId = (int)Yii::app()->getRequest()->getQuery('id'))) {
 
             $post = Post::model()->findUserPost($postId, Yii::app()->getUser()->getId());
 
-            if (null === $post) {
-
+            if ($post === null) {
                 throw new CHttpException(404);
             }
 
@@ -30,11 +57,15 @@ class PublisherController extends yupe\components\controllers\FrontController
 
             $data['user_id'] = Yii::app()->getUser()->getId();
 
-            if ($post->createPublicPost($data, Yii::app()->getRequest()->getPost('tags'))) {
+            $data['status'] = Yii::app()->getRequest()->getPost('draft', Post::STATUS_PUBLISHED);
+
+            $data['tags'] = Yii::app()->getRequest()->getPost('tags');
+
+            if ($post->createPublicPost($data)) {
 
                 $message = Yii::t('BlogModule.blog', 'Post sent for moderation!');
 
-                $redirect = array('/blog/publisher/my');
+                $redirect = ['/blog/publisher/my'];
 
                 if ($post->isDraft()) {
                     $message = Yii::t('BlogModule.blog', 'Post saved!');
@@ -44,7 +75,7 @@ class PublisherController extends yupe\components\controllers\FrontController
 
                     $message = Yii::t('BlogModule.blog', 'Post published!');
 
-                    $redirect = array('/blog/post/show', 'slug' => $post->slug);
+                    $redirect = ['/blog/post/view', 'slug' => $post->slug];
                 }
 
                 Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, $message);
@@ -53,19 +84,27 @@ class PublisherController extends yupe\components\controllers\FrontController
             }
         }
 
-        $blogs = Blog::model()->getListForUser(Yii::app()->getUser()->getId());
-
-        $this->render('write', array('post' => $post, 'blogs' => $blogs));
+        $this->render('write', [
+            'post' => $post,
+            'blogs' => (new Blog())->getListForUser(Yii::app()->getUser()->getId()),
+            'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
+        ]);
     }
 
+    /**
+     *
+     */
     public function actionMy()
     {
-        $this->render('my', array('posts' => Post::model()->getForUser(Yii::app()->user->getId())));
+        $this->render('my', ['posts' => (new Post())->getForUser(Yii::app()->getUser()->getId())]);
     }
 
+    /**
+     *
+     */
     public function actionDelete()
     {
-        if (Post::model()->deleteUserPost(Yii::app()->getRequest()->getQuery('id'), Yii::app()->getUser()->getId())) {
+        if ((new Post())->deleteUserPost(Yii::app()->getRequest()->getQuery('id'), Yii::app()->getUser()->getId())) {
 
             Yii::app()->ajax->success();
         }

@@ -5,51 +5,54 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.menu.controllers
  * @since 0.1
  *
  */
 class MenuitemBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Menu.MenuitemBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Menu.MenuitemBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Menu.MenuitemBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Menu.MenuitemBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Menu.MenuitemBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Menu.MenuitemBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Menu.MenuitemBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuitemBackend.View']],
+            [
+                'allow',
+                'actions' => ['create', 'dynamicParent', 'getjsonitems'],
+                'roles' => ['Menu.MenuitemBackend.Create'],
+            ],
+            [
+                'allow',
+                'actions' => ['update', 'inline', 'sortable', 'dynamicParent', 'getjsonitems'],
+                'roles' => ['Menu.MenuitemBackend.Update'],
+            ],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Menu.MenuitemBackend.Delete']],
+            ['deny'],
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
-        return array(
-            'inline' => array(
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'MenuItem',
-                'validAttributes' => array('title', 'href', 'status', 'menu_id', 'sort')
-            )
-        );
-    }
-
-    public function actionSortable()
-    {
-        $sortOrder = Yii::app()->request->getPost('sortOrder');
-
-        if (empty($sortOrder)) {
-            throw new CHttpException(404);
-        }
-
-        if (MenuItem::model()->sort($sortOrder)) {
-            Yii::app()->ajax->success();
-        }
-
-        Yii::app()->ajax->failure();
+        return [
+            'inline' => [
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'MenuItem',
+                'validAttributes' => ['title', 'href', 'status', 'menu_id', 'sort'],
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'MenuItem',
+                'attribute' => 'sort',
+            ],
+        ];
     }
 
     /**
@@ -65,18 +68,18 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             throw new CHttpException(404);
         }
 
-        if (($menuId = Yii::app()->getRequest()->getPost('menuId')) == null) {
+        if (($menuId = Yii::app()->getRequest()->getPost('menuId')) === null) {
             throw new CHttpException(404);
         }
 
         $items = MenuItem::model()->public()->findAll(
-            array(
+            [
                 'condition' => 'menu_id = :menu_id',
-                'order'     => 'title DESC',
-                'params'    => array(
-                    ':menu_id' => $menuId
-                )
-            )
+                'order' => 'title DESC',
+                'params' => [
+                    ':menu_id' => $menuId,
+                ],
+            ]
         );
 
         Yii::app()->ajax->success(
@@ -97,7 +100,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -118,7 +121,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'New item was added to menu!')
                 );
@@ -126,21 +129,13 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $criteria = new CDbCriteria();
-
-        $criteria->select = new CDbExpression('MAX(sort) as sort');
-
-        $max = $model->find($criteria);
-
-        $model->sort = $max->sort + 1; // Set sort in Adding Form as ma x+ 1
-
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -160,7 +155,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'Record was updated!')
                 );
@@ -168,13 +163,13 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -193,7 +188,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             // we only allow deletion via POST request
             $this->loadModel($id)->deleteWithChild();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('MenuModule.menu', 'Record was removed!')
             );
@@ -225,49 +220,44 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             $model->setAttributes($data);
         }
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
+
     /**
-     * Обновление дерева пунктов меню в завимости от родителя.
-     *
-     * @return void
+     * @throws CHttpException
      */
     public function actionDynamicParent()
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && ($data = Yii::app()->getRequest()->getParam(
-                'MenuItem'
-            )) !== null
-        ) {
-            $model = new MenuItem('search');
+        if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
+            throw new CHttpException(404);
+        }
 
-            $model->setAttributes($data);
+        $model = new MenuItem('search');
 
-            if ($model->menu_id) {
-                if (isset($_GET['id'])) {
-                    $model->id = $_GET['id'];
-                }
+        $model->setAttributes(
+            Yii::app()->getRequest()->getParam('MenuItem')
+        );
 
-                $data = $model->parentTree;
+        if ($model->menu_id) {
 
-                foreach ($data as $value => $name) {
-                    echo CHtml::tag('option', array('value' => $value), $name, true);
-                }
+            $model->id = Yii::app()->getRequest()->getQuery('id');
+
+            $data = $model->getParentTree();
+
+            foreach ($data as $value => $name) {
+                echo CHtml::tag('option', ['value' => $value], $name, true);
             }
         }
 
         Yii::app()->end();
     }
 
+
     /**
-     * Возвращает модель по указанному идентификатору
-     * Если модель не будет найдена - возникнет HTTP-исключение.
-     *
-     * @param integer идентификатор нужной модели
-     *
-     * @return void
-     *
-     * @throws CHttpException If MenuItem record not found
+     * @param $id
+     * @return array|mixed|null
+     * @throws CHttpException
      */
     public function loadModel($id)
     {

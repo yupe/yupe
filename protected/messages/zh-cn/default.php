@@ -10,7 +10,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 
-return array(
+return [
     'Home'                                                                              => '主页',
     'Links'                                                                             => '链接',
     'Twitter'                                                                           => '',
@@ -51,4 +51,4 @@ return array(
     'Finishing register'                                                                => '',
     'Register'                                                                          => '注册',
     'Tag cloud'                                                                         => '标签云',
-);
+];

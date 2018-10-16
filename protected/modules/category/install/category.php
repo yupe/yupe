@@ -9,13 +9,33 @@
  * @since 0.1
  *
  */
-return array(
-    'module'    => array(
+return [
+    'module' => [
         'class' => 'application.modules.category.CategoryModule',
-    ),
-    'import'    => array(
+    ],
+    'import' => [
         'application.modules.category.models.*',
-    ),
-    'component' => array(),
-    'rules'     => array(),
-);
+        'application.modules.category.events.*',
+        'application.modules.category.listeners.*',
+        'application.modules.category.helpers.*',
+        'application.modules.category.components.*',
+    ],
+    'component' => [
+        'eventManager' => [
+            'class' => 'yupe\components\EventManager',
+            'events' => [
+                'category.after.save' => [
+                    ['\CategoryListener', 'onAfterSave']
+                ],
+                'category.after.delete' => [
+                    ['\CategoryListener', 'onAfterDelete']
+                ],
+
+            ]
+        ],
+        'categoriesRepository' => [
+            'class' => 'application.modules.category.components.CategoryRepository'
+        ],
+    ],
+    'rules' => [],
+];

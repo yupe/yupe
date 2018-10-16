@@ -1,0 +1,1 @@
+$(function(){"use strict";var t="toggle-active",e=$("[data-toggle]");e.on("click",function(){var e=$(this).data("toggle");return $(e).toggleClass(t),!1}),$(document).on("click",function(e){$(e.target).closest("."+t).length||$("."+t).removeClass(t)})});

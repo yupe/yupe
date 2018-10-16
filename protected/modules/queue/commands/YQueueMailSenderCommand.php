@@ -12,21 +12,42 @@
  */
 use yupe\components\ConsoleCommand;
 
+/**
+ * Class YQueueMailSenderCommand
+ */
 class YQueueMailSenderCommand extends ConsoleCommand
 {
+    /**
+     *
+     */
     const MAIL_WORKER_ID = 1;
 
+    /**
+     * @var string
+     */
     public $logCategory = 'mail';
 
+    /**
+     * @var
+     */
     public $from;
 
+    /**
+     * @var string
+     */
     public $sender = 'mail';
 
+    /**
+     * @return string
+     */
     public function getLogCategory()
     {
         return 'mail';
     }
 
+    /**
+     * @param int $limit
+     */
     public function actionIndex($limit = 5)
     {
         $limit = (int)$limit;
@@ -37,7 +58,7 @@ class YQueueMailSenderCommand extends ConsoleCommand
 
         $models = $queue->getTasksForWorker(self::MAIL_WORKER_ID, $limit);
 
-        $this->log("Find " . count($models) . " new mail task");
+        $this->log("Find ".count($models)." new mail task");
 
         foreach ($models as $model) {
             $this->log("Process mail task id = {$model->id}");
@@ -61,8 +82,10 @@ class YQueueMailSenderCommand extends ConsoleCommand
             }
 
             $from = $this->from ? $this->from : $data['from'];
+            $replyTo = isset($data['replyTo']) ? $data['replyTo'] : [];
+            $sender = Yii::app()->getComponent($this->sender);
 
-            if (Yii::app()->getComponent($this->sender)->send($from, $data['to'], $data['theme'], $data['body'])) {
+            if ($sender->send($from, $data['to'], $data['theme'], $data['body'], false, $replyTo)) {
                 $model->complete();
 
                 $this->log("Success send mail");

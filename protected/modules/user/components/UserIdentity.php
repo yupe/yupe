@@ -24,12 +24,12 @@ class UserIdentity extends CUserIdentity
     public function authenticate()
     {
         $user = User::model()->active()->find(
-            array(
+            [
                 'condition' => 'email = :username OR nick_name = :username',
-                'params'    => array(
-                    ':username' => $this->username
-                )
-            )
+                'params' => [
+                    ':username' => $this->username,
+                ],
+            ]
         );
 
         if (null === $user) {
@@ -55,14 +55,14 @@ class UserIdentity extends CUserIdentity
         if ((int)$user->access_level === User::ACCESS_LEVEL_ADMIN) {
             /* Получаем настройки по всем модулям для данного пользователя: */
             $settings = Settings::model()->fetchUserModuleSettings($user->id);
-            $sessionSettings = array();
+            $sessionSettings = [];
 
             /* Если передан не пустой массив, проходим по нему: */
             if (!empty($settings) && is_array($settings)) {
                 foreach ($settings as $sets) {
                     /* Наполняем нашу сессию: */
                     if (!isset($sessionSettings[$sets->module_id])) {
-                        $sessionSettings[$sets->module_id] = array();
+                        $sessionSettings[$sets->module_id] = [];
                     }
 
                     $sessionSettings[$sets->module_id][$sets->param_name] = $sets->param_value;
@@ -73,8 +73,8 @@ class UserIdentity extends CUserIdentity
         }
 
         // зафиксируем время входа
-        $user->last_visit = new CDbExpression('NOW()');
-        $user->update(array('last_visit'));
+        $user->visit_time = new CDbExpression('NOW()');
+        $user->update(['visit_time']);
         $this->errorCode = self::ERROR_NONE;
 
         return true;

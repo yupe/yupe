@@ -1,69 +1,105 @@
 <?php
-$this->pageTitle = Yii::t('UserModule.user', 'Sign up');
-$this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
+$this->title = Yii::t('UserModule.user', 'Sign up');
+$this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 ?>
 
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
+<script type='text/javascript'>
+    $(document).ready(function () {
+        function str_rand(minlength) {
+            var result = '';
+            var words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+            var max_position = words.length - 1;
+            for (i = 0; i < minlength; ++i) {
+                position = Math.floor(Math.random() * max_position);
+                result = result + words.substring(position, position + 1);
+            }
+            return result;
+        }
+
+        $('#generate_password').click(function () {
+            var pass = str_rand($(this).data('minlength'));
+            $('#RegistrationForm_password').attr('type', 'text');
+            $('#RegistrationForm_password').val(pass);
+            $('#RegistrationForm_cPassword').val(pass);
+        });
+    })
+</script>
+
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
-        'id'          => 'registration-form',
-        'type'        => 'vertical',
-        'htmlOptions' => array(
+    [
+        'id' => 'registration-form',
+        'type' => 'vertical',
+        'htmlOptions' => [
             'class' => 'well',
-        )
-    )
+        ]
+    ]
 ); ?>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
+
+<?php if (!$this->module->generateNickName) : ?>
+    <div class='row'>
+        <div class="col-sm-6">
+            <?= $form->textFieldGroup($model, 'nick_name'); ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 <div class='row'>
-    <div class="col-xs-6">
-        <?php echo $form->textFieldGroup($model, 'nick_name'); ?>
+    <div class="col-sm-6">
+        <?= $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 
 <div class='row'>
-    <div class="col-xs-6">
-        <?php echo $form->textFieldGroup($model, 'email'); ?>
+    <div class="col-sm-6">
+        <?= $form->passwordFieldGroup($model, 'password'); ?>
     </div>
 </div>
 
 <div class='row'>
-    <div class="col-xs-6">
-        <?php echo $form->passwordFieldGroup($model, 'password'); ?>
+    <div class="col-sm-6">
+        <?= $form->passwordFieldGroup($model, 'cPassword'); ?>
     </div>
-</div>
-
-<div class='row'>
-    <div class="col-xs-6">
-        <?php echo $form->passwordFieldGroup($model, 'cPassword'); ?>
+    <div class="col-sm-4 form-group" style="padding-top: 25px;">
+        <?php $this->widget(
+            'bootstrap.widgets.TbButton',
+            [
+                'label' => Yii::t('UserModule.user', 'Generate password'),
+                'htmlOptions' => [
+                    'id' => 'generate_password',
+                    'data-minlength' => $this->module->minPasswordLength
+                ],
+            ]
+        ); ?>
     </div>
 </div>
 
 <?php if ($module->showCaptcha && CCaptcha::checkRequirements()): { ?>
     <div class="row">
         <div class="col-xs-4">
-            <?php echo $form->textFieldGroup(
+            <?= $form->textFieldGroup(
                 $model,
                 'verifyCode',
-                array('hint' => Yii::t('UserModule.user', 'Please enter the text from the image'))
+                ['hint' => Yii::t('UserModule.user', 'Please enter the text from the image')]
             ); ?>
         </div>
         <div class="col-xs-4">
             <?php $this->widget(
                 'CCaptcha',
-                array(
+                [
                     'showRefreshButton' => true,
-                    'imageOptions'      => array(
+                    'imageOptions' => [
                         'width' => '150',
-                    ),
-                    'buttonOptions'     => array(
+                    ],
+                    'buttonOptions' => [
                         'class' => 'btn btn-default',
-                    ),
-                    'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
-                )
+                    ],
+                    'buttonLabel' => '<i class="glyphicon glyphicon-repeat"></i>',
+                ]
             ); ?>
         </div>
     </div>
@@ -71,32 +107,28 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 
 <div class="row">
     <div class="col-xs-12">
-        <?php
-        $this->widget(
+        <?php $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'submit',
-                'context'    => 'primary',
-                'label'      => Yii::t('UserModule.user', 'Sign up'),
-            )
+                'context' => 'primary',
+                'label' => Yii::t('UserModule.user', 'Sign up'),
+            ]
         ); ?>
     </div>
 </div>
 
-<hr/>
-
 <?php if (Yii::app()->hasModule('social')): { ?>
+    <hr/>
     <div class="row">
         <div class="col-xs-12">
-            <?php
-            $this->widget(
+            <?php $this->widget(
                 'vendor.nodge.yii-eauth.EAuthWidget',
-                array(
-                    'action'             => '/social/login',
-                    'predefinedServices' => array('google', 'facebook', 'vkontakte', 'twitter', 'github'),
-                )
-            );
-            ?>
+                [
+                    'action' => '/social/login',
+                    'predefinedServices' => ['google', 'facebook', 'vkontakte', 'twitter', 'github', 'odnoklassniki'],
+                ]
+            ); ?>
         </div>
     </div>
 <?php } endif; ?>

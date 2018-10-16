@@ -1,13 +1,15 @@
 Yupe! - CMS, based on Yii framework
 ==================================
 
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc)](https://scrutinizer-ci.com/g/yupe/yupe/)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/yupe/yupe/?branch=dev)
 [![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
+[![Daily Downloads](https://poser.pugx.org/yupe/yupe/d/daily.png)](https://packagist.org/packages/yupe/yupe)
 [![Gitter chat](https://badges.gitter.im/yupe/yupe.png)](https://gitter.im/yupe/yupe)
 [![Dependency Status](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png)](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8)
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
-[![project status](http://stillmaintained.com/yupe/yupe.png)](http://stillmaintained.com/yupe/yupe)
+[![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
+![Юпи!](http://amylabs.ru/assets/196fa697/images/Head_browser.png)
 
 **Attention! All pull-requests must be made in [dev branch](https://github.com/yupe/yupe/tree/dev)**
 
@@ -33,7 +35,7 @@ You can use simple and inexpensive small hosting and Yupe will be working:
 Requirements and Dependencies
 ------------------------
 * PHP >= 5.4
-* Yiiframework >= 1.1.15
+* Yiiframework >= 1.1.17
 * YiiBooster >= 3.x
 * Nested Set Behavior
 * Imperavi Redactor Widget
@@ -48,13 +50,13 @@ Links
 * [Offitial site](http://yupe.ru/)
 * [Yupe! blog](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Modules repository](https://github.com/yupe/yupe-ext)
-* [Docs](http://yupe.ru/docs/index.html)
+* [Docs](http://docs.yupe.ru/)
 * [API](http://api.yupe.ru/)
 * [More about project](http://yupe.ru/pages/about)
-* [Our team](http://yupe.ru/docs/yupe/team.html)
-* [Forum](http://yupe.ru/talk/)
+* [Our team](http://docs.yupe.ru/team/)
+* [Forum](http://talk.yupe.ru/)
 * [Contacts](http://yupe.ru/contacts)
-* [How can I help you project?](http://yupe.ru/docs/yupe/assistance.project.html)
+* [How can I help you project?](http://docs.yupe.ru/assistance.project/)
 * [Twitter](https://twitter.com/#!/YupeCms)
 * [Commercial support](http://amylabs.ru/contact)
 
@@ -91,6 +93,6 @@ Yupe community will be appreciate you if you place an reference on [yupe.ru/](ht
 
 
 
-(c) 2010 - 2014 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)
+(c) 2012 - 2018 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)
 
 ![amyLabs](http://amylabs.ru/images/logo.png)

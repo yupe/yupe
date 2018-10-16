@@ -5,36 +5,41 @@
  *
  * @author    yupe team <team@yupe.ru>
  * @link      http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.news.controllers
  * @version   0.6
  *
  */
 class NewsBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('News.NewsBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('News.NewsBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('News.NewsBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('News.NewsBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('News.NewsBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('News.NewsBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['News.NewsBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['News.NewsBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['News.NewsBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['News.NewsBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['News.NewsBackend.Delete']],
+            ['deny'],
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
-        return array(
-            'inline' => array(
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'News',
-                'validAttributes' => array('title', 'alias', 'date', 'status')
-            )
-        );
+        return [
+            'inline' => [
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'News',
+                'validAttributes' => ['title', 'slug', 'date', 'status'],
+            ],
+        ];
     }
 
     /**
@@ -46,7 +51,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -65,7 +70,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('NewsModule.news', 'News article was created!')
                 );
@@ -73,7 +78,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
@@ -89,57 +94,55 @@ class NewsBackendController extends yupe\components\controllers\BackController
             $news = News::model()->findByPk($id);
 
             if (null === $news) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('NewsModule.news', 'Targeting news was not found!')
                 );
 
-                $this->redirect(array('/news/newsBackend/create'));
+                $this->redirect(['/news/newsBackend/create']);
             }
 
             if (!array_key_exists($lang, $languages)) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('NewsModule.news', 'Language was not found!')
                 );
 
-                $this->redirect(array('/news/newsBackend/create'));
+                $this->redirect(['/news/newsBackend/create']);
             }
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
                     'NewsModule.news',
                     'You inserting translation for {lang} language',
-                    array(
-                        '{lang}' => $languages[$lang]
-                    )
+                    [
+                        '{lang}' => $languages[$lang],
+                    ]
                 )
             );
 
-            $model->lang = $lang;
-            $model->alias = $news->alias;
-            $model->date = $news->date;
-            $model->category_id = $news->category_id;
-            $model->title = $news->title;
+            $model->setAttributes([
+                'lang' => $lang,
+                'slug' => $news->slug,
+                'date' => $news->date,
+                'category_id' => $news->category_id,
+                'title' => $news->title,
+            ]);
         } else {
-            $model->date = date('d-m-Y');
-            $model->lang = Yii::app()->language;
+            $model->setAttributes([
+                'date' => date('d-m-Y'),
+                'lang' => Yii::app()->getLanguage(),
+            ]);
         }
 
-        $this->render('create', array('model' => $model, 'languages' => $languages));
+        $this->render('create', ['model' => $model, 'languages' => $languages]);
     }
 
+
     /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     *
-     * @param null $alias
-     * @param integer $id the ID of the model to be updated
-     *
+     * @param $id
      * @throws CHttpException
-     *
-     * @return void
      */
     public function actionUpdate($id)
     {
@@ -151,7 +154,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('NewsModule.news', 'News article was updated!')
                 );
@@ -160,42 +163,36 @@ class NewsBackendController extends yupe\components\controllers\BackController
                     Yii::app()->getRequest()->getIsPostRequest()
                         ? (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
-                        : array('view', 'id' => $model->id)
+                        : ['view', 'id' => $model->id]
                 );
             }
         }
 
-        // найти по alias страницы на других языках
+        // найти по slug страницы на других языках
         $langModels = News::model()->findAll(
-            'alias = :alias AND id != :id',
-            array(
-                ':alias' => $model->alias,
-                ':id'    => $model->id
-            )
+            'slug = :slug AND id != :id',
+            [
+                ':slug' => $model->slug,
+                ':id' => $model->id,
+            ]
         );
 
         $this->render(
             'update',
-            array(
+            [
                 'langModels' => CHtml::listData($langModels, 'lang', 'id'),
-                'model'      => $model,
-                'languages'  => $this->yupe->getLanguagesList()
-            )
+                'model' => $model,
+                'languages' => $this->yupe->getLanguagesList(),
+            ]
         );
     }
 
+
     /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @param null $alias
-     * @param integer $id the ID of the model to be deleted
-     *
+     * @param null $id
      * @throws CHttpException
-     *
-     * @return void
      */
     public function actionDelete($id = null)
     {
@@ -203,7 +200,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
 
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('NewsModule.news', 'Record was removed!')
             );
@@ -234,22 +231,18 @@ class NewsBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'News',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
+
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     *
-     * @param integer the ID of the model to be loaded
-     *
-     * @return void
-     *
-     * @throws CHttpException If record not found
+     * @param $id
+     * @return static
+     * @throws CHttpException
      */
     public function loadModel($id)
     {

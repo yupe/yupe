@@ -12,38 +12,53 @@
  */
 class PostBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Blog.PostBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Blog.PostBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Blog.PostBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Blog.PostBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Blog.PostBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Blog.PostBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Blog.PostBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Blog.PostBackend.View']],
+            ['allow', 'actions' => ['create', 'imageUpload', 'imageChoose'], 'roles' => ['Blog.PostBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline', 'imageUpload', 'imageChoose'], 'roles' => ['Blog.PostBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Blog.PostBackend.Delete']],
+            ['deny'],
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
-        return array(
-            'inline' => array(
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Post',
-                'validAttributes' => array(
+        return [
+            'inline' => [
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Post',
+                'validAttributes' => [
                     'title',
                     'slug',
-                    'publish_date',
+                    'publish_time',
                     'status',
                     'comment_status',
                     'blog_id',
                     'category_id',
                     'tags',
-                )
-            )
-        );
+                ],
+            ],
+            'imageUpload' => [
+                'class'      => 'yupe\components\actions\YAjaxImageUploadAction',
+                'maxSize'    => $this->module->maxSize,
+                'mimeTypes'  => $this->module->mimeTypes,
+                'types'      => $this->module->allowedExtensions,
+                'uploadPath' => $this->module->getUploadPath()
+            ],
+            'imageChoose' => [
+                'class' => 'yupe\components\actions\YAjaxImageChooseAction'
+            ],
+        ];
     }
 
     /**
@@ -55,12 +70,12 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        if (($post = Post::model()->loadModel($id)) === null) {
+        if (($post = Post::model()->findByPk($id)) === null) {
 
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
         }
 
-        $this->render('view', array('model' => $post));
+        $this->render('view', ['model' => $post]);
     }
 
     /**
@@ -73,7 +88,7 @@ class PostBackendController extends yupe\components\controllers\BackController
     {
         $model = new Post();
 
-        $model->publish_date = date('d-m-Y h:i');
+        $model->publish_time = date('d-m-Y h:i');
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Post')) {
             $model->setAttributes(
@@ -82,19 +97,19 @@ class PostBackendController extends yupe\components\controllers\BackController
             $model->tags = Yii::app()->getRequest()->getPost('tags');
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Post was created!')
                 );
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -106,7 +121,7 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionUpdate($id)
     {
-        if (($model = Post::model()->loadModel($id)) === null) {
+        if (($model = Post::model()->findByPk($id)) === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found!'));
         }
 
@@ -117,7 +132,7 @@ class PostBackendController extends yupe\components\controllers\BackController
             $model->tags = Yii::app()->getRequest()->getPost('tags');
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Post was updated!')
                 );
@@ -129,16 +144,16 @@ class PostBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array(
+                        [
                             'update',
                             'id' => $model->id,
-                        )
+                        ]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -152,25 +167,23 @@ class PostBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            // поддерживаем удаление только из POST-запроса
 
-            if (($post = Post::model()->loadModel($id)) === null) {
+            if (($post = Post::model()->findByPk($id)) === null) {
                 throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
             } else {
                 $post->delete();
             }
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('BlogModule.blog', 'Post was removed!')
             );
 
-            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'returnUrl',
-                        array('index')
+                        ['index']
                     )
                 );
             }
@@ -196,6 +209,6 @@ class PostBackendController extends yupe\components\controllers\BackController
                 Yii::app()->getRequest()->getParam('Post')
             );
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 }

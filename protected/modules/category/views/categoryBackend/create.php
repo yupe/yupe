@@ -1,29 +1,29 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('CategoryModule.category', 'Categories') => array('/category/categoryBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('CategoryModule.category', 'Categories') => ['/category/categoryBackend/index'],
     Yii::t('CategoryModule.category', 'Create'),
-);
+];
 
 $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - create');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CategoryModule.category', 'Category manage'),
-        'url'   => array('/category/categoryBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url' => ['/category/categoryBackend/index']
+    ],
+    [
+        'icon' => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CategoryModule.category', 'Create category'),
-        'url'   => array('/category/categoryBackend/create')
-    ),
-);
+        'url' => ['/category/categoryBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CategoryModule.category', 'Category'); ?>
-        <small><?php echo Yii::t('CategoryModule.category', 'create'); ?></small>
+        <?= Yii::t('CategoryModule.category', 'Category'); ?>
+        <small><?= Yii::t('CategoryModule.category', 'create'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model, 'languages' => $languages)); ?>
+<?= $this->renderPartial('_form', ['model' => $model, 'languages' => $languages]); ?>

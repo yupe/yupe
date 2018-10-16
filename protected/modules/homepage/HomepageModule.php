@@ -12,36 +12,71 @@
 Yii::import('application.modules.page.models.Page');
 Yii::import('application.modules.blog.models.Post');
 
+/**
+ * Class HomepageModule
+ */
 class HomepageModule extends yupe\components\WebModule
 {
-    const VERSION = '0.8';
+    /**
+     *
+     */
+    const VERSION = '1.0';
 
+    /**
+     *
+     */
     const MODE_POSTS = 1;
 
+    /**
+     *
+     */
     const MODE_PAGE = 2;
 
+    /**
+     *
+     */
+    const MODE_STORE = 3;
+
+    /**
+     * @var int
+     */
     public $mode = 1;
 
+    /**
+     * @var
+     */
     public $limit;
 
+    /**
+     * @var
+     */
     public $target;
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
-        return array(
+        return [
             'blog',
             'page'
-        );
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function getModes()
     {
-        $modes = array();
+        $modes = [];
         if (Yii::app()->hasModule('blog')) {
             $modes[self::MODE_POSTS] = Yii::t('HomepageModule.homepage', 'Posts');
         }
         if (Yii::app()->hasModule('page')) {
             $modes[self::MODE_PAGE] = Yii::t('HomepageModule.homepage', 'Page');
+        }
+        if (Yii::app()->hasModule('store')) {
+            $modes[self::MODE_STORE] = Yii::t('HomepageModule.homepage', 'Store');
         }
         if (empty($modes)) {
             $modes[null] = Yii::t('HomepageModule.homepage', 'Please activate "Blogs" or/and "Pages" module');
@@ -50,6 +85,9 @@ class HomepageModule extends yupe\components\WebModule
         return $modes;
     }
 
+    /**
+     * @return array
+     */
     public function getTargets()
     {
         if ($this->mode == self::MODE_POSTS) {
@@ -60,88 +98,156 @@ class HomepageModule extends yupe\components\WebModule
             return CHtml::listData(Page::model()->public()->published()->findAll(), 'id', 'title');
         }
 
-        return array();
+        return [];
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('HomepageModule.homepage', 'Home page');
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('HomepageModule.homepage', 'Structure');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('HomepageModule.homepage', 'Main page management module');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
-        return Yii::t('HomepageModule.homepage', 'Andrey Opeykin');
+        return 'amylabs team';
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return 'http://amylabs.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return 'hello@amylabs.ru';
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
-        return 'glyphicon glyphicon-home';
+        return 'fa fa-fw fa-home';
     }
 
+    /**
+     * @return array
+     */
     public function getAdminPageLink()
     {
-        return '/yupe/backend/modulesettings';
+        return ['/yupe/backend/modulesettings', 'module' => 'homepage'];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
-        return array(
-            'mode'   => $this->getModes(),
+        return [
+            'mode' => $this->getModes(),
             'target' => $this->getTargets(),
             'limit'
-        );
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParamsGroups()
     {
-        return array(
-            'main' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Main settings'),
-            )
-        );
+        return [
+            '0.main' => [
+                'label' => Yii::t('HomepageModule.homepage', 'Main settings'),
+                'items' => [
+                    'mode',
+                    'target',
+                    'limit'
+                ]
+            ]
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function getParamsLabels()
     {
-        return array(
-            'mode'   => Yii::t('HomepageModule.homepage', 'Whats will be displayed'),
-            'limit'  => Yii::t('HomepageModule.homepage', 'Pages count'),
+        return [
+            'mode' => Yii::t('HomepageModule.homepage', 'Whats will be displayed'),
+            'limit' => Yii::t('HomepageModule.homepage', 'Pages count'),
             'target' => Yii::t('HomepageModule.homepage', 'Page or post')
-        );
+        ];
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
     }
 
+    /**
+     * @return bool
+     */
     public function getIsInstallDefault()
     {
         return true;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAuthItems()
+    {
+        return [
+            [
+                'name' => 'ManageHomePage',
+                'description' => Yii::t('HomepageModule.homepage', 'Manage home page'),
+                'type' => AuthItem::TYPE_TASK,
+                'items' => [
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Homepage.YupeBackend.Modulesettings',
+                        'description' => Yii::t('HomepageModule.homepage', 'Manage home page')
+                    ],
+                ]
+            ]
+        ];
     }
 }

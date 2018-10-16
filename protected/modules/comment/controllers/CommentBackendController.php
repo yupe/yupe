@@ -12,35 +12,40 @@
  */
 class CommentBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Comment.CommentBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Comment.CommentBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Comment.CommentBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Comment.CommentBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Comment.CommentBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Comment.CommentBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Comment.CommentBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Comment.CommentBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Comment.CommentBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline', 'approve'], 'roles' => ['Comment.CommentBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Comment.CommentBackend.Delete']],
+            ['deny']
+        ];
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionInline()
     {
-        if (!Yii::app()->request->getIsAjaxRequest() || !Yii::app()->request->getIsPostRequest()) {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
             throw new CHttpException(404);
         }
 
-        $name = Yii::app()->request->getPost('name');
-        $value = Yii::app()->request->getPost('value');
-        $pk = (int)Yii::app()->request->getPost('pk');
+        $name = Yii::app()->getRequest()->getPost('name');
+        $value = Yii::app()->getRequest()->getPost('value');
+        $pk = (int)Yii::app()->getRequest()->getPost('pk');
 
         if (!isset($name, $value, $pk)) {
             throw new CHttpException(404);
         }
 
-        if (!in_array($name, array('status'))) {
+        if (!in_array($name, ['status'])) {
             throw new CHttpException(404);
         }
 
@@ -65,7 +70,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -102,9 +107,9 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
 
             if ($saveStatus) {
 
-                Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+                Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CommentModule.comment', 'Comment was created!')
                 );
@@ -112,13 +117,13 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
 
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -130,14 +135,14 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     {
         $model = $this->loadModel($id);
 
-        Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+        Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
 
         if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
 
             $model->setAttributes($data);
 
             if ($model->saveNode()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CommentModule.comment', 'Comment was updated!')
                 );
@@ -145,12 +150,12 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -162,10 +167,9 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
-            // we only allow deletion via POST request
             $model = $this->loadModel($id);
 
-            Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+            Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
 
             $model->deleteNode();
 
@@ -192,11 +196,62 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Comment',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
+    }
+
+    /**
+     * @throws CHttpException
+     */
+    public function actionMultiaction()
+    {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
+            throw new CHttpException(404);
+        }
+
+        $items = Yii::app()->getRequest()->getPost('items');
+
+        if (!is_array($items) || empty($items)) {
+            Yii::app()->ajax->success();
+        }
+
+        if ($count = Comment::model()->multiDelete($items)) {
+
+            Yii::app()->ajax->success(
+                Yii::t(
+                    'YupeModule.yupe',
+                    'Removed {count} records!',
+                    [
+                        '{count}' => $count
+                    ]
+                )
+            );
+        } else {
+            Yii::app()->ajax->failure(
+                Yii::t('YupeModule.yupe', 'There was an error when processing the request')
+            );
+        }
+    }
+
+    /**
+     * @throws CHttpException
+     */
+    public function actionApprove()
+    {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
+            throw new CHttpException(404);
+        }
+
+        if ($items = Yii::app()->getRequest()->getPost('items')) {
+            if (Yii::app()->commentManager->multiApprove($items)) {
+                Yii::app()->ajax->success();
+            } else {
+                Yii::app()->ajax->failure();
+            }
+        }
     }
 
     /**

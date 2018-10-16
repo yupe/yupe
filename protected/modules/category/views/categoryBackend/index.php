@@ -1,35 +1,35 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('CategoryModule.category', 'Categories') => array('/category/categoryBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('CategoryModule.category', 'Categories') => ['/category/categoryBackend/index'],
     Yii::t('CategoryModule.category', 'Manage'),
-);
+];
 
 $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - manage');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon' => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CategoryModule.category', 'Category manage'),
-        'url'   => array('/category/categoryBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url' => ['/category/categoryBackend/index']
+    ],
+    [
+        'icon' => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CategoryModule.category', 'Create category'),
-        'url'   => array('/category/categoryBackend/create')
-    ),
-);
+        'url' => ['/category/categoryBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CategoryModule.category', 'Categories'); ?>
-        <small><?php echo Yii::t('CategoryModule.category', 'manage'); ?></small>
+        <?= Yii::t('CategoryModule.category', 'Categories'); ?>
+        <small><?= Yii::t('CategoryModule.category', 'manage'); ?></small>
     </h1>
 </div>
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
-        <?php echo Yii::t('CategoryModule.category', 'Find category'); ?>
+        <i class="fa fa-search">&nbsp;</i>
+        <?= Yii::t('CategoryModule.category', 'Find category'); ?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -48,82 +48,82 @@ $this->menu = array(
     });
 "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
-        'id'           => 'category-grid',
+    [
+        'id' => 'category-grid',
         'dataProvider' => $model->search(),
-        'filter'       => $model,
-        'columns'      => array(
-            array(
-                'name'        => 'id',
-                'htmlOptions' => array('style' => 'width:20px'),
-                'type'        => 'raw',
-                'value'       => 'CHtml::link($data->id, array("/category/categoryBackend/update", "id" => $data->id))'
-            ),
-            array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'name',
-                'editable' => array(
-                    'url'    => $this->createUrl('/category/categoryBackend/inline'),
-                    'mode'   => 'inline',
-                    'params' => array(
+        'filter' => $model,
+        'columns' => [
+            [
+                'name' => 'id',
+                'htmlOptions' => ['style' => 'width:20px'],
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->id, array("/category/categoryBackend/update", "id" => $data->id))'
+            ],
+            [
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'name',
+                'editable' => [
+                    'url' => $this->createUrl('/category/categoryBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
-            ),
-            array(
-                'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'alias',
-                'editable' => array(
-                    'url'    => $this->createUrl('/category/categoryBackend/inline'),
-                    'mode'   => 'inline',
-                    'params' => array(
+                    ]
+                ],
+                'filter' => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
+            ],
+            [
+                'class' => 'bootstrap.widgets.TbEditableColumn',
+                'name' => 'slug',
+                'editable' => [
+                    'url' => $this->createUrl('/category/categoryBackend/inline'),
+                    'mode' => 'inline',
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'alias', array('class' => 'form-control')),
-            ),
-            array(
-                'name'   => 'parent_id',
-                'value'  => '$data->getParentName()',
+                    ]
+                ],
+                'filter' => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
+            ],
+            [
+                'name' => 'parent_id',
+                'value' => '$data->getParentName()',
                 'filter' => CHtml::activeDropDownList(
                     $model,
                     'parent_id',
-                    Category::model()->getFormattedList(),
-                    array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                    Yii::app()->getComponent('categoriesRepository')->getFormattedList(),
+                    ['encode' => false, 'empty' => '', 'class' => 'form-control']
                 )
-            ),
-            array(
-                'name'   => 'image',
-                'type'   => 'raw',
-                'value'  => '$data->image ? CHtml::image($data->imageSrc, $data->name, array("width"  => 100, "height" => 100)) : "---"',
+            ],
+            [
+                'name' => 'image',
+                'type' => 'raw',
+                'value' => '$data->image ? CHtml::image($data->getImageUrl(50, 50), $data->name, array("width"  => 50, "height" => 50)) : "---"',
                 'filter' => false
-            ),
-            array(
-                'class'   => 'yupe\widgets\EditableStatusColumn',
-                'name'    => 'status',
-                'url'     => $this->createUrl('/category/categoryBackend/inline'),
-                'source'  => $model->getStatusList(),
+            ],
+            [
+                'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'status',
+                'url' => $this->createUrl('/category/categoryBackend/inline'),
+                'source' => $model->getStatusList(),
                 'options' => [
-                    Category::STATUS_PUBLISHED  => ['class' => 'label-success'],
+                    Category::STATUS_PUBLISHED => ['class' => 'label-success'],
                     Category::STATUS_MODERATION => ['class' => 'label-warning'],
-                    Category::STATUS_DRAFT      => ['class' => 'label-default'],
+                    Category::STATUS_DRAFT => ['class' => 'label-default'],
                 ],
-            ),
-            array(
-                'name'   => 'lang',
-                'value'  => '$data->lang',
+            ],
+            [
+                'name' => 'lang',
+                'value' => '$data->lang',
                 'filter' => $this->yupe->getLanguagesList()
-            ),
-            array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
-            ),
-        ),
-    )
-); ?>
+            ],
+            [
+                'class' => 'yupe\widgets\CustomButtonColumn',
+            ],
+        ],
+    ]
+);

@@ -13,25 +13,69 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class ImageModule
+ */
 class ImageModule extends WebModule
 {
-    const VERSION = '0.8';
+    /**
+     *
+     */
+    const VERSION = '1.0';
 
+    /**
+     * @var string
+     */
     public $uploadPath = 'image';
+    /**
+     * @var
+     */
     public $documentRoot;
+    /**
+     * @var string
+     */
     public $allowedExtensions = 'jpg,jpeg,png,gif';
+    /**
+     * @var int
+     */
     public $minSize = 0;
-    public $maxSize = 5242880 /* 5 MB */
-    ;
+    /**
+     * @var int
+     */
+    public $maxSize = 5242880; /* 5 MB */
+    /**
+     * @var int
+     */
     public $maxFiles = 1;
+    /**
+     * @var
+     */
     public $types;
+    /**
+     * @var string
+     */
     public $mimeTypes = 'image/gif, image/jpeg, image/png';
 
+    /**
+     * @var int
+     */
+    public $width = 950;
+    /**
+     * @var int
+     */
+    public $height = 950;
+
+    /**
+     * @return string
+     */
     public function getUploadPath()
     {
-        return Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
+        return Yii::app()->uploadManager->getBasePath().DIRECTORY_SEPARATOR.$this->uploadPath;
     }
 
+    /**
+     * @return bool
+     */
     public function getInstall()
     {
         if (parent::getInstall()) {
@@ -41,168 +85,221 @@ class ImageModule extends WebModule
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
-        return array(
+        return [
             'category',
-        );
+        ];
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
-        return "glyphicon glyphicon-picture";
+        return 'fa fa-fw fa-picture-o';
     }
 
+    /**
+     * @return array
+     */
     public function getParamsLabels()
     {
-        return array(
-            'mainCategory'      => Yii::t('ImageModule.image', 'Main images category'),
-            'uploadPath'        => Yii::t('ImageModule.image', 'Directory for uploading images'),
+        return [
+            'mainCategory' => Yii::t('ImageModule.image', 'Main images category'),
+            'uploadPath' => Yii::t('ImageModule.image', 'Directory for uploading images'),
             'allowedExtensions' => Yii::t('ImageModule.image', 'Allowed extensions (separated by comma)'),
-            'minSize'           => Yii::t('ImageModule.image', 'Minimum size (in bytes)'),
-            'maxSize'           => Yii::t('ImageModule.image', 'Maximum size (in bytes)'),
-            'mimeTypes'         => Yii::t('ImageModule.image', 'Mime types')
-        );
+            'minSize' => Yii::t('ImageModule.image', 'Minimum size (in bytes)'),
+            'maxSize' => Yii::t('ImageModule.image', 'Maximum size (in bytes)'),
+            'mimeTypes' => Yii::t('ImageModule.image', 'Mime types'),
+            'width' => Yii::t('ImageModule.image', 'Image width'),
+            'height' => Yii::t('ImageModule.image', 'Image height'),
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
-        return array(
+        return [
             'uploadPath',
             'allowedExtensions',
             'minSize',
             'maxSize',
             'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
-            'mimeTypes'
-        );
+            'mimeTypes',
+            'width',
+            'height',
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParamsGroups()
     {
-        return array(
-            'main' => array(
-                'label' => Yii::t('ImageModule.image', 'General module settings'),
-                'items' => array(
+        return [
+            '0.main' => [
+                'label' => Yii::t('ImageModule.image', 'Download settings'),
+                'items' => [
                     'allowedExtensions',
                     'mimeTypes',
                     'minSize',
                     'maxSize',
                     'uploadPath',
-                    'mainCategory'
-                )
-            )
-        );
+                    'mainCategory',
+                ],
+            ],
+            '1.main' => [
+                'label' => Yii::t('ImageModule.image', 'Resize settings'),
+                'items' => [
+                    'width',
+                    'height',
+                ],
+            ],
+        ];
     }
 
+    /**
+     * @return array|bool
+     */
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
 
-        $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
+        $uploadPath = Yii::app()->uploadManager->getBasePath().DIRECTORY_SEPARATOR.$this->uploadPath;
 
         if (!$uploadPath) {
-            $messages[WebModule::CHECK_ERROR][] = array(
-                'type'    => WebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = [
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'ImageModule.image',
-                        'Please, choose catalog for images! {link}',
-                        array(
-                            '{link}' => CHtml::link(
-                                    Yii::t('ImageModule.image', 'Change module settings'),
-                                    array(
-                                        '/yupe/backend/modulesettings/',
-                                        'module' => $this->id,
-                                    )
-                                ),
-                        )
-                    ),
-            );
+                    'ImageModule.image',
+                    'Please, choose catalog for images! {link}',
+                    [
+                        '{link}' => CHtml::link(
+                            Yii::t('ImageModule.image', 'Change module settings'),
+                            [
+                                '/yupe/backend/modulesettings/',
+                                'module' => $this->id,
+                            ]
+                        ),
+                    ]
+                ),
+            ];
         }
 
         if (!is_dir($uploadPath) || !is_writable($uploadPath)) {
-            $messages[WebModule::CHECK_ERROR][] = array(
-                'type'    => WebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = [
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'ImageModule.image',
-                        'Directory "{dir}" is not accessible for writing ot not exists! {link}',
-                        array(
-                            '{dir}'  => $uploadPath,
-                            '{link}' => CHtml::link(
-                                    Yii::t('ImageModule.image', 'Change module settings'),
-                                    array(
-                                        '/yupe/backend/modulesettings/',
-                                        'module' => $this->id,
-                                    )
-                                ),
-                        )
-                    ),
-            );
+                    'ImageModule.image',
+                    'Directory "{dir}" is not accessible for writing ot not exists! {link}',
+                    [
+                        '{dir}' => $uploadPath,
+                        '{link}' => CHtml::link(
+                            Yii::t('ImageModule.image', 'Change module settings'),
+                            [
+                                '/yupe/backend/modulesettings/',
+                                'module' => $this->id,
+                            ]
+                        ),
+                    ]
+                ),
+            ];
         }
 
         if (!$this->maxSize || $this->maxSize <= 0) {
-            $messages[WebModule::CHECK_ERROR][] = array(
-                'type'    => WebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = [
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'ImageModule.image',
-                        'Set maximum images size {link}',
-                        array(
-                            '{link}' => CHtml::link(
-                                    Yii::t('ImageModule.image', 'Change module settings'),
-                                    array(
-                                        '/yupe/backend/modulesettings/',
-                                        'module' => $this->id,
-                                    )
-                                ),
-                        )
-                    ),
-            );
+                    'ImageModule.image',
+                    'Set maximum images size {link}',
+                    [
+                        '{link}' => CHtml::link(
+                            Yii::t('ImageModule.image', 'Change module settings'),
+                            [
+                                '/yupe/backend/modulesettings/',
+                                'module' => $this->id,
+                            ]
+                        ),
+                    ]
+                ),
+            ];
         }
 
         return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('ImageModule.image', 'Content');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('ImageModule.image', 'Images');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('ImageModule.image', 'Module for images management');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('ImageModule.image', 'yupe team');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('ImageModule.image', 'team@yupe.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return Yii::t('ImageModule.image', 'http://yupe.ru');
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
 
         $this->documentRoot = $_SERVER['DOCUMENT_ROOT'];
 
-        $forImport = array();
+        $forImport = [];
 
         if (Yii::app()->hasModule('gallery')) {
             $forImport[] = 'gallery.models.*';
@@ -210,35 +307,45 @@ class ImageModule extends WebModule
 
         $this->setImport(
             array_merge(
-                array(
-                    'image.models.*'
-                ),
+                [
+                    'image.models.*',
+                ],
                 $forImport
             )
         );
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
-        return array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        return [
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('ImageModule.image', 'Images list'),
-                'url'   => array('/image/imageBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url' => ['/image/imageBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('ImageModule.image', 'Add image'),
-                'url'   => array('/image/imageBackend/create')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-folder-open',
+                'url' => ['/image/imageBackend/create'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('ImageModule.image', 'Images categories'),
-                'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
-            ),
-        );
+                'url' => [
+                    '/category/categoryBackend/index',
+                    'module' => $this->getId(),
+                    'parent' => $this->mainCategory ?: null
+                ],
+            ],
+        ];
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/image/imageBackend/index';
@@ -254,46 +361,44 @@ class ImageModule extends WebModule
         return explode(',', $this->allowedExtensions);
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
-        return array(
-            array(
-                'name'        => 'Image.ImageManager',
+        return [
+            [
+                'name' => 'Image.ImageManager',
                 'description' => Yii::t('ImageModule.image', 'Manage images'),
-                'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Image.ImageBackend.Create',
-                        'description' => Yii::t('ImageModule.image', 'Creating image')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Image.ImageBackend.Delete',
-                        'description' => Yii::t('ImageModule.image', 'Removing image')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Image.ImageBackend.Index',
-                        'description' => Yii::t('ImageModule.image', 'List of images')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Image.ImageBackend.Update',
-                        'description' => Yii::t('ImageModule.image', 'Editing images')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Image.ImageBackend.Inline',
-                        'description' => Yii::t('ImageModule.image', 'Editing images')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Image.ImageBackend.View',
-                        'description' => Yii::t('ImageModule.image', 'Viewing images')
-                    ),
-                )
-            )
-        );
+                'type' => AuthItem::TYPE_TASK,
+                'items' => [
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.Create',
+                        'description' => Yii::t('ImageModule.image', 'Creating image'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.Delete',
+                        'description' => Yii::t('ImageModule.image', 'Removing image'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.Index',
+                        'description' => Yii::t('ImageModule.image', 'List of images'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.Update',
+                        'description' => Yii::t('ImageModule.image', 'Editing images'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Image.ImageBackend.View',
+                        'description' => Yii::t('ImageModule.image', 'Viewing images'),
+                    ],
+                ],
+            ],
+        ];
     }
 }

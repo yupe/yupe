@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '*unknown*'                                                                                                                                                                                                                                           => '*未知*',
     '--choose menu--'                                                                                                                                                                                                                                     => '--选择菜单--',
     '0.3'                                                                                                                                                                                                                                                 => '',
@@ -125,5 +125,6 @@ return array(
     'negation'                                                                                                                                                                                                                                            => '',
     'manage'                                                                                                                                                                                                                                              => '管理',
     'New item was added to menu!'                                                                                                                                                                                                                         => '新菜单项已加入菜单！',
-    'Menu was created!'                                                                                                                                                                                                                                   => '菜单创建成功！'
-);
+    'Menu was created!'                                                                                                                                                                                                                                   => '菜单创建成功！',
+    'General' => ''
+];

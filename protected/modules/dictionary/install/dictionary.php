@@ -9,11 +9,11 @@
  * @link     http://yupe.ru
  *
  **/
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class' => 'application.modules.dictionary.DictionaryModule',
-    ),
-    'import'    => array(),
-    'component' => array(),
-    'rules'     => array(),
-);
+    ],
+    'import'    => [],
+    'component' => [],
+    'rules'     => [],
+];

@@ -1,79 +1,79 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 <fieldset>
     <div class="row">
         <div class="col-sm-5">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'category_id',
-                array(
-                    'widgetOptions' => array(
-                        'data'        => Category::model()->getFormattedList(),
-                        'htmlOptions' => array(
+                [
+                    'widgetOptions' => [
+                        'data'        => Yii::app()->getComponent('categoriesRepository')->getFormattedList(),
+                        'htmlOptions' => [
                             'empty'  => '---',
                             'encode' => false,
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <?php echo $form->textFieldGroup($model, 'name'); ?>
+            <?=  $form->textFieldGroup($model, 'name'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-8">
-            <?php echo $form->textAreaGroup(
+            <?=  $form->textAreaGroup(
                 $model,
                 'description',
-                array('widgetOptions' => array('htmlOptions' => array('rows' => 6)))
+                ['widgetOptions' => ['htmlOptions' => ['rows' => 6]]]
             ); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <?php echo $form->textFieldGroup($model, 'alt'); ?>
+            <?=  $form->textFieldGroup($model, 'alt'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'type',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getTypeList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -81,15 +81,15 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'ImageModule.image',
                 'Find image'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

@@ -10,13 +10,16 @@
  * @since 0.1
  *
  */
-class ArchiveController extends yupe\components\controllers\FrontController
+class ArchiveController extends \yupe\components\controllers\FrontController
 {
+    /**
+     *
+     */
     public function actionIndex()
     {
         $this->render(
             'archive',
-            array('data' => Post::model()->getArchive((int)Yii::app()->request->getQuery('blog')))
+            ['data' => Post::model()->getArchive((int)Yii::app()->getRequest()->getQuery('blog'))]
         );
     }
 }

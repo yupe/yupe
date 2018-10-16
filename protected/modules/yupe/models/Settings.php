@@ -14,8 +14,8 @@
  * @property string $module_id
  * @property string $param_name
  * @property string $param_value
- * @property string $creation_date
- * @property string $change_date
+ * @property string $create_time
+ * @property string $update_time
  * @property string $user_id
  *
  * The followings are the available model relations:
@@ -30,19 +30,25 @@ use CActiveDataProvider;
 use CMap;
 use TagsCache;
 
+/**
+ * Class Settings
+ * @package yupe\models
+ */
 class Settings extends YModel
 {
-    /*
-        TYPE_CORE - для модуля,
-        TYPE_USER - для пользователей
-    */
+    /**
+     *
+     */
     const TYPE_CORE = 1;
+    /**
+     *
+     */
     const TYPE_USER = 2;
 
     /**
      * @var array Массив хранящий список валидаторов для определенного параметра модуля
      */
-    public $rulesFromModule = array();
+    public $rulesFromModule = [];
 
     /**
      * Returns the static model of the specified AR class.
@@ -67,32 +73,32 @@ class Settings extends YModel
     public function rules()
     {
         return CMap::mergeArray(
-            array(
-                array('module_id, param_name', 'required'),
-                array('module_id, param_name', 'length', 'max' => 100),
-                array('param_value', 'length', 'max' => 255),
-                array('user_id', 'numerical', 'integerOnly' => true),
-                //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
-                //array('param_name, param_value','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
-                array(
-                    'id, module_id, param_name, param_value, creation_date, change_date, user_id',
+            [
+                ['module_id, param_name', 'required'],
+                ['module_id, param_name', 'length', 'max' => 100],
+                ['param_value', 'length', 'max' => 500],
+                ['user_id, type', 'numerical', 'integerOnly' => true],
+                [
+                    'id, module_id, param_name, param_value, create_time, update_time, user_id',
                     'safe',
-                    'on' => 'search'
-                ),
-            ),
+                    'on' => 'search',
+                ],
+            ],
             $this->rulesFromModule
         );
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression('NOW()');
+        $this->update_time = new CDbExpression('NOW()');
 
-        if ($this->isNewRecord) {
-            $this->creation_date = $this->change_date;
+        if ($this->getIsNewRecord()) {
+            $this->create_time = $this->update_time;
         }
 
-        // Пользователя можно получить только для веб-приложения
         $this->user_id = Yii::app()->hasComponent('user') ? Yii::app()->getUser()->getId() : null;
 
         return parent::beforeSave();
@@ -103,11 +109,9 @@ class Settings extends YModel
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-        );
+        return [
+            'user' => [self::BELONGS_TO, 'User', 'user_id'],
+        ];
     }
 
     /**
@@ -115,15 +119,15 @@ class Settings extends YModel
      */
     public function attributeLabels()
     {
-        return array(
-            'id'            => Yii::t('YupeModule.yupe', 'ID'),
-            'module_id'     => Yii::t('YupeModule.yupe', 'Module'),
-            'param_name'    => Yii::t('YupeModule.yupe', 'Parameter name'),
-            'param_value'   => Yii::t('YupeModule.yupe', 'Parameter value'),
-            'creation_date' => Yii::t('YupeModule.yupe', 'Creation date'),
-            'change_date'   => Yii::t('YupeModule.yupe', 'Change date'),
-            'user_id'       => Yii::t('YupeModule.yupe', 'User'),
-        );
+        return [
+            'id' => Yii::t('YupeModule.yupe', 'ID'),
+            'module_id' => Yii::t('YupeModule.yupe', 'Module'),
+            'param_name' => Yii::t('YupeModule.yupe', 'Parameter name'),
+            'param_value' => Yii::t('YupeModule.yupe', 'Parameter value'),
+            'create_time' => Yii::t('YupeModule.yupe', 'Creation date'),
+            'update_time' => Yii::t('YupeModule.yupe', 'Change date'),
+            'user_id' => Yii::t('YupeModule.yupe', 'User'),
+        ];
     }
 
     /**
@@ -132,33 +136,28 @@ class Settings extends YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('module_id', $this->module_id, true);
         $criteria->compare('param_name', $this->param_name, true);
         $criteria->compare('param_value', $this->param_value, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('change_date', $this->change_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
+        $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('user_id', $this->user_id, true);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
+
     /**
-     * Получает настройки модуля из базы данных (системные)
-     *
-     * @param  string $module_id Идентификатор модуля
-     * @param  mixed $params Список параметров, которые требуется прочитать
-     * @return array  Экземпляры класса Settings, соответствующие запрошенным параметрам
+     * @param $moduleId
+     * @param array|null $params
+     * @return array
      */
     public static function fetchModuleSettings($moduleId, array $params = null)
     {
-
-        $settings = array();
+        $settings = [];
 
         if ($moduleId) {
             $criteria = new CDbCriteria();
@@ -189,11 +188,11 @@ class Settings extends YModel
         return $settings;
     }
 
+
     /**
-     * Сохраняет настройки модуля
-     * @param string $module_id Идентификатор модуля
-     * @param mixed $params Массив параметров и значений которые следует сохранить (param_name => param_value)
-     *
+     * @param $moduleId
+     * @param $paramValues
+     * @return bool
      */
     public static function saveModuleSettings($moduleId, $paramValues)
     {
@@ -201,11 +200,11 @@ class Settings extends YModel
             // Получаем настройку
             $setting = Settings::model()->find(
                 'module_id = :module_id and param_name = :param_name',
-                array(':module_id' => $moduleId, ':param_name' => $name)
+                [':module_id' => $moduleId, ':param_name' => $name]
             );
 
             // Если новая запись
-            if ($setting == null) {
+            if ($setting === null) {
                 $setting = new Settings();
                 $setting->module_id = $moduleId;
                 $setting->param_name = $name;
@@ -237,9 +236,9 @@ class Settings extends YModel
      *
      * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
      **/
-    public function fetchUserModuleSettings($userId, $modulesId = array())
+    public function fetchUserModuleSettings($userId, $modulesId = [])
     {
-        $settings = array();
+        $settings = [];
 
         $criteria = new CDbCriteria();
         /* Выборка всех модулей или только указанных */

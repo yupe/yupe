@@ -1,4 +1,5 @@
 <?php
+use yupe\widgets\YPurifier;
 
 /**
  * Форма регистрации
@@ -37,55 +38,71 @@ class RegistrationForm extends CFormModel
     {
         $module = Yii::app()->getModule('user');
 
-        return array(
-            array('nick_name, email', 'filter', 'filter' => 'trim'),
-            array('nick_name, email', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
-            array('nick_name, email, password, cPassword', 'required'),
-            array('nick_name, email', 'length', 'max' => 50),
-            array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
-            array(
+        return [
+            ['nick_name, email', 'filter', 'filter' => 'trim'],
+            ['nick_name, email', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['nick_name, email, password, cPassword', 'required'],
+            ['nick_name, email', 'length', 'max' => 50],
+            ['password, cPassword', 'length', 'min' => $module->minPasswordLength],
+            [
                 'nick_name',
                 'match',
-                'pattern' => '/^[A-Za-z0-9]{2,50}$/',
+                'pattern' => '/^[A-Za-z0-9_-]{2,50}$/',
                 'message' => Yii::t(
-                        'UserModule.user',
-                        'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
-                    )
-            ),
-            array('nick_name', 'checkNickName'),
-            array(
+                    'UserModule.user',
+                    'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
+                )
+            ],
+            ['nick_name', 'checkNickName'],
+            [
                 'cPassword',
                 'compare',
                 'compareAttribute' => 'password',
-                'message'          => Yii::t('UserModule.user', 'Password is not coincide')
-            ),
-            array('email', 'email'),
-            array('email', 'checkEmail'),
-            array(
+                'message' => Yii::t('UserModule.user', 'Password is not coincide')
+            ],
+            ['email', 'email'],
+            ['email', 'checkEmail'],
+            [
                 'verifyCode',
                 'yupe\components\validators\YRequiredValidator',
                 'allowEmpty' => !$this->isCaptchaEnabled(),
-                'message'    => Yii::t('UserModule.user', 'Check code incorrect')
-            ),
-            array('verifyCode', 'captcha', 'allowEmpty' => !$this->isCaptchaEnabled()),
-            array('verifyCode', 'emptyOnInvalid')
-        );
+                'message' => Yii::t('UserModule.user', 'Check code incorrect')
+            ],
+            ['verifyCode', 'captcha', 'allowEmpty' => !$this->isCaptchaEnabled()],
+            ['verifyCode', 'emptyOnInvalid']
+        ];
+    }
+
+    /**
+     * Метод выполняется перед валидацией
+     *
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        $module = Yii::app()->getModule('user');
+
+        if ($module->generateNickName) {
+            $this->nick_name = 'user' . time();
+        }
+
+        return parent::beforeValidate();
     }
 
     public function attributeLabels()
     {
-        return array(
-            'nick_name'  => Yii::t('UserModule.user', 'User name'),
-            'email'      => Yii::t('UserModule.user', 'Email'),
-            'password'   => Yii::t('UserModule.user', 'Password'),
-            'cPassword'  => Yii::t('UserModule.user', 'Password confirmation'),
+        return [
+            'nick_name' => Yii::t('UserModule.user', 'User name'),
+            'email' => Yii::t('UserModule.user', 'Email'),
+            'password' => Yii::t('UserModule.user', 'Password'),
+            'cPassword' => Yii::t('UserModule.user', 'Password confirmation'),
             'verifyCode' => Yii::t('UserModule.user', 'Check code'),
-        );
+        ];
     }
 
     public function checkNickName($attribute, $params)
     {
-        $model = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->$attribute));
+        $model = User::model()->find('nick_name = :nick_name', [':nick_name' => $this->$attribute]);
 
         if ($model) {
             $this->addError('nick_name', Yii::t('UserModule.user', 'User name already exists'));
@@ -94,7 +111,7 @@ class RegistrationForm extends CFormModel
 
     public function checkEmail($attribute, $params)
     {
-        $model = User::model()->find('email = :email', array(':email' => $this->$attribute));
+        $model = User::model()->find('email = :email', [':email' => $this->$attribute]);
 
         if ($model) {
             $this->addError('email', Yii::t('UserModule.user', 'Email already busy'));

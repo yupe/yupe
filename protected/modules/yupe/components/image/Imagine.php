@@ -39,7 +39,7 @@ class Imagine
      * @var array|string the driver to use. This can be either a single driver name or an array of driver names.
      * If the latter, the first available driver will be used.
      */
-    public static $driver = array(self::DRIVER_GMAGICK, self::DRIVER_IMAGICK, self::DRIVER_GD2);
+    public static $driver = [self::DRIVER_GMAGICK, self::DRIVER_IMAGICK, self::DRIVER_GD2];
 
     /**
      * @var ImagineInterface instance.
@@ -95,10 +95,12 @@ class Imagine
                     throw new \CException("Unknown driver: $driver");
             }
         }
-        throw new \CException("Your system does not support any of these drivers: " . implode(
+        throw new \CException(
+            "Your system does not support any of these drivers: " . implode(
                 ',',
                 (array)static::$driver
-            ));
+            )
+        );
     }
 
     /**
@@ -120,7 +122,7 @@ class Imagine
      * @return ImageInterface
      * @throws \CException    if the `$start` parameter is invalid
      */
-    public static function crop($filename, $width, $height, array $start = array(0, 0))
+    public static function crop($filename, $width, $height, array $start = [0, 0])
     {
         if (!isset($start[0], $start[1])) {
             throw new \CException('$start must be an array of two elements.');
@@ -146,8 +148,8 @@ class Imagine
         $box = new Box($width, $height);
         $img = static::getImagine()->open($filename);
 
-        if (($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight(
-                )) || (!$box->getWidth() && !$box->getHeight())
+        if (($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight()) ||
+            (!$box->getWidth() && !$box->getHeight())
         ) {
             return $img->copy();
         }
@@ -182,7 +184,7 @@ class Imagine
      * @return ImageInterface
      * @throws \CException    if `$start` is invalid
      */
-    public static function watermark($filename, $watermarkFilename, array $start = array(0, 0))
+    public static function watermark($filename, $watermarkFilename, array $start = [0, 0])
     {
         if (!isset($start[0], $start[1])) {
             throw new \CException('$start must be an array of two elements.');
@@ -210,7 +212,7 @@ class Imagine
      * @return ImageInterface
      * @throws \CException    if `$fontOptions` is invalid
      */
-    public static function text($filename, $text, $fontFile, array $start = array(0, 0), array $fontOptions = array())
+    public static function text($filename, $text, $fontFile, array $start = [0, 0], array $fontOptions = [])
     {
         if (!isset($start[0], $start[1])) {
             throw new \CException('$start must be an array of two elements.');
@@ -247,13 +249,34 @@ class Imagine
         $size = $img->getSize();
 
         $pasteTo = new Point($margin, $margin);
-        $palette = new RGB();
 
         $box = new Box($size->getWidth() + ceil($margin * 2), $size->getHeight() + ceil($margin * 2));
 
-        $image = static::getImagine()->create($box, (new RGB())->color($color));
+        $image = static::getImagine()->create($box, (new RGB())->color($color, $alpha));
 
         $image->paste($img, $pasteTo);
+
+        return $image;
+    }
+
+    public static function resize($filename, $width, $height)
+    {
+        $image = static::getImagine()->open($filename);
+
+        $realWidth = $image->getSize()->getWidth();
+        $realHeight = $image->getSize()->getHeight();
+
+        if ($realWidth > $width || $realHeight > $height) {
+            $ratio = $realWidth / $realHeight;
+
+            if ($ratio > 1) {
+                $height = $width / $ratio;
+            } else {
+                $width = $height * $ratio;
+            }
+
+            $image->resize(new \Imagine\Image\Box($width, $height));
+        }
 
         return $image;
     }

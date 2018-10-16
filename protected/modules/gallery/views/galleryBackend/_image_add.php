@@ -10,93 +10,93 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
-        'id'                     => 'image-form',
-        'enableAjaxValidation'   => false,
+    [
+        'id' => 'image-form',
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
-        'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-    )
+        'type' => 'vertical',
+        'htmlOptions' => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+    ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('GalleryModule.gallery', 'Fields with'); ?>
+    <?= Yii::t('GalleryModule.gallery', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('GalleryModule.gallery', 'are required.'); ?>
+    <?= Yii::t('GalleryModule.gallery', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-2">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'category_id',
-            array(
-                'widgetOptions' => array(
-                    'data'        => Category::model()->getFormattedList(
-                            (int)Yii::app()->getModule('image')->mainCategory
-                        ),
-                    'htmlOptions' => array(
-                        'empty' => Yii::t('GalleryModule.gallery', '--choose--'),
+            [
+                'widgetOptions' => [
+                    'data' => Yii::app()->getComponent('categoriesRepository')->getFormattedList(
+                        (int)Yii::app()->getModule('image')->mainCategory
                     ),
-                )
-            )
+                    'htmlOptions' => [
+                        'empty' => Yii::t('GalleryModule.gallery', '--choose--'),
+                    ],
+                ]
+            ]
         ); ?>
     </div>
     <div class='col-sm-2'>
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'type',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getTypeList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 
     <div class='col-sm-2'>
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getStatusList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'name'); ?>
+        <?= $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-6">
-        <?php echo $form->textFieldGroup($model, 'alt'); ?>
+        <?= $form->textFieldGroup($model, 'alt'); ?>
     </div>
 </div>
 
 <div class='row'>
     <div class="col-sm-6">
         <?php if (!$model->isNewRecord) : { ?>
-            <?php echo CHtml::image($model->getUrl(), $model->alt); ?>
+            <?= CHtml::image($model->getImageUrl(), $model->alt); ?>
         <?php } endif; ?>
         <img id="preview" src="#" class='img-polaroid' alt="current preview of image"/>
-        <?php echo $form->fileFieldGroup(
+        <?= $form->fileFieldGroup(
             $model,
             'file',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'onchange' => 'readURL(this);',
-                        'style'    => 'background-color: inherit;',
-                    ),
-                ),
-            )
+                        'style' => 'background-color: inherit;',
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -110,14 +110,14 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
-        'context'    => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create image') : Yii::t(
-                'GalleryModule.gallery',
-                'Save image'
-            ),
-    )
+        'context' => 'primary',
+        'label' => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create image') : Yii::t(
+            'GalleryModule.gallery',
+            'Save image'
+        ),
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

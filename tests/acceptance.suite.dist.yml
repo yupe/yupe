@@ -18,13 +18,14 @@ modules:
     config:
         WebDriver:
             host: '127.0.0.1'
-            url: 'http://yupe.local/index-test.php'
-            browser: firefox
+            url: 'http://yupe.loc/index-test.php'
+            browser: phantomjs
+            window_size: 1024x768
             wait: 1
         DbHelper:
-             dsn: 'mysql:host=127.0.0.1;dbname=<db.name>'
-             user: '<db.user>'
-             password: '<db.pass>'
+             dsn: 'mysql:host=127.0.0.1;dbname=yupe_test'
+             user: 'root'
+             password: ''
              dump: 'tests/_data/yupetest.sql'
              populate: false
              cleanup: true

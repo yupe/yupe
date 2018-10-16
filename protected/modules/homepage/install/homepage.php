@@ -9,13 +9,13 @@
  * @link     http://yupe.ru
  *
  **/
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class' => 'application.modules.homepage.HomepageModule',
-    ),
-    'import'    => array(),
-    'component' => array(),
-    'rules'     => array(
+    ],
+    'import'    => [],
+    'component' => [],
+    'rules'     => [
         '/' => '/homepage/hp/index',
-    ),
-);
+    ],
+];

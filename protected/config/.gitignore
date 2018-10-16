@@ -1,5 +1,4 @@
 db.php
-userspace.php
-userspace-development.php
 db-test.php
-cached_settings_*
+main-local.php
+params-local.php

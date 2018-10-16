@@ -16,7 +16,7 @@ class ColorBox extends yupe\widgets\YWidget
     public $id;
     public $target;
     public $lang;
-    public $config = array();
+    public $config = [];
 
     public function init()
     {

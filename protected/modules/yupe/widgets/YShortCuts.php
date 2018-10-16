@@ -28,7 +28,7 @@ class YShortCuts extends YWidget
     /**
      * @var string
      */
-    public $view = 'yupe.views.widgets.YShortCuts.shortcuts';
+    public $view = 'shortcuts';
 
     /**
      *
@@ -37,7 +37,7 @@ class YShortCuts extends YWidget
     {
         $this->render(
             $this->view,
-            array('modules' => $this->modules, 'updates' => Yii::app()->migrator->checkForUpdates($this->modules))
+            ['modules' => $this->modules, 'updates' => Yii::app()->migrator->checkForUpdates($this->modules)]
         );
     }
 }

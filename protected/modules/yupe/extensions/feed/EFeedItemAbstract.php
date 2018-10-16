@@ -37,7 +37,7 @@ abstract class EFeedItemAbstract extends CComponent
      * CDATAEncoded items for all different adapters
      * @var array
      */
-    protected $CDATAEncoded = array('description', 'content:encoded', 'summary');
+    protected $CDATAEncoded = ['description', 'content:encoded', 'summary'];
 
     /**
      *
@@ -55,9 +55,9 @@ abstract class EFeedItemAbstract extends CComponent
      * @param string $content of the element
      * @param array $attributes of the tag
      */
-    public function addTag($tag, $content, $attributes = array())
+    public function addTag($tag, $content, $attributes = [])
     {
-        $this->tags->add($tag, new EFeedTag($tag, $content, (!is_array($attributes) ? array() : $attributes)));
+        $this->tags->add($tag, new EFeedTag($tag, $content, (!is_array($attributes) ? [] : $attributes)));
     }
 
     /**

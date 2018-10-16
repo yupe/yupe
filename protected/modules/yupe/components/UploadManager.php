@@ -5,6 +5,10 @@ use Yii;
 use CUploadedFile;
 use yupe\helpers\YFile;
 
+/**
+ * Class UploadManager
+ * @package yupe\components
+ */
 class UploadManager extends \CApplicationComponent
 {
     /**
@@ -16,18 +20,27 @@ class UploadManager extends \CApplicationComponent
      */
     private $_baseUrl;
 
+
     /**
-     * @param  CUploadedFile $fileInstance
-     * @param  string $uploadPath - file path
-     * @param  string $fileName - file name
+     * @param CUploadedFile $fileInstance
+     * @param $uploadPath
+     * @param $fileName
      * @return bool
-     *
-     * Сохранение загруженного файла
+     * @throws \CException
      */
     public function save(CUploadedFile $fileInstance, $uploadPath, $fileName)
     {
         $path = $this->getFilePath($fileName, $uploadPath);
-        YFile::checkPath(pathinfo($path, PATHINFO_DIRNAME));
+
+        if (!YFile::checkPath(pathinfo($path, PATHINFO_DIRNAME))) {
+            throw new \CException(
+                Yii::t(
+                    'YupeModule.yupe',
+                    'Directory "{dir}" is not acceptable for write!',
+                    ['{dir}' => $path]
+                )
+            );
+        }
 
         return $fileInstance->saveAs($path);
     }
@@ -39,7 +52,7 @@ class UploadManager extends \CApplicationComponent
      */
     public function getFilePath($name, $uploadPath)
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . $uploadPath . DIRECTORY_SEPARATOR . $name;
+        return $this->basePath.DIRECTORY_SEPARATOR.$uploadPath.DIRECTORY_SEPARATOR.$name;
     }
 
     /**
@@ -49,7 +62,7 @@ class UploadManager extends \CApplicationComponent
      */
     public function getFileUrl($name, $uploadPath)
     {
-        return $this->getBaseUrl() . '/' . $uploadPath . '/' . $name;
+        return $this->getBaseUrl().'/'.$uploadPath.'/'.$name;
     }
 
     /**
@@ -59,7 +72,7 @@ class UploadManager extends \CApplicationComponent
     {
         if ($this->_basePath === null) {
             $this->setBasePath(
-                Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath
+                Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.Yii::app()->getModule('yupe')->uploadPath
             );
         }
 
@@ -81,7 +94,7 @@ class UploadManager extends \CApplicationComponent
     {
         if ($this->_baseUrl === null) {
             $this->setBaseUrl(
-                Yii::app()->getRequest()->getBaseUrl(true) . '/' . Yii::app()->getModule('yupe')->uploadPath
+                Yii::app()->getRequest()->getBaseUrl(true).'/'.Yii::app()->getModule('yupe')->uploadPath
             );
         }
 

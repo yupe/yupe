@@ -19,23 +19,38 @@
     });
 </script>
 
-<?php
-$this->breadcrumbs = array(
-    Yii::t('RbacModule.rbac', 'Actions')   => array('index'),
-    Yii::t('RbacModule.rbac', 'User list') => array('userList'),
+<?php $this->breadcrumbs = [
+    Yii::t('RbacModule.rbac', 'RBAC')   => ['index'],
+    Yii::t('RbacModule.rbac', 'User list') => ['userList'],
     Yii::t('RbacModule.rbac', 'Rights assignment'),
-);
-?>
+];
 
-<h3><?php echo Yii::t('RbacModule.rbac', 'User Rights Assignment'); ?> "<?php echo $model->getFullName(); ?>"</h3>
+$this->menu = array_merge(
+    $this->module->getNavigation(),
+    [
+        ['label' => Yii::t('RbacModule.rbac', 'User Rights Assignment')],
+        [
+            'icon'        => 'fa fa-fw fa-pencil',
+            'encodeLabel' => false,
+            'label'       => Yii::t('RbacModule.rbac', 'Roles'),
+            'url'         => [
+                '/rbac/rbacBackend/assign',
+                'id' => $model->id
+            ]
+        ],
+
+    ]
+); ?>
+
+<h3><?=  Yii::t('RbacModule.rbac', 'User Rights Assignment'); ?> "<?=  $model->getFullName(); ?>"</h3>
 
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                   => 'auth-item-assign-form',
         'enableAjaxValidation' => false,
-    )
+    ]
 );
 
 ?>
@@ -43,18 +58,18 @@ $form = $this->beginWidget(
 <?php Yii::app()->getClientScript()->registerCss('checkbox-margin', ".checkbox {margin: 0;}"); ?>
 
 <div class="form-group">
-    <?php $this->widget('CTreeView', array('data' => $tree, 'collapsed' => true, 'animated' => 'normal')); ?>
+    <?php $this->widget('CTreeView', ['data' => $tree, 'collapsed' => true, 'animated' => 'normal']); ?>
 </div>
 
 <div class="form-actions">
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'buttonType' => 'submit',
             'context'    => 'primary',
             'label'      => Yii::t('RbacModule.rbac', 'Save'),
-        )
+        ]
     );
     ?>
 </div>

@@ -1,16 +1,24 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'Yupe!') => array('settings'),
+$this->breadcrumbs = [
+    Yii::t('YupeModule.yupe', 'Yupe!') => ['settings'],
     Yii::t('YupeModule.yupe', 'Modules'),
-);
+];
+
+$script = "var url = document.location.toString();
+    if (url.match('#')) { $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show'); }
+    $('.nav-tabs a').on('shown.bs.tab', function (e) {
+        if(history.pushState) { history.pushState(null, null, e.target.hash); } else { window.location.hash = e.target.hash; }
+    });";
+
+Yii::app()->getClientScript()->registerScript('tabs-remember', $script, CClientScript::POS_END);
 ?>
 
-<h1><?php echo Yii::t('YupeModule.yupe', 'Modules'); ?></h1>
+<h1><?= Yii::t('YupeModule.yupe', 'Modules'); ?></h1>
 
-<?php echo Yii::t(
+<?= Yii::t(
     'YupeModule.yupe',
     'Setup modules "{app}" for your needs',
-    array('{app}' => CHtml::encode(Yii::app()->name))
+    ['{app}' => CHtml::encode(Yii::app()->name)]
 ); ?>
 
 <br/><br/>
@@ -29,35 +37,17 @@ $this->breadcrumbs = array(
             }
         }
         ?>
-        <?php echo Yii::t('YupeModule.yupe', 'Installed'); ?>
-        <small class="label label-info"><?php echo $yupeCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $yupeCount); ?>,
-        <?php echo Yii::t('YupeModule.yupe', 'enabled'); ?>
-        <small class="label label-info"><?php echo $enableCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $enableCount); ?>,
-        <?php echo Yii::t('YupeModule.yupe', 'disabled|disabled', $yupeCount - $enableCount); ?>
-        <small class="label label-info"><?php echo $yupeCount - $enableCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $yupeCount - $enableCount); ?>
+        <?= Yii::t('YupeModule.yupe', 'Installed'); ?>
+        <small class="label label-info"><?= $yupeCount; ?></small>
+        <?= Yii::t('YupeModule.yupe', 'module|module|modules', $yupeCount); ?>,
+        <?= Yii::t('YupeModule.yupe', 'enabled'); ?>
+        <small class="label label-info"><?= $enableCount; ?></small>
+        <?= Yii::t('YupeModule.yupe', 'module|module|modules', $enableCount); ?>,
+        <?= Yii::t('YupeModule.yupe', 'disabled|disabled', $yupeCount - $enableCount); ?>
+        <small class="label label-info"><?= $yupeCount - $enableCount; ?></small>
+        <?= Yii::t('YupeModule.yupe', 'module|module|modules', $yupeCount - $enableCount); ?>
         <br/>
-        <small>
-            <?php echo Yii::t(
-                'YupeModule.yupe',
-                '( You always can find another modules on {link} or {order_link} )',
-                array(
-                    '{link}'       => CHtml::link(
-                            Yii::t('YupeModule.yupe', 'official site'),
-                            'http://yupe.ru/?from=mlist',
-                            array('target' => '_blank')
-                        ),
-                    '{order_link}' => CHtml::link(
-                            Yii::t('YupeModule.yupe', 'order to develop them'),
-                            'http://yupe.ru/contacts?from=mlist',
-                            array('target' => '_blank')
-                        ),
-                )
-            ); ?>
-        </small>
     </p>
 </div>
 
-<?php echo $this->renderPartial('_moduleslist', array('modules' => $modules)); ?>
+<?= $this->renderPartial('_moduleslist', ['modules' => $modules]); ?>
