@@ -1,0 +1,29 @@
+.hidden {
+    display: none !important;
+}
+
+.product-image {
+    float: left;
+    margin: 4px 20px 4px;
+}
+
+.product-image label {
+    display: inline-block;
+}
+
+.product-image input[type="radio"] {
+    margin: 0 4px 0 0;
+}
+
+.error input, .error select {
+    border-color: #b94a48;
+    color: #b94a48;
+}
+
+hr {
+    margin: 4px;
+}
+
+#product-form .tab-content {
+    padding: 10px;
+}

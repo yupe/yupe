@@ -1,4 +1,7 @@
 <?php
+use yupe\components\Event;
+use yupe\widgets\YPurifier;
+
 /**
  * Page модель
  *
@@ -14,11 +17,12 @@
  * This is the model class for table "Page".
  *
  * The followings are the available columns in table 'Page':
+ *
  * @property integer $id
  * @property string $parent_id
  * @property integer $category_id
- * @property string $creation_date
- * @property string $change_date
+ * @property string $create_time
+ * @property string $update_time
  * @property string $title
  * @property string $title_short
  * @property string $slug
@@ -31,22 +35,38 @@
  * @property integer $user_id
  * @property integer $change_user_id
  * @property integer $order
- * @property string  $layout
- * @property string  $view
+ * @property string $layout
+ * @property string $view
  */
 class Page extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_DRAFT = 0;
+    /**
+     *
+     */
     const STATUS_PUBLISHED = 1;
+    /**
+     *
+     */
     const STATUS_MODERATION = 2;
 
+    /**
+     *
+     */
     const PROTECTED_NO = false;
+    /**
+     *
+     */
     const PROTECTED_YES = true;
 
     /**
      * Returns the static model of the specified AR class.
-     * @param  string $className
-     * @return Page   the static model class
+     *
+     * @param string $className
+     * @return Page the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -66,41 +86,50 @@ class Page extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('title, slug, body, lang', 'required', 'on' => array('update', 'insert')),
-            array(
-                'status, is_protected, parent_id, order, category_id',
-                'numerical',
-                'integerOnly' => true,
-                'on'          => array('update', 'insert')
-            ),
-            array('parent_id', 'length', 'max' => 45),
-            array('lang', 'length', 'max' => 2),
-            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
-            array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('title, title_short, slug, keywords, description, layout, view', 'length', 'max' => 150),
-            array('slug', 'yupe\components\validators\YUniqueSlugValidator'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
-            array('title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'),
-            array(
-                'title, title_short, slug, description, keywords',
-                'filter',
-                'filter' => array($obj = new CHtmlPurifier(), 'purify')
-            ),
-            array('slug', 'yupe\components\validators\YSLugValidator'),
-            array(
+        return [
+            ['title, slug, body, lang', 'required', 'on' => ['update', 'insert']],
+            ['status, is_protected, order', 'numerical', 'integerOnly' => true, 'on' => ['update', 'insert']],
+            ['parent_id, category_id', 'numerical', 'integerOnly' => true, 'allowEmpty' => true],
+            ['parent_id, category_id', 'default', 'setOnEmpty' => true, 'value' => null],
+            ['lang', 'length', 'max' => 2],
+            ['lang', 'default', 'value' => Yii::app()->sourceLanguage],
+            ['title_short, slug', 'length', 'max' => 150],
+            ['title, keywords, description, layout, view', 'length', 'max' => 250],
+            ['slug', 'yupe\components\validators\YUniqueSlugValidator'],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())],
+            ['title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'],
+            ['title, title_short, slug, description, keywords', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['slug', 'yupe\components\validators\YSLugValidator'],
+            [
                 'lang',
                 'match',
                 'pattern' => '/^[a-z]{2}$/',
-                'message' => Yii::t('PageModule.page', 'Bad characters in {attribute} field')
-            ),
-            array(
-                'lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, order, lang',
+                'message' => Yii::t('PageModule.page', 'Bad characters in {attribute} field'),
+            ],
+            [
+                'lang, id, parent_id, create_time, update_time, title, title_short, slug, body, keywords, description, status, order, lang',
                 'safe',
-                'on' => 'search'
-            ),
-        );
+                'on' => 'search',
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'CTimestampBehavior' => [
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'setUpdateOnCreate' => true,
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+                'attributeName' => 'order',
+            ],
+        ];
     }
 
     /**
@@ -108,13 +137,13 @@ class Page extends yupe\models\YModel
      */
     public function relations()
     {
-        return array(
-            'childPages'   => array(self::HAS_MANY, 'Page', 'parent_id'),
-            'parentPage'   => array(self::BELONGS_TO, 'Page', 'parent_id'),
-            'author'       => array(self::BELONGS_TO, 'User', 'user_id'),
-            'changeAuthor' => array(self::BELONGS_TO, 'User', 'change_user_id'),
-            'category'     => array(self::BELONGS_TO, 'Category', 'category_id'),
-        );
+        return [
+            'childPages' => [self::HAS_MANY, 'Page', 'parent_id'],
+            'parentPage' => [self::BELONGS_TO, 'Page', 'parent_id'],
+            'author' => [self::BELONGS_TO, 'User', 'user_id'],
+            'changeAuthor' => [self::BELONGS_TO, 'User', 'change_user_id'],
+            'category' => [self::BELONGS_TO, 'Category', 'category_id'],
+        ];
     }
 
     /**
@@ -122,27 +151,27 @@ class Page extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
-            'id'             => Yii::t('PageModule.page', 'Id'),
-            'parent_id'      => Yii::t('PageModule.page', 'Parent'),
-            'category_id'    => Yii::t('PageModule.page', 'Category'),
-            'creation_date'  => Yii::t('PageModule.page', 'Created at'),
-            'change_date'    => Yii::t('PageModule.page', 'Changed'),
-            'title'          => Yii::t('PageModule.page', 'Title'),
-            'title_short'    => Yii::t('PageModule.page', 'Short title'),
-            'slug'           => Yii::t('PageModule.page', 'Url'),
-            'lang'           => Yii::t('PageModule.page', 'Language'),
-            'body'           => Yii::t('PageModule.page', 'Text'),
-            'keywords'       => Yii::t('PageModule.page', 'Keywords (SEO)'),
-            'description'    => Yii::t('PageModule.page', 'Description (SEO)'),
-            'status'         => Yii::t('PageModule.page', 'Status'),
-            'is_protected'   => Yii::t('PageModule.page', 'Access: * Only for authorized members'),
-            'user_id'        => Yii::t('PageModule.page', 'Created by'),
+        return [
+            'id' => Yii::t('PageModule.page', 'Id'),
+            'parent_id' => Yii::t('PageModule.page', 'Parent'),
+            'category_id' => Yii::t('PageModule.page', 'Category'),
+            'create_time' => Yii::t('PageModule.page', 'Created at'),
+            'update_time' => Yii::t('PageModule.page', 'Changed'),
+            'title' => Yii::t('PageModule.page', 'Title'),
+            'title_short' => Yii::t('PageModule.page', 'Short title'),
+            'slug' => Yii::t('PageModule.page', 'Url'),
+            'lang' => Yii::t('PageModule.page', 'Language'),
+            'body' => Yii::t('PageModule.page', 'Text'),
+            'keywords' => Yii::t('PageModule.page', 'Keywords (SEO)'),
+            'description' => Yii::t('PageModule.page', 'Description (SEO)'),
+            'status' => Yii::t('PageModule.page', 'Status'),
+            'is_protected' => Yii::t('PageModule.page', 'Access: * Only for authorized members'),
+            'user_id' => Yii::t('PageModule.page', 'Created by'),
             'change_user_id' => Yii::t('PageModule.page', 'Changed by'),
-            'order'          => Yii::t('PageModule.page', 'Sorting'),
-            'layout'         => Yii::t('PageModule.page', 'Layout'),
-            'view'           => Yii::t('PageModule.page', 'View')
-        );
+            'order' => Yii::t('PageModule.page', 'Sorting'),
+            'layout' => Yii::t('PageModule.page', 'Layout'),
+            'view' => Yii::t('PageModule.page', 'View'),
+        ];
     }
 
     /**
@@ -150,47 +179,50 @@ class Page extends yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
-            'id'             => Yii::t('PageModule.page', 'Page Id.'),
-            'parent_id'      => Yii::t('PageModule.page', 'Parent page.'),
-            'category_id'    => Yii::t('PageModule.page', 'Category which page connected'),
-            'creation_date'  => Yii::t('PageModule.page', 'Created at'),
-            'change_date'    => Yii::t('PageModule.page', 'Updated at'),
-            'title'          => Yii::t(
+        return [
+            'id' => Yii::t('PageModule.page', 'Page Id.'),
+            'parent_id' => Yii::t('PageModule.page', 'Parent page.'),
+            'category_id' => Yii::t('PageModule.page', 'Category which page connected'),
+            'create_time' => Yii::t('PageModule.page', 'Created at'),
+            'update_time' => Yii::t('PageModule.page', 'Updated at'),
+            'title' => Yii::t(
                 'PageModule.page',
                 'Full page title which will be displayed in page header.<br/><br />For example:<pre>Contact information and road map.</pre>'
             ),
-            'title_short'    => Yii::t(
+            'title_short' => Yii::t(
                 'PageModule.page',
                 'Short page title which wil be displayed in widgets and menus<br/><br />For example:<pre>Contacts</pre>'
             ),
-            'slug'           => Yii::t(
+            'slug' => Yii::t(
                 'PageModule.page',
                 'Short page title for URL generation<br /><br /> For example: <pre>http://site.ru/page/<span class=\'label\'>contacts</span>/</pre> You can leave it empty for automatic generation.'
             ),
-            'lang'           => Yii::t('PageModule.page', 'Page language'),
-            'body'           => Yii::t('PageModule.page', 'Page text'),
-            'keywords'       => Yii::t(
+            'lang' => Yii::t('PageModule.page', 'Page language'),
+            'body' => Yii::t('PageModule.page', 'Page text'),
+            'keywords' => Yii::t(
                 'PageModule.page',
                 'Keywords for SEO optimization. Insert a few words which have sense in article context. For example: <pre>address, road map, contacts.</pre>'
             ),
-            'description'    => Yii::t(
+            'description' => Yii::t(
                 'PageModule.page',
                 'Short page description. About one or two sentences. Usually this is the main idea. For example: <pre>Contact information about my company</pre>This text very frequently falls in <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>of search engines.'
             ),
-            'status'         => Yii::t(
+            'status' => Yii::t(
                 'PageModule.page',
                 '<span class=\'label label-success\'>Published</span> &ndash; Page is visible for all users by default.<br /><br /><span class=\'label label-default\'>Draft</span> &ndash; Page will be invisible for users.<br /><br /><span class=\'label label-info\'>On moderation</span> &ndash; Page is not checked and it will be invisible for users.'
             ),
-            'is_protected'   => Yii::t('PageModule.page', 'Access: * Only for authorized members'),
-            'user_id'        => Yii::t('PageModule.page', 'Page creator'),
+            'is_protected' => Yii::t('PageModule.page', 'Access: * Only for authorized members'),
+            'user_id' => Yii::t('PageModule.page', 'Page creator'),
             'change_user_id' => Yii::t('PageModule.page', 'Page editor'),
-            'order'          => Yii::t('PageModule.page', 'Page priority in widgets and menu.'),
-            'layout'         => Yii::t('PageModule.page', 'Page layout'),
-            'view'           => Yii::t('PageModule.page', 'Page view')
-        );
+            'order' => Yii::t('PageModule.page', 'Page priority in widgets and menu.'),
+            'layout' => Yii::t('PageModule.page', 'Page layout'),
+            'view' => Yii::t('PageModule.page', 'Page view'),
+        ];
     }
 
+    /**
+     * @return bool
+     */
     public function beforeValidate()
     {
         if (!$this->slug) {
@@ -198,62 +230,81 @@ class Page extends yupe\models\YModel
         }
 
         if (!$this->lang) {
-            $this->lang = Yii::app()->language;
+            $this->lang = Yii::app()->getLanguage();
         }
 
         return parent::beforeValidate();
     }
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression('now()');
-        $this->user_id = Yii::app()->user->getId();
+        $this->change_user_id = Yii::app()->getUser()->getId();
 
-        if ($this->isNewRecord) {
-            $this->creation_date = $this->change_date;
-            $this->change_user_id = $this->user_id;
+        if ($this->getIsNewRecord()) {
+            $this->user_id = $this->change_user_id;
         }
 
         return parent::beforeSave();
     }
 
-    public function scopes()
+    /**
+     *
+     */
+    public function afterSave()
     {
-        return array(
-            'published' => array(
-                'condition' => 'status = :status',
-                'params'    => array('status' => self::STATUS_PUBLISHED),
-            ),
-            'protected' => array(
-                'condition' => 'is_protected = :is_protected',
-                'params'    => array(':is_protected' => self::PROTECTED_YES),
-            ),
-            'public'    => array(
-                'condition' => 'is_protected = :is_protected',
-                'params'    => array(':is_protected' => self::PROTECTED_NO),
-            ),
-        );
+        Yii::app()->eventManager->fire(PageEvents::PAGE_AFTER_SAVE, new Event($this));
+
+        return parent::afterSave();
     }
 
+    /**
+     * @return array
+     */
+    public function scopes()
+    {
+        return [
+            'published' => [
+                'condition' => 'status = :status',
+                'params' => ['status' => self::STATUS_PUBLISHED],
+            ],
+            'protected' => [
+                'condition' => 'is_protected = :is_protected',
+                'params' => [':is_protected' => self::PROTECTED_YES],
+            ],
+            'public' => [
+                'condition' => 'is_protected = :is_protected',
+                'params' => [':is_protected' => self::PROTECTED_NO],
+            ],
+        ];
+    }
+
+    /**
+     * @param $slug
+     * @return static
+     */
     public function findBySlug($slug)
     {
-        return $this->find('slug = :slug', array(':slug' => trim($slug)));
+        return $this->find('slug = :slug', [':slug' => trim($slug)]);
     }
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
+     *
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
     public function search()
     {
         $criteria = new CDbCriteria();
 
-        $criteria->with = array('author', 'changeAuthor');
+        $criteria->with = ['author', 'changeAuthor'];
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('parent_id', $this->parent_id);
-        $criteria->compare('creation_date', $this->creation_date);
-        $criteria->compare('change_date', $this->change_date);
+        $criteria->compare('create_time', $this->create_time);
+        $criteria->compare('update_time', $this->update_time);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('title_short', $this->title_short, true);
         $criteria->compare('slug', $this->slug, true);
@@ -267,22 +318,28 @@ class Page extends yupe\models\YModel
         $criteria->compare('layout', $this->layout);
 
         return new CActiveDataProvider(
-            get_class($this), array(
+            get_class($this), [
                 'criteria' => $criteria,
-                'sort'     => array('defaultOrder' => 't.order DESC, t.creation_date DESC'),
-            )
+                'sort' => ['defaultOrder' => 't.order DESC, t.create_time DESC'],
+            ]
         );
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
-        return array(
-            self::STATUS_PUBLISHED  => Yii::t('PageModule.page', 'Published'),
-            self::STATUS_DRAFT      => Yii::t('PageModule.page', 'Draft'),
+        return [
+            self::STATUS_PUBLISHED => Yii::t('PageModule.page', 'Published'),
+            self::STATUS_DRAFT => Yii::t('PageModule.page', 'Draft'),
             self::STATUS_MODERATION => Yii::t('PageModule.page', 'On moderation'),
-        );
+        ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
@@ -290,14 +347,20 @@ class Page extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('PageModule.page', '*unknown*');
     }
 
+    /**
+     * @return array
+     */
     public function getProtectedStatusList()
     {
-        return array(
-            self::PROTECTED_NO  => Yii::t('PageModule.page', 'no'),
+        return [
+            self::PROTECTED_NO => Yii::t('PageModule.page', 'no'),
             self::PROTECTED_YES => Yii::t('PageModule.page', 'yes'),
-        );
+        ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getProtectedStatus()
     {
         $data = $this->getProtectedStatusList();
@@ -305,10 +368,14 @@ class Page extends yupe\models\YModel
         return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('PageModule.page', '*unknown*');
     }
 
+    /**
+     * @param bool $selfId
+     * @return array
+     */
     public function getAllPagesList($selfId = false)
     {
         $criteria = new CDbCriteria();
-        $criteria->order = "{$this->tableAlias}.order DESC, {$this->tableAlias}.creation_date DESC";
+        $criteria->order = "{$this->tableAlias}.order DESC, {$this->tableAlias}.create_time DESC";
         if ($selfId) {
             $otherCriteria = new CDbCriteria();
             $otherCriteria->addNotInCondition('id', (array)$selfId);
@@ -319,41 +386,75 @@ class Page extends yupe\models\YModel
         return CHtml::listData($this->findAll($criteria), 'id', 'title');
     }
 
+    /**
+     * @param bool $slug
+     * @return array
+     */
     public function getAllPagesListBySlug($slug = false)
     {
-        $params = array('order' => 't.order DESC, t.creation_date DESC');
+        $params = ['order' => 't.order DESC, t.create_time DESC'];
         if ($slug) {
-            $params += array(
+            $params += [
                 'condition' => 'slug != :slug',
-                'params'    => array(':slug' => $slug),
-                'group'     => 'slug',
-            );
+                'params' => [':slug' => $slug],
+                'group' => 'slug',
+            ];
         }
 
         return CHtml::listData($this->findAll($params), 'id', 'title');
     }
 
+    /**
+     * @return string
+     */
     public function getCategoryName()
     {
         return ($this->category === null) ? '---' : $this->category->name;
     }
 
+    /**
+     * @return string
+     */
     public function getParentName()
     {
         return ($this->parentPage === null) ? '---' : $this->parentPage->title;
     }
 
+    /**
+     * @return bool
+     */
     public function isProtected()
     {
-        return $this->is_protected == self::PROTECTED_YES;
+        return (bool)$this->is_protected === self::PROTECTED_YES;
     }
 
     /**
-     * @param bool $absolute
-     * @return string
+     * Возвращает отформатированный список в соответствии со вложенность страниц.
+     *
+     * @param null|int $parentId
+     * @param int $level
+     * @param null|array|CDbCriteria $criteria
+     * @return array
      */
-    public function getUrl($absolute = false)
+    public function getFormattedList($parentId = null, $level = 0, $criteria = null)
     {
-        return $absolute ? Yii::app()->createAbsoluteUrl('/page/page/show/', array('slug' => $this->slug)) : Yii::app()->createUrl('/page/page/show/', array('slug' => $this->slug));
+        if (empty($parentId)) {
+            $parentId = null;
+        }
+
+        $models = $this->findAllByAttributes(['parent_id' => $parentId], $criteria);
+
+        $list = [];
+
+        foreach ($models as $model) {
+
+            $model->title = str_repeat('&emsp;', $level) . $model->title;
+
+            $list[$model->id] = $model->title;
+
+            $list = CMap::mergeArray($list, $this->getFormattedList($model->id, $level + 1, $criteria));
+        }
+
+        return $list;
     }
 }

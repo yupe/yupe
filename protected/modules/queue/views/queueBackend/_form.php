@@ -1,95 +1,95 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'queue-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('QueueModule.queue', 'Fields with'); ?>
+    <?=  Yii::t('QueueModule.queue', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('QueueModule.queue', 'are required'); ?>
+    <?=  Yii::t('QueueModule.queue', 'are required'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'worker',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => Yii::app()->getModule('queue')->getWorkerNamesMap(),
-                    'htmlOptions' => array('empty' => '---'),
-                ),
-            )
+                    'htmlOptions' => ['empty' => '---'],
+                ],
+            ]
         ); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textAreaGroup($model, 'task'); ?>
+        <?=  $form->textAreaGroup($model, 'task'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup($model, 'notice'); ?>
+        <?=  $form->textFieldGroup($model, 'notice'); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'priority',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getPriorityList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
 <div class='row'>
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getStatusList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and continue') : Yii::t(
                 'QueueModule.queue',
                 'Save task'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and close') : Yii::t(
                 'QueueModule.queue',
                 'Save blog and close'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

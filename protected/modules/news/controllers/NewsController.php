@@ -10,66 +10,78 @@
  * @since 0.1
  *
  */
-class NewsController extends yupe\components\controllers\FrontController
+class NewsController extends \yupe\components\controllers\FrontController
 {
-    public function actionShow($alias)
+    /**
+     * @param $slug
+     * @throws CHttpException
+     */
+    public function actionView($slug)
     {
-        $news = News::model()->published();
+        $model = News::model()->published();
 
-        $news = ($this->isMultilang())
-            ? $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $alias))
-            : $news->find('alias = :alias', array(':alias' => $alias));
+        $model = ($this->isMultilang())
+            ? $model->language(Yii::app()->getLanguage())->find('slug = :slug', [':slug' => $slug])
+            : $model->find('slug = :slug', [':slug' => $slug]);
 
-        if (!$news) {
+        if (!$model) {
             throw new CHttpException(404, Yii::t('NewsModule.news', 'News article was not found!'));
         }
 
         // проверим что пользователь может просматривать эту новость
-        if ($news->is_protected == News::PROTECTED_YES && !Yii::app()->user->isAuthenticated()) {
-            Yii::app()->user->setFlash(
+        if ($model->isProtected() && !Yii::app()->getUser()->isAuthenticated()) {
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('NewsModule.news', 'You must be an authorized user for view this page!')
             );
 
-            $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
+            $this->redirect([Yii::app()->getModule('user')->accountActivationSuccess]);
         }
 
-        $this->render('show', array('news' => $news));
+        $this->render('view', ['model' => $model]);
     }
 
+    /**
+     *
+     */
     public function actionIndex()
     {
-        $dbCriteria = new CDbCriteria(array(
+        $dbCriteria = new CDbCriteria([
             'condition' => 't.status = :status',
-            'params'    => array(
+            'params' => [
                 ':status' => News::STATUS_PUBLISHED,
-            ),
-            'limit'     => $this->module->perPage,
-            'order'     => 't.creation_date DESC',
-            'with'      => array('user'),
-        ));
+            ],
+            'order' => 't.date DESC',
+            'with' => ['user'],
+        ]);
 
-        if (!Yii::app()->user->isAuthenticated()) {
+        if (!Yii::app()->getUser()->isAuthenticated()) {
             $dbCriteria->mergeWith(
-                array(
+                [
                     'condition' => 'is_protected = :is_protected',
-                    'params'    => array(
-                        ':is_protected' => News::PROTECTED_NO
-                    )
-                )
+                    'params' => [
+                        ':is_protected' => News::PROTECTED_NO,
+                    ],
+                ]
             );
         }
 
         if ($this->isMultilang()) {
             $dbCriteria->mergeWith(
-                array(
+                [
                     'condition' => 't.lang = :lang',
-                    'params'    => array(':lang' => Yii::app()->language),
-                )
+                    'params' => [':lang' => Yii::app()->getLanguage()],
+                ]
             );
         }
 
-        $dataProvider = new CActiveDataProvider('News', array('criteria' => $dbCriteria));
-        $this->render('index', array('dataProvider' => $dataProvider));
+        $dataProvider = new CActiveDataProvider('News', [
+            'criteria' => $dbCriteria,
+            'pagination' => [
+                'pageSize' => (int)$this->getModule()->perPage,
+            ],
+        ]);
+
+        $this->render('index', ['dataProvider' => $dataProvider]);
     }
 }

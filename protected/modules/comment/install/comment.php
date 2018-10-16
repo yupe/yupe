@@ -9,45 +9,62 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-return array(
-    'module'    => array(
-        'class'        => 'application.modules.comment.CommentModule',
-        'panelWidgets' => array(
-            'application.modules.comment.widgets.PanelCommentStatWidget' => array(
+return [
+    'module' => [
+        'class' => 'application.modules.comment.CommentModule',
+        'panelWidgets' => [
+            'application.modules.comment.widgets.PanelCommentStatWidget' => [
                 'limit' => 5
-            )
-        ),
-    ),
-    'import'    => array(
+            ]
+        ],
+        'visualEditors' => [
+            'redactor' => [
+                'class' => 'comment\widgets\editors\CommentRedactor',
+            ],
+            'textarea' => [
+                'class' => 'yupe\widgets\editors\Textarea',
+            ],
+        ],
+    ],
+    'import' => [
         'application.modules.comment.models.*',
         'application.modules.comment.events.*',
         'application.modules.comment.listeners.*',
         'application.modules.blog.models.*',
         'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
-    ),
-    'component' => array(
-        'commentManager' => array(
+    ],
+    'component' => [
+        'commentManager' => [
             'class' => 'application.modules.comment.components.CommentManager',
-        ),
-        'eventManager'   => array(
-            'class'  => 'yupe\components\EventManager',
-            'events' => array(
-                'comment.add.success' => array(
-                    array('NewCommentListener', 'onSuccessAddComment')
-                ),
-                'comment.before.add' => array(
-                    array('NewCommentListener', 'onBeforeAddComment')
-                ),
-                'comment.after.save' => array(
-                    array('NewCommentListener', 'onAfterSaveComment')
-                )
-            )
-        )
-    ),
-    'rules'     => array(
+        ],
+        'eventManager' => [
+            'class' => 'yupe\components\EventManager',
+            'events' => [
+                'comment.add.success' => [
+                    ['NewCommentListener', 'onSuccessAddComment']
+                ],
+                'comment.before.add' => [
+                    ['NewCommentListener', 'onBeforeAddComment']
+                ],
+                'comment.after.save' => [
+                    ['NewCommentListener', 'onAfterSaveComment']
+                ],
+                'comment.after.delete' => [
+                    ['NewCommentListener', 'onAfterDeleteComment']
+                ]
+            ]
+        ]
+    ],
+    'commandMap' => [
+        'comments-migrate-to-ns' => [
+            'class' => 'application.modules.comment.commands.MigrateToNestedSets'
+        ]
+    ],
+    'rules' => [
         '/comment/comment/captcha/refresh/<v>' => 'comment/comment/captcha/refresh/',
-        '/comment/comment/captcha/<v>'         => 'comment/comment/captcha/',
-        '/comment/add/'                        => 'comment/comment/add/',
-        '/comments/rss/<model>/<modelId>'      => 'comment/commentRss/feed'
-    ),
-);
+        '/comment/comment/captcha/<v>' => 'comment/comment/captcha/',
+        '/comment/add/' => 'comment/comment/add/',
+        '/comments/rss/<model>/<modelId>' => 'comment/commentRss/feed',
+        '/comment/ajaxImageUpload' => 'comment/comment/ajaxImageUpload',
+    ],
+];

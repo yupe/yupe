@@ -11,15 +11,32 @@
  * @since 0.1
  *
  */
-return array(
-    'module'    => array(
-        'class' => 'application.modules.page.PageModule',
-        // Указание здесь layout'a портит отображение на фронтенде:
-        //'layout' => '//layouts/column2',
-    ),
-    'import'    => array(),
-    'component' => array(),
-    'rules'     => array(
-        '/pages/<slug>' => 'page/page/show',
-    ),
-);
+return [
+    'module' => [
+        'class' => 'application.modules.page.PageModule'
+    ],
+    'import' => [
+        'application.modules.page.events.*',
+        'application.modules.page.listeners.*',
+        'application.modules.page.models.*',
+        'application.modules.page.components.*',
+    ],
+    'component' => [
+        'eventManager' => [
+            'class' => 'yupe\components\EventManager',
+            'events' => [
+                'sitemap.before.generate' => [
+                    ['\PageSitemapGeneratorListener', 'onGenerate'],
+                ],
+                'page.after.save' => [
+                    ['\PageListener', 'onAfterSave']
+                ],
+            ],
+        ],
+    ],
+    'rules' => [
+        [
+            'class' => 'application.modules.page.components.PageUrlRule',
+        ],
+    ],
+];

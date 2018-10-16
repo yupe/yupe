@@ -15,36 +15,28 @@ namespace yupe\widgets;
 
 use Yii;
 use CHtml;
-use CClientScript;
-use TagsCache;
 
+/**
+ * Class YAdminPanel
+ * @package yupe\widgets
+ */
 class YAdminPanel extends YWidget
 {
-    public $view = 'application.modules.yupe.views.widgets.YAdminPanel.adminpanel';
+    /**
+     * @var string
+     */
+    public $view = 'adminpanel';
 
+    /**
+     * @throws \CException
+     */
     public function run()
     {
-        $cacheKey = 'YAdminPanel::' . Yii::app()->getUser()->getId() . '::' . Yii::app()->getLanguage();
-
-        $cached = Yii::app()->getCache()->get($cacheKey);
-
-        if (false === $cached) {
-            $cached = $this->render(
-                $this->view,
-                [
-                    'modules' => Yii::app()->moduleManager->getModules(true),
-                    'yupe' => $this->getController()->yupe
-                ],
-                true
-            );
-            Yii::app()->getCache()->set(
-                $cacheKey,
-                $cached,
-                0,
-                new TagsCache('yupe', 'YAdminPanel', 'installedModules')
-            );
-        }
-
-        echo $cached;
+        $this->render(
+            $this->view,
+            [
+                'modules' => Yii::app()->moduleManager->getModules(true),
+            ]
+        );
     }
 }

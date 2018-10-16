@@ -24,12 +24,12 @@ class m000000_000000_gallery_base extends yupe\components\DbMigration
          **/
         $this->createTable(
             '{{gallery_gallery}}',
-            array(
-                'id'          => 'pk',
-                'name'        => 'varchar(250) NOT NULL',
+            [
+                'id' => 'pk',
+                'name' => 'varchar(250) NOT NULL',
                 'description' => 'text',
-                'status'      => "integer NOT NULL DEFAULT '1'",
-            ),
+                'status' => "integer NOT NULL DEFAULT '1'",
+            ],
             $this->getOptions()
         );
 
@@ -40,12 +40,12 @@ class m000000_000000_gallery_base extends yupe\components\DbMigration
          **/
         $this->createTable(
             '{{gallery_image_to_gallery}}',
-            array(
-                'id'            => 'pk',
-                'image_id'      => 'integer NOT NULL',
-                'gallery_id'    => 'integer NOT NULL',
+            [
+                'id' => 'pk',
+                'image_id' => 'integer NOT NULL',
+                'gallery_id' => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-            ),
+            ],
             $this->getOptions()
         );
 

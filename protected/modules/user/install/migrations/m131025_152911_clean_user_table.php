@@ -31,12 +31,12 @@ class m131025_152911_clean_user_table extends yupe\components\DbMigration
         // recovery password table
         $this->createTable(
             '{{user_recovery_password}}',
-            array(
+            [
                 'id'            => 'pk',
                 'user_id'       => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
                 'code'          => 'char(32) NOT NULL',
-            ),
+            ],
             $this->getOptions()
         );
 

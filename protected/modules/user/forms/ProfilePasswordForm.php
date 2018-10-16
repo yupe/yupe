@@ -20,23 +20,23 @@ class ProfilePasswordForm extends CFormModel
     {
         $module = Yii::app()->getModule('user');
 
-        return array(
-            array('password, cPassword', 'required'),
-            array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
-            array(
+        return [
+            ['password, cPassword', 'required'],
+            ['password, cPassword', 'length', 'min' => $module->minPasswordLength],
+            [
                 'cPassword',
                 'compare',
                 'compareAttribute' => 'password',
                 'message'          => Yii::t('UserModule.user', 'Password is not coincide')
-            ),
-        );
+            ],
+        ];
     }
 
     public function attributeLabels()
     {
-        return array(
+        return [
             'password'  => Yii::t('UserModule.user', 'New password'),
             'cPassword' => Yii::t('UserModule.user', 'Password confirmation'),
-        );
+        ];
     }
 }

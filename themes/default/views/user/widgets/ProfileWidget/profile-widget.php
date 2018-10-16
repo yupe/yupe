@@ -3,20 +3,20 @@
     <div class="panel-heading">
         <div class="panel-title">
             <i class="glyphicon glyphicon-user"></i>
-            <?php echo Yii::t('UserModule.user', 'My profile'); ?>
+            <?= Yii::t('UserModule.user', 'My profile'); ?>
         </div>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <?php echo CHtml::link(
+                <?= CHtml::link(
                     $this->widget(
                         'application.modules.user.widgets.AvatarWidget',
-                        array('user' => $user, 'noCache' => true),
+                        ['user' => $user, 'noCache' => true, 'imageHtmlOptions' => ['width' => 100, 'height' => 100]],
                         true
                     ),
-                    array('/user/people/userInfo/', 'username' => $user->nick_name),
-                    array('title' => Yii::t('UserModule.user', 'User profile'))
+                    ['/user/people/userInfo/', 'username' => $user->nick_name],
+                    ['title' => Yii::t('UserModule.user', 'User profile')]
                 ); ?>
             </div>
         </div>
@@ -27,26 +27,38 @@
                     <li>
                         <?php $this->widget(
                             'bootstrap.widgets.TbButton',
-                            array(
+                            [
                                 'label'      => Yii::t('UserModule.user', 'Edit profile'),
                                 'icon'       => 'glyphicon glyphicon-pencil',
                                 'buttonType' => 'link',
                                 'context'    => 'link',
-                                'url'        => array('/user/account/profile/'),
-                            )
+                                'url'        => ['/user/profile/profile/'],
+                            ]
                         ); ?>
                     </li>
+                    <?php if(Yii::app()->hasModule('notify')):?>
+                        <?php $this->widget(
+                            'bootstrap.widgets.TbButton',
+                            [
+                                'label'      => Yii::t('UserModule.user', 'Notify settings'),
+                                'icon'       => 'glyphicon glyphicon-pencil',
+                                'buttonType' => 'link',
+                                'context'    => 'link',
+                                'url'        => ['/notify/notify/settings/'],
+                            ]
+                        ); ?>
+                    <?php endif;?>
                     <li>
-                        <i class="glyphicon glyphicon-envelope"></i> <?php echo $user->email; ?>
+                        <i class="glyphicon glyphicon-envelope"></i> <?= $user->email; ?>
                     </li>
                     <?php if ($user->site): { ?>
                         <li>
-                            <i class="glyphicon glyphicon-globe"></i> <?php echo $user->site; ?>
+                            <i class="glyphicon glyphicon-globe"></i> <?= $user->site; ?>
                         </li>
                     <?php } endif; ?>
                     <?php if ($user->location): { ?>
                         <li>
-                            <i class="glyphicon glyphicon-map-marker"></i> <?php echo $user->location; ?>
+                            <i class="glyphicon glyphicon-map-marker"></i> <?= $user->location; ?>
                         </li>
                     <?php } endif; ?>
                 </ul>

@@ -23,12 +23,15 @@ class YInLineEditAction extends CAction
     public $validAttributes;
 
     /**
+     * @var bool
+     */
+    public $validateModel = true;
+
+    /**
      * @throws \CHttpException
      */
     public function init()
     {
-        parent::init();
-
         if (!$this->model || empty($this->validAttributes)) {
             throw new CHttpException(500);
         }
@@ -44,7 +47,7 @@ class YInLineEditAction extends CAction
         }
 
         $name = Yii::app()->getRequest()->getPost('name');
-        $value = Yii::app()->getRequest()->getPost('value');
+        $value = trim(Yii::app()->getRequest()->getPost('value'));
         $pk = Yii::app()->getRequest()->getPost('pk');
 
         if (!isset($name, $pk) || !in_array($name, $this->validAttributes)) {
@@ -59,7 +62,7 @@ class YInLineEditAction extends CAction
 
         $model->$name = $value;
 
-        if ($model->save()) {
+        if ($model->save((bool)$this->validateModel)) {
             Yii::app()->ajax->success();
         }
 

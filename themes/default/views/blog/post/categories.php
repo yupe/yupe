@@ -1,19 +1,19 @@
-<?php $this->pageTitle = Yii::t('BlogModule.blog', 'Categories'); ?>
+<?php $this->title = Yii::t('BlogModule.blog', 'Categories'); ?>
 
 <?php
-$this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Posts') => array('/blog/post/index/'),
-    Yii::t('BlogModule.blog', 'Categorys')
-);
+$this->breadcrumbs = [
+    Yii::t('BlogModule.blog', 'Posts') => ['/blog/post/index/'],
+    Yii::t('BlogModule.blog', 'Categories')
+];
 ?>
 
 <?php foreach ($categories as $category): ?>
 
-<h4><strong><?php echo CHtml::link(
+<h4><strong><?= CHtml::link(
             CHtml::encode($category['name']),
-            array('/blog/post/category/', 'alias' => CHtml::encode($category['alias']))
+            ['/blog/post/category/', 'slug' => CHtml::encode($category['slug'])]
         ); ?></strong>
-    <?php echo strip_tags($category['description']); ?>
+    <?= strip_tags($category['description']); ?>
     <hr/>
 
     <?php endforeach; ?>

@@ -1,4 +1,6 @@
 <?php
+use yupe\widgets\YPurifier;
+
 /**
  * Gallery
  *
@@ -10,16 +12,14 @@
  * @package yupe.modules.gallery.models
  * @since 0.1
  *
- */
-
-/**
- * This is the model class for table "Gallery".
- *
- * The followings are the available columns in table 'Gallery':
  * @property string $id
  * @property string $name
  * @property string $description
  * @property integer $status
+ * @property integer $preview_id
+ * @property integer $category_id
+ *
+ * @property Image $preview
  */
 class Gallery extends yupe\models\YModel
 {
@@ -53,14 +53,14 @@ class Gallery extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name, description', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
-            array('name, description, owner', 'required'),
-            array('status, owner', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 250),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('id, name, description, status, owner', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['name, description', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['name, description, owner', 'required'],
+            ['status, owner, preview_id, category_id', 'numerical', 'integerOnly' => true],
+            ['name', 'length', 'max' => 250],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['id, name, description, status, owner', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -70,13 +70,15 @@ class Gallery extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'imagesRell'  => array(self::HAS_MANY, 'ImageToGallery', array('gallery_id' => 'id')),
-            'images'      => array(self::HAS_MANY, 'Image', 'image_id', 'through' => 'imagesRell'),
-            'imagesCount' => array(self::STAT, 'ImageToGallery', 'gallery_id'),
-            'user'        => array(self::BELONGS_TO, 'User', 'owner'),
-            'lastUpdated' => array(self::STAT, 'ImageToGallery', 'gallery_id', 'select' => 'max(creation_date)')
-        );
+        return [
+            'imagesRell' => [self::HAS_MANY, 'ImageToGallery', ['gallery_id' => 'id']],
+            'images' => [self::HAS_MANY, 'Image', 'image_id', 'through' => 'imagesRell'],
+            'imagesCount' => [self::STAT, 'ImageToGallery', 'gallery_id'],
+            'user' => [self::BELONGS_TO, 'User', 'owner'],
+            'lastUpdated' => [self::STAT, 'ImageToGallery', 'gallery_id', 'select' => 'max(create_time)'],
+            'preview' => [self::BELONGS_TO, 'Image', 'preview_id'],
+            'category' => [self::BELONGS_TO, 'Category', 'category_id'],
+        ];
     }
 
     /**
@@ -99,14 +101,15 @@ class Gallery extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
-            'id'          => Yii::t('GalleryModule.gallery', 'Id'),
-            'name'        => Yii::t('GalleryModule.gallery', 'Title'),
-            'owner'       => Yii::t('GalleryModule.gallery', 'Vendor'),
+        return [
+            'id' => Yii::t('GalleryModule.gallery', 'Id'),
+            'name' => Yii::t('GalleryModule.gallery', 'Title'),
+            'owner' => Yii::t('GalleryModule.gallery', 'Vendor'),
             'description' => Yii::t('GalleryModule.gallery', 'Description'),
-            'status'      => Yii::t('GalleryModule.gallery', 'Status'),
+            'status' => Yii::t('GalleryModule.gallery', 'Status'),
             'imagesCount' => Yii::t('GalleryModule.gallery', 'Images count'),
-        );
+            'category_id' => Yii::t('GalleryModule.gallery', 'Category'),
+        ];
     }
 
     /**
@@ -125,18 +128,19 @@ class Gallery extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
         $criteria->compare('owner', $this->owner);
         $criteria->compare('status', $this->status);
+        $criteria->compare('category_id', $this->category_id);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
     public function getStatusList()
     {
-        return array(
-            self::STATUS_DRAFT    => Yii::t('GalleryModule.gallery', 'hidden'),
-            self::STATUS_PUBLIC   => Yii::t('GalleryModule.gallery', 'public'),
+        return [
+            self::STATUS_DRAFT => Yii::t('GalleryModule.gallery', 'hidden'),
+            self::STATUS_PUBLIC => Yii::t('GalleryModule.gallery', 'public'),
             self::STATUS_PERSONAL => Yii::t('GalleryModule.gallery', 'my own'),
-            self::STATUS_PRIVATE  => Yii::t('GalleryModule.gallery', 'private'),
-        );
+            self::STATUS_PRIVATE => Yii::t('GalleryModule.gallery', 'private'),
+        ];
     }
 
     public function getStatus()
@@ -151,10 +155,10 @@ class Gallery extends yupe\models\YModel
         $im2g = new ImageToGallery();
 
         $im2g->setAttributes(
-            array(
-                'image_id'   => $image->id,
+            [
+                'image_id' => $image->id,
                 'gallery_id' => $this->id,
-            )
+            ]
         );
 
         return $im2g->save();
@@ -170,25 +174,15 @@ class Gallery extends yupe\models\YModel
      **/
     public function previewImage($width = 190, $height = 190)
     {
-        return $this->imagesCount > 0
-            ? $this->images[0]->getUrl($width, $height)
-            : Yii::app()->getTheme()->getAssetsUrl() . '/images/thumbnail.png';
-    }
+        $preview = Yii::app()->getTheme()->getAssetsUrl() . '/images/thumbnail.png';
 
-    /**
-     * get user list
-     *
-     * @return array of user list
-     **/
-    public function getUsersList()
-    {
-        return CHtml::listData(
-            ($users = User::model()->cache(0, new CDbCacheDependency('SELECT MAX(id) FROM {{user_user}}'))->findAll()),
-            'id',
-            function ($user) {
-                return CHtml::encode($user->fullName);
-            }
-        );
+        if (isset($this->preview)) {
+            $preview = $this->preview->getImageUrl($width, $height);
+        } elseif (!isset($this->preview) && $this->imagesCount > 0) {
+            $preview = $this->images[0]->getImageUrl($width, $height);
+        }
+
+        return $preview;
     }
 
     /**
@@ -225,13 +219,18 @@ class Gallery extends yupe\models\YModel
      **/
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 'status  = :status',
-                'params'    => array(
+                'params' => [
                     ':status' => self::STATUS_PUBLIC
-                )
-            ),
-        );
+                ]
+            ],
+        ];
+    }
+
+    public function getCategoryName()
+    {
+        return ($this->category === null) ? '---' : $this->category->name;
     }
 }

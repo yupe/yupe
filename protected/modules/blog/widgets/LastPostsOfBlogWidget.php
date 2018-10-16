@@ -12,22 +12,37 @@
  */
 Yii::import('application.modules.blog.models.*');
 
+/**
+ * Class LastPostsOfBlogWidget
+ */
 class LastPostsOfBlogWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var
+     */
     public $blogId;
 
+    /**
+     * @var string
+     */
     public $view = 'lastpostsofblog';
 
+    /**
+     * @var
+     */
     public $postId;
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $criteria = new CDbCriteria();
         $criteria->addCondition('blog_id = :blog_id');
         $criteria->limit = (int)$this->limit;
-        $criteria->params = array(
+        $criteria->params = [
             ':blog_id' => (int)$this->blogId
-        );
+        ];
 
         if ($this->postId) {
             $criteria->addCondition('t.id != :post_id');
@@ -36,13 +51,13 @@ class LastPostsOfBlogWidget extends yupe\widgets\YWidget
 
         $this->render(
             $this->view,
-            array(
+            [
                 'posts' => Post::model()->public()->published()->sortByPubDate('DESC')->with(
                         'commentsCount',
                         'createUser',
                         'blog'
                     )->findAll($criteria)
-            )
+            ]
         );
     }
 }

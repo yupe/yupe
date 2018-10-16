@@ -18,7 +18,7 @@ class m000000_000000_dictionary_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{dictionary_dictionary_group}}',
-            array(
+            [
                 'id'             => 'pk',
                 'code'           => 'varchar(100) NOT NULL',
                 'name'           => "varchar(250) NOT NULL",
@@ -27,7 +27,7 @@ class m000000_000000_dictionary_base extends yupe\components\DbMigration
                 'update_date'    => 'datetime NOT NULL',
                 'create_user_id' => 'integer DEFAULT NULL',
                 'update_user_id' => 'integer DEFAULT NULL',
-            ),
+            ],
             $this->getOptions()
         );
 
@@ -71,7 +71,7 @@ class m000000_000000_dictionary_base extends yupe\components\DbMigration
          **/
         $this->createTable(
             '{{dictionary_dictionary_data}}',
-            array(
+            [
                 'id'             => 'pk',
                 'group_id'       => 'integer NOT NULL',
                 'code'           => 'varchar(100) NOT NULL',
@@ -83,7 +83,7 @@ class m000000_000000_dictionary_base extends yupe\components\DbMigration
                 'create_user_id' => 'integer DEFAULT NULL',
                 'update_user_id' => 'integer DEFAULT NULL',
                 'status'         => "integer NOT NULL DEFAULT '1'",
-            ),
+            ],
             $this->getOptions()
         );
 

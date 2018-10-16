@@ -10,51 +10,51 @@
  * @link     http://yupe.ru
  *
  **/
-$this->breadcrumbs = array(
-    Yii::t('MenuModule.menu', 'Menu') => array('/menu/menuBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('MenuModule.menu', 'Menu') => ['/menu/menuBackend/index'],
     Yii::t('MenuModule.menu', 'Create'),
-);
+];
 
 $this->pageTitle = Yii::t('MenuModule.menu', 'Menu - insert');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('MenuModule.menu', 'Menu'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu'),
-                'url'   => array('/menu/menuBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/menu/menuBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu'),
-                'url'   => array('/menu/menuBackend/create')
-            ),
-        )
-    ),
-    array(
+                'url'   => ['/menu/menuBackend/create']
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('MenuModule.menu', 'Menu items'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('MenuModule.menu', 'Manage menu items'),
-                'url'   => array('/menu/menuitemBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/menu/menuitemBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('MenuModule.menu', 'Create menu item'),
-                'url'   => array('/menu/menuitemBackend/create')
-            ),
-        )
-    ),
-);
+                'url'   => ['/menu/menuitemBackend/create']
+            ],
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('MenuModule.menu', 'Menu'); ?>
-        <small><?php echo Yii::t('MenuModule.menu', 'create'); ?></small>
+        <?=  Yii::t('MenuModule.menu', 'Menu'); ?>
+        <small><?=  Yii::t('MenuModule.menu', 'create'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?=  $this->renderPartial('_form', ['model' => $model]); ?>

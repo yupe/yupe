@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '*unknown*'                                                             => '',
     '--choose--'                                                            => '',
     '0.4'                                                                   => '',
@@ -87,4 +87,4 @@ return array(
     'are required.'                                                         => '',
     'need to be checked'                                                    => '',
     'management'                                                            => '',
-);
+];

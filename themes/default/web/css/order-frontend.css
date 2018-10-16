@@ -1,0 +1,42 @@
+.order-receiver td {
+    border: none;
+}
+
+.error input, .error select {
+    border-color: #a94442;
+}
+
+.success input, .success select {
+    border-color: #3c763d;
+}
+
+#payment-methods {
+    margin: 20px 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 20px 20px 0 20px;
+    list-style: none;
+}
+
+ul#payment-methods li {
+    margin-bottom: 20px;
+}
+
+ul#payment-methods li div.checkbox {
+    float: left;
+    padding: 0;
+}
+
+ul#payment-methods li div.checkbox input {
+    margin: 0;
+}
+
+ul#payment-methods li h3, ul#payment-methods li .description {
+    display: block;
+    margin-left: 25px;
+}
+
+ul#payment-methods li h3, ul#payment-methods li .description {
+    display: block;
+    margin-left: 25px;
+}

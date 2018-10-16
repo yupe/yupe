@@ -15,6 +15,7 @@ namespace yupe\components\controllers;
 use Yii;
 use yupe\events\YupeControllerInitEvent;
 use yupe\events\YupeEvents;
+use application\components\Controller;
 
 /**
  * Class FrontController
@@ -22,21 +23,21 @@ use yupe\events\YupeEvents;
  */
 abstract class FrontController extends Controller
 {
+    public $mainAssets;
+
     /**
      * Вызывается при инициализации FrontController
      * Присваивает значения, необходимым переменным
      */
     public function init()
     {
-        Yii::app()->eventManager->fire(YupeEvents::BEFORE_FRONT_CONTROLLER_INIT,  new YupeControllerInitEvent($this, Yii::app()->getUser()));
+        Yii::app()->eventManager->fire(YupeEvents::BEFORE_FRONT_CONTROLLER_INIT, new YupeControllerInitEvent($this, Yii::app()->getUser()));
 
         parent::init();
 
-        $this->pageTitle = $this->yupe->siteName;
-        $this->description = $this->yupe->siteDescription;
-        $this->keywords = $this->yupe->siteKeyWords;
+        Yii::app()->theme = $this->yupe->theme ?: 'default';
 
-        Yii::app()->theme = $this->yupe->theme ? : 'default';
+        $this->mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 
         $bootstrap = Yii::app()->getTheme()->getBasePath() . DIRECTORY_SEPARATOR . "bootstrap.php";
 

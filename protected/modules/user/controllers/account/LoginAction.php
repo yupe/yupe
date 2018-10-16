@@ -10,27 +10,26 @@
  * @version  0.7
  * @link     http://yupe.ru
  *
- **/
-use yupe\helpers\Url;
-
+ */
 class LoginAction extends CAction
 {
+
+    /**
+     *
+     */
     public function run()
     {
-        if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->getController()->redirect(Url::redirectUrl(Yii::app()->getUser()->getReturnUrl()));
-        }
+        $module = Yii::app()->getModule('user');
 
-        /**
-         * Если было совершено больше 3х попыток входа
-         * в систему, используем сценарий с капчей:
-         **/
+        if (false === Yii::app()->getUser()->getIsGuest()) {
+            $this->getController()->redirect(\yupe\helpers\Url::redirectUrl(
+                $module->loginSuccess
+            ));
+        }
 
         $badLoginCount = Yii::app()->authenticationManager->getBadLoginCount(Yii::app()->getUser());
 
-        $module = Yii::app()->getModule('user');
-
-        $scenario = $badLoginCount > (int)$module->badLoginCount ? LoginForm::LOGIN_LIMIT_SCENARIO : '';
+        $scenario = $badLoginCount >= (int)$module->badLoginCount ? LoginForm::LOGIN_LIMIT_SCENARIO : '';
 
         $form = new LoginForm($scenario);
 
@@ -38,11 +37,11 @@ class LoginAction extends CAction
 
             $form->setAttributes(Yii::app()->getRequest()->getPost('LoginForm'));
 
-            if ($form->validate() && Yii::app()->authenticationManager->login(
-                    $form,
-                    Yii::app()->getUser(),
-                    Yii::app()->getRequest()
-                )
+            if (Yii::app()->authenticationManager->login(
+                $form,
+                Yii::app()->getUser(),
+                Yii::app()->getRequest()
+            )
             ) {
 
                 Yii::app()->getUser()->setFlash(
@@ -51,16 +50,16 @@ class LoginAction extends CAction
                 );
 
                 if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
-                    $redirect = $module->loginAdminSuccess;
+                    $redirect = [$module->loginAdminSuccess];
                 } else {
-                    $redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl() : $module->loginSuccess;
+                    $redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl() : [$module->loginSuccess];
                 }
 
                 $redirect = Yii::app()->getUser()->getReturnUrl($redirect);
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
-                $this->getController()->redirect(Url::redirectUrl($redirect));
+                $this->getController()->redirect($redirect);
 
             } else {
 
@@ -70,6 +69,6 @@ class LoginAction extends CAction
             }
         }
 
-        $this->getController()->render($this->id, array('model' => $form));
+        $this->getController()->render($this->id, ['model' => $form]);
     }
 }

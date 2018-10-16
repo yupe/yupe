@@ -1,24 +1,26 @@
 <?php
+use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "{{user_user}}".
  *
  * The followings are the available columns in table '{{user_user}}':
  * @property integer $id
- * @property string  $change_date
+ * @property string  $update_time
  * @property string  $first_name
  * @property string  $middle_name
  * @property string  $last_name
  * @property string  $nick_name
  * @property string  $email
+ * @property string  $phone
  * @property integer $gender
  * @property string  $avatar
- * @property string  $password
+ * @property string  $hash
  * @property integer $status
  * @property integer $access_level
- * @property string  $last_visit
+ * @property string  $visit_time
  * @property boolean $email_confirm
- * @property string  $registration_date
+ * @property string  $create_time
  *
  */
 class User extends yupe\models\YModel
@@ -81,11 +83,6 @@ class User extends yupe\models\YModel
     public $use_gravatar = false;
 
     /**
-     * @var
-     */
-    public $pageSize;
-
-    /**
      * @return string the associated database table name
      */
     public function tableName()
@@ -110,58 +107,79 @@ class User extends yupe\models\YModel
     {
         $module = Yii::app()->getModule('user');
 
-        return array(
-            array(
+        return [
+            [
                 'birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email',
                 'filter',
                 'filter' => 'trim'
-            ),
-            array(
+            ],
+            [
                 'birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email',
                 'filter',
-                'filter' => array($obj = new CHtmlPurifier(), 'purify')
-            ),
-            array('nick_name, email, hash', 'required'),
-            array('first_name, last_name, middle_name, nick_name, email', 'length', 'max' => 50),
-            array('hash', 'length', 'max' => 256),
-            array('site', 'length', 'max' => 100),
-            array('about', 'length', 'max' => 300),
-            array('location', 'length', 'max' => 150),
-            array('gender, status, access_level', 'numerical', 'integerOnly' => true),
-            array(
+                'filter' => [$obj = new YPurifier(), 'purify']
+            ],
+            ['nick_name, email, hash', 'required'],
+            ['first_name, last_name, middle_name, nick_name, email', 'length', 'max' => 50],
+            ['hash', 'length', 'max' => 256],
+            ['site', 'length', 'max' => 100],
+            ['about', 'length', 'max' => 300],
+            ['location', 'length', 'max' => 150],
+            ['gender, status, access_level', 'numerical', 'integerOnly' => true],
+            ['gender', 'default', 'value' => self::GENDER_THING, 'setOnEmpty' => true],
+            [
                 'nick_name',
                 'match',
                 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/',
                 'message' => Yii::t(
-                        'UserModule.user',
-                        'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
-                    )
-            ),
-            array('site', 'url', 'allowEmpty' => true),
-            array('email', 'email'),
-            array('email', 'unique', 'message' => Yii::t('UserModule.user', 'This email already use by another user')),
-            array(
+                    'UserModule.user',
+                    'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
+                )
+            ],
+            ['site', 'url', 'allowEmpty' => true],
+            ['email', 'email'],
+            ['email', 'unique', 'message' => Yii::t('UserModule.user', 'This email already use by another user')],
+            [
                 'nick_name',
                 'unique',
                 'message' => Yii::t('UserModule.user', 'This nickname already use by another user')
-            ),
-            array(
+            ],
+            [
                 'avatar',
                 'file',
-                'types'      => implode(',', $module->avatarExtensions),
-                'maxSize'    => $module->avatarMaxSize,
-                'allowEmpty' => true
-            ),
-            array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('registration_date', 'length', 'max' => 50),
-            array(
-                'id, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, last_visit',
+                'types' => $module->avatarExtensions,
+                'maxSize' => $module->avatarMaxSize,
+                'allowEmpty' => true,
+                'safe' => false
+            ],
+            ['email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['create_time', 'length', 'max' => 50],
+            [
+                'id, update_time, create_time, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, visit_time, phone',
                 'safe',
                 'on' => 'search'
-            ),
-            array('birth_date', 'default', 'setOnEmpty' => true, 'value' => null),
-        );
+            ],
+            ['birth_date', 'default', 'setOnEmpty' => true, 'value' => null],
+            [
+                'phone',
+                'match',
+                'pattern' => $module->phonePattern,
+                'message' => 'Некорректный формат поля {attribute}'
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'CTimestampBehavior' => [
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'setUpdateOnCreate' => true,
+            ],
+        ];
     }
 
     /**
@@ -171,14 +189,13 @@ class User extends yupe\models\YModel
      */
     public function relations()
     {
-        return array(
-            // Все токены пользователя:
-            'tokens' => array(
+        return [
+            'tokens' => [
                 self::HAS_MANY,
                 'UserToken',
                 'user_id'
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -186,33 +203,30 @@ class User extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
-            'id'                => Yii::t('UserModule.user', 'Id'),
-            'creation_date'     => Yii::t('UserModule.user', 'Activated at'),
-            'change_date'       => Yii::t('UserModule.user', 'Updated at'),
-            'first_name'        => Yii::t('UserModule.user', 'Name'),
-            'last_name'         => Yii::t('UserModule.user', 'Last name'),
-            'middle_name'       => Yii::t('UserModule.user', 'Family name'),
-            'full_name'         => Yii::t('UserModule.user', 'Full name'),
-            'nick_name'         => Yii::t('UserModule.user', 'Nick'),
-            'email'             => Yii::t('UserModule.user', 'Email'),
-            'gender'            => Yii::t('UserModule.user', 'Sex'),
-            'password'          => Yii::t('UserModule.user', 'Password'),
-            'status'            => Yii::t('UserModule.user', 'Status'),
-            'access_level'      => Yii::t('UserModule.user', 'Access'),
-            'last_visit'        => Yii::t('UserModule.user', 'Last visit'),
-            'registration_date' => Yii::t('UserModule.user', 'Register date'),
-            'registration_ip'   => Yii::t('UserModule.user', 'Register Ip'),
-            'activation_ip'     => Yii::t('UserModule.user', 'Activation Ip'),
-            'activate_key'      => Yii::t('UserModule.user', 'Activation code'),
-            'avatar'            => Yii::t('UserModule.user', 'Avatar'),
-            'use_gravatar'      => Yii::t('UserModule.user', 'Gravatar'),
-            'email_confirm'     => Yii::t('UserModule.user', 'Email was confirmed'),
-            'birth_date'        => Yii::t('UserModule.user', 'Birthday'),
-            'site'              => Yii::t('UserModule.user', 'Site/blog'),
-            'location'          => Yii::t('UserModule.user', 'Location'),
-            'about'             => Yii::t('UserModule.user', 'About yourself'),
-        );
+        return [
+            'id' => Yii::t('UserModule.user', 'Id'),
+            'creation_date' => Yii::t('UserModule.user', 'Activated at'),
+            'update_time' => Yii::t('UserModule.user', 'Updated at'),
+            'first_name' => Yii::t('UserModule.user', 'Name'),
+            'last_name' => Yii::t('UserModule.user', 'Last name'),
+            'middle_name' => Yii::t('UserModule.user', 'Family name'),
+            'full_name' => Yii::t('UserModule.user', 'Full name'),
+            'nick_name' => Yii::t('UserModule.user', 'Nick'),
+            'email' => Yii::t('UserModule.user', 'Email'),
+            'gender' => Yii::t('UserModule.user', 'Sex'),
+            'status' => Yii::t('UserModule.user', 'Status'),
+            'access_level' => Yii::t('UserModule.user', 'Access'),
+            'visit_time' => Yii::t('UserModule.user', 'Last visit'),
+            'create_time' => Yii::t('UserModule.user', 'Register date'),
+            'avatar' => Yii::t('UserModule.user', 'Avatar'),
+            'use_gravatar' => Yii::t('UserModule.user', 'Gravatar'),
+            'email_confirm' => Yii::t('UserModule.user', 'Email was confirmed'),
+            'birth_date' => Yii::t('UserModule.user', 'Birthday'),
+            'site' => Yii::t('UserModule.user', 'Site/blog'),
+            'location' => Yii::t('UserModule.user', 'Location'),
+            'about' => Yii::t('UserModule.user', 'About yourself'),
+            'phone' => Yii::t('UserModule.user', 'Phone'),
+        ];
     }
 
     /**
@@ -242,37 +256,38 @@ class User extends yupe\models\YModel
      *
      * @return CActiveDataProvider
      */
-    public function search()
+    public function search($pageSize = 10)
     {
         $criteria = new CDbCriteria();
 
         $criteria->compare('t.id', $this->id);
-        $criteria->compare('t.change_date', $this->change_date, true);
-        if ($this->registration_date) {
-            $criteria->compare('t.registration_date', date('Y-m-d', strtotime($this->registration_date)), true);
+        $criteria->compare('t.update_time', $this->update_time, true);
+        if ($this->create_time) {
+            $criteria->compare('t.create_time', date('Y-m-d', strtotime($this->create_time)), true);
         }
         $criteria->compare('t.first_name', $this->first_name, true);
-        $criteria->compare('t.middle_name', $this->first_name, true);
+        $criteria->compare('t.middle_name', $this->middle_name, true);
         $criteria->compare('t.last_name', $this->last_name, true);
         $criteria->compare('t.nick_name', $this->nick_name, true);
         $criteria->compare('t.email', $this->email, true);
+        $criteria->compare('t.phone', $this->phone, true);
         $criteria->compare('t.gender', $this->gender);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('t.access_level', $this->access_level);
-        if ($this->last_visit) {
-            $criteria->compare('t.last_visit', date('Y-m-d', strtotime($this->last_visit)), true);
+        if ($this->visit_time) {
+            $criteria->compare('t.visit_time', date('Y-m-d', strtotime($this->visit_time)), true);
         }
         $criteria->compare('t.email_confirm', $this->email_confirm);
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria'   => $criteria,
-            'pagination' => array(
-                'pageSize' => (int)$this->pageSize,
-            ),
-            'sort'       => array(
-                'defaultOrder' => 'id DESC',
-            )
-        ));
+        return new CActiveDataProvider(get_class($this), [
+            'criteria' => $criteria,
+            'pagination' => [
+                'pageSize' => $pageSize,
+            ],
+            'sort' => [
+                'defaultOrder' => 'visit_time DESC',
+            ]
+        ]);
     }
 
     /**
@@ -288,19 +303,7 @@ class User extends yupe\models\YModel
         // включаем граватар:
         $this->use_gravatar = empty($this->avatar);
 
-        return parent::afterFind();
-    }
-
-    /**
-     * Предвалидационные действия:
-     *
-     * @return void
-     */
-    public function beforeValidate()
-    {
-        $this->gender = $this->gender ? : self::GENDER_THING;
-
-        return parent::beforeValidate();
+        parent::afterFind();
     }
 
     /**
@@ -310,15 +313,12 @@ class User extends yupe\models\YModel
      */
     public function beforeSave()
     {
-        if ($this->getIsNewRecord()) {
-            $this->registration_date = new CDbExpression('NOW()');
-        } else {
+        if (!$this->getIsNewRecord() && $this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN) {
             // Запрещаем действия, при которых администратор
             // может быть заблокирован или сайт останется без
             // администратора:
             if (
                 $this->admin()->count() == 1
-                && (int)$this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN
                 && ((int)$this->access_level === self::ACCESS_LEVEL_USER || (int)$this->status !== self::STATUS_ACTIVE)
             ) {
                 $this->addError(
@@ -329,14 +329,10 @@ class User extends yupe\models\YModel
                 return false;
             }
         }
-        if (!$this->birth_date) {
-            $this->birth_date = null;
-        }
-        // Меняем дату изменения профиля:
-        $this->change_date = new CDbExpression('NOW()');
 
         return parent::beforeSave();
     }
+
 
     /**
      * Метод перед удалением:
@@ -345,7 +341,7 @@ class User extends yupe\models\YModel
      */
     public function beforeDelete()
     {
-        if (User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN) {
+        if ($this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN && $this->admin()->count() == 1) {
             $this->addError(
                 'access_level',
                 Yii::t('UserModule.user', 'You can\'t make this changes!')
@@ -364,32 +360,32 @@ class User extends yupe\models\YModel
      */
     public function scopes()
     {
-        return array(
-            'active'     => array(
+        return [
+            'active' => [
                 'condition' => 't.status = :user_status',
-                'params'    => array(
+                'params' => [
                     ':user_status' => self::STATUS_ACTIVE
-                ),
-            ),
-            'registered' => array(
+                ],
+            ],
+            'registered' => [
                 'condition' => 't.status = :user_status',
-                'params'    => array(
+                'params' => [
                     ':user_status' => self::STATUS_NOT_ACTIVE
-                ),
-            ),
-            'blocked'    => array(
+                ],
+            ],
+            'blocked' => [
                 'condition' => 'status = :blocked_status',
-                'params'    => array(':blocked_status' => self::STATUS_BLOCK),
-            ),
-            'admin'      => array(
+                'params' => [':blocked_status' => self::STATUS_BLOCK],
+            ],
+            'admin' => [
                 'condition' => 'access_level = :access_level',
-                'params'    => array(':access_level' => self::ACCESS_LEVEL_ADMIN),
-            ),
-            'user'       => array(
+                'params' => [':access_level' => self::ACCESS_LEVEL_ADMIN],
+            ],
+            'user' => [
                 'condition' => 'access_level = :access_level',
-                'params'    => array(':access_level' => self::ACCESS_LEVEL_USER),
-            ),
-        );
+                'params' => [':access_level' => self::ACCESS_LEVEL_USER],
+            ],
+        ];
     }
 
     /**
@@ -399,10 +395,10 @@ class User extends yupe\models\YModel
      */
     public function getAccessLevelsList()
     {
-        return array(
+        return [
             self::ACCESS_LEVEL_ADMIN => Yii::t('UserModule.user', 'Administrator'),
-            self::ACCESS_LEVEL_USER  => Yii::t('UserModule.user', 'User'),
-        );
+            self::ACCESS_LEVEL_USER => Yii::t('UserModule.user', 'User'),
+        ];
     }
 
     /**
@@ -425,11 +421,11 @@ class User extends yupe\models\YModel
      */
     public function getStatusList()
     {
-        return array(
-            self::STATUS_ACTIVE     => Yii::t('UserModule.user', 'Active'),
-            self::STATUS_BLOCK      => Yii::t('UserModule.user', 'Blocked'),
+        return [
+            self::STATUS_ACTIVE => Yii::t('UserModule.user', 'Active'),
+            self::STATUS_BLOCK => Yii::t('UserModule.user', 'Blocked'),
             self::STATUS_NOT_ACTIVE => Yii::t('UserModule.user', 'Not activated'),
-        );
+        ];
     }
 
     /**
@@ -452,10 +448,10 @@ class User extends yupe\models\YModel
      */
     public function getEmailConfirmStatusList()
     {
-        return array(
+        return [
             self::EMAIL_CONFIRM_YES => Yii::t('UserModule.user', 'Yes'),
-            self::EMAIL_CONFIRM_NO  => Yii::t('UserModule.user', 'No'),
-        );
+            self::EMAIL_CONFIRM_NO => Yii::t('UserModule.user', 'No'),
+        ];
     }
 
     /**
@@ -478,11 +474,11 @@ class User extends yupe\models\YModel
      */
     public function getGendersList()
     {
-        return array(
+        return [
             self::GENDER_FEMALE => Yii::t('UserModule.user', 'female'),
-            self::GENDER_MALE   => Yii::t('UserModule.user', 'male'),
-            self::GENDER_THING  => Yii::t('UserModule.user', 'not set'),
-        );
+            self::GENDER_MALE => Yii::t('UserModule.user', 'male'),
+            self::GENDER_THING => Yii::t('UserModule.user', 'not set'),
+        ];
     }
 
     /**
@@ -520,25 +516,42 @@ class User extends yupe\models\YModel
 
         // если это граватар
         if ($this->use_gravatar && $this->email) {
-            return 'http://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size . "&d=" . urlencode(
-                Yii::app()->createAbsoluteUrl('/') . $userModule->defaultAvatar
+            return 'https://gravatar.com/avatar/' . md5(trim($this->email)) . "?s=" . $size . "&d=" . urlencode(
+                Yii::app()->createAbsoluteUrl('/') . $userModule->getDefaultAvatar()
             );
         }
 
         $avatar = $this->avatar;
-        $path = $userModule->getUploadPath() . $avatar;
+        $path = $userModule->getUploadPath();
 
         if (!file_exists($path)) {
             $avatar = $userModule->defaultAvatar;
         }
 
-        return Yii::app()->image->makeThumbnail(
-            $avatar,
+        return Yii::app()->thumbnailer->thumbnail(
+            $path . $avatar,
             $userModule->avatarsDir,
             $size,
-            $size,
-            \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND
+            $size
         );
+    }
+
+    /**
+     * Получаем список пользователей с полным имем:
+     *
+     * @param string $separator - разделитель
+     *
+     * @return string
+     */
+    public static function getFullNameList($separator = ' ')
+    {
+        $list = [];
+
+        foreach (User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll() as $user) {
+            $list[$user->id] = $user->getFullName($separator);
+        }
+
+        return $list;
     }
 
     /**
@@ -558,21 +571,23 @@ class User extends yupe\models\YModel
     /**
      * Удаление старого аватара:
      *
-     * @return bool
+     * @return boolean
      */
-    protected function removeOldAvatar()
+    public function removeOldAvatar()
     {
+        if (!$this->avatar) {
+            return true;
+        }
+
         $basePath = Yii::app()->getModule('user')->getUploadPath();
 
-        if ($this->avatar) {
-            //remove old resized avatars
-            if (file_exists($basePath . $this->avatar)) {
-                @unlink($basePath . $this->avatar);
-            }
+        if (file_exists($basePath . $this->avatar)) {
+            @unlink($basePath . $this->avatar);
+        }
 
-            foreach (glob($basePath . '/thumbs/' . '*' . $this->avatar) as $thumb) {
-                @unlink($thumb);
-            }
+        //remove old resized avatars
+        foreach (glob($basePath . '/thumbs/' . '*' . $this->avatar) as $thumb) {
+            @unlink($thumb);
         }
 
         $this->avatar = null;
@@ -587,11 +602,10 @@ class User extends yupe\models\YModel
      *
      * @throws CException
      *
-     * @return void
+     * @return boolean
      */
     public function changeAvatar(CUploadedFile $uploadedFile)
     {
-
         $basePath = Yii::app()->getModule('user')->getUploadPath();
 
         //создаем каталог для аватарок, если не существует
@@ -607,7 +621,11 @@ class User extends yupe\models\YModel
             throw new CException(Yii::t('UserModule.user', 'It is not possible to save avatar!'));
         }
 
+        $this->use_gravatar = false;
+
         $this->avatar = $filename;
+
+        return true;
     }
 
     /**
@@ -617,4 +635,15 @@ class User extends yupe\models\YModel
     {
         return (int)$this->status === self::STATUS_ACTIVE;
     }
+
+    /**
+     * @return $this
+     */
+    public function activate()
+    {
+        $this->status = self::STATUS_ACTIVE;
+        $this->email_confirm = self::EMAIL_CONFIRM_YES;
+        return $this;
+    }
+
 }

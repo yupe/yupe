@@ -12,6 +12,9 @@
  */
 class NewsRssController extends yupe\components\controllers\RssController
 {
+    /**
+     * @throws CHttpException
+     */
     public function loadData()
     {
         if (!($limit = (int)$this->module->rssCount)) {
@@ -20,7 +23,7 @@ class NewsRssController extends yupe\components\controllers\RssController
 
         $criteria = new CDbCriteria();
         $criteria->order = 'date DESC';
-        $criteria->params = array();
+        $criteria->params = [];
         $criteria->limit = $limit;
 
         $this->title = $this->yupe->siteName;
@@ -29,7 +32,7 @@ class NewsRssController extends yupe\components\controllers\RssController
         $categoryId = (int)Yii::app()->getRequest()->getQuery('category');
 
         if (!empty($categoryId)) {
-            $category = Category::model()->cache($this->yupe->coreCacheTime)->published()->findByPk($categoryId);
+            $category = Yii::app()->getComponent('categoriesRepository')->getById($categoryId);
             if (null === $category) {
                 throw new CHttpException(404);
             }
@@ -44,25 +47,28 @@ class NewsRssController extends yupe\components\controllers\RssController
         );
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
-        return array(
-            'feed' => array(
+        return [
+            'feed' => [
                 'class'       => 'yupe\components\actions\YFeedAction',
                 'data'        => $this->data,
                 'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields'  => array(
+                'itemFields'  => [
                     'author_object'   => 'user',
                     'author_nickname' => 'nick_name',
                     'content'         => 'short_text',
                     'datetime'        => 'date',
-                    'link'            => '/news/news/show',
-                    'linkParams'      => array('title' => 'alias'),
+                    'link'            => '/news/news/view',
+                    'linkParams'      => ['title' => 'slug'],
                     'title'           => 'title',
-                    'updated'         => 'change_date',
-                ),
-            ),
-        );
+                    'updated'         => 'update_time',
+                ],
+            ],
+        ];
     }
 }

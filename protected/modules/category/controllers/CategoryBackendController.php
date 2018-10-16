@@ -7,34 +7,33 @@
  * @link      http://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package   yupe.modules.category.controllers
- * @version   0.6
+ * @version   1.1
  *
  */
 class CategoryBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Category.CategoryBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Category.CategoryBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Category.CategoryBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Category.CategoryBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Category.CategoryBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Category.CategoryBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Category.CategoryBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Category.CategoryBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Category.CategoryBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Category.CategoryBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Category.CategoryBackend.Delete']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Category',
-                'validAttributes' => array('name', 'description', 'alias', 'status')
-            )
-        );
+        return [
+            'inline' => [
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Category',
+                'validAttributes' => ['name', 'description', 'slug', 'status']
+            ]
+        ];
     }
 
     /**
@@ -46,7 +45,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -73,7 +72,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
@@ -93,7 +92,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('CategoryModule.category', 'Targeting category was not found!')
                 );
-                $this->redirect(array('create'));
+                $this->redirect(['create']);
             }
 
             if (!array_key_exists($lang, $languages)) {
@@ -102,7 +101,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                     Yii::t('CategoryModule.category', 'Language was not found!')
                 );
 
-                $this->redirect(array('create'));
+                $this->redirect(['create']);
             }
 
             Yii::app()->user->setFlash(
@@ -110,21 +109,21 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 Yii::t(
                     'CategoryModule.category',
                     'You are adding translate in to {lang}!',
-                    array(
+                    [
                         '{lang}' => $languages[$lang]
-                    )
+                    ]
                 )
             );
 
             $model->lang = $lang;
-            $model->alias = $category->alias;
+            $model->slug = $category->slug;
             $model->parent_id = $category->parent_id;
             $model->name = $category->name;
         } else {
             $model->lang = Yii::app()->language;
         }
 
-        $this->render('create', array('model' => $model, 'languages' => $languages));
+        $this->render('create', ['model' => $model, 'languages' => $languages]);
     }
 
     /**
@@ -153,31 +152,31 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array(
+                        [
                             'update',
                             'id' => $model->id,
-                        )
+                        ]
                     )
                 );
             }
         }
 
-        // найти по alias страницы на других языках
+        // найти по slug страницы на других языках
         $langModels = Category::model()->findAll(
-            'alias = :alias AND id != :id',
-            array(
-                ':alias' => $model->alias,
-                ':id'    => $model->id
-            )
+            'slug = :slug AND id != :id',
+            [
+                ':slug' => $model->slug,
+                ':id' => $model->id
+            ]
         );
 
         $this->render(
             'update',
-            array(
-                'model'      => $model,
+            [
+                'model' => $model,
                 'langModels' => CHtml::listData($langModels, 'lang', 'id'),
-                'languages'  => $this->yupe->getLanguagesList()
-            )
+                'languages' => $this->yupe->getLanguagesList()
+            ]
         );
     }
 
@@ -228,7 +227,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      *
      * @return void
      */
-    public function actionIndex()
+    public function actionIndex($module = null, $parent = null)
     {
         $model = new Category('search');
         $model->unsetAttributes(); // clear any default values
@@ -237,14 +236,18 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             $model->attributes = $_GET['Category'];
         }
 
-        $this->render('index', array('model' => $model));
+        if (null !== $module && null !== $parent) {
+            $model->parent_id = $parent;
+        }
+
+        $this->render('index', ['model' => $model]);
     }
 
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
      *
-     * @param integer идентификатор нужной модели
+     * @param integer $id идентификатор нужной модели
      *
      * @return Category $model
      *

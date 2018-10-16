@@ -15,16 +15,18 @@ namespace yupe\components\actions;
 use Yii;
 use Image;
 
+/**
+ * Class YAjaxImageUploadAction
+ * @package yupe\components\actions
+ */
 class YAjaxImageUploadAction extends YAjaxFileUploadAction
 {
-    public function init()
-    {
-        parent::init();
-    }
-
+    /**
+     * @return bool
+     */
     protected function uploadFile()
     {
-        if (!Yii::app()->hasModule('image')) {
+        if (!$this->uploadedFile || !Yii::app()->hasModule('image')) {
             return false;
         }
 
@@ -40,7 +42,8 @@ class YAjaxImageUploadAction extends YAjaxFileUploadAction
         $image->setAttribute('type', Image::TYPE_SIMPLE);
 
         if ($image->save()) {
-            $this->fileLink = $image->getRawUrl();
+
+            $this->fileLink = $image->getImageUrl();
             $this->fileName = $image->getName();
 
             return true;

@@ -1,20 +1,29 @@
 <?php
 
-class SearchController extends yupe\components\controllers\FrontController
+/**
+ * Class SearchController
+ */
+class SearchController extends \yupe\components\controllers\FrontController
 {
+    /**
+     * @throws CException
+     */
     public function init()
     {
+        parent::init();
         Yii::import('application.modules.zendsearch.vendors.*');
         require_once 'Zend/Search/Lucene.php';
-        parent::init();
     }
 
+    /**
+     * @throws Zend_Search_Lucene_Exception
+     */
     public function actionSearch()
     {
         $indexFiles = Yii::app()->getModule('zendsearch')->indexFiles;
         SetLocale(LC_ALL, 'ru_RU.UTF-8');
         Zend_Search_Lucene_Analysis_Analyzer::setDefault(
-            new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive()
+            new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive()
         );
         Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('UTF-8');
 

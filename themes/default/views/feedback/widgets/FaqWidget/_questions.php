@@ -3,9 +3,9 @@
     $i = 0; ?>
     <?php foreach ($models as $model): ?>
         <li>
-            <?php echo CHtml::link(
+            <?= CHtml::link(
                 yupe\helpers\YText::characterLimiter($model->text, 50),
-                array('/feedback/contact/faqView/', 'id' => $model->id)
+                ['/feedback/contact/faqView/', 'id' => $model->id]
             ); ?>
         </li>
         <?php $i++;

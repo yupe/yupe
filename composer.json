@@ -1,9 +1,9 @@
 {
     "name": "yupe/yupe",
-    "description": "Yupe is simple and lightweight CMF for web-development, built on top of Yii",
-    "keywords": ["yupe", "yii", "web", "cms", "cmf"],
+    "description": "Yupe is simple and lightweight CMF for web-development, built on top of Yii 1.x",
+    "keywords": ["yupe", "yii", "web", "cms", "cmf", "shop", "ecommerce"],
     "homepage": "http://yupe.ru",
-    "type": "cmf",
+    "type": "project",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -19,18 +19,9 @@
             "role": "Developer"
         },
         {
-            "name": "Anton Kucherov",
-            "homepage": "http://idexter.ru/",
-            "role": "Developer"
-        },
-        {
-            "name": "Alexey Elizarov",
-            "homepage": "http://amylabs.ru",
-            "role": "Designer"
-        },
-        {
             "name": "Maxim Timashov",
-            "email": "apexwire@gmail.com",
+            "email": "apexwire@amylabs.ru",
+            "homepage": "http://amylabs.ru",
             "role": "Developer"
         },
         {
@@ -39,56 +30,41 @@
             "role": "Developer"
         },
         {
-            "name": "Mihail Chemezov",
-            "homepage": "http://vk.com/m.chemezov",
-            "role": "Developer"
-        },
-        {
-            "name": "Alexander Tischenko",
-            "email": "tsm@archaron.ru",
-            "homepage": "http://archaron.ru/",
-            "role": "Developer"
-        },
-        {
-            "name": "Evgeniy Kulikov",
-            "email": "tuxuls@gmail.com",
-            "homepage": "http://akulikov.org.ua",
-            "role": "Developer"
-        },
-        {
-            "name": "Alexander Lyzhenkov",
-            "homepage": "http://lyzhenkov.ru",
-            "role": "Developer"
-        },
-        {
-            "name": "Anton Cherepanov",
-            "homepage": "https://twitter.com/davetoxa",
+            "name": "Oleg Filimonov",
+            "email": "olegsabian@gmail.com",
+            "homepage": "http://olegfilimonov.ru",
             "role": "Developer"
         }
     ],
     "support": {
-        "email": "team@yupe.ru",
+        "email": "support@yupe.ru",
         "issues": "https://github.com/yupe/yupe/issues",
-        "forum": "http://yupe.ru/talk/",
-        "source": "https://github.com/yupe/yupe/"
+        "forum": "http://talk.yupe.ru/",
+        "source": "https://github.com/yupe/yupe/",
+        "docs": "http://docs.yupe.ru/"
     },
     "require": {
         "php": ">=5.4",
-        "yiisoft/yii": ">=1.1.15",
+        "yiisoft/yii": "1.1.19",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
-        "zhuravljov/yii2-debug": "dev-master",
-        "phpmailer/phpmailer": "dev-master",
+        "zhuravljov/yii2-debug": "1.4.*",
+        "phpmailer/phpmailer": "5.2.*",
         "yiiext/taggable-behavior": "1.5.*",
-        "nodge/yii-eauth": "dev-master",
-        "imagine/imagine": "v0.6.1",
-        "symfony/event-dispatcher": "2.*",
+        "krupni/yii-eauth": "1.2.1",
+        "imagine/imagine": "0.6.*",
+        "symfony/event-dispatcher": "3.*",
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
-        "guzzlehttp/guzzle": "4.2.*"
+        "2amigos/transliterator-helper": "dev-master",
+        "yiiext/migrate-command": "dev-master",
+        "samdark/sitemap": "2.0.*",
+        "ckeditor/ckeditor": "4.*",
+        "wikimedia/composer-merge-plugin": "dev-master"
     },
     "repositories": {
+        
         "taggable": {
             "type": "package",
             "package": {
@@ -115,7 +91,48 @@
         }
     },
     "require-dev": {
-        "codeception/codeception": "2.*"
+        "codeception/codeception": "*"
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "application\\": "protected/",
+            "yupe\\": "protected/modules/yupe/"
+        }
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "yupe\\components\\Composer::postCreate"
+        ],
+        "pre-install-cmd": [
+            "yupe\\components\\Composer::preInstall"
+        ],
+        "post-install-cmd": [
+            "yupe\\components\\Composer::postInstall"
+        ],
+        "pre-update-cmd": [
+            "yupe\\components\\Composer::preUpdate"
+        ],
+        "post-update-cmd": [
+            "yupe\\components\\Composer::postUpdate"
+        ]
+    },
+    "extra": {
+        "writable": [
+            "public/assets",
+            "public/uploads",
+            "protected/runtime",
+            "protected/config/db.php",
+            "protected/config/modules",
+            "protected/config/modulesBack"
+        ],
+        "merge-plugin": {
+            "include": [
+                "protected/modules/*/composer.json"
+            ],
+            "recurse": false,
+            "replace": false,
+            "merge-extra": true
+        }
+    }
 }

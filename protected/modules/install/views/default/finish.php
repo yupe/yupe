@@ -9,59 +9,91 @@
  * @link     http://yupe.ru
  **/
 ?>
-<h1><?php echo Yii::t('InstallModule.install', 'Congratulations Yupe was installed successfully!'); ?></h1>
+<h3><?= Yii::t('InstallModule.install', 'Congratulations Yupe was installed successfully!'); ?></h3>
 
-<p><?php echo Yii::t('InstallModule.install', 'Your site is ready to work!'); ?></p>
+<p><?= Yii::t('InstallModule.install', 'Your store is ready to work!'); ?></p>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), array('/site/index')); ?>
+<hr/>
 
-<?php echo Yii::t('InstallModule.install', 'or'); ?>
+<?= Yii::t('InstallModule.install', 'Share with your friends!'); ?>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO CONTROL PANEL'), array('/yupe/backend/index')); ?>
+<script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
 
-<br/><br/>
+<div class="ya-share2"
+     data-services="vkontakte,facebook,odnoklassniki,moimir,gplus,twitter,evernote,lj,surfingbird,whatsapp"
+     data-description="<?= Yii::t('InstallModule.install', 'Free online store!'); ?>"
+     data-tile="<?= Yii::t('InstallModule.install', 'Free online store!'); ?>"
+     data-url="http://yupe.ru">
+</div>
 
-<p><?php echo Yii::t('InstallModule.install', 'Interesting links:'); ?></p>
+<hr/>
 
-<?php echo CHtml::link(
-    Yii::t('InstallModule.install', 'Official docs'),
-    'http://yupe.ru/docs/index.html?from=finish'
-); ?> - <?php echo Yii::t('InstallModule.install', 'We working with it'); ?>
+<?= CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), '/',
+    ['class' => 'btn btn-info']); ?>
 
-<br/><br/>
+<?= Yii::t('InstallModule.install', 'or'); ?>
 
-<?php echo CHtml::link(
+<?= CHtml::link(Yii::t('InstallModule.install', 'GO TO CONTROL PANEL'), ['/yupe/backend/index'],
+    ['class' => 'btn btn-info']); ?>
+
+<br/>
+<hr/>
+
+
+<p><?= Yii::t('InstallModule.install', 'Interesting links:'); ?></p>
+
+<?= CHtml::link(
     Yii::t('InstallModule.install', 'Official Yupe site'),
-    'http://yupe.ru/?from=finish'
-); ?> - <?php echo Yii::t('InstallModule.install', 'go frequently'); ?>
+    'http://yupe.ru/?from=finish',
+    ['target' => '_blank']
+); ?> - <?= Yii::t('InstallModule.install', 'go frequently'); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(
+<?= CHtml::link(
+    Yii::t('InstallModule.install', 'Hosting'),
+    'http://yupe.ru/service/hosting?from=finish',
+    ['target' => '_blank']
+); ?> - <?= Yii::t('InstallModule.install', 'Hosting for your store'); ?>
+
+<br/><br/>
+
+<?= CHtml::link(
+    Yii::t('InstallModule.install', 'Official docs'),
+    'http://docs.yupe.ru/?from=finish',
+    ['target' => '_blank']
+); ?> - <?= Yii::t('InstallModule.install', 'We working with it'); ?>
+
+<br/><br/>
+
+<?= CHtml::link(
     Yii::t('InstallModule.install', 'Support Yupe forum'),
-    'http://yupe.ru/?from=finish'
-); ?> - <?php echo Yii::t('InstallModule.install', 'interesing thoughts and ideas'); ?>
+    'http://talk.yupe.ru/?from=finish',
+    ['target' => '_blank']
+); ?> - <?= Yii::t('InstallModule.install', 'interesing thoughts and ideas'); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(
+<?= CHtml::link(
     Yii::t('InstallModule.install', 'Official Yupe twitter'),
-    'https://twitter.com/yupecms'
-); ?>  - <?php echo Yii::t('InstallModule.install', 'Follow us'); ?>
+    'https://twitter.com/yupecms',
+    ['target' => '_blank']
+); ?>  - <?= Yii::t('InstallModule.install', 'Follow us'); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(
+<?= CHtml::link(
     Yii::t('InstallModule.install', 'Sources on GitHub'),
     'http://github.com/yupe/yupe/'
-); ?> - <?php echo Yii::t('InstallModule.install', 'Send pull request'); ?>
+); ?> - <?= Yii::t('InstallModule.install', 'Send pull request'); ?>
 
 <br/><br/>
 
-<?php echo Yii::t(
+<?= Yii::t(
     'InstallModule.install',
-    'Mail us to <b><a href="mailto:team@yupe.ru">team@yupe.ru</a></b>'
-); ?>  - <?php echo Yii::t(
+    'Mail us to <b><a href="mailto:team@yupe.ru">support@yupe.ru</a></b>'
+); ?>  - <?= Yii::t(
     'InstallModule.install',
     'We always open for commercial and other propositions'
 ); ?>

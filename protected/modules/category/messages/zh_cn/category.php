@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '*unknown*'                                                                     => '',
     '--choose--'                                                                    => '--选择--',
     '--no--'                                                                        => '--否--',
@@ -81,4 +81,4 @@ return array(
     'create'                                                                        => '创建',
     'are required'                                                                  => '是必填项',
     'manage'                                                                        => '管理',
-);
+];

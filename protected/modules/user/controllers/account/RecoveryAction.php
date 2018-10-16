@@ -13,16 +13,20 @@
 
 use yupe\widgets\YFlashMessages;
 
+/**
+ * Class RecoveryAction
+ */
 class RecoveryAction extends CAction
 {
+    /**
+     * @throws CHttpException
+     */
     public function run()
     {
-        // Незачем выполнять последующие действия
-        // для авторизованного пользователя:
-        if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->getController()->redirect(
-                Yii::app()->getUser()->getReturnUrl()
-            );
+        if (false === Yii::app()->getUser()->getIsGuest()) {
+            $this->getController()->redirect(\yupe\helpers\Url::redirectUrl(
+                Yii::app()->getModule('user')->loginSuccess
+            ));
         }
 
         $module = Yii::app()->getModule('user');
@@ -54,7 +58,7 @@ class RecoveryAction extends CAction
                         )
                     );
 
-                    $this->getController()->redirect(array('/user/account/login'));
+                    $this->getController()->redirect(['/user/account/login']);
                 }
 
                 Yii::app()->getUser()->setFlash(
@@ -62,10 +66,10 @@ class RecoveryAction extends CAction
                     Yii::t('UserModule.user', 'Password recovery error.')
                 );
 
-                $this->getController()->redirect(array('/user/account/recovery'));
+                $this->getController()->redirect(['/user/account/recovery']);
             }
         }
 
-        $this->getController()->render('recovery', array('model' => $form));
+        $this->getController()->render('recovery', ['model' => $form]);
     }
 }

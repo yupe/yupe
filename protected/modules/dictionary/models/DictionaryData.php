@@ -20,8 +20,8 @@
  * @property string $name
  * @property string $value
  * @property string $description
- * @property string $creation_date
- * @property string $update_date
+ * @property string $create_time
+ * @property string $update_time
  * @property string $create_user_id
  * @property string $update_user_id
  * @property integer $status
@@ -60,22 +60,22 @@ class DictionaryData extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('group_id, code, name, value', 'required'),
-            array('status', 'numerical', 'integerOnly' => true),
-            array('group_id, create_user_id, update_user_id', 'length', 'max' => 10),
-            array('code', 'length', 'max' => 100),
-            array('name, value, description', 'length', 'max' => 250),
-            array('code', 'yupe\components\validators\YSLugValidator'),
-            array('code', 'unique'),
+        return [
+            ['group_id, code, name, value', 'required'],
+            ['status', 'numerical', 'integerOnly' => true],
+            ['group_id, create_user_id, update_user_id', 'length', 'max' => 10],
+            ['code', 'length', 'max' => 100],
+            ['name, value, description', 'length', 'max' => 250],
+            ['code', 'yupe\components\validators\YSLugValidator'],
+            ['code', 'unique'],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array(
-                'id, group_id, code, name, description, creation_date, update_date, create_user_id, update_user_id, status',
+            [
+                'id, group_id, code, name, description, create_time, update_time, create_user_id, update_user_id, status',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -85,11 +85,11 @@ class DictionaryData extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'group'      => array(self::BELONGS_TO, 'DictionaryGroup', 'group_id'),
-            'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
-        );
+        return [
+            'updateUser' => [self::BELONGS_TO, 'User', 'update_user_id'],
+            'group'      => [self::BELONGS_TO, 'DictionaryGroup', 'group_id'],
+            'createUser' => [self::BELONGS_TO, 'User', 'create_user_id'],
+        ];
     }
 
     /**
@@ -97,19 +97,19 @@ class DictionaryData extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'             => Yii::t('DictionaryModule.dictionary', 'id'),
             'group_id'       => Yii::t('DictionaryModule.dictionary', 'Dictionary'),
             'code'           => Yii::t('DictionaryModule.dictionary', 'Code'),
             'name'           => Yii::t('DictionaryModule.dictionary', 'Title'),
             'value'          => Yii::t('DictionaryModule.dictionary', 'Item'),
             'description'    => Yii::t('DictionaryModule.dictionary', 'Description'),
-            'creation_date'  => Yii::t('DictionaryModule.dictionary', 'Created at'),
-            'update_date'    => Yii::t('DictionaryModule.dictionary', 'Updated at.'),
+            'create_time'  => Yii::t('DictionaryModule.dictionary', 'Created at'),
+            'update_time'    => Yii::t('DictionaryModule.dictionary', 'Updated at.'),
             'create_user_id' => Yii::t('DictionaryModule.dictionary', 'Created by.'),
             'update_user_id' => Yii::t('DictionaryModule.dictionary', 'Updated by.'),
             'status'         => Yii::t('DictionaryModule.dictionary', 'Active'),
-        );
+        ];
     }
 
     /**
@@ -128,23 +128,23 @@ class DictionaryData extends yupe\models\YModel
         $criteria->compare('code', $this->code, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('update_date', $this->update_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
+        $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_user_id', $this->update_user_id, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
-        $this->update_date = new CDbExpression('NOW()');
+        $this->update_time = new CDbExpression('NOW()');
 
         if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
-            $this->creation_date = $this->update_date;
+            $this->create_time = $this->update_time;
         }
 
         return parent::beforeSave();
@@ -152,10 +152,10 @@ class DictionaryData extends yupe\models\YModel
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_ACTIVE  => Yii::t('DictionaryModule.dictionary', 'Yes'),
             self::STATUS_DELETED => Yii::t('DictionaryModule.dictionary', 'No'),
-        );
+        ];
     }
 
     public function getStatus()
@@ -167,6 +167,6 @@ class DictionaryData extends yupe\models\YModel
 
     public function getByCode($code)
     {
-        return $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->find('code = :code', array('code' => $code));
+        return $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->find('code = :code', ['code' => $code]);
     }
 }

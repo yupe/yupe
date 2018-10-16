@@ -21,6 +21,6 @@ class UserPopupInfoWidget extends yupe\widgets\YWidget
             return null;
         }
 
-        $this->render($this->view, array('model' => $this->model));
+        $this->render($this->view, ['model' => $this->model]);
     }
 }

@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '*unknown*'                                                                                                                                                                                                                                                                                                                                     => '',
     '- no matter -'                                                                                                                                                                                                                                                                                                                                 => '',
     '- not set -'                                                                                                                                                                                                                                                                                                                                   => '',
@@ -118,4 +118,4 @@ return array(
     'manage'                                                                                                                                                                                                                                                                                                                                        => '',
     'Removed'                                                                                                                                                                                                                                                                                                                                       => '',
     'Select {field}'                                                                                                                                                                                                                                                                                                                                => '',
-);
+];

@@ -12,33 +12,38 @@
  */
 class ContentBlockBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('ContentBlock.ContentblockBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('ContentBlock.ContentblockBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('ContentBlock.ContentblockBackend.Index')),
-            array(
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['ContentBlock.ContentblockBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['ContentBlock.ContentblockBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['ContentBlock.ContentblockBackend.Create']],
+            [
                 'allow',
-                'actions' => array('inlineEdit'),
-                'roles'   => array('ContentBlock.ContentblockBackend.Update')
-            ),
-            array('allow', 'actions' => array('update'), 'roles' => array('ContentBlock.ContentblockBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('ContentBlock.ContentblockBackend.View')),
-            array('deny')
-        );
+                'actions' => ['update', 'inline'],
+                'roles' => ['ContentBlock.ContentblockBackend.Update'],
+            ],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['ContentBlock.ContentblockBackend.Delete']],
+            ['deny'],
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
-        return array(
-            'inline' => array(
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'ContentBlock',
-                'validAttributes' => array('name', 'code', 'type', 'description')
-            )
-        );
+        return [
+            'inline' => [
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'ContentBlock',
+                'validAttributes' => ['name', 'code', 'type', 'description', 'status'],
+            ],
+        ];
     }
 
     /**
@@ -53,7 +58,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
         $model = $this->loadModel($id);
 
         $code = "<?php \$this->widget(\n\t\"application.modules.contentblock.widgets.ContentBlockWidget\",\n\tarray(\"code\" => \"{$model->code}\"));\n?>";
-        $codeCategory          = "<?php \$this->widget(\n\t\"application.modules.contentblock.widgets.ContentBlockGroupWidget\",\n\tarray(\"category\" => \"{$model->getCategoryAlias()}\"));\n?>";
+        $codeCategory = "<?php \$this->widget(\n\t\"application.modules.contentblock.widgets.ContentBlockGroupWidget\",\n\tarray(\"category\" => \"{$model->getCategoryAlias()}\"));\n?>";
 
         $highlighter = new CTextHighlighter();
         $highlighter->language = 'PHP';
@@ -62,11 +67,11 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
 
         $this->render(
             'view',
-            array(
-                'model'   => $model,
+            [
+                'model' => $model,
                 'example' => $example,
-                'exampleCategory' => $exampleCategory
-            )
+                'exampleCategory' => $exampleCategory,
+            ]
         );
     }
 
@@ -84,7 +89,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
             $model->setAttributes($data);
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ContentBlockModule.contentblock', 'New content block was added!')
                 );
@@ -92,12 +97,12 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -116,22 +121,22 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
             $model->setAttributes($data);
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ContentBlockModule.contentblock', 'Content block was changed!')
                 );
 
-                Yii::app()->cache->delete("ContentBlock{$model->code}");
+                Yii::app()->getCache()->delete("ContentBlock{$model->code}");
 
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -175,11 +180,11 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'ContentBlock',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

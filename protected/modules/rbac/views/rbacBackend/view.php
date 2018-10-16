@@ -1,63 +1,61 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+$this->breadcrumbs = [
+    Yii::t('RbacModule.rbac', 'RBAC') => ['index'],
+    Yii::t('RbacModule.rbac', 'Manage') => ['index'],
     $model->name,
-);
+];
 
-$this->menu = array(
-    array(
-        'label' => Yii::t('RbacModule.rbac', 'Operations'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
-                'label' => Yii::t('RbacModule.rbac', 'Create role'),
-                'url'   => array('/rbac/rbacBackend/create')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-pencil',
-                'label' => Yii::t('RbacModule.rbac', 'Update role'),
-                'url'   => array('/rbac/rbacBackend/update', 'id' => $model->name)
-            ),
-        )
-    ),
-    array(
-        'label' => Yii::t('RbacModule.rbac', 'Roles'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
-                'label' => Yii::t('RbacModule.rbac', 'Manage roles'),
-                'url'   => array('/rbac/rbacBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
-                'label' => Yii::t('RbacModule.rbac', 'Create role'),
-                'url'   => array('/rbac/rbacBackend/create')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
-                'label' => Yii::t('RbacModule.rbac', 'Assign roles'),
-                'url'   => array('/rbac/rbacBackend/userList')
-            ),
-        )
-    )
+$this->menu = array_merge(
+    $this->module->getNavigation(),
+    [
+        ['label' => Yii::t('RbacModule.rbac', 'Operation') . ' «' . mb_substr($model->name, 0, 32) . '»', 'utf-8'],
+        [
+            'icon'        => 'fa fa-fw fa-pencil',
+            'encodeLabel' => false,
+            'label'       => Yii::t('RbacModule.rbac', 'Edit operation'),
+            'url'         => [
+                '/rbac/rbacBackend/update',
+                'id' => $model->name
+            ]
+        ],
+        [
+            'icon'        => 'fa fa-fw fa-eye',
+            'encodeLabel' => false,
+            'label'       => Yii::t('RbacModule.rbac', 'View operation'),
+            'url'         => [
+                '/rbac/rbacBackend/view',
+                'id' => $model->name
+            ]
+        ],
+        [
+            'icon'        => 'fa fa-fw fa-trash-o',
+            'label'       => Yii::t('RbacModule.rbac', 'Remove rbac'),
+            'url'         => '#',
+            'linkOptions' => [
+                'submit'  => ['/rbac/rbacBackend/delete', 'id' => $model->name],
+                'confirm' => Yii::t('RbacModule.rbac', 'Do you really want to remove the operation?'),
+                'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
+            ]
+        ],
+    ]
 );
 ?>
 
-<h3><?php echo Yii::t('RbacModule.rbac', 'View action'); ?> "<?php echo $model->name; ?>"</h3>
+<h3><?=  Yii::t('RbacModule.rbac', 'View operation'); ?> "<?=  $model->name; ?>"</h3>
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
-    array(
+    [
         'data'       => $model,
-        'attributes' => array(
+        'attributes' => [
             'name',
-            array(
+            [
                 'name'  => 'type',
                 'value' => $model->getType()
-            ),
+            ],
             'description',
             'bizrule',
             'data',
-        ),
-    )
+        ],
+    ]
 ); ?>

@@ -13,20 +13,35 @@
 
 Yii::import('application.modules.blog.models.*');
 
+/**
+ * Class MembersOfBlogWidget
+ */
 class MembersOfBlogWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var
+     */
     public $blogId;
 
+    /**
+     * @var
+     */
     public $blog;
 
+    /**
+     * @var string
+     */
     public $view = 'membersofblog';
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         if (!$this->blog) {
             $this->blog = Blog::model()->with('members')->findByPk($this->blogId);
         }
 
-        $this->render($this->view, array('model' => $this->blog));
+        $this->render($this->view, ['model' => $this->blog]);
     }
 }

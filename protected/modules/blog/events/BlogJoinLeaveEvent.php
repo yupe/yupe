@@ -1,12 +1,26 @@
 <?php
 use yupe\components\Event;
 
+/**
+ * Class BlogJoinLeaveEvent
+ */
 class BlogJoinLeaveEvent extends Event
 {
+    /**
+     * @var Blog
+     */
     protected $blog;
 
+    /**
+     * @var
+     */
     protected $userId;
 
+    /**
+     * BlogJoinLeaveEvent constructor.
+     * @param Blog $blog
+     * @param $userId
+     */
     public function __construct(Blog $blog, $userId)
     {
         $this->blog = $blog;

@@ -5,36 +5,41 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.menu.controllers
  * @since 0.1
  *
  */
 class MenuBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Menu.MenuBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Menu.MenuBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Menu.MenuBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Menu.MenuBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Menu.MenuBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Menu.MenuBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Menu.MenuBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Menu.MenuBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Menu.MenuBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Menu.MenuBackend.Delete']],
+            ['deny']
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Menu',
-                'validAttributes' => array('name', 'code', 'status', 'description')
-            )
-        );
+                'validAttributes' => ['name', 'code', 'status', 'description']
+            ]
+        ];
     }
 
     /**
@@ -64,10 +69,10 @@ class MenuBackendController extends yupe\components\controllers\BackController
 
         $this->render(
             'view',
-            array(
+            [
                 'model'   => $model,
                 'example' => $example,
-            )
+            ]
         );
     }
 
@@ -84,7 +89,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
             $model->setAttributes($data);
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'Menu was created!')
                 );
@@ -92,13 +97,13 @@ class MenuBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -115,7 +120,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'Record was updated!')
                 );
@@ -123,20 +128,19 @@ class MenuBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
+
     /**
-     * Удаляет модель меню из базы.
-     * Если удаление прошло успешно - возвращется в index
-     *
-     * @param integer $id идентификатор меню, который нужно удалить
-     *
+     * @param $id
+     * @throws CDbException
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {
@@ -144,7 +148,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('MenuModule.menu', 'Record was removed!')
             );
@@ -175,11 +179,11 @@ class MenuBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Menu',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

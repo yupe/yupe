@@ -1,4 +1,5 @@
 <?php
+use yupe\widgets\YPurifier;
 
 /**
  * Comment model class:
@@ -17,7 +18,7 @@
  * @property string $id
  * @property string $model
  * @property string $model_id
- * @property string $creation_date
+ * @property string $create_time
  * @property string $name
  * @property string $email
  * @property string $url
@@ -36,18 +37,39 @@
  */
 class Comment extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_NEED_CHECK = 0;
 
+    /**
+     *
+     */
     const STATUS_APPROVED = 1;
 
+    /**
+     *
+     */
     const STATUS_SPAM = 2;
 
+    /**
+     *
+     */
     const STATUS_DELETED = 3;
 
+    /**
+     * @var
+     */
     public $verifyCode;
 
+    /**
+     * @var
+     */
     public $spamField;
 
+    /**
+     * @var
+     */
     public $comment;
 
     /**
@@ -81,33 +103,49 @@ class Comment extends yupe\models\YModel
     {
         $module = Yii::app()->getModule('comment');
 
-        return array(
-            array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
-            array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('model, model_id, name, email, text', 'required'),
-            array('status, user_id, model_id, parent_id', 'numerical', 'integerOnly' => true),
-            array('name, email, url, comment', 'length', 'max' => 150),
-            array('model', 'length', 'max' => 100),
-            array('ip', 'length', 'max' => 20),
-            array('email', 'email'),
-            array('url', 'yupe\components\validators\YUrlValidator'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array(
+        return [
+            ['model, name, email, text, url', 'filter', 'filter' => 'trim'],
+            ['model, name, email, url', 'filter', 'filter' => [$obj = new YPurifier(), 'purify']],
+            ['text', 'purifyText'],
+            ['model, model_id, name, email, text', 'required'],
+            ['status, user_id, model_id, parent_id', 'numerical', 'integerOnly' => true],
+            ['name, email, url, comment', 'length', 'max' => 150],
+            ['model', 'length', 'max' => 100],
+            ['ip', 'length', 'max' => 20],
+            ['email', 'email'],
+            ['url', 'yupe\components\validators\YUrlValidator', 'defaultScheme' => 'http'],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            [
                 'verifyCode',
                 'yupe\components\validators\YRequiredValidator',
                 'allowEmpty' => !$module->showCaptcha || Yii::app()->getUser()->isAuthenticated()
-            ),
-            array(
+            ],
+            [
                 'verifyCode',
                 'captcha',
-                'allowEmpty' => !$module->showCaptcha || Yii::app()->getUser()->isAuthenticated()
-            ),
-            array(
-                'id, model, model_id, creation_date, name, email, url, text, status, ip, parent_id',
+                'allowEmpty' => !$module->showCaptcha || Yii::app()->getUser()->isAuthenticated(),
+                'captchaAction' => '/comment/comment/captcha',
+            ],
+            [
+                'id, model, model_id, create_time, name, email, url, text, status, ip, parent_id',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
+    }
+
+    /**
+     * @param $attribute
+     * @param $params
+     */
+    public function purifyText($attribute, $params)
+    {
+        $module = Yii::app()->getModule('comment');
+        $p = new CHtmlPurifier();
+        $p->options = [
+            'HTML.Allowed' => $module->allowedTags,
+        ];
+        $this->$attribute = $p->purify($this->$attribute);
     }
 
     /**
@@ -117,20 +155,20 @@ class Comment extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
-            'id'            => Yii::t('CommentModule.comment', 'ID'),
-            'model'         => Yii::t('CommentModule.comment', 'Model type'),
-            'model_id'      => Yii::t('CommentModule.comment', 'Model'),
-            'creation_date' => Yii::t('CommentModule.comment', 'Created at'),
-            'name'          => Yii::t('CommentModule.comment', 'Name'),
-            'email'         => Yii::t('CommentModule.comment', 'Email'),
-            'url'           => Yii::t('CommentModule.comment', 'Site'),
-            'text'          => Yii::t('CommentModule.comment', 'Comment'),
-            'status'        => Yii::t('CommentModule.comment', 'Status'),
-            'verifyCode'    => Yii::t('CommentModule.comment', 'Verification code'),
-            'ip'            => Yii::t('CommentModule.comment', 'IP address'),
-            'parent_id'     => Yii::t('CommentModule.comment', 'Parent'),
-        );
+        return [
+            'id' => Yii::t('CommentModule.comment', 'ID'),
+            'model' => Yii::t('CommentModule.comment', 'Model type'),
+            'model_id' => Yii::t('CommentModule.comment', 'Model'),
+            'create_time' => Yii::t('CommentModule.comment', 'Created at'),
+            'name' => Yii::t('CommentModule.comment', 'Name'),
+            'email' => Yii::t('CommentModule.comment', 'Email'),
+            'url' => Yii::t('CommentModule.comment', 'Site'),
+            'text' => Yii::t('CommentModule.comment', 'Comment'),
+            'status' => Yii::t('CommentModule.comment', 'Status'),
+            'verifyCode' => Yii::t('CommentModule.comment', 'Verification code'),
+            'ip' => Yii::t('CommentModule.comment', 'IP address'),
+            'parent_id' => Yii::t('CommentModule.comment', 'Parent'),
+        ];
     }
 
     /**
@@ -140,9 +178,9 @@ class Comment extends yupe\models\YModel
      **/
     public function relations()
     {
-        return array(
-            'author' => array(self::BELONGS_TO, 'User', 'user_id'),
-        );
+        return [
+            'author' => [self::BELONGS_TO, 'User', 'user_id'],
+        ];
     }
 
     /**
@@ -152,33 +190,36 @@ class Comment extends yupe\models\YModel
      **/
     public function scopes()
     {
-        return array(
-            'new'      => array(
+        return [
+            'new' => [
                 'condition' => 't.status = :status',
-                'params'    => array(':status' => self::STATUS_NEED_CHECK),
-            ),
-            'approved' => array(
+                'params' => [':status' => self::STATUS_NEED_CHECK],
+            ],
+            'approved' => [
                 'condition' => 't.status = :status',
-                'params'    => array(':status' => self::STATUS_APPROVED),
-                'order'     => 't.creation_date DESC',
-            ),
-            'authored' => array(
+                'params' => [':status' => self::STATUS_APPROVED],
+                'order' => 't.create_time DESC',
+            ],
+            'authored' => [
                 'condition' => 't.user_id is not null',
-            ),
-            'all'      => array(
+            ],
+            'all' => [
                 'condition' => 'level <> 1'
-            )
-        );
+            ]
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
-        return array(
-            'NestedSetBehavior' => array(
-                'class'        => 'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
+        return [
+            'NestedSetBehavior' => [
+                'class' => 'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
                 'hasManyRoots' => true,
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -188,16 +229,13 @@ class Comment extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('model', $this->model, true);
         $criteria->compare('model_id', $this->model_id);
         $criteria->compare('parent_id', $this->parent_id);
-        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('email', $this->email, true);
         $criteria->compare('url', $this->url, true);
@@ -206,12 +244,12 @@ class Comment extends yupe\models\YModel
         $criteria->compare('ip', $this->ip, true);
         $criteria->addCondition('level <> 1');
 
-        return new CActiveDataProvider(get_class($this), array(
+        return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort'     => array(
+            'sort' => [
                 'defaultOrder' => 'id DESC',
-            )
-        ));
+            ]
+        ]);
     }
 
     /**
@@ -221,8 +259,8 @@ class Comment extends yupe\models\YModel
      **/
     public function beforeSave()
     {
-        if ($this->isNewRecord) {
-            $this->creation_date = new CDbExpression('NOW()');
+        if ($this->getIsNewRecord()) {
+            $this->create_time = new CDbExpression('NOW()');
             $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
 
@@ -236,7 +274,10 @@ class Comment extends yupe\models\YModel
      **/
     public function afterSave()
     {
-        Yii::app()->eventManager->fire(CommentEvents::AFTER_SAVE_COMMENT, new CommentEvent($this, Yii::app()->getUser(), Yii::app()->getModule('comment')));
+        Yii::app()->eventManager->fire(
+            CommentEvents::AFTER_SAVE_COMMENT,
+            new CommentEvent($this, Yii::app()->getUser(), Yii::app()->getModule('comment'))
+        );
 
         return parent::afterSave();
     }
@@ -248,12 +289,12 @@ class Comment extends yupe\models\YModel
      **/
     public function getStatusList()
     {
-        return array(
-            self::STATUS_APPROVED   => Yii::t('CommentModule.comment', 'Accepted'),
-            self::STATUS_DELETED    => Yii::t('CommentModule.comment', 'Deleted'),
+        return [
+            self::STATUS_APPROVED => Yii::t('CommentModule.comment', 'Accepted'),
+            self::STATUS_DELETED => Yii::t('CommentModule.comment', 'Deleted'),
             self::STATUS_NEED_CHECK => Yii::t('CommentModule.comment', 'Check'),
-            self::STATUS_SPAM       => Yii::t('CommentModule.comment', 'Spam'),
-        );
+            self::STATUS_SPAM => Yii::t('CommentModule.comment', 'Spam'),
+        ];
     }
 
     /**
@@ -278,7 +319,12 @@ class Comment extends yupe\models\YModel
         return ($this->author) ? $this->author->nick_name : $this->name;
     }
 
-    public function getAuthorAvatar($size = 32, array $params = array('width' => 32, 'height' => 32))
+    /**
+     * @param int $size
+     * @param array $params
+     * @return string
+     */
+    public function getAuthorAvatar($size = 32, array $params = ['width' => 32, 'height' => 32])
     {
         if ($this->author) {
             return CHtml::image($this->author->getAvatar((int)$size), $this->author->nick_name, $params);
@@ -287,12 +333,16 @@ class Comment extends yupe\models\YModel
         return CHtml::image(Yii::app()->getModule('user')->defaultAvatar, $this->name, $params);
     }
 
-    public function getAuthorLink(array $params = array('rel' => 'nofollow'))
+    /**
+     * @param array $params
+     * @return string
+     */
+    public function getAuthorLink(array $params = ['rel' => 'nofollow'])
     {
         if ($this->author) {
             return CHtml::link(
                 $this->name,
-                array('/user/people/userInfo/', 'username' => $this->author->nick_name),
+                ['/user/people/userInfo/', 'username' => $this->author->nick_name],
                 $params
             );
         }
@@ -304,12 +354,16 @@ class Comment extends yupe\models\YModel
         return $this->name;
     }
 
-    public function getAuthorUrl(array $params = array('rel' => 'nofollow'))
+    /**
+     * @param array $params
+     * @return null|string
+     */
+    public function getAuthorUrl(array $params = ['rel' => 'nofollow'])
     {
         if ($this->author) {
             return Yii::app()->createUrl(
                 '/user/people/userInfo/',
-                array('username' => $this->author->nick_name),
+                ['username' => $this->author->nick_name],
                 $params
             );
         }
@@ -321,9 +375,14 @@ class Comment extends yupe\models\YModel
         return null;
     }
 
+    /**
+     * @return string
+     */
     public function getText()
     {
-        return strip_tags($this->text, Yii::app()->getModule('comment')->allowedTags);
+        return (Yii::app()->getModule('comment')->stripTags)
+            ? strip_tags($this->text)
+            : $this->text;
     }
 
     /**
@@ -335,31 +394,36 @@ class Comment extends yupe\models\YModel
     public function getRootOfCommentsTree($model, $model_id)
     {
         return self::model()->findByAttributes(
-            array(
-                "model"    => $model,
+            [
+                "model" => $model,
                 "model_id" => $model_id,
-            ),
+            ],
             "id=root"
         );
     }
 
+    /**
+     * @param $model
+     * @param $model_id
+     * @return bool|CActiveRecord|Comment
+     */
     public function createRootOfCommentsIfNotExists($model, $model_id)
     {
         $rootNode = $this->getRootOfCommentsTree($model, $model_id);
 
         if ($rootNode === null) {
 
-            $rootAttributes = array(
-                "user_id"  => Yii::app()->getUser()->getId(),
-                "model"    => $model,
+            $rootAttributes = [
+                "user_id" => Yii::app()->getUser()->getId(),
+                "model" => $model,
                 "model_id" => $model_id,
-                "url"      => "",
-                "name"     => "",
-                "email"    => "",
-                "text"     => "",
-                "status"   => self::STATUS_APPROVED,
-                "ip"       => Yii::app()->getRequest()->userHostAddress
-            );
+                "url" => "",
+                "name" => "",
+                "email" => "",
+                "text" => "",
+                "status" => self::STATUS_APPROVED,
+                "ip" => Yii::app()->getRequest()->userHostAddress
+            ];
 
             $rootNode = new Comment();
             $rootNode->setAttributes($rootAttributes);
@@ -373,6 +437,9 @@ class Comment extends yupe\models\YModel
         return false;
     }
 
+    /**
+     * @return int|mixed|null
+     */
     public function getLevel()
     {
         $level = $this->level < 10 ? $this->level - 2 : 10;
@@ -380,7 +447,11 @@ class Comment extends yupe\models\YModel
         return $level > 0 ? $level : 0;
     }
 
-    public function getTarget(array $with = array())
+    /**
+     * @param array $with
+     * @return array|mixed|null|string|static
+     */
+    public function getTarget(array $with = [])
     {
         if (!class_exists($this->model)) {
             return $this->model;
@@ -402,6 +473,9 @@ class Comment extends yupe\models\YModel
         return $this->model;
     }
 
+    /**
+     * @return string
+     */
     public function getTargetTitle()
     {
         $target = $this->getTarget();
@@ -413,6 +487,10 @@ class Comment extends yupe\models\YModel
         return $this->model;
     }
 
+    /**
+     * @param array|null $options
+     * @return array|Comment|mixed|null|string
+     */
     public function getTargetTitleLink(array $options = null)
     {
         $target = $this->getTarget();
@@ -424,8 +502,75 @@ class Comment extends yupe\models\YModel
         return $target;
     }
 
+    /**
+     * @return bool
+     */
     public function isApproved()
     {
         return $this->status == self::STATUS_APPROVED;
+    }
+
+    /**
+     * @return int
+     */
+    public function hasParent()
+    {
+        return $this->parent_id;
+    }
+
+    /**
+     * @param int $cache
+     * @return array|mixed|null
+     */
+    public function getParent($cache = 3600)
+    {
+        return $this->cache((int)$cache)->findByPk($this->parent_id);
+    }
+
+    /**
+     * @param array $items
+     * @return int
+     * @throws CDbException
+     */
+    public function multiDelete(array $items)
+    {
+        $count = 0;
+
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        try {
+            $items = array_filter($items, 'intval');
+
+            $models = $this->findAllByPk($items);
+
+            foreach ($models as $model) {
+
+                Yii::app()->eventManager->fire(
+                    CommentEvents::AFTER_DELETE_COMMENT,
+                    new CommentEvent($model, Yii::app()->getUser(), Yii::app()->getModule('comment'))
+                );
+
+                if(!$model->getIsDeletedRecord()) {
+                    $count += (int)$model->deleteNode();
+                }
+            }
+
+            $transaction->commit();
+
+        } catch (Exception $e) {
+            $transaction->rollback();
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+        }
+
+        return $count;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function approve()
+    {
+        $this->status = self::STATUS_APPROVED;
+        return $this->saveNode();
     }
 }

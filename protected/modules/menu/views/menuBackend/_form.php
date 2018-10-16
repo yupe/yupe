@@ -1,12 +1,3 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#menu-form').liTranslit({
-            elName: '#Menu_name',
-            elAlias: '#Menu_code'
-        });
-    })
-</script>
-
 <?php
 /**
  * Файл представления menu/_form:
@@ -18,91 +9,95 @@
  * @version  0.1
  * @link     http://yupe.ru
  *
+ * @var $this MenuBackendController
+ * @var $model Menu
+ * @var $form \yupe\widgets\ActiveForm
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
-    array(
+    'yupe\widgets\ActiveForm',
+    [
         'id'                     => 'menu-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 ); ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('MenuModule.menu', 'Fields with'); ?>
+    <?=  Yii::t('MenuModule.menu', 'Fields with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('MenuModule.menu', 'are required.'); ?>
+    <?=  Yii::t('MenuModule.menu', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?=  $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->textFieldGroup(
             $model,
             'name',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('name'),
                         'data-content'        => $model->getAttributeDescription('name'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?=  $form->slugFieldGroup(
             $model,
             'code',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'sourceAttribute' => 'name',
+                'widgetOptions'   => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('code'),
                         'data-content'        => $model->getAttributeDescription('code'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textAreaGroup(
+        <?=  $form->textAreaGroup(
             $model,
             'description',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('description'),
                         'data-content'        => $model->getAttributeDescription('description'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?=  $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
                         'data-content'        => $model->getAttributeDescription('status'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -110,27 +105,27 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t(
-                'MenuModule.menu',
-                'Save menu and continue'
-            ),
-    )
+        'label'      => $model->getIsNewRecord() ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t(
+            'MenuModule.menu',
+            'Save menu and continue'
+        ),
+    ]
 ); ?>
 
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t(
-                'MenuModule.menu',
-                'Save menu and close'
-            ),
-    )
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
+        'label'       => $model->getIsNewRecord() ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t(
+            'MenuModule.menu',
+            'Save menu and close'
+        ),
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

@@ -1,102 +1,102 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 <fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'worker',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => Yii::app()->getModule('queue')->getWorkerNamesMap(),
-                        'htmlOptions' => array('empty' => '---'),
-                    ),
-                )
+                        'htmlOptions' => ['empty' => '---'],
+                    ],
+                ]
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'priority',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getPriorityList(),
-                        'htmlOptions' => array('empty' => '---'),
-                    ),
-                )
+                        'htmlOptions' => ['empty' => '---'],
+                    ],
+                ]
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array('empty' => '---'),
-                    ),
-                )
+                        'htmlOptions' => ['empty' => '---'],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->datePickerGroup(
+            <?=  $form->datePickerGroup(
                 $model,
                 'create_time',
-                array(
-                    'widgetOptions' => array(
-                        'options' => array(
+                [
+                    'widgetOptions' => [
+                        'options' => [
                             'format'    => 'dd-mm-yyyy',
                             'weekStart' => 1,
                             'autoclose' => true,
-                        ),
-                    ),
-                    'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
-                )
+                        ],
+                    ],
+                    'prepend'       => '<i class="fa fa-calendar"></i>',
+                ]
             );
             ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->datePickerGroup(
+            <?=  $form->datePickerGroup(
                 $model,
                 'start_time',
-                array(
-                    'widgetOptions' => array(
-                        'options' => array(
+                [
+                    'widgetOptions' => [
+                        'options' => [
                             'format'    => 'dd-mm-yyyy',
                             'weekStart' => 1,
                             'autoclose' => true,
-                        ),
-                    ),
-                    'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
-                )
+                        ],
+                    ],
+                    'prepend'       => '<i class="fa fa-calendar"></i>',
+                ]
             );
             ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->datePickerGroup(
+            <?=  $form->datePickerGroup(
                 $model,
                 'complete_time',
-                array(
-                    'widgetOptions' => array(
-                        'options' => array(
+                [
+                    'widgetOptions' => [
+                        'options' => [
                             'format'    => 'dd-mm-yyyy',
                             'weekStart' => 1,
                             'autoclose' => true,
-                        ),
-                    ),
-                    'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
-                )
+                        ],
+                    ],
+                    'prepend'       => '<i class="fa fa-calendar"></i>',
+                ]
             );
             ?>
         </div>
@@ -104,10 +104,10 @@ $form = $this->beginWidget(
 
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'task'); ?>
+            <?=  $form->textFieldGroup($model, 'task'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'notice'); ?>
+            <?=  $form->textFieldGroup($model, 'notice'); ?>
         </div>
     </div>
 
@@ -115,12 +115,12 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t('QueueModule.queue', 'Find task'),
-    )
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t('QueueModule.queue', 'Find task'),
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

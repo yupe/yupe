@@ -1,50 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+$this->breadcrumbs = [
+    Yii::t('RbacModule.rbac', 'RBAC') => ['index'],
     Yii::t('RbacModule.rbac', 'Import'),
-);
+];
 
-$this->menu = array(
-    array(
-        'label' => Yii::t('RbacModule.rbac', 'Roles'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
-                'label' => Yii::t('RbacModule.rbac', 'Manage roles'),
-                'url'   => array('/rbac/rbacBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
-                'label' => Yii::t('RbacModule.rbac', 'Create role'),
-                'url'   => array('/rbac/rbacBackend/create')
-            ),
-        )
-    ),
-    array(
-        'label' => Yii::t('RbacModule.rbac', 'Users'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
-                'label' => Yii::t('RbacModule.rbac', 'Users'),
-                'url'   => array('/rbac/rbacBackend/userList')
-            ),
-        )
-    ),
-);
-
+$this->menu = $this->module->getNavigation();
 ?>
 
-<h3><?php echo Yii::t('RbacModule.rbac', 'Rules import'); ?></h3>
+<h3><?=  Yii::t('RbacModule.rbac', 'Rules import'); ?></h3>
 
 <?php $form = $this->beginWidget(
     'CActiveForm',
-    array(
+    [
         'id'                   => 'import-form',
         'enableAjaxValidation' => false,
-        'htmlOptions'          => array(
+        'htmlOptions'          => [
             'class' => 'well',
-        ),
-    )
+        ],
+    ]
 ); ?>
 
 <div class="row">
@@ -52,12 +25,12 @@ $this->menu = array(
         <?php foreach ($modules as $moduleId => $moduleName): { ?>
             <div class="checkbox">
                 <label>
-                    <?php echo CHtml::checkBox(
+                    <?=  CHtml::checkBox(
                         'modules[]',
                         false,
-                        array('value' => $moduleId)
-                    ); ?><?php echo $moduleName; ?>
-                    <span class='text-muted'>[<?php echo $moduleId; ?>]</span>
+                        ['value' => $moduleId]
+                    ); ?><?=  $moduleName; ?>
+                    <span class='text-muted'>[<?=  $moduleId; ?>]</span>
                 </label>
             </div>
         <?php } endforeach; ?>
@@ -66,15 +39,13 @@ $this->menu = array(
 
 <br/>
 
-<?php
-$this->widget(
+<?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => Yii::t('RbacModule.rbac', 'Import'),
-    )
-);
-?>
+    ]
+); ?>
 
 <?php $this->endWidget(); ?>

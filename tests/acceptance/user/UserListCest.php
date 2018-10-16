@@ -1,4 +1,6 @@
 <?php
+namespace tests\acceptance\user;
+
 use \WebGuy;
 
 class UserListCest

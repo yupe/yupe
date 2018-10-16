@@ -36,7 +36,7 @@ class YWebUser extends CWebUser
     /**
      * @var array
      */
-    protected $_profiles = array();
+    protected $_profiles = [];
 
     /**
      * @var int
@@ -98,10 +98,10 @@ class YWebUser extends CWebUser
 
             $user = User::model()->active()->find(
                 'id = :id AND access_level = :level',
-                array(
+                [
                     ':level' => User::ACCESS_LEVEL_ADMIN,
-                    ':id'    => $this->getId()
-                )
+                    ':id' => $this->getId()
+                ]
             );
 
             if (null === $user) {
@@ -133,9 +133,9 @@ class YWebUser extends CWebUser
             throw new CException(Yii::t(
                 'YupeModule.yupe',
                 'Module "{module}" not found!',
-                array(
+                [
                     '{module}' => $moduleName
-                )
+                ]
             ));
         }
 
@@ -145,9 +145,9 @@ class YWebUser extends CWebUser
             throw new CException(Yii::t(
                 'YupeModule.yupe',
                 'Module "{module}" has no profile model!',
-                array(
+                [
                     '{module}' => $moduleName
-                )
+                ]
             ));
         }
 
@@ -194,7 +194,7 @@ class YWebUser extends CWebUser
             return $avatars[$size];
         }
 
-        $avatars = array();
+        $avatars = [];
 
         $profile = $this->getProfile();
 
@@ -245,7 +245,8 @@ class YWebUser extends CWebUser
 
                 //перегенерировать токен авторизации
                 $token = Yii::app()->userManager->tokenStorage->createCookieAuthToken(
-                    $user, (int)Yii::app()->getModule('user')->sessionLifeTime * 24 * 60 * 60
+                    $user,
+                    (int)Yii::app()->getModule('user')->sessionLifeTime * 24 * 3600
                 );
 
                 $this->setState($this->authToken, $token->token);
@@ -253,8 +254,8 @@ class YWebUser extends CWebUser
                 $this->setState(self::STATE_NICK_NAME, $user->nick_name);
 
                 //дата входа
-                $user->last_visit = new CDbExpression('NOW()');
-                $user->update(array('last_visit'));
+                $user->visit_time = new CDbExpression('NOW()');
+                $user->update(['visit_time']);
 
                 $transaction->commit();
 
@@ -279,7 +280,7 @@ class YWebUser extends CWebUser
         }
 
         //проверить токен авторизации
-        $token = isset($states[$this->authToken]) ? $states[$this->authToken] : null ;
+        $token = isset($states[$this->authToken]) ? $states[$this->authToken] : null;
 
         if (empty($token)) {
             return false;
@@ -294,30 +295,6 @@ class YWebUser extends CWebUser
         return true;
     }
 
-    /**
-     * @param  string $operation
-     * @param  null $userId
-     * @param  array $params
-     * @return bool
-     */
-    public function checkAccess($operation, $userId = null, $params = array())
-    {
-        if ($userId !== null) {
-            return (bool)Yii::app()->getAuthManager()->checkAccess($operation, $userId, $params);
-        }
-
-        $access = Yii::app()->getCache()->get($this->rbacCacheNameSpace . $this->getId());
-
-        if (!isset($access[$operation])) {
-            $access[$operation] = (bool)Yii::app()->getAuthManager()->checkAccess($operation, $this->getId(), $params);
-
-            Yii::app()->getCache()->set($this->rbacCacheNameSpace . $this->getId(), $access);
-
-            return (bool)$access[$operation];
-        }
-
-        return $access[$operation];
-    }
 
     /**
      * @param  IUserIdentity $identity

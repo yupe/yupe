@@ -10,7 +10,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 
-return array(
+return [
     'Links'                                                                             => '',
     'Twitter'                                                                           => '',
     'Vk.com'                                                                            => '',
@@ -50,4 +50,4 @@ return array(
     'Finishing register'                                                                => '',
     'Register'                                                                          => '',
     'Tag cloud'                                                                         => '',
-);
+];

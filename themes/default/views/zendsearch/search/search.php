@@ -1,31 +1,31 @@
 <?php
-$this->pageTitle = Yii::t('ZendSearchModule.zendsearch', 'Search by request: ') . CHtml::encode($term);
-$this->breadcrumbs = array(
+$this->title = Yii::t('ZendSearchModule.zendsearch', 'Search by request: ') . CHtml::encode($term);
+$this->breadcrumbs = [
     Yii::t('ZendSearchModule.zendsearch', 'Search by request: ') . CHtml::encode($term),
-);
+];
 ?>
-<h1><?php echo Yii::t('ZendSearchModule.zendsearch', 'Search by request: '); ?> "<?php echo CHtml::encode($term); ?>
+<h1><?= Yii::t('ZendSearchModule.zendsearch', 'Search by request: '); ?> "<?= CHtml::encode($term); ?>
     "</h1>
 
-<?php echo CHtml::beginForm(array('/zendsearch/search/search'), 'get', array('class' => 'form-inline')); ?>
-<?php echo CHtml::textField(
+<?= CHtml::beginForm(['/zendsearch/search/search'], 'get', ['class' => 'form-inline']); ?>
+<?= CHtml::textField(
     'q',
     CHtml::encode($term),
-    array('placeholder' => Yii::t('ZendSearchModule.zendsearch', 'Search...'), 'class' => 'form-control')
+    ['placeholder' => Yii::t('ZendSearchModule.zendsearch', 'Search...'), 'class' => 'form-control']
 ); ?>
-<?php echo CHtml::submitButton(
+<?= CHtml::submitButton(
     Yii::t('ZendSearchModule.zendsearch', 'Find!'),
-    array('class' => 'btn btn-default', 'name' => '')
+    ['class' => 'btn btn-default', 'name' => '']
 ); ?>
-<?php echo CHtml::endForm(); ?>
+<?= CHtml::endForm(); ?>
 
 
 <?php if (!empty($results)): ?>
-    <h3><?php echo Yii::t('ZendSearchModule.zendsearch', 'Results:'); ?></h3>
+    <h3><?= Yii::t('ZendSearchModule.zendsearch', 'Results:'); ?></h3>
     <?php foreach ($results as $result): ?>
         <?php
         $resultLink = '/';
-        $paramsArray = array();
+        $paramsArray = [];
 
         $linkArray = explode('?', $result->link);
         if (isset($linkArray[0])) {
@@ -43,15 +43,15 @@ $this->breadcrumbs = array(
         ?>
 
         <h3>
-            <?php echo $query->highlightMatches(
+            <?= $query->highlightMatches(
                 CHtml::link(CHtml::encode($result->title), CController::CreateUrl($resultLink, $paramsArray)),
                 'UTF-8'
             ); ?>
         </h3>
-        <p><?php echo $query->highlightMatches($result->description, 'UTF-8'); ?></p>
+        <p><?= $query->highlightMatches($result->description, 'UTF-8'); ?></p>
         <hr/>
     <?php endforeach; ?>
 
 <?php else: ?>
-    <p class="error"><?php echo Yii::t('ZendSearchModule.zendsearch', 'Nothing was found'); ?></p>
+    <p class="error"><?= Yii::t('ZendSearchModule.zendsearch', 'Nothing was found'); ?></p>
 <?php endif; ?>

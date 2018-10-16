@@ -9,6 +9,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
+use yupe\widgets\YPurifier;
 
 /**
  * This is the model class for table "ContentBlock".
@@ -21,12 +22,35 @@
  * @property string $description
  * @property string $code
  * @property integer $category_id
+ * @property integer $status
+ *
+ * @property Category|null $category
+ *
+ * @method ContentBlock active()
  */
 class ContentBlock extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const SIMPLE_TEXT = 1;
+    /**
+     *
+     */
     const HTML_TEXT = 3;
+    /**
+     *
+     */
     const RAW_TEXT = 4;
+
+    /**
+     *
+     */
+    const STATUS_NOT_ACTIVE = 0;
+    /**
+     *
+     */
+    const STATUS_ACTIVE = 1;
 
     /**
      * Returns the static model of the specified AR class.
@@ -51,38 +75,50 @@ class ContentBlock extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('name, code, content, type', 'filter', 'filter' => 'trim'),
-            array('name, code', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('name, code, content, type', 'required'),
-            array('type, category_id', 'numerical', 'integerOnly' => true),
-            array('type', 'length', 'max' => 11),
-            array('type', 'in', 'range' => array_keys($this->types)),
-            array('name', 'length', 'max' => 250),
-            array('code', 'length', 'max' => 100),
-            array('description', 'length', 'max' => 255),
-            array(
+        return [
+            ['name, code, content, type', 'filter', 'filter' => 'trim'],
+            ['name, code', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['name, code, type, status', 'required'],
+            ['type, category_id, status', 'numerical', 'integerOnly' => true],
+            ['type', 'length', 'max' => 11],
+            ['type', 'in', 'range' => array_keys($this->types)],
+            ['name', 'length', 'max' => 250],
+            ['code', 'length', 'max' => 100],
+            ['description', 'length', 'max' => 255],
+            [
                 'code',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t(
-                        'ContentBlockModule.contentblock',
-                        'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters'
-                    )
-            ),
-            array('code', 'unique'),
-            array('id, name, code, type, content, description, category_id', 'safe', 'on' => 'search'),
-        );
+                    'ContentBlockModule.contentblock',
+                    'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters'
+                )
+            ],
+            ['code', 'unique'],
+            ['id, name, code, type, content, description, category_id, status', 'safe', 'on' => 'search'],
+        ];
     }
+
+    /**
+     * @return array
+     */
+    public function scopes()
+    {
+        return [
+            'active' => [
+                'condition' => $this->tableAlias . '.status = :status',
+                'params' => [':status' => self::STATUS_ACTIVE],
+            ],
+        ];
+    }
+
     /**
      * @return array relational rules.
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id')
-        );
+        return [
+            'category' => [self::BELONGS_TO, 'Category', 'category_id']
+        ];
     }
 
     /**
@@ -90,15 +126,16 @@ class ContentBlock extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
-            'id'          => Yii::t('ContentBlockModule.contentblock', 'id'),
-            'name'        => Yii::t('ContentBlockModule.contentblock', 'Title'),
-            'code'        => Yii::t('ContentBlockModule.contentblock', 'Code'),
-            'type'        => Yii::t('ContentBlockModule.contentblock', 'Type'),
-            'content'     => Yii::t('ContentBlockModule.contentblock', 'Content'),
+        return [
+            'id' => Yii::t('ContentBlockModule.contentblock', 'id'),
+            'name' => Yii::t('ContentBlockModule.contentblock', 'Title'),
+            'code' => Yii::t('ContentBlockModule.contentblock', 'Code'),
+            'type' => Yii::t('ContentBlockModule.contentblock', 'Type'),
+            'content' => Yii::t('ContentBlockModule.contentblock', 'Content'),
             'description' => Yii::t('ContentBlockModule.contentblock', 'Description'),
             'category_id' => Yii::t('ContentBlockModule.contentblock', 'Category'),
-        );
+            'status' => Yii::t('ContentBlockModule.contentblock', 'Status'),
+        ];
     }
 
     /**
@@ -107,29 +144,34 @@ class ContentBlock extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following name to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('code', $this->code, true);
-        $criteria->compare('type', $this->type);
-        $criteria->compare('content', $this->content, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('category_id', $this->category_id);
+        $criteria->compare($this->tableAlias . '.id', $this->id);
+        $criteria->compare($this->tableAlias . '.name', $this->name, true);
+        $criteria->compare($this->tableAlias . '.code', $this->code, true);
+        $criteria->compare($this->tableAlias . '.type', $this->type);
+        $criteria->compare($this->tableAlias . '.content', $this->content, true);
+        $criteria->compare($this->tableAlias . '.description', $this->description, true);
+        $criteria->compare($this->tableAlias . '.category_id', $this->category_id);
+        $criteria->compare($this->tableAlias . '.status', $this->status);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
+    /**
+     * @return array
+     */
     public function getTypes()
     {
-        return array(
+        return [
             self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Simple text'),
-            self::HTML_TEXT   => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
-            self::RAW_TEXT    => Yii::t('ContentBlockModule.contentblock', 'Raw text'),
-        );
+            self::HTML_TEXT => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
+            self::RAW_TEXT => Yii::t('ContentBlockModule.contentblock', 'Raw text'),
+        ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getType()
     {
         $data = $this->getTypes();
@@ -140,6 +182,9 @@ class ContentBlock extends yupe\models\YModel
         );
     }
 
+    /**
+     * @return string
+     */
     public function getContent()
     {
         $content = '';
@@ -157,29 +202,40 @@ class ContentBlock extends yupe\models\YModel
         return $content;
     }
 
+    /**
+     * @return bool
+     */
     protected function beforeSave()
     {
-        if (parent::beforeSave()) {
-            Yii::app()->cache->delete("ContentBlock{$this->code}" . Yii::app()->language);
+        Yii::app()->getCache()->delete("ContentBlock{$this->code}");
 
-            return true;
-        }
-
-        return false;
+        return parent::beforeSave();
     }
 
-    public function getCategory()
-    {
-        return empty($this->category) ? false : $this->category;
-    }
-
+    /**
+     * @return string
+     */
     public function getCategoryName()
     {
         return empty($this->category) ? Yii::t('ContentBlockModule.contentblock', '--not selected--') : $this->category->name;
     }
 
+    /**
+     * @return string
+     */
     public function getCategoryAlias()
     {
-        return empty($this->category) ? '<code_category>' : $this->category->alias;
+        return empty($this->category) ? '<code_category>' : $this->category->slug;
+    }
+
+    /**
+     * @return array
+     */
+    public function getStatusList()
+    {
+        return [
+            self::STATUS_NOT_ACTIVE => Yii::t('ContentBlockModule.contentblock', 'Disabled'),
+            self::STATUS_ACTIVE => Yii::t('ContentBlockModule.contentblock', 'Enabled'),
+        ];
     }
 }

@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Enter'                                                          => '',
     'Error while saving record!'                                     => '',
     'Model {class} does not have attribute "{attr}"'                 => '',
@@ -25,4 +25,4 @@ return array(
     'Property "attribute" should be defined.'                        => '',
     'Property "primaryKey" should be defined.'                       => '',
     'You should provide modelClass in constructor of EditableSaver.' => '',
-);
+];

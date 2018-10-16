@@ -1,38 +1,38 @@
 <html>
 <head>
-    <title><?php echo Yii::t('UserModule.user', 'Activation successed!'); ?></title>
+    <title><?=  Yii::t('UserModule.user', 'Activation successed!'); ?></title>
 </head>
 <body>
-<?php echo Yii::t(
+<?=  Yii::t(
     'UserModule.user',
     'You successfully registered on "{site}" !',
-    array('{site}' => CHtml::encode(Yii::app()->name))
+    ['{site}' => CHtml::encode(Yii::app()->name)]
 ); ?>
 
 <br/><br/>
 
-<?php echo Yii::t('UserModule.user', 'For account activation, click the'); ?>
-<?php echo CHtml::link(
+<?=  Yii::t('UserModule.user', 'For account activation, click the'); ?>
+<?=  CHtml::link(
     Yii::t('UserModule.user', 'link'),
     $link = Yii::app()->createAbsoluteUrl(
         '/user/account/activate',
-        array(
+        [
             'key' => $model->reg->genActivateCode()
-        )
+        ]
     )
 ); ?>
 <br/><br/>
 
-<?php echo $link; ?>
+<?=  $link; ?>
 
 <br/><br/>
 
-<?php echo Yii::t(
+<?=  Yii::t(
     'UserModule.user',
     'Best regards, "{site}" administration!',
-    array(
+    [
         '{site}' => CHtml::encode(Yii::app()->name)
-    )
+    ]
 ); ?>
 </body>
 </html>

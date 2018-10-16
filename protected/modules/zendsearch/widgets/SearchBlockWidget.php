@@ -13,8 +13,14 @@
  **/
 class SearchBlockWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var string
+     */
     public $view = 'searchblockwidget';
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
         $this->render($this->view);

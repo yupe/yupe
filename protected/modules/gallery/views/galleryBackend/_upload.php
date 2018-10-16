@@ -5,23 +5,23 @@
         <td class="preview"><span class="fade"></span></td>
         <td class="name">
             <span>
-                <?php echo CHtml::hiddenField('ajax', 'ajax') ?>
-    <?php echo CHtml::activeLabel($this->model, 'name'); ?>
-    <?php echo CHtml::activeTextField(
-            $this->model,
-            'name',
-            array('value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][name]', 'class' => 'form-control')
-        ) . "\n"; ?>
+                <?= CHtml::hiddenField('ajax', 'ajax') ?>
+    <?= CHtml::activeLabel($this->model, 'name'); ?>
+    <?= CHtml::activeTextField(
+        $this->model,
+        'name',
+        ['value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][name]', 'class' => 'form-control']
+    ) . "\n"; ?>
             </span>
         </td>
         <td class="name">
             <span>
-                <?php echo CHtml::activeLabel($this->model, 'alt'); ?>
-    <?php echo CHtml::activeTextField(
-            $this->model,
-            'alt',
-            array('value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][alt]', 'class' => 'form-control')
-        ) . "\n"; ?>
+                <?= CHtml::activeLabel($this->model, 'alt'); ?>
+    <?= CHtml::activeTextField(
+        $this->model,
+        'alt',
+        ['value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][alt]', 'class' => 'form-control']
+    ) . "\n"; ?>
             </span>
         </td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
@@ -33,7 +33,7 @@
             </td>
             <td class="start">{% if (!o.options.autoUpload) { %}
                 <button class="btn btn-primary">
-                    <i class="glyphicon glyphicon-upload"></i>
+                    <i class="fa fa-fw fa-upload"></i>
                     <span>{%=locale.fileupload.start%}</span>
                 </button>
             {% } %}</td>
@@ -42,12 +42,14 @@
         {% } %}
         <td class="cancel">{% if (!i) { %}
             <button class="btn btn-warning">
-                <i class="glyphicon glyphicon-ban-circle"></i>
+                <i class="fa fa-fw fa-ban"></i>
                 <span>{%=locale.fileupload.cancel%}</span>
             </button>
         {% } %}</td>
     </tr>
 {% } %}
+
+
 
 
 

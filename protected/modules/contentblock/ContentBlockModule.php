@@ -12,132 +12,172 @@
  */
 class ContentBlockModule extends yupe\components\WebModule
 {
-    const VERSION = '0.8';
+    /**
+     *
+     */
+    const VERSION = '1.0';
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
-        return array(
+        return [
             'category',
-        );
+        ];
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('ContentBlockModule.contentblock', 'Content');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('ContentBlockModule.contentblock', 'Blocks');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('ContentBlockModule.contentblock', 'Module for create simple content blocks');
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('ContentBlockModule.contentblock', 'yupe team');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('ContentBlockModule.contentblock', 'team@yupe.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return Yii::t('ContentBlockModule.contentblock', 'http://yupe.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
-        return "glyphicon glyphicon-th-large";
+        return "fa fa-fw fa-th-large";
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'contentblock.models.*',
-            )
+            ]
         );
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/contentblock/contentBlockBackend/index';
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
-        return array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        return [
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('ContentBlockModule.contentblock', 'Blocks list'),
-                'url'   => array('/contentblock/contentBlockBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url' => ['/contentblock/contentBlockBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('ContentBlockModule.contentblock', 'Add block'),
-                'url'   => array('/contentblock/contentBlockBackend/create')
-            ),
-        );
+                'url' => ['/contentblock/contentBlockBackend/create'],
+            ],
+        ];
     }
 
+    /**
+     * @return bool
+     */
     public function getIsInstallDefault()
     {
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
-        return array(
-            array(
-                'name'        => 'ContentBlock.ContentBlockManager',
+        return [
+            [
+                'name' => 'ContentBlock.ContentBlockManager',
                 'description' => Yii::t('ContentBlockModule.contentblock', 'Manage blocks'),
-                'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'ContentBlock.ContentblockBackend.Create',
-                        'description' => Yii::t('ContentBlockModule.contentblock', 'Creating block')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'ContentBlock.ContentblockBackend.Delete',
-                        'description' => Yii::t('ContentBlockModule.contentblock', 'Removing block')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'ContentBlock.ContentblockBackend.Index',
-                        'description' => Yii::t('ContentBlockModule.contentblock', 'List of blocks')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'ContentBlock.ContentblockBackend.Update',
-                        'description' => Yii::t('ContentBlockModule.contentblock', 'Editing blocks')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'ContentBlock.ContentblockBackend.Inline',
-                        'description' => Yii::t('ContentBlockModule.contentblock', 'Editing blocks')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'ContentBlock.ContentblockBackend.View',
-                        'description' => Yii::t('ContentBlockModule.contentblock', 'Viewing blocks')
-                    ),
-                )
-            )
-        );
+                'type' => AuthItem::TYPE_TASK,
+                'items' => [
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.Create',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Creating block'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.Delete',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Removing block'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.Index',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'List of blocks'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.Update',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Editing blocks'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'ContentBlock.ContentblockBackend.View',
+                        'description' => Yii::t('ContentBlockModule.contentblock', 'Viewing blocks'),
+                    ],
+                ],
+            ],
+        ];
     }
 }

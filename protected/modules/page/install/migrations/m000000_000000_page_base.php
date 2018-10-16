@@ -23,7 +23,7 @@ class m000000_000000_page_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{page_page}}',
-            array(
+            [
                 'id'             => 'pk',
                 'category_id'    => 'integer DEFAULT NULL',
                 'lang'           => 'char(2) DEFAULT NULL',
@@ -41,7 +41,7 @@ class m000000_000000_page_base extends yupe\components\DbMigration
                 'status'         => 'integer NOT NULL',
                 'is_protected'   => "boolean NOT NULL DEFAULT '0'",
                 'menu_order'     => "integer NOT NULL DEFAULT '0'",
-            ),
+            ],
             $this->getOptions()
         );
 

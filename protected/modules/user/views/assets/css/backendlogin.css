@@ -1,5 +1,9 @@
 body {
     background: #a2a2a2;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%; /* Современные браузеры */
 }
 
 .wrapper {
@@ -8,7 +12,7 @@ body {
 
 .wrapper .login-form {
     width: 350px;
-    margin: 0 auto;
+    margin: 10% auto
 }
 
 form {

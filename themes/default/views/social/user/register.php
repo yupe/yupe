@@ -1,49 +1,50 @@
 <?php
-$this->pageTitle = Yii::t('UserModule.user', 'Sign up');
-$this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
+
+/* @var $model RegistrationForm */
+
+$this->title = Yii::t('UserModule.user', 'Sign up');
+$this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 ?>
 
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'           => 'social-registration-form',
         'type'         => 'vertical',
-        'inlineErrors' => true,
-        'htmlOptions'  => array(
+        'htmlOptions'  => [
             'class' => 'well',
-        )
-    )
+        ]
+    ]
 ); ?>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class='row'>
     <div class="col-sm-6">
-        <?php echo $form->textFieldRow($model, 'nick_name'); ?>
+        <?= $form->textFieldGroup($model, 'nick_name'); ?>
     </div>
 </div>
 
-<?php if (!isset($authData['email'])): { ?>
+<?php if (!$model->email): ?>
     <div class='row'>
         <div class="col-sm-6">
-            <?php echo $form->textFieldRow($model, 'email'); ?>
+            <?= $form->textFieldGroup($model, 'email'); ?>
         </div>
     </div>
-<?php } endif; ?>
+<?php endif; ?>
 
-<div class="row">
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbButton',
-        array(
-            'buttonType' => 'submit',
-            'context'    => 'primary',
-            'label'      => Yii::t('UserModule.user', 'Sign up'),
-        )
-    ); ?>
-</div>
+
+<?php
+$this->widget(
+    'bootstrap.widgets.TbButton',
+    [
+        'buttonType' => 'submit',
+        'context'    => 'primary',
+        'label'      => Yii::t('UserModule.user', 'Sign up'),
+    ]
+); ?>
 
 <?php $this->endWidget(); ?>
 <!-- form -->

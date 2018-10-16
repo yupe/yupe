@@ -12,15 +12,39 @@
 Yii::import('application.modules.contentblock.models.ContentBlock');
 Yii::import('application.modules.contentblock.ContentBlockModule');
 
+/**
+ * Class ContentBlockGroupWidget
+ */
 class ContentBlockGroupWidget extends yupe\widgets\YWidget
 {
+    /**
+     * @var
+     */
     public $category;
+    /**
+     * @var
+     */
     public $limit;
-    public $silent    = true;
+    /**
+     * @var bool
+     */
+    public $silent = true;
+    /**
+     * @var int
+     */
     public $cacheTime = 60;
-    public $rand      = false;
-    public $view      = 'contentblockgroup';
+    /**
+     * @var bool
+     */
+    public $rand = false;
+    /**
+     * @var string
+     */
+    public $view = 'contentblockgroup';
 
+    /**
+     * @throws CException
+     */
     public function init()
     {
         if (empty($this->category)) {
@@ -28,45 +52,49 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                 'ContentBlockModule.contentblock',
                 'Insert group content block title for ContentBlockGroupWidget!'
             ));
-        }else {
-
-            $category = Category::model()->find('alias = :category', array(':category' => $this->category));
+        } else {
+            $category = Yii::app()->getComponent('categoriesRepository')->getByAlias($this->category);
 
             if (null === $category) {
                 throw new CException(Yii::t(
                     'ContentBlockModule.contentblock',
                     'Category "{category}" does not exist, please enter the unsettled category',
-                    array(
-                        '{category}' => $this->category
-                    )
+                    [
+                        '{category}' => $this->category,
+                    ]
                 ));
             }
         }
-        $this->silent    = (bool)$this->silent;
+        $this->silent = (bool)$this->silent;
         $this->cacheTime = (int)$this->cacheTime;
-        $this->rand      = (int)$this->rand;
+        $this->rand = (int)$this->rand;
     }
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
-        $cacheName = "ContentBlock{$this->category}" . Yii::app()->language;
+        $cacheName = "ContentBlock{$this->category}".Yii::app()->language;
 
-        $blocks = Yii::app()->cache->get($cacheName);
+        $blocks = Yii::app()->getCache()->get($cacheName);
 
         if ($blocks === false) {
 
-            $category = Category::model()->find('alias = :category', array(':category' => $this->category));
+            $category = Yii::app()->getComponent('categoriesRepository')->getByAlias($this->category);
 
-            $criteria = new CDbCriteria;
+            $criteria = new CDbCriteria([
+                'scopes' => ['active'],
+            ]);
             $criteria->addCondition('category_id = :category_id');
             $criteria->params[':category_id'] = $category->id;
 
-            if ( $this->rand ) {
+            if ($this->rand) {
                 $criteria->order = 'RAND()';
             }
 
-            if ( $this->limit ) {
-                $criteria->limit  = (int)$this->limit;
+            if ($this->limit) {
+                $criteria->limit = (int)$this->limit;
             }
 
             $blocks = ContentBlock::model()->findAll($criteria);
@@ -76,16 +104,16 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
                     Yii::t(
                         'ContentBlockModule.contentblock',
                         'Group content block "{category_id}" was not found !',
-                        array(
-                            '{category_id}' => $this->category
-                        )
+                        [
+                            '{category_id}' => $this->category,
+                        ]
                     )
                 );
             }
 
-            Yii::app()->cache->set($cacheName, $blocks,$this->cacheTime);
+            Yii::app()->getCache()->set($cacheName, $blocks, $this->cacheTime);
         }
 
-        $this->render($this->view, array('blocks' => $blocks));
+        $this->render($this->view, ['blocks' => $blocks]);
     }
 }

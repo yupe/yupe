@@ -13,6 +13,9 @@
  **/
 class EmailConfirmAction extends CAction
 {
+    /**
+     * @param $token
+     */
     public function run($token)
     {
         // пытаемся подтвердить почту
@@ -39,8 +42,8 @@ class EmailConfirmAction extends CAction
 
         $this->getController()->redirect(
             Yii::app()->getUser()->isAuthenticated()
-                ? array('/user/account/profile')
-                : array('/user/account/login')
+                ? ['/user/profile/profile']
+                : ['/user/account/login']
         );
     }
 }

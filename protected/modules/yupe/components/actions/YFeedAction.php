@@ -17,6 +17,10 @@ use Yii;
 use EFeed;
 use DateTime;
 
+/**
+ * Class YFeedAction
+ * @package yupe\components\actions
+ */
 class YFeedAction extends CAction
 {
     /**
@@ -44,7 +48,7 @@ class YFeedAction extends CAction
      *                     'author_nickname' => 'nick_name',
      *                     'content'         => 'full_text',
      *                     'datetime'        => 'creation_date',
-     *                     'link'            => '/news/news/show',
+     *                     'link'            => '/news/news/view',
      *                     'linkParams'      => array('title' => 'alias'),
      *                     'title'           => 'title',
      *                     'updated'         => 'change_date',
@@ -55,22 +59,34 @@ class YFeedAction extends CAction
      **/
 
     public $data;
+    /**
+     * @var
+     */
     public $description;
-    public $itemFields = array(
+    /**
+     * @var array
+     */
+    public $itemFields = [
         // author_object, если не задан - у
         // item-елемента запросится author_nickname
-        'author_object'   => null,
+        'author_object' => null,
         // author nick_name param
         'author_nickname' => 'nick_name',
-        'content'         => null,
-        'datetime'        => null,
-        'link'            => null,
-        'linkParams'      => null,
-        'title'           => null,
-        'updated'         => null,
+        'content' => null,
+        'datetime' => null,
+        'link' => null,
+        'linkParams' => null,
+        'title' => null,
+        'updated' => null,
 
-    );
+    ];
+    /**
+     * @var
+     */
     public $link;
+    /**
+     * @var
+     */
     public $title;
 
     /**
@@ -184,7 +200,7 @@ class YFeedAction extends CAction
                  * Устанавливаем ссылку для $item
                  */
                 if (!empty($this->itemFields['link'])) {
-                    $link = array();
+                    $link = [];
                     foreach ($this->itemFields['linkParams'] as $key => $param) {
                         $link[$key] = $feedItem->$param;
                     }

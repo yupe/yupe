@@ -1,95 +1,99 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('ContentBlockModule.contentblock', 'Content blocks') => array('/contentblock/contentBlockBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('ContentBlockModule.contentblock', 'Content blocks') => ['/contentblock/contentBlockBackend/index'],
     $model->name,
-);
+];
 
 $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - view');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'),
-        'url'   => array('/contentblock/contentBlockBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/contentblock/contentBlockBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'),
-        'url'   => array('/contentblock/contentBlockBackend/create')
-    ),
-    array(
+        'url'   => ['/contentblock/contentBlockBackend/create']
+    ],
+    [
         'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks') . ' «' . mb_substr(
                 $model->name,
                 0,
                 32
             ) . '»'
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('ContentBlockModule.contentblock', 'Edit content block'),
-        'url'   => array(
+        'url'   => [
             '/contentblock/contentBlockBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        ]
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('ContentBlockModule.contentblock', 'View content block'),
-        'url'   => array(
+        'url'   => [
             '/contentblock/contentBlockBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        ]
+    ],
+    [
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('ContentBlockModule.contentblock', 'Remove content block'),
         'url'         => '#',
-        'linkOptions' => array(
-            'submit'  => array('/contentblock/contentBlockBackend/delete', 'id' => $model->id),
-            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+        'linkOptions' => [
+            'submit'  => ['/contentblock/contentBlockBackend/delete', 'id' => $model->id],
+            'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'confirm' => Yii::t('ContentBlockModule.contentblock', 'Do you really want to delete content block?'),
-        )
-    ),
-);
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'View content block'); ?><br/>
-        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+        <?=  Yii::t('ContentBlockModule.contentblock', 'Viewing content block'); ?><br/>
+        <small>&laquo;<?=  $model->name; ?>&raquo;</small>
     </h1>
 </div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
-    array(
+    [
         'data'       => $model,
-        'attributes' => array(
+        'attributes' => [
             'id',
             'name',
             'code',
-            array(
+            [
                 'name'  => 'category_id',
                 'value' => $model->getCategoryName()
-            ),
-            array(
+            ],
+            [
                 'name'  => 'type',
                 'value' => $model->getType(),
-            ),
+            ],
             'content',
-            'description',
-        ),
-    )
+            [
+                'name' => 'description',
+                'type' => 'raw',
+                'value' => $model->description,
+            ]
+        ],
+    ]
 ); ?>
 
 <br/>
 <div>
-    <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block in template:'); ?>
+    <?=  Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block in template:'); ?>
     <br/><br/>
-    <?php echo $example; ?>
+    <?=  $example; ?>
 </div>
 <div>
-    <?php echo Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block group in template:'); ?>
+    <?=  Yii::t('ContentBlockModule.contentblock', 'Shortcode for using this block group in template:'); ?>
     <br /><br />
-    <?php echo $exampleCategory; ?>
-    <?php echo Yii::t('ContentBlockModule.contentblock', 'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>'); ?>
+    <?=  $exampleCategory; ?>
+    <?=  Yii::t('ContentBlockModule.contentblock', 'Parameter Description:<br><ul><li>category - category code. Required paramert;</li><li>limit - how much of the output. Not obligatory paramert;</li><li>cacheTime - cache lifetime (as is frequently updated cache). Not obligatory paramert;</li><li>rand - determines how to display units, randomly or not. "true" or "false" (default "false").</li></ul>'); ?>
 </div>

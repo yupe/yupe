@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '--choose--'                                                           => '--选择--',
     '--unknown--'                                                          => '--未知--',
     '0.1'                                                                  => '0.1',
@@ -98,4 +98,4 @@ return array(
     'management'                                                           => '管理',
     'Visual editor'                                                        => '可视化编辑器',
     'Menu items order'                                                     => '菜单项排序',
-);
+];

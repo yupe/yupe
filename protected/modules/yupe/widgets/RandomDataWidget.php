@@ -4,10 +4,20 @@ namespace yupe\widgets;
 
 use CException;
 
+/**
+ * Class RandomDataWidget
+ * @package yupe\widgets
+ */
 class RandomDataWidget extends YWidget
 {
+    /**
+     * @var
+     */
     public $data;
 
+    /**
+     * @throws CException
+     */
     public function init()
     {
         if (!is_array($this->data) || empty($this->data)) {
@@ -15,8 +25,11 @@ class RandomDataWidget extends YWidget
         }
     }
 
+    /**
+     * @throws CException
+     */
     public function run()
     {
-        $this->render('randomdata', array('item' => $this->data[array_rand($this->data)]));
+        $this->render('randomdata', ['item' => $this->data[array_rand($this->data)]]);
     }
 }

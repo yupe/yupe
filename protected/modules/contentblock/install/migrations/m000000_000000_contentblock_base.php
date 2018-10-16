@@ -17,14 +17,14 @@ class m000000_000000_contentblock_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{contentblock_content_block}}',
-            array(
+            [
                 'id'          => 'pk',
                 'name'        => 'varchar(250) NOT NULL',
                 'code'        => 'varchar(100) NOT NULL',
                 'type'        => "integer NOT NULL DEFAULT '1'",
                 'content'     => "text NOT NULL",
                 'description' => "varchar(255) DEFAULT NULL"
-            ),
+            ],
             $this->getOptions()
         );
 

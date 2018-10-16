@@ -1,0 +1,23 @@
+{
+    "name": "Payler",
+    "settings": [
+        {
+            "variable": "key",
+            "name": "Идентификатор продавца (платежный ключ)"
+        },
+        {
+            "variable": "paymode",
+            "name": "Режим оплаты",
+            "options": [
+                {
+                    "name": "тестовый",
+                    "value": "sandbox"
+                },
+                {
+                    "name": "рабочий",
+                    "value": "secure"
+                }
+            ]
+        }
+    ]
+}

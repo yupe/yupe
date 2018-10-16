@@ -1,53 +1,53 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 
 
 <fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => Yii::t('CommentModule.comment', '--choose--'),
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
 
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'model'); ?>
+            <?=  $form->textFieldGroup($model, 'model'); ?>
         </div>
 
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'model_id'); ?>
+            <?=  $form->textFieldGroup($model, 'model_id'); ?>
         </div>
     </div>
 
     <div class="row">
 
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'name'); ?>
+            <?=  $form->textFieldGroup($model, 'name'); ?>
         </div>
 
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'email'); ?>
+            <?=  $form->textFieldGroup($model, 'email'); ?>
         </div>
 
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'url'); ?>
+            <?=  $form->textFieldGroup($model, 'url'); ?>
         </div>
 
     </div>
@@ -55,29 +55,29 @@ $form = $this->beginWidget(
     <div class="row">
 
         <div class="col-sm-3">
-            <?php echo $form->datePickerGroup(
+            <?=  $form->datePickerGroup(
                 $model,
-                'creation_date',
-                array(
-                    'widgetOptions' => array(
-                        'options' => array(
+                'create_time',
+                [
+                    'widgetOptions' => [
+                        'options' => [
                             'format'    => 'yyyy-mm-dd',
                             'weekStart' => 1,
                             'autoclose' => true,
-                        ),
-                    ),
-                    'prepend'       => '<i class="glyphicon glyphicon-calendar"></i>',
-                )
+                        ],
+                    ],
+                    'prepend'       => '<i class="fa fa-calendar"></i>',
+                ]
             );
             ?>
         </div>
 
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'text'); ?>
+            <?=  $form->textFieldGroup($model, 'text'); ?>
         </div>
 
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'ip'); ?>
+            <?=  $form->textFieldGroup($model, 'ip'); ?>
         </div>
 
     </div>
@@ -86,15 +86,15 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'CommentModule.comment',
                 'Find comments'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

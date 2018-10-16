@@ -1,27 +1,27 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'Yupe!')   => array('settings'),
-    Yii::t('YupeModule.yupe', 'Modules') => array('settings'),
+$this->breadcrumbs = [
+    Yii::t('YupeModule.yupe', 'Yupe!')   => ['settings'],
+    Yii::t('YupeModule.yupe', 'Modules') => ['settings'],
     $module->name,
-);
+];
 ?>
 
 <h1>
-    <?php echo Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?php echo CHtml::encode($module->name); ?>"
-    <small><?php echo Yii::t('YupeModule.yupe', 'version'); ?> <?php echo CHtml::encode($module->version); ?></small>
+    <?= Yii::t('YupeModule.yupe', 'Module settings'); ?> "<?= CHtml::encode($module->name); ?>"
+    <small><?= Yii::t('YupeModule.yupe', 'version'); ?> <?= CHtml::encode($module->version); ?></small>
 </h1>
 
 <br/>
 
 <?php if (is_array($groups) && count($groups)): { ?>
-    <?php echo CHtml::beginForm(
-        array('/yupe/backend/saveModulesettings'),
+    <?= CHtml::beginForm(
+        ['/yupe/backend/saveModulesettings'],
         'post',
-        array(
+        [
             'class' => 'well',
-        )
+        ]
     ); ?>
-    <?php echo CHtml::hiddenField('module_id', $module->getId()); ?>
+    <?= CHtml::hiddenField('module_id', $module->getId()); ?>
     <div class="row">
         <div class="col-sm-8">
             <?php $collapse = $this->beginWidget('booster.widgets.TbCollapse'); ?>
@@ -60,23 +60,23 @@ $this->breadcrumbs = array(
 
     <div class="row">
         <div class="col-sm-12">
-            <?php echo CHtml::submitButton(
+            <?= CHtml::submitButton(
                 Yii::t(
                     'YupeModule.yupe',
                     'Save "{{name}}" module settings',
-                    array(
+                    [
                         '{{name}}' => CHtml::encode($module->name)
-                    )
+                    ]
                 ),
-                array(
+                [
                     'class' => 'btn btn-primary',
                     'id'    => 'saveModuleSettings',
                     'name'  => 'saveModuleSettings',
-                )
+                ]
             ); ?>
         </div>
     </div>
-    <?php echo CHtml::endForm(); ?>
+    <?= CHtml::endForm(); ?>
 <?php } else: { ?>
-    <b><?php echo Yii::t('YupeModule.yupe', 'There is no parameters which you cat change for this module...'); ?></b>
+    <b><?= Yii::t('YupeModule.yupe', 'There is no parameters which you cat change for this module...'); ?></b>
 <?php } endif; ?>

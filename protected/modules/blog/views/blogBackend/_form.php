@@ -1,13 +1,3 @@
-<script type='text/javascript'>
-    $(document).ready(function () {
-        $('#blog-form').liTranslit({
-            elName: '#Blog_name',
-            elAlias: '#Blog_slug'
-        });
-    })
-</script>
-
-
 <?php
 /**
  * Отображение для BlogBackend/_form:
@@ -17,116 +7,120 @@
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
+ *
+ * @var $form \yupe\widgets\ActiveForm
+ * @var $model Blog
+ * @var $this BlogBackendController
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
-    array(
+    'yupe\widgets\ActiveForm',
+    [
         'id'                     => 'blog-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
-    )
+        'htmlOptions'            => ['class' => 'well', 'enctype' => 'multipart/form-data'],
+    ]
 );
 
 ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('BlogModule.blog', 'Fields marked with'); ?>
+    <?= Yii::t('BlogModule.blog', 'Fields marked with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('BlogModule.blog', 'are required.'); ?>
+    <?= Yii::t('BlogModule.blog', 'are required.'); ?>
 </div>
 
-<?php echo $form->errorSummary($model); ?>
+<?= $form->errorSummary($model); ?>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'category_id',
-            array(
-                'widgetOptions' => array(
-                    'data'        => Category::model()->getFormattedList(
-                            (int)Yii::app()->getModule('blog')->mainCategory
-                        ),
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'data'        => Yii::app()->getComponent('categoriesRepository')->getFormattedList(
+                        (int)Yii::app()->getModule('blog')->mainCategory
+                    ),
+                    'htmlOptions' => [
                         'empty'               => Yii::t('BlogModule.blog', '--choose--'),
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('category_id'),
                         'data-content'        => $model->getAttributeDescription('category_id'),
                         'encode'              => false
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'type',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getTypeList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('type'),
                         'data-content'        => $model->getAttributeDescription('type'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
                         'data-content'        => $model->getAttributeDescription('status'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-3">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'member_status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getMemberStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('member_status'),
                         'data-content'        => $model->getAttributeDescription('member_status'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
     <div class="col-sm-4">
-        <?php echo $form->dropDownListGroup(
+        <?= $form->dropDownListGroup(
             $model,
             'post_status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getPostStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('post_status'),
                         'data-content'        => $model->getAttributeDescription('post_status'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -137,33 +131,34 @@ $form = $this->beginWidget(
         echo $form->textFieldGroup(
             $model,
             'name',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('name'),
                         'data-content'        => $model->getAttributeDescription('name'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-7">
-        <?php echo $form->textFieldGroup(
+        <?= $form->slugFieldGroup(
             $model,
             'slug',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'sourceAttribute' => 'name',
+                'widgetOptions'   => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('slug'),
                         'data-content'        => $model->getAttributeDescription('slug'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -174,40 +169,48 @@ $form = $this->beginWidget(
         echo CHtml::image(
             $model->getImageUrl(),
             $model->name,
-            array(
-                'class' => 'preview-image',
-            )
+            [
+                'class' => 'preview-image img-responsive',
+            ]
         ); ?>
-        <?php echo $form->fileFieldGroup(
+
+        <?php if (!$model->isNewRecord && $model->icon): ?>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="delete-file"> <?= Yii::t('YupeModule.yupe', 'Delete the file') ?>
+                </label>
+            </div>
+        <?php endif; ?>
+
+        <?= $form->fileFieldGroup(
             $model,
             'icon',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'onchange' => 'readURL(this);',
                         'style'    => 'background-color: inherit;'
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         ); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-12 form-group popover-help"
-         data-original-title='<?php echo $model->getAttributeLabel('description'); ?>'
-         data-content='<?php echo $model->getAttributeDescription(
+         data-original-title='<?= $model->getAttributeLabel('description'); ?>'
+         data-content='<?= $model->getAttributeDescription(
              'description'
          ); ?>'>
-        <?php echo $form->labelEx($model, 'description'); ?>
+        <?= $form->labelEx($model, 'description'); ?>
         <?php
         $this->widget(
-            $this->module->editor,
-            array(
+            $this->module->getVisualEditor(),
+            [
                 'model'     => $model,
                 'attribute' => 'description',
-                'options'   => $this->module->editorOptions,
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -215,27 +218,27 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create blog and continue') : Yii::t(
-                'BlogModule.blog',
-                'Save blog and continue'
-            ),
-    )
+            'BlogModule.blog',
+            'Save blog and continue'
+        ),
+    ]
 ); ?>
 
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create blog and close') : Yii::t(
-                'BlogModule.blog',
-                'Save blog and close'
-            ),
-    )
+            'BlogModule.blog',
+            'Save blog and close'
+        ),
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

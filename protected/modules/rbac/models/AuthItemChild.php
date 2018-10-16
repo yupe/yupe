@@ -37,13 +37,13 @@ class AuthItemChild extends CActiveRecord
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('parent, child', 'required'),
-            array('parent, child', 'length', 'max' => 64),
+        return [
+            ['parent, child', 'required'],
+            ['parent, child', 'length', 'max' => 64],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('parent, child', 'safe', 'on' => 'search'),
-        );
+            ['parent, child', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -53,10 +53,10 @@ class AuthItemChild extends CActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'parentItem' => array(self::BELONGS_TO, 'AuthItem', 'parent'),
-            'childItem'  => array(self::BELONGS_TO, 'AuthItem', 'child'),
-        );
+        return [
+            'parentItem' => [self::BELONGS_TO, 'AuthItem', 'parent'],
+            'childItem'  => [self::BELONGS_TO, 'AuthItem', 'child'],
+        ];
     }
 
     /**
@@ -64,10 +64,10 @@ class AuthItemChild extends CActiveRecord
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'parent' => 'Parent',
             'child'  => 'Child',
-        );
+        ];
     }
 
     /**
@@ -84,9 +84,9 @@ class AuthItemChild extends CActiveRecord
         $criteria->compare('parent', $this->parent);
         $criteria->compare('child', $this->child);
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider($this, [
             'criteria' => $criteria,
-        ));
+        ]);
     }
 
 }

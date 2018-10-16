@@ -29,18 +29,42 @@
  */
 class Queue extends yupe\models\YModel
 {
+    /**
+     *
+     */
     const STATUS_NEW = 0;
+    /**
+     *
+     */
     const STATUS_COMPLETED = 1;
+    /**
+     *
+     */
     const STATUS_PROGRESS = 2;
+    /**
+     *
+     */
     const STATUS_ERROR = 3;
 
+    /**
+     *
+     */
     const PRIORITY_NORMAL = 1;
+    /**
+     *
+     */
     const PRIORITY_LOW = 0;
+    /**
+     *
+     */
     const PRIORITY_HIGH = 2;
 
+    /**
+     * @return bool
+     */
     public function beforeSave()
     {
-        if ($this->isNewRecord) {
+        if ($this->getIsNewRecord()) {
             $this->create_time = new CDbExpression('NOW()');
         }
 
@@ -72,19 +96,15 @@ class Queue extends yupe\models\YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return array(
-            array('worker, task', 'required'),
-            array('status, worker, priority', 'numerical', 'integerOnly' => true),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('priority', 'in', 'range' => array_keys($this->priorityList)),
-            array('notice', 'length', 'max' => 255),
-            array('start_time, complete_time', 'safe'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, worker, create_time, task, start_time, complete_time, status, notice', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['worker, task', 'required'],
+            ['status, worker, priority', 'numerical', 'integerOnly' => true],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['priority', 'in', 'range' => array_keys($this->getPriorityList())],
+            ['notice', 'length', 'max' => 255],
+            ['start_time, complete_time', 'safe'],
+            ['id, worker, create_time, task, start_time, complete_time, status, notice', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -92,7 +112,7 @@ class Queue extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'            => Yii::t('QueueModule.queue', 'ID'),
             'worker'        => Yii::t('QueueModule.queue', 'Handler'),
             'create_time'   => Yii::t('QueueModule.queue', 'Created at'),
@@ -102,7 +122,7 @@ class Queue extends yupe\models\YModel
             'status'        => Yii::t('QueueModule.queue', 'Status'),
             'notice'        => Yii::t('QueueModule.queue', 'Notice'),
             'priority'      => Yii::t('QueueModule.queue', 'Priority'),
-        );
+        ];
     }
 
     /**
@@ -112,9 +132,6 @@ class Queue extends yupe\models\YModel
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id, true);
@@ -133,23 +150,29 @@ class Queue extends yupe\models\YModel
         $criteria->compare('notice', $this->notice, true);
         $criteria->compare('priority', $this->priority, true);
 
-        return new CActiveDataProvider(get_class($this), array(
+        return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort'     => array(
+            'sort'     => [
                 'defaultOrder' => 'id DESC'
-            )
-        ));
+            ]
+        ]);
     }
 
+    /**
+     * @return array
+     */
     public function getPriorityList()
     {
-        return array(
+        return [
             self::PRIORITY_LOW    => Yii::t('QueueModule.queue', 'Low'),
             self::PRIORITY_NORMAL => Yii::t('QueueModule.queue', 'Normal'),
             self::PRIORITY_HIGH   => Yii::t('QueueModule.queue', 'High'),
-        );
+        ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getPriority()
     {
         $data = $this->getPriorityList();
@@ -157,16 +180,22 @@ class Queue extends yupe\models\YModel
         return isset($data[$this->priority]) ? $data[$this->priority] : Yii::t('QueueModule.queue', '-unknown-');
     }
 
+    /**
+     * @return array
+     */
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_NEW       => Yii::t('QueueModule.queue', 'New'),
             self::STATUS_COMPLETED => Yii::t('QueueModule.queue', 'Completed'),
             self::STATUS_PROGRESS  => Yii::t('QueueModule.queue', 'Working'),
             self::STATUS_ERROR     => Yii::t('QueueModule.queue', 'Error'),
-        );
+        ];
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
@@ -174,6 +203,9 @@ class Queue extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('QueueModule.queue', '-unknown-');
     }
 
+    /**
+     * @return string
+     */
     public function getWorkerName()
     {
         $list = Yii::app()->getModule('queue')->getWorkerNamesMap();
@@ -181,24 +213,37 @@ class Queue extends yupe\models\YModel
         return isset($list[$this->worker]) ? $list[$this->worker] : $this->worker;
     }
 
+    /**
+     * @param $worker
+     * @param int $limit
+     * @return array|mixed|null
+     */
     public function getTasksForWorker($worker, $limit = 10)
     {
-        return $this->findAll(array(
+        return $this->findAll([
             'condition' => 'worker = :worker AND status = :status',
-            'params' => array(
+            'params' => [
                 ':worker' => (int)$worker,
                 ':status' => Queue::STATUS_NEW
-            ),
+            ],
             'limit' => (int)$limit,
             'order' => 'priority, id asc'
-        ));
+        ]);
     }
 
+    /**
+     * @return array
+     */
     public function decodeJson()
     {
         return (array) json_decode($this->task);
     }
 
+    /**
+     * @param $notice
+     * @param int $status
+     * @return bool
+     */
     public function completeWithError($notice, $status = self::STATUS_ERROR)
     {
         $this->notice = $notice;
@@ -207,11 +252,13 @@ class Queue extends yupe\models\YModel
         return $this->save();
     }
 
+    /**
+     * @return bool
+     */
     public function complete()
     {
         $this->status = self::STATUS_COMPLETED;
         $this->complete_time = new CDbExpression('NOW()');
         return $this->save();
     }
-
 }

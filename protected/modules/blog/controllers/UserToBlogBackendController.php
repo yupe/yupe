@@ -12,29 +12,34 @@
  */
 class UserToBlogBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Blog.UserToBlogBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Blog.UserToBlogBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Blog.UserToBlogBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Blog.UserToBlogBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Blog.UserToBlogBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Blog.UserToBlogBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Blog.UserToBlogBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Blog.UserToBlogBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Blog.UserToBlogBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Blog.UserToBlogBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Blog.UserToBlogBackend.Delete']],
+            ['deny']
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'UserToBlog',
-                'validAttributes' => array('status', 'role', 'note')
-            )
-        );
+                'validAttributes' => ['status', 'role', 'note']
+            ]
+        ];
     }
 
     /**
@@ -43,7 +48,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -67,7 +72,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                     $this->redirect(
                         (array)Yii::app()->getRequest()->getPost(
                             'submit-type',
-                            array('create')
+                            ['create']
                         )
                     );
                 }
@@ -78,10 +83,10 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                 Yii::t('BlogModule.blog', 'Cannot add user to the blog. Please make sure he is not a member already.')
             );
 
-            $this->redirect(array('admin'));
+            $this->redirect(['create']);
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -102,13 +107,13 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                 );
 
                 if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(['update', 'id' => $model->id]);
                 } else {
-                    $this->redirect(array($_POST['submit-type']));
+                    $this->redirect([$_POST['submit-type']]);
                 }
             }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -129,7 +134,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
             throw new CHttpException(400, Yii::t(
@@ -149,7 +154,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
         if (isset($_GET['UserToBlog'])) {
             $model->attributes = $_GET['UserToBlog'];
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

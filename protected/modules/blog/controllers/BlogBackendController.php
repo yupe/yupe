@@ -12,29 +12,34 @@
  */
 class BlogBackendController extends yupe\components\controllers\BackController
 {
+    /**
+     * @return array
+     */
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Blog.BlogBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Blog.BlogBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Blog.BlogBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Blog.BlogBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Blog.BlogBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Blog.BlogBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Blog.BlogBackend.Index']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Blog.BlogBackend.View']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Blog.BlogBackend.Create']],
+            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Blog.BlogBackend.Update']],
+            ['allow', 'actions' => ['delete', 'multiaction'], 'roles' => ['Blog.BlogBackend.Delete']],
+            ['deny'],
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
-        return array(
-            'inline' => array(
-                'class'           => 'yupe\components\actions\YInLineEditAction',
-                'model'           => 'Blog',
-                'validAttributes' => array('name', 'slug', 'status', 'type')
-            )
-        );
+        return [
+            'inline' => [
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Blog',
+                'validAttributes' => ['name', 'slug', 'status', 'type'],
+            ],
+        ];
     }
 
     /**
@@ -46,11 +51,11 @@ class BlogBackendController extends yupe\components\controllers\BackController
      **/
     public function actionView($id)
     {
-        if (($model = Blog::model()->loadModel($id)) !== null) {
-            $this->render('view', array('model' => $model));
-        } else {
+        if (($model = Blog::model()->findByPk($id)) === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
         }
+
+        $this->render('view', ['model' => $model]);
     }
 
     /**
@@ -75,24 +80,22 @@ class BlogBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
+
     /**
-     * Редактирование блога.
-     *
-     * @param  integer $id Идинтификатор блога для редактирования
-     * @throw CHttpException
-     * @return nothing
-     **/
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionUpdate($id)
     {
-        if (($model = Blog::model()->loadModel($id)) === null) {
+        if (($model = Blog::model()->findByPk($id)) === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
         }
 
@@ -106,32 +109,29 @@ class BlogBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array(
+                        [
                             'update',
-                            'id' => $model->id
-                        )
+                            'id' => $model->id,
+                        ]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
+
     /**
-     * Удаляет модель блога из базы.
-     * Если удаление прошло успешно - возвращется в index
-     *
-     * @param integer $id - идентификатор блога, который нужно удалить
-     *
-     * @return nothing
-     **/
+     * @param $id
+     * @throws CDbException
+     * @throws CHttpException
+     */
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
 
-            // поддерживаем удаление только из POST-запроса
-            if (($model = Blog::model()->loadModel($id)) === null) {
+            if (($model = Blog::model()->findByPk($id)) === null) {
                 throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
             }
 
@@ -142,9 +142,8 @@ class BlogBackendController extends yupe\components\controllers\BackController
                 Yii::t('BlogModule.blog', 'Blog was deleted!')
             );
 
-            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
-                $this->redirect(Yii::app()->getRequest()->getPost('returnUrl', array('index')));
+                $this->redirect(Yii::app()->getRequest()->getPost('returnUrl', ['index']));
             }
         } else {
             throw new CHttpException(400, Yii::t(
@@ -162,10 +161,10 @@ class BlogBackendController extends yupe\components\controllers\BackController
     public function actionIndex()
     {
         $model = new Blog('search');
-        $model->unsetAttributes(); // clear any default values
+        $model->unsetAttributes();
         if (Yii::app()->getRequest()->getParam('Blog') !== null) {
             $model->setAttributes(Yii::app()->getRequest()->getParam('Blog'));
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 }

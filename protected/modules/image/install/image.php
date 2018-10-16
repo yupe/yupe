@@ -9,15 +9,15 @@
  * @link     http://yupe.ru
  *
  **/
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class' => 'application.modules.image.ImageModule',
-    ),
-    'import'    => array(
+    ],
+    'import'    => [
         'application.modules.image.models.*',
-    ),
-    'component' => array(),
-    'rules'     => array(
+    ],
+    'component' => [],
+    'rules'     => [
         '/images/<id:\d+>' => 'gallery/gallery/image/',
-    ),
-);
+    ],
+];

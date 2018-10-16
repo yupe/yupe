@@ -89,10 +89,10 @@ class DbMigration extends CDbMigration
     {
         $schema = $this->dbConnection->schema;
         $command = Yii::app()->db->createCommand();
-        $foreignKeys = array();
+        $foreignKeys = [];
 
         if (!($schema instanceof CPgsqlSchema) && !($schema instanceof CMysqlSchema)) {
-            return array();
+            return [];
         }
 
         // Получаем форейн-кеи для заданной таблицы,
@@ -125,12 +125,12 @@ class DbMigration extends CDbMigration
             $command->from('information_schema.TABLE_CONSTRAINTS');
             $command->where(
                 "CONSTRAINT_TYPE = :consType AND TABLE_SCHEMA = :dbName AND TABLE_NAME = :tableName",
-                array(
+                [
                     ':consType'  => 'FOREIGN KEY',
                     ':dbName'    => $dbName,
                     ':tableName' => $this->normTable($tableName),
 
-                )
+                ]
             );
         }
 

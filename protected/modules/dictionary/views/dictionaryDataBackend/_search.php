@@ -1,54 +1,54 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 
 <fieldset class="inline">
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'group_id',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data' => CHtml::listData(
                                 DictionaryGroup::model()->findAll(),
                                 'id',
                                 'name'
                             )
-                    )
-                )
+                    ]
+                ]
             ); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'name'); ?>
+            <?=  $form->textFieldGroup($model, 'name'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'code'); ?>
+            <?=  $form->textFieldGroup($model, 'code'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <?php echo $form->textFieldGroup($model, 'description'); ?>
+            <?=  $form->textFieldGroup($model, 'description'); ?>
         </div>
         <div class="col-sm-3">
-            <?php echo $form->dropDownListGroup(
+            <?=  $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -56,15 +56,15 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'DictionaryModule.dictionary',
                 'Fund dictionary item'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

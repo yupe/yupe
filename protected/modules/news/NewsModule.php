@@ -5,7 +5,7 @@
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
- * @copyright 2009-2013 amyLabs && Yupe! team
+ * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.news
  * @since 0.1
  *
@@ -13,26 +13,59 @@
 
 use yupe\components\WebModule;
 
+/**
+ * Class NewsModule
+ */
 class NewsModule extends WebModule
 {
-    const VERSION = '0.8';
+    /**
+     *
+     */
+    const VERSION = '1.1';
 
+    /**
+     * @var string
+     */
     public $uploadPath = 'news';
+    /**
+     * @var string
+     */
     public $allowedExtensions = 'jpg,jpeg,png,gif';
+    /**
+     * @var int
+     */
     public $minSize = 0;
+    /**
+     * @var int
+     */
     public $maxSize = 5368709120;
+    /**
+     * @var int
+     */
     public $maxFiles = 1;
+    /**
+     * @var int
+     */
     public $rssCount = 10;
+    /**
+     * @var int
+     */
     public $perPage = 10;
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
-        return array(
+        return [
             'user',
             'category',
-        );
+        ];
     }
 
+    /**
+     * @return bool
+     */
     public function getInstall()
     {
         if (parent::getInstall()) {
@@ -42,230 +75,280 @@ class NewsModule extends WebModule
         return false;
     }
 
+    /**
+     * @return array|bool
+     */
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
 
         $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
 
         if (!is_writable($uploadPath)) {
-            $messages[WebModule::CHECK_ERROR][] = array(
-                'type'    => WebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = [
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
-                        'NewsModule.news',
-                        'Directory "{dir}" is not accessible for write! {link}',
-                        array(
-                            '{dir}'  => $uploadPath,
-                            '{link}' => CHtml::link(
-                                    Yii::t('NewsModule.news', 'Change settings'),
-                                    array(
-                                        '/yupe/backend/modulesettings/',
-                                        'module' => 'news',
-                                    )
-                                ),
-                        )
-                    ),
-            );
+                    'NewsModule.news',
+                    'Directory "{dir}" is not accessible for write! {link}',
+                    [
+                        '{dir}' => $uploadPath,
+                        '{link}' => CHtml::link(
+                            Yii::t('NewsModule.news', 'Change settings'),
+                            [
+                                '/yupe/backend/modulesettings/',
+                                'module' => 'news',
+                            ]
+                        ),
+                    ]
+                ),
+            ];
         }
 
         return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
 
+    /**
+     * @return array
+     */
     public function getParamsLabels()
     {
-        return array(
-            'mainCategory'      => Yii::t('NewsModule.news', 'Main news category'),
-            'adminMenuOrder'    => Yii::t('NewsModule.news', 'Menu items order'),
-            'editor'            => Yii::t('NewsModule.news', 'Visual Editor'),
-            'uploadPath'        => Yii::t(
-                    'NewsModule.news',
-                    'Uploading files catalog (relatively {path})',
-                    array(
-                        '{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule(
-                                "yupe"
-                            )->uploadPath
-                    )
-                ),
+        return [
+            'mainCategory' => Yii::t('NewsModule.news', 'Main news category'),
+            'editor' => Yii::t('NewsModule.news', 'Visual Editor'),
+            'uploadPath' => Yii::t(
+                'NewsModule.news',
+                'Uploading files catalog (relatively {path})',
+                [
+                    '{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule(
+                            "yupe"
+                        )->uploadPath,
+                ]
+            ),
             'allowedExtensions' => Yii::t('NewsModule.news', 'Accepted extensions (separated by comma)'),
-            'minSize'           => Yii::t('NewsModule.news', 'Minimum size (in bytes)'),
-            'maxSize'           => Yii::t('NewsModule.news', 'Maximum size (in bytes)'),
-            'rssCount'          => Yii::t('NewsModule.news', 'RSS records'),
-            'perPage'           => Yii::t('NewsModule.news', 'News per page')
-        );
+            'minSize' => Yii::t('NewsModule.news', 'Minimum size (in bytes)'),
+            'maxSize' => Yii::t('NewsModule.news', 'Maximum size (in bytes)'),
+            'rssCount' => Yii::t('NewsModule.news', 'RSS records'),
+            'perPage' => Yii::t('NewsModule.news', 'News per page'),
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParams()
     {
-        return array(
-            'adminMenuOrder',
-            'editor'       => Yii::app()->getModule('yupe')->getEditors(),
+        return [
+            'editor' => Yii::app()->getModule('yupe')->getEditors(),
             'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
             'uploadPath',
             'allowedExtensions',
             'minSize',
             'maxSize',
             'rssCount',
-            'perPage'
-        );
+            'perPage',
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function getEditableParamsGroups()
     {
-        return array(
-            'main'   => array(
+        return [
+            'main' => [
                 'label' => Yii::t('NewsModule.news', 'General module settings'),
-                'items' => array(
-                    'adminMenuOrder',
+                'items' => [
                     'editor',
-                    'mainCategory'
-                )
-            ),
-            'images' => array(
+                    'mainCategory',
+                ],
+            ],
+            'images' => [
                 'label' => Yii::t('NewsModule.news', 'Images settings'),
-                'items' => array(
+                'items' => [
                     'uploadPath',
                     'allowedExtensions',
                     'minSize',
-                    'maxSize'
-                )
-            ),
-            'list'   => array(
+                    'maxSize',
+                ],
+            ],
+            'list' => [
                 'label' => Yii::t('NewsModule.news', 'News lists'),
-                'items' => array(
+                'items' => [
                     'rssCount',
-                    'perPage'
-                )
-            ),
-        );
+                    'perPage',
+                ],
+            ],
+        ];
     }
 
+    /**
+     * @return string
+     */
     public function getVersion()
     {
         return self::VERSION;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsInstallDefault()
     {
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getCategory()
     {
         return Yii::t('NewsModule.news', 'Content');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return Yii::t('NewsModule.news', 'News');
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return Yii::t('NewsModule.news', 'Module for creating and management news');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthor()
     {
         return Yii::t('NewsModule.news', 'yupe team');
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorEmail()
     {
         return Yii::t('NewsModule.news', 'team@yupe.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return Yii::t('NewsModule.news', 'http://yupe.ru');
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
-        return "glyphicon glyphicon-bullhorn";
+        return 'fa fa-fw fa-bullhorn';
     }
 
+    /**
+     * @return string
+     */
     public function getAdminPageLink()
     {
         return '/news/newsBackend/index';
     }
 
+    /**
+     * @return array
+     */
     public function getNavigation()
     {
-        return array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        return [
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('NewsModule.news', 'News list'),
-                'url'   => array('/news/newsBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
-                'label' => Yii::t('NewsModule.news', 'Create article'),
-                'url'   => array('/news/newsBackend/create')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-folder-open',
+                'url' => ['/news/newsBackend/index'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-plus-square',
+                'label' => Yii::t('NewsModule.news', 'Create news'),
+                'url' => ['/news/newsBackend/create'],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('NewsModule.news', 'News categories'),
-                'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
-            ),
-        );
+                'url' => [
+                    '/category/categoryBackend/index',
+                    'module' => $this->getId(),
+                    'parent' => $this->mainCategory ?: null
+                ],
+            ],
+        ];
     }
 
+    /**
+     * @return bool
+     */
     public function isMultiLang()
     {
         return true;
     }
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
 
         $this->setImport(
-            array(
-                'news.models.*'
-            )
+            [
+                'news.models.*',
+            ]
         );
     }
 
+    /**
+     * @return array
+     */
     public function getAuthItems()
     {
-        return array(
-            array(
-                'name'        => 'News.NewsManager',
+        return [
+            [
+                'name' => 'News.NewsManager',
                 'description' => Yii::t('NewsModule.news', 'Manage news'),
-                'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'News.NewsBackend.Create',
-                        'description' => Yii::t('NewsModule.news', 'Creating news')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'News.NewsBackend.Delete',
-                        'description' => Yii::t('NewsModule.news', 'Removing news')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'News.NewsBackend.Index',
-                        'description' => Yii::t('NewsModule.news', 'List of news')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'News.NewsBackend.Update',
-                        'description' => Yii::t('NewsModule.news', 'Editing news')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'News.NewsBackend.Inline',
-                        'description' => Yii::t('NewsModule.news', 'Editing news')
-                    ),
-                    array(
-                        'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'News.NewsBackend.View',
-                        'description' => Yii::t('NewsModule.news', 'Viewing news')
-                    ),
-                )
-            )
-        );
+                'type' => AuthItem::TYPE_TASK,
+                'items' => [
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.Create',
+                        'description' => Yii::t('NewsModule.news', 'Creating news'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.Delete',
+                        'description' => Yii::t('NewsModule.news', 'Removing news'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.Index',
+                        'description' => Yii::t('NewsModule.news', 'List of news'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.Update',
+                        'description' => Yii::t('NewsModule.news', 'Editing news'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'News.NewsBackend.View',
+                        'description' => Yii::t('NewsModule.news', 'Viewing news'),
+                    ],
+                ],
+            ],
+        ];
     }
 }

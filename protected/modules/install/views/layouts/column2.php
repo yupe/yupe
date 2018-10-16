@@ -1,36 +1,35 @@
-<?php $this->beginContent(Yii::app()->controller->module->getLayoutAlias()); ?>
-<div class="col-sm-9 well">
-    <?php if (count($this->breadcrumbs)) {
-        $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
-    }
-    ?><!-- breadcrumbs -->
-    <?php //$this->widget('yupe\widgets\YFlashMessages'); ?>
-    <div id="content">
-        <?php echo $content; ?>
+<?php $installAssets = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.install.views.assets')); ?>
+<?php $this->beginContent(Yii::app()->getController()->getModule()->getLayoutAlias()); ?>
+<div class="row">
+    <div class="col-sm-9 well">
+        <?php if (count($this->breadcrumbs)) {
+            $this->widget('bootstrap.widgets.TbBreadcrumbs', ['links' => $this->breadcrumbs]);
+        }
+        ?>
+        <div id="content">
+            <?= $content; ?>
+        </div>
     </div>
-    <!-- content -->
-</div>
-<div class="col-sm-3 installMenu">
-    <div class="well" style="padding: 8px 0;">
-        <?php
-        $this->widget(
-            'bootstrap.widgets.TbMenu',
-            array(
-                'type'  => 'list',
-                'items' => Yii::app()->controller->module->getInstallMenu(),
-            )
-        );?>
-    </div>
-    <div class="alert alert-warning">
-        <strong><?php echo Yii::app()->name; ?></strong> разрабатывается
-        <a href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при моральной
-        поддержке <?php echo CHtml::link(
-            'amyLabs',
-            'http://amylabs.ru',
-            array('target' => '_blank')
-        ); ?>!
-        <strong><?php echo CHtml::link('Напишите нам', 'http://amylabs.ru/contact') ?></strong> при возникновении
-        проблем!
+    <div class="col-sm-3">
+        <div>
+            <a class="btn btn-success banner-width" style="width: 100%;" target="_blank" href="http://yupe.ru/make-world-better?from=install">Сказать спасибо!</a>
+            <br/><br/>
+        </div>
+
+        <div>
+            <?php
+            $this->widget(
+                'bootstrap.widgets.TbMenu',
+                [
+                    'type' => 'list',
+                    'items' => Yii::app()->getController()->getModule()->getInstallMenu(),
+                    'htmlOptions' => ['class' => 'well'],
+                ]
+            ); ?>
+        </div>
+        <div>
+            <iframe src="http://yupe.ru/info/install?version=<?= $this->yupe->getVersion();?>&lang=<?= Yii::app()->getLanguage();?>" scrolling="no" id="yupestore"></iframe>
+        </div>
     </div>
 </div>
 <?php $this->endContent(); ?>
