@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/catalogBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('CatalogModule.catalog', 'Products') => ['/catalog/catalogBackend/index'],
     Yii::t('CatalogModule.catalog', 'Creating'),
-);
+];
 
 $this->pageTitle = Yii::t('CatalogModule.catalog', 'Products - creating');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CatalogModule.catalog', 'Product admin'),
-        'url'   => array('/catalog/catalogBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/catalog/catalogBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CatalogModule.catalog', 'Add a product'),
-        'url'   => array('/catalog/catalogBackend/create')
-    ),
-);
+        'url'   => ['/catalog/catalogBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -26,4 +26,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

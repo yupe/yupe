@@ -17,10 +17,6 @@ class LoginAction extends CAction
 {
     public function run()
     {
-        if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->getController()->redirect(Url::redirectUrl(Yii::app()->getUser()->getReturnUrl()));
-        }
-
         /**
          * Если было совершено больше 3х попыток входа
          * в систему, используем сценарий с капчей:
@@ -51,16 +47,16 @@ class LoginAction extends CAction
                 );
 
                 if (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess) {
-                    $redirect = $module->loginAdminSuccess;
+                    $redirect = [$module->loginAdminSuccess];
                 } else {
-                    $redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl() : $module->loginSuccess;
+                    $redirect = empty($module->loginSuccess) ? Yii::app()->getBaseUrl() : [$module->loginSuccess];
                 }
 
                 $redirect = Yii::app()->getUser()->getReturnUrl($redirect);
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
-                $this->getController()->redirect(Url::redirectUrl($redirect));
+                $this->getController()->redirect($redirect);
 
             } else {
 
@@ -70,6 +66,6 @@ class LoginAction extends CAction
             }
         }
 
-        $this->getController()->render($this->id, array('model' => $form));
+        $this->getController()->render($this->id, ['model' => $form]);
     }
 }

@@ -65,7 +65,7 @@ class EFeedItemRSS1 extends EFeedItemAbstract
             ));
         }
 
-        $node = CHtml::openTag('item', array('rdf:about' => $this->link->content)) . PHP_EOL;
+        $node = CHtml::openTag('item', ['rdf:about' => $this->link->content]) . PHP_EOL;
 
         foreach ($this->tags as $tag) {
             $node .= $this->getElement($tag);

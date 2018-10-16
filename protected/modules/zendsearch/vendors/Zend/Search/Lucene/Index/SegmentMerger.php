@@ -51,7 +51,7 @@ class Zend_Search_Lucene_Index_SegmentMerger
      *
      * @var array Zend_Search_Lucene_Index_SegmentInfo
      */
-    private $_segmentInfos = array();
+    private $_segmentInfos = [];
 
     /**
      * Flag to signal, that merge is already done
@@ -66,7 +66,7 @@ class Zend_Search_Lucene_Index_SegmentMerger
      *
      * @var array
      */
-    private $_fieldsMap = array();
+    private $_fieldsMap = [];
 
     /**
      * Object constructor.
@@ -176,7 +176,7 @@ class Zend_Search_Lucene_Index_SegmentMerger
 
             for ($count = 0; $count < $segmentInfo->count(); $count++) {
                 $fieldCount = $fdtFile->readVInt();
-                $storedFields = array();
+                $storedFields = [];
 
                 for ($count2 = 0; $count2 < $fieldCount; $count2++) {
                     $fieldNum = $fdtFile->readVInt();
@@ -236,7 +236,7 @@ class Zend_Search_Lucene_Index_SegmentMerger
 
         $this->_writer->initializeDictionaryFiles();
 
-        $termDocs = array();
+        $termDocs = [];
         while (($segmentInfo = $segmentInfoQueue->pop()) !== null) {
             // Merge positions array
             $termDocs += $segmentInfo->currentTermPositions();
@@ -252,7 +252,7 @@ class Zend_Search_Lucene_Index_SegmentMerger
                 if (count($termDocs) > 0) {
                     $this->_writer->addTerm($segmentInfo->currentTerm(), $termDocs);
                 }
-                $termDocs = array();
+                $termDocs = [];
             }
 
             $segmentInfo->nextTerm();

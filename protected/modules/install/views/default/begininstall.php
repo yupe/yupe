@@ -29,18 +29,17 @@
 <?php
 $this->widget(
     'bootstrap.widgets.TbPanel',
-    array(
+    [
         'title'       => Yii::t('InstallModule.install', 'Backlog journal'),
-        'headerIcon'  => 'list',
+        'headerIcon'  => 'fa fa-fw fa-list',
         'content'     => '',
         'id'          => 'log-content',
-        'htmlOptions' => array('style' => 'margin-top: 20px; font-size: 10px; line-height: 12px;'),
-    )
+    ]
 ); ?>
 <script type="text/javascript">
     <?php
     // Выясним, какие модули нам нужно постараться поставить первыми
-    $morder = array('user' => 99999, 'yupe' => 99998);
+    $morder = ['user' => 99999, 'yupe' => 99998];
 
     foreach ($modules as $mid => $m) {
         $dep = $m->getDependencies();
@@ -120,7 +119,7 @@ $this->widget(
         installNext();
     });
 </script>
-<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-modal')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', ['id' => 'modules-modal']); ?>
 <div class="modal-header">
     <h4>
         <?php echo Yii::t('InstallModule.install', 'Installation completed'); ?>
@@ -133,23 +132,23 @@ $this->widget(
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'label'       => Yii::t('InstallModule.install', 'Look journal'),
             'url'         => '#',
-            'htmlOptions' => array(
+            'htmlOptions' => [
                 'data-dismiss' => 'modal',
-            ),
-        )
+            ],
+        ]
     ); ?>
     <?php echo CHtml::link(
         Yii::t('InstallModule.install', 'Continue >'),
-        array('/install/default/createuser'),
-        array('class' => 'btn btn-primary nextButton')
+        ['/install/default/createuser'],
+        ['class' => 'btn btn-primary nextButton']
     ); ?>
 </div>
 <?php $this->endWidget(); ?>
 
-<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-fail')); ?>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', ['id' => 'modules-fail']); ?>
 <div class="modal-header">
     <h4>
         <?php echo Yii::t('InstallModule.install', 'Ошибка!'); ?>
@@ -165,13 +164,13 @@ $this->widget(
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'label'       => Yii::t('InstallModule.install', 'Look journal'),
             'url'         => '#',
-            'htmlOptions' => array(
+            'htmlOptions' => [
                 'data-dismiss' => 'modal',
-            ),
-        )
+            ],
+        ]
     );
     /**
      * @tutorial Здесь не должно быть кнопок продолжить и прочее.
@@ -184,12 +183,12 @@ $this->widget(
 <div class='buttons' style='display: none'>
     <?php echo CHtml::link(
         Yii::t('InstallModule.install', '< Back'),
-        array('/install/default/modulesinstall'),
-        array('class' => 'btn btn-default')
+        ['/install/default/modulesinstall'],
+        ['class' => 'btn btn-default']
     ); ?>
     <?php echo CHtml::link(
         Yii::t('InstallModule.install', 'Continue >'),
-        array('/install/default/createuser'),
-        array('class' => 'btn btn-primary nextButton')
+        ['/install/default/createuser'],
+        ['class' => 'btn btn-primary nextButton']
     ); ?>
 </div>

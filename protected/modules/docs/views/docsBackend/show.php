@@ -20,9 +20,9 @@ Yii::app()->clientScript->registerCssFile(
     )
 );
 
-$this->breadcrumbs = array(
-    $this->module->name => array('index'),
+$this->breadcrumbs = [
+    $this->module->name => ['index'],
     $title
-);
+];
 
 echo $content;

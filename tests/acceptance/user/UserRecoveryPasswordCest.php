@@ -40,8 +40,8 @@ class UserRecoveryPasswordCest
         $I->amOnPage(RecoveryPage::getRecoveryRoute(time()));
         $I->see('Ошибка 404!');
 
-        $I->seeInDatabase('yupe_user_tokens', array('user_id' => 1, 'type' => 2, 'status' => 0));
-        $key = $I->grabFromDatabase('yupe_user_tokens', 'token', array('user_id' => 1, 'type' => 2, 'status' => 0));
+        $I->seeInDatabase('yupe_user_tokens', ['user_id' => 1, 'type' => 2, 'status' => 0]);
+        $key = $I->grabFromDatabase('yupe_user_tokens', 'token', ['user_id' => 1, 'type' => 2, 'status' => 0]);
         $I->amOnPage(RecoveryPage::getRecoveryRoute($key));
 
         $I->see('Восстановление пароля');
@@ -53,6 +53,6 @@ class UserRecoveryPasswordCest
 
         $I->seeInCurrentUrl(LoginPage::$URL);
         //$I->see('Успешное восстановение пароля!', \CommonPage::SUCCESS_CSS_CLASS);
-        $I->dontSeeInDatabase('yupe_user_tokens', array('user_id' => 1, 'type' => 2, 'status' => 0));
+        $I->dontSeeInDatabase('yupe_user_tokens', ['user_id' => 1, 'type' => 2, 'status' => 0]);
     }
 }

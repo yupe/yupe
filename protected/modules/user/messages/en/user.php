@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '*unknown*'                                                                                                       => '',
     '*no*'                                                                                                            => '',
     '0.5'                                                                                                             => '',
@@ -342,4 +342,5 @@ return array(
     'Change email'                                                                                                    => '',
     'Email was updated.'                                                                                              => '',
     'Your password was changed successfully.'                                                                         => '',
-);
+    'Avatar extensions'                                                                                               => '',
+];

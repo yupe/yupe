@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $model ContentBlock
+ * @var $this ContentBlockBackendController
+ * @var $form TbActiveForm
+ */
+?>
 <script type='text/javascript'>
     $(document).ready(function () {
         $('#content-block-form').liTranslit({
@@ -8,16 +15,15 @@
 </script>
 
 <?php
-/* @var $model ContentBlock */
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'content-block-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 ); ?>
 <div class="alert alert-info">
     <?php echo Yii::t('ContentBlockModule.contentblock', 'Fields with'); ?>
@@ -32,7 +38,7 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'type',
-            array('widgetOptions' => array('data' => $model->getTypes()))
+            ['widgetOptions' => ['data' => $model->getTypes()]]
         ); ?>
     </div>
 </div>
@@ -51,18 +57,18 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'category_id',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => Category::model()->getFormattedList(),
-                    'htmlOptions' => array(
-                        'empty'               => Yii::t('ContentBlockModule.contentblock','--choose--'),
+                    'htmlOptions' => [
+                        'empty'               => Yii::t('ContentBlockModule.contentblock', '--choose--'),
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('category_id'),
                         'data-content'        => $model->getAttributeDescription('category_id'),
                         'encode'              => false
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -71,19 +77,18 @@ $form = $this->beginWidget(
         <?php if (!$model->isNewRecord && $model->type == ContentBlock::HTML_TEXT): ?>
             <?php echo $form->labelEx($model, 'content'); ?>
             <?php $this->widget(
-                $this->yupe->editor,
-                array(
+                $this->yupe->getVisualEditor(),
+                [
                     'model'     => $model,
                     'attribute' => 'content',
-                    'options'   => $this->module->editorOptions,
-                )
+                ]
             ); ?>
             <?php echo $form->error($model, 'content'); ?>
         <?php else: ?>
             <?php echo $form->textAreaGroup(
                 $model,
                 'content',
-                array('widgetOptions' => array('htmlOptions' => array('rows' => 6)))
+                ['widgetOptions' => ['htmlOptions' => ['rows' => 6]]]
             ); ?>
         <?php endif; ?>
     </div>
@@ -92,39 +97,43 @@ $form = $this->beginWidget(
     <div class="col-sm-12 form-group">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
-            $this->yupe->editor,
-            array(
+            $this->yupe->getVisualEditor(),
+            [
                 'model'     => $model,
                 'attribute' => 'description',
-                'options'   => $this->module->editorOptions,
-            )
+            ]
         ); ?>
         <?php echo $form->error($model, 'description'); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <?php echo $form->dropDownListGroup($model, 'status', ['widgetOptions' => ['data' => $model->getStatusList()]]); ?>
     </div>
 </div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t(
-                'ContentBlockModule.contentblock',
-                'Add block and continue'
-            ) : Yii::t('ContentBlockModule.contentblock', 'Save block and continue'),
-    )
+            'ContentBlockModule.contentblock',
+            'Add block and continue'
+        ) : Yii::t('ContentBlockModule.contentblock', 'Save block and continue'),
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t(
-                'ContentBlockModule.contentblock',
-                'Add block and close'
-            ) : Yii::t('ContentBlockModule.contentblock', 'Save block and close'),
-    )
+            'ContentBlockModule.contentblock',
+            'Add block and close'
+        ) : Yii::t('ContentBlockModule.contentblock', 'Save block and close'),
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

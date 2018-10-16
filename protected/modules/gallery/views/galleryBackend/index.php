@@ -9,25 +9,25 @@
  * @link     http://yupe.ru
  **/
 
-$this->breadcrumbs = array(
-    Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/galleryBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/galleryBackend/index'],
     Yii::t('GalleryModule.gallery', 'Management'),
-);
+];
 
 $this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - manage');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
-        'url'   => array('/gallery/galleryBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/gallery/galleryBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
-        'url'   => array('/gallery/galleryBackend/create')
-    ),
-);
+        'url'   => ['/gallery/galleryBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -38,7 +38,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('GalleryModule.gallery', 'Find galleries'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -57,53 +57,53 @@ $this->menu = array(
         return false;
     });"
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'gallery-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'columns'      => array(
-            array(
+        'columns'      => [
+            [
                 'header' => '',
                 'value'  => 'CHtml::image($data->previewImage(), $data->name, array("width" => 75))',
                 'type'   => 'html'
-            ),
-            array(
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'name',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/gallery/galleryBackend/inline'),
                     'mode'   => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'description',
                 'value'    => 'trim(strip_tags($data->description))',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/gallery/galleryBackend/inline'),
                     'type'   => 'textarea',
                     'title'  => Yii::t(
                         'GalleryModule.gallery',
                         'Select {field}',
-                        array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                        ['{field}' => mb_strtolower($model->getAttributeLabel('description'))]
                     ),
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'description', ['class' => 'form-control']),
+            ],
+            [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',
                 'url'     => $this->createUrl('/gallery/galleryBackend/inline'),
@@ -114,29 +114,29 @@ $this->menu = array(
                     Gallery::STATUS_PRIVATE  => ['class' => 'label-warning'],
                     Gallery::STATUS_PUBLIC   => ['class' => 'label-success'],
                 ],
-            ),
-            array(
+            ],
+            [
                 'name'   => 'owner',
                 'filter' => $model->getUsersList(),
                 'value'  => '$data->ownerName',
-            ),
-            array(
+            ],
+            [
                 'name'   => 'imagesCount',
                 'value'  => 'CHtml::link($data->imagesCount, array("/gallery/galleryBackend/images", "id" => $data->id))',
                 'type'   => 'raw',
                 'filter' => false
-            ),
-            array(
-                'class'    => 'bootstrap.widgets.TbButtonColumn',
+            ],
+            [
+                'class'    => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{images}{update}{delete}',
-                'buttons'  => array(
-                    'images' => array(
-                        'icon'  => 'picture',
+                'buttons'  => [
+                    'images' => [
+                        'icon'  => 'fa fa-fw fa-picture-o',
                         'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
                         'url'   => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
-                    ),
-                ),
-            ),
-        ),
-    )
+                    ],
+                ],
+            ],
+        ],
+    ]
 ); ?>

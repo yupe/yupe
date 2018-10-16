@@ -11,11 +11,11 @@ Yii::app()->clientScript->registerScript(
     CClientScript::POS_BEGIN
 );
 
-$this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
-    CHtml::encode($post->blog->name)   => array('/blog/blog/show/', 'slug' => CHtml::encode($post->blog->slug)),
-    CHtml::encode($post->title),
-);
+$this->breadcrumbs = [
+    Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index/'],
+    CHtml::encode($post->blog->name)   => ['/blog/blog/show/', 'slug' => CHtml::encode($post->blog->slug)],
+    $post->title,
+];
 ?>
 
 <div class="post">
@@ -28,10 +28,10 @@ $this->breadcrumbs = array(
                     <i class="glyphicon glyphicon-pencil"></i>
                     <?php echo CHtml::link(
                         CHtml::encode($post->blog->name),
-                        array(
+                        [
                             '/blog/blog/show/',
                             'slug' => Chtml::encode($post->blog->slug)
-                        )
+                        ]
                     ); ?>
                 </span>
                 <span>
@@ -46,7 +46,7 @@ $this->breadcrumbs = array(
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="post">
             <p>
                 <?php if ($post->image): ?>
                     <?php echo CHtml::image($post->getImageUrl()); ?>
@@ -62,18 +62,46 @@ $this->breadcrumbs = array(
             <i class='glyphicon glyphicon-globe'></i> <?php echo CHtml::link(
                 $post->link,
                 $post->link,
-                array('target' => '_blank', 'rel' => 'nofollow')
+                ['target' => '_blank', 'rel' => 'nofollow']
             ); ?>
         </div>
     <?php endif; ?>
 
-    <?php $this->widget('blog.widgets.PostMetaWidget', array('post' => $post)); ?>
+    <?php $this->widget('blog.widgets.PostMetaWidget', ['post' => $post]); ?>
 
 </div>
 
 <br/>
 
-<?php $this->widget('blog.widgets.SimilarPostsWidget', array('post' => $post)); ?>
+<div class="post-author">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <?php echo CHtml::link(
+                        $this->widget(
+                            'application.modules.user.widgets.AvatarWidget',
+                            ['user' => $post->createUser, 'noCache' => true, 'imageHtmlOptions' => ['width' => 100, 'height' => 100]],
+                            true
+                        ),
+                        ['/user/people/userInfo/', 'username' => $post->createUser->nick_name]
+                    ); ?>
+                </div>
+                <div class="col-sm-10">
+                    <h4><?= Yii::t('BlogModule.blog', 'About author'); ?></h4>
+                    <p>
+                        <strong><?= $post->createUser->getFullName(); ?></strong>
+                    </p>
+                    <blockquote>
+                        <?= $post->createUser->about; ?>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php $this->widget('blog.widgets.SimilarPostsWidget', ['post' => $post]); ?>
 
 <?php $this->widget('application.modules.blog.widgets.ShareWidget'); ?>
 
@@ -84,22 +112,41 @@ $this->breadcrumbs = array(
     <?php
     $this->widget(
         'application.modules.comment.widgets.CommentsListWidget',
-        array(
+        [
             'model'    => $post,
             'modelId'  => $post->id
-        )
+        ]
     );
     ?>
 
     <?php
     $this->widget(
         'application.modules.comment.widgets.CommentFormWidget',
-        array(
-            'redirectTo' => $this->createUrl('/blog/post/show/', array('slug' => $post->slug)),
+        [
+            'redirectTo' => $this->createUrl('/blog/post/show/', ['slug' => $post->slug]),
             'model'      => $post,
             'modelId'    => $post->id,
-        )
+        ]
     );
     ?>
 
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#post img').addClass('img-responsive');
+        $('pre').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+
+<?php $this->widget('application.modules.image.widgets.colorbox.ColorBoxWidget', ['targets' => [
+        '#post img' => [
+          'maxWidth' => 1200,
+          'maxHeight' => 800,
+          'href' => new CJavaScriptExpression("js:function(){
+                    return $(this).prop('src');
+                }")
+            ]
+    ]]);?>

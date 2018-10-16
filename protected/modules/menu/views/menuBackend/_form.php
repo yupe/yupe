@@ -21,12 +21,12 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'menu-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 ); ?>
 <div class="alert alert-info">
     <?php echo Yii::t('MenuModule.menu', 'Fields with'); ?>
@@ -41,15 +41,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'name',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('name'),
                         'data-content'        => $model->getAttributeDescription('name'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -58,15 +58,15 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldGroup(
             $model,
             'code',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('code'),
                         'data-content'        => $model->getAttributeDescription('code'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -75,15 +75,15 @@ $form = $this->beginWidget(
         <?php echo $form->textAreaGroup(
             $model,
             'description',
-            array(
-                'widgetOptions' => array(
-                    'htmlOptions' => array(
+            [
+                'widgetOptions' => [
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('description'),
                         'data-content'        => $model->getAttributeDescription('description'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -93,16 +93,16 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data'        => $model->getStatusList(),
-                    'htmlOptions' => array(
+                    'htmlOptions' => [
                         'class'               => 'popover-help',
                         'data-original-title' => $model->getAttributeLabel('status'),
                         'data-content'        => $model->getAttributeDescription('status'),
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         ); ?>
     </div>
 </div>
@@ -110,27 +110,27 @@ $form = $this->beginWidget(
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and continue') : Yii::t(
                 'MenuModule.menu',
                 'Save menu and continue'
             ),
-    )
+    ]
 ); ?>
 
 <?php
 $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu and close') : Yii::t(
                 'MenuModule.menu',
                 'Save menu and close'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

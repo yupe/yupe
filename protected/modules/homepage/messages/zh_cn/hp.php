@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Please activate "Blogs" or/and "Pages" module' => '请激活"博客"或"页面"模块',
     'Andrey Opeykin'                                => 'Boon Xiong',
     'Home page'                                     => '主页',
@@ -30,4 +30,4 @@ return array(
     'Records'                                       => '记录',
     'Pages'                                         => '页面',
     'read...'                                       => '更多...',
-);
+];

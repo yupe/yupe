@@ -113,7 +113,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         if (!empty($oldRoots)) {
             echo "Selecting models which contains comments -> [OK]\n";
             foreach ($oldRoots as &$root) {
-                $insert = array(
+                $insert = [
                     "model"         => $root["model"],
                     "model_id"      => $root["model_id"],
                     "status"        => Comment::STATUS_APPROVED,
@@ -124,7 +124,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
                     "text"          => "root",
                     "ip"            => "",
                     "creation_date" => "1970-01-01 00:00:00"
-                );
+                ];
                 $db->createCommand()->insert("{{comment_comment}}", $insert);
             }
         } else {
@@ -141,7 +141,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
             ->queryAll();
 
         // Генерируем массив идентификаторов корней деревьев комментариев.
-        $rootParents = array();
+        $rootParents = [];
         if (!empty($newRoots)) {
             foreach ($newRoots as &$newroot) {
                 $rootParents[$newroot["model"] . $newroot["model_id"]] = $newroot["id"];
@@ -159,13 +159,13 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         foreach ($roots as &$root) {
             $db->createCommand()->update(
                 '{{comment_comment}}',
-                array('parent_id' => $rootParents[$root["model"] . $root["model_id"]]),
+                ['parent_id' => $rootParents[$root["model"] . $root["model_id"]]],
                 "id='{$root["id"]}'"
             );
         }
 
         // Убираем лишний текст из коренных элементов деревьев.
-        $db->createCommand()->update('{{comment_comment}}', array('text' => ""), "text='root'");
+        $db->createCommand()->update('{{comment_comment}}', ['text' => ""], "text='root'");
     }
 
     protected function buildNestedSetsTree()

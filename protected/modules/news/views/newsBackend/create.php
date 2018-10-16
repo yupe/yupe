@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('NewsModule.news', 'News') => array('/news/newsBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('NewsModule.news', 'News') => ['/news/newsBackend/index'],
     Yii::t('NewsModule.news', 'Create'),
-);
+];
 
 $this->pageTitle = Yii::t('NewsModule.news', 'News - create');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('NewsModule.news', 'News management'),
-        'url'   => array('/news/newsBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/news/newsBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('NewsModule.news', 'Create article'),
-        'url'   => array('/news/newsBackend/create')
-    ),
-);
+        'url'   => ['/news/newsBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -26,4 +26,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model, 'languages' => $languages)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model, 'languages' => $languages]); ?>

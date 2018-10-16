@@ -6,6 +6,14 @@
  */
 class ModulesBackendController extends yupe\components\controllers\BackController
 {
+    public function accessRules()
+    {
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['deny',],
+        ];
+    }
+
     /**
      *
      */
@@ -53,7 +61,7 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
         } /**
          * Если статус неизвестен - ошибка:
          **/
-        elseif (!isset($status) || !in_array($status, array(0, 1, 2))) {
+        elseif (!isset($status) || !in_array($status, [0, 1, 2])) {
             Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Status for handler is no set!'));
         }
 
@@ -94,7 +102,7 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
                                 'There is en error when trying to update "{n}" file module!',
                                 $name
                             );
-                        Yii::app()->user->setFlash(
+                        Yii::app()->getUser()->setFlash(
                             $result ? yupe\widgets\YFlashMessages::SUCCESS_MESSAGE : yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                             $message
                         );
@@ -103,7 +111,7 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
                         $message = Yii::t('YupeModule.yupe', 'Unknown action was checked!');
                         break;
                 }
-                if (in_array($status, array(0, 1, 2))) {
+                if (in_array($status, [0, 1, 2])) {
                     Yii::app()->getCache()->clear($name);
                 }
             } catch (Exception $e) {

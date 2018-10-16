@@ -21,7 +21,7 @@ class NewCommentListener
         $spamField = $event->getUser()->getState('spamField');
 
         if(null === $event->getRequest()->getPost($spamField) || $event->getRequest()->getPost($spamField) != $event->getUser()->getState('spamFieldValue')) {
-            Yii::log(sprintf('Comment spam (js) by user_d = "%s" ', $event->getUser()->getId()), CLogger::LEVEL_ERROR);
+            Yii::log(sprintf('Comment spam (js) by user_d = "%s" Wait for %s but get %s', $event->getUser()->getId(), $event->getUser()->getState('spamFieldValue'), $event->getRequest()->getPost($spamField)), CLogger::LEVEL_ERROR);
             throw new CException('Spam !');
         }
 
@@ -37,10 +37,6 @@ class NewCommentListener
 
         Yii::log(sprintf('Success add comment by user_id =  "%s" ', $user->getId()), CLogger::LEVEL_INFO);
 
-        if (!Yii::app()->hasModule('mail')) {
-            return false;
-        }
-
         $comment = $event->getComment();
 
         $module = $event->getModule();
@@ -53,21 +49,6 @@ class NewCommentListener
             'Comment::Comment::spam::' . $user->getId(),
             time(),
             (int)$module->antiSpamInterval
-        );
-
-        return Yii::app()->mail->send(
-            $comment->email,
-            $module->email,
-            Yii::t(
-                'CommentModule.comment',
-                'New post was created on site "{app}"!',
-                array('{app}' => Chtml::encode(Yii::app()->name))
-            ),
-            Yii::app()->getController()->renderPartial(
-                'comment-notify-email',
-                ['model' => $event->getComment()],
-                true
-            )
         );
     }
 }

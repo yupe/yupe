@@ -21,7 +21,7 @@ class m000000_000000_image_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{image_image}}',
-            array(
+            [
                 'id'            => 'pk',
                 'category_id'   => 'integer DEFAULT NULL',
                 'parent_id'     => 'integer DEFAULT NULL',
@@ -33,7 +33,7 @@ class m000000_000000_image_base extends yupe\components\DbMigration
                 'alt'           => 'varchar(250) NOT NULL',
                 'type'          => "integer NOT NULL DEFAULT '0'",
                 'status'        => "integer NOT NULL DEFAULT '1'",
-            ),
+            ],
             $this->getOptions()
         );
 

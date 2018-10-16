@@ -28,7 +28,7 @@
             <td><?php echo CHtml::link(
                     Yii::t('YupeModule.yupe', 'read on site'),
                     "http://yupe.ru/docs/{$module->id}/index.html?from=modinfowidget",
-                    array('target' => '_blank')
+                    ['target' => '_blank']
                 ); ?></td>
         </tr>
     </table>

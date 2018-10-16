@@ -15,7 +15,7 @@ use yupe\components\WebModule;
 
 class UserModule extends WebModule
 {
-    const VERSION = '0.8.1';
+    const VERSION = '0.9.3';
 
     public $accountActivationSuccess = '/user/account/login';
     public $accountActivationFailure = '/user/account/registration';
@@ -38,12 +38,12 @@ class UserModule extends WebModule
     public $avatarsDir = 'avatars';
     public $avatarMaxSize = 10000;
     public $defaultAvatarPath = 'images/avatar.png';
-    public $avatarExtensions = array('jpg', 'png', 'gif');
+    public $avatarExtensions = 'jpg,png,gif,jpeg';
     public $usersPerPage = 20;
     public $badLoginCount = 3;
 
     public static $logCategory = 'application.modules.user';
-    public $profiles = array();
+    public $profiles = [];
 
     private $defaultAvatar;
 
@@ -65,45 +65,45 @@ class UserModule extends WebModule
 
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
 
         if (!$this->avatarsDir) {
-            $messages[WebModule::CHECK_ERROR][] = array(
+            $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                         'UserModule.user',
                         'Please, choose avatars directory! {link}',
-                        array(
+                        [
                             '{link}' => CHtml::link(
                                     Yii::t('UserModule.user', 'Edit module settings'),
-                                    array(
+                                    [
                                         '/yupe/backend/modulesettings/',
                                         'module' => $this->id,
-                                    )
+                                    ]
                                 ),
-                        )
+                        ]
                     ),
-            );
+            ];
         }
 
         if (!is_dir($this->getUploadPath()) || !is_writable($this->getUploadPath())) {
-            $messages[WebModule::CHECK_ERROR][] = array(
+            $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                         'UserModule.user',
                         'Directory is not accessible "{dir}" for write or not exists! {link}',
-                        array(
+                        [
                             '{dir}'  => $this->getUploadPath(),
                             '{link}' => CHtml::link(
                                     Yii::t('UserModule.user', 'Edit module settings'),
-                                    array(
+                                    [
                                         '/yupe/backend/modulesettings/',
                                         'module' => $this->id,
-                                    )
+                                    ]
                                 ),
-                        )
+                        ]
                     ),
-            );
+            ];
         }
 
         return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
@@ -111,7 +111,7 @@ class UserModule extends WebModule
 
     public function getParamsLabels()
     {
-        return array(
+        return [
             'adminMenuOrder'           => Yii::t('UserModule.user', 'Menu items order'),
             'accountActivationSuccess' => Yii::t('UserModule.user', 'Page after account activation'),
             'accountActivationFailure' => Yii::t('UserModule.user', 'Page after activation error'),
@@ -127,6 +127,7 @@ class UserModule extends WebModule
             'minCaptchaLength'         => Yii::t('UserModule.user', 'Minimum captcha length'),
             'maxCaptchaLength'         => Yii::t('UserModule.user', 'Maximum captcha length'),
             'documentRoot'             => Yii::t('UserModule.user', 'Server root'),
+            'avatarExtensions'         => Yii::t('UserModule.user', 'Avatar extensions'),
             'avatarsDir'               => Yii::t('UserModule.user', 'Directory for avatar uploading'),
             'avatarMaxSize'            => Yii::t('UserModule.user', 'Maximum avatar size'),
             'defaultAvatarPath'        => Yii::t('UserModule.user', 'Empty avatar'),
@@ -138,13 +139,14 @@ class UserModule extends WebModule
                 ),
             'usersPerPage'             => Yii::t('UserModule.user', 'Users per page'),
             'badLoginCount'            => Yii::t('UserModule.user', 'Number of login attempts')
-        );
+        ];
     }
 
     public function getEditableParams()
     {
-        return array(
+        return [
             'avatarMaxSize',
+            'avatarExtensions',
             'defaultAvatarPath',
             'avatarsDir',
             'showCaptcha'              => $this->getChoice(),
@@ -166,30 +168,31 @@ class UserModule extends WebModule
             'usersPerPage',
             'emailAccountVerification' => $this->getChoice(),
             'badLoginCount'
-        );
+        ];
     }
 
     public function getEditableParamsGroups()
     {
-        return array(
-            'main'      => array(
+        return [
+            'main'      => [
                 'label' => Yii::t('UserModule.user', 'General module settings'),
-                'items' => array(
+                'items' => [
                     'adminMenuOrder',
                     'sessionLifeTime'
-                )
-            ),
-            'avatar'    => array(
+                ]
+            ],
+            'avatar'    => [
                 'label' => Yii::t('UserModule.user', 'Avatar'),
-                'items' => array(
+                'items' => [
+                    'avatarExtensions',
                     'avatarsDir',
                     'avatarMaxSize',
                     'defaultAvatarPath'
-                )
-            ),
-            'security'  => array(
+                ]
+            ],
+            'security'  => [
                 'label' => Yii::t('UserModule.user', 'Security settings'),
-                'items' => array(
+                'items' => [
                     'registrationDisabled',
                     'recoveryDisabled',
                     'emailAccountVerification',
@@ -197,28 +200,28 @@ class UserModule extends WebModule
                     'autoRecoveryPassword',
                     'recoveryDisabled',
                     'badLoginCount'
-                )
-            ),
-            'captcha'   => array(
+                ]
+            ],
+            'captcha'   => [
                 'label' => Yii::t('UserModule.user', 'Captcha settings'),
-                'items' => array(
+                'items' => [
                     'showCaptcha',
                     'minCaptchaLength',
                     'maxCaptchaLength'
-                )
-            ),
-            'redirects' => array(
+                ]
+            ],
+            'redirects' => [
                 'label' => Yii::t('UserModule.user', 'Redirecting'),
-                'items' => array(
+                'items' => [
                     'logoutSuccess',
                     'loginSuccess',
                     'accountActivationSuccess',
                     'accountActivationFailure',
                     'loginAdminSuccess',
                     'registrationSuccess'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     public function getAdminPageLink()
@@ -228,25 +231,25 @@ class UserModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('label' => Yii::t('UserModule.user', 'Users')),
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        return [
+            ['label' => Yii::t('UserModule.user', 'Users')],
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Manage users'),
-                'url'   => array('/user/userBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/user/userBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('UserModule.user', 'Create user'),
-                'url'   => array('/user/userBackend/create')
-            ),
-            array('label' => Yii::t('UserModule.user', 'Tokens')),
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'url'   => ['/user/userBackend/create']
+            ],
+            ['label' => Yii::t('UserModule.user', 'Tokens')],
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Token list'),
-                'url'   => array('/user/tokensBackend/index')
-            ),
-        );
+                'url'   => ['/user/tokensBackend/index']
+            ],
+        ];
     }
 
     public function getIsInstallDefault()
@@ -296,34 +299,34 @@ class UserModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-user';
+        return 'fa fa-fw fa-user';
     }
 
     public function getConditions()
     {
-        return array(
-            'isAuthenticated' => array(
+        return [
+            'isAuthenticated' => [
                 'name'      => Yii::t('UserModule.user', 'Authorized'),
                 'condition' => Yii::app()->user->isAuthenticated(),
-            ),
-            'isSuperUser'     => array(
+            ],
+            'isSuperUser'     => [
                 'name'      => Yii::t('UserModule.user', 'Administrator'),
                 'condition' => Yii::app()->user->isSuperUser(),
-            ),
-        );
+            ],
+        ];
     }
 
     public function init()
     {
         $this->setImport(
-            array(
+            [
                 'user.models.*',
                 'user.events.*',
                 'user.listeners.*',
                 'user.components.*',
                 'user.widgets.AvatarWidget',
                 'yupe.YupeModule'
-            )
+            ]
         );
 
         parent::init();
@@ -331,81 +334,81 @@ class UserModule extends WebModule
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'User.UserManager',
                 'description' => Yii::t('UserModule.user', 'Manage users'),
                 'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
+                'items'       => [
                     //users
-                    array(
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.Create',
                         'description' => Yii::t('UserModule.user', 'Creating user')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.Delete',
                         'description' => Yii::t('UserModule.user', 'Removing user')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.Index',
                         'description' => Yii::t('UserModule.user', 'List of users')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.Update',
                         'description' => Yii::t('UserModule.user', 'Editing users')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.Inline',
                         'description' => Yii::t('UserModule.user', 'Editing users')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.View',
                         'description' => Yii::t('UserModule.user', 'Viewing users')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.UserBackend.Changepassword',
                         'description' => Yii::t('UserModule.user', 'Change password')
-                    ),
+                    ],
                     //tokens
-                    array(
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.TokensBackend.Delete',
                         'description' => Yii::t('UserModule.user', 'Removing user token')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.TokensBackend.Index',
                         'description' => Yii::t('UserModule.user', 'List of user tokens')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.TokensBackend.Update',
                         'description' => Yii::t('UserModule.user', 'Editing user tokens')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.TokensBackend.Inline',
                         'description' => Yii::t('UserModule.user', 'Editing user tokens')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'User.TokensBackend.View',
                         'description' => Yii::t('UserModule.user', 'Viewing user tokens')
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 
     /**
-     * Возвращает аватар по умолчанию из текущей темы (web/images/avatar.png)
+     * Возвращает аватар по умолчанию из текущей темы (<theme_name>/web/images/avatar.png)
      * @since 0.8
      * @return string
      */

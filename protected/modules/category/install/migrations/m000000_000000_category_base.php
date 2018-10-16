@@ -22,7 +22,7 @@ class m000000_000000_category_base extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{category_category}}',
-            array(
+            [
                 'id'                => 'pk',
                 'parent_id'         => 'integer DEFAULT NULL',
                 'alias'             => 'varchar(150) NOT NULL',
@@ -32,7 +32,7 @@ class m000000_000000_category_base extends yupe\components\DbMigration
                 'short_description' => 'text',
                 'description'       => 'text NOT NULL',
                 'status'            => "boolean NOT NULL DEFAULT '1'",
-            ),
+            ],
             $this->getOptions()
         );
 

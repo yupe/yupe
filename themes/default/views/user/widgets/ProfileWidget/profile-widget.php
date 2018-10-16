@@ -12,11 +12,11 @@
                 <?php echo CHtml::link(
                     $this->widget(
                         'application.modules.user.widgets.AvatarWidget',
-                        array('user' => $user, 'noCache' => true),
+                        ['user' => $user, 'noCache' => true, 'imageHtmlOptions' => ['width' => 100, 'height' => 100]],
                         true
                     ),
-                    array('/user/people/userInfo/', 'username' => $user->nick_name),
-                    array('title' => Yii::t('UserModule.user', 'User profile'))
+                    ['/user/people/userInfo/', 'username' => $user->nick_name],
+                    ['title' => Yii::t('UserModule.user', 'User profile')]
                 ); ?>
             </div>
         </div>
@@ -27,15 +27,27 @@
                     <li>
                         <?php $this->widget(
                             'bootstrap.widgets.TbButton',
-                            array(
+                            [
                                 'label'      => Yii::t('UserModule.user', 'Edit profile'),
                                 'icon'       => 'glyphicon glyphicon-pencil',
                                 'buttonType' => 'link',
                                 'context'    => 'link',
-                                'url'        => array('/user/account/profile/'),
-                            )
+                                'url'        => ['/user/profile/profile/'],
+                            ]
                         ); ?>
                     </li>
+                    <?php if(Yii::app()->hasModule('notify')):?>
+                        <?php $this->widget(
+                            'bootstrap.widgets.TbButton',
+                            [
+                                'label'      => Yii::t('UserModule.user', 'Notify settings'),
+                                'icon'       => 'glyphicon glyphicon-pencil',
+                                'buttonType' => 'link',
+                                'context'    => 'link',
+                                'url'        => ['/notify/notify/settings/'],
+                            ]
+                        ); ?>
+                    <?php endif;?>
                     <li>
                         <i class="glyphicon glyphicon-envelope"></i> <?php echo $user->email; ?>
                     </li>

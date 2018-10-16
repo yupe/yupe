@@ -1,7 +1,6 @@
 <?php
 namespace application\modules\social\controllers;
 
-use yupe\components\controllers\FrontController;
 use yupe\widgets\YFlashMessages;
 use application\modules\social\components\UserIdentity;
 use application\modules\social\models\SocialUser;
@@ -13,20 +12,20 @@ use User;
 use RegistrationForm;
 use LoginForm;
 
-class UserController extends FrontController
+class UserController extends \yupe\components\controllers\FrontController
 {
     protected $service;
 
     public function actions()
     {
-        return array(
-            'captcha' => array(
+        return [
+            'captcha' => [
                 'class'     => 'yupe\components\actions\YCaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'testLimit' => 1,
                 'minLength' => Yii::app()->getModule('user')->minCaptchaLength,
-            ),
-        );
+            ],
+        ];
     }
 
     protected function beforeAction($action)
@@ -52,14 +51,14 @@ class UserController extends FrontController
 
                     Yii::app()->getUser()->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('SocialModule.social', 'Вы успешно вошли!')
+                        Yii::t('SocialModule.social', 'You successfully logged in!')
                     );
 
                     $module = Yii::app()->getModule('user');
 
                     $redirect = (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess)
-                        ? array($module->loginAdminSuccess)
-                        : array($module->loginSuccess);
+                        ? [$module->loginAdminSuccess]
+                        : [$module->loginSuccess];
 
                     Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
@@ -75,22 +74,22 @@ class UserController extends FrontController
                         YFlashMessages::INFO_MESSAGE,
                         Yii::t(
                             'SocialModule.social',
-                            'Аккаунт с таким адресом уже существует! Войдите если хотите присоединить эту социальную сеть к своему аккаунту.'
+                            'Account with this email address already exists!  Please, login if you want to join this social network to your account.'
                         )
                     );
 
-                    $this->redirect(array('/social/connect', 'service' => $this->service->getServiceName()));
+                    $this->redirect(['/social/connect', 'service' => $this->service->getServiceName()]);
                 }
 
                 Yii::app()->getUser()->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
                         'SocialModule.social',
-                        'Вы успешно авторизовались, пожалуйста, завершите регистрацию!'
+                        'You\'ve successfully logged in, please complete the registration!'
                     )
                 );
 
-                $this->redirect(array('/social/register', 'service' => $this->service->getServiceName()));
+                $this->redirect(['/social/register', 'service' => $this->service->getServiceName()]);
             }
             $this->redirect('/login');
         } catch (EAuthException $e) {
@@ -110,7 +109,7 @@ class UserController extends FrontController
         $module = Yii::app()->getModule('user');
 
         if ($module->registrationDisabled) {
-            throw new CHttpException(404, Yii::t('SocialModule.social', 'requested page was not found!'));
+            throw new CHttpException(404, Yii::t('SocialModule.social', 'Page not found!'));
         }
 
         $form = new RegistrationForm();
@@ -127,21 +126,21 @@ class UserController extends FrontController
                     YFlashMessages::INFO_MESSAGE,
                     Yii::t(
                         'SocialModule.social',
-                        'Аккаунт с таким адресом уже существует! Войдите если хотите присоединить эту социальную сеть к своему аккаунту.'
+                        'Account with this email address already exists!  Please, login if you want to join this social network to your account.'
                     )
                 );
 
-                $this->redirect(array('/social/connect', 'service' => $this->service->getServiceName()));
+                $this->redirect(['/social/connect', 'service' => $this->service->getServiceName()]);
             }
 
             $password = Yii::app()->userManager->hasher->generateRandomPassword();
 
             $form->setAttributes(
-                array(
+                [
                     'password'   => $password,
                     'cPassword'  => $password,
                     'verifyCode' => null
-                )
+                ]
             );
 
             if ($form->validate()) {
@@ -157,11 +156,11 @@ class UserController extends FrontController
                             YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t(
                                 'SocialModule.social',
-                                'Регистрация прошла успешно!'
+                                'Registration is successful!'
                             )
                         );
 
-                        $this->redirect(array($module->registrationSuccess));
+                        $this->redirect([$module->registrationSuccess]);
                     }
                 }
             }
@@ -169,7 +168,7 @@ class UserController extends FrontController
             $form->addError('', Yii::t('SocialModule.social', 'Error!'));
         }
 
-        $this->render('register', array('model' => $form, 'module' => $module));
+        $this->render('register', ['model' => $form, 'module' => $module]);
     }
 
     public function actionConnect()
@@ -207,15 +206,15 @@ class UserController extends FrontController
                         YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t(
                             'SocialModule.social',
-                            'Социальная сеть подключена к вашему аккаунту, теперь вы можете использовать ее для входа.'
+                            'Social network successfully attached to your account, you can use it to log in now.'
                         )
                     );
 
                     $module = Yii::app()->getModule('user');
 
                     $redirect = (Yii::app()->getUser()->isSuperUser() && $module->loginAdminSuccess)
-                        ? array($module->loginAdminSuccess)
-                        : array($module->loginSuccess);
+                        ? [$module->loginAdminSuccess]
+                        : [$module->loginSuccess];
 
                     Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
@@ -223,13 +222,13 @@ class UserController extends FrontController
                 }
             } else {
 
-                $form->addError('hash', Yii::t('SocialModule.social', 'Email or password was typed wrong!'));
+                $form->addError('hash', Yii::t('SocialModule.social', 'Wrong email or password!'));
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), $badLoginCount + 1);
 
             }
         }
 
-        $this->render('connect', array('authData' => $authData, 'model' => $form));
+        $this->render('connect', ['authData' => $authData, 'model' => $form]);
     }
 }

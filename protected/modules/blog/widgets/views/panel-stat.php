@@ -8,7 +8,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#<?= $this->getId(); ?>">
-                    <i class="glyphicon glyphicon-pencil"></i> <?php echo Yii::t('BlogModule.blog', 'Blogs'); ?>
+                    <i class="fa fa-fw fa-pencil"></i> <?php echo Yii::t('BlogModule.blog', 'Blogs'); ?>
                 </a>
                 <span class="badge alert-success"><?php echo $postsCount; ?></span>
                 <span class="badge alert-info"><?php echo $allPostsCnt; ?></span>
@@ -24,8 +24,8 @@
                     <div class="col-sm-2">
                         <?php echo CHtml::link(
                             Yii::t('BlogModule.blog', 'New post'),
-                            array('/blog/postBackend/create'),
-                            array('class' => 'btn btn-success btn-sm')
+                            ['/blog/postBackend/create'],
+                            ['class' => 'btn btn-success btn-sm']
                         ); ?>
                     </div>
                 </div>
@@ -34,31 +34,31 @@
                     <div class="col-sm-8">
                         <?php $this->widget(
                             'bootstrap.widgets.TbExtendedGridView',
-                            array(
+                            [
                                 'id'           => 'post-grid',
                                 'type'         => 'striped condensed',
                                 'dataProvider' => $dataProvider,
                                 'template'     => '{items}',
-                                'htmlOptions'  => array(
+                                'htmlOptions'  => [
                                     'class' => false
-                                ),
-                                'columns'      => array(
-                                    array(
+                                ],
+                                'columns'      => [
+                                    [
                                         'name'  => 'title',
                                         'value' => 'CHtml::link($data->title, array("/blog/postBackend/update","id" => $data->id))',
                                         'type'  => 'html'
-                                    ),
-                                    array(
+                                    ],
+                                    [
                                         'name'   => 'create_date',
                                         'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
                                         'filter' => false
-                                    ),
-                                    array(
+                                    ],
+                                    [
                                         'name'  => 'status',
                                         'value' => '$data->getStatus()',
-                                    ),
-                                ),
-                            )
+                                    ],
+                                ],
+                            ]
                         ); ?>
                     </div>
                     <div class="col-sm-4">

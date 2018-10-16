@@ -1,80 +1,80 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('DictionaryModule.dictionary', 'Dictionaries') => array('/dictionary/dictionaryBackend/index'),
-    $model->name                                          => array(
+$this->breadcrumbs = [
+    Yii::t('DictionaryModule.dictionary', 'Dictionaries') => ['/dictionary/dictionaryBackend/index'],
+    $model->name                                          => [
         '/dictionary/dictionaryBackend/view',
         'id' => $model->id
-    ),
+    ],
     Yii::t('DictionaryModule.dictionary', 'Edit'),
-);
+];
 
 $this->pageTitle = Yii::t('DictionaryModule.dictionary', 'Dictionaries - edit');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'),
-                'url'   => array('/dictionary/dictionaryBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/dictionary/dictionaryBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'),
-                'url'   => array('/dictionary/dictionaryBackend/create')
-            ),
-            array(
+                'url'   => ['/dictionary/dictionaryBackend/create']
+            ],
+            [
                 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary') . ' «' . mb_substr(
                         $model->name,
                         0,
                         32
                     ) . '»'
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-pencil',
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Edit dictionary'),
-                'url'   => array(
+                'url'   => [
                     '/dictionary/dictionaryBackend/update',
                     'id' => $model->id
-                )
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-eye-open',
+                ]
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-eye',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Show dictionary'),
-                'url'   => array(
+                'url'   => [
                     '/dictionary/dictionaryBackend/view',
                     'id' => $model->id
-                )
-            ),
-            array(
-                'icon'        => 'glyphicon glyphicon-trash',
+                ]
+            ],
+            [
+                'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('DictionaryModule.dictionary', 'Remove dictionary'),
                 'url'         => '#',
-                'linkOptions' => array(
-                    'submit'  => array('/dictionary/dictionaryBackend/delete', 'id' => $model->id),
-                    'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+                'linkOptions' => [
+                    'submit'  => ['/dictionary/dictionaryBackend/delete', 'id' => $model->id],
+                    'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
                     'confirm' => Yii::t('DictionaryModule.dictionary', 'Do you really want do delete dictionary?'),
-                )
-            ),
-        )
-    ),
-    array(
+                ]
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('DictionaryModule.dictionary', 'Items'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'),
-                'url'   => array('/dictionary/dictionaryDataBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/dictionary/dictionaryDataBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'),
-                'url'   => array('/dictionary/dictionaryDataBackend/create')
-            ),
-        )
-    ),
-);
+                'url'   => ['/dictionary/dictionaryDataBackend/create']
+            ],
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -83,4 +83,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

@@ -20,7 +20,7 @@ class CommentRssController extends yupe\components\controllers\RssController
 
         $criteria = new CDbCriteria();
         $criteria->order = 't.creation_date DESC';
-        $criteria->params = array();
+        $criteria->params = [];
         $criteria->limit = $limit;
 
         $yupe = Yii::app()->getModule('yupe');
@@ -39,33 +39,33 @@ class CommentRssController extends yupe\components\controllers\RssController
             ->addCondition('model_id = :modelId')
             ->addCondition('t.id<>t.root');
 
-        $criteria->params = array(
+        $criteria->params = [
             ':model'   => $model,
             ':modelId' => $modelId,
-        );
+        ];
 
         $this->data = Comment::model()->cache($yupe->coreCacheTime)->approved()->with('author')->findAll($criteria);
     }
 
     public function actions()
     {
-        return array(
-            'feed' => array(
+        return [
+            'feed' => [
                 'class'       => 'yupe\components\actions\YFeedAction',
                 'data'        => $this->data,
                 'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields'  => array(
+                'itemFields'  => [
                     'author_object'   => false,
                     'author_nickname' => false,
                     'content'         => 'text',
                     'datetime'        => 'creation_date',
                     'link'            => false,
-                    'linkParams'      => array('title' => 'alias'),
+                    'linkParams'      => ['title' => 'alias'],
                     'title'           => false,
                     'updated'         => 'creation_date',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

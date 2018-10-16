@@ -5,25 +5,25 @@
  * @var $this PageBackendController
  * @var $pages array
  */
-$this->breadcrumbs = array(
-    Yii::t('PageModule.page', 'Pages') => array('/page/pageBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('PageModule.page', 'Pages') => ['/page/pageBackend/index'],
     Yii::t('PageModule.page', 'List'),
-);
+];
 
 $this->pageTitle = Yii::t('PageModule.page', 'Pages list');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('PageModule.page', 'Pages list'),
-        'url'   => array('/page/pageBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/page/pageBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('PageModule.page', 'Create page'),
-        'url'   => array('/page/pageBackend/create')
-    ),
-);
+        'url'   => ['/page/pageBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -34,7 +34,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('PageModule.page', 'Find pages'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -54,68 +54,69 @@ $this->menu = array(
     });
 "
     );
-    $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
+    $this->renderPartial('_search', ['model' => $model, 'pages' => $pages]);
     ?>
 </div>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'page-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'sortField'    => 'order',
-        'columns'      => array(
-            array(
+        'columns'      => [
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'title',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/page/pageBackend/inline'),
                     'mode'   => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'title', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'title', ['class' => 'form-control']),
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'slug',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/page/pageBackend/inline'),
                     'mode'   => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'slug', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'slug', ['class' => 'form-control']),
+            ],
+            [
                 'name'   => 'category_id',
                 'value'  => '$data->getCategoryName()',
                 'filter' => CHtml::activeDropDownList(
                     $model,
                     'category_id',
                     Category::model()->getFormattedList(Yii::app()->getModule('page')->mainCategory),
-                    array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                    ['encode' => false, 'empty' => '', 'class' => 'form-control']
                 )
-            ),
-            array(
+            ],
+            [
                 'name'   => 'parent_id',
                 'value'  => '$data->parentName',
                 'filter' => CHtml::listData(Page::model()->findAll(), 'id', 'title')
-            ),
-            array(
+            ],
+            [
                 'name'  => 'order',
                 'type'  => 'raw',
                 'value' => '$this->grid->getUpDownButtons($data)',
-            ),
-            array(
-                'name'   => 'lang',
-                'value'  => '$data->lang',
-                'filter' => $this->yupe->getLanguagesList()
-            ),
-            array(
+            ],
+            [
+                'name'    => 'lang',
+                'value'   => '$data->lang',
+                'filter'  => $this->yupe->getLanguagesList(),
+                'visible' => count($this->yupe->getLanguagesList()) > 1,
+            ],
+            [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',
                 'url'     => $this->createUrl('/page/pageBackend/inline'),
@@ -125,11 +126,11 @@ $this->menu = array(
                     Page::STATUS_MODERATION => ['class' => 'label-warning'],
                     Page::STATUS_DRAFT      => ['class' => 'label-default'],
                 ],
-            ),
-            array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
-            ),
-        ),
-    )
+            ],
+            [
+                'class' => 'yupe\widgets\CustomButtonColumn',
+            ],
+        ],
+    ]
 );
 ?>

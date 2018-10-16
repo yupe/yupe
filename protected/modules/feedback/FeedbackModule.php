@@ -15,9 +15,9 @@ use yupe\components\WebModule;
 
 class FeedbackModule extends WebModule
 {
-    const VERSION = '0.8';
+    const VERSION = '0.9.2';
 
-    public $backEnd = array('DbFeedbackSender', 'EmailFeedbackSender');
+    public $backEnd = ['DbFeedbackSender', 'EmailFeedbackSender'];
     public $emails;
     public $types;
     public $showCaptcha = 0;
@@ -35,16 +35,16 @@ class FeedbackModule extends WebModule
 
     public function getDependencies()
     {
-        return array(
+        return [
             'category',
             'user',
             'mail'
-        );
+        ];
     }
 
     public function getParamsLabels()
     {
-        return array(
+        return [
             'showCaptcha'      => Yii::t('FeedbackModule.feedback', 'Show captcha'),
             'emails'           => Yii::t('FeedbackModule.feedback', 'Message receivers (email, separated by comma)'),
             'notifyEmailFrom'  => Yii::t('FeedbackModule.feedback', 'Email message will be send from'),
@@ -55,12 +55,12 @@ class FeedbackModule extends WebModule
             'mainCategory'     => Yii::t('FeedbackModule.feedback', 'Main messages category'),
             'minCaptchaLength' => Yii::t('FeedbackModule.feedback', 'Minimum captcha length'),
             'maxCaptchaLength' => Yii::t('FeedbackModule.feedback', 'Maximum captcha length'),
-        );
+        ];
     }
 
     public function getEditableParams()
     {
-        return array(
+        return [
             'showCaptcha'      => $this->getChoice(),
             'sendConfirmation' => $this->getChoice(),
             'notifyEmailFrom',
@@ -71,15 +71,15 @@ class FeedbackModule extends WebModule
             'mainCategory'     => CHtml::listData($this->getCategoryList(), 'id', 'name'),
             'minCaptchaLength',
             'maxCaptchaLength'
-        );
+        ];
     }
 
     public function getEditableParamsGroups()
     {
-        return array(
-            'main'    => array(
+        return [
+            'main'    => [
                 'label' => Yii::t('FeedbackModule.feedback', 'General module settings'),
-                'items' => array(
+                'items' => [
                     'sendConfirmation',
                     'notifyEmailFrom',
                     'emails',
@@ -87,88 +87,88 @@ class FeedbackModule extends WebModule
                     'successPage',
                     'cacheTime',
                     'mainCategory'
-                )
-            ),
-            'captcha' => array(
+                ]
+            ],
+            'captcha' => [
                 'label' => Yii::t('FeedbackModule.feedback', 'Captcha settings'),
-                'items' => array(
+                'items' => [
                     'showCaptcha',
                     'minCaptchaLength',
                     'maxCaptchaLength'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
 
         if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(
                     explode(',', $this->emails)
                 ))
         ) {
-            $messages[WebModule::CHECK_ERROR][] = array(
+            $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                         'FeedbackModule.feedback',
                         'Select feedback message email receivers (emails) {link}',
-                        array(
+                        [
                             '{link}' => CHtml::link(
                                     Yii::t('FeedbackModule.feedback', 'Change module settings'),
-                                    array(
+                                    [
                                         '/yupe/backend/modulesettings/',
                                         'module' => $this->id,
-                                    )
+                                    ]
                                 ),
-                        )
+                        ]
                     ),
-            );
+            ];
         }
 
         if (!$this->notifyEmailFrom) {
-            $messages[WebModule::CHECK_ERROR][] = array(
+            $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                         'FeedbackModule.feedback',
                         'Select email which will be display in "From" field {link}',
-                        array(
+                        [
                             '{link}' => CHtml::link(
                                     Yii::t('FeedbackModule.feedback', 'Change module settings'),
-                                    array(
+                                    [
                                         '/yupe/backend/modulesettings/',
                                         'module' => $this->id,
-                                    )
+                                    ]
                                 ),
-                        )
+                        ]
                     ),
-            );
+            ];
         }
 
         $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
 
         if ($count) {
-            $messages[WebModule::CHECK_NOTICE][] = array(
+            $messages[WebModule::CHECK_NOTICE][] = [
                 'type'    => WebModule::CHECK_NOTICE,
                 'message' => Yii::t(
                         'FeedbackModule.feedback',
                         'You have {{count}} ',
-                        array(
+                        [
                             '{{count}}' => $count
-                        )
+                        ]
                     ) . Yii::t(
                         'FeedbackModule.feedback',
                         'new message |new messages |new messages ',
                         $count
                     ) . ' ' . CHtml::link(
                         Yii::t('FeedbackModule.feedback', 'Show and reply?'),
-                        array(
+                        [
                             '/feedback/feedbackBackend/index/',
                             'order'          => 'status.asc',
                             'FeedbBack_sort' => 'status'
-                        )
+                        ]
                     )
-            );
+            ];
         }
 
         return (isset($messages[WebModule::CHECK_ERROR]) || isset($messages[WebModule::CHECK_NOTICE])) ? $messages : true;
@@ -181,23 +181,23 @@ class FeedbackModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        return [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('FeedbackModule.feedback', 'Messages list'),
-                'url'   => array('/feedback/feedbackBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/feedback/feedbackBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('FeedbackModule.feedback', 'Create message'),
-                'url'   => array('/feedback/feedbackBackend/create')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-folder-open',
+                'url'   => ['/feedback/feedbackBackend/create']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('FeedbackModule.feedback', 'Messages categories'),
-                'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
-            ),
-        );
+                'url'   => ['/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory]
+            ],
+        ];
     }
 
     public function getName()
@@ -237,7 +237,7 @@ class FeedbackModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-retweet';
+        return 'fa fa-fw fa-retweet';
     }
 
     /**
@@ -255,10 +255,10 @@ class FeedbackModule extends WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'feedback.models.*',
                 'feedback.components.*'
-            )
+            ]
         );
 
         if (!$this->emails) {
@@ -268,55 +268,55 @@ class FeedbackModule extends WebModule
 
     public function getTypes()
     {
-        return is_array($this->types) ? $this->types : array();
+        return is_array($this->types) ? $this->types : [];
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'Feedback.FeedbackManager',
                 'description' => Yii::t('FeedbackModule.feedback', 'Manage feedback'),
                 'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
-                    array(
+                'items'       => [
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Feedback.FeedbackBackend.Create',
                         'description' => Yii::t('FeedbackModule.feedback', 'Creating feedback')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Feedback.FeedbackBackend.Delete',
                         'description' => Yii::t('FeedbackModule.feedback', 'Removing feedback')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Feedback.FeedbackBackend.Index',
                         'description' => Yii::t('FeedbackModule.feedback', 'List of feedback')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Feedback.FeedbackBackend.Update',
                         'description' => Yii::t('FeedbackModule.feedback', 'Editing feedback')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Feedback.FeedbackBackend.Inline',
                         'description' => Yii::t('FeedbackModule.feedback', 'Editing feedback')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Feedback.FeedbackBackend.View',
                         'description' => Yii::t('FeedbackModule.feedback', 'Viewing feedback')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Feedback.FeedbackBackend.Answer',
                         'description' => Yii::t('FeedbackModule.feedback', 'Answer feedback')
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 
 }

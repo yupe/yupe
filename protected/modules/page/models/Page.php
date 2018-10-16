@@ -45,8 +45,8 @@ class Page extends yupe\models\YModel
 
     /**
      * Returns the static model of the specified AR class.
-     * @param  string $className
-     * @return Page   the static model class
+     * @param string $className
+     * @return Page the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -66,41 +66,44 @@ class Page extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('title, slug, body, lang', 'required', 'on' => array('update', 'insert')),
-            array(
-                'status, is_protected, parent_id, order, category_id',
-                'numerical',
-                'integerOnly' => true,
-                'on'          => array('update', 'insert')
-            ),
-            array('parent_id', 'length', 'max' => 45),
-            array('lang', 'length', 'max' => 2),
-            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
-            array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('title, title_short, slug, keywords, description, layout, view', 'length', 'max' => 150),
-            array('slug', 'yupe\components\validators\YUniqueSlugValidator'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
-            array('title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'),
-            array(
-                'title, title_short, slug, description, keywords',
-                'filter',
-                'filter' => array($obj = new CHtmlPurifier(), 'purify')
-            ),
-            array('slug', 'yupe\components\validators\YSLugValidator'),
-            array(
+        return [
+            ['title, slug, body, lang', 'required', 'on' => ['update', 'insert']],
+            ['status, is_protected, order', 'numerical', 'integerOnly' => true, 'on' => ['update', 'insert']],
+            ['parent_id, category_id', 'numerical', 'integerOnly' => true, 'allowEmpty' => true],
+            ['parent_id, category_id', 'default', 'setOnEmpty' => true, 'value' => null],
+            ['lang', 'length', 'max' => 2],
+            ['lang', 'default', 'value' => Yii::app()->sourceLanguage],
+            ['title, title_short, slug, keywords, description, layout, view', 'length', 'max' => 150],
+            ['slug', 'yupe\components\validators\YUniqueSlugValidator'],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())],
+            ['title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'],
+            ['title, title_short, slug, description, keywords', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['slug', 'yupe\components\validators\YSLugValidator'],
+            [
                 'lang',
                 'match',
                 'pattern' => '/^[a-z]{2}$/',
                 'message' => Yii::t('PageModule.page', 'Bad characters in {attribute} field')
-            ),
-            array(
+            ],
+            [
                 'lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, order, lang',
                 'safe',
                 'on' => 'search'
-            ),
-        );
+            ],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'CTimestampBehavior' => [
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'setUpdateOnCreate' => true,
+                'createAttribute'   => 'creation_date',
+                'updateAttribute'   => 'change_date',
+            ],
+        ];
     }
 
     /**
@@ -108,13 +111,13 @@ class Page extends yupe\models\YModel
      */
     public function relations()
     {
-        return array(
-            'childPages'   => array(self::HAS_MANY, 'Page', 'parent_id'),
-            'parentPage'   => array(self::BELONGS_TO, 'Page', 'parent_id'),
-            'author'       => array(self::BELONGS_TO, 'User', 'user_id'),
-            'changeAuthor' => array(self::BELONGS_TO, 'User', 'change_user_id'),
-            'category'     => array(self::BELONGS_TO, 'Category', 'category_id'),
-        );
+        return [
+            'childPages'   => [self::HAS_MANY, 'Page', 'parent_id'],
+            'parentPage'   => [self::BELONGS_TO, 'Page', 'parent_id'],
+            'author'       => [self::BELONGS_TO, 'User', 'user_id'],
+            'changeAuthor' => [self::BELONGS_TO, 'User', 'change_user_id'],
+            'category'     => [self::BELONGS_TO, 'Category', 'category_id'],
+        ];
     }
 
     /**
@@ -122,7 +125,7 @@ class Page extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'             => Yii::t('PageModule.page', 'Id'),
             'parent_id'      => Yii::t('PageModule.page', 'Parent'),
             'category_id'    => Yii::t('PageModule.page', 'Category'),
@@ -142,7 +145,7 @@ class Page extends yupe\models\YModel
             'order'          => Yii::t('PageModule.page', 'Sorting'),
             'layout'         => Yii::t('PageModule.page', 'Layout'),
             'view'           => Yii::t('PageModule.page', 'View')
-        );
+        ];
     }
 
     /**
@@ -150,7 +153,7 @@ class Page extends yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id'             => Yii::t('PageModule.page', 'Page Id.'),
             'parent_id'      => Yii::t('PageModule.page', 'Parent page.'),
             'category_id'    => Yii::t('PageModule.page', 'Category which page connected'),
@@ -188,7 +191,7 @@ class Page extends yupe\models\YModel
             'order'          => Yii::t('PageModule.page', 'Page priority in widgets and menu.'),
             'layout'         => Yii::t('PageModule.page', 'Page layout'),
             'view'           => Yii::t('PageModule.page', 'Page view')
-        );
+        ];
     }
 
     public function beforeValidate()
@@ -206,12 +209,10 @@ class Page extends yupe\models\YModel
 
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression('now()');
-        $this->user_id = Yii::app()->user->getId();
+        $this->change_user_id = Yii::app()->user->getId();
 
         if ($this->isNewRecord) {
-            $this->creation_date = $this->change_date;
-            $this->change_user_id = $this->user_id;
+            $this->user_id = $this->change_user_id;
         }
 
         return parent::beforeSave();
@@ -219,25 +220,25 @@ class Page extends yupe\models\YModel
 
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 'status = :status',
-                'params'    => array('status' => self::STATUS_PUBLISHED),
-            ),
-            'protected' => array(
+                'params'    => ['status' => self::STATUS_PUBLISHED],
+            ],
+            'protected' => [
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array(':is_protected' => self::PROTECTED_YES),
-            ),
-            'public'    => array(
+                'params'    => [':is_protected' => self::PROTECTED_YES],
+            ],
+            'public'    => [
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array(':is_protected' => self::PROTECTED_NO),
-            ),
-        );
+                'params'    => [':is_protected' => self::PROTECTED_NO],
+            ],
+        ];
     }
 
     public function findBySlug($slug)
     {
-        return $this->find('slug = :slug', array(':slug' => trim($slug)));
+        return $this->find('slug = :slug', [':slug' => trim($slug)]);
     }
 
     /**
@@ -248,7 +249,7 @@ class Page extends yupe\models\YModel
     {
         $criteria = new CDbCriteria();
 
-        $criteria->with = array('author', 'changeAuthor');
+        $criteria->with = ['author', 'changeAuthor'];
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('parent_id', $this->parent_id);
@@ -267,20 +268,20 @@ class Page extends yupe\models\YModel
         $criteria->compare('layout', $this->layout);
 
         return new CActiveDataProvider(
-            get_class($this), array(
+            get_class($this), [
                 'criteria' => $criteria,
-                'sort'     => array('defaultOrder' => 't.order DESC, t.creation_date DESC'),
-            )
+                'sort'     => ['defaultOrder' => 't.order DESC, t.creation_date DESC'],
+            ]
         );
     }
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_PUBLISHED  => Yii::t('PageModule.page', 'Published'),
             self::STATUS_DRAFT      => Yii::t('PageModule.page', 'Draft'),
             self::STATUS_MODERATION => Yii::t('PageModule.page', 'On moderation'),
-        );
+        ];
     }
 
     public function getStatus()
@@ -292,10 +293,10 @@ class Page extends yupe\models\YModel
 
     public function getProtectedStatusList()
     {
-        return array(
+        return [
             self::PROTECTED_NO  => Yii::t('PageModule.page', 'no'),
             self::PROTECTED_YES => Yii::t('PageModule.page', 'yes'),
-        );
+        ];
     }
 
     public function getProtectedStatus()
@@ -321,13 +322,13 @@ class Page extends yupe\models\YModel
 
     public function getAllPagesListBySlug($slug = false)
     {
-        $params = array('order' => 't.order DESC, t.creation_date DESC');
+        $params = ['order' => 't.order DESC, t.creation_date DESC'];
         if ($slug) {
-            $params += array(
+            $params += [
                 'condition' => 'slug != :slug',
-                'params'    => array(':slug' => $slug),
+                'params'    => [':slug' => $slug],
                 'group'     => 'slug',
-            );
+            ];
         }
 
         return CHtml::listData($this->findAll($params), 'id', 'title');
@@ -354,6 +355,36 @@ class Page extends yupe\models\YModel
      */
     public function getUrl($absolute = false)
     {
-        return $absolute ? Yii::app()->createAbsoluteUrl('/page/page/show/', array('slug' => $this->slug)) : Yii::app()->createUrl('/page/page/show/', array('slug' => $this->slug));
+        return $absolute ? Yii::app()->createAbsoluteUrl('/page/page/show/', ['slug' => $this->slug]) : Yii::app()->createUrl('/page/page/show/', ['slug' => $this->slug]);
+    }
+
+    /**
+     * Возвращает отформатированный список в соответствии со вложенность страниц.
+     *
+     * @param null|int $parent_id
+     * @param int $level
+     * @param null|array|CDbCriteria $criteria
+     * @return array
+     */
+    public function getFormattedList($parent_id = null, $level = 0, $criteria = null)
+    {
+        if (empty($parent_id)) {
+            $parent_id = null;
+        }
+
+        $models = $this->findAllByAttributes(['parent_id' => $parent_id], $criteria);
+
+        $list = [];
+
+        foreach ($models as $model) {
+
+            $model->title = str_repeat('&emsp;', $level) . $model->title;
+
+            $list[$model->id] = $model->title;
+
+            $list = CMap::mergeArray($list, $this->getFormattedList($model->id, $level + 1, $criteria));
+        }
+
+        return $list;
     }
 }

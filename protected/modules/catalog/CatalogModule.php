@@ -14,7 +14,7 @@ use yupe\components\WebModule;
 
 class CatalogModule extends WebModule
 {
-    const VERSION = '0.8';
+    const VERSION = '0.9.2';
 
     public $uploadPath = 'catalog';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -24,36 +24,36 @@ class CatalogModule extends WebModule
 
     public function getDependencies()
     {
-        return array(
+        return [
             'user',
             'category'
-        );
+        ];
     }
 
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
 
         $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
 
         if (!is_writable($uploadPath)) {
-            $messages[WebModule::CHECK_ERROR][] = array(
+            $messages[WebModule::CHECK_ERROR][] = [
                 'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                         'CatalogModule.catalog',
                         'Directory "{dir}" is not writeable! {link}',
-                        array(
+                        [
                             '{dir}'  => $uploadPath,
                             '{link}' => CHtml::link(
                                     Yii::t('CatalogModule.catalog', 'Change settings'),
-                                    array(
+                                    [
                                         '/yupe/backend/modulesettings/',
                                         'module' => 'catalog',
-                                    )
+                                    ]
                                 ),
-                        )
+                        ]
                     ),
-            );
+            ];
         }
 
         return isset($messages[WebModule::CHECK_ERROR]) ? $messages : true;
@@ -70,7 +70,7 @@ class CatalogModule extends WebModule
 
     public function getEditableParams()
     {
-        return array(
+        return [
             'mainCategory' => CHtml::listData($this->getCategoryList(), 'id', 'name'),
             'uploadPath',
             'adminMenuOrder',
@@ -78,45 +78,45 @@ class CatalogModule extends WebModule
             'allowedExtensions',
             'minSize',
             'maxSize',
-        );
+        ];
     }
 
     public function getParamsLabels()
     {
-        return array(
+        return [
             'mainCategory'      => Yii::t('CatalogModule.catalog', 'Main category of products'),
             'adminMenuOrder'    => Yii::t('CatalogModule.catalog', 'Menu items order'),
             'uploadPath'        => Yii::t(
                     'CatalogModule.catalog',
                     'File uploads directory (relative to {dir})',
-                    array('{dir}' => Yii::app()->getModule("yupe")->uploadPath)
+                    ['{dir}' => Yii::app()->getModule("yupe")->uploadPath]
                 ),
             'editor'            => Yii::t('CatalogModule.catalog', 'Visual editor'),
             'allowedExtensions' => Yii::t('CatalogModule.catalog', 'Accepted extensions (separated by comma)'),
             'minSize'           => Yii::t('CatalogModule.catalog', 'Minimum size (in bytes)'),
             'maxSize'           => Yii::t('CatalogModule.catalog', 'Maximum size (in bytes)'),
-        );
+        ];
     }
 
     public function getNavigation()
     {
-        return array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        return [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('CatalogModule.catalog', 'Product list'),
-                'url'   => array('/catalog/catalogBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/catalog/catalogBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('CatalogModule.catalog', 'Add a product'),
-                'url'   => array('/catalog/catalogBackend/create')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-folder-open',
+                'url'   => ['/catalog/catalogBackend/create']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-folder-open',
                 'label' => Yii::t('CatalogModule.catalog', 'Goods categories'),
-                'url'   => array('/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory)
-            ),
-        );
+                'url'   => ['/category/categoryBackend/index', 'Category[parent_id]' => (int)$this->mainCategory]
+            ],
+        ];
     }
 
     public function getAdminPageLink()
@@ -161,7 +161,7 @@ class CatalogModule extends WebModule
 
     public function getIcon()
     {
-        return 'glyphicon glyphicon-shopping-cart';
+        return 'fa fa-fw fa-shopping-cart';
     }
 
     public function init()
@@ -169,53 +169,53 @@ class CatalogModule extends WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'catalog.models.*',
                 'catalog.components.*',
-            )
+            ]
         );
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'Catalog.CatalogManager',
                 'description' => Yii::t('CatalogModule.catalog', 'Manage catalog'),
                 'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
-                    array(
+                'items'       => [
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Catalog.CatalogBackend.Create',
                         'description' => Yii::t('CatalogModule.catalog', 'Creating good')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Catalog.CatalogBackend.Delete',
                         'description' => Yii::t('CatalogModule.catalog', 'Removing good')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Catalog.CatalogBackend.Index',
                         'description' => Yii::t('CatalogModule.catalog', 'List of goods')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Catalog.CatalogBackend.Update',
                         'description' => Yii::t('CatalogModule.catalog', 'Editing goods')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Catalog.CatalogBackend.Inline',
                         'description' => Yii::t('CatalogModule.catalog', 'Editing goods')
-                    ),
-                    array(
+                    ],
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Catalog.CatalogBackend.View',
                         'description' => Yii::t('CatalogModule.catalog', 'Viewing goods')
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 }

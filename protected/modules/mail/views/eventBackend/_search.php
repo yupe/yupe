@@ -10,11 +10,11 @@
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
-        'htmlOptions' => array('class' => 'well search-form'),
-    )
+        'htmlOptions' => ['class' => 'well search-form'],
+    ]
 ); ?>
 
 <fieldset>
@@ -37,12 +37,12 @@ $form = $this->beginWidget(
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType'  => 'submit',
                 'context'     => 'primary',
                 'encodeLabel' => false,
-                'label'       => '<i class="glyphicon glyphicon-search"></i> ' . Yii::t('MailModule.mail', 'Find')
-            )
+                'label'       => '<i class="fa fa-search"></i> ' . Yii::t('MailModule.mail', 'Find')
+            ]
         ); ?>
     </div>
 </fieldset>

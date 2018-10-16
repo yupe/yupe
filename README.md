@@ -9,12 +9,8 @@
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 [![project status](http://stillmaintained.com/yupe/yupe.png)](http://stillmaintained.com/yupe/yupe)
-
-![Юпи!](http://amylabs.ru/images/yupe.png)
-
-**Внимание! Все pull-request'ы принимаются в [dev ветку](https://github.com/yupe/yupe/tree/dev)** 
-
-**Юпи! — простая и быстрая CMS, написанная на Yiiframework** (http://www.yiiframework.com/)
+[![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
+![Юпи!](http://amylabs.ru/assets/8066f72d/images/Head_browser.png)
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
@@ -22,32 +18,30 @@
 * корпоративные порталы
 * блоги / сообщества
 * каталоги товаров
+* [интернет-магазины](http://yupe-project.ru/ecommerce)
 
 
-**На Юпи! уже работает более 500 проектов, Юпи! активно используются несколькими студиями и [командами разработчиков](http://yupe.ru/pages/friends)**
+На Юпи! работает более 500 проектов, Юпи! активно используют [студии и команды разработчиков](http://yupe-project.ru/pages/friends).
 
-Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yii
+Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x.
 
 [Процесс установки](http://yupe.ru/docs/install.html) очень прост и занимает не более 5 минут!
 
 Удобная и простая панель управления позволяет управлять контентом сайта даже домохозяйке!
 
-Для успешной работы проекта на Юпи! вполне достаточно самого простого (и дешевого) хостинга, минимальные требования:
+Для успешной работы проекта на Юпи! вполне достаточно самого простого и дешевого хостинга, минимальные требования:
 
 
 * PHP >= 5.4
-* Yiiframework >= 1.1.15
-* YiiBooster >= 4.x
-* Nested Set Behavior
-* Imperavi Redactor Widget
-* Yii2-debug
+* Composer
 * MySQL 5.x
 * Apaсhe/Nginx
-* Composer
 
 Ссылки
 ------
-* [Официальный сайт](http://yupe.ru/)
+* [Сообщество](http://yupe.ru/)
+* [Официальный сайт](http://yupe-project.ru/)
+* [Юпи! Market](http://yupe.ru/marketplace)
 * [Чат](http://gitter.im/yupe/yupe)
 * [Блог Юпи!](http://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
@@ -59,13 +53,14 @@
 * [Контакты](http://yupe.ru/contacts)
 * [Как помочь проекту](http://yupe.ru/docs/yupe/assistance.project.html)
 * [twitter](https://twitter.com/#!/YupeCms)
-* Коммерческая [разработка](http://amylabs.ru/yupe/development) и [поддержка](http://amylabs.ru/yupe/support)
+* [Разработка](http://yupe-project.ru/service/development) и [Поддержка](http://yupe-project.ru/service/support)
+
+[![Юпи! Market](http://yupe.ru/uploads/blogs/a0301fdec876e23050ff3d312d97ee88.png)](http://yupe.ru/marketplace)
 
 Возможности
 -----------
 
-Из коробки Вы получаете каркас Yii-приложения, со следующим уже готовым
-функционалом (всё разделено на модули - используйте только то, что необходимо):
+Из коробки Вы получаете каркас Yii-приложения, со следующим функционалом (всё разделено на модули - используйте только то, что необходимо):
 
 * [Регистрация](http://yupe.ru/registration), [аутентификация](http://yupe.ru/login), [восстановление пароля](http://yupe.ru/recovery) ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
 * Управление пользователями (блокировка, активация, редактирование и т.д.) через административный интерфейс ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
@@ -82,6 +77,7 @@
 * Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/albums/5)).
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 * Авторизация через социальные сети (с использованием nodge/yii-eauth)
+* [Интернет-магазин (каталог, корзина, заказы, купоны, платежные системы)](http://yupe-project.ru/ecommerce)
 
 **Если вам не хватает какой-то функциональности - [напишите нам](http://amylabs.ru/contact) и мы Вам обязательно поможем!**
 
@@ -91,9 +87,9 @@
 
 Исходный код, макеты дизайна и вёрстка распространяются по [лицензии BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
 
-Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)
+Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe-project.ru](http://yupe-project.ru)
 
 
-(c) 2010 - 2014 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
+(c) 2012 - 2015 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)  ![Юпи!](http://yupe.ru/web/images/logo.png)
 
-![amyLabs](http://amylabs.ru/images/logo.png)
+![amyLabs](http://amylabs.ru/assets/8066f72d/images/logo1.png)

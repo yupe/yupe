@@ -27,6 +27,6 @@ class MembersOfBlogWidget extends yupe\widgets\YWidget
             $this->blog = Blog::model()->with('members')->findByPk($this->blogId);
         }
 
-        $this->render($this->view, array('model' => $this->blog));
+        $this->render($this->view, ['model' => $this->blog]);
     }
 }

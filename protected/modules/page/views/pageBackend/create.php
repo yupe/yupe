@@ -1,23 +1,23 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('PageModule.page', 'Pages') => array('/page/pageBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('PageModule.page', 'Pages') => ['/page/pageBackend/index'],
     Yii::t('PageModule.page', 'Add page'),
-);
+];
 
 $this->pageTitle = Yii::t('PageModule.page', 'Add page');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('PageModule.page', 'Pages list'),
-        'url'   => array('/page/pageBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
-        'label' => Yii::t('PageModule.page', 'Add page'),
-        'url'   => array('/page/pageBackend/create')
-    ),
-);
+        'url'   => ['/page/pageBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
+        'label' => Yii::t('PageModule.page', 'Create page'),
+        'url'   => ['/page/pageBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -28,11 +28,11 @@ $this->menu = array(
 
 <?php echo $this->renderPartial(
     '_form',
-    array(
+    [
         'menuId'       => $menuId,
         'menuParentId' => $menuParentId,
         'model'        => $model,
         'pages'        => $pages,
         'languages'    => $languages
-    )
+    ]
 ); ?>

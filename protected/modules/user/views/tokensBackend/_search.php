@@ -1,6 +1,6 @@
 <p>
     <a class="btn btn-default btn-sm" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('UserModule.user', 'Find tokens'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -25,26 +25,26 @@
 
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
-        array(
+        [
             'action'      => Yii::app()->createUrl($this->route),
             'method'      => 'POST',
             'type'        => 'vertical',
-            'htmlOptions' => array('class' => 'well'),
-        )
+            'htmlOptions' => ['class' => 'well'],
+        ]
     ); ?>
     <div class="row">
         <div class="col-sm-6">
             <?php echo $form->dropDownListGroup(
                 $model,
                 'user_id',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getUserList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
 
@@ -52,14 +52,14 @@
             <?php echo $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getStatusList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -69,14 +69,14 @@
             <?php echo $form->dropDownListGroup(
                 $model,
                 'type',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getTypeList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
 
@@ -84,14 +84,14 @@
             <?php echo $form->dropDownListGroup(
                 $model,
                 'created',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data'        => $model->getDateList(),
-                        'htmlOptions' => array(
+                        'htmlOptions' => [
                             'empty' => '---',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -99,22 +99,22 @@
     <div class="form-actions">
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'submit',
                 'context'    => 'primary',
-                'icon'       => 'glyphicon glyphicon-search',
+                'icon'       => 'fa fa-search',
                 'label'      => Yii::t('UserModule.user', 'Find tokens'),
-            )
+            ]
         ); ?>
 
         <?php $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'reset',
                 'context'    => 'danger',
-                'icon'       => 'glyphicon glyphicon-remove',
+                'icon'       => 'fa fa-times',
                 'label'      => Yii::t('UserModule.user', 'Reset'),
-            )
+            ]
         ); ?>
     </div>
     <?php $this->endWidget(); ?>

@@ -12,10 +12,10 @@
 <?php $this->pageTitle = $news->title; ?>
 
 <?php
-$this->breadcrumbs = array(
-    Yii::t('NewsModule.news', 'News') => array('/news/news/index/'),
+$this->breadcrumbs = [
+    Yii::t('NewsModule.news', 'News') => ['/news/news/index/'],
     CHtml::encode($news->title)
-);
+];
 ?>
 
 <div class="post">

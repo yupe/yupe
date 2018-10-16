@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'News categories'                                                  => 'Категории новостей',
     'News lists'                                                       => 'Списки новостей',
     'General module settings'                                          => 'Основные настройки модуля',
@@ -121,4 +121,4 @@ return array(
     'Editing news'                                                     => 'Редактирование новостей',
     'Viewing news'                                                     => 'Просмотр новости',
 
-);
+];

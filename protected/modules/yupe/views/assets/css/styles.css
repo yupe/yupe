@@ -16,13 +16,6 @@
     text-decoration: none;
     background: #F3F3F3;
     background-color: #f8f8f8;
-    background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#eeeeee));
-    background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
-    background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
-    background-image: linear-gradient(to bottom, #ffffff, #eeeeee);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);
     border: 1px solid #ddd;
     box-sizing: border-box;
     border-radius: 5px;
@@ -39,13 +32,7 @@
 .shortcuts .shortcut:hover {
     background: #E8E8E8;
     background-color: #f0f0f0;
-    background-image: -moz-linear-gradient(top, #fafafa, #e1e1e1);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#e1e1e1));
-    background-image: -webkit-linear-gradient(top, #fafafa, #e1e1e1);
-    background-image: -o-linear-gradient(top, #fafafa, #e1e1e1);
-    background-image: linear-gradient(to bottom, #fafafa, #e1e1e1);
     background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffafafa', endColorstr='#ffe1e1e1', GradientType=0);
 }
 
 .shortcuts .shortcut:hover .shortcut-icon {
@@ -82,11 +69,9 @@ a.shortcut {
     position: absolute;
     top: 3px;
     right: 3px;
-    padding: 3px 5px;
+    padding: 5px;
     display: block;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+    font-size: 100%;
 }
 
 .shortcut .cn {
@@ -108,7 +93,6 @@ a.shortcut {
 html,
 body {
     height: 100%;
-    min-width: 960px !important;
 }
 
 #overall-wrap {
@@ -118,7 +102,10 @@ body {
 
 .navbar-fixed-top {
     border-bottom: 2px solid #FF9600;
-    min-width: 960px !important;
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+    z-index: 1055;
 }
 
 footer {
@@ -235,9 +222,8 @@ table .button-column {
     white-space: nowrap;
 }
 
-.button-column a {
+.button-column a, td.toggle-column a {
     color: #333;
-    padding-left: 3px;
     text-decoration: none;
 }
 
@@ -274,13 +260,18 @@ table .button-column {
     background: #fff;
 }
 
-.glyphicon {
-    padding-right: 2px;
-}
-
 .nav-tabs {
     margin-bottom: 10px;
 }
+
+input.form-control[type="file"] {
+    background: inherit;
+}
+
+.treeview .checkbox {
+    margin: 0;
+}
+
 
 /* постраничная навигация в гридах */
 .pager-container {
@@ -289,4 +280,18 @@ table .button-column {
 
 .pager-container .pagination {
     margin: 26px 0 0 0;
+}
+
+/* Override redactor styles */
+
+.redactor-toolbar-tooltip {
+    z-index: 1055;
+}
+
+/* Modal */
+.modal-backdrop {
+    z-index: 1057;
+}
+.modal {
+    z-index: 1058;
 }

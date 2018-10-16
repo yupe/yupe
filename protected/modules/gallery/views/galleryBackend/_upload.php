@@ -10,7 +10,7 @@
     <?php echo CHtml::activeTextField(
             $this->model,
             'name',
-            array('value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][name]', 'class' => 'form-control')
+            ['value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][name]', 'class' => 'form-control']
         ) . "\n"; ?>
             </span>
         </td>
@@ -20,7 +20,7 @@
     <?php echo CHtml::activeTextField(
             $this->model,
             'alt',
-            array('value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][alt]', 'class' => 'form-control')
+            ['value' => '{%=file.name%}', 'name' => 'Image[{%=file.name%}][alt]', 'class' => 'form-control']
         ) . "\n"; ?>
             </span>
         </td>
@@ -33,7 +33,7 @@
             </td>
             <td class="start">{% if (!o.options.autoUpload) { %}
                 <button class="btn btn-primary">
-                    <i class="glyphicon glyphicon-upload"></i>
+                    <i class="fa fa-fw fa-upload"></i>
                     <span>{%=locale.fileupload.start%}</span>
                 </button>
             {% } %}</td>
@@ -42,7 +42,7 @@
         {% } %}
         <td class="cancel">{% if (!i) { %}
             <button class="btn btn-warning">
-                <i class="glyphicon glyphicon-ban-circle"></i>
+                <i class="fa fa-fw fa-ban"></i>
                 <span>{%=locale.fileupload.cancel%}</span>
             </button>
         {% } %}</td>

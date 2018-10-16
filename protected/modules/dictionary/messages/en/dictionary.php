@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '*unknown*'                                                   => '',
     '0.2'                                                         => '',
     'id'                                                          => '',
@@ -97,4 +97,4 @@ return array(
     'Record was removed!'                                         => '',
     'Record was updated!'                                         => '',
     'Select {field}'                                              => '',
-);
+];

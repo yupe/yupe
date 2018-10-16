@@ -1,36 +1,36 @@
 <?php
 
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class' => 'application.modules.rbac.RbacModule'
-    ),
-    'import'    => array(
+    ],
+    'import'    => [
         'application.modules.rbac.listeners.AccessControlListener'
-    ),
-    'component' => array(
-        'authManager'   => array(
+    ],
+    'component' => [
+        'authManager'   => [
             'class'           => 'CDbAuthManager',
             'connectionID'    => 'db',
             'assignmentTable' => '{{user_user_auth_assignment}}',
             'itemChildTable'  => '{{user_user_auth_item_child}}',
             'itemTable'       => '{{user_user_auth_item}}',
-        ),
+        ],
         // override core ModuleManager
-        'moduleManager' => array(
+        'moduleManager' => [
             'class' => 'application.modules.rbac.components.ModuleManager'
-        ),
+        ],
         //attach event handlers
-        'eventManager'  => array(
+        'eventManager'  => [
             'class'  => 'yupe\components\EventManager',
-            'events' => array(
+            'events' => [
                 // before backend controllers
-                'yupe.backend.controller.init' => array(
-                    array('AccessControlListener', 'onBackendControllerInit')
-                )
-            )
-        )
-    ),
-    'rules'     => array(
+                'yupe.backend.controller.init' => [
+                    ['AccessControlListener', 'onBackendControllerInit']
+                ]
+            ]
+        ]
+    ],
+    'rules'     => [
         '/backend/rbac/<controller:\w+>/<action:\w+>/<id:[\w._-]+>' => 'rbac/<controller>Backend/<action>',
-    ),
-);
+    ],
+];

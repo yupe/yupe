@@ -12,7 +12,7 @@
             <span class="label label-info">
                 <?php echo CHtml::link(
                     Yii::t('FeedbackModule.feedback', 'More...'),
-                    array('/feedback/contact/faqView', 'id' => $data->id)
+                    ['/feedback/contact/faqView', 'id' => $data->id]
                 ); ?>
             </span>
         </div>

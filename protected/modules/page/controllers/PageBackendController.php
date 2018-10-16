@@ -16,27 +16,27 @@ class PageBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Page.PageBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Page.PageBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Page.PageBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Page.PageBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Page.PageBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Page.PageBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Page.PageBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Page.PageBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Page.PageBackend.Index']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Page.PageBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Page.PageBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Page.PageBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Page',
-                'validAttributes' => array('title', 'slug', 'status', 'title_short')
-            )
-        );
+                'validAttributes' => ['title', 'slug', 'status', 'title_short']
+            ]
+        ];
     }
 
     /**
@@ -53,7 +53,7 @@ class PageBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -105,7 +105,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     $this->redirect(
                         (array)Yii::app()->getRequest()->getPost(
                             'submit-type',
-                            array('create')
+                            ['create']
                         )
                     );
                 }
@@ -129,7 +129,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     Yii::t('PageModule.page', 'Targeting page was not found!')
                 );
 
-                $this->redirect(array('index'));
+                $this->redirect(['index']);
             }
 
             if (!array_key_exists($lang, $languages)) {
@@ -138,7 +138,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     Yii::t('PageModule.page', 'Language was not found!')
                 );
 
-                $this->redirect(array('index'));
+                $this->redirect(['index']);
             }
 
             Yii::app()->user->setFlash(
@@ -146,9 +146,9 @@ class PageBackendController extends yupe\components\controllers\BackController
                 Yii::t(
                     'PageModule.page',
                     'You add translation for {lang}',
-                    array(
+                    [
                         '{lang}' => $languages[$lang]
-                    )
+                    ]
                 )
             );
 
@@ -166,13 +166,13 @@ class PageBackendController extends yupe\components\controllers\BackController
 
         $this->render(
             'create',
-            array(
+            [
                 'model'        => $model,
-                'pages'        => Page::model()->getAllPagesList(),
+                'pages'        => Page::model()->getFormattedList(),
                 'languages'    => $languages,
                 'menuId'       => $menuId,
                 'menuParentId' => $menuParentId
-            )
+            ]
         );
     }
 
@@ -230,7 +230,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
@@ -239,10 +239,11 @@ class PageBackendController extends yupe\components\controllers\BackController
         if (Yii::app()->hasModule('menu')) {
 
             $menuItem = MenuItem::model()->findByAttributes(
-                array(
+                [
                     "title" => $oldTitle
-                )
+                ]
             );
+
 
             if ($menuItem !== null) {
                 $menuId = (int)$menuItem->menu_id;
@@ -253,22 +254,22 @@ class PageBackendController extends yupe\components\controllers\BackController
         // найти по slug страницы на других языках
         $langModels = Page::model()->findAll(
             'slug = :slug AND id != :id',
-            array(
+            [
                 ':slug' => $model->slug,
                 ':id'   => $model->id
-            )
+            ]
         );
 
         $this->render(
             'update',
-            array(
+            [
                 'langModels'   => CHtml::listData($langModels, 'lang', 'id'),
                 'model'        => $model,
-                'pages'        => Page::model()->getAllPagesList($model->id),
+                'pages'        => Page::model()->getFormattedList(null, 0, ['condition' => 'id != :id', 'params' => [':id' => $model->id]]),
                 'languages'    => $this->yupe->getLanguagesList(),
                 'menuId'       => $menuId,
                 'menuParentId' => $menuParentId
-            )
+            ]
         );
     }
 
@@ -290,7 +291,7 @@ class PageBackendController extends yupe\components\controllers\BackController
 
             if (Yii::app()->hasModule('menu')) {
 
-                $menuItem = MenuItem::model()->findByAttributes(array("title" => $model->title));
+                $menuItem = MenuItem::model()->findByAttributes(["title" => $model->title]);
 
                 if ($menuItem !== null) {
                     $menuItem->delete();
@@ -331,16 +332,16 @@ class PageBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'Page',
-                array()
+                []
             )
         );
 
         $this->render(
             'index',
-            array(
+            [
                 'model' => $model,
                 'pages' => Page::model()->getAllPagesList(),
-            )
+            ]
         );
     }
 

@@ -6,7 +6,7 @@
 <?php echo Yii::t(
     'UserModule.user',
     'Your account on "{site}" was activated successfully!',
-    array('{site}' => CHtml::encode(Yii::app()->name))
+    ['{site}' => CHtml::encode(Yii::app()->name)]
 ); ?>
 <br/><br/>
 
@@ -19,7 +19,7 @@
 <?php echo Yii::t(
     'UserModule.user',
     'Best regards, "{site}" administration!',
-    array('{site}' => CHtml::encode(Yii::app()->name))
+    ['{site}' => CHtml::encode(Yii::app()->name)]
 ); ?>
 </body>
 </html>

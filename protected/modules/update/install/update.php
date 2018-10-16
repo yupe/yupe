@@ -1,11 +1,14 @@
 <?php
-return array(
-    'module'   => array(
+return [
+    'module'   => [
         'class'  => 'application.modules.update.UpdateModule',
-    ),
-    'component' => array(
-        'updateManager' => array(
+        'panelWidgets' => [
+            'application.modules.update.widgets.PanelUpdateWidget' => []
+        ]
+    ],
+    'component' => [
+        'updateManager' => [
             'class' => 'application\modules\update\components\UpdateManager'
-        )
-    )
-);
+        ]
+    ]
+];

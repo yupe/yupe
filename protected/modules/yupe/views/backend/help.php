@@ -1,8 +1,8 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'Yupe!') => array('settings'),
+$this->breadcrumbs = [
+    Yii::t('YupeModule.yupe', 'Yupe!') => ['settings'],
     Yii::t('YupeModule.yupe', 'Help')
-);
+];
 ?>
 
 <h1><?php echo Yii::t('YupeModule.yupe', 'About Yupe!'); ?></h1>
@@ -36,12 +36,12 @@ $this->breadcrumbs = array(
     <?php echo CHtml::link(
         Yii::t('YupeModule.yupe', 'There is a page for tahnks =)'),
         'http://yupe.ru/pages/help?form=help',
-        array('target' => '_blank')
+        ['target' => '_blank']
     ); ?>
     <p><b>
             <?php echo Yii::t(
                 'YupeModule.yupe',
-                'On business support and development you can always <a href="http://yupe.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/contacts/?form=help" target="_blank">http://yupe.ru/contacts</a>)'
+                'On business support and development you can always <a href="http://yupe-project.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe-project.ru/contacts/?form=help" target="_blank">http://yupe-project.ru/contacts</a>)'
             ); ?>
         </b></p>
 </div>
@@ -49,21 +49,28 @@ $this->breadcrumbs = array(
 <p><b><?php echo Yii::t('YupeModule.yupe', 'Interesting resources:'); ?></b></p>
 
 <?php echo CHtml::link(
-    Yii::t('YupeModule.yupe', 'Read Yii documentation', array('target' => '_blank')),
+    Yii::t('YupeModule.yupe', 'Read Yii documentation', ['target' => '_blank']),
     'http://yiiframework.com/doc/guide/index'
 ); ?>
 <br/><br/>
 
 
 <?php echo CHtml::link(
-    Yii::t('YupeModule.yupe', 'Official Yupe! site', array('target' => '_blank')),
+    Yii::t('YupeModule.yupe', 'Official Yupe! site', ['target' => '_blank']),
+    'http://yupe-project.ru/?form=help'
+); ?> - <?php echo Yii::t('YupeModule.yupe', 'use most!'); ?>
+
+<br/><br/>
+
+<?php echo CHtml::link(
+    Yii::t('YupeModule.yupe', 'Community', ['target' => '_blank']),
     'http://yupe.ru/?form=help'
 ); ?> - <?php echo Yii::t('YupeModule.yupe', 'use most!'); ?>
 
 <br/><br/>
 
 <?php echo CHtml::link(
-    Yii::t('YupeModule.yupe', 'Official Yupe! docs', array('target' => '_blank')),
+    Yii::t('YupeModule.yupe', 'Official Yupe! docs', ['target' => '_blank']),
     'http://yupe.ru/docs/index.html?form=help'
 ); ?> - <?php echo Yii::t(
     'YupeModule.yupe',
@@ -75,7 +82,7 @@ $this->breadcrumbs = array(
 <?php echo CHtml::link(
     Yii::t('YupeModule.yupe', 'Additional modules and components'),
     'https://github.com/yupe/yupe-ext',
-    array('target' => '_blank')
+    ['target' => '_blank']
 ); ?> - <?php echo Yii::t(
     'YupeModule.yupe',
     'Submit an extension!'
@@ -86,7 +93,7 @@ $this->breadcrumbs = array(
 <?php echo CHtml::link(
     Yii::t('YupeModule.yupe', 'Support Yupe! forum'),
     'http://yupe.ru/talk/?form=help',
-    array('target' => '_blank')
+    ['target' => '_blank']
 ); ?> - <?php echo Yii::t('YupeModule.yupe', 'Lest\'s talk!'); ?>
 
 <br/><br/>
@@ -94,7 +101,7 @@ $this->breadcrumbs = array(
 <?php echo CHtml::link(
     Yii::t('YupeModule.yupe', 'Sources on Github'),
     'http://github.com/yupe/yupe/',
-    array('target' => '_blank')
+    ['target' => '_blank']
 ); ?> - <?php echo Yii::t(
     'YupeModule.yupe',
     'Send pull request for us =)'
@@ -105,7 +112,7 @@ $this->breadcrumbs = array(
 <?php echo CHtml::link(
     Yii::t('YupeModule.yupe', 'Official Yupe! twitter'),
     'https://twitter.com/#!/yupe',
-    array('target' => '_blank')
+    ['target' => '_blank']
 ); ?>  - <?php echo Yii::t('YupeModule.yupe', 'Follow us =)'); ?>
 
 <br/><br/>
@@ -113,7 +120,7 @@ $this->breadcrumbs = array(
 <?php echo CHtml::link(
     Yii::t('YupeModule.yupe', 'General sponsor'),
     'http://amylabs.ru?from=yupe-help',
-    array('target' => '_blank')
+    ['target' => '_blank']
 ); ?> - <?php echo Yii::t(
     'YupeModule.yupe',
     'Just great guys =)'
@@ -125,13 +132,13 @@ $this->breadcrumbs = array(
     <?php echo Yii::t(
         'YupeModule.yupe',
         'Feedback at <a href="mailto:team@yupe.ru">team@yupe.ru</a> or {link}',
-        array(
+        [
             '{link}' => CHtml::link(
                     Yii::t('YupeModule.yupe', 'feedback form'),
-                    'http://yupe.ru/contacts?from=help',
-                    array('target' => '_blank')
+                    'http://yupe-project.ru/contacts?from=help',
+                    ['target' => '_blank']
                 )
-        )
+        ]
     ); ?>  - <?php echo Yii::t('YupeModule.yupe', 'accept any kind of business and any proposals =)'); ?>
 </div>
 
@@ -157,28 +164,19 @@ $this->breadcrumbs = array(
     </tr>
     <tr class="odd">
         <th><?php echo Yii::t('YupeModule.yupe', 'Timashov Maxim'); ?></th>
-        <td>apexwire@gmail.com</td>
-    </tr>
-    <tr class="odd">
-        <th><?php echo Yii::t('YupeModule.yupe', 'Tischenko Alexander'); ?></th>
-        <td><?php echo CHtml::link('twitter.com/archaron', 'https://twitter.com/archaron'); ?></td>
-    </tr>
-    <tr class="odd">
-        <th><?php echo Yii::t('YupeModule.yupe', 'Lyzhenkov Alexander'); ?></th>
-        <td><?php echo CHtml::link('lyzhenkov.ru', 'http://lyzhenkov.ru?from=yupe_help'); ?></td>
-    </tr>
-    <tr class="odd">
-        <th><?php echo Yii::t('YupeModule.yupe', 'Elizarov Alexey'); ?></th>
         <td><?php echo CHtml::link('amylabs.ru', 'http://amylabs.ru?from=yupe_help'); ?></td>
     </tr>
+
     <tr class="odd">
-        <th><?php echo Yii::t('YupeModule.yupe', 'Kulikov Engeniy'); ?></th>
-        <td><?php echo CHtml::link('akulikov.org.ua', 'http://akulikov.org.ua?from=yupe_help'); ?></td>
+        <th><?php echo Yii::t('YupeModule.yupe', 'Mihail Chemezov'); ?></th>
+        <td><?php echo CHtml::link('amylabs.ru', 'http://vk.com/m.chemezov'); ?></td>
     </tr>
+
     <tr class="odd">
-        <th><?php echo Yii::t('YupeModule.yupe', 'Cherepanov Anton'); ?></th>
-        <td><?php echo CHtml::link('twitter.com/davetoxa', 'https://twitter.com/davetoxa'); ?></td>
+        <th><?php echo Yii::t('YupeModule.yupe', 'Plaksunov Yuri'); ?></th>
+        <td><?php echo CHtml::link('amylabs.ru', 'http://amylabs.ru?from=yupe_help'); ?></td>
     </tr>
+
 
     </tbody>
 </table>
@@ -186,7 +184,7 @@ $this->breadcrumbs = array(
 <b><?php echo CHtml::link(
         Yii::t('YupeModule.yupe', 'WE ARE WAITING FOR YOU!'),
         'http://yupe.ru/contacts?from=help',
-        array('target' => '_blank')
+        ['target' => '_blank']
     ); ?></b>
 
 <br/><br/>

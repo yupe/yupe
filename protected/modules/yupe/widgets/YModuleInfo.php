@@ -44,6 +44,6 @@ class YModuleInfo extends YWidget
      */
     public function run()
     {
-        $this->render($this->view, array('module' => $this->module));
+        $this->render($this->view, ['module' => $this->module]);
     }
 }

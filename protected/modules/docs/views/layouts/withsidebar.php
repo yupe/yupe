@@ -8,14 +8,16 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
  **/
+$mainAssets = Yii::app()->getTheme()->getAssetsUrl();
+
 $this->beginContent("docs.views.layouts.docs");
 ?>
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-lg-10 col-md-9">
         <!-- breadcrumbs -->
         <?php $this->widget(
             'bootstrap.widgets.TbBreadcrumbs',
-            array('links' => $this->breadcrumbs, 'homeLink' => false)
+            ['links' => $this->breadcrumbs, 'homeLink' => false]
         ); ?>
         <!-- /breadcrumbs -->
         <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
@@ -39,30 +41,78 @@ $this->beginContent("docs.views.layouts.docs");
         <!-- content -->
         <div id="footer-guard"><!-- --></div>
     </div>
-    <div class="col-sm-3">
-        <div class="well">
+    <div class="col-lg-2 col-md-3">
+        <div class="panel panel-default" style="padding: 8px 0;">
             <?php
             $this->widget(
                 'bootstrap.widgets.TbMenu',
-                array(
+                [
                     'type'  => 'list',
                     'items' => $this->module->getArticles(false)
-                )
+                ]
             ); ?>
         </div>
-        <div class="well" style="padding: 8px;"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
+        <div class="panel panel-default" style="padding: 8px;"><?php $this->widget('yupe\widgets\YModuleInfo'); ?></div>
         <div class="alert alert-warning">
             <strong><?php echo Yii::app()->name; ?></strong> разрабатывается <a
                 href="https://github.com/yupe/yupe/graphs/contributors" target="_blank">сообществом</a> при моральной
-            поддержке <?php echo CHtml::link('amyLabs', 'http://amylabs.ru', array('target' => '_blank')); ?>!
+            поддержке <?php echo CHtml::link('amyLabs', 'http://amylabs.ru', ['target' => '_blank']); ?>!
             <strong><?php echo CHtml::link('Напишите нам', 'http://amylabs.ru/contact') ?></strong> при возникновении
             проблем!
         </div>
         <div>
-            <a href="http://amylabs.ru?from=yupe-docs" target="_blank"><?php echo CHtml::image(
-                    'http://yupe.ru/web/images/amyLabs.jpg',
-                    'amylabs - разработка и поддержка проектов на Юпи! и Yiiframework'
-                ); ?></a>
+            <?php $this->widget(
+                'yupe\widgets\RandomDataWidget',
+                [
+                    'data' => [
+                        CHtml::link(
+                            CHtml::image(
+                                $mainAssets . '/images/amylabs.png',
+                                'amylabs - разработка на Юпи! и Yii !',
+                                ['style' => 'width: 100%']
+                            ),
+                            'http://amylabs.ru?from=yupe-rb',
+                            ['title' => 'amylabs - разработка на Юпи! и Yii !', 'target' => '_blank']
+                        ),
+                        CHtml::link(
+                            CHtml::image(
+                                $mainAssets . '/images/yupe-shop.png',
+                                'Разработка и запуск интернет магазина на Yii и "Юпи!"',
+                                ['style' => 'width: 100%']
+                            ),
+                            'http://yupe-project.ru/ecommerce?from=yupe-rb',
+                            ['title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"', 'target' => '_blank']
+                        ),
+                        CHtml::link(
+                            CHtml::image(
+                                $mainAssets . '/images/marketplace.png',
+                                'Каталог модулей и расширений на Yii для "Юпи!"',
+                                ['style' => 'width: 100%']
+                            ),
+                            'http://yupe.ru/marketplace?from=mb1',
+                            ['title' => 'Каталог модулей и расширений на Yii для "Юпи!"', 'target' => '_blank']
+                        ),
+                        CHtml::link(
+                            CHtml::image(
+                                $mainAssets . '/images/marketplace2.png',
+                                'Каталог модулей и расширений на Yii для "Юпи!"',
+                                ['style' => 'width: 100%']
+                            ),
+                            'http://yupe.ru/marketplace?from=mb2',
+                            ['title' => 'Каталог модулей и расширений на Yii для "Юпи!"', 'target' => '_blank']
+                        ),
+                        CHtml::link(
+                            CHtml::image(
+                                $mainAssets . '/images/marketool.png',
+                                'СИСТЕМА АВТОМАТИЧЕСКОГО УПРАВЛЕНИЯ СТАВКАМИ В ЯНДЕКС.МАРКЕТ',
+                                ['style' => 'width: 100%']
+                            ),
+                            'http://marketool.ru?from=yupe-banner',
+                            ['title' => 'СИСТЕМА АВТОМАТИЧЕСКОГО УПРАВЛЕНИЯ СТАВКАМИ В ЯНДЕКС.МАРКЕТ', 'target' => '_blank']
+                        ),
+                    ]
+                ]
+            ); ?>
         </div>
     </div>
 </div>

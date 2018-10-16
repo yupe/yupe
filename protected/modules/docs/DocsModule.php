@@ -12,7 +12,7 @@
  */
 class DocsModule extends yupe\components\WebModule
 {
-    const VERSION = '0.8';
+    const VERSION = '0.9';
 
     public $categorySort = 9999;
     public $docFolder = 'application.modules.docs.guide';
@@ -55,7 +55,7 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getParamsLabels()
     {
-        return array(
+        return [
             'docFolder'       => Yii::t('DocsModule.docs', 'Docs files destination'),
             'moduleDocFolder' => Yii::t(
                     'DocsModule.docs',
@@ -69,7 +69,7 @@ class DocsModule extends yupe\components\WebModule
             'fileExtHTML'     => Yii::t('DocsModule.docs', 'Extensions for HTML files'),
             'cachePages'      => Yii::t('DocsModule.docs', 'Pages caching on filtration level'),
             'staticFiles'     => Yii::t('DocsModule.docs', 'Files need display in control panel'),
-        );
+        ];
     }
 
     /**
@@ -79,18 +79,18 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getEditableParams()
     {
-        return array(
+        return [
             'docFolder',
             'moduleDocFolder',
             'notFoundOn' => $this->notFoundTypes,
             'fileExtMD',
             'fileExtHTML',
-            'cachePages' => array(
+            'cachePages' => [
                 Yii::t('DocsModule.docs', 'Disable'),
                 Yii::t('DocsModule.docs', 'Enable'),
-            ),
+            ],
             'staticFiles'
-        );
+        ];
     }
 
     /**
@@ -100,19 +100,19 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getEditableParamsGroups()
     {
-        return array(
-            'main'  => array(
+        return [
+            'main'  => [
                 'label' => Yii::t('DocsModule.docs', 'General module settings'),
-            ),
-            'files' => array(
+            ],
+            'files' => [
                 'label' => Yii::t('DocsModule.docs', 'Files settings'),
-                'items' => array(
+                'items' => [
                     'fileExtMD',
                     'fileExtHTML',
                     'staticFiles',
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -122,10 +122,10 @@ class DocsModule extends yupe\components\WebModule
      **/
     public function getNotFoundTypes()
     {
-        return array(
+        return [
             0 => Yii::t('DocsModule.docs', 'Show page for language by default'),
             1 => Yii::t('DocsModule.docs', 'Show error'),
-        );
+        ];
     }
 
     /**
@@ -140,24 +140,24 @@ class DocsModule extends yupe\components\WebModule
 
     public function getNavigation()
     {
-        return array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        return [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('DocsModule.docs', 'Show local files'),
-                'url'   => array('/docs/docsBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+                'url'   => ['/docs/docsBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('DocsModule.docs', 'Local docs'),
-                'url'   => array('/docs/show/index')
-            ),
-            array(
-                'icon'        => 'glyphicon glyphicon-globe',
+                'url'   => ['/docs/show/index']
+            ],
+            [
+                'icon'        => 'fa fa-fw fa-globe',
                 'label'       => Yii::t('DocsModule.docs', 'Online docs'),
                 'url'         => 'http://yupe.ru/docs/index.html?from=help',
-                'linkOptions' => array('target' => '_blank')
-            ),
-        );
+                'linkOptions' => ['target' => '_blank']
+            ],
+        ];
     }
 
     /**
@@ -177,7 +177,7 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getAuthor()
     {
-        return Yii::t('DocsModule.docs', 'YupeTeam');
+        return 'yupe team';
     }
 
     /**
@@ -207,7 +207,7 @@ class DocsModule extends yupe\components\WebModule
      */
     public function getIcon()
     {
-        return "glyphicon glyphicon-heart";
+        return "fa fa-fw fa-heart";
     }
 
     /**
@@ -276,150 +276,150 @@ class DocsModule extends yupe\components\WebModule
      **/
     public function getTopMenu()
     {
-        return array(
-            array(
+        return [
+            [
                 'label' => Yii::t('DocsModule.docs', 'Documentation'),
-                'url'   => array('/docs/show/index', 'file' => 'index'),
-                'icon'  => 'glyphicon glyphicon-home',
-            ),
-            array(
+                'url'   => ['/docs/show/index', 'file' => 'index'],
+                'icon'  => 'fa fa-fw fa-home',
+            ],
+            [
                 'label' => Yii::t('DocsModule.docs', 'About Yupe!'),
-                'icon'  => 'glyphicon glyphicon-info-sign',
-                'items' => array(
-                    array(
+                'icon'  => 'fa fa-fw fa-info-circle',
+                'items' => [
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Install'),
-                        'url'   => array('/docs/show/index', 'file' => 'install', 'moduleID' => 'yupe'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'install', 'moduleID' => 'yupe'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Abilities'),
-                        'url'   => array('/docs/show/index', 'file' => 'capability', 'moduleID' => 'yupe'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'capability', 'moduleID' => 'yupe'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Help project'),
-                        'url'   => array('/docs/show/index', 'file' => 'assistance.project', 'moduleID' => 'yupe'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'assistance.project', 'moduleID' => 'yupe'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Team'),
-                        'url'   => array('/docs/show/index', 'file' => 'team', 'moduleID' => 'yupe'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                ),
-            ),
-            array(
+                        'url'   => ['/docs/show/index', 'file' => 'team', 'moduleID' => 'yupe'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                ],
+            ],
+            [
                 'label' => Yii::t('DocsModule.docs', 'For developers'),
-                'icon'  => 'glyphicon glyphicon-th-large',
-                'items' => array(
-                    array(
+                'icon'  => 'fa fa-fw fa-th-large',
+                'items' => [
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Creating module'),
-                        'url'   => array('/docs/show/index', 'file' => 'module.create'),
-                        'icon'  => 'glyphicon glyphicon-file'
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'module.create'],
+                        'icon'  => 'fa fa-fw fa-file'
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Set testing environment'),
-                        'url'   => array('/docs/show/index', 'file' => 'testing'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'testing'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Writing docs'),
-                        'url'   => array('/docs/show/index', 'file' => 'doc.files'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'doc.files'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Problems of CWebUser and Gii module'),
-                        'url'   => array('/docs/show/index', 'file' => 'cwebuser.issues'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'cwebuser.issues'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Optimal APC settings'),
-                        'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Memcached configuration'),
-                        'url'   => array('/docs/show/index', 'file' => 'memcached'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'memcached'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Using userspace settings'),
-                        'url'   => array('/docs/show/index', 'file' => 'userspace.config', 'moduleID' => 'yupe'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'userspace.config', 'moduleID' => 'yupe'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'ConfigManager component'),
-                        'url'   => array('/docs/show/index', 'file' => 'config.manager', 'moduleID' => 'yupe'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'config.manager', 'moduleID' => 'yupe'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'IDE/Editors'),
-                        'icon'  => 'glyphicon glyphicon-th-large',
-                        'items' => array(
-                            array(
+                        'icon'  => 'fa fa-fw fa-th-large',
+                        'items' => [
+                            [
                                 'label' => Yii::t('DocsModule.docs', 'Working in eclipse'),
-                                'url'   => array('/docs/show/index', 'file' => 'editors.eclipse'),
-                                'icon'  => 'glyphicon glyphicon-file',
-                            ),
-                        )
-                    )
-                )
-            ),
-            array(
+                                'url'   => ['/docs/show/index', 'file' => 'editors.eclipse'],
+                                'icon'  => 'fa fa-fw fa-file',
+                            ],
+                        ]
+                    ]
+                ]
+            ],
+            [
                 'label' => Yii::t('DocsModule.docs', 'Components'),
-                'icon'  => 'glyphicon glyphicon-th-large',
-                'items' => array(
-                    array(
+                'icon'  => 'fa fa-fw fa-th-large',
+                'items' => [
+                    [
                         'label' => Yii::t('DocsModule.docs', 'RSS feed generation'),
-                        'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Migrator'),
-                        'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                        'items' => array(
-                            array(
+                        'url'   => ['/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'],
+                        'icon'  => 'fa fa-fw fa-file',
+                        'items' => [
+                            [
                                 'label' => Yii::t('DocsModule.docs', 'Methods description'),
-                                'url'   => array(
+                                'url'   => [
                                     '/docs/show/index',
                                     'file'     => 'migrator.methods',
                                     'moduleID' => 'yupe'
-                                ),
-                                'icon'  => 'glyphicon glyphicon-file'
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            array(
+                                ],
+                                'icon'  => 'fa fa-fw fa-file'
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
                 'label' => Yii::t('DocsModule.docs', 'Modules'),
-                'icon'  => 'glyphicon glyphicon-th-large',
-                'items' => array(
-                    array(
+                'icon'  => 'fa fa-fw fa-th-large',
+                'items' => [
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Blogs'),
-                        'url'   => array('/docs/show/index', 'file' => 'index', 'moduleID' => 'blog'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                    ),
-                    array(
+                        'url'   => ['/docs/show/index', 'file' => 'index', 'moduleID' => 'blog'],
+                        'icon'  => 'fa fa-fw fa-file',
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'Comment'),
-                        'url'   => array('/docs/show/index', 'file' => 'index', 'moduleID' => 'comment'),
-                        'icon'  => 'glyphicon glyphicon-file',
-                        'items' => array(
-                            array(
+                        'url'   => ['/docs/show/index', 'file' => 'index', 'moduleID' => 'comment'],
+                        'icon'  => 'fa fa-fw fa-file',
+                        'items' => [
+                            [
                                 'label' => Yii::t('DocsModule.docs', 'NestedSets'),
-                                'url'   => array('/docs/show/index', 'file' => 'nsmigrate', 'moduleID' => 'comment')
-                            )
-                        )
-                    ),
-                    array(
+                                'url'   => ['/docs/show/index', 'file' => 'nsmigrate', 'moduleID' => 'comment']
+                            ]
+                        ]
+                    ],
+                    [
                         'label' => Yii::t('DocsModule.docs', 'ZendSearch'),
-                        'url'   => array('/docs/show/index', 'file' => 'index', 'moduleID' => 'zendsearch'),
-                        'icon'  => 'glyphicon glyphicon-search',
-                    ),
-                )
-            ),
-        );
+                        'url'   => ['/docs/show/index', 'file' => 'index', 'moduleID' => 'zendsearch'],
+                        'icon'  => 'fa fa-fw fa-search',
+                    ],
+                ]
+            ],
+        ];
     }
 
     /**
@@ -587,7 +587,7 @@ class DocsModule extends yupe\components\WebModule
      **/
     public function renderProjectDocs()
     {
-        $items = array();
+        $items = [];
 
         foreach (explode(',', $this->staticFiles) as $key) {
 
@@ -608,11 +608,11 @@ class DocsModule extends yupe\components\WebModule
 
             array_push(
                 $items,
-                array(
+                [
                     'label' => $title,
-                    'url'   => array('/docs/docsBackend/show', 'file' => $key),
-                    'icon'  => 'glyphicon glyphicon-file',
-                )
+                    'url'   => ['/docs/docsBackend/show', 'file' => $key],
+                    'icon'  => 'fa fa-fw fa-file',
+                ]
             );
         }
 
@@ -623,4 +623,5 @@ class DocsModule extends yupe\components\WebModule
     {
         return '/docs/docsBackend/index';
     }
+
 }

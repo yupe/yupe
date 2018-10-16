@@ -13,27 +13,34 @@
 
 <p><?php echo Yii::t('InstallModule.install', 'Your site is ready to work!'); ?></p>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), array('/site/index')); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), ['/site/index']); ?>
 
 <?php echo Yii::t('InstallModule.install', 'or'); ?>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO CONTROL PANEL'), array('/yupe/backend/index')); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO CONTROL PANEL'), ['/yupe/backend/index']); ?>
 
 <br/><br/>
 
 <p><?php echo Yii::t('InstallModule.install', 'Interesting links:'); ?></p>
 
 <?php echo CHtml::link(
-    Yii::t('InstallModule.install', 'Official docs'),
-    'http://yupe.ru/docs/index.html?from=finish'
-); ?> - <?php echo Yii::t('InstallModule.install', 'We working with it'); ?>
+    Yii::t('InstallModule.install', 'Official Yupe site'),
+    'http://yupe-project.ru/?from=finish'
+); ?> - <?php echo Yii::t('InstallModule.install', 'go frequently'); ?>
 
 <br/><br/>
 
 <?php echo CHtml::link(
-    Yii::t('InstallModule.install', 'Official Yupe site'),
+    Yii::t('InstallModule.install', 'Community'),
     'http://yupe.ru/?from=finish'
 ); ?> - <?php echo Yii::t('InstallModule.install', 'go frequently'); ?>
+
+<br/><br/>
+
+<?php echo CHtml::link(
+    Yii::t('InstallModule.install', 'Official docs'),
+    'http://yupe.ru/docs/index.html?from=finish'
+); ?> - <?php echo Yii::t('InstallModule.install', 'We working with it'); ?>
 
 <br/><br/>
 

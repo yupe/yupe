@@ -1,21 +1,21 @@
 <?php
-$this->breadcrumbs = array(
+$this->breadcrumbs = [
     $model->title,
-);
+];
 $this->pageTitle = $model->name;
 ?>
 
-<?php $this->renderPartial('_view', array('data' => $model)); ?>
+<?php $this->renderPartial('_view', ['data' => $model]); ?>
 
 <div id="comments">
     <?php if ($model->commentCount >= 1): ?>
         <h3><?php echo ($model->commentCount > 1) ? $model->commentCount . ' comments' : 'One comment'; ?></h3>
         <?php $this->renderPartial(
             '_comments',
-            array(
+            [
                 'post'     => $model,
                 'comments' => $model->comments,
-            )
+            ]
         ); ?>
     <?php endif; ?>
 
@@ -26,7 +26,7 @@ $this->pageTitle = $model->name;
             <?php echo Yii::app()->user->getFlash('commentSubmitted'); ?>
         </div>
     <?php else: ?>
-        <?php $this->renderPartial('/comment/_form', array('model' => $comment)); ?>
+        <?php $this->renderPartial('/comment/_form', ['model' => $comment]); ?>
     <?php endif; ?>
 
 </div><!-- comments -->

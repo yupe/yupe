@@ -1,12 +1,12 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
-        'htmlOptions' => array('class' => 'well'),
-    )
+        'htmlOptions' => ['class' => 'well'],
+    ]
 ); ?>
 <fieldset>
     <div class="row">
@@ -24,11 +24,11 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'status',
-                array(
-                    'widgetOptions' => array(
+                [
+                    'widgetOptions' => [
                         'data' => $model->getStatusList(),
-                    ),
-                )
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -36,15 +36,15 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'GalleryModule.gallery',
                 'Find gallery'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

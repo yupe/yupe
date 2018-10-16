@@ -6,12 +6,12 @@ class m000000_000000_social_profile extends yupe\components\DbMigration
     {
         $this->createTable(
             '{{social_user}}',
-            array(
+            [
                 'id'       => 'pk',
                 'user_id'  => 'integer NOT NULL',
                 'provider' => 'varchar(250) NOT NULL',
                 'uid'      => 'varchar(250) NOT NULL',
-            ),
+            ],
             $this->getOptions()
         );
 

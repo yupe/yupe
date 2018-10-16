@@ -1,66 +1,66 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('MailModule.mail', 'Mail templates') => array('index'),
-    Yii::t('MailModule.mail', 'Mail events')    => array('/mail/eventBackend/index'),
-    $model->name                                => array('view', 'id' => $model->id),
+$this->breadcrumbs = [
+    Yii::t('MailModule.mail', 'Mail templates') => ['index'],
+    Yii::t('MailModule.mail', 'Mail events')    => ['/mail/eventBackend/index'],
+    $model->name                                => ['view', 'id' => $model->id],
     Yii::t('MailModule.mail', 'Edit'),
-);
+];
 $this->pageTitle = Yii::t('MailModule.mail', 'Edit mail template');
-$this->menu = array(
-    array('label' => Yii::t('MailModule.mail', 'Mail templates')),
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    ['label' => Yii::t('MailModule.mail', 'Mail templates')],
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('MailModule.mail', 'Templates list'),
-        'url'   => array('/mail/templateBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/mail/templateBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('MailModule.mail', 'Create template'),
-        'url'   => array('/mail/templateBackend/create/', 'eid' => $model->id)
-    ),
-    array('label' => Yii::t('MailModule.mail', 'Template') . ' «' . mb_substr($model->name, 0, 32) . '»'),
-    array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'url'   => ['/mail/templateBackend/create/', 'eid' => $model->id]
+    ],
+    ['label' => Yii::t('MailModule.mail', 'Template') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    [
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('MailModule.mail', 'Edit template'),
-        'url'   => array(
+        'url'   => [
             '/mail/templateBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        ]
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('MailModule.mail', 'View mail template'),
-        'url'   => array(
+        'url'   => [
             '/mail/templateBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        ]
+    ],
+    [
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('MailModule.mail', 'Remove template'),
         'url'         => '#',
-        'linkOptions' => array(
-            'submit'  => array('/mail/templateBackend/delete', 'id' => $model->id),
+        'linkOptions' => [
+            'submit'  => ['/mail/templateBackend/delete', 'id' => $model->id],
             'confirm' => Yii::t('MailModule.mail', 'Do you really want to remove?'),
             'csrf'    => true,
-        )
-    ),
-    array('label' => Yii::t('MailModule.mail', 'Mail events')),
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+        ]
+    ],
+    ['label' => Yii::t('MailModule.mail', 'Mail events')],
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('MailModule.mail', 'Messages list'),
-        'url'   => array('/mail/eventBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/mail/eventBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('MailModule.mail', 'Create event'),
-        'url'   => array('/mail/eventBackend/create')
-    ),
-);
+        'url'   => ['/mail/eventBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1><?php echo Yii::t('MailModule.mail', 'Edit template'); ?><br/>
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

@@ -22,7 +22,7 @@ use yupe\widgets\YWidget;
 abstract class Controller extends \CController
 {
     /**
-     * @var
+     * @var \YupeModule
      */
     public $yupe;
 
@@ -34,7 +34,7 @@ abstract class Controller extends \CController
     /**
      * Хлебные крошки сайта, меняется в админке
      */
-    public $breadcrumbs = array();
+    public $breadcrumbs = [];
 
     /**
      * Описание сайта, меняется в админке
@@ -49,7 +49,7 @@ abstract class Controller extends \CController
     /**
      * Contains data for "CMenu" widget (provides view for menu on the site)
      */
-    public $menu = array();
+    public $menu = [];
 
     /**
      * Тип заголовка, подробнее в yupe\components\ContentType
@@ -101,7 +101,7 @@ abstract class Controller extends \CController
      * @return mixed Инстанс виджета в случае, когда $captureOutput является ложным,
      *               или вывод виджета, когда $captureOutput - истина
      **/
-    public function widget($className, $properties = array(), $captureOutput = false)
+    public function widget($className, $properties = [], $captureOutput = false)
     {
         try {
 
@@ -118,10 +118,10 @@ abstract class Controller extends \CController
                         Yii::t(
                             'YupeModule.yupe',
                             'Widget "{widget}" was not found! Please enable "{module}" module!',
-                            array(
+                            [
                                 '{widget}' => $className,
                                 '{module}' => $modulePath[2]
-                            )
+                            ]
                         ), 1
                     );
                 } elseif (class_exists($className) === false) {
@@ -130,9 +130,9 @@ abstract class Controller extends \CController
                         Yii::t(
                             'YupeModule.yupe',
                             'Widget "{widget}" was not found!',
-                            array(
+                            [
                                 '{widget}' => $className,
-                            )
+                            ]
                         )
                     );
                 }
@@ -144,18 +144,18 @@ abstract class Controller extends \CController
 
             echo CHtml::tag(
                 'p',
-                array(
+                [
                     'class' => 'alert alert-danger'
-                ),
+                ],
                 $e->getCode()
                     ? $e->getMessage()
                     : Yii::t(
                     'YupeModule.yupe',
                     'Error occurred during the render widget ({widget}): {error}',
-                    array(
+                    [
                         '{error}'  => $e->getMessage(),
                         '{widget}' => $className,
-                    )
+                    ]
                 )
             );
 
@@ -217,13 +217,13 @@ abstract class Controller extends \CController
             foreach (Yii::app()->getComponent('log')->routes as $route) {
                 if (in_array(
                     get_class($route),
-                    array(
+                    [
                         'CFileLogRoute',
                         'CProfileLogRoute',
                         'CWebLogRoute',
                         'YiiDebugToolbarRoute',
                         'DbProfileLogRoute'
-                    )
+                    ]
                 )
                 ) {
                     $route->enabled = false;

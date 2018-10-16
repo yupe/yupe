@@ -24,13 +24,8 @@
             "role": "Developer"
         },
         {
-            "name": "Alexey Elizarov",
-            "homepage": "http://amylabs.ru",
-            "role": "Designer"
-        },
-        {
             "name": "Maxim Timashov",
-            "email": "apexwire@gmail.com",
+            "email": "apexwire@amylabs.com",
             "role": "Developer"
         },
         {
@@ -42,28 +37,6 @@
             "name": "Mihail Chemezov",
             "homepage": "http://vk.com/m.chemezov",
             "role": "Developer"
-        },
-        {
-            "name": "Alexander Tischenko",
-            "email": "tsm@archaron.ru",
-            "homepage": "http://archaron.ru/",
-            "role": "Developer"
-        },
-        {
-            "name": "Evgeniy Kulikov",
-            "email": "tuxuls@gmail.com",
-            "homepage": "http://akulikov.org.ua",
-            "role": "Developer"
-        },
-        {
-            "name": "Alexander Lyzhenkov",
-            "homepage": "http://lyzhenkov.ru",
-            "role": "Developer"
-        },
-        {
-            "name": "Anton Cherepanov",
-            "homepage": "https://twitter.com/davetoxa",
-            "role": "Developer"
         }
     ],
     "support": {
@@ -74,7 +47,7 @@
     },
     "require": {
         "php": ">=5.4",
-        "yiisoft/yii": ">=1.1.15",
+        "yiisoft/yii": ">=1.1.16",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
@@ -86,7 +59,10 @@
         "symfony/event-dispatcher": "2.*",
         "twig/twig": "1.*",
         "yiiext/twig-renderer": "1.1.*",
-        "guzzlehttp/guzzle": "4.2.*"
+        "guzzlehttp/guzzle": "5.0.*",
+        "brussens/wysibb-yii": "dev-master",
+        "stripe/stripe-php": "1.*",
+        "paypal/rest-api-sdk-php" : "*"
     },
     "repositories": {
         "taggable": {
@@ -112,10 +88,55 @@
                     "reference": "v1.1.15"
                 }
             }
+        },
+        "wysibb-yii": {
+            "type": "package",
+            "package": {
+                "name": "brussens/wysibb-yii",
+                "version": "master",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/brussens/wysibb-yii",
+                    "reference": "master"
+                }
+            }
         }
     },
     "require-dev": {
         "codeception/codeception": "2.*"
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "application\\": "protected/",
+            "yupe\\": "protected/modules/yupe/"
+        }
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "yupe\\components\\Composer::postCreate"
+        ],
+        "pre-install-cmd": [
+            "yupe\\components\\Composer::preInstall"
+        ],
+        "post-install-cmd": [
+            "yupe\\components\\Composer::postInstall"
+        ],
+        "pre-update-cmd": [
+            "yupe\\components\\Composer::preUpdate"
+        ],
+        "post-update-cmd": [
+            "yupe\\components\\Composer::postUpdate"
+        ]
+    },
+    "extra": {
+        "writable": [
+            "public/assets",
+            "public/uploads",
+            "protected/runtime",
+            "protected/config/db.php",
+            "protected/config/modules",
+            "protected/config/modulesBack"
+        ]
+    }
 }

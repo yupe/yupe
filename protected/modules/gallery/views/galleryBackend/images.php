@@ -10,47 +10,47 @@
  **/
 $this->pageTitle = 'Галерея - Изображения галереи';
 
-$this->breadcrumbs = array(
-    Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/galleryBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/galleryBackend/index'],
     $model->name,
-);
+];
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('GalleryModule.gallery', 'Gallery management'),
-        'url'   => array('/gallery/galleryBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/gallery/galleryBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('GalleryModule.gallery', 'Create gallery'),
-        'url'   => array('/gallery/galleryBackend/create')
-    ),
-    array('label' => Yii::t('GalleryModule.gallery', 'Gallery') . ' «' . mb_substr($model->name, 0, 32) . '»'),
-    array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'url'   => ['/gallery/galleryBackend/create']
+    ],
+    ['label' => Yii::t('GalleryModule.gallery', 'Gallery') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    [
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('GalleryModule.gallery', 'Edit gallery'),
-        'url'   => array(
+        'url'   => [
             '/gallery/galleryBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-picture',
+        ]
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-picture-o',
         'label' => Yii::t('GalleryModule.gallery', 'Gallery images'),
-        'url'   => array('/gallery/galleryBackend/images', 'id' => $model->id)
-    ),
-    array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        'url'   => ['/gallery/galleryBackend/images', 'id' => $model->id]
+    ],
+    [
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('GalleryModule.gallery', 'Remove gallery'),
         'url'         => '#',
-        'linkOptions' => array(
-            'submit'  => array('/gallery/galleryBackend/delete', 'id' => $model->id),
-            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+        'linkOptions' => [
+            'submit'  => ['/gallery/galleryBackend/delete', 'id' => $model->id],
+            'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'confirm' => Yii::t('GalleryModule.gallery', 'Do you really want to remove gallery?'),
-        )
-    ),
-); ?>
+        ]
+    ],
+]; ?>
 
 <div class="page-header">
     <h1>
@@ -62,34 +62,34 @@ $this->menu = array(
 <?php
 $this->widget(
     'bootstrap.widgets.TbTabs',
-    array(
+    [
         'type'   => 'tabs', // 'tabs' or 'pills'
-        'tabs'   => array(
-            array(
+        'tabs'   => [
+            [
                 'id'      => '_images_show',
                 'label'   => Yii::t('GalleryModule.gallery', 'Show gallery'),
                 'content' => $this->renderPartial(
                         '_images_show',
-                        array('model' => $model, 'dataProvider' => $dataProvider),
+                        ['model' => $model, 'dataProvider' => $dataProvider],
                         true
                     ),
                 'active'  => $tab == '_images_show',
-            ),
-            array(
+            ],
+            [
                 'id'      => '_image_add',
                 'label'   => Yii::t('GalleryModule.gallery', 'Create image'),
-                'content' => $this->renderPartial('_image_add', array('model' => $image,), true),
+                'content' => $this->renderPartial('_image_add', ['model' => $image,], true),
                 'active'  => $tab == '_image_add',
-            ),
-            array(
+            ],
+            [
                 'id'      => '_images_add',
                 'label'   => Yii::t('GalleryModule.gallery', 'Group adding'),
-                'content' => $this->renderPartial('_images_add', array('model' => $image, 'gallery' => $model,), true),
+                'content' => $this->renderPartial('_images_add', ['model' => $image, 'gallery' => $model,], true),
                 'active'  => $tab == '_images_add',
-            ),
-        ),
-        'events' => array('shown' => 'js:loadContent')
-    )
+            ],
+        ],
+        'events' => ['shown' => 'js:loadContent']
+    ]
 ); ?>
 <script>
     var loadContent;

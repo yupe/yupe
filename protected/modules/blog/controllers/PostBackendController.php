@@ -14,25 +14,25 @@ class PostBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Blog.PostBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Blog.PostBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Blog.PostBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Blog.PostBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Blog.PostBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Blog.PostBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Blog.PostBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Blog.PostBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Blog.PostBackend.Index']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Blog.PostBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Blog.PostBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Blog.PostBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Post',
-                'validAttributes' => array(
+                'validAttributes' => [
                     'title',
                     'slug',
                     'publish_date',
@@ -41,9 +41,9 @@ class PostBackendController extends yupe\components\controllers\BackController
                     'blog_id',
                     'category_id',
                     'tags',
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -60,7 +60,7 @@ class PostBackendController extends yupe\components\controllers\BackController
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
         }
 
-        $this->render('view', array('model' => $post));
+        $this->render('view', ['model' => $post]);
     }
 
     /**
@@ -89,12 +89,12 @@ class PostBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -129,16 +129,16 @@ class PostBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array(
+                        [
                             'update',
                             'id' => $model->id,
-                        )
+                        ]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -170,7 +170,7 @@ class PostBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'returnUrl',
-                        array('index')
+                        ['index']
                     )
                 );
             }
@@ -196,6 +196,6 @@ class PostBackendController extends yupe\components\controllers\BackController
                 Yii::app()->getRequest()->getParam('Post')
             );
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 }

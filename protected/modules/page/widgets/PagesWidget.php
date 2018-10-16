@@ -50,9 +50,9 @@ class PagesWidget extends yupe\widgets\YWidget
 
             $this->render(
                 $this->view,
-                array(
+                [
                     'pages' => Page::model()->cache($this->cacheTime)->findAll($criteria),
-                )
+                ]
             );
         }
     }

@@ -14,42 +14,32 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Menu.MenuitemBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Menu.MenuitemBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Menu.MenuitemBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Menu.MenuitemBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Menu.MenuitemBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Menu.MenuitemBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Menu.MenuitemBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Menu.MenuitemBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Menu.MenuitemBackend.Index']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Menu.MenuitemBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Menu.MenuitemBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Menu.MenuitemBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'MenuItem',
-                'validAttributes' => array('title', 'href', 'status', 'menu_id', 'sort')
-            )
-        );
-    }
-
-    public function actionSortable()
-    {
-        $sortOrder = Yii::app()->request->getPost('sortOrder');
-
-        if (empty($sortOrder)) {
-            throw new CHttpException(404);
-        }
-
-        if (MenuItem::model()->sort($sortOrder)) {
-            Yii::app()->ajax->success();
-        }
-
-        Yii::app()->ajax->failure();
+                'validAttributes' => ['title', 'href', 'status', 'menu_id', 'sort']
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'MenuItem',
+                'attribute' => 'sort'
+            ]
+        ];
     }
 
     /**
@@ -70,13 +60,13 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         }
 
         $items = MenuItem::model()->public()->findAll(
-            array(
+            [
                 'condition' => 'menu_id = :menu_id',
                 'order'     => 'title DESC',
-                'params'    => array(
+                'params'    => [
                     ':menu_id' => $menuId
-                )
-            )
+                ]
+            ]
         );
 
         Yii::app()->ajax->success(
@@ -97,7 +87,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -126,7 +116,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
@@ -140,7 +130,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
         $model->sort = $max->sort + 1; // Set sort in Adding Form as ma x+ 1
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -168,13 +158,13 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -225,7 +215,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
             $model->setAttributes($data);
         }
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**
@@ -251,7 +241,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
                 $data = $model->parentTree;
 
                 foreach ($data as $value => $name) {
-                    echo CHtml::tag('option', array('value' => $value), $name, true);
+                    echo CHtml::tag('option', ['value' => $value], $name, true);
                 }
             }
         }

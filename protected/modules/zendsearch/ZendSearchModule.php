@@ -12,7 +12,7 @@
  */
 class ZendSearchModule extends yupe\components\WebModule
 {
-    const VERSION = '0.8';
+    const VERSION = '0.9';
 
     public $indexFiles = 'runtime.search';
 
@@ -20,7 +20,7 @@ class ZendSearchModule extends yupe\components\WebModule
 
     public function getDependencies()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -30,18 +30,18 @@ class ZendSearchModule extends yupe\components\WebModule
      */
     public function getEditableParamsGroups()
     {
-        return array(
-            'main' => array(
+        return [
+            'main' => [
                 'label' => Yii::t('YupeModule.yupe', 'Main settings'),
-            ),
-        );
+            ],
+        ];
     }
 
     public function getParamsLabels()
     {
-        return array(
+        return [
             'indexFiles' => Yii::t('ZendSearchModule.zendsearch', 'Index data folder.'),
-        );
+        ];
     }
 
     public function getVersion()
@@ -51,9 +51,9 @@ class ZendSearchModule extends yupe\components\WebModule
 
     public function getEditableParams()
     {
-        return array(
+        return [
             'indexFiles',
-        );
+        ];
     }
 
     public function getIsInstallDefault()
@@ -93,7 +93,7 @@ class ZendSearchModule extends yupe\components\WebModule
 
     public function getIcon()
     {
-        return "glyphicon glyphicon-search";
+        return "fa fa-fw fa-search";
     }
 
     public function getAdminPageLink()
@@ -106,40 +106,40 @@ class ZendSearchModule extends yupe\components\WebModule
         parent::init();
 
         $this->setImport(
-            array(
+            [
                 'application.modules.zendsearch.models.*',
                 'application.modules.zendsearch.components.*',
                 'application.modules.zendsearch.components.widgets.*',
-            )
+            ]
         );
     }
 
     public function getNavigation()
     {
-        return array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        return [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('ZendSearchModule.zendsearch', 'Index'),
-                'url'   => array('/zendsearch/manageBackend/index')
-            )
-        );
+                'url'   => ['/zendsearch/manageBackend/index']
+            ]
+        ];
     }
 
     public function getAuthItems()
     {
-        return array(
-            array(
+        return [
+            [
                 'name'        => 'ZendSearch.ZendSearchManager',
                 'description' => Yii::t('ZendSearchModule.zendsearch', 'Manage search index'),
                 'type'        => AuthItem::TYPE_TASK,
-                'items'       => array(
-                    array(
+                'items'       => [
+                    [
                         'type'        => AuthItem::TYPE_OPERATION,
                         'name'        => 'Zendsearch.ManageBackend.Create',
                         'description' => Yii::t('ZendSearchModule.zendsearch', 'Reindex site')
-                    ),
-                )
-            )
-        );
+                    ],
+                ]
+            ]
+        ];
     }
 }

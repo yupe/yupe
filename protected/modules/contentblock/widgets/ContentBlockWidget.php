@@ -40,7 +40,7 @@ class ContentBlockWidget extends yupe\widgets\YWidget
 
         if ($output === false) {
 
-            $block = ContentBlock::model()->find('code = :code', array(':code' => $this->code));
+            $block = ContentBlock::model()->findByAttributes(['code' => $this->code]);
 
             if (null === $block) {
                 if ($this->silent === false) {
@@ -48,9 +48,9 @@ class ContentBlockWidget extends yupe\widgets\YWidget
                         Yii::t(
                             'ContentBlockModule.contentblock',
                             'Content block "{code}" was not found !',
-                            array(
+                            [
                                 '{code}' => $this->code
-                            )
+                            ]
                         )
                     );
                 }
@@ -58,12 +58,16 @@ class ContentBlockWidget extends yupe\widgets\YWidget
                 $output = '';
 
             } else {
-                $output = $block->getContent();
+                if ($block->status == ContentBlock::STATUS_ACTIVE) {
+                    $output = $block->getContent();
+                } else {
+                    $output = '';
+                }
             }
 
             Yii::app()->cache->set($cacheName, $output);
         }
 
-        $this->render($this->view, array('output' => $output));
+        $this->render($this->view, ['output' => $output]);
     }
 }

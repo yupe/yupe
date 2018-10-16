@@ -1,36 +1,36 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('RbacModule.rbac', 'Actions') => array('index'),
+$this->breadcrumbs = [
+    Yii::t('RbacModule.rbac', 'Actions') => ['index'],
     Yii::t('RbacModule.rbac', 'Manage'),
-);
+];
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('RbacModule.rbac', 'Roles'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Manage roles'),
-                'url'   => array('/rbac/rbacBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/rbac/rbacBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('RbacModule.rbac', 'Create role'),
-                'url'   => array('/rbac/rbacBackend/create')
-            ),
-        )
-    ),
-    array(
+                'url'   => ['/rbac/rbacBackend/create']
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('RbacModule.rbac', 'Users'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('RbacModule.rbac', 'Users'),
-                'url'   => array('/rbac/rbacBackend/userList')
-            ),
-        )
-    ),
-);
+                'url'   => ['/rbac/rbacBackend/userList']
+            ],
+        ]
+    ],
+];
 
 ?>
 
@@ -38,7 +38,7 @@ $this->menu = array(
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'           => 'auth-item-grid',
         'dataProvider' => $model->search(),
         'filter'       => $model,
@@ -49,59 +49,59 @@ $this->menu = array(
                 ['class' => 'btn btn-success pull-right btn-sm']
             )
         ],
-        'columns'      => array(
-            array(
+        'columns'      => [
+            [
                 'name'  => 'name',
                 'value' => 'CHtml::link($data->name, array("/rbac/rbacBackend/update", "id" => $data->name))',
                 'type'  => 'html'
-            ),
-            array(
+            ],
+            [
                 'name'              => 'description',
                 'class'             => 'bootstrap.widgets.TbEditableColumn',
-                'headerHtmlOptions' => array('style' => 'width:500px'),
-                'editable'          => array(
+                'headerHtmlOptions' => ['style' => 'width:500px'],
+                'editable'          => [
                     'type'   => 'text',
-                    'url'    => array('/rbac/rbacBackend/inlineEdit'),
+                    'url'    => ['/rbac/rbacBackend/inlineEdit'],
                     'title'  => Yii::t(
                             'RbacModule.rbac',
                             'Enter {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('description')))
+                            ['{field}' => mb_strtolower($model->getAttributeLabel('description'))]
                         ),
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'            => CHtml::activeTextField($model, 'description', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'            => CHtml::activeTextField($model, 'description', ['class' => 'form-control']),
+            ],
+            [
                 'name'     => 'type',
                 'filter'   => CHtml::activeDropDownList(
                         $model,
                         'type',
                         AuthItem::model()->getTypeList(),
-                        array('class' => 'form-control', 'empty' => '')
+                        ['class' => 'form-control', 'empty' => '']
                     ),
                 'value'    => '$data->getType()',
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/rbac/rbacBackend/inlineEdit'),
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
                             'RbacModule.rbac',
                             'Select {field}',
-                            array('{field}' => mb_strtolower($model->getAttributeLabel('type')))
+                            ['{field}' => mb_strtolower($model->getAttributeLabel('type'))]
                         ),
                     'source' => AuthItem::model()->getTypeList(),
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
+                    ]
+                ],
                 'type'     => 'raw',
-            ),
-            array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
-            ),
-        ),
-    )
+            ],
+            [
+                'class' => 'yupe\widgets\CustomButtonColumn',
+            ],
+        ],
+    ]
 ); ?>

@@ -20,18 +20,18 @@ class DocsBackendController extends yupe\components\controllers\BackController
      **/
     public function init()
     {
-        $this->menu = array(
-            array(
-                'icon'  => 'glyphicon glyphicon-file',
+        $this->menu = [
+            [
+                'icon'  => 'fa fa-fw fa-file',
                 'label' => Yii::t('DocsModule.docs', 'About module'),
-                'url'   => array('/docs/docsBackend/index')
-            ),
+                'url'   => ['/docs/docsBackend/index']
+            ],
             '',
-            array(
+            [
                 'label' => Yii::t('DocsModule.docs', 'Files'),
                 'items' => $this->module->renderProjectDocs()
-            ),
-        );
+            ],
+        ];
 
         return parent::init();
     }
@@ -73,10 +73,10 @@ class DocsBackendController extends yupe\components\controllers\BackController
 
         $this->render(
             'show',
-            array(
+            [
                 'content' => $content,
                 'title'   => $title,
-            )
+            ]
         );
 
     }

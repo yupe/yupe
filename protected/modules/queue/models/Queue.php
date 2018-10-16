@@ -74,17 +74,17 @@ class Queue extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('worker, task', 'required'),
-            array('status, worker, priority', 'numerical', 'integerOnly' => true),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('priority', 'in', 'range' => array_keys($this->priorityList)),
-            array('notice', 'length', 'max' => 255),
-            array('start_time, complete_time', 'safe'),
+        return [
+            ['worker, task', 'required'],
+            ['status, worker, priority', 'numerical', 'integerOnly' => true],
+            ['status', 'in', 'range' => array_keys($this->statusList)],
+            ['priority', 'in', 'range' => array_keys($this->priorityList)],
+            ['notice', 'length', 'max' => 255],
+            ['start_time, complete_time', 'safe'],
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, worker, create_time, task, start_time, complete_time, status, notice', 'safe', 'on' => 'search'),
-        );
+            ['id, worker, create_time, task, start_time, complete_time, status, notice', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -92,7 +92,7 @@ class Queue extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'            => Yii::t('QueueModule.queue', 'ID'),
             'worker'        => Yii::t('QueueModule.queue', 'Handler'),
             'create_time'   => Yii::t('QueueModule.queue', 'Created at'),
@@ -102,7 +102,7 @@ class Queue extends yupe\models\YModel
             'status'        => Yii::t('QueueModule.queue', 'Status'),
             'notice'        => Yii::t('QueueModule.queue', 'Notice'),
             'priority'      => Yii::t('QueueModule.queue', 'Priority'),
-        );
+        ];
     }
 
     /**
@@ -133,21 +133,21 @@ class Queue extends yupe\models\YModel
         $criteria->compare('notice', $this->notice, true);
         $criteria->compare('priority', $this->priority, true);
 
-        return new CActiveDataProvider(get_class($this), array(
+        return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-            'sort'     => array(
+            'sort'     => [
                 'defaultOrder' => 'id DESC'
-            )
-        ));
+            ]
+        ]);
     }
 
     public function getPriorityList()
     {
-        return array(
+        return [
             self::PRIORITY_LOW    => Yii::t('QueueModule.queue', 'Low'),
             self::PRIORITY_NORMAL => Yii::t('QueueModule.queue', 'Normal'),
             self::PRIORITY_HIGH   => Yii::t('QueueModule.queue', 'High'),
-        );
+        ];
     }
 
     public function getPriority()
@@ -159,12 +159,12 @@ class Queue extends yupe\models\YModel
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_NEW       => Yii::t('QueueModule.queue', 'New'),
             self::STATUS_COMPLETED => Yii::t('QueueModule.queue', 'Completed'),
             self::STATUS_PROGRESS  => Yii::t('QueueModule.queue', 'Working'),
             self::STATUS_ERROR     => Yii::t('QueueModule.queue', 'Error'),
-        );
+        ];
     }
 
     public function getStatus()
@@ -183,15 +183,15 @@ class Queue extends yupe\models\YModel
 
     public function getTasksForWorker($worker, $limit = 10)
     {
-        return $this->findAll(array(
+        return $this->findAll([
             'condition' => 'worker = :worker AND status = :status',
-            'params' => array(
+            'params' => [
                 ':worker' => (int)$worker,
                 ':status' => Queue::STATUS_NEW
-            ),
+            ],
             'limit' => (int)$limit,
             'order' => 'priority, id asc'
-        ));
+        ]);
     }
 
     public function decodeJson()

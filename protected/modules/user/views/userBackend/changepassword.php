@@ -1,74 +1,74 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
-    $model->nick_name                  => array('/user/userBackend/view', 'id' => $model->id),
+$this->breadcrumbs = [
+    Yii::t('UserModule.user', 'Users') => ['/user/userBackend/index'],
+    $model->nick_name                  => ['/user/userBackend/view', 'id' => $model->id],
     Yii::t('UserModule.user', 'Edit password'),
-);
+];
 
 $this->pageTitle = Yii::t('UserModule.user', 'Users - password change');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('UserModule.user', 'Users'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Manage users'),
-                'url'   => array('/user/userBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/user/userBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('UserModule.user', 'Create user'),
-                'url'   => array('/user/userBackend/create')
-            ),
-            array('label' => Yii::t('UserModule.user', 'User') . ' «' . $model->nick_name . '»'),
-            array(
-                'icon'  => 'glyphicon glyphicon-pencil',
+                'url'   => ['/user/userBackend/create']
+            ],
+            ['label' => Yii::t('UserModule.user', 'User') . ' «' . $model->nick_name . '»'],
+            [
+                'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('UserModule.user', 'Edit user'),
-                'url'   => array(
+                'url'   => [
                     '/user/userBackend/update',
                     'id' => $model->id
-                )
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-eye-open',
+                ]
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-eye',
                 'label' => Yii::t('UserModule.user', 'Show user'),
-                'url'   => array(
+                'url'   => [
                     '/user/userBackend/view',
                     'id' => $model->id
-                )
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-lock',
+                ]
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-lock',
                 'label' => Yii::t('UserModule.user', 'Change user password'),
-                'url'   => array(
+                'url'   => [
                     '/user/userBackend/changepassword',
                     'id' => $model->id
-                )
-            ),
-            array(
-                'icon'        => 'glyphicon glyphicon-trash',
+                ]
+            ],
+            [
+                'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('UserModule.user', 'Remove user'),
                 'url'         => '#',
-                'linkOptions' => array(
-                    'submit'  => array('/user/userBackend/delete', 'id' => $model->id),
-                    'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+                'linkOptions' => [
+                    'submit'  => ['/user/userBackend/delete', 'id' => $model->id],
+                    'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
                     'confirm' => Yii::t('UserModule.user', 'Do you really want to remove user?')
-                ),
-            ),
-        )
-    ),
-    array(
+                ],
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('UserModule.user', 'Tokens'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Token list'),
-                'url'   => array('/user/tokensBackend/index')
-            ),
-        )
-    ),
-);
+                'url'   => ['/user/tokensBackend/index']
+            ],
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -80,13 +80,13 @@ $this->menu = array(
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'user-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 );
 ?>
 <?php echo $form->errorSummary($changePasswordForm); ?>
@@ -105,11 +105,11 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => Yii::t('UserModule.user', 'Change password'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

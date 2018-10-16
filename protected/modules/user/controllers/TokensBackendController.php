@@ -16,15 +16,14 @@ class TokensBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('User.TokensBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('User.TokensBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('User.TokensBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('User.TokensBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('User.TokensBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['User.TokensBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['User.TokensBackend.Index']],
+            ['allow', 'actions' => ['update'], 'roles' => ['User.TokensBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['User.TokensBackend.View']],
+            ['deny']
+        ];
     }
 
     /**
@@ -44,7 +43,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -65,7 +64,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Data was updated!')
                 );
@@ -73,13 +72,13 @@ class TokensBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -98,7 +97,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
 
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(
+            Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('UserModule.user', 'Record was removed!')
             );
@@ -129,11 +128,11 @@ class TokensBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'UserToken',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**
@@ -198,12 +197,12 @@ class TokensBackendController extends yupe\components\controllers\BackController
      */
     public function getDeleteLink(UserToken $model)
     {
-        return array(
-            'url'        => array('delete', 'id' => $model->id),
+        return [
+            'url'        => ['delete', 'id' => $model->id],
             'csrf'       => true,
-            'data'       => array(
+            'data'       => [
                 Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
-            ),
+            ],
             'type'       => 'POST',
             'confirm'    => Yii::t('UserModule.user', 'Are you sure you want to delete this token?'),
             'beforeSend' => "function () {
@@ -213,6 +212,6 @@ class TokensBackendController extends yupe\components\controllers\BackController
             'always'     => "function () {
                 window.location.href = '" . $this->createUrl('index') . "';
             }",
-        );
+        ];
     }
 }

@@ -34,7 +34,9 @@ class AvatarWidget extends CWidget
      */
     public $noCache = false;
 
-    public $htmlOptions = array();
+    public $htmlOptions = [];
+
+    public $imageHtmlOptions = [];
 
     /**
      * Модель пользователя
@@ -53,7 +55,7 @@ class AvatarWidget extends CWidget
         $this->imageSrc = $this->user->getAvatar($this->size);
         $this->imageAlt = $this->user->nick_name;
         $this->width = $this->size . 'px';
-        $this->htmlOptions = array('class' => 'avatar avatar-' . $this->user->id);
+        $this->htmlOptions = ['class' => 'avatar avatar-' . $this->user->id];
 
         if (!$this->height) {
             $this->height = $this->width;
@@ -65,10 +67,12 @@ class AvatarWidget extends CWidget
             )
         );
 
-        $htmlOptions = array(
+        $htmlOptions = [
             'class' => 'img-wrapper-tocenter',
             'style' => 'width: ' . $this->width . '; height: ' . $this->height . '; background-color: ' . $this->backgroundColor . ';',
-        );
+        ];
+
+        //var_dump($htmlOptions);die();
 
         if (isset($this->htmlOptions['class'])) {
             $class = $this->htmlOptions['class'];
@@ -89,7 +93,7 @@ class AvatarWidget extends CWidget
         echo CHtml::tag(
             'div',
             $htmlOptions,
-            CHtml::image($this->imageSrc . ($this->noCache ? '?' . microtime(true) : ''), $this->imageAlt)
+            CHtml::image($this->imageSrc . ($this->noCache ? '?' . microtime(true) : ''), $this->imageAlt, $this->imageHtmlOptions)
         );
     }
 }

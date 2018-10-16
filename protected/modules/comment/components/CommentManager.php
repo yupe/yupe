@@ -57,12 +57,12 @@ class CommentManager extends CApplicationComponent
 
             if ($comment->appendTo($root)) {
 
-                $transaction->commit();
-
                 Yii::app()->eventManager->fire(
                     CommentEvents::SUCCESS_ADD_COMMENT,
                     new CommentEvent($comment, $user, $module)
                 );
+
+                $transaction->commit();
 
                 return $comment;
             }
@@ -89,11 +89,11 @@ class CommentManager extends CApplicationComponent
          return Comment::model()->with(['author'])->findAll(
              [
                  'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status AND t.lft > 1',
-                 'params'    => array(
+                 'params'    => [
                      ':model'   => $model,
                      ':modelId' => (int)$modelId,
                      ':status'  => (int)$status,
-                 ),
+                 ],
                  'order'     => 't.lft',
              ]
          );

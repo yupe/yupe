@@ -5,10 +5,10 @@ $this->keywords = CHtml::encode($blog->name);
 ?>
 
 <?php
-$this->breadcrumbs = array(
-    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
+$this->breadcrumbs = [
+    Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blog/index/'],
     CHtml::encode($blog->name),
-);
+];
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -16,10 +16,10 @@ $this->breadcrumbs = array(
             <?php echo CHtml::image(
                 $blog->getImageUrl(),
                 CHtml::encode($blog->name),
-                array(
+                [
                     'width'  => 109,
                     'height' => 109
-                )
+                ]
             ); ?>
         </div>
         <div class="blog-description">
@@ -27,30 +27,38 @@ $this->breadcrumbs = array(
 
                 <?php echo CHtml::link(
                     CHtml::encode($blog->name),
-                    array('/blog/post/blog/', 'slug' => CHtml::encode($blog->slug))
+                    ['/blog/post/blog/', 'slug' => CHtml::encode($blog->slug)]
                 ); ?>
 
                 <?php echo CHtml::link(
                     CHtml::image(
                         Yii::app()->getTheme()->getAssetsUrl() . "/images/rss.png",
                         Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode($blog->name),
-                        array(
+                        [
                             'title' => Yii::t('BlogModule.blog', 'Subscribe for updates') . ' ' . CHtml::encode(
                                     $blog->name
                                 ),
                             'class' => 'rss'
-                        )
+                        ]
                     ),
-                    array(
+                    [
                         '/blog/blogRss/feed/',
                         'blog' => $blog->id
-                    )
+                    ]
                 ); ?>
 
-                <?php $this->widget(
-                    'application.modules.blog.widgets.JoinBlogWidget',
-                    array('user' => Yii::app()->user, 'blog' => $blog)
-                ); ?>
+                <div class="pull-right">
+                    <?php $this->widget(
+                        'application.modules.blog.widgets.JoinBlogWidget',
+                        ['user' => Yii::app()->user, 'blog' => $blog]
+                    ); ?>
+                    <?php
+                    if ($blog->userIn(Yii::app()->user->getId())) {
+                        echo CHtml::link(Yii::t('BlogModule.blog', 'Add a post'), ['/blog/publisher/write', 'blog-id' => $blog->id], ['class' => 'btn btn-success btn-sm']);
+                    }
+                    ?>
+                </div>
+
 
             </div>
 
@@ -62,9 +70,9 @@ $this->breadcrumbs = array(
                 <strong>
                     <?php $this->widget(
                         'application.modules.user.widgets.UserPopupInfoWidget',
-                        array(
+                        [
                             'model' => $blog->createUser
-                        )
+                        ]
                     ); ?>
                 </strong>
             </span>
@@ -78,7 +86,7 @@ $this->breadcrumbs = array(
                 <i class="glyphicon glyphicon-pencil"></i>
                 <?php echo CHtml::link(
                     count($blog->posts),
-                    array('/blog/post/blog/', 'slug' => CHtml::encode($blog->slug))
+                    ['/blog/post/blog/', 'slug' => CHtml::encode($blog->slug)]
                 ); ?>
             </span>
 
@@ -90,20 +98,20 @@ $this->breadcrumbs = array(
                 </div>
             <?php endif; ?>
 
-            <?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blog->id, 'blog' => $blog)); ?>
+            <?php $this->widget('blog.widgets.MembersOfBlogWidget', ['blogId' => $blog->id, 'blog' => $blog]); ?>
 
         </div>
     </div>
 </div>
 
-<?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $blog->id, 'limit' => 10)); ?>
+<?php $this->widget('blog.widgets.LastPostsOfBlogWidget', ['blogId' => $blog->id, 'limit' => 10]); ?>
 
 <br/>
 
 <?php echo CHtml::link(
-    Yii::t('BlogModule.blog', 'All entries for blog "{blog}"', array('{blog}' => CHtml::encode($blog->name))),
-    array('/blog/post/blog/', 'slug' => $blog->slug),
-    array('class' => 'btn btn-default')
+    Yii::t('BlogModule.blog', 'All entries for blog "{blog}"', ['{blog}' => CHtml::encode($blog->name)]),
+    ['/blog/post/blog/', 'slug' => $blog->slug],
+    ['class' => 'btn btn-default']
 ); ?>
 
 <br/><br/>

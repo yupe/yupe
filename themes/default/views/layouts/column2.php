@@ -1,4 +1,4 @@
-<?php $this->beginContent('application.views.layouts.main'); ?>
+<?php $this->beginContent('//layouts/main'); ?>
 <div class="container">
     <div class="span-19">
         <div id="content">
@@ -9,13 +9,13 @@
     <div class="span-5 last">
         <div id="sidebar">
             <?php
-            $this->beginWidget('zii.widgets.CPortlet', array('title' => Yii::t('default', 'Actions')));
+            $this->beginWidget('zii.widgets.CPortlet', ['title' => Yii::t('default', 'Actions')]);
             $this->widget(
                 'zii.widgets.CMenu',
-                array(
+                [
                     'items'       => $this->menu,
-                    'htmlOptions' => array('class' => 'operations'),
-                )
+                    'htmlOptions' => ['class' => 'operations'],
+                ]
             );
             $this->endWidget();
             ?>

@@ -1,52 +1,52 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/catalogBackend/index'),
-    $model->name                                => array('/catalog/catalogBackend/view', 'id' => $model->id),
+$this->breadcrumbs = [
+    Yii::t('CatalogModule.catalog', 'Products') => ['/catalog/catalogBackend/index'],
+    $model->name                                => ['/catalog/catalogBackend/view', 'id' => $model->id],
     Yii::t('CatalogModule.catalog', 'Edition'),
-);
+];
 
 $this->pageTitle = Yii::t('CatalogModule.catalog', 'Products - edition');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
         'label' => Yii::t('CatalogModule.catalog', 'Products administration'),
-        'url'   => array('/catalog/catalogBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+        'url'   => ['/catalog/catalogBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CatalogModule.catalog', 'Add a product'),
-        'url'   => array('/catalog/catalogBackend/create')
-    ),
-    array('label' => Yii::t('CatalogModule.catalog', 'Product') . ' «' . mb_substr($model->name, 0, 32) . '»'),
-    array(
-        'icon'  => 'glyphicon glyphicon-pencil',
+        'url'   => ['/catalog/catalogBackend/create']
+    ],
+    ['label' => Yii::t('CatalogModule.catalog', 'Product') . ' «' . mb_substr($model->name, 0, 32) . '»'],
+    [
+        'icon'  => 'fa fa-fw fa-pencil',
         'label' => Yii::t('CatalogModule.catalog', 'Update product'),
-        'url'   => array(
+        'url'   => [
             '/catalog/catalogBackend/update',
             'id' => $model->id
-        )
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-eye-open',
+        ]
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-eye',
         'label' => Yii::t('CatalogModule.catalog', 'Show product'),
-        'url'   => array(
+        'url'   => [
             '/catalog/catalogBackend/view',
             'id' => $model->id
-        )
-    ),
-    array(
-        'icon'        => 'glyphicon glyphicon-trash',
+        ]
+    ],
+    [
+        'icon'        => 'fa fa-fw fa-trash-o',
         'label'       => Yii::t('CatalogModule.catalog', 'Remove product'),
         'url'         => '#',
-        'linkOptions' => array(
-            'submit'  => array('/catalog/catalogBackend/delete', 'id' => $model->id),
-            'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+        'linkOptions' => [
+            'submit'  => ['/catalog/catalogBackend/delete', 'id' => $model->id],
+            'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'confirm' => Yii::t('CatalogModule.catalog', 'Do you really want to remove product?'),
             'csrf'    => true,
-        )
-    ),
-);
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -55,4 +55,4 @@ $this->menu = array(
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model]); ?>

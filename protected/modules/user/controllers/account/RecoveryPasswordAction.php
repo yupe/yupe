@@ -22,10 +22,6 @@ class RecoveryPasswordAction extends CAction
      */
     public function run($token)
     {
-        if (Yii::app()->getUser()->isAuthenticated()) {
-            $this->getController()->redirect( Yii::app()->getUser()->getReturnUrl());
-        }
-
         $module = Yii::app()->getModule('user');
 
         // Если запрещено восстановление
@@ -45,21 +41,21 @@ class RecoveryPasswordAction extends CAction
 
             if (Yii::app()->userManager->activatePassword($token)) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'New password was sent to your email')
                 );
 
-                $this->controller->redirect(array('/user/account/login'));
+                $this->getController()->redirect(['/user/account/login']);
 
             } else {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error when changing password!')
                 );
 
-                $this->controller->redirect(array('/user/account/recovery'));
+                $this->getController()->redirect(['/user/account/recovery']);
             }
         }
 
@@ -78,16 +74,16 @@ class RecoveryPasswordAction extends CAction
                 )
             ) {
 
-                Yii::app()->user->setFlash(
+                Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Password recover successfully')
                 );
 
-                $this->controller->redirect(array('/user/account/login'));
+                $this->getController()->redirect(['/user/account/login']);
             }
         }
 
         // Отрисовываем форму:
-        $this->controller->render('changePassword', array('model' => $changePasswordForm));
+        $this->getController()->render('changePassword', ['model' => $changePasswordForm]);
     }
 }

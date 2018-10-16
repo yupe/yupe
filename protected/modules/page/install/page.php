@@ -11,15 +11,15 @@
  * @since 0.1
  *
  */
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class' => 'application.modules.page.PageModule',
         // Указание здесь layout'a портит отображение на фронтенде:
         //'layout' => '//layouts/column2',
-    ),
-    'import'    => array(),
-    'component' => array(),
-    'rules'     => array(
+    ],
+    'import'    => [],
+    'component' => [],
+    'rules'     => [
         '/pages/<slug>' => 'page/page/show',
-    ),
-);
+    ],
+];

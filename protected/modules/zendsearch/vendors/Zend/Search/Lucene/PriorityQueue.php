@@ -49,7 +49,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      *
      * @var array
      */
-    private $_heap = array();
+    private $_heap = [];
 
     /**
      * Add element to the queue
@@ -148,7 +148,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      */
     public function clear()
     {
-        $this->_heap = array();
+        $this->_heap = [];
     }
 
     /**

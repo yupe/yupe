@@ -11,7 +11,7 @@
  * @link     http://yupe.ru
  *
  **/
-class ShowController extends yupe\components\controllers\FrontController
+class ShowController extends \yupe\components\controllers\FrontController
 {
     /**
      * Инициализируем контроллер:
@@ -43,14 +43,14 @@ class ShowController extends yupe\components\controllers\FrontController
 
         $lcFile = $this->module->absoluteFilePath(Yii::app()->getRequest()->getParam('file'));
 
-        return array(
-            array(
+        return [
+            [
                 'COutputCache',
-                'requestTypes' => array('GET'),
-                'varyByParam'  => array('id', 'file'),
+                'requestTypes' => ['GET'],
+                'varyByParam'  => ['id', 'file'],
                 'dependency'   => new CFileCacheDependency($lcFile),
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -63,7 +63,7 @@ class ShowController extends yupe\components\controllers\FrontController
     public function actionIndex($file = null)
     {
         if ($file === null) {
-            $this->redirect(array('/docs/show/index', 'file' => 'index'));
+            $this->redirect(['/docs/show/index', 'file' => 'index']);
         }
         $moduleId = Yii::app()->getRequest()->getParam('moduleID');
         $moduleDocFolder = $module = null;
@@ -137,12 +137,12 @@ class ShowController extends yupe\components\controllers\FrontController
 
         $this->render(
             'index',
-            array(
+            [
                 'content' => $content,
                 'title'   => $title,
                 'module'  => $module,
                 'mtime'   => date("d-m-Y H:i", filemtime($lcFile))
-            )
+            ]
         );
     }
 }

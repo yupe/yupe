@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Search'                                                                    => 'Поиск',
     'For index creation, please click button below.'                            => 'Для создания или обновления индекса нажмите кнопку ниже.',
     'Index is updating... Wait please...'                                       => 'Индекс обновляется... Подождите...',
@@ -44,4 +44,4 @@ return array(
     'Index'                                                                     => 'Индексация',
     'Manage search index'                                                       => 'Управление поисковым индексом',
     'Reindex site'                                                              => 'Переиндексация сайта'
-);
+];

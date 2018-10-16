@@ -9,10 +9,10 @@
 <div class="form">
     <?php $form = $this->beginWidget(
         'CActiveForm',
-        array(
+        [
             'id'                     => 'recovery-password-form',
             'enableClientValidation' => true,
-        )
+        ]
     ); ?>
 
     <?php echo $form->errorSummary($model); ?>

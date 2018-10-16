@@ -20,11 +20,11 @@
 </script>
 
 <?php
-$this->breadcrumbs = array(
-    Yii::t('RbacModule.rbac', 'Actions')   => array('index'),
-    Yii::t('RbacModule.rbac', 'User list') => array('userList'),
+$this->breadcrumbs = [
+    Yii::t('RbacModule.rbac', 'Actions')   => ['index'],
+    Yii::t('RbacModule.rbac', 'User list') => ['userList'],
     Yii::t('RbacModule.rbac', 'Rights assignment'),
-);
+];
 ?>
 
 <h3><?php echo Yii::t('RbacModule.rbac', 'User Rights Assignment'); ?> "<?php echo $model->getFullName(); ?>"</h3>
@@ -32,10 +32,10 @@ $this->breadcrumbs = array(
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                   => 'auth-item-assign-form',
         'enableAjaxValidation' => false,
-    )
+    ]
 );
 
 ?>
@@ -43,18 +43,18 @@ $form = $this->beginWidget(
 <?php Yii::app()->getClientScript()->registerCss('checkbox-margin', ".checkbox {margin: 0;}"); ?>
 
 <div class="form-group">
-    <?php $this->widget('CTreeView', array('data' => $tree, 'collapsed' => true, 'animated' => 'normal')); ?>
+    <?php $this->widget('CTreeView', ['data' => $tree, 'collapsed' => true, 'animated' => 'normal']); ?>
 </div>
 
 <div class="form-actions">
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'buttonType' => 'submit',
             'context'    => 'primary',
             'label'      => Yii::t('RbacModule.rbac', 'Save'),
-        )
+        ]
     );
     ?>
 </div>

@@ -32,7 +32,7 @@ class DAO extends \CComponent
     private $_conditions = null;
 
     // Query params, array
-    private $_params = array();
+    private $_params = [];
 
     /**
      * Создаём новый инстанс класса
@@ -158,7 +158,7 @@ class DAO extends \CComponent
      *
      * @return [type] [description]
      */
-    public function where($conditions, array $params = array())
+    public function where($conditions, array $params = [])
     {
         $this->_conditions = $conditions;
         $this->_params = $params;
@@ -173,7 +173,7 @@ class DAO extends \CComponent
      *                          задающим значения обновляемых полей
      * @return integer - number of rows affected by the execution.
      */
-    public function update(array $columns = array())
+    public function update(array $columns = [])
     {
         return $this->getCommand()
             ->update(

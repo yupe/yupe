@@ -59,42 +59,42 @@ class Category extends yupe\models\YModel
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name, description, short_description, alias', 'filter', 'filter' => 'trim'),
-            array('name, alias', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('name, description, alias, lang', 'required'),
-            array('parent_id, status', 'numerical', 'integerOnly' => true),
-            array('parent_id, status', 'length', 'max' => 11),
-            array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('status', 'numerical', 'integerOnly' => true),
-            array('status', 'length', 'max' => 11),
-            array('name, image', 'length', 'max' => 250),
-            array('alias', 'length', 'max' => 150),
-            array('lang', 'length', 'max' => 2),
-            array(
+        return [
+            ['name, description, short_description, alias', 'filter', 'filter' => 'trim'],
+            ['name, alias', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['name, alias, lang', 'required'],
+            ['parent_id, status', 'numerical', 'integerOnly' => true],
+            ['parent_id, status', 'length', 'max' => 11],
+            ['parent_id', 'default', 'setOnEmpty' => true, 'value' => null],
+            ['status', 'numerical', 'integerOnly' => true],
+            ['status', 'length', 'max' => 11],
+            ['name, image', 'length', 'max' => 250],
+            ['alias', 'length', 'max' => 150],
+            ['lang', 'length', 'max' => 2],
+            [
                 'alias',
                 'yupe\components\validators\YSLugValidator',
                 'message' => Yii::t('CategoryModule.category', 'Bad characters in {attribute} field')
-            ),
-            array('alias', 'yupe\components\validators\YUniqueSlugValidator'),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('id, parent_id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'),
-        );
+            ],
+            ['alias', 'yupe\components\validators\YUniqueSlugValidator'],
+            ['status', 'in', 'range' => array_keys($this->statusList)],
+            ['id, parent_id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'],
+        ];
     }
 
     public function behaviors()
     {
         $module = Yii::app()->getModule('category');
 
-        return array(
-            'imageUpload' => array(
-                'class'         => 'yupe\components\behaviors\FileUploadBehavior',
-                'scenarios'     => array('insert', 'update'),
+        return [
+            'imageUpload' => [
+                'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
+                'scenarios'     => ['insert', 'update'],
                 'attributeName' => 'image',
                 'uploadPath'    => $module->uploadPath,
-                'fileName'      => array($this, 'generateFileName'),
-            ),
-        );
+                'fileName'      => [$this, 'generateFileName'],
+            ],
+        ];
     }
 
     public function generateFileName()
@@ -104,23 +104,23 @@ class Category extends yupe\models\YModel
 
     public function relations()
     {
-        return array(
-            'parent'   => array(self::BELONGS_TO, 'Category', 'parent_id'),
-            'children' => array(self::HAS_MANY, 'Category', 'parent_id'),
-        );
+        return [
+            'parent'   => [self::BELONGS_TO, 'Category', 'parent_id'],
+            'children' => [self::HAS_MANY, 'Category', 'parent_id'],
+        ];
     }
 
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 'status = :status',
-                'params'    => array(':status' => self::STATUS_PUBLISHED),
-            ),
-            'roots'     => array(
+                'params'    => [':status' => self::STATUS_PUBLISHED],
+            ],
+            'roots'     => [
                 'condition' => 'parent_id IS NULL',
-            ),
-        );
+            ],
+        ];
     }
 
     public function beforeValidate()
@@ -141,7 +141,7 @@ class Category extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'                => Yii::t('CategoryModule.category', 'Id'),
             'lang'              => Yii::t('CategoryModule.category', 'Language'),
             'parent_id'         => Yii::t('CategoryModule.category', 'Parent'),
@@ -151,7 +151,7 @@ class Category extends yupe\models\YModel
             'description'       => Yii::t('CategoryModule.category', 'Description'),
             'alias'             => Yii::t('CategoryModule.category', 'Alias'),
             'status'            => Yii::t('CategoryModule.category', 'Status'),
-        );
+        ];
     }
 
     /**
@@ -159,7 +159,7 @@ class Category extends yupe\models\YModel
      */
     public function attributeDescriptions()
     {
-        return array(
+        return [
             'id'                => Yii::t('CategoryModule.category', 'Id'),
             'lang'              => Yii::t('CategoryModule.category', 'Language'),
             'parent_id'         => Yii::t('CategoryModule.category', 'Parent'),
@@ -169,7 +169,7 @@ class Category extends yupe\models\YModel
             'description'       => Yii::t('CategoryModule.category', 'Description'),
             'alias'             => Yii::t('CategoryModule.category', 'Alias'),
             'status'            => Yii::t('CategoryModule.category', 'Status'),
-        );
+        ];
     }
 
     /**
@@ -191,16 +191,16 @@ class Category extends yupe\models\YModel
         $criteria->compare('lang', $this->lang);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
     public function getStatusList()
     {
-        return array(
+        return [
             self::STATUS_DRAFT      => Yii::t('CategoryModule.category', 'Draft'),
             self::STATUS_PUBLISHED  => Yii::t('CategoryModule.category', 'Published'),
             self::STATUS_MODERATION => Yii::t('CategoryModule.category', 'On moderation'),
-        );
+        ];
     }
 
     public function getStatus()
@@ -213,8 +213,8 @@ class Category extends yupe\models\YModel
     public function getAllCategoryList($selfId = false)
     {
         $conditionArray = ($selfId)
-            ? array('condition' => 'id != :id', 'params' => array(':id' => $selfId))
-            : array();
+            ? ['condition' => 'id != :id', 'params' => [':id' => $selfId]]
+            : [];
 
         $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($conditionArray);
 
@@ -223,15 +223,15 @@ class Category extends yupe\models\YModel
 
     public function getDescendants($parent = null)
     {
-        $out = array();
+        $out = [];
 
         $parent = $parent === null ? (int)$this->id : (int)$parent;
 
         $models = self::findAll(
             'parent_id = :id',
-            array(
+            [
                 ':id' => $parent
-            )
+            ]
         );
 
         foreach ($models as $model) {
@@ -242,15 +242,23 @@ class Category extends yupe\models\YModel
         return $out;
     }
 
-    public function getFormattedList($parent_id = null, $level = 0)
+    /**
+     * Возвращает отформатированный список в соответствии со вложенность категорий.
+     *
+     * @param null|int $parent_id
+     * @param int $level
+     * @param null|array|CDbCriteria $criteria
+     * @return array
+     */
+    public function getFormattedList($parent_id = null, $level = 0, $criteria = null)
     {
         if (empty($parent_id)) {
             $parent_id = null;
         }
 
-        $categories = Category::model()->findAllByAttributes(array('parent_id' => $parent_id));
+        $categories = Category::model()->findAllByAttributes(['parent_id' => $parent_id], $criteria);
 
-        $list = array();
+        $list = [];
 
         foreach ($categories as $category) {
 
@@ -258,7 +266,7 @@ class Category extends yupe\models\YModel
 
             $list[$category->id] = $category->name;
 
-            $list = CMap::mergeArray($list, $this->getFormattedList($category->id, $level + 1));
+            $list = CMap::mergeArray($list, $this->getFormattedList($category->id, $level + 1, $criteria));
         }
 
         return $list;
@@ -273,21 +281,13 @@ class Category extends yupe\models\YModel
         return '---';
     }
 
-    public function getImageSrc()
-    {
-        return Yii::app()->baseUrl . "/" .
-        Yii::app()->getModule("yupe")->uploadPath . "/" .
-        Yii::app()->getModule("category")->uploadPath . "/" .
-        $this->image;
-    }
-
     public function getByAlias($alias)
     {
         return self::model()->published()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->find(
             'alias = :alias',
-            array(
+            [
                 ':alias' => $alias
-            )
+            ]
         );
     }
 

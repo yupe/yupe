@@ -12,11 +12,11 @@
 <div class="form well">
     <?php $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
-        array(
+        [
             'id'                     => 'add-image-form',
             'enableClientValidation' => true,
-            'htmlOptions'            => array('enctype' => 'multipart/form-data')
-        )
+            'htmlOptions'            => ['enctype' => 'multipart/form-data']
+        ]
     ); ?>
 
     <legend>
@@ -29,7 +29,7 @@
 
     <?php if ($model->file !== null) : { ?>
         <div class="row">
-            <?php echo CHtml::image($model->getUrl(190), $model->alt); ?>
+            <?php echo CHtml::image($model->getImageUrl(190), $model->alt); ?>
         </div>
     <?php } endif; ?>
 
@@ -38,11 +38,11 @@
             <?php echo $form->fileFieldGroup(
                 $model,
                 'file',
-                array(
-                    'widgetOptions' => array(
-                        'htmlOptions' => array('style' => 'background-color: inherit;'),
-                    ),
-                )
+                [
+                    'widgetOptions' => [
+                        'htmlOptions' => ['style' => 'background-color: inherit;'],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -58,13 +58,13 @@
             <?php echo $form->textAreaGroup(
                 $model,
                 'description',
-                array(
-                    'widgetOptions' => array(
-                        'htmlOptions' => array(
+                [
+                    'widgetOptions' => [
+                        'htmlOptions' => [
                             'rows' => 7,
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ); ?>
         </div>
     </div>
@@ -78,14 +78,14 @@
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',
-        array(
+        [
             'buttonType' => 'submit',
             'context'    => 'primary',
-            'icon'       => 'glyphicon glyphicon-picture',
+            'icon'       => 'fa fa-picture-o',
             'label'      => $model->getIsNewRecord()
                     ? Yii::t('GalleryModule.gallery', 'Create image')
                     : Yii::t('GalleryModule.gallery', 'Refresh image')
-        )
+        ]
     ); ?>
 
     <?php $this->endWidget(); ?>

@@ -12,6 +12,6 @@
 <div id="gallery-wrapper">
     <?php $this->renderPartial(
         'gallerywidget-backend',
-        array('gallery' => $model, 'model' => $model, 'dataProvider' => $dataProvider)
+        ['gallery' => $model, 'model' => $model, 'dataProvider' => $dataProvider]
     ); ?>
 </div>

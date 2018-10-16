@@ -20,7 +20,7 @@ class BlogRssController extends yupe\components\controllers\RssController
 
         $criteria = new CDbCriteria();
         $criteria->order = 'publish_date DESC';
-        $criteria->params = array();
+        $criteria->params = [];
         $criteria->limit = $limit;
 
         $yupe = Yii::app()->getModule('yupe');
@@ -66,23 +66,23 @@ class BlogRssController extends yupe\components\controllers\RssController
 
     public function actions()
     {
-        return array(
-            'feed' => array(
+        return [
+            'feed' => [
                 'class'       => 'yupe\components\actions\YFeedAction',
                 'data'        => $this->data,
                 'title'       => $this->title,
                 'description' => $this->description,
-                'itemFields'  => array(
+                'itemFields'  => [
                     'author_object'   => 'createUser',
                     'author_nickname' => 'nick_name',
                     'content'         => 'content',
                     'datetime'        => 'create_date',
                     'link'            => '/blog/post/show',
-                    'linkParams'      => array('slug' => 'slug'),
+                    'linkParams'      => ['slug' => 'slug'],
                     'title'           => 'title',
                     'updated'         => 'update_date',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

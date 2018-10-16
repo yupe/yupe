@@ -14,27 +14,27 @@ class BlogBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Blog.BlogBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Blog.BlogBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Blog.BlogBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Blog.BlogBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Blog.BlogBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Blog.BlogBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Blog.BlogBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Blog.BlogBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Blog.BlogBackend.Index']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Blog.BlogBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Blog.BlogBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Blog.BlogBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Blog',
-                'validAttributes' => array('name', 'slug', 'status', 'type')
-            )
-        );
+                'validAttributes' => ['name', 'slug', 'status', 'type']
+            ]
+        ];
     }
 
     /**
@@ -47,7 +47,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
     public function actionView($id)
     {
         if (($model = Blog::model()->loadModel($id)) !== null) {
-            $this->render('view', array('model' => $model));
+            $this->render('view', ['model' => $model]);
         } else {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
         }
@@ -75,12 +75,12 @@ class BlogBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -106,16 +106,16 @@ class BlogBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array(
+                        [
                             'update',
                             'id' => $model->id
-                        )
+                        ]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -144,7 +144,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
-                $this->redirect(Yii::app()->getRequest()->getPost('returnUrl', array('index')));
+                $this->redirect(Yii::app()->getRequest()->getPost('returnUrl', ['index']));
             }
         } else {
             throw new CHttpException(400, Yii::t(
@@ -166,6 +166,6 @@ class BlogBackendController extends yupe\components\controllers\BackController
         if (Yii::app()->getRequest()->getParam('Blog') !== null) {
             $model->setAttributes(Yii::app()->getRequest()->getParam('Blog'));
         }
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 }

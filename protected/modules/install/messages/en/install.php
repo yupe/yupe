@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     '0.2'                                                                                                                                                                                                   => '',
     '< Back'                                                                                                                                                                                                => '',
     '<b>Optional</b>.'                                                                                                                                                                                      => '',
@@ -223,4 +223,4 @@ return array(
     'All discussions here'                                                                                                                                                                                  => '',
     'Just good guys'                                                                                                                                                                                        => '',
     'Please, select your language below for continue.'                                                                                                                                                      => '',
-);
+];

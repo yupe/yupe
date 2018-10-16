@@ -9,13 +9,13 @@
  * @since 0.1
  *
  */
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class' => 'application.modules.category.CategoryModule',
-    ),
-    'import'    => array(
+    ],
+    'import'    => [
         'application.modules.category.models.*',
-    ),
-    'component' => array(),
-    'rules'     => array(),
-);
+    ],
+    'component' => [],
+    'rules'     => [],
+];

@@ -9,22 +9,22 @@
  * @since 0.1
  *
  */
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class'        => 'application.modules.blog.BlogModule',
-        'panelWidgets' => array(
-            'application.modules.blog.widgets.PanelStatWidget' => array(
+        'panelWidgets' => [
+            'application.modules.blog.widgets.PanelStatWidget' => [
                 'limit' => 5
-            )
-        )
-    ),
-    'import'    => array(),
-    'component' => array(
-        'postManager' => array(
+            ]
+        ]
+    ],
+    'import'    => [],
+    'component' => [
+        'postManager' => [
             'class' => 'application.modules.blog.components.PostManager',
-        ),
-    ),
-    'rules'     => array(
+        ],
+    ],
+    'rules'     => [
         '/post/<slug>.html'       => 'blog/post/show',
         '/posts/tag/<tag>'        => 'blog/post/list',
         '/rss/blog/<blog>'        => 'blog/blogRss/feed',
@@ -43,5 +43,5 @@ return array(
         '/posts/categories'       => 'blog/post/categories',
         '/posts/<slug>/'          => 'blog/post/blog',
         '/posts/category/<alias>' => 'blog/post/category'
-    ),
-);
+    ],
+];

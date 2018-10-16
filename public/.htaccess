@@ -3,7 +3,6 @@ Options +FollowSymLinks
 IndexIgnore */*
 
 ServerSignature Off
-php_flag expose_php Off
 
 <IfModule mod_deflate.c>
     # выставляем заголовок Content-Encoding: gzip

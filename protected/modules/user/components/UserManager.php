@@ -46,7 +46,7 @@ class UserManager extends CApplicationComponent
                     Yii::t(
                         'UserModule.user',
                         'Account {nick_name} was created',
-                        array('{nick_name}' => $user->nick_name)
+                        ['{nick_name}' => $user->nick_name]
                     ),
                     CLogger::LEVEL_INFO,
                     UserModule::$logCategory
@@ -62,7 +62,7 @@ class UserManager extends CApplicationComponent
         } catch (Exception $e) {
 
             Yii::log(
-                Yii::t('UserModule.user', 'Error {error} account creating!', array('{error}' => $e->__toString())),
+                Yii::t('UserModule.user', 'Error {error} account creating!', ['{error}' => $e->__toString()]),
                 CLogger::LEVEL_INFO,
                 UserModule::$logCategory
             );
@@ -107,15 +107,16 @@ class UserManager extends CApplicationComponent
                     Yii::t(
                         'UserModule.user',
                         'Account with activate_key = {activate_key} was activated!',
-                        array(
+                        [
                             '{activate_key}' => $token
-                        )
+                        ]
                     ),
                     CLogger::LEVEL_INFO,
                     UserModule::$logCategory
                 );
 
-                Yii::app()->eventManager->fire(UserEvents::SUCCESS_ACTIVATE_ACCOUNT, new UserActivateEvent($token));
+
+                Yii::app()->eventManager->fire(UserEvents::SUCCESS_ACTIVATE_ACCOUNT, new UserActivateEvent($token, $userModel));
 
                 $transaction->commit();
 
@@ -145,9 +146,9 @@ class UserManager extends CApplicationComponent
 
         $user = User::model()->active()->find(
             'email = :email',
-            array(
+            [
                 ':email' => $email
-            )
+            ]
         );
 
         if (null === $user) {
@@ -318,10 +319,10 @@ class UserManager extends CApplicationComponent
                     Yii::t(
                         'UserModule.user',
                         'Email with activate_key = {activate_key}, id = {id} was activated!',
-                        array(
+                        [
                             '{activate_key}' => $token,
                             '{id}'           => $userModel->id,
-                        )
+                        ]
                     ),
                     CLogger::LEVEL_INFO,
                     UserModule::$logCategory
@@ -341,6 +342,6 @@ class UserManager extends CApplicationComponent
 
     public function isUserExist($email)
     {
-        return User::model()->active()->find('email = :email', array('email' => $email));
+        return User::model()->active()->find('email = :email', ['email' => $email]);
     }
 }

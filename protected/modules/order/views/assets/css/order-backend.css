@@ -1,0 +1,53 @@
+.note {
+    clear: both;
+    padding: 3px;
+    border: 1px dotted #ffc539;
+    background-color: #fffac4;
+    margin-top: 3px;
+}
+
+hr {
+    margin: 4px;
+}
+
+#add-product {
+    min-width: 75px;
+    width: 100%;
+}
+
+#orderDate {
+    min-width: 110px;
+}
+#orderAddProduct {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#products .well {
+    min-height: 20px;
+    padding: 5px 5px 5px 2px;
+    margin-bottom: 2px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.product-row {
+    margin-bottom: 4px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 4px;
+}
+
+.coupons .alert {
+    margin-bottom: 0;
+}
+
+.coupons .alert .close {
+    float: none;
+    top: 0;
+}

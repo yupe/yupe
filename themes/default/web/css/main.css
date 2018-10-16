@@ -351,6 +351,7 @@ span.label a {
     border: 1px solid #F5F5F5;
     border-radius: 2px;
     box-shadow: 1px 1px 10px 0 rgb(201, 201, 201);
+    display: inline-block;
 }
 
 .avatar img {

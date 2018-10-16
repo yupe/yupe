@@ -1,10 +1,10 @@
 <?php $this->pageTitle = $good->name; ?>
 
 <?php
-$this->breadcrumbs = array(
-    Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/catalog/index/'),
+$this->breadcrumbs = [
+    Yii::t('CatalogModule.catalog', 'Products') => ['/catalog/catalog/index/'],
     CHtml::encode($good->name)
-);
+];
 ?>
 
 <div class="post">
@@ -22,7 +22,7 @@ $this->breadcrumbs = array(
         <br/>
         <?php echo CHtml::link(
             Yii::t('CatalogModule.catalog', 'Constant link'),
-            array('/catalog/catalog/show', 'name' => $good->alias)
+            ['/catalog/catalog/show', 'name' => $good->alias]
         ); ?>
     </div>
 </div>
@@ -32,7 +32,7 @@ $this->breadcrumbs = array(
 
 <?php $this->widget(
     'application.modules.comment.widgets.CommentsListWidget',
-    array('model' => $good, 'modelId' => $good->id, 'label' => 'Отзывов')
+    ['model' => $good, 'modelId' => $good->id, 'label' => 'Отзывов']
 ); ?>
 
 <br/>
@@ -41,5 +41,5 @@ $this->breadcrumbs = array(
 
 <?php $this->widget(
     'application.modules.comment.widgets.CommentFormWidget',
-    array('redirectTo' => $good->getPermaLink(), 'model' => $good, 'modelId' => $good->id)
+    ['redirectTo' => $good->getPermaLink(), 'model' => $good, 'modelId' => $good->id]
 ); ?>

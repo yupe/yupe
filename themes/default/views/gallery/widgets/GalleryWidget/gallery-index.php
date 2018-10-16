@@ -8,17 +8,17 @@
                         <div class="col-sm-3">
                             <a href="<?php echo Yii::app()->createUrl(
                                 '/gallery/gallery/image/',
-                                array('id' => $data->image->id)
+                                ['id' => $data->image->id]
                             ); ?>" class="thumbnail">
                                 <?php echo CHtml::image(
-                                    $data->image->getUrl(250, 250),
+                                    $data->image->getImageUrl(250, 250),
                                     $data->image->alt,
-                                    array(
+                                    [
                                         'width'  => 250,
                                         'height' => 250,
-                                        'href'   => $data->image->getUrl(),
+                                        'href'   => $data->image->getImageUrl(),
                                         'class'  => 'gallery-image'
-                                    )
+                                    ]
                                 ); ?>
                             </a>
                         </div>

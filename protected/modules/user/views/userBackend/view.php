@@ -1,73 +1,76 @@
 <?php
-$this->breadcrumbs = array(
-    Yii::t('UserModule.user', 'Users') => array('/user/userBackend/index'),
+/**
+ * @var $model User
+ */
+$this->breadcrumbs = [
+    Yii::t('UserModule.user', 'Users') => ['/user/userBackend/index'],
     $model->nick_name,
-);
+];
 
 $this->pageTitle = Yii::t('UserModule.user', 'Users - show');
 
-$this->menu = array(
-    array(
+$this->menu = [
+    [
         'label' => Yii::t('UserModule.user', 'Users'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Manage users'),
-                'url'   => array('/user/userBackend/index')
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-plus-sign',
+                'url'   => ['/user/userBackend/index']
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-plus-square',
                 'label' => Yii::t('UserModule.user', 'Create user'),
-                'url'   => array('/user/userBackend/create')
-            ),
-            array('label' => Yii::t('UserModule.user', 'User') . ' «' . $model->nick_name . '»'),
-            array(
-                'icon'  => 'glyphicon glyphicon-pencil',
+                'url'   => ['/user/userBackend/create']
+            ],
+            ['label' => Yii::t('UserModule.user', 'User') . ' «' . $model->nick_name . '»'],
+            [
+                'icon'  => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('UserModule.user', 'Edit user'),
-                'url'   => array(
+                'url'   => [
                     '/user/userBackend/update',
                     'id' => $model->id
-                )
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-eye-open',
+                ]
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-eye',
                 'label' => Yii::t('UserModule.user', 'Show user'),
-                'url'   => array(
+                'url'   => [
                     '/user/userBackend/view',
                     'id' => $model->id
-                )
-            ),
-            array(
-                'icon'  => 'glyphicon glyphicon-lock',
+                ]
+            ],
+            [
+                'icon'  => 'fa fa-fw fa-lock',
                 'label' => Yii::t('UserModule.user', 'Change user password'),
-                'url'   => array(
+                'url'   => [
                     '/user/userBackend/changepassword',
                     'id' => $model->id
-                )
-            ),
-            array(
-                'icon'        => 'glyphicon glyphicon-trash',
+                ]
+            ],
+            [
+                'icon'        => 'fa fa-fw fa-trash-o',
                 'label'       => Yii::t('UserModule.user', 'Remove user'),
                 'url'         => '#',
-                'linkOptions' => array(
-                    'submit'  => array('/user/userBackend/delete', 'id' => $model->id),
-                    'params'  => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
+                'linkOptions' => [
+                    'submit'  => ['/user/userBackend/delete', 'id' => $model->id],
+                    'params'  => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
                     'confirm' => Yii::t('UserModule.user', 'Do you really want to remove user?')
-                ),
-            ),
-        )
-    ),
-    array(
+                ],
+            ],
+        ]
+    ],
+    [
         'label' => Yii::t('UserModule.user', 'Tokens'),
-        'items' => array(
-            array(
-                'icon'  => 'glyphicon glyphicon-list-alt',
+        'items' => [
+            [
+                'icon'  => 'fa fa-fw fa-list-alt',
                 'label' => Yii::t('UserModule.user', 'Token list'),
-                'url'   => array('/user/tokensBackend/index')
-            ),
-        )
-    ),
-);
+                'url'   => ['/user/tokensBackend/index']
+            ],
+        ]
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -78,36 +81,39 @@ $this->menu = array(
 
 <?php $this->widget(
     'bootstrap.widgets.TbDetailView',
-    array(
+    [
         'data'       => $model,
-        'attributes' => array(
+        'attributes' => [
             'id',
-            'full_name',
+            [
+                'name'  => 'full_name',
+                'value' => $model->getFullName()
+            ],
             'nick_name',
             'email',
             'location',
             'site',
             'birth_date',
             'about',
-            array(
+            [
                 'name'  => 'gender',
                 'value' => $model->getGender(),
-            ),
-            array(
+            ],
+            [
                 'name'  => 'status',
                 'value' => $model->getStatus(),
-            ),
-            array(
+            ],
+            [
                 'name'  => 'access_level',
                 'value' => $model->getAccessLevel(),
-            ),
-            array(
+            ],
+            [
                 'name'  => 'email_confirm',
                 'value' => $model->getEmailConfirmStatus(),
-            ),
+            ],
             'last_visit',
             'registration_date',
             'change_date'
-        ),
-    )
+        ],
+    ]
 ); ?>

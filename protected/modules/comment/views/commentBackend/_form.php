@@ -1,13 +1,13 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'comment-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 ); ?>
 <div class="alert alert-info">
     <?php echo Yii::t('CommentModule.comment', 'Fields with'); ?>
@@ -46,12 +46,11 @@ $form = $this->beginWidget(
     <div class="col-sm-7">
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php $this->widget(
-            $this->module->editor,
-            array(
+            $this->module->getVisualEditor(),
+            [
                 'model'     => $model,
                 'attribute' => 'text',
-                'options'   => $this->module->editorOptions,
-            )
+            ]
         ); ?>
         <br/><?php echo $form->error($model, 'text'); ?>
     </div>
@@ -61,37 +60,37 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListGroup(
             $model,
             'status',
-            array(
-                'widgetOptions' => array(
+            [
+                'widgetOptions' => [
                     'data' => $model->getStatusList(),
-                ),
-            )
+                ],
+            ]
         ); ?>
     </div>
 </div>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('CommentModule.comment', 'Create comment and continue') : Yii::t(
                 'CommentModule.comment',
                 'Save comment and continue'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('CommentModule.comment', 'Create comment and close') : Yii::t(
                 'CommentModule.comment',
                 'Save comment and close'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

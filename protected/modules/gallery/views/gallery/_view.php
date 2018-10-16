@@ -11,15 +11,15 @@
 ?>
 <div class="media">
     <?php echo CHtml::link(
-        CHtml::image($data->previewImage(), $data->name, array('class' => 'thumbnail media-object')),
-        array('/gallery/gallery/show/', 'id' => $data->id),
-        array('class' => 'pull-left')
+        CHtml::image($data->previewImage(), $data->name, ['class' => 'thumbnail media-object']),
+        ['/gallery/gallery/show/', 'id' => $data->id],
+        ['class' => 'pull-left']
     ); ?>
 
     <div class="media-body">
 
         <h3 class="media-heading">
-            <?php echo CHtml::link(CHtml::encode($data->name), array('/gallery/gallery/show/', 'id' => $data->id)); ?>
+            <?php echo CHtml::link(CHtml::encode($data->name), ['/gallery/gallery/show/', 'id' => $data->id]); ?>
         </h3>
 
         <?php echo $data->description; ?>
@@ -32,7 +32,7 @@
                             class="badge alert-info"><?php echo $data->imagesCount; ?></span>
                     </li>
                     <li>
-                        <i class="glyphicon glyphicon-calendar"></i> <?php echo Yii::app()->dateFormatter->format(
+                        <i class="fa fa-calendar"></i> <?php echo Yii::app()->dateFormatter->format(
                             'dd MMMM yyyy г., hh:mm',
                             $data->lastUpdated
                         ); ?>

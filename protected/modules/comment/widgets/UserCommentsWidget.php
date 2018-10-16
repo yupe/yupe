@@ -20,17 +20,17 @@ class UserCommentsWidget extends yupe\widgets\YWidget
     public function run()
     {
         $comments = Comment::model()->findAll(
-            array(
+            [
                 'condition' => 'user_id = :user AND t.status = :status AND t.id != t.root',
-                'params'    => array(
+                'params'    => [
                     ':user'   => (int)$this->userId,
                     ':status' => Comment::STATUS_APPROVED
-                ),
+                ],
                 'order'     => 't.id DESC',
                 'limit'     => (int)$this->limit
-            )
+            ]
         );
 
-        $this->render($this->view, array('comments' => $comments, 'label' => $this->label));
+        $this->render($this->view, ['comments' => $comments, 'label' => $this->label]);
     }
 }

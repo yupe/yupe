@@ -4,25 +4,25 @@
  * @var $model Good
  * @var $this CatalogBackendController
  */
-$this->breadcrumbs = array(
-    Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/catalogBackend/index'),
+$this->breadcrumbs = [
+    Yii::t('CatalogModule.catalog', 'Products') => ['/catalog/catalogBackend/index'],
     Yii::t('CatalogModule.catalog', 'Manage'),
-);
+];
 
 $this->pageTitle = Yii::t('CatalogModule.catalog', 'Manage products');
 
-$this->menu = array(
-    array(
-        'icon'  => 'glyphicon glyphicon-list-alt',
-        'label' => Yii::t('CatalogModule.catalog', 'Manage products'),
-        'url'   => array('/catalog/catalogBackend/index')
-    ),
-    array(
-        'icon'  => 'glyphicon glyphicon-plus-sign',
+$this->menu = [
+    [
+        'icon'  => 'fa fa-fw fa-list-alt',
+        'label' => Yii::t('CatalogModule.catalog', 'Products administration'),
+        'url'   => ['/catalog/catalogBackend/index']
+    ],
+    [
+        'icon'  => 'fa fa-fw fa-plus-square',
         'label' => Yii::t('CatalogModule.catalog', 'Add a product'),
-        'url'   => array('/catalog/catalogBackend/create')
-    ),
-);
+        'url'   => ['/catalog/catalogBackend/create']
+    ],
+];
 ?>
 <div class="page-header">
     <h1>
@@ -33,7 +33,7 @@ $this->menu = array(
 
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-        <i class="glyphicon glyphicon-search">&nbsp;</i>
+        <i class="fa fa-search">&nbsp;</i>
         <?php echo Yii::t('CatalogModule.catalog', 'Find products'); ?>
         <span class="caret">&nbsp;</span>
     </a>
@@ -53,13 +53,13 @@ $this->menu = array(
     });
 "
     );
-    $this->renderPartial('_search', array('model' => $model));
+    $this->renderPartial('_search', ['model' => $model]);
     ?>
 </div>
 
 <?php $this->widget(
     'yupe\widgets\CustomGridView',
-    array(
+    [
         'id'             => 'good-grid',
         'dataProvider'   => $model->search(),
         'filter'         => $model,
@@ -70,47 +70,47 @@ $this->menu = array(
                 ['class' => 'btn btn-success pull-right btn-sm']
             )
         ],
-        'columns'        => array(
-            array(
+        'columns'        => [
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'name',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/catalog/catalogBackend/inline'),
                     'mode'   => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'name', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'alias',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/catalog/catalogBackend/inline'),
                     'mode'   => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'alias', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'alias', ['class' => 'form-control']),
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/catalog/catalogBackend/inline'),
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
                         'CatalogModule.catalog',
                         'Select {field}',
-                        array('{field}' => mb_strtolower($model->getAttributeLabel('category_id')))
+                        ['{field}' => mb_strtolower($model->getAttributeLabel('category_id'))]
                     ),
                     'source' => Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory),
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
+                    ]
+                ],
                 'name'     => 'category_id',
                 'type'     => 'raw',
                 'value'    => '$data->category->name',
@@ -118,44 +118,44 @@ $this->menu = array(
                     $model,
                     'category_id',
                     Category::model()->getFormattedList(Yii::app()->getModule('catalog')->mainCategory),
-                    array('encode' => false, 'empty' => '', 'class' => 'form-control')
+                    ['encode' => false, 'empty' => '', 'class' => 'form-control']
                 )
-            ),
-            array(
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'price',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/catalog/catalogBackend/inline'),
                     'mode'   => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'price', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'price', ['class' => 'form-control']),
+            ],
+            [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'name'     => 'article',
-                'editable' => array(
+                'editable' => [
                     'url'    => $this->createUrl('/catalog/catalogBackend/inline'),
                     'mode'   => 'inline',
-                    'params' => array(
+                    'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    )
-                ),
-                'filter'   => CHtml::activeTextField($model, 'article', array('class' => 'form-control')),
-            ),
-            array(
+                    ]
+                ],
+                'filter'   => CHtml::activeTextField($model, 'article', ['class' => 'form-control']),
+            ],
+            [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'is_special',
                 'url'     => $this->createUrl('/catalog/catalogBackend/inline'),
                 'source'  => $model->getSpecialList(),
                 'options' => [
-                    Good::SPECIAL_ACTIVE     => array('class' => 'label-success'),
-                    Good::SPECIAL_NOT_ACTIVE => array('class' => 'label-default'),
+                    Good::SPECIAL_ACTIVE     => ['class' => 'label-success'],
+                    Good::SPECIAL_NOT_ACTIVE => ['class' => 'label-default'],
                 ],
-            ),
-            array(
+            ],
+            [
                 'class'   => 'yupe\widgets\EditableStatusColumn',
                 'name'    => 'status',
                 'url'     => $this->createUrl('/catalog/catalogBackend/inline'),
@@ -165,8 +165,8 @@ $this->menu = array(
                     Good::STATUS_NOT_ACTIVE => ['class' => 'label-warning'],
                     Good::STATUS_ZERO       => ['class' => 'label-default'],
                 ],
-            ),
-            array(
+            ],
+            [
                 'name'   => 'user_id',
                 'type'   => 'raw',
                 'value'  => 'CHtml::link($data->user->getFullName(), array("/user/userBackend/view", "id" => $data->user->id))',
@@ -175,10 +175,10 @@ $this->menu = array(
                     'id',
                     'nick_name'
                 )
-            ),
-            array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
-            ),
-        ),
-    )
+            ],
+            [
+                'class' => 'yupe\widgets\CustomButtonColumn',
+            ],
+        ],
+    ]
 ); ?>

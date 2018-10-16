@@ -48,11 +48,11 @@ class ImageToGallery extends yupe\models\YModel
      */
     public function rules()
     {
-        return array(
-            array('image_id, gallery_id', 'required'),
-            array('image_id, gallery_id', 'numerical', 'integerOnly' => true),
-            array('id, image_id, gallery_id, creation_date', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['image_id, gallery_id', 'required'],
+            ['image_id, gallery_id', 'numerical', 'integerOnly' => true],
+            ['id, image_id, gallery_id, creation_date', 'safe', 'on' => 'search'],
+        ];
     }
 
     /**
@@ -62,10 +62,10 @@ class ImageToGallery extends yupe\models\YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'gallery' => array(self::BELONGS_TO, 'Gallery', 'gallery_id'),
-            'image'   => array(self::BELONGS_TO, 'Image', 'image_id'),
-        );
+        return [
+            'gallery' => [self::BELONGS_TO, 'Gallery', 'gallery_id'],
+            'image'   => [self::BELONGS_TO, 'Image', 'image_id'],
+        ];
     }
 
     /**
@@ -73,12 +73,12 @@ class ImageToGallery extends yupe\models\YModel
      */
     public function attributeLabels()
     {
-        return array(
+        return [
             'id'            => Yii::t('GalleryModule.gallery', 'id'),
             'image_id'      => Yii::t('GalleryModule.gallery', 'Image'),
             'gallery_id'    => Yii::t('GalleryModule.gallery', 'Gallery'),
             'creation_date' => Yii::t('GalleryModule.gallery', 'Created at'),
-        );
+        ];
     }
 
     /**
@@ -97,7 +97,7 @@ class ImageToGallery extends yupe\models\YModel
         $criteria->compare('gallery_id', $this->gallery_id, true);
         $criteria->compare('creation_date', $this->creation_date, true);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
     }
 
     public function beforeSave()

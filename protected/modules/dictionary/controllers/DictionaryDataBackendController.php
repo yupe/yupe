@@ -14,31 +14,31 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Dictionary.DictionaryDataBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Dictionary.DictionaryDataBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Dictionary.DictionaryDataBackend.Index')),
-            array(
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Dictionary.DictionaryDataBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Dictionary.DictionaryDataBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Dictionary.DictionaryDataBackend.Index']],
+            [
                 'allow',
-                'actions' => array('inlineEdit'),
-                'roles'   => array('Dictionary.DictionaryDataBackend.Update')
-            ),
-            array('allow', 'actions' => array('update'), 'roles' => array('Dictionary.DictionaryDataBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Dictionary.DictionaryDataBackend.View')),
-            array('deny')
-        );
+                'actions' => ['inline'],
+                'roles'   => ['Dictionary.DictionaryDataBackend.Update']
+            ],
+            ['allow', 'actions' => ['update'], 'roles' => ['Dictionary.DictionaryDataBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Dictionary.DictionaryDataBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'DictionaryData',
-                'validAttributes' => array('name', 'code', 'description', 'value', 'status')
-            )
-        );
+                'validAttributes' => ['name', 'code', 'description', 'value', 'status']
+            ]
+        ];
     }
 
     /**
@@ -50,7 +50,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -83,13 +83,13 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -118,13 +118,13 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -152,7 +152,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
 
         } else {
@@ -183,11 +183,11 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'DictionaryData',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

@@ -11,13 +11,13 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'                     => 'dictionary-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
-    )
+        'htmlOptions'            => ['class' => 'well'],
+    ]
 ); ?>
 
 <div class="alert alert-info">
@@ -44,12 +44,11 @@ $form = $this->beginWidget(
     <div class="col-sm-12 form-group">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget(
-            $this->module->editor,
-            array(
+            $this->module->getVisualEditor(),
+            [
                 'model'     => $model,
                 'attribute' => 'description',
-                'options'   => $this->module->editorOptions,
-            )
+            ]
         ); ?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
@@ -57,26 +56,26 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t(
                 'DictionaryModule.dictionary',
                 'Create dictionary and continue'
             ) : Yii::t('DictionaryModule.dictionary', 'Save dictionary and continue'),
-    )
+    ]
 ); ?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'buttonType'  => 'submit',
-        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t(
                 'DictionaryModule.dictionary',
                 'Create dictionary and close'
             ) : Yii::t('DictionaryModule.dictionary', 'Save dictionary and close'),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

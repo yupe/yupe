@@ -9,26 +9,26 @@
  * @link     http://yupe.ru
  *
  **/
-return array(
-    'module'    => array(
+return [
+    'module'    => [
         'class'           => 'application.modules.feedback.FeedbackModule',
         'notifyEmailFrom' => 'test@test.ru',
         'emails'          => 'test_1@test.ru, test_2@test.ru',
-        'panelWidgets'    => array(
-            'application.modules.feedback.widgets.PanelFeedbackStatWidget' => array(
+        'panelWidgets'    => [
+            'application.modules.feedback.widgets.PanelFeedbackStatWidget' => [
                 'limit' => 5
-            )
-        )
-    ),
-    'import'    => array(
+            ]
+        ]
+    ],
+    'import'    => [
         'application.modules.yupe.YupeModule'
-    ),
-    'component' => array(),
-    'rules'     => array(
+    ],
+    'component' => [],
+    'rules'     => [
         '/contacts'                             => 'feedback/contact/index',
         '/faq'                                  => 'feedback/contact/faq',
         '/faq/<id:\d+>'                         => 'feedback/contact/faqView',
         '/feedback/contact/captcha/refresh/<v>' => '/feedback/contact/captcha/refresh',
         '/feedback/contact/captcha/<v>'         => '/feedback/contact/captcha/'
-    ),
-);
+    ],
+];

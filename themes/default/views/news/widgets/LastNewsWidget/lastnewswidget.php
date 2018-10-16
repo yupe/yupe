@@ -4,12 +4,12 @@
         <div class='portlet-title'><?php echo Yii::t('NewsModule.news', 'News'); ?></div>
     </div>
     <div class='portlet-content'>
-        <?php if (isset($models) && $models != array()): ?>
+        <?php if (isset($models) && $models != []): ?>
             <ul>
                 <?php foreach ($models as $model): ?>
                     <li><?php echo CHtml::link(
                             $model->title,
-                            array('/news/news/show/', 'alias' => $model->alias)
+                            ['/news/news/show/', 'alias' => $model->alias]
                         ); ?></li>
                 <?php endforeach; ?>
             </ul>

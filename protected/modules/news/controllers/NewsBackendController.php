@@ -14,27 +14,27 @@ class NewsBackendController extends yupe\components\controllers\BackController
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('News.NewsBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('News.NewsBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('News.NewsBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('News.NewsBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('News.NewsBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('News.NewsBackend.View')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['News.NewsBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['News.NewsBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['News.NewsBackend.Index']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['News.NewsBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['News.NewsBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['News.NewsBackend.View']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'News',
-                'validAttributes' => array('title', 'alias', 'date', 'status')
-            )
-        );
+                'validAttributes' => ['title', 'alias', 'date', 'status']
+            ]
+        ];
     }
 
     /**
@@ -46,7 +46,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', ['model' => $this->loadModel($id)]);
     }
 
     /**
@@ -73,7 +73,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
@@ -94,7 +94,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
                     Yii::t('NewsModule.news', 'Targeting news was not found!')
                 );
 
-                $this->redirect(array('/news/newsBackend/create'));
+                $this->redirect(['/news/newsBackend/create']);
             }
 
             if (!array_key_exists($lang, $languages)) {
@@ -103,7 +103,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
                     Yii::t('NewsModule.news', 'Language was not found!')
                 );
 
-                $this->redirect(array('/news/newsBackend/create'));
+                $this->redirect(['/news/newsBackend/create']);
             }
 
             Yii::app()->user->setFlash(
@@ -111,9 +111,9 @@ class NewsBackendController extends yupe\components\controllers\BackController
                 Yii::t(
                     'NewsModule.news',
                     'You inserting translation for {lang} language',
-                    array(
+                    [
                         '{lang}' => $languages[$lang]
-                    )
+                    ]
                 )
             );
 
@@ -127,7 +127,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
             $model->lang = Yii::app()->language;
         }
 
-        $this->render('create', array('model' => $model, 'languages' => $languages));
+        $this->render('create', ['model' => $model, 'languages' => $languages]);
     }
 
     /**
@@ -160,9 +160,9 @@ class NewsBackendController extends yupe\components\controllers\BackController
                     Yii::app()->getRequest()->getIsPostRequest()
                         ? (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
-                        : array('view', 'id' => $model->id)
+                        : ['view', 'id' => $model->id]
                 );
             }
         }
@@ -170,19 +170,19 @@ class NewsBackendController extends yupe\components\controllers\BackController
         // найти по alias страницы на других языках
         $langModels = News::model()->findAll(
             'alias = :alias AND id != :id',
-            array(
+            [
                 ':alias' => $model->alias,
                 ':id'    => $model->id
-            )
+            ]
         );
 
         $this->render(
             'update',
-            array(
+            [
                 'langModels' => CHtml::listData($langModels, 'lang', 'id'),
                 'model'      => $model,
                 'languages'  => $this->yupe->getLanguagesList()
-            )
+            ]
         );
     }
 
@@ -234,11 +234,11 @@ class NewsBackendController extends yupe\components\controllers\BackController
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
                 'News',
-                array()
+                []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

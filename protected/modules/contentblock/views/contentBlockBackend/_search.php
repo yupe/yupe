@@ -1,11 +1,11 @@
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
-        'htmlOptions' => array('class' => 'well search-form'),
-    )
+        'htmlOptions' => ['class' => 'well search-form'],
+    ]
 );
 ?>
 <fieldset>
@@ -14,7 +14,7 @@ $form = $this->beginWidget(
             <?php echo $form->dropDownListGroup(
                 $model,
                 'type',
-                array('widgetOptions' => array('data' => $model->getTypes()))
+                ['widgetOptions' => ['data' => $model->getTypes()]]
             ); ?>
         </div>
     </div>
@@ -42,15 +42,15 @@ $form = $this->beginWidget(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton',
-    array(
+    [
         'context'     => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="glyphicon glyphicon-search">&nbsp;</i> ' . Yii::t(
+        'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
                 'ContentBlockModule.contentblock',
                 'Find block'
             ),
-    )
+    ]
 ); ?>
 
 <?php $this->endWidget(); ?>

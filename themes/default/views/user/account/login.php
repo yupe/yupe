@@ -1,19 +1,19 @@
 <?php
 $this->pageTitle = Yii::t('UserModule.user', 'Sign in');
-$this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
+$this->breadcrumbs = [Yii::t('UserModule.user', 'Sign in')];
 ?>
 
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
-    array(
+    [
         'id'          => 'login-form',
         'type'        => 'vertical',
-        'htmlOptions' => array(
+        'htmlOptions' => [
             'class' => 'well',
-        )
-    )
+        ]
+    ]
 ); ?>
 
 <?php echo $form->errorSummary($model); ?>
@@ -44,22 +44,22 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
             <?php echo $form->textFieldGroup(
                 $model,
                 'verifyCode',
-                array('hint' => Yii::t('UserModule.user', 'Please enter the text from the image'))
+                ['hint' => Yii::t('UserModule.user', 'Please enter the text from the image')]
             ); ?>
         </div>
         <div class="col-xs-4">
             <?php $this->widget(
                 'CCaptcha',
-                array(
+                [
                     'showRefreshButton' => true,
-                    'imageOptions'      => array(
+                    'imageOptions'      => [
                         'width' => '150',
-                    ),
-                    'buttonOptions'     => array(
+                    ],
+                    'buttonOptions'     => [
                         'class' => 'btn btn-default',
-                    ),
+                    ],
                     'buttonLabel'       => '<i class="glyphicon glyphicon-repeat"></i>',
-                )
+                ]
             ); ?>
         </div>
     </div>
@@ -71,24 +71,24 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType'  => 'submit',
                 'context'     => 'primary',
                 'icon'        => 'glyphicon glyphicon-signin',
                 'label'       => Yii::t('UserModule.user', 'Sign in'),
-                'htmlOptions' => array('id' => 'login-btn', 'name' => 'login-btn')
-            )
+                'htmlOptions' => ['id' => 'login-btn', 'name' => 'login-btn']
+            ]
         ); ?>
 
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton',
-            array(
+            [
                 'buttonType' => 'link',
                 'context'    => 'link',
                 'label'      => Yii::t('UserModule.user', 'Sign up'),
                 'url'        => Yii::app()->createUrl('/user/account/registration'),
-            )
+            ]
         ); ?>
     </div>
 </div>
@@ -101,10 +101,10 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
             <?php
             $this->widget(
                 'vendor.nodge.yii-eauth.EAuthWidget',
-                array(
+                [
                     'action'             => '/social/login',
-                    'predefinedServices' => array('google', 'facebook', 'vkontakte', 'twitter', 'github'),
-                )
+                    'predefinedServices' => ['google', 'facebook', 'vkontakte', 'twitter', 'github'],
+                ]
             );
             ?>
         </div>
@@ -112,7 +112,7 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 <?php } endif; ?>
 <div class="row">
     <div class="col-xs-12">
-        <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), array('/user/account/recovery')) ?>
+        <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot your password?'), ['/user/account/recovery']) ?>
     </div>
 </div>
 

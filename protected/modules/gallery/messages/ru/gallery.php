@@ -16,7 +16,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-return array(
+return [
     'Delete'                                                     => 'Удалить',
     'Do you really want to delete selected elements?'            => 'Вы уверены, что хотите удалить выбранные элементы?',
     '*unknown*'                                                  => '*неизвестно*',
@@ -114,4 +114,4 @@ return array(
     'Images gallery'                                             => 'Просмотр списка изображений галерей',
     'Delete image'                                               => 'Удаление изображения галереи',
     'Add image'                                                  => 'Добавление изображения в галерею'
-);
+];

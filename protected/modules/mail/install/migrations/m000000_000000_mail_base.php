@@ -21,12 +21,12 @@ class m000000_000000_mail_base extends yupe\components\DbMigration
          **/
         $this->createTable(
             '{{mail_mail_event}}',
-            array(
+            [
                 'id'          => 'pk',
                 'code'        => 'varchar(150) NOT NULL',
                 'name'        => 'varchar(150) NOT NULL',
                 'description' => 'text',
-            ),
+            ],
             $this->getOptions()
         );
 
@@ -37,7 +37,7 @@ class m000000_000000_mail_base extends yupe\components\DbMigration
          **/
         $this->createTable(
             '{{mail_mail_template}}',
-            array(
+            [
                 'id'          => 'pk',
                 'code'        => 'varchar(150) NOT NULL',
                 'event_id'    => 'integer NOT NULL',
@@ -48,7 +48,7 @@ class m000000_000000_mail_base extends yupe\components\DbMigration
                 'theme'       => 'text NOT NULL',
                 'body'        => 'text NOT NULL',
                 'status'      => "integer NOT NULL DEFAULT '1'",
-            ),
+            ],
             $this->getOptions()
         );
 

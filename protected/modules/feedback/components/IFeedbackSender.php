@@ -2,7 +2,7 @@
 
 interface IFeedbackSender
 {
-    public function send(FeedBackForm $form);
+    public function send(IFeedbackForm $form);
 
-    public function sendConfirmation(FeedBackForm $form, FeedBack $feedBack = null);
+    public function sendConfirmation(IFeedbackForm $form, FeedBack $feedBack = null);
 }

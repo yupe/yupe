@@ -3,7 +3,7 @@
     <title><?php echo Yii::t(
             'UserModule.user',
             'Password recovery for "{site}"!',
-            array('{site}' => CHtml::encode(Yii::app()->name))
+            ['{site}' => CHtml::encode(Yii::app()->name)]
         ); ?></title>
 </head>
 <body>
@@ -11,16 +11,16 @@
 <?php echo Yii::t(
     'UserModule.user',
     'Password recovery for "{site}"!',
-    array('{site}' => CHtml::encode(Yii::app()->name))
+    ['{site}' => CHtml::encode(Yii::app()->name)]
 ); ?><br/><br/>
 
-<?php echo Yii::t('UserModule.user', 'Your new password is {password} ', array('{password}' => $password)); ?><br/><br/>
+<?php echo Yii::t('UserModule.user', 'Your new password is {password} ', ['{password}' => $password]); ?><br/><br/>
 
 <br/><br/>
 <?php echo Yii::t(
     'UserModule.user',
     'Truly yours, administration of "{site}" !',
-    array('{site}' => CHtml::encode(Yii::app()->name))
+    ['{site}' => CHtml::encode(Yii::app()->name)]
 ); ?>
 </body>
 </html>

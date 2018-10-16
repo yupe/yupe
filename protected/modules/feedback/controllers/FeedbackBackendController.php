@@ -14,28 +14,28 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 {
     public function accessRules()
     {
-        return array(
-            array('allow', 'roles' => array('admin')),
-            array('allow', 'actions' => array('create'), 'roles' => array('Feedback.FeedbackBackend.Create')),
-            array('allow', 'actions' => array('delete'), 'roles' => array('Feedback.FeedbackBackend.Delete')),
-            array('allow', 'actions' => array('index'), 'roles' => array('Feedback.FeedbackBackend.Index')),
-            array('allow', 'actions' => array('inlineEdit'), 'roles' => array('Feedback.FeedbackBackend.Update')),
-            array('allow', 'actions' => array('update'), 'roles' => array('Feedback.FeedbackBackend.Update')),
-            array('allow', 'actions' => array('view'), 'roles' => array('Feedback.FeedbackBackend.View')),
-            array('allow', 'actions' => array('answer'), 'roles' => array('Feedback.FeedbackBackend.Answer')),
-            array('deny')
-        );
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['Feedback.FeedbackBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['Feedback.FeedbackBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Feedback.FeedbackBackend.Index']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['Feedback.FeedbackBackend.Update']],
+            ['allow', 'actions' => ['update'], 'roles' => ['Feedback.FeedbackBackend.Update']],
+            ['allow', 'actions' => ['view'], 'roles' => ['Feedback.FeedbackBackend.View']],
+            ['allow', 'actions' => ['answer'], 'roles' => ['Feedback.FeedbackBackend.Answer']],
+            ['deny']
+        ];
     }
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'FeedBack',
-                'validAttributes' => array('name', 'email', 'theme', 'type', 'status', 'is_faq')
-            )
-        );
+                'validAttributes' => ['name', 'email', 'theme', 'type', 'status', 'is_faq']
+            ]
+        ];
     }
 
     // FeedBack $model
@@ -53,20 +53,20 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
         // Обработка при Ajax-запросе:
         if (Yii::app()->getRequest()->getIsAjaxRequest()) {
             return Yii::app()->ajax->success(
-                array(
+                [
                     'html' => $this->renderPartial(
                             'view',
-                            array(
+                            [
                                 'model' => $this->loadModel($id)
-                            ),
+                            ],
                             true,
                             false
                         )
-                )
+                ]
             );
         }
 
-        $this->render('view', array('model' => $this->loadModel()));
+        $this->render('view', ['model' => $this->loadModel()]);
     }
 
     /**
@@ -100,12 +100,12 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('create')
+                        ['create']
                     )
                 );
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -139,13 +139,13 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',
-                        array('update', 'id' => $model->id)
+                        ['update', 'id' => $model->id]
                     )
                 );
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -164,10 +164,10 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
         $form = new AnswerForm();
 
         $form->setAttributes(
-            array(
+            [
                 'answer' => $model->answer,
                 'is_faq' => $model->is_faq,
-            )
+            ]
         );
 
         // Обработка при Ajax-запросе:
@@ -180,27 +180,27 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             // Если уже отправили сообщение:
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 return Yii::app()->ajax->failure(
-                    array(
+                    [
                         'message' => Yii::t(
                                 'FeedbackModule.feedback',
                                 'Attention! Reply for this message already sent!'
                             )
-                    )
+                    ]
                 );
             }
 
             return Yii::app()->ajax->success(
-                array(
+                [
                     'html' => $this->renderPartial(
                             '_ajax_answer',
-                            array(
+                            [
                                 'model'      => $model,
                                 'answerForm' => $form
-                            ),
+                            ],
                             true,
                             false
                         )
-                )
+                ]
             );
         }
 
@@ -213,7 +213,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
 
         list($form, $model) = $this->saveAnswer($form, $model);
 
-        $this->render('answer', array('model' => $model, 'answerForm' => $form));
+        $this->render('answer', ['model' => $model, 'answerForm' => $form]);
     }
 
     /**
@@ -235,18 +235,18 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
             if ($form->validate()) {
 
                 $model->setAttributes(
-                    array(
+                    [
                         'answer'      => $form->answer,
                         'is_faq'      => $form->is_faq,
                         'answer_user' => Yii::app()->user->getId(),
                         'answer_date' => new CDbExpression('NOW()'),
                         'status'      => FeedBack::STATUS_ANSWER_SENDED,
-                    )
+                    ]
                 );
 
                 if ($model->save()) {
                     //отправка ответа
-                    $body = $this->renderPartial('answerEmail', array('model' => $model), true);
+                    $body = $this->renderPartial('answerEmail', ['model' => $model], true);
 
                     Yii::app()->mail->send(
                         Yii::app()->getModule('feedback')->notifyEmailFrom,
@@ -261,23 +261,23 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                             Yii::t('FeedbackModule.feedback', 'Reply on message was sent!')
                         );
 
-                        $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
+                        $this->redirect(['/feedback/feedbackBackend/view/', 'id' => $model->id]);
                     } else {
                         Yii::app()->ajax->success(
-                            array(
+                            [
                                 'message' => Yii::t('FeedbackModule.feedback', 'Reply on message was sent!'),
-                            )
+                            ]
                         );
 
                         return true;
                     }
                 } else {
-                    return array($form, $model);
+                    return [$form, $model];
                 }
             }
         }
 
-        return array($form, $model);
+        return [$form, $model];
     }
 
     /**
@@ -318,10 +318,10 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
         $model->unsetAttributes(); // clear any default values
 
         $model->setAttributes(
-            Yii::app()->getRequest()->getParam('FeedBack', array())
+            Yii::app()->getRequest()->getParam('FeedBack', [])
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**

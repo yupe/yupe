@@ -40,24 +40,24 @@ class GalleryWidget extends yupe\widgets\YWidget
             )
         );
         $dataProvider = new CActiveDataProvider(
-            'ImageToGallery', array(
-                'criteria'   => array(
+            'ImageToGallery', [
+                'criteria'   => [
                     'condition' => 't.gallery_id = :gallery_id',
-                    'params'    => array(':gallery_id' => $this->galleryId),
+                    'params'    => [':gallery_id' => $this->galleryId],
                     'limit'     => $this->limit,
-                    'order'     => 't.creation_date DESC',
+                    'order'     => 'image.sort',
                     'with'      => 'image',
-                ),
-                'pagination' => array('pageSize' => $this->limit),
-            )
+                ],
+                'pagination' => ['pageSize' => $this->limit],
+            ]
         );
 
         $this->render(
             $this->view,
-            array(
+            [
                 'dataProvider' => $dataProvider,
                 'gallery'      => $this->gallery,
-            )
+            ]
         );
     }
 }

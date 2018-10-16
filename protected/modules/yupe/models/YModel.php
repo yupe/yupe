@@ -75,12 +75,12 @@ abstract class YModel extends CActiveRecord
         $absModulesPath = Yii::app()->getBasePath('modules');
         $modulePath = dirname($rc->getFileName());
         $module = str_replace(
-            array(
+            [
                 $absModulesPath,
                 'models',
                 'modules',
                 '/'
-            ),
+            ],
             '',
             $modulePath
         );
@@ -95,7 +95,7 @@ abstract class YModel extends CActiveRecord
      **/
     public function attributeDescriptions()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class YModel extends CActiveRecord
     }
 
     /**
-     * Загружаем можель по её PK
+     * Загружаем модель по её PK
      *
      * @param mixed $id - primary key
      *

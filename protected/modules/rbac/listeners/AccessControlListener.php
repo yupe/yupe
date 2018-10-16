@@ -10,8 +10,8 @@ class AccessControlListener
         $filters = array_replace(
             $filters,
             array_fill_keys(
-                array_keys($filters, array('yupe\filters\YBackAccessControl')),
-                array('rbac\filters\RbacBackAccessControl')
+                array_keys($filters, ['yupe\filters\YBackAccessControl']),
+                ['rbac\filters\RbacBackAccessControl']
             )
         );
         Yii::app()->getModule('yupe')->setBackendFilters($filters);
