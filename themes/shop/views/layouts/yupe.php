@@ -66,29 +66,29 @@
                                 </span>
                                 <span class="badge badge_light-blue"></span>
 
-                               <div class="dropdown-menu">
-                                   <div class="dropdown-menu__header"><?= Yii::app()->getUser()->getProfile()->getFullName() ?></div>
-                                   <div class="dropdown-menu__item">
-                                       <div class="dropdown-menu__link">
-                                           <a href="<?= Yii::app()->createUrl('/order/user/index') ?>">Мои заказы</a>
-                                       </div>
-                                   </div>
-                                   <div class="dropdown-menu__item">
-                                       <div class="dropdown-menu__link">
-                                           <a href="<?= Yii::app()->createUrl('/user/profile/profile') ?>">
-                                               <?= Yii::t('UserModule.user', 'My profile') ?>
-                                           </a>
-                                       </div>
-                                   </div>
-                                   <div class="dropdown-menu__separator"></div>
-                                   <div class="dropdown-menu__item">
-                                       <div class="dropdown-menu__link dropdown-menu__link_exit">
-                                           <a href="<?= Yii::app()->createUrl('/user/account/logout') ?>">
-                                               <?= Yii::t('UserModule.user', 'Logout'); ?>
-                                           </a>
-                                       </div>
-                                   </div>
-                               </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-menu__header"><?= Yii::app()->getUser()->getProfile()->getFullName() ?></div>
+                                    <div class="dropdown-menu__item">
+                                        <div class="dropdown-menu__link">
+                                            <a href="<?= Yii::app()->createUrl('/order/user/index') ?>">Мои заказы</a>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-menu__item">
+                                        <div class="dropdown-menu__link">
+                                            <a href="<?= Yii::app()->createUrl('/user/profile/profile') ?>">
+                                                <?= Yii::t('UserModule.user', 'My profile') ?>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-menu__separator"></div>
+                                    <div class="dropdown-menu__item">
+                                        <div class="dropdown-menu__link dropdown-menu__link_exit">
+                                            <a href="<?= Yii::app()->createUrl('/user/account/logout') ?>">
+                                                <?= Yii::t('UserModule.user', 'Logout'); ?>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -141,9 +141,8 @@
                                                 <a href="{url}" title="{label}" itemprop="item"><span itemprop="name">{label}</span></a>
                                                 <meta itemprop="position" content="{position}" />
                                              </li>',
-                    'inactiveLinkTemplate' => '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                                                <span itemprop="name">{label}</span>
-                                                <meta itemprop="position" content="{position}" />
+                    'inactiveLinkTemplate' => '<li>
+                                                <span>{label}</span>
                                                </li>',
                     'encodeLabel' => false
                 ]
@@ -169,10 +168,10 @@
                     </div>
                     <div class="footer__group">
                         <?php if($this->beginCache('store::category::footer', ['duration' => $this->yupe->coreCacheTime])):?>
-                        <?php $this->widget('application.modules.store.widgets.CategoryWidget', [
-                            'depth' => 0,
-                            'view' => 'footer'
-                        ]); ?>
+                            <?php $this->widget('application.modules.store.widgets.CategoryWidget', [
+                                'depth' => 0,
+                                'view' => 'footer'
+                            ]); ?>
 
                             <?php $this->endCache();?>
                         <?php endif;?>
