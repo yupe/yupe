@@ -139,7 +139,7 @@
                     'htmlOptions' => ['itemscope' => 'itemscope', 'itemtype' => 'http://schema.org/BreadcrumbList'],
                     'activeLinkTemplate' => '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                                                 <a href="{url}" title="{label}" itemprop="item"><span itemprop="name">{label}</span></a>
-                                                <meta itemprop="position" content="{position}" />
+                                                <meta itemprop="position" content="{position}"/>
                                              </li>',
                     'inactiveLinkTemplate' => '<li>
                                                 <span>{label}</span>
