@@ -19,11 +19,11 @@ $this->breadcrumbs = array_merge(
     [CHtml::encode($product->name)]
 );
 ?>
-<div class="row" xmlns="http://www.w3.org/1999/html">
+<div class="row" xmlns="http://www.w3.org/1999/html" itemscope itemtype="http://schema.org/Product">
     <div class="col-sm-12">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="title"><?= CHtml::encode($product->getTitle()); ?></h1>
+                <h1 class="title" itemprop="name"><?= CHtml::encode($product->getTitle()); ?></h1>
             </div>
         </div>
         <div class="row">
@@ -35,6 +35,7 @@ $this->breadcrumbs = array_merge(
                                 <img src="<?= StoreImage::product($product); ?>" id="main-image"
                                      alt="<?= CHtml::encode($product->getImageAlt()); ?>"
                                      title="<?= CHtml::encode($product->getImageTitle()); ?>"
+                                     itemprop="image"
                                 >
                             </div>
                             <div class="row">
@@ -98,7 +99,7 @@ $this->breadcrumbs = array_merge(
                         </div>
                         <br/>
                         <h4><?= Yii::t("StoreModule.store", "Description"); ?></h4>
-                        <?= $product->short_description; ?>
+                        <div itemprop="description"><?= $product->short_description; ?></div>
                         <?php if($product->getVariantsGroup()):?>
                             <hr/>
                             <h4><?= Yii::t("StoreModule.store", "Variants"); ?></h4>
@@ -128,7 +129,7 @@ $this->breadcrumbs = array_merge(
                                     </tr>
                                 <?php } endforeach; ?>
                             </table>
-                            <div>
+                            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                 <input type="hidden" id="base-price" value="<?= round($product->getResultPrice(), 2); ?>"/>
 
                                 <p>
@@ -148,8 +149,10 @@ $this->breadcrumbs = array_merge(
 
                                 <p>
                                     <?= Yii::t("StoreModule.store", "Total price"); ?>: <span
-                                        id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
+                                        id="result-price" itemprop="price"><?= round($product->getResultPrice(), 2); ?></span>
                                     <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?>
+                                    <meta itemprop="priceCurrency" content="<?= Yii::app()->getModule('store')->currency?>">
+                                    <?= $product->isInStock() ? '<link itemprop="availability" href="http://schema.org/InStock">' : '<link itemprop="availability" href="http://schema.org/PreOrder">';?>
                                 </p>
                             </div>
 

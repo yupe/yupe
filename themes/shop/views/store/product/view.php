@@ -15,7 +15,7 @@ $this->breadcrumbs = array_merge(
     [CHtml::encode($product->name)]
 );
 ?>
-<div class="main__product-description grid">
+<div class="main__product-description grid" itemscope itemtype="http://schema.org/Product">
     <div class="product-description">
         <div class="product-description__img-block grid-module-6">
             <div class="product-gallery js-product-gallery">
@@ -36,7 +36,7 @@ $this->breadcrumbs = array_merge(
                     <?php endif; ?>
                 </div>
                 <div class="product-gallery__nav">
-                    <a href="<?= StoreImage::product($product); ?>" rel="group" data-product-thumbnail
+                    <a itemprop="image" href="<?= StoreImage::product($product); ?>" rel="group" data-product-thumbnail
                        class="product-gallery__nav-item">
                         <img src="<?= $product->getImageUrl(60, 60, false); ?>" alt=""
                              class="product-gallery__nav-img">
@@ -64,14 +64,14 @@ $this->breadcrumbs = array_merge(
                     </div>
                 </div>
                 <div class="entry__title">
-                    <h1 class="h1"><?= CHtml::encode($product->getTitle()); ?></h1>
+                    <h1 class="h1" itemprop="name"><?= CHtml::encode($product->getTitle()); ?></h1>
                 </div>
                 <div class="entry__wysiwyg">
-                    <div class="wysiwyg">
+                    <div class="wysiwyg" itemprop="description">
                         <?= $product->short_description; ?>
                     </div>
                 </div>
-                <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
+                <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
                     <?= CHtml::hiddenField(
                         Yii::app()->getRequest()->csrfTokenName,
@@ -104,7 +104,9 @@ $this->breadcrumbs = array_merge(
                         <div class="product-price">
                             <input type="hidden" id="base-price"
                                    value="<?= round($product->getResultPrice(), 2); ?>"/>
-                            <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
+                            <span id="result-price" itemprop="price"><?= round($product->getResultPrice(), 2); ?></span>
+                            <meta itemprop="priceCurrency" content="<?= Yii::app()->getModule('store')->currency?>">
+                            <?= $product->isInStock() ? '<link itemprop="availability" href="http://schema.org/InStock">' : '<link itemprop="availability" href="http://schema.org/PreOrder">';?>
                             <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span>
                             <?php if ($product->hasDiscount()): ?>
                                 <div class="product-price product-price_old"><?= round($product->getBasePrice(), 2) ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>

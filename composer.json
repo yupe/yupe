@@ -52,7 +52,7 @@
         "zhuravljov/yii2-debug": "1.4.*",
         "phpmailer/phpmailer": "5.2.*",
         "yiiext/taggable-behavior": "1.5.*",
-        "nodge/yii-eauth": " 1.2.0",
+        "krupni/yii-eauth": "1.2.1",
         "imagine/imagine": "0.6.*",
         "symfony/event-dispatcher": "3.*",
         "twig/twig": "1.*",
