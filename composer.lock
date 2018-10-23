@@ -204,17 +204,17 @@
             "time": "2015-09-19T16:54:05+00:00"
         },
         {
-            "name": "itmages/lightopenid",
+            "name": "itmages/light-openid",
             "version": "v1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/itmages/lightopenid.git",
-                "reference": "1c9c15e780381bdf93e7b6817353caf460a67368"
+                "url": "https://github.com/itmages/light-openid.git",
+                "reference": "2b27522162d09198a3be08cd5338c00afca74fe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itmages/lightopenid/zipball/1c9c15e780381bdf93e7b6817353caf460a67368",
-                "reference": "1c9c15e780381bdf93e7b6817353caf460a67368",
+                "url": "https://api.github.com/repos/itmages/light-openid/zipball/2b27522162d09198a3be08cd5338c00afca74fe4",
+                "reference": "2b27522162d09198a3be08cd5338c00afca74fe4",
                 "shasum": ""
             },
             "type": "library",
@@ -237,16 +237,16 @@
             "time": "2013-08-20T17:26:36+00:00"
         },
         {
-            "name": "itmages/yii-eoauth",
+            "name": "jorgebg/yii-eoauth",
             "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/itmages/yii-eoauth.git",
+                "url": "https://github.com/jorgebg/yii-eoauth.git",
                 "reference": "702f8b8b0d4128de1ead9f37b3ff700ef0ef75a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itmages/yii-eoauth/zipball/702f8b8b0d4128de1ead9f37b3ff700ef0ef75a9",
+                "url": "https://api.github.com/repos/jorgebg/yii-eoauth/zipball/702f8b8b0d4128de1ead9f37b3ff700ef0ef75a9",
                 "reference": "702f8b8b0d4128de1ead9f37b3ff700ef0ef75a9",
                 "shasum": ""
             },
@@ -284,8 +284,8 @@
                 "shasum": ""
             },
             "require": {
-                "itmages/lightopenid": "@stable",
-                "itmages/yii-eoauth": "@stable",
+                "itmages/light-openid": "@stable",
+                "jorgebg/yii-eoauth": "@stable",
                 "php": ">=5.3.0"
             },
             "type": "library",
