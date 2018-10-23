@@ -13,9 +13,9 @@
  **/
 ?>
 <?php
-$this->title = $model->title;
-$this->description = $model->description;
-$this->keywords = $model->keywords;
+$this->title = $model->meta_title ?: $model->title;
+$this->description = $model->meta_description;
+$this->keywords = $model->meta_keywords;
 ?>
 
 <?php
@@ -34,7 +34,7 @@ $this->breadcrumbs = [
     <div class="row">
         <div class="col-sm-12">
             <?php if ($model->image): ?>
-                <?= CHtml::image($model->getImageUrl(), $model->title); ?>
+                <?= CHtml::image($model->getImageUrl(), $model->title, ['class' => 'img-responsive']); ?>
             <?php endif; ?>
             <p> <?= $model->full_text; ?></p>
         </div>

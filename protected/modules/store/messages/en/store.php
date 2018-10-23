@@ -146,4 +146,9 @@ return [
     'Yes' => '',
     'You are adding translate in to {lang}!' => '',
     'yupe team' => '',
+    'metaTitle' => '',
+    'metaDescription' => '',
+    'metaKeyWords' => '',
+    'SEO setting'=>'',
+    'More options' => ''
 ];

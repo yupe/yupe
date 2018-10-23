@@ -122,4 +122,10 @@ return [
     'You inserting translation for {lang} language' => 'Вы добавляете перевод на {lang} язык!',
     'You must be an authorized user for view this page!' => 'Для просмотра этой страницы Вам необходимо авторизоваться!',
     'yupe team' => 'yupe team',
+    'General' => 'Общие данные',
+    'SEO' => 'Настройки SEO',
+    'Page title (SEO)' => 'Тег title для страницы',
+    'Title tag for the news section' => 'Тег title для раздела родительского раздела новостей (/news)',
+    'Description for the news section' => 'Тег description для раздела родительского раздела новостей (/news)',
+    'KeyWords for the news section' => 'Тег keywords для раздела родительского раздела новостей (/news)',
 ];

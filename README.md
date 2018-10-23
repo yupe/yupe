@@ -6,8 +6,6 @@
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 
-![Юпи!](http://amylabs.ru/assets/6e689601/images/Head_browser.png)
-
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
 * [интернет-магазины](https://yupe.ru/ecommerce)
@@ -90,4 +88,4 @@
 ![amyLabs](http://amylabs.ru/assets/6e689601/images/logo1.png)
 
 
-(c) 2012 - 2017 [amylabs](https://amylabs.ru) && [Yupe! team](https://yupe.ru/)  ![Юпи!](https://yupe.ru/web/images/logo.png)
+(c) 2012 - 2018 [amylabs](https://amylabs.ru) && [Yupe! team](https://yupe.ru/)  ![Юпи!](https://yupe.ru/web/images/logo.png)

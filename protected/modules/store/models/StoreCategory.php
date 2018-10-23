@@ -209,7 +209,7 @@ class StoreCategory extends \yupe\models\YModel
             'status' => Yii::t('StoreModule.store', 'Status'),
             'sort' => Yii::t('StoreModule.store', 'Order'),
             'external_id' => Yii::t('StoreModule.store', 'External id'),
-            'title' => Yii::t('StoreModule.store', 'SEO_Title'),
+            'title' => Yii::t('StoreModule.store', 'SEO_title'),
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
             'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
             'image_title' => Yii::t('StoreModule.store', 'Image title'),
@@ -235,7 +235,7 @@ class StoreCategory extends \yupe\models\YModel
             'meta_description' => Yii::t('StoreModule.store', 'Meta description'),
             'status' => Yii::t('StoreModule.store', 'Status'),
             'sort' => Yii::t('StoreModule.store', 'Order'),
-            'title' => Yii::t('StoreModule.store', 'SEO_Title'),
+            'title' => Yii::t('StoreModule.store', 'SEO_title'),
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
             'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
             'image_title' => Yii::t('StoreModule.store', 'Image title'),
@@ -315,7 +315,7 @@ class StoreCategory extends \yupe\models\YModel
     /**
      * @return string
      */
-    public function getMetaTile()
+    public function getMetaTitle()
     {
         return $this->meta_title ?: $this->name;
     }

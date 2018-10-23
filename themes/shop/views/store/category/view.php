@@ -5,7 +5,7 @@
 $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/store.js');
 
-$this->title =  $category->getMetaTile();
+$this->title =  $category->getMetaTitle();
 $this->description = $category->getMetaDescription();
 $this->keywords =  $category->getMetaKeywords();
 $this->canonical = $category->getMetaCanonical();
