@@ -5,7 +5,7 @@ return [
     ],
     'component' => [
         'eauth' => [
-            'class'    => 'vendor.nodge.yii-eauth.EAuth',
+            'class'    => 'vendor.krupni.yii-eauth.EAuth',
             'popup'    => false,
             'services' => [
                 'google'    => [
