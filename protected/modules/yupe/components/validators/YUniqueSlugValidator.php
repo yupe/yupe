@@ -12,6 +12,7 @@
  */
 namespace yupe\components\validators;
 
+use CDbCriteria;
 use CUniqueValidator;
 
 /**
@@ -27,7 +28,12 @@ class YUniqueSlugValidator extends CUniqueValidator
      */
     protected function validateAttribute($object, $attribute)
     {
-        $this->criteria = ['condition' => 'lang = :lang', 'params' => [':lang' => $object->lang]];
+        $criteria = new CDbCriteria();
+        $criteria->mergeWith($this->criteria);
+        $criteria->addCondition('lang = :lang');
+        $criteria->params[':lang'] = $object->lang;
+
+        $this->criteria = $criteria;
 
         return parent::validateAttribute($object, $attribute);
     }
