@@ -89,7 +89,7 @@ return [
     'Default status for public posts' => 'Статус по умолчанию для публичных постов',
     'Delete' => 'Удалить',
     'Deleted' => 'Удален',
-    'Description' => 'Mета-описание',
+    'Post description (SEO)' => 'Mета-описание (SEO)',
     'description' => 'Описание',
     'Discuss' => 'Обсуждают',
     'Do you really want to delete selected items?' => 'Вы уверены, что хотите удалить выбранные элементы?',
@@ -131,7 +131,7 @@ return [
     'Join blog' => 'Вступить в блог',
     'Joined' => 'Присоединился',
     'Keywords for post categorization, for example:<br /><span class="label label-default">sea</span>' => 'Ключевые слова к которым требуется отнести данную запись, служат для категоризии записей, например:<br /><span class="label label-default">море</span>',
-    'Keywords' => 'Ключевые слова',
+    'Post keywords (SEO)' => 'Ключевые слова (SEO)',
     'Last blog posts' => 'Последние записи блога',
     'Last in blogs' => 'Последнее в блогах',
     'Last posts' => 'Последние записи',
@@ -296,4 +296,5 @@ return [
     'You have joined!' => 'Вы присоединились!',
     'You left the blog!' => 'Вы покинули блог!',
     'yupe team' => 'yupe team',
+    'Post title (SEO)'=>'Тег title для поста'
 ];
