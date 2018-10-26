@@ -4,7 +4,7 @@
  * @var $this PostController
  */
 
-$this->title = $post->title;
+$this->title = $post->meta_title ?: $post->title;
 $this->description = !empty($post->meta_description) ? $post->meta_description : strip_tags($post->getQuote());
 $this->keywords = !empty($post->meta_keywords) ? $post->meta_keywords : implode(', ', $post->getTags());
 
