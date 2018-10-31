@@ -76,7 +76,7 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
         <?php if (Yii::app()->hasModule('social')): { ?>
             <div class="fast-order__inputs">
                 <?php
-                $this->widget('vendor.nodge.yii-eauth.EAuthWidget', [
+                $this->widget('vendor.krupni.yii-eauth.EAuthWidget', [
                     'action' => '/social/login',
                     'predefinedServices' => ['google', 'facebook', 'vkontakte', 'twitter', 'github'],
                 ]); ?>
