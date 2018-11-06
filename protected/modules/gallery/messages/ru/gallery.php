@@ -62,7 +62,7 @@ return [
     'Gallery categories' => 'Категории галерей',
     'Group adding' => 'Массовое добавление',
     'hidden' => 'скрытая',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'Id' => 'Id',
     'id' => 'id',
     'Image #{id} edited' => 'Изображение #{id} отредактировано!',

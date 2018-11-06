@@ -6,7 +6,7 @@
  * @package  yupe.modules.yupe.widgets
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  * @todo     можно реализовать мультиекшен на основе вызова
  *             метода из CustomGridView и обращаться непосредственно
  *             к модели.

@@ -118,7 +118,7 @@ return [
     'Forbidden' => 'Запрещены',
     'Full text of the post which is displayed when you click on &laquo;More&raquo; link' => 'Полный текст записи отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке записи.',
     'Good luck!' => 'Удачи!',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'Icon' => 'Иконка',
     'id' => 'id',
     'If checked &ndash; Users are able to leave comments on the post' => 'Если галочка установлена &ndash; пользователи получат возможность комментировать данную запись в блоге',

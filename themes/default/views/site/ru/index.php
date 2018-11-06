@@ -3,10 +3,10 @@
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
 <h1>Поздравляем!</h1>
-<p>Вы установили <a href="http://yupe.ru?from=mainpage" target='_blank'>Юпи! CMS</a>! Надеемся у Вас не возникло
+<p>Вы установили <a href="https://yupe.ru?from=mainpage" target='_blank'>Юпи! CMS</a>! Надеемся у Вас не возникло
     сложностей !?</p>
 <div class='alert alert-warning'>
-    <p><b>По вопросам разработки и поддержки - <a href='http://yupe.ru/contacts?from=mainpage-support' target='_blank'>напишите
+    <p><b>По вопросам разработки и поддержки - <a href='https://yupe.ru/contacts?from=mainpage-support' target='_blank'>напишите
                 нам</a> !</b></p>
 
     <p>Читайте нас в <a href='http://twitter.com/yupecms' target='_blank'>twitter</a>, <a href='http://vk.com/amylabs'
@@ -35,13 +35,13 @@
 <ul>
     <li>на наш <a href='http://talk.yupe.ru/?from=mainpage'>форум</a></li>
     <li>на <a href='https://github.com/yupe/yupe/issues'>Github</a></li>
-    <li>к документации <a href='http://yupe.ru/docs/index.html?from=mainpage'> которая начинает наполняться </a></li>
+    <li>к документации <a href='https://yupe.ru/docs/index.html?from=mainpage'> которая начинает наполняться </a></li>
 </ul>
 
 <p> Репозиторий дополнительных модулей и виджетов для Юпи! <a href="https://github.com/yupe/yupe-ext" target="_blank">https://github.com/yupe/yupe-ext</a>
 </p>
 
-<p><a href='http://yupe.ru/contacts?from=mainpage' target='_blank'> Возможно, вы хотите присоединиться к разработке или
+<p><a href='https://yupe.ru/contacts?from=mainpage' target='_blank'> Возможно, вы хотите присоединиться к разработке или
         помочь проекту ?</a></p>
 
 <p>

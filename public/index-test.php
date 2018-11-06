@@ -6,7 +6,7 @@
  * @package  YupeCMS
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 
 // подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry

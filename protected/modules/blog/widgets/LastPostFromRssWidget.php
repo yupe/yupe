@@ -3,7 +3,7 @@
  * Виджет для отображения записей из RSS ленты
  *
  * @author Oleg Filimonov <olegsabian@gmail.com>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2016 amyLabs && Yupe! team
  * @package yupe.modules.blog.widgets
  */

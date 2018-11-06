@@ -65,7 +65,7 @@ return [
     'Full text' => 'Полный текст',
     'Group content block "{category_id}" was not found !' => 'Группа контент блоков "{category_id}" не найдена!',
     'HTML code' => 'HTML код',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'id' => 'id',
     'Insert content block title for ContentBlockWidget!' => 'Укажите название контент блока для ContentBlockWidget!',
     'Insert group content block title for ContentBlockGroupWidget!' => 'Укажите название группы контент блоков для ContentBlockGroupWidget!',

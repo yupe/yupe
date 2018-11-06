@@ -85,7 +85,7 @@ return [
     'You need to set write permissions for the directory {folder}assets'                                                                                                                                    => '',
     'You should copy {from file} to {to file} and give it permission to write'                                                                                                                              => '',
     'You should disable the directive safe_mode.'                                                                                                                                                           => '',
-    'http://yupe.ru'                                                                                                                                                                                        => 'http://softme.co',
+    'https://yupe.ru'                                                                                                                                                                                        => 'http://softme.co',
     'installation of Yupe!'                                                                                                                                                                                 => '安装系统！',
     'mbstring extension'                                                                                                                                                                                    => 'mbstring 扩展',
     'team@yupe.ru'                                                                                                                                                                                          => 'boonxiong@terdon.com',

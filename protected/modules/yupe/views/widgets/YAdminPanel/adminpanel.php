@@ -7,7 +7,7 @@
  * @author   AKulikov <tuxuls@gmail.com>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.1
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  *
  **/
 $mainAssets = Yii::app()->getAssetManager()->publish(
@@ -63,7 +63,7 @@ $this->widget(
                                 [
                                     'icon' => 'fa fa-fw fa-globe',
                                     'label' => Yii::t('YupeModule.yupe', 'Official site'),
-                                    'url' => 'http://yupe.ru?from=help',
+                                    'url' => 'https://yupe.ru?from=help',
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [
@@ -75,7 +75,7 @@ $this->widget(
                                 [
                                     'icon' => 'fa fa-fw fa-th-large',
                                     'label' => Yii::t('YupeModule.yupe', 'Additional modules'),
-                                    'url' => 'http://yupe.ru/store?from=help',
+                                    'url' => 'https://yupe.ru/store?from=help',
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [
@@ -99,13 +99,13 @@ $this->widget(
                                 [
                                     'icon' => 'fa fa-fw fa-thumbs-up',
                                     'label' => Yii::t('YupeModule.yupe', 'Order development and support'),
-                                    'url' => 'http://yupe.ru/service/development?from=help-support',
+                                    'url' => 'https://yupe.ru/service/development?from=help-support',
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [
                                     'icon' => 'fa fa-fw fa-warning',
                                     'label' => Yii::t('YupeModule.yupe', 'Report a bug'),
-                                    'url' => 'http://yupe.ru/contacts?from=panel',
+                                    'url' => 'https://yupe.ru/contacts?from=panel',
                                     'linkOptions' => ['target' => '_blank'],
                                 ],
                                 [

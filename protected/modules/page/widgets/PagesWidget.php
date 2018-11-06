@@ -3,7 +3,7 @@
  * PagesWidget виджет для вывода страниц
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.page.widgets
  * @since 0.1

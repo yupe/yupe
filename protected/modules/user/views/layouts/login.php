@@ -6,7 +6,7 @@
  * @package  yupe
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 ?>
 <!DOCTYPE html>
@@ -72,7 +72,7 @@
                                     [
                                         'icon'        => 'fa fa-fw fa-globe',
                                         'label'       => Yii::t('YupeModule.yupe', 'Official site'),
-                                        'url'         => 'http://yupe.ru?from=help',
+                                        'url'         => 'https://yupe.ru?from=help',
                                         'linkOptions' => ['target' => '_blank'],
                                     ],
                                     [
@@ -84,7 +84,7 @@
                                     [
                                         'icon'        => 'fa fa-fw fa-th-large',
                                         'label'       => Yii::t('YupeModule.yupe', 'Additional modules'),
-                                        'url'         => 'http://yupe.ru/store',
+                                        'url'         => 'https://yupe.ru/store',
                                         'linkOptions' => ['target' => '_blank'],
                                     ],
                                     [
@@ -108,19 +108,19 @@
                                     [
                                         'icon'        => 'fa fa-fw fa-thumbs-up',
                                         'label'       => Yii::t('YupeModule.yupe', 'Order development and support'),
-                                        'url'         => 'http://yupe.ru/service?from=help-support',
+                                        'url'         => 'https://yupe.ru/service?from=help-support',
                                         'linkOptions' => ['target' => '_blank'],
                                     ],
                                     [
                                         'icon'        => 'fa fa-fw fa-warning',
                                         'label'       => Yii::t('YupeModule.yupe', 'Report a bug'),
-                                        'url'         => 'http://yupe.ru/contacts?from=help-support',
+                                        'url'         => 'https://yupe.ru/contacts?from=help-support',
                                         'linkOptions' => ['target' => '_blank'],
                                     ],
                                     [
                                         'icon'        => 'fa fa-fw fa-question-circle',
                                         'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
-                                        'url'   => 'http://yupe.ru/about?from=help-support',
+                                        'url'   => 'https://yupe.ru/about?from=help-support',
                                     ],
                                 ]
                             ],

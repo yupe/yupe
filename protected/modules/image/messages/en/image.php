@@ -21,7 +21,7 @@ return [
     '--choose--'                                                            => '',
     '0.4'                                                                   => '',
     'file'                                                                  => '',
-    'http://yupe.ru'                                                        => '',
+    'https://yupe.ru'                                                        => '',
     'id'                                                                    => '',
     'team@yupe.ru'                                                          => '',
     'yupe team'                                                             => '',

@@ -98,7 +98,7 @@ class NotifyModule extends WebModule
      */
     public function getUrl()
     {
-        return Yii::t('NotifyModule.notify', 'http://yupe.ru');
+        return Yii::t('NotifyModule.notify', 'https://yupe.ru');
     }
 
     /**

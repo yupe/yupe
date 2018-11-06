@@ -3,7 +3,7 @@
  * Виджет для вывода popup-информации о пользователе:
  *
  * @author    AKulikiv <im@kulikov.im>
- * @link      http://yupe.ru
+ * @link      https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package   yupe.modules.user.widgets
  */

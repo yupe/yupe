@@ -67,7 +67,7 @@ return [
     'Find comments' => 'Поиск комментариев',
     'From user' => 'От имени',
     'Guest can comment ?' => 'Гости могут комментировать?',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'ID' => 'ID',
     'Insert symbols you see on picture' => 'Введите цифры указанные на картинке',
     'IP address' => 'IP адрес',

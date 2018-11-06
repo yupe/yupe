@@ -141,7 +141,7 @@ return [
     'Group' => 'Группа',
     'Height' => 'Высота',
     'Height, m.' => 'Высота, м.',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'Id' => 'Id',
     'ID' => 'ID',
     'Illegal characters in {attribute}' => 'Запрещенные символы в поле {attribute}',

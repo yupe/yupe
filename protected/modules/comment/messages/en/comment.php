@@ -22,7 +22,7 @@ return [
     'Email for notifications'                                     => '',
     'ID'                                                          => '',
     'IP address'                                                  => '',
-    'http://yupe.ru'                                              => '',
+    'https://yupe.ru'                                              => '',
     'team@yupe.ru'                                                => '',
     'yupe team'                                                   => '',
     '{className}: Sending information about new site comment.'    => '',

@@ -3,7 +3,7 @@
  * CategoryModule основной класс модуля category
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.category
  * @since 0.1
@@ -152,7 +152,7 @@ class CategoryModule extends WebModule
      */
     public function getUrl()
     {
-        return Yii::t('CategoryModule.category', 'http://yupe.ru');
+        return Yii::t('CategoryModule.category', 'https://yupe.ru');
     }
 
     /**

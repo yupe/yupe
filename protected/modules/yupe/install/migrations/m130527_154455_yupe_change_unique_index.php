@@ -8,7 +8,7 @@
  * @package  yupe.modules.user.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 class m130527_154455_yupe_change_unique_index extends yupe\components\DbMigration
 {

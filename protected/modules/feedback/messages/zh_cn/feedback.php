@@ -24,7 +24,7 @@ return [
     'Email'                                                                                                        => '电子邮件',
     'Email message will be send from'                                                                              => '电子邮件将来自',
     'Ip-address'                                                                                                   => 'IP地址',
-    'http://yupe.ru'                                                                                               => '',
+    'https://yupe.ru'                                                                                               => '',
     'team@yupe.ru'                                                                                                 => '',
     'yupe team'                                                                                                    => '木星团队',
     'This section represent feedback management'                                                                   => '此版块提供反馈管理功能',
@@ -158,7 +158,7 @@ return [
     'Insert symbols you see on image'                                                                              => '',
     'If you have any questions, proposals or want to report an error'                                              => '',
     'If you interesting with quality project which simple in support'                                              => '',
-    'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'         => '',
+    'Immediately <a href="https://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'         => '',
     'We try to answer as fast as we can!'                                                                          => '',
     'Thanks for attention!'                                                                                        => '谢谢关注！',
 ];

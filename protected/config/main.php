@@ -6,14 +6,14 @@
  * ATTENTION! THE CURRENT FILE IS USED IN YUPE CORE!
  * CHANGES OF THIS FILE CAN LEAD TO BREAKAGE OF APPLICATION
  * For yours own configuration create and use file `/protected/config/userspace.php`
- * @link http://yupe.ru/docs/yupe/userspace.config.html
+ * @link https://yupe.ru/docs/yupe/userspace.config.html
  *
  * @category YupeConfig
  * @package  Yupe
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.6
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  *
  **/
 
