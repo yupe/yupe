@@ -1,10 +1,10 @@
 <?php $this->title = Yii::app()->getModule('yupe')->siteName;?>
 
 <h1>Congratulations!</h1>
-<p>You just have installed <a href="http://yupe.ru?from=mainpage" target='_blank'>Yupe! CMS</a>! We hope it was simple
+<p>You just have installed <a href="https://yupe.ru?from=mainpage" target='_blank'>Yupe! CMS</a>! We hope it was simple
     and you haven't got any problems!?</p>
 <div class='alert alert-warning'>
-    <p><b>If you have questions about development and support - <a href='http://yupe.ru/contacts?from=mainpage-support'
+    <p><b>If you have questions about development and support - <a href='https://yupe.ru/contacts?from=mainpage-support'
                                                                    target='_blank'>write us</a> !</b></p>
 
     <p>Read us in <a href='http://twitter.com/yupecms' target='_blank'>twitter</a>, <a href='http://vk.com/amylabs'
@@ -33,14 +33,14 @@
 <ul>
     <li>Our <a href='http://talk.yupe.ru/?from=mainpage'>forum</a></li>
     <li><a href='https://github.com/yupe/yupe/issues'>Github</a></li>
-    <li>Our documentation <a href='http://yupe.ru/docs/index.html?from=mainpage'> we are working around it</a></li>
+    <li>Our documentation <a href='https://yupe.ru/docs/index.html?from=mainpage'> we are working around it</a></li>
 </ul>
 
 <p>Yupe! extensions and widgets repository, you can found here: <a href="https://github.com/yupe/yupe-ext"
                                                                    target="_blank">https://github.com/yupe/yupe-ext</a>
 </p>
 
-<p><a href='http://yupe.ru/pages/help?from=mainpage' target='_blank'> Maybe you want to connect us for development our
+<p><a href='https://yupe.ru/pages/help?from=mainpage' target='_blank'> Maybe you want to connect us for development our
         project together, or maybe you want to help us?</a></p>
 
 <div class="alert">

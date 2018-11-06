@@ -219,7 +219,7 @@ return [
     'blogId is not set!' => '博客 ID 未设置！',
     'choose blog' => '选择博客',
     'description' => '描述',
-    'http://yupe.ru' => '',
+    'https://yupe.ru' => '',
     'id' => '',
     'tags' => '标签',
     'team@yupe.ru' => '',

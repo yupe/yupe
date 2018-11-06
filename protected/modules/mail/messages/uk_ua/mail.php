@@ -57,7 +57,7 @@ return [
     'Find' => 'Шукати',
     'For' => 'Кому',
     'From' => 'Від',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'ID' => 'ID',
     'List of mail event templates' => 'Перегляд списку шаблонів поштових подій',
     'List of mail events' => 'Перегляд списку поштових подій',

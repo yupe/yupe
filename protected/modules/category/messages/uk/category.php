@@ -7,7 +7,7 @@ return [
     '--no--' => '--ні--',
     '0.5' => '0.5',
     'Id' => 'Id',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'team@yupe.ru' => 'team@yupe.ru',
     'yupe team' => 'yupe team',
     'Alias' => 'Аліас',

@@ -6,7 +6,7 @@
  * @package  yupe
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 ?>
 <h1><?=  Yii::t('InstallModule.install', 'Welcome!'); ?></h1>
@@ -25,8 +25,8 @@
             [
                 '{twitter}' => CHtml::link('twitter', 'http://twitter.com/yupecms', ['target' => '_blank']),
                 '{link}'    => CHtml::link(
-                        'http://yupe.ru',
-                        'http://yupe.ru?from=install',
+                        'https://yupe.ru',
+                        'https://yupe.ru?from=install',
                         ['target' => '_blank']
                     ),
                 '{forum}'   => CHtml::link(

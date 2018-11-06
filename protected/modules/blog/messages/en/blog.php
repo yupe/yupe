@@ -209,7 +209,7 @@ return [
     'blogId is not set!' => '',
     'choose blog' => '',
     'description' => '',
-    'http://yupe.ru' => '',
+    'https://yupe.ru' => '',
     'id' => '',
     'tags' => '',
     'team@yupe.ru' => '',

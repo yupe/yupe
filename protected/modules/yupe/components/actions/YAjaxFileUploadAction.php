@@ -7,7 +7,7 @@
  * @author   Anton Kucherov <idexter.ru@gmail.com>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.1
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  */
 
 namespace yupe\components\actions;

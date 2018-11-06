@@ -10,7 +10,7 @@
  * @package  yupe.modules.blog.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 class m130529_151602_add_post_category extends yupe\components\DbMigration
 {

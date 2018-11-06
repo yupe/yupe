@@ -4,7 +4,7 @@
  * MailModule основной класс модуля install
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.mail
  * @since 0.1
@@ -119,7 +119,7 @@ class MailModule extends yupe\components\WebModule
      **/
     public function getUrl()
     {
-        return Yii::t('MailModule.mail', 'http://yupe.ru');
+        return Yii::t('MailModule.mail', 'https://yupe.ru');
     }
 
     /**

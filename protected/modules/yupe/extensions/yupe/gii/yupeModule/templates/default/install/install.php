@@ -3,7 +3,7 @@
  * Файл настроек для модуля <?=  $this->moduleID."\n"; ?>
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-<?= date('Y'); ?> amyLabs && Yupe! team
  * @package yupe.modules.<?=  $this->moduleID; ?>.install
  * @since 0.1

@@ -9,7 +9,7 @@
  * @package  yupe.modules.menu.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 class m121220_001126_menu_test_data extends yupe\components\DbMigration
 {

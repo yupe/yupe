@@ -4,7 +4,7 @@
  * NewsModule основной класс модуля news
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.news
  * @since 0.1
@@ -269,7 +269,7 @@ class NewsModule extends WebModule
      */
     public function getUrl()
     {
-        return Yii::t('NewsModule.news', 'http://yupe.ru');
+        return Yii::t('NewsModule.news', 'https://yupe.ru');
     }
 
     /**

@@ -8,7 +8,7 @@
  * @package  yupe.modules.mail.components
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 
 namespace yupe\components;

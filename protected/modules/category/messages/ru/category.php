@@ -57,7 +57,7 @@ return [
     'Fields with' => 'Поля, отмеченные',
     'File uploading catalog (uploads)' => 'Каталог для загрузки файлов (относительно uploads)',
     'Find category' => 'Поиск категорий',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'Id' => 'Id',
     'Image' => 'Изображение',
     'Language was not found!' => 'Язык не найден!',

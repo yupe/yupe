@@ -8,7 +8,7 @@
  * @package  yupe.modules.queue.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 class m131007_031000_queue_fix_index extends yupe\components\DbMigration
 {

@@ -8,7 +8,7 @@
  * @package  yupe.modules.dictionary.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  *
  **/
 class m000000_000000_dictionary_base extends yupe\components\DbMigration

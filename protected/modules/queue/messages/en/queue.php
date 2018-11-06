@@ -23,7 +23,7 @@ return [
     'Error json_encode !'                                                                                                     => '',
     'ID'                                                                                                                      => '',
     'YQuemail.queueComponent contains bad identifier of queue component!'                                                     => '',
-    'http://yupe.ru'                                                                                                          => '',
+    'https://yupe.ru'                                                                                                          => '',
     'team@yupe.ru'                                                                                                            => '',
     'yupe team'                                                                                                               => '',
     'This section represent queue management system'                                                                          => '',

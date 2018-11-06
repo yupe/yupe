@@ -3,7 +3,7 @@
  * YFrontAccessControl фильтр, контроллирующий доступ к публичной части сайта
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.user.filters
  * @since 0.1

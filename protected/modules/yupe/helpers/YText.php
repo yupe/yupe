@@ -8,7 +8,7 @@
  * @subpackage helpers
  * @version 0.0.1
  * @author  Opeykin A. <aopeykin@yandex.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  *
  */
 
