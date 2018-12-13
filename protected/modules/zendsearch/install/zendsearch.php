@@ -24,7 +24,7 @@ return [
                 'titleColumn' => 'title',
                 'linkColumn' => 'slug',
                 'linkPattern' => '/page/page/view?slug={slug}',
-                'textColumns' => 'body,title_short,keywords,description,slug',
+                'textColumns' => 'body,title_short,meta_keywords,meta_description,slug',
                 'criteria' => [
                     'condition' => 'status = :status',
                     'params' => [
