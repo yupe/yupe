@@ -22,6 +22,10 @@
                 ],
             ]); ?>
 
+            <?= $form->hiddenField($model, 'type',
+                ['value' => Callback::TYPE_CALLBACK ]
+            ); ?>
+
             <?= $form->errorSummary($model); ?>
 
                 <div class="fast-order__inputs">
