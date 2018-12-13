@@ -1,7 +1,6 @@
 <?php
 /**
  * @var Callback $model
- * @var string $phoneMask
  * @var CActiveForm $form
  */
 ?>
@@ -49,15 +48,17 @@
                 <div class="fast-order__inputs">
                     <div class="column grid-module-2">
                         <?= $form->labelEx($model, 'phone'); ?>
-                        <?php $this->widget('CMaskedTextField', [
-                            'model' => $model,
-                            'attribute' => 'phone',
-                            'id' => 'calback-form-phone-input',
-                            'mask' => $phoneMask,
-                            'htmlOptions' => [
+
+                        <?= $form->telField($model, 'phone',
+                            [
+                                'placeholder' => 'Ваш номер телефона',
+                                'onfocus' => 'placeholder="";',
+                                'onblur' => 'placeholder="Ваш номер телефона";',
+                                'id' => 'calback-form-phone-input',
                                 'class' => 'input input_big'
                             ]
-                        ]); ?>
+                        ) ?>
+
                         <?= $form->error($model, 'phone',
                             [
                                 'inputID' => 'calback-form-phone-input',
