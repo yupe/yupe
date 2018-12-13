@@ -17,7 +17,20 @@ class CallbackWidget extends \yupe\widgets\YWidget
      */
     public function init()
     {
-        Yii::app()->getClientScript()->registerScriptFile(Yii::app()->getAssetManager()->publish(
+        $cs = Yii::app()->getClientScript();
+        $cs->registerCoreScript('maskedinput');
+
+        $phoneMask = Yii::app()->getModule('callback')->phoneMask;
+        Yii::app()->getClientScript()->registerScript(
+            __FILE__,
+            <<<JS
+            jQuery(document).ready(function () {
+                jQuery('input[name="Callback[phone]"]').mask("{$phoneMask}");
+            })
+JS
+        );
+
+        $cs->registerScriptFile(Yii::app()->getAssetManager()->publish(
             Yii::getPathOfAlias('application.modules.callback.views.web') . '/callback.js'
         ), CClientScript::POS_END);
 
@@ -33,7 +46,7 @@ class CallbackWidget extends \yupe\widgets\YWidget
 
         $this->render($this->view, [
             'model' => Callback::model(),
-            'phoneMask' => $module->phoneMask,
+            'phoneMask' => $module->phoneMask // Маска оставлена, только для темы default
         ]);
     }
 }

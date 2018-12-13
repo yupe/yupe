@@ -37,6 +37,13 @@ $this->widget(
         'columns' => [
             'name',
             'phone',
+            [
+                'class' => 'yupe\widgets\EditableStatusColumn',
+                'name' => 'type',
+                'type' => 'raw',
+                'url' => $this->createUrl('/callback/callbackBackend/inline'),
+                'source' => Callback::model()->getTypeList(),
+            ],
             'time',
             [
                 'class' => 'bootstrap.widgets.TbEditableColumn',

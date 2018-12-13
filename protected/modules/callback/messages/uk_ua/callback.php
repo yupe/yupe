@@ -31,4 +31,6 @@ return [
     'Update messages' => 'Оновлення повідомлень',
     'View messages list' => 'Перегляд списку повідомлень',
     'Your message has been successfully sent.' => 'Ваше повідомлення було успішно надіслано.',
+    'Callback type'=>'Тип сообщений'
+
 ];

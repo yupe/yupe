@@ -12,6 +12,7 @@
  * @property string $create_time
  * @property string $url
  * @property integer $agree
+ * @property integer $type
  *
  */
 class Callback extends \yupe\models\YModel
@@ -24,6 +25,10 @@ class Callback extends \yupe\models\YModel
      *
      */
     const STATUS_PROCESSED = 1;
+
+
+    const TYPE_CALLBACK = 0;
+
 
     /**
      * @return string
@@ -65,7 +70,7 @@ class Callback extends \yupe\models\YModel
                 'message' => Yii::t('CallbackModule.callback', 'Incorrect phone value'),
             ],
             ['comment', 'length', 'max' => 255],
-            ['status', 'numerical', 'integerOnly' => true],
+            ['status, type', 'numerical', 'integerOnly' => true],
             ['url', 'url'],
             ['id, name, phone, time, comment, status, create_time, url, agree', 'safe', 'on' => 'search'],
         ];
@@ -85,6 +90,7 @@ class Callback extends \yupe\models\YModel
             'create_time' => Yii::t('CallbackModule.callback', 'Created At'),
             'url' => Yii::t('CallbackModule.callback', 'Url'),
             'agree' => Yii::t('CallbackModule.callback', 'I agree to the processing of data'),
+            'type' => Yii::t('CallbackModule.callback', 'Callback type')
         ];
     }
 
@@ -134,6 +140,7 @@ class Callback extends \yupe\models\YModel
         $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('url', $this->url, true);
         $criteria->compare('agree', $this->agree, true);
+        $criteria->compare('type', $this->type);
 
         return new CActiveDataProvider(
             $this, [
@@ -163,5 +170,23 @@ class Callback extends \yupe\models\YModel
             self::STATUS_NEW => ['class' => 'label-danger'],
             self::STATUS_PROCESSED => ['class' => 'label-success'],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getTypeList()
+    {
+        return [
+            self::TYPE_CALLBACK => 'Обратный звонок',
+        ];
+    }
+
+
+    public function getType()
+    {
+        $data = $this->getTypeList();
+
+        return isset($data[$this->type]) ? $data[$this->type] : '---';
     }
 }

@@ -7,7 +7,7 @@ function callbackSendForm(form, data, hasError) {
         data: form.serialize(),
         success: function (response) {
             if (response.result) {
-                document.getElementById("callback-form").reset();
+                document.getElementById('callback-form').reset();
             }
             $('#callback-link').click();
             $('#notifications').html('<div>' + response.data + '</div>').fadeIn().delay(3000).fadeOut();
