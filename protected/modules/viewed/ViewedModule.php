@@ -100,7 +100,7 @@ class ViewedModule extends WebModule
      */
     public function getUrl()
     {
-        return Yii::t('ViewedModule.viewed', 'http://yupe.ru');
+        return Yii::t('ViewedModule.viewed', 'https://yupe.ru');
     }
 
     /**

@@ -50,7 +50,7 @@ return [
     'Find comments' => 'Пошук коментарів',
     'From user' => 'Від імені',
     'Guest can comment ?' => 'Гості можуть коментувати?',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'ID' => 'ID',
     'Insert symbols you see on picture' => 'Вкажіть цифр зображені на картинці',
     'IP address' => 'IP адреса',

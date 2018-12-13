@@ -60,7 +60,7 @@ return [
     'Full text news which will be shown on news article page' => 'Полный текст новости отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке новости.',
     'Full text' => 'Полный текст',
     'General module settings' => 'Основные настройки модуля',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'Id' => 'Id',
     'Image' => 'Изображение',
     'Images settings' => 'Настройки изображений',

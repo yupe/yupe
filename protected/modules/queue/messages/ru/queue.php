@@ -46,7 +46,7 @@ return [
     'Find tasks' => 'Поиск заданий',
     'Handler' => 'Обработчик',
     'High' => 'Высокий',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'ID' => 'ID',
     'List of queue' => 'Просмотр списка заданий очереди',
     'Low' => 'Низкий',

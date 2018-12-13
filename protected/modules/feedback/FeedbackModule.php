@@ -4,7 +4,7 @@
  * FeedbackModule основной класс модуля feedback
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.feedback
  * @since 0.1
@@ -312,7 +312,7 @@ class FeedbackModule extends WebModule
      */
     public function getUrl()
     {
-        return Yii::t('FeedbackModule.feedback', 'http://yupe.ru');
+        return Yii::t('FeedbackModule.feedback', 'https://yupe.ru');
     }
 
     /**

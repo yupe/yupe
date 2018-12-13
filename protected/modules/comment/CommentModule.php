@@ -4,7 +4,7 @@
  * CommentModule основной класс модуля comment
  *
  * @author    yupe team <team@yupe.ru>
- * @link      http://yupe.ru
+ * @link      https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package   yupe.modules.comment
  * @version   0.6
@@ -295,7 +295,7 @@ class CommentModule extends WebModule
      */
     public function getUrl()
     {
-        return Yii::t('CommentModule.comment', 'http://yupe.ru');
+        return Yii::t('CommentModule.comment', 'https://yupe.ru');
     }
 
     /**

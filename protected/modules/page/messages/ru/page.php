@@ -58,7 +58,7 @@ return [
     'Find pages' => 'Искать страницы',
     'For automatic generation leave this field empty' => 'Оставьте пустым для автоматической генерации',
     'Full page title which will be displayed in page header.<br/><br />For example:<pre>Contact information and road map.</pre>' => 'Укажите полное название данной страницы для отображения в заголовке при полном просмотре.<br/><br />Например:<pre>Контактная информация и карта проезда.</pre>',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'Id' => 'Id',
     'Keywords (SEO)' => 'Ключевые слова (SEO)',
     'Keywords for SEO optimization. Insert a few words which have sense in article context. For example: <pre>address, road map, contacts.</pre>' => 'Ключевые слова необходимы для SEO-оптимизации страниц сайта. Выделите несколько основных смысловых слов из страницы и напишите их здесь через запятую. К примеру, если страница содержит контактную информацию, логично использовать такие ключевые слова: <pre>адрес, карта проезда, контакты, реквизиты.</pre>',

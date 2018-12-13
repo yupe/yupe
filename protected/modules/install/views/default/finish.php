@@ -6,7 +6,7 @@
  * @package  yupe
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 ?>
 <h3><?= Yii::t('InstallModule.install', 'Congratulations Yupe was installed successfully!'); ?></h3>
@@ -24,7 +24,7 @@
      data-services="vkontakte,facebook,odnoklassniki,moimir,gplus,twitter,evernote,lj,surfingbird,whatsapp"
      data-description="<?= Yii::t('InstallModule.install', 'Free online store!'); ?>"
      data-tile="<?= Yii::t('InstallModule.install', 'Free online store!'); ?>"
-     data-url="http://yupe.ru">
+     data-url="https://yupe.ru">
 </div>
 
 <hr/>
@@ -45,7 +45,7 @@
 
 <?= CHtml::link(
     Yii::t('InstallModule.install', 'Official Yupe site'),
-    'http://yupe.ru/?from=finish',
+    'https://yupe.ru/?from=finish',
     ['target' => '_blank']
 ); ?> - <?= Yii::t('InstallModule.install', 'go frequently'); ?>
 
@@ -53,7 +53,7 @@
 
 <?= CHtml::link(
     Yii::t('InstallModule.install', 'Hosting'),
-    'http://yupe.ru/service/hosting?from=finish',
+    'https://yupe.ru/service/hosting?from=finish',
     ['target' => '_blank']
 ); ?> - <?= Yii::t('InstallModule.install', 'Hosting for your store'); ?>
 

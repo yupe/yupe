@@ -5,7 +5,7 @@
  *
  * @package yupe.modules.menu.widgets
  * @author yupe team
- * @link http://yupe.ru
+ * @link https://yupe.ru
  */
 
 /**

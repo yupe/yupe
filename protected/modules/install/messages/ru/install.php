@@ -90,7 +90,7 @@ return [
     'Help us!' => 'Помоги нам!',
     'here' => 'вот здесь',
     'Host' => 'Хост',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'If you have a problem with install, please go to {link}' => 'При возникновении проблем с установкой, пожалуйста, посетите {link}!',
     'If you have problems with installation, please check {link} or {feedback}' => 'При возникновении проблем с установкой, пожалуйста, посетите {link} или {feedback}!',
     'ImageMagick or GD extension is not installed' => 'Расширение ImageMagick или GD не установлено',

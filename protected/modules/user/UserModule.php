@@ -4,7 +4,7 @@
  * UserModule основной класс модуля user
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2014 amyLabs && Yupe! team
  * @package yupe.modules.user
  * @since 0.1
@@ -438,7 +438,7 @@ class UserModule extends WebModule
      */
     public function getUrl()
     {
-        return 'http://yupe.ru';
+        return 'https://yupe.ru';
     }
 
     /**

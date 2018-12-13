@@ -6,7 +6,7 @@
  * @package  yupe.commands
  * @author   Anton Kucherov <idexter.ru@gmail.com>
  * @author   YupeTeam <team@yupe.ru>
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  */
 /*
  *

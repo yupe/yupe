@@ -4,7 +4,7 @@
  * QueueBackendController контроллер для управления очередью через панель управления
  *
  * @author    yupe team <team@yupe.ru>
- * @link      http://yupe.ru
+ * @link      https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.queue.controllers
  * @license   BSD https://raw.github.com/yupe/yupe/master/LICENSE

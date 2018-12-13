@@ -27,7 +27,7 @@ Yii::import('application.modules.install.InstallModule');
     <p>
         <b><?= Yii::t(
                 'FeedbackModule.feedback',
-                'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'
+                'Immediately <a href="https://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'
             ); ?></b>
     </p>
 

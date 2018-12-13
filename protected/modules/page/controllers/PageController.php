@@ -6,7 +6,7 @@ use yupe\components\controllers\FrontController;
  * PageController публичный контроллер для работы со страницами
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.page.controllers
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE

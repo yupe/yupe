@@ -4,7 +4,7 @@
  * ZendSearchModule основной класс модуля zendsearch
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.zendsearch
  * @since 0.1
@@ -133,7 +133,7 @@ class ZendSearchModule extends yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'http://yupe.ru');
+        return Yii::t('ZendSearchModule.zendsearch', 'https://yupe.ru');
     }
 
     /**
