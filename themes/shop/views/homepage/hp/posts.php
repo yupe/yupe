@@ -3,17 +3,13 @@ $this->title = Yii::t('HomepageModule.homepage', 'Records');
 $this->breadcrumbs = [Yii::t('HomepageModule.homepage', 'Records')];
 ?>
 
-<div class="main__title grid">
-    <h1 class="h2"><?= $this->title; ?></h1>
-</div>
-
 <div class="main__catalog grid">
     <?php $this->widget(
         'zii.widgets.CListView',
         [
             'dataProvider' => $dataProvider,
             'itemView' => '_post',
-            'template' => "{items}\n{pager}",
+            'template' => '{items}\n{pager}',
         ]
     ); ?>
 </div>
