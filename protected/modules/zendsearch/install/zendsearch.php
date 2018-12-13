@@ -10,7 +10,7 @@ return [
                 'titleColumn' => 'title',
                 'linkColumn' => 'slug',
                 'linkPattern' => '/news/news/view?slug={slug}',
-                'textColumns' => 'full_text,short_text,keywords,description,slug',
+                'textColumns' => 'full_text,short_text,meta_keywords,meta_description,slug',
                 'criteria' => [
                     'condition' => 'status = :status',
                     'params' => [
@@ -24,7 +24,7 @@ return [
                 'titleColumn' => 'title',
                 'linkColumn' => 'slug',
                 'linkPattern' => '/page/page/view?slug={slug}',
-                'textColumns' => 'body,title_short,keywords,description,slug',
+                'textColumns' => 'body,title_short,meta_keywords,meta_description,slug',
                 'criteria' => [
                     'condition' => 'status = :status',
                     'params' => [
@@ -64,8 +64,8 @@ return [
                 'path' => 'application.modules.store.models.Product',
                 'module' => 'store',
                 'titleColumn' => 'name',
-                'linkColumn' => 'slug',
-                'linkPattern' => '/store/product/view?slug={slug}',
+                'linkColumn' => 'link',
+                'linkPattern' => '{link}',
                 'textColumns' => 'name,sku,slug,description,meta_title,meta_description,meta_keywords',
                 'criteria' => [
                     'condition' => 'status = :status',
