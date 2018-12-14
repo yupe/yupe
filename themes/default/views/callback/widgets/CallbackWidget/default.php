@@ -39,6 +39,12 @@
                 ]
             ); ?>
 
+            <?= $form->hiddenField($model, 'type',
+                [
+                    'value' => Callback::TYPE_CALLBACK,
+                ]
+            ); ?>
+
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-2"></div>

@@ -14,6 +14,6 @@ $this->keywords = $model->meta_keywords ?: Yii::app()->getModule('yupe')->siteKe
 <div class="main__title grid">
     <h1 class="h2"><?= $model->title; ?></h1>
 </div>
-<div class="main__catalog grid">
+<div class="main__catalog grid content">
     <?= $model->body; ?>
 </div>
