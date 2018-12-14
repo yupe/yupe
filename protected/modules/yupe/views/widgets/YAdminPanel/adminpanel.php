@@ -122,7 +122,8 @@ $this->widget(
                                     ['class' => 'hidden-sm hidden-md hidden-lg'],
                                     Yii::t('YupeModule.yupe', 'Go home')
                                 ),
-                            'url' => Yii::app()->createAbsoluteUrl('/')
+                            'url' => Yii::app()->createAbsoluteUrl('/'),
+                            'linkOptions' => ['target' => '_blank']
                         ],
                         [
                             'icon' => 'fa fa-fw fa-user',
