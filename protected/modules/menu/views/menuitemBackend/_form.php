@@ -347,7 +347,7 @@ $form = $this->beginWidget(
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Выберите ссылку</h4>
+                <h4 class="modal-title"><?= Yii::t('MenuModule.menu', 'Select link')?></h4>
             </div>
             <div class="modal-body container">
 
