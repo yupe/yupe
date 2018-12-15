@@ -398,7 +398,7 @@ $form = $this->beginWidget(
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal"><?= Yii::t('MenuModule.menu', 'Close')?></button>
             </div>
         </div>
     </div>
