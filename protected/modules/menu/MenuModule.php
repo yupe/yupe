@@ -15,7 +15,7 @@ class MenuModule extends yupe\components\WebModule
     /**
      *
      */
-    const VERSION = '1.3';
+    const VERSION = '1.4-beta';
 
     /**
      * @var string

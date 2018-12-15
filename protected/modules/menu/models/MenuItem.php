@@ -30,6 +30,9 @@
  * @property integer $sort
  * @property integer $status
  * @property boolean $regular_link
+ * @property string $entity_module_name
+ * @property string $entity_name
+ * @property integer $entity_id
  *
  * The followings are the available model relations:
  * @property Menu $menu
@@ -75,10 +78,12 @@ class MenuItem extends yupe\models\YModel
     {
         return [
             ['parent_id, menu_id, title, href', 'required', 'except' => 'search'],
-            ['sort, status, condition_denial', 'numerical', 'integerOnly' => true],
+            ['sort, status, condition_denial, entity_id', 'numerical', 'integerOnly' => true],
             ['parent_id, menu_id, rel, target', 'length', 'max' => 10],
+            ['entity_id', 'length', 'max' => 40],
             ['title, href, condition_name, title_attr, before_link, after_link', 'length', 'max' => 255],
             ['class', 'length', 'max' => 50],
+            ['entity_name, entity_module_name', 'length', 'max' => 40],
             ['regular_link', 'boolean'],
             [
                 'id, parent_id, menu_id, title, href, sort, status, condition_name, condition_denial',
@@ -134,6 +139,9 @@ class MenuItem extends yupe\models\YModel
             'sort' => Yii::t('MenuModule.menu', 'Sorting'),
             'status' => Yii::t('MenuModule.menu', 'Status'),
             'regular_link' => Yii::t('MenuModule.menu', 'Regular link'),
+            'entity_module_name' => Yii::t('MenuModule.menu', 'Module name'),
+            'entity_name' => Yii::t('MenuModule.menu', 'Page type'),
+            'entity_id' => Yii::t('MenuModule.menu', 'Page')
         ];
     }
 
