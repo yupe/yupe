@@ -80,10 +80,9 @@ class MenuItem extends yupe\models\YModel
             ['parent_id, menu_id, title, href', 'required', 'except' => 'search'],
             ['sort, status, condition_denial, entity_id', 'numerical', 'integerOnly' => true],
             ['parent_id, menu_id, rel, target', 'length', 'max' => 10],
-            ['entity_id', 'length', 'max' => 40],
+            ['entity_id, entity_name, entity_module_name', 'length', 'max' => 40],
             ['title, href, condition_name, title_attr, before_link, after_link', 'length', 'max' => 255],
             ['class', 'length', 'max' => 50],
-            ['entity_name, entity_module_name', 'length', 'max' => 40],
             ['regular_link', 'boolean'],
             [
                 'id, parent_id, menu_id, title, href, sort, status, condition_name, condition_denial',

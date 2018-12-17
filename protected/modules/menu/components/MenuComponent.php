@@ -55,7 +55,7 @@ class MenuComponent extends CApplicationComponent
     {
         $data = [];
 
-        if ($moduleName != null && $entityName != null) {
+        if ($moduleName !== null && $entityName !== null) {
             $entity = $this->getEntity($moduleName, $entityName);
             $model = $this->getModel($entity['model']);
 
@@ -86,17 +86,17 @@ class MenuComponent extends CApplicationComponent
         /* @var $model \yupe\models\YModel */
         $item = $model::model()->find('id = :id', [':id' => $entityId]);
 
-        if ($item) {
-            if (isset($entity['url']['params'])) {
-                foreach ($entity['url']['params'] as $param => $modelAttribute) {
-                    $params[$param] = $item->getAttribute($modelAttribute);
-                }
-            }
-
-            return Yii::app()->createUrl($entity['url']['route'], $params);
+        if (!$item) {
+            return null;
         }
 
-        return null;
+        if (isset($entity['url']['params'])) {
+            foreach ($entity['url']['params'] as $param => $modelAttribute) {
+                $params[$param] = $item->getAttribute($modelAttribute);
+            }
+        }
+
+        return Yii::app()->createUrl($entity['url']['route'], $params);
     }
 
     /**
@@ -111,25 +111,31 @@ class MenuComponent extends CApplicationComponent
     }
 
     /**
-     * @param string $name
-     * @return array|null
+     * @param string $moduleId
+     * @return array
+     * @throws Exception
      */
-    protected function getEntitiesByModuleName($name)
+    protected function getEntitiesByModuleName($moduleId)
     {
-        if ($name != null) {
-            return $this->modules[$name]['entities'];
+        if (empty($moduleId)) {
+            throw new Exception(Yii::t('MenuModule.menu', 'Module ID not set'));
         }
 
-        return null;
+        return $this->modules[$moduleId]['entities'];
     }
 
     /**
-     * @param string $moduleName
+     * @param string $moduleId
      * @param string $entityName
      * @return array
+     * @throws Exception
      */
-    protected function getEntity($moduleName, $entityName)
+    protected function getEntity($moduleId, $entityName)
     {
-        return $this->getEntitiesByModuleName($moduleName)[$entityName];
+        try {
+            return $this->getEntitiesByModuleName($moduleId)[$entityName];
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 }
