@@ -4,6 +4,7 @@
 -----------------------
 
 =======
+- #2642: Модуль магазина активен при заходе в раздел Товаров (@tmsk70, @kuzmina-mariya)
 - #2665: Not checking return value of YWebUser::login in AuthenticationManager::login() [56 line] is serious bug (@fazliddin, @kuzmina-mariya)
 - #2774: Некорректное отображение списка блогов на главной странице (@kuzmina-mariya)
 - #2770: Открытие фронтенда сайта из админки в новом окне (@kuzmina-mariya)

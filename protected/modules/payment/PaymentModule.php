@@ -30,7 +30,7 @@ class PaymentModule extends WebModule
      */
     public function getCategory()
     {
-        return Yii::t('PaymentModule.payment', 'Service');
+        return Yii::t('PaymentModule.payment', 'Store');
     }
 
     /**
