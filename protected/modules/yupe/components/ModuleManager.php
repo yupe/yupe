@@ -80,8 +80,9 @@ class ModuleManager extends \CApplicationComponent
             Yii::t('YupeModule.yupe', 'Structure'),
             Yii::t('YupeModule.yupe', 'Users'),
             Yii::t('YupeModule.yupe', 'Services'),
-            Yii::t('YupeModule.yupe', 'Yupe!'),
             Yii::t('YupeModule.yupe', 'Store'),
+            Yii::t('YupeModule.yupe', 'Catalog'),
+            Yii::t('YupeModule.yupe', 'Yupe!'),
             $this->otherCategoryName,
         ];
 

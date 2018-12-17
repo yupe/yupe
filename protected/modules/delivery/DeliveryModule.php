@@ -32,7 +32,7 @@ class DeliveryModule extends WebModule
      */
     public function getCategory()
     {
-        return Yii::t('DeliveryModule.delivery', 'Service');
+        return Yii::t('DeliveryModule.delivery', 'Store');
     }
 
     /**
