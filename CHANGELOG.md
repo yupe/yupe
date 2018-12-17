@@ -2,6 +2,7 @@
 ===================
 Версия 1.3 В разработке
 -----------------------
+- #2665: Not checking return value of YWebUser::login in AuthenticationManager::login() [56 line] is serious bug (@fazliddin, @kuzmina-mariya)
 - #2770: Открытие фронтенда сайта из админки в новом окне (@kuzmina-mariya)
 - #2690: Генерируется неверная ссылка на товар в поиске (@koma136)
 - #2765: Добавлен тип сообщений, множественный рефакторинг (@dzhedai, @auchanhub)
