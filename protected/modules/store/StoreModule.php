@@ -290,7 +290,98 @@ class StoreModule extends WebModule
      */
     public function getNavigation()
     {
-        return [];
+        return [
+            [
+                'icon' => 'fa fa-fw fa-reorder',
+                'label' => Yii::t('StoreModule.store', 'Products'),
+                'url' => ['/store/productBackend/index'],
+                'items' => [
+                    [
+                        'icon' => 'fa fa-fw fa-list-alt',
+                        'label' => Yii::t('StoreModule.store', 'Product list'),
+                        'url' => ['/store/productBackend/index'],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-plus-square',
+                        'label' => Yii::t('StoreModule.store', 'Create product'),
+                        'url' => ['/store/productBackend/create'],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-link',
+                        'label' => Yii::t('StoreModule.store', 'Link types'),
+                        'url' => ['/store/linkBackend/typeIndex'],
+                    ],
+                ],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-folder-open',
+                'label' => Yii::t('StoreModule.store', 'Categories'),
+                'url' => ['/store/categoryBackend/index'],
+                'items' => [
+                    [
+                        'icon' => 'fa fa-fw fa-list-alt',
+                        'label' => Yii::t('StoreModule.store', 'Categories list'),
+                        'url' => ['/store/categoryBackend/index'],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-plus-square',
+                        'label' => Yii::t('StoreModule.store', 'Create category'),
+                        'url' => ['/store/categoryBackend/create'],
+                    ],
+                ],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-plane',
+                'label' => Yii::t('StoreModule.store', 'Producers'),
+                'url' => ['/store/producerBackend/index'],
+                'items' => [
+                    [
+                        'icon' => 'fa fa-fw fa-list-alt',
+                        'label' => Yii::t('StoreModule.store', 'Producers list'),
+                        'url' => ['/store/producerBackend/index'],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-plus-square',
+                        'label' => Yii::t('StoreModule.store', 'Create producer'),
+                        'url' => ['/store/producerBackend/create'],
+                    ],
+                ],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-pencil-square-o',
+                'label' => Yii::t('StoreModule.store', 'Attributes'),
+                'url' => ['/store/attributeBackend/index'],
+                'items' => [
+                    [
+                        'icon' => 'fa fa-fw fa-list-alt',
+                        'label' => Yii::t('StoreModule.store', 'Attributes list'),
+                        'url' => ['/store/attributeBackend/index'],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-plus-square',
+                        'label' => Yii::t('StoreModule.store', 'Create attribute'),
+                        'url' => ['/store/attributeBackend/create'],
+                    ],
+                ],
+            ],
+            [
+                'icon' => 'fa fa-fw fa-list-alt',
+                'label' => Yii::t('StoreModule.store', 'Types'),
+                'url' => ['/store/typeBackend/index'],
+                'items' => [
+                    [
+                        'icon' => 'fa fa-fw fa-list-alt',
+                        'label' => Yii::t('StoreModule.store', 'Types list'),
+                        'url' => ['/store/typeBackend/index'],
+                    ],
+                    [
+                        'icon' => 'fa fa-fw fa-plus-square',
+                        'label' => Yii::t('StoreModule.store', 'Create type'),
+                        'url' => ['/store/typeBackend/create'],
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -299,111 +390,6 @@ class StoreModule extends WebModule
     public function getIsShowInAdminMenu()
     {
         return true;
-    }
-
-    /**
-     * @return array
-     */
-    public function getExtendedNavigation()
-    {
-        return [
-            [
-                'icon' => 'fa fa-fw fa-shopping-cart',
-                'label' => Yii::t('StoreModule.store', 'Catalog'),
-                'items' => [
-                    [
-                        'icon' => 'fa fa-fw fa-reorder',
-                        'label' => Yii::t('StoreModule.store', 'Products'),
-                        'url' => ['/store/productBackend/index'],
-                        'items' => [
-                            [
-                                'icon' => 'fa fa-fw fa-list-alt',
-                                'label' => Yii::t('StoreModule.store', 'Product list'),
-                                'url' => ['/store/productBackend/index'],
-                            ],
-                            [
-                                'icon' => 'fa fa-fw fa-plus-square',
-                                'label' => Yii::t('StoreModule.store', 'Create product'),
-                                'url' => ['/store/productBackend/create'],
-                            ],
-                            [
-                                'icon' => 'fa fa-fw fa-link',
-                                'label' => Yii::t('StoreModule.store', 'Link types'),
-                                'url' => ['/store/linkBackend/typeIndex'],
-                            ],
-                        ],
-                    ],
-                    [
-                        'icon' => 'fa fa-fw fa-folder-open',
-                        'label' => Yii::t('StoreModule.store', 'Categories'),
-                        'url' => ['/store/categoryBackend/index'],
-                        'items' => [
-                            [
-                                'icon' => 'fa fa-fw fa-list-alt',
-                                'label' => Yii::t('StoreModule.store', 'Categories list'),
-                                'url' => ['/store/categoryBackend/index'],
-                            ],
-                            [
-                                'icon' => 'fa fa-fw fa-plus-square',
-                                'label' => Yii::t('StoreModule.store', 'Create category'),
-                                'url' => ['/store/categoryBackend/create'],
-                            ],
-                        ],
-                    ],
-                    [
-                        'icon' => 'fa fa-fw fa-plane',
-                        'label' => Yii::t('StoreModule.store', 'Producers'),
-                        'url' => ['/store/producerBackend/index'],
-                        'items' => [
-                            [
-                                'icon' => 'fa fa-fw fa-list-alt',
-                                'label' => Yii::t('StoreModule.store', 'Producers list'),
-                                'url' => ['/store/producerBackend/index'],
-                            ],
-                            [
-                                'icon' => 'fa fa-fw fa-plus-square',
-                                'label' => Yii::t('StoreModule.store', 'Create producer'),
-                                'url' => ['/store/producerBackend/create'],
-                            ],
-                        ],
-                    ],
-                    [
-                        'icon' => 'fa fa-fw fa-pencil-square-o',
-                        'label' => Yii::t('StoreModule.store', 'Attributes'),
-                        'url' => ['/store/attributeBackend/index'],
-                        'items' => [
-                            [
-                                'icon' => 'fa fa-fw fa-list-alt',
-                                'label' => Yii::t('StoreModule.store', 'Attributes list'),
-                                'url' => ['/store/attributeBackend/index'],
-                            ],
-                            [
-                                'icon' => 'fa fa-fw fa-plus-square',
-                                'label' => Yii::t('StoreModule.store', 'Create attribute'),
-                                'url' => ['/store/attributeBackend/create'],
-                            ],
-                        ],
-                    ],
-                    [
-                        'icon' => 'fa fa-fw fa-list-alt',
-                        'label' => Yii::t('StoreModule.store', 'Types'),
-                        'url' => ['/store/typeBackend/index'],
-                        'items' => [
-                            [
-                                'icon' => 'fa fa-fw fa-list-alt',
-                                'label' => Yii::t('StoreModule.store', 'Types list'),
-                                'url' => ['/store/typeBackend/index'],
-                            ],
-                            [
-                                'icon' => 'fa fa-fw fa-plus-square',
-                                'label' => Yii::t('StoreModule.store', 'Create type'),
-                                'url' => ['/store/typeBackend/create'],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ];
     }
 
     /**
@@ -427,7 +413,7 @@ class StoreModule extends WebModule
      */
     public function getCategory()
     {
-        return Yii::t('StoreModule.store', 'Store');
+        return Yii::t('StoreModule.store', 'Catalog');
     }
 
     /**
