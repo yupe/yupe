@@ -53,11 +53,12 @@ class AuthenticationManager extends CApplicationComponent
 
             Yii::app()->eventManager->fire(UserEvents::BEFORE_LOGIN, new UserLoginEvent($form, $user, $identity));
 
-            $user->login($identity, $duration);
+            if ($user->login($identity, $duration)) {
 
-            Yii::app()->eventManager->fire(UserEvents::SUCCESS_LOGIN, new UserLoginEvent($form, $user, $identity));
+                Yii::app()->eventManager->fire(UserEvents::SUCCESS_LOGIN, new UserLoginEvent($form, $user, $identity));
 
-            return true;
+                return true;
+            }
         }
 
         Yii::app()->eventManager->fire(UserEvents::FAILURE_LOGIN, new UserLoginEvent($form, $user, $identity));
