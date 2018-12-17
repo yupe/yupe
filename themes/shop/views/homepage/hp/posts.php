@@ -9,7 +9,7 @@ $this->breadcrumbs = [Yii::t('HomepageModule.homepage', 'Records')];
         [
             'dataProvider' => $dataProvider,
             'itemView' => '_post',
-            'template' => '{items}\n{pager}',
+            'template' => "{items}\n{pager}",
         ]
     ); ?>
 </div>
