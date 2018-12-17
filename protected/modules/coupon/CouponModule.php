@@ -106,7 +106,7 @@ class CouponModule extends WebModule
      */
     public function getUrl()
     {
-        return 'http://yupe.ru';
+        return 'https://yupe.ru';
     }
 
 

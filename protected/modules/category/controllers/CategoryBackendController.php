@@ -4,7 +4,7 @@
  * CategoryBackendController контроллер для управления категориями в панели управления
  *
  * @author    yupe team <team@yupe.ru>
- * @link      http://yupe.ru
+ * @link      https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package   yupe.modules.category.controllers
  * @version   1.1

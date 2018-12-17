@@ -24,7 +24,7 @@ return [
     'Email'                                                                                                        => '',
     'Email message will be send from'                                                                              => '',
     'Ip-address'                                                                                                   => '',
-    'http://yupe.ru'                                                                                               => '',
+    'https://yupe.ru'                                                                                               => '',
     'team@yupe.ru'                                                                                                 => '',
     'yupe team'                                                                                                    => '',
     'This section represent feedback management'                                                                   => '',
@@ -158,7 +158,7 @@ return [
     'Insert symbols you see on image'                                                                              => '',
     'If you have any questions, proposals or want to report an error'                                              => '',
     'If you interesting with quality project which simple in support'                                              => '',
-    'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'         => '',
+    'Immediately <a href="https://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'         => '',
     'We try to answer as fast as we can!'                                                                          => '',
     'Thanks for attention!'                                                                                        => '',
 ];

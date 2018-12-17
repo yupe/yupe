@@ -7,7 +7,7 @@
  * @package  yupe.commands
  * @author   YupeTeam <team@yupe.ru>
  * @author   Anton Kucherov <idexter.ru@gmail.com>
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  */
 use yupe\components\Migrator;
 

@@ -4,7 +4,7 @@
  * NewsBackendController контроллер для работы с новостями в панели управления
  *
  * @author    yupe team <team@yupe.ru>
- * @link      http://yupe.ru
+ * @link      https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.news.controllers
  * @version   0.6

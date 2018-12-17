@@ -4,7 +4,7 @@
  * GalleryModule основной класс модуля gallery
  *
  * @author    yupe team <team@yupe.ru>
- * @link      http://yupe.ru
+ * @link      https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package   yupe.modules.gallery
  * @since     0.6
@@ -93,7 +93,7 @@ class GalleryModule extends yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('GalleryModule.gallery', 'http://yupe.ru');
+        return Yii::t('GalleryModule.gallery', 'https://yupe.ru');
     }
 
     /**

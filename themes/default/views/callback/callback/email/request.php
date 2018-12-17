@@ -1,7 +1,7 @@
 <html>
 <head></head>
 <body>
-    <h1><?= Yii::t('CallbackModule.callback', 'Callback request') ?></h1>
+    <h1><?= Yii::t('CallbackModule.callback', 'Callback request') ?>:<?= $model->getType() ?></h1>
     <table cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
         <tr>
             <td style="padding:6px; width:170px; background-color:#f0f0f0; border:1px solid #e0e0e0;">

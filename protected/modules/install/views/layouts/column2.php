@@ -12,7 +12,7 @@
     </div>
     <div class="col-sm-3">
         <div>
-            <a class="btn btn-success banner-width" style="width: 100%;" target="_blank" href="http://yupe.ru/make-world-better?from=install">Сказать спасибо!</a>
+            <a class="btn btn-success banner-width" style="width: 100%;" target="_blank" href="https://yupe.ru/make-world-better?from=install">Сказать спасибо!</a>
             <br/><br/>
         </div>
 
@@ -28,7 +28,7 @@
             ); ?>
         </div>
         <div>
-            <iframe src="http://yupe.ru/info/install?version=<?= $this->yupe->getVersion();?>&lang=<?= Yii::app()->getLanguage();?>" scrolling="no" id="yupestore"></iframe>
+            <iframe src="https://yupe.ru/info/install?version=<?= $this->yupe->getVersion();?>&lang=<?= Yii::app()->getLanguage();?>" scrolling="no" id="yupestore"></iframe>
         </div>
     </div>
 </div>

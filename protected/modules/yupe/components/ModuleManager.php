@@ -7,7 +7,7 @@
  * @author   A.Opeykin <hello@amylabs.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.6
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  *
  **/
 
@@ -80,8 +80,9 @@ class ModuleManager extends \CApplicationComponent
             Yii::t('YupeModule.yupe', 'Structure'),
             Yii::t('YupeModule.yupe', 'Users'),
             Yii::t('YupeModule.yupe', 'Services'),
-            Yii::t('YupeModule.yupe', 'Yupe!'),
             Yii::t('YupeModule.yupe', 'Store'),
+            Yii::t('YupeModule.yupe', 'Catalog'),
+            Yii::t('YupeModule.yupe', 'Yupe!'),
             $this->otherCategoryName,
         ];
 

@@ -58,7 +58,7 @@ return [
     'add' => 'створення',
     'administration' => 'керування',
     'are required.' => 'обов’язкові.',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'id' => 'id',
     'team@yupe.ru' => 'team@yupe.ru',
     'yupe team' => 'yupe team',

@@ -4,7 +4,7 @@
  * PostController контроллер для постов на публичной части сайта
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.blog.controllers
  * @since 0.1

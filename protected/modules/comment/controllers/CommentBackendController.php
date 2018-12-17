@@ -4,7 +4,7 @@
  * CommentBackendController контроллер для управления комментариями в панели управления
  *
  * @author    yupe team <team@yupe.ru>
- * @link      http://yupe.ru
+ * @link      https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package   yupe.modules.comment.controllers
  * @version   0.6

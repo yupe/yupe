@@ -22,6 +22,11 @@ class CallbackManager extends CApplicationComponent
     private $adminEmail;
 
     /**
+     * @var
+     */
+    private $timeLimitKey = 'Callback_temporarly_block';
+
+    /**
      *
      */
     public function init()
@@ -45,6 +50,13 @@ class CallbackManager extends CApplicationComponent
     {
         if (!$data) {
             return false;
+        }
+        if ($this->module->sentTimeLimit) {
+            if (!$this->hasTimeLimitForSending()){
+                $this->setTimeLimitForSending();
+            } else {
+                return new Exception(Yii::t('CallbackModule.callback', 'Resending will be available in a few minutes later'));
+            }
         }
 
         $model = new Callback();
@@ -83,4 +95,24 @@ class CallbackManager extends CApplicationComponent
 
         return true;
     }
+
+    /**
+     * @param int $expireTime in seconds
+     */
+    private function setTimeLimitForSending()
+    {
+        Yii::app()->getUser()->setState($this->timeLimitKey, time());
+    }
+
+    /**
+     * @param int $expireTime in seconds
+     */
+    private function hasTimeLimitForSending()
+    {
+        $expire_time = time() - $this->module->sentTimeLimit;
+        $settedTemporarlyBlockTime = Yii::app()->getUser()->getState($this->timeLimitKey);
+
+        return $settedTemporarlyBlockTime ? ($settedTemporarlyBlockTime > $expire_time) : false;
+    }
+
 }

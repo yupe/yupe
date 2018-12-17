@@ -32,14 +32,14 @@ $this->breadcrumbs = [
 
 <?= CHtml::link(
     Yii::t('YupeModule.yupe', 'Official Yupe! site', ['target' => '_blank']),
-    'http://yupe.ru/?form=help'
+    'https://yupe.ru/?form=help'
 ); ?> - <?= Yii::t('YupeModule.yupe', 'use most!'); ?>
 
 <br/><br/>
 
 <?= CHtml::link(
     Yii::t('YupeModule.yupe', 'Community', ['target' => '_blank']),
-    'http://yupe.ru/?form=help'
+    'https://yupe.ru/?form=help'
 ); ?> - <?= Yii::t('YupeModule.yupe', 'use most!'); ?>
 
 <br/><br/>
@@ -56,7 +56,7 @@ $this->breadcrumbs = [
 
 <?= CHtml::link(
     Yii::t('YupeModule.yupe', 'Additional modules and components'),
-    'http://yupe.ru/marketplace',
+    'https://yupe.ru/marketplace',
     ['target' => '_blank']
 ); ?> - <?= Yii::t(
     'YupeModule.yupe',
@@ -110,7 +110,7 @@ $this->breadcrumbs = [
         [
             '{link}' => CHtml::link(
                 Yii::t('YupeModule.yupe', 'feedback form'),
-                'http://yupe.ru/contacts?from=help',
+                'https://yupe.ru/contacts?from=help',
                 ['target' => '_blank']
             ),
         ]

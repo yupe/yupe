@@ -3,7 +3,7 @@
  * InstallModule основной класс модуля install
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amylabs && Yupe! team
  * @package yupe.modules.install
  * @since 0.1
@@ -295,7 +295,7 @@ class InstallModule extends WebModule
      **/
     public function getUrl()
     {
-        return Yii::t('InstallModule.install', 'http://yupe.ru');
+        return Yii::t('InstallModule.install', 'https://yupe.ru');
     }
 
     /**

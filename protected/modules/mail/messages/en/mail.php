@@ -23,7 +23,7 @@ return [
     'ID'                                                                   => '',
     'MainEvent with "{code}" code was not found!'                          => '',
     'MainEvent with code "{code}" don\'t contain any of active templates!' => '',
-    'http://yupe.ru'                                                       => '',
+    'https://yupe.ru'                                                       => '',
     'team@yupe.ru'                                                         => '',
     'yupe team'                                                            => '',
     'This section contain mail messages management'                        => '',

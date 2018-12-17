@@ -7,7 +7,7 @@
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.0.1
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 
 use yupe\models\Settings;

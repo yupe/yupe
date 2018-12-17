@@ -36,4 +36,6 @@ return [
     'View messages list' => 'Просмотр списка сообщений',
     'Your message has been successfully sent.' => 'Ваше сообщение было успешно отправлено.',
     'I agree to the processing of data' => 'Я согласен на обработку данных',
+    'Callback type'=>'Тип сообщений',
+    'Restart Restriction'=>'Ограничение на повторную отравку сообщений'
 ];

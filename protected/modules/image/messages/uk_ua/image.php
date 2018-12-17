@@ -39,7 +39,7 @@ return [
     'Gallery module is not installed' => 'Модуль галереї не встановлено',
     'Gallery' => 'Галерея',
     'General module settings' => 'Основні налаштування модуля',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'id' => 'id',
     'Image created!' => 'Зображення додано!',
     'Image height' => 'Висота зображення',

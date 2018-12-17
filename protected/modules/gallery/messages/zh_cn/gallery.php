@@ -23,7 +23,7 @@ return [
     '--choose--' => '--选择--',
     '0.3' => '0.3',
     'Id' => 'Id',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'id' => 'id',
     'team@yupe.ru' => 'team@yupe.ru',
     'yupe team' => 'yupe team',

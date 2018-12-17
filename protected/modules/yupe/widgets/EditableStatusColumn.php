@@ -6,7 +6,7 @@
  * @package  yupe.modules.yupe.widgets
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 
 namespace yupe\widgets;

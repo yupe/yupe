@@ -66,7 +66,7 @@ return [
     'Find products' => '',
     'First you need to save the product.' => '',
     'Height, m.' => '',
-    'http://yupe.ru' => '',
+    'https://yupe.ru' => '',
     'ID' => '',
     'Illegal characters in {attribute}' => '',
     'Image' => '',

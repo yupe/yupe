@@ -4299,4 +4299,8 @@ label.error, .errorMessage, .text-error {
     color: #66512c;
 }
 
+.content p{
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
 
