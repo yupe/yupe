@@ -356,5 +356,6 @@ return [
     '{m}: Can\'t downgrade migration - {migrationName}' => '{m}: Откат миграции {migrationName} неудалось провести.',
     '{m}: Migration was downgrade - {migrationName}' => '{m}: Произошёл откат миграции - {migrationName}',
     'Я.Money on' => 'Я.Money на',
-    'defaultImage'=>'Изображение по умолчанию'
+    'defaultImage' => 'Изображение по умолчанию',
+    'Catalog' => 'Каталог',
 ];
