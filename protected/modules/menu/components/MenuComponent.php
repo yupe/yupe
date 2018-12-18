@@ -36,7 +36,8 @@ class MenuComponent extends CApplicationComponent
     {
         $data = [];
 
-        if ($entities = $this->getEntitiesByModuleName($moduleName)) {
+        if ($moduleName !== null) {
+            $entities = $this->getEntitiesByModuleName($moduleName);
             foreach ($entities as $entityName => $entity) {
                 $data[$entityName] = $entity['label'];
             }
@@ -49,7 +50,6 @@ class MenuComponent extends CApplicationComponent
      * @param string $moduleName
      * @param string $entityName
      * @return array
-     * @throws CException
      */
     public function getEntityItemList($moduleName, $entityName)
     {
@@ -57,6 +57,11 @@ class MenuComponent extends CApplicationComponent
 
         if ($moduleName !== null && $entityName !== null) {
             $entity = $this->getEntity($moduleName, $entityName);
+
+            if (!$entity) {
+                return $data;
+            }
+
             $model = $this->getModel($entity['model']);
 
             /* @var $model \yupe\models\YModel */
@@ -75,11 +80,15 @@ class MenuComponent extends CApplicationComponent
      * @param string $entityName
      * @param integer $entityId
      * @return string|null
-     * @throws CException
      */
     public function getEntityItemUrl($moduleName, $entityName, $entityId)
     {
         $entity = $this->getEntity($moduleName, $entityName);
+
+        if (!$entity) {
+            return null;
+        }
+
         $model = $this->getModel($entity['model']);
         $params = [];
 
@@ -113,12 +122,13 @@ class MenuComponent extends CApplicationComponent
     /**
      * @param string $moduleId
      * @return array
-     * @throws Exception
      */
     protected function getEntitiesByModuleName($moduleId)
     {
-        if (empty($moduleId)) {
-            throw new Exception(Yii::t('MenuModule.menu', 'Module ID not set'));
+        if (empty($moduleId)
+            || !key_exists($moduleId, $this->modules)
+            || !key_exists('entities', $this->modules[$moduleId])) {
+            return [];
         }
 
         return $this->modules[$moduleId]['entities'];
@@ -127,15 +137,11 @@ class MenuComponent extends CApplicationComponent
     /**
      * @param string $moduleId
      * @param string $entityName
-     * @return array
-     * @throws Exception
+     * @return array|null
      */
     protected function getEntity($moduleId, $entityName)
     {
-        try {
-            return $this->getEntitiesByModuleName($moduleId)[$entityName];
-        } catch (Exception $e) {
-            throw $e;
-        }
+        $entities = $this->getEntitiesByModuleName($moduleId);
+        return key_exists($entityName, $entities) ? $entities[$entityName] : null;
     }
 }
