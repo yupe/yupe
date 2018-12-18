@@ -528,6 +528,7 @@ $form = $this->beginWidget(
                                 <td><?= Yii::t("StoreModule.store", "Price type"); ?></td>
                                 <td><?= Yii::t("StoreModule.store", "Price"); ?></td>
                                 <td><?= Yii::t("StoreModule.store", "SKU"); ?></td>
+                                <td><?= Yii::t("StoreModule.store", "Quantity"); ?></td>
                                 <td><?= Yii::t("StoreModule.store", "Order"); ?></td>
                                 <td></td>
                             </tr>
