@@ -10,6 +10,7 @@
  * @property integer $type
  * @property string $sku
  * @property integer $position
+ * @property integer $quantity
  *
  * @property-read Attribute $attribute
  */
@@ -63,11 +64,12 @@ class ProductVariant extends \yupe\models\YModel
         return [
             ['attribute_id, product_id, amount, type', 'required'],
             ['id, attribute_id, product_id, type, attributeOptionId, position', 'numerical', 'integerOnly' => true],
+            ['quantity', 'numerical', 'integerOnly' => true, 'min' => 0],
             ['type', 'in', 'range' => [self::TYPE_SUM, self::TYPE_PERCENT, self::TYPE_BASE_PRICE]],
             ['amount', 'numerical'],
             ['sku', 'length', 'max' => 50],
             ['attribute_value', 'length', 'max' => 255],
-            ['id, attribute_id, attribute_value, product_id, amount, type, sku', 'safe', 'on' => 'search'],
+            ['id, attribute_id, attribute_value, product_id, amount, type, sku, quantity', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -115,6 +117,7 @@ class ProductVariant extends \yupe\models\YModel
             'amount' => Yii::t('StoreModule.store', 'Price'),
             'sku' => Yii::t('StoreModule.store', 'SKU'),
             'position' => Yii::t('StoreModule.store', 'Order'),
+            'quantity' => Yii::t('StoreModule.store', 'Quantity'),
         ];
     }
 
