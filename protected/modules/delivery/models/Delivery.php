@@ -172,6 +172,18 @@ class Delivery extends yupe\models\YModel
         }
     }
 
+    /**
+     * @return bool
+     */
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+            $deliveryOrdersNum = Order::model()->countByAttributes(['delivery_id' => $this->id]);
+            return $deliveryOrdersNum == 0;
+        }
+        return false;
+    }
+
     public function afterDelete()
     {
         $this->clearPaymentMethods();
