@@ -129,8 +129,15 @@ function() {
 		type: 'POST',
 		url: jQuery(this).attr('href'),$csrf
 		success: function(data) {
-			jQuery('#{$this->grid->id}').yiiGridView('update', {url: document.location.href });
-			afterDelete(th, true, data);
+		    if(data.hasOwnProperty('result') && !data.result) {
+		        var message = data.data ? data.data : 'Record not removed.';
+		        alert(message);
+		        afterDelete(th, false, data);
+		    }
+		    else {
+                jQuery('#{$this->grid->id}').yiiGridView('update', {url: document.location.href });
+                afterDelete(th, true, data);		    
+		    }
 		},
 		error: function(XHR) {
 			return afterDelete(th, false, XHR);
