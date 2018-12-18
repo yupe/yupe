@@ -254,9 +254,8 @@ class Comment extends yupe\models\YModel
 
     /**
      * Событие выполняемое перед сохранением модели
-     *
-     * @return parent::beforeSave()
-     **/
+     * @return bool
+     */
     public function beforeSave()
     {
         if ($this->getIsNewRecord()) {
@@ -380,9 +379,7 @@ class Comment extends yupe\models\YModel
      */
     public function getText()
     {
-        return (Yii::app()->getModule('comment')->stripTags)
-            ? strip_tags($this->text)
-            : $this->text;
+        return $this->text;
     }
 
     /**

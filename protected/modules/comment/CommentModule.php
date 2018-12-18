@@ -68,10 +68,6 @@ class CommentModule extends WebModule
      */
     public $allowGuestComment = 0;
     /**
-     * @var int
-     */
-    public $stripTags = 1;
-    /**
      * @var string
      */
     public $assetsPath = "application.modules.comment.views.assets";
@@ -137,14 +133,26 @@ class CommentModule extends WebModule
             'antiSpamInterval' => Yii::t('CommentModule.comment', 'Antispam interval'),
             'allowGuestComment' => Yii::t('CommentModule.comment', 'Guest can comment ?'),
             'editor' => Yii::t('YupeModule.yupe', 'Visual editor'),
-            'stripTags' => Yii::t(
-                'CommentModule.comment',
-                'Remove tags in the derivation comment using strip_tags() ?'
-            ),
             'modelsAvailableForRss' => Yii::t(
                 'CommentModule.comment',
                 'Models available for rss export (for example: Post, Blog etc.)'
             ),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getParamsDescriptions()
+    {
+        $allowedTagsDescription = CHtml::link(
+            'http://htmlpurifier.org/live/configdoc/plain.html#HTML.Allowed',
+            'http://htmlpurifier.org/live/configdoc/plain.html#HTML.Allowed',
+            ['target' => '_blank']
+        );
+
+        return [
+            'allowedTags' => $allowedTagsDescription,
         ];
     }
 
@@ -165,7 +173,6 @@ class CommentModule extends WebModule
             'rssCount',
             'allowedTags',
             'antiSpamInterval',
-            'stripTags' => $this->getChoice(),
             'editor' => $this->getEditors(),
             'modelsAvailableForRss',
         ];

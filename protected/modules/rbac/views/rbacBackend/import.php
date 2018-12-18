@@ -1,4 +1,6 @@
 <?php
+/* @var $modules array */
+
 $this->breadcrumbs = [
     Yii::t('RbacModule.rbac', 'RBAC') => ['index'],
     Yii::t('RbacModule.rbac', 'Import'),
@@ -22,18 +24,21 @@ $this->menu = $this->module->getNavigation();
 
 <div class="row">
     <div class="col-sm-12">
-        <?php foreach ($modules as $moduleId => $moduleName): { ?>
-            <div class="checkbox">
-                <label>
-                    <?=  CHtml::checkBox(
-                        'modules[]',
-                        false,
-                        ['value' => $moduleId]
-                    ); ?><?=  $moduleName; ?>
-                    <span class='text-muted'>[<?=  $moduleId; ?>]</span>
-                </label>
-            </div>
-        <?php } endforeach; ?>
+        <?php
+        array_walk($modules, function (&$item, $key) {
+            $item .= " <span class='text-muted'>[{$key}]</span>";
+        });
+        ?>
+        <?= CHtml::checkBoxList(
+            'modules[]',
+            [],
+            $modules,
+            [
+                'separator' => "\n",
+                'checkAll' => Yii::t('RbacModule.rbac', 'Select all'),
+                'template' => "<div class='checkbox'>{beginLabel}{input} {labelTitle}{endLabel}</div>"
+            ]
+        ) ?>
     </div>
 </div>
 
