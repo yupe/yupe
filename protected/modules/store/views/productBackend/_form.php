@@ -304,7 +304,17 @@ $form = $this->beginWidget(
                 ); ?>
             </div>
             <div class="col-sm-2">
-                <?= $form->numberFieldGroup($model, 'quantity'); ?>
+                <?= $form->numberFieldGroup(
+                    $model,
+                    'quantity',
+                    [
+                        'widgetOptions' => [
+                            'htmlOptions' => [
+                                'min' => 0,
+                            ],
+                        ],
+                    ]
+                ); ?>
             </div>
         </div>
 

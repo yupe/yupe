@@ -142,10 +142,11 @@ class Product extends yupe\models\YModel implements ICommentable
             ],
             ['name, slug', 'required'],
             [
-                'status, is_special, producer_id, type_id, quantity, in_stock, category_id',
+                'status, is_special, producer_id, type_id, in_stock, category_id',
                 'numerical',
                 'integerOnly' => true,
             ],
+            ['quantity', 'numerical', 'integerOnly' => true, 'min' => 0],
             [
                 'price, average_price, purchase_price, recommended_price, discount_price, discount, length, height, width, weight',
                 'store\components\validators\NumberValidator',
