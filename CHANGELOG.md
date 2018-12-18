@@ -3,6 +3,7 @@
 Версия 1.3 В разработке
 -----------------------
 
+- #2778: Ошибка выбора языка в админке при создании/редактировании моделей (@kuzmina-mariya)
 - #2697: Выбор ссылки для пункта меню, через диалоговое окно (@krupni, @dzhedai)
 - #2642: Модуль магазина активен при заходе в раздел Товаров (@tmsk70, @kuzmina-mariya)
 - #2665: Not checking return value of YWebUser::login in AuthenticationManager::login() [56 line] is serious bug (@fazliddin, @kuzmina-mariya)
