@@ -335,6 +335,26 @@ abstract class WebModule extends CWebModule
     }
 
     /**
+     * массив описаний для параметров (свойств) модуля. Используется на странице настроек модуля в панели управления.
+     *
+     * @return array
+     */
+    public function getParamsDescriptions()
+    {
+        return [];
+    }
+
+    /**
+     * массив описаний по умолчанию для параметров (свойств) модуля. Используется на странице настроек модуля в панели управления.
+     *
+     * @return array
+     */
+    public function getDefaultParamsDescriptions()
+    {
+        return [];
+    }
+
+    /**
      * массив параметров модуля, которые можно редактировать через панель управления (GUI)
      *
      * @return array
