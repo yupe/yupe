@@ -253,6 +253,51 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         Yii::app()->end();
     }
 
+    /**
+     * @throws CHttpException
+     */
+    public function actionAjaxGetEntities()
+    {
+        $request = Yii::app()->getRequest();
+
+        if (!$entityModuleName = $request->getQuery('entity_module_name')) {
+            throw new CHttpException(404);
+        }
+
+        echo json_encode(Yii::app()->menu->getEntityList($entityModuleName));
+        Yii::app()->end();
+    }
+
+    /**
+     * @throws CHttpException
+     */
+    public function actionAjaxGetEntityItems()
+    {
+        $request = Yii::app()->getRequest();
+
+        if (!($entityModuleName = $request->getQuery('entity_module_name')) || (!$entityName = $request->getQuery('entity_name'))) {
+            throw new CHttpException(404);
+        }
+
+        echo json_encode(Yii::app()->menu->getEntityItemList($entityModuleName, $entityName));
+        Yii::app()->end();
+    }
+
+    /**
+     * @throws CHttpException
+     */
+    public function actionAjaxGetEntityUrl()
+    {
+        $request = Yii::app()->getRequest();
+
+        if ((!$entityModuleName = $request->getQuery('entity_module_name')) ||
+            (!$entityName = $request->getQuery('entity_name')) || (!$entity_id = $request->getQuery('entity_id'))) {
+            throw new CHttpException(404);
+        }
+
+        echo Yii::app()->menu->getEntityItemUrl($entityModuleName, $entityName, $entity_id);
+        Yii::app()->end();
+    }
 
     /**
      * @param $id
