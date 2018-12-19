@@ -135,9 +135,24 @@ class BackendController extends yupe\components\controllers\BackController
     private function getModuleParamRow(\yupe\components\WebModule $module, $param)
     {
         $editableParams = $module->getEditableParams();
-        $moduleParamsLabels = CMap::mergeArray($module->getParamsLabels(), $module->getDefaultParamsLabels());
+        $moduleParamsLabels = CMap::mergeArray($module->getDefaultParamsLabels(), $module->getParamsLabels());
+        $moduleParamsDescriptions = CMap::mergeArray($module->getDefaultParamsDescriptions(), $module->getParamsDescriptions());
 
-        $res = CHtml::label($moduleParamsLabels[$param], $param);
+        $label = key_exists($param, $moduleParamsLabels) ? $moduleParamsLabels[$param] : '';
+        $description = key_exists($param, $moduleParamsDescriptions) ? $moduleParamsDescriptions[$param] : '';
+
+        $res = CHtml::label($label, $param);
+        if ($description) {
+            $fieldOptions = [
+                'class' => 'form-control focus-help',
+                'data-title' => $label,
+                'data-content' => $description,
+            ];
+        } else {
+            $fieldOptions = [
+                'class' => 'form-control',
+            ];
+        }
 
         /* если есть ключ в массиве параметров, то значит этот параметр выпадающий список в вариантами */
         if (array_key_exists($param, $editableParams)) {
@@ -145,10 +160,12 @@ class BackendController extends yupe\components\controllers\BackController
                 $param,
                 $module->{$param},
                 $editableParams[$param],
-                ['class' => 'form-control', 'empty' => Yii::t('YupeModule.yupe', '--choose--')]
+                CMap::mergeArray($fieldOptions, [
+                    'empty' => Yii::t('YupeModule.yupe', '--choose--'),
+                ])
             );
         } else {
-            $res .= CHtml::textField($param, $module->{$param}, ['class' => 'form-control']);
+            $res .= CHtml::textField($param, $module->{$param}, $fieldOptions);
         }
 
         return $res;

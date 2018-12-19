@@ -25,22 +25,27 @@ class PageController extends FrontController
      */
     public function actionView($slug)
     {
-        $model = ((int)Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->getUser()->isSuperUser())
-            ? Page::model()->find(
+        $isPreview = ((int)Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->getUser()->isSuperUser());
+        if ($isPreview) {
+            $model = Page::model()->find(
                 'slug = :slug AND (lang=:lang OR (lang IS NULL))',
                 [
                     ':slug' => $slug,
                     ':lang' => Yii::app()->getLanguage(),
                 ]
-            )
-            : Page::model()->published()->find(
-                'slug = :slug AND (lang = :lang OR (lang = :deflang))',
-                [
+            );
+        } else {
+            $criteria = [
+                'condition' => 'slug = :slug AND (lang = :lang OR (lang = :deflang))',
+                'params' => [
                     ':slug' => $slug,
                     ':lang' => Yii::app()->getLanguage(),
                     ':deflang' => $this->yupe->defaultLanguage,
-                ]
-            );
+                ],
+                'order' => 'FIELD(lang, "' . Yii::app()->getLanguage() . '", "' . $this->yupe->defaultLanguage . '")'
+            ];
+            $model = Page::model()->published()->find($criteria);
+        }
 
         if (null === $model) {
             throw new CHttpException(404, Yii::t('PageModule.page', 'Page was not found'));

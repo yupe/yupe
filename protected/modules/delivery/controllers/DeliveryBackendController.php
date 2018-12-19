@@ -115,14 +115,25 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-            $this->loadModel($id)->delete();
+            if ($this->loadModel($id)->delete()) {
+                Yii::app()->user->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('DeliveryModule.delivery', 'Record removed!')
+                );
+            } else {
+                if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+                    Yii::app()->ajax->failure(
+                        Yii::t('DeliveryModule.delivery', 'Record not removed. Check for related orders.')
+                    );
+                } else {
+                    Yii::app()->user->setFlash(
+                        yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('DeliveryModule.delivery', 'Record not removed. Check for related orders.')
+                    );
+                }
+            }
 
-            Yii::app()->user->setFlash(
-                yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('DeliveryModule.delivery', 'Record removed!')
-            );
-
-            if (!isset($_GET['ajax'])) {
+            if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
         } else {
