@@ -157,5 +157,7 @@ return [
     'Yellow' => 'Желтый',
     'You can not delete a system status.' => 'Вы не можете удалять системные статусы',
     'Zipcode' => 'Индекс',
-    'Responsible manager is {user}...' => 'Ответственный за заказ {user}...'
+    'Responsible manager is {user}...' => 'Ответственный за заказ {user}...',
+    'Not enough product «{product_name}» in stock, maximum - {n} items' => 'Недостаточно товара «{product_name}» на складе, максимум - {n} шт.',
+    'Order error' => 'Ошибка оформления заказа',
 ];

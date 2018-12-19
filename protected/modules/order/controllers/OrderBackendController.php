@@ -85,9 +85,12 @@ class OrderBackendController extends yupe\components\controllers\BackController
                     Yii::t('OrderModule.order', 'Record created!')
                 );
 
-                if (Yii::app()->getRequest()->getPost('submit-type')) {
-                    $this->redirect(Yii::app()->getRequest()->getPost('submit-type'));
-                }
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        ['create']
+                    )
+                );
 
                 $this->redirect(['update', 'id' => $model->id]);
             }
@@ -143,9 +146,12 @@ class OrderBackendController extends yupe\components\controllers\BackController
                     );
                 }
 
-                if (Yii::app()->getRequest()->getPost('submit-type')) {
-                    $this->redirect(Yii::app()->getRequest()->getPost('submit-type'));
-                }
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        ['update', 'id' => $model->id]
+                    )
+                );
 
                 $this->redirect(['update', 'id' => $model->id]);
             }

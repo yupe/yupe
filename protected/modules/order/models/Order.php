@@ -566,6 +566,26 @@ class Order extends yupe\models\YModel
 
         $this->delivery_price = $this->getDeliveryCost();
 
+        // Контроль остатков
+        foreach ($this->_orderProducts as $orderProduct) {
+            $product = $orderProduct->product;
+            $diff = $product->quantity - $orderProduct->quantity;
+            if ($diff < 0) {
+                $this->addError(
+                    'products',
+                    Yii::t(
+                        "OrderModule.order",
+                        'Not enough product «{product_name}» in stock, maximum - {n} items', [
+                            '{product_name}' => $product->getName(),
+                            '{n}' => $product->getAvailableQuantity(),
+                        ]
+                    )
+                );
+                return false;
+            }
+            $product->saveAttributes(['quantity' => $diff]);
+        }
+
         return parent::beforeSave();
     }
 
