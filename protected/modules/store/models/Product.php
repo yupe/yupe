@@ -1176,4 +1176,12 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return $this->image_title ?: $this->getTitle();
     }
+
+    /**
+     * @return integer
+     */
+    public function getAvailableQuantity()
+    {
+        return $this->quantity;
+    }
 }

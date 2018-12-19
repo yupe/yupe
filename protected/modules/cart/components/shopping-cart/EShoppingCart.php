@@ -140,6 +140,14 @@ class EShoppingCart extends CMap
         $position->attachBehavior("CartPosition", new ECartPositionBehaviour());
         $position->setRefresh($this->refresh);
 
+        if (!$this->checkAvailableQuantity($position, $quantity)) {
+            throw new Exception(
+                Yii::t("CartModule.cart", 'Not enough products in stock, maximum - {n} items', [
+                    '{n}' => $position->getAvailableQuantity(),
+                ])
+            );
+        }
+
         $position->setQuantity($quantity);
 
         if ($position->getQuantity() < 1) {
@@ -249,5 +257,15 @@ class EShoppingCart extends CMap
     public function isEmpty()
     {
         return !(bool)$this->getCount();
+    }
+
+    /**
+     * @param IECartPosition $position
+     * @param int $quantity
+     * @return bool
+     */
+    public function checkAvailableQuantity(IECartPosition $position, $quantity)
+    {
+        return $quantity <= $position->getAvailableQuantity();
     }
 }

@@ -57,6 +57,7 @@ class CartController extends FrontController
             throw new CHttpException(404);
         }
 
+        /* @var IECartPosition $model */
         $model = CartProduct::model()->published()->findByPk((int)$product['id']);
 
         if (null === $model) {
@@ -76,8 +77,13 @@ class CartController extends FrontController
         }
         $model->selectedVariants = $variants;
         $quantity = empty($product['quantity']) ? 1 : (int)$product['quantity'];
-        Yii::app()->cart->put($model, $quantity);
-        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Product successfully added to your basket'));
+
+        try {
+            Yii::app()->cart->put($model, $quantity);
+            Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Product successfully added to your basket'));
+        } catch (Exception $exception) {
+            Yii::app()->ajax->failure($exception->getMessage());
+        }
     }
 
     /**
@@ -89,10 +95,16 @@ class CartController extends FrontController
             throw new CHttpException(404);
         }
 
+        /* @var IECartPosition $position */
         $position = Yii::app()->cart->itemAt(Yii::app()->getRequest()->getPost('id'));
         $quantity = (int)Yii::app()->getRequest()->getPost('quantity');
-        Yii::app()->cart->update($position, $quantity);
-        Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Quantity changed'));
+
+        try {
+            Yii::app()->cart->update($position, $quantity);
+            Yii::app()->ajax->success(Yii::t("CartModule.cart", 'Quantity changed'));
+        } catch (Exception $exception) {
+            Yii::app()->ajax->failure($exception->getMessage());
+        }
     }
 
     /**
