@@ -1,9 +1,9 @@
 function showNotify(element, result, message) {
-    $('#notifications').html('<div>' + message + '</div>').fadeIn().delay(3000).fadeOut();
+    $('#notifications').html('<div class="alert alert-' + result + '">' + message + '</div>').fadeIn().delay(3000).fadeOut();
 }
 
 $(document).ajaxError(function () {
-    $('#notifications').html('<div>Произошла ошибка =(</div>').fadeIn().delay(3000).fadeOut();
+    $('#notifications').html('<div class="alert alert-danger">Произошла ошибка =(</div>').fadeIn().delay(3000).fadeOut();
 });
 
 $(document).ready(function () {
@@ -13,6 +13,7 @@ $(document).ready(function () {
     var priceElement = $('#result-price'); //итоговая цена на странице продукта
     var basePrice = parseFloat($('#base-price').val()); //базовая цена на странице продукта
     var quantityElement = $('#product-quantity');
+    var quantityInputElement = $('#product-quantity-input');
 
     /*корзина*/
 
@@ -114,19 +115,12 @@ $(document).ready(function () {
     });
 
     $('.product-quantity-increase').on('click', function () {
-        var quantity = parseInt(quantityElement.text()) + 1;
-        quantityElement.text(quantity);
-        $('#product-quantity-input').val(quantity);
-        $('#product-total-price').text(parseFloat($('#result-price').text()) * quantity);
+        quantityInputElement.val(parseInt(quantityInputElement.val()) + 1).trigger('change');
     });
 
     $('.product-quantity-decrease').on('click', function () {
-        var quantity = parseInt(quantityElement.text());
-        if (parseInt(quantityElement.text()) > 1) {
-            --quantity;
-            quantityElement.text(quantity);
-            $('#product-quantity-input').val(quantity);
-            $('#product-total-price').text(parseFloat($('#result-price').text()) * quantity);
+        if (parseInt(quantityInputElement.val()) > 1) {
+            quantityInputElement.val(parseInt(quantityInputElement.val()) - 1).trigger('change');
         }
     });
 
@@ -136,6 +130,17 @@ $(document).ready(function () {
 
         if (quantity <= 0 || isNaN(quantity)) {
             quantity = 1;
+        }
+
+        var quantityLimiterEl = el.parents('.spinput'),
+            minQuantity = parseInt(quantityLimiterEl.data('min-value')),
+            maxQuantity = parseInt(quantityLimiterEl.data('max-value'));
+
+        if (quantity < minQuantity) {
+            quantity = minQuantity;
+        }
+        else if (quantity > maxQuantity) {
+            quantity = maxQuantity;
         }
 
         el.val(quantity);
@@ -241,14 +246,28 @@ $(document).ready(function () {
     });
 
     $('.position-count').change(function () {
-        var el = $(this).parents('.cart-list__item');
-        var quantity = parseInt(el.find('.position-count').val());
+        var el = $(this).parents('.cart-list__item'),
+            positionCountEl = el.find('.position-count');
+
+        var quantity = parseInt(positionCountEl.val());
         var productId = el.find('.position-id').val();
 
         if (quantity <= 0 || isNaN(quantity)) {
             quantity = 1;
-            el.find('.position-count').val(quantity);
         }
+
+        var quantityLimiterEl = el.find('.spinput'),
+            minQuantity = parseInt(quantityLimiterEl.data('min-value')),
+            maxQuantity = parseInt(quantityLimiterEl.data('max-value'));
+
+        if (quantity < minQuantity) {
+            quantity = minQuantity;
+        }
+        else if (quantity > maxQuantity) {
+            quantity = maxQuantity;
+        }
+
+        positionCountEl.val(quantity);
 
         updatePositionSumPrice(el);
         changePositionQuantity(productId, quantity);
@@ -460,6 +479,9 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result) {
                     updateCartWidget();
+                }
+                else {
+                    showNotify(this, 'danger', data.data);
                 }
             }
         });

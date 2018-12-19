@@ -98,7 +98,8 @@ $this->breadcrumbs = [
                                 <span class="ruble"> <?= Yii::t("CartModule.cart", Yii::app()->getModule('store')->currency); ?></span>
                             </div>
                             <div class="cart-item__quantity">
-                                <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
+                                <span data-min-value='1' data-max-value='<?= $position->getAvailableQuantity(); ?>'
+                                      class="spinput js-spinput">
                                     <span class="spinput__minus js-spinput__minus cart-quantity-decrease"
                                           data-target="#cart_<?= $positionId; ?>"></span>
                                     <?= CHtml::textField(
