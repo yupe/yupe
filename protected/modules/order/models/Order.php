@@ -569,8 +569,7 @@ class Order extends yupe\models\YModel
         // Контроль остатков
         foreach ($this->_orderProducts as $orderProduct) {
             $product = $orderProduct->product;
-            $diff = $product->quantity - $orderProduct->quantity;
-            if ($diff < 0) {
+            if ($orderProduct->quantity > $product->getAvailableQuantity()) {
                 $this->addError(
                     'products',
                     Yii::t(
@@ -583,7 +582,10 @@ class Order extends yupe\models\YModel
                 );
                 return false;
             }
-            $product->saveAttributes(['quantity' => $diff]);
+
+            // Изменение значения количества товара
+            $newQuantity = $product->quantity - $orderProduct->quantity;
+            $product->saveAttributes(['quantity' => $newQuantity]);
         }
 
         return parent::beforeSave();
