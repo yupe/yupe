@@ -567,7 +567,8 @@ class Order extends yupe\models\YModel
         $this->delivery_price = $this->getDeliveryCost();
 
         // Контроль остатков товара на складе
-        if (Yii::app()->getModule('store')->controlStockBalances) {
+        // @TODO реализовать перерасчет остатков товаров при изменении списка заказанных товаров администратором
+        if ($this->getIsNewRecord() && Yii::app()->getModule('store')->controlStockBalances) {
             foreach ($this->_orderProducts as $orderProduct) {
                 $product = $orderProduct->product;
                 if ($orderProduct->quantity > $product->getAvailableQuantity()) {
@@ -809,6 +810,7 @@ class Order extends yupe\models\YModel
 
     /**
      * @return bool
+     * @TODO реализовать перерасчет остатков товаров при отмене заказа
      */
     public function isStatusChanged()
     {
