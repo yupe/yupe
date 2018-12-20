@@ -566,26 +566,28 @@ class Order extends yupe\models\YModel
 
         $this->delivery_price = $this->getDeliveryCost();
 
-        // Контроль остатков
-        foreach ($this->_orderProducts as $orderProduct) {
-            $product = $orderProduct->product;
-            if ($orderProduct->quantity > $product->getAvailableQuantity()) {
-                $this->addError(
-                    'products',
-                    Yii::t(
-                        "OrderModule.order",
-                        'Not enough product «{product_name}» in stock, maximum - {n} items', [
-                            '{product_name}' => $product->getName(),
-                            '{n}' => $product->getAvailableQuantity(),
-                        ]
-                    )
-                );
-                return false;
-            }
+        // Контроль остатков товара на складе
+        if (Yii::app()->getModule('store')->controlStockBalances) {
+            foreach ($this->_orderProducts as $orderProduct) {
+                $product = $orderProduct->product;
+                if ($orderProduct->quantity > $product->getAvailableQuantity()) {
+                    $this->addError(
+                        'products',
+                        Yii::t(
+                            "OrderModule.order",
+                            'Not enough product «{product_name}» in stock, maximum - {n} items', [
+                                '{product_name}' => $product->getName(),
+                                '{n}' => $product->getAvailableQuantity(),
+                            ]
+                        )
+                    );
+                    return false;
+                }
 
-            // Изменение значения количества товара
-            $newQuantity = $product->quantity - $orderProduct->quantity;
-            $product->saveAttributes(['quantity' => $newQuantity]);
+                // Изменение значения количества товара
+                $newQuantity = $product->quantity - $orderProduct->quantity;
+                $product->saveAttributes(['quantity' => $newQuantity]);
+            }
         }
 
         return parent::beforeSave();

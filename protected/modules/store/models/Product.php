@@ -973,11 +973,12 @@ class Product extends yupe\models\YModel implements ICommentable
     }
 
     /**
-     * @return int
+     * @return boolean
      */
     public function isInStock()
     {
-        return $this->in_stock;
+        return $this->in_stock == self::STATUS_IN_STOCK
+            && (!Yii::app()->getModule('store')->controlStockBalances || $this->getAvailableQuantity() > 0);
     }
 
     /**
