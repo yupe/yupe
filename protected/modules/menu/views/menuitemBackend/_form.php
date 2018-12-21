@@ -347,7 +347,7 @@ $form = $this->beginWidget(
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">×</button>
-                <h4 class="modal-title"><?= Yii::t('MenuModule.menu', 'Select link')?></h4>
+                <h4 class="modal-title"><?= Yii::t('MenuModule.menu', 'Select link') ?></h4>
             </div>
             <div class="modal-body container">
 
@@ -398,7 +398,8 @@ $form = $this->beginWidget(
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal"><?= Yii::t('MenuModule.menu', 'Close')?></button>
+                <button class="btn btn-default" type="button"
+                        data-dismiss="modal"><?= Yii::t('MenuModule.menu', 'Close') ?></button>
             </div>
         </div>
     </div>
@@ -441,46 +442,47 @@ $form = $this->beginWidget(
         $('#MenuItem_entity_name option').remove();
         clearEntityIdSelect();
 
-        $.ajax({
-            url: '<?= Yii::app()->createUrl('/menu/menuItemBackend/ajaxGetEntities') ?>',
-            method: 'GET',
-            data: {entity_module_name: $(this).val()},
-            success: function (data) {
+        $.post('<?= Yii::app()->createUrl('/menu/menuitemBackend/getentities/') ?>', {
+                '<?= Yii::app()->getRequest()->csrfTokenName;?>': '<?= Yii::app()->getRequest()->csrfToken;?>',
+                entity_module_name: $(this).val()
+            }, function (data) {
                 $('#MenuItem_entity_name').append($("<option></option>").attr("value", '').text('-- Не выбрано --'));
                 $.each($.parseJSON(data), function (key, value) {
                     $('#MenuItem_entity_name').append($("<option></option>").attr("value", key).text(value));
                 });
             }
-        });
+        );
     });
+
 
     $('#MenuItem_entity_name').on('change', function () {
         clearEntityIdSelect();
 
-        $.ajax({
-            url: '<?= Yii::app()->createUrl('/menu/menuItemBackend/ajaxGetEntityItems') ?>',
-            method: 'GET',
-            data: {entity_module_name: $('#MenuItem_entity_module_name').val(), entity_name: $(this).val()},
-            success: function (data) {
-                $.each($.parseJSON(data), function (key, value) {
-                    $('#MenuItem_entity_id').append($("<option></option>").attr("value", key).text(value));
-                });
-            }
+        $.post('<?= Yii::app()->createUrl('/menu/menuitemBackend/getentityitems/') ?>', {
+            '<?= Yii::app()->getRequest()->csrfTokenName;?>': '<?= Yii::app()->getRequest()->csrfToken;?>',
+            entity_module_name: $('#MenuItem_entity_module_name').val(), entity_name: $(this).val()
+        }, function (data) {
+            $.each($.parseJSON(data), function (key, value) {
+                $('#MenuItem_entity_id').append($("<option></option>").attr("value", key).text(value));
+            });
         });
+
     });
 
+
     $('#MenuItem_entity_id').on('select2-selecting', function (e) {
-        $.ajax({
-            url: '<?= Yii::app()->createUrl('/menu/menuItemBackend/ajaxGetEntityUrl') ?>',
-            method: 'GET',
-            data: {
-                entity_module_name: $('#MenuItem_entity_module_name').val(),
-                entity_name: $('#MenuItem_entity_name').val(),
-                entity_id: e.val
-            },
-            success: function (data) {
+
+        $.post('<?= Yii::app()->createUrl('/menu/menuitemBackend/getentityurl/') ?>', {
+            '<?= Yii::app()->getRequest()->csrfTokenName;?>': '<?= Yii::app()->getRequest()->csrfToken;?>',
+            entity_module_name: $('#MenuItem_entity_module_name').val(),
+            entity_name: $('#MenuItem_entity_name').val(),
+            entity_id: e.val
+
+        }, function (data) {
                 $('#MenuItem_href').val(data);
             }
-        })
+        );
+
+
     });
 </script>
