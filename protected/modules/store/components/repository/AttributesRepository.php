@@ -18,8 +18,10 @@ class AttributesRepository extends CApplicationComponent
             ],
             'join' => 'LEFT JOIN {{store_type_attribute}} ON t.id = {{store_type_attribute}}.attribute_id
                        LEFT JOIN {{store_type}} ON {{store_type_attribute}}.type_id = {{store_type}}.id
-                       LEFT JOIN {{store_product}} AS products ON products.type_id = {{store_type}}.id',
+                       LEFT JOIN {{store_product}} AS products ON products.type_id = {{store_type}}.id
+                       LEFT JOIN {{store_attribute_group}} `group` ON `group`.id = t.group_id',
             'distinct' => true,
+            'order' => '`group`.position ASC, t.sort ASC',
         ]);
 
         $categories = $category->getChildsArray();
