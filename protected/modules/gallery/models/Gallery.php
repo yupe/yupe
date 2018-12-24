@@ -18,6 +18,7 @@ use yupe\widgets\YPurifier;
  * @property integer $status
  * @property integer $preview_id
  * @property integer $category_id
+ * @property integer $sort
  *
  * @property Image $preview
  */
@@ -56,10 +57,10 @@ class Gallery extends yupe\models\YModel
         return [
             ['name, description', 'filter', 'filter' => [new YPurifier(), 'purify']],
             ['name, description, owner', 'required'],
-            ['status, owner, preview_id, category_id', 'numerical', 'integerOnly' => true],
+            ['status, owner, preview_id, category_id, sort', 'numerical', 'integerOnly' => true],
             ['name', 'length', 'max' => 250],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
-            ['id, name, description, status, owner', 'safe', 'on' => 'search'],
+            ['id, name, description, status, owner, sort', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -78,6 +79,19 @@ class Gallery extends yupe\models\YModel
             'lastUpdated' => [self::STAT, 'ImageToGallery', 'gallery_id', 'select' => 'max(create_time)'],
             'preview' => [self::BELONGS_TO, 'Image', 'preview_id'],
             'category' => [self::BELONGS_TO, 'Category', 'category_id'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'sortable' => [
+                'class' => 'yupe\components\behaviors\SortableBehavior',
+                'attributeName' => 'sort',
+            ],
         ];
     }
 
@@ -109,6 +123,7 @@ class Gallery extends yupe\models\YModel
             'status' => Yii::t('GalleryModule.gallery', 'Status'),
             'imagesCount' => Yii::t('GalleryModule.gallery', 'Images count'),
             'category_id' => Yii::t('GalleryModule.gallery', 'Category'),
+            'sort' => Yii::t('GalleryModule.gallery', 'Sorting'),
         ];
     }
 
@@ -129,8 +144,14 @@ class Gallery extends yupe\models\YModel
         $criteria->compare('owner', $this->owner);
         $criteria->compare('status', $this->status);
         $criteria->compare('category_id', $this->category_id);
+        $criteria->compare('t.sort', $this->sort);
 
-        return new CActiveDataProvider(get_class($this), ['criteria' => $criteria]);
+        return new CActiveDataProvider(
+            get_class($this), [
+                'criteria' => $criteria,
+                'sort' => ['defaultOrder' => 't.sort'],
+            ]
+        );
     }
 
     public function getStatusList()
