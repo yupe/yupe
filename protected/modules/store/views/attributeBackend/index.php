@@ -46,6 +46,9 @@ $this->menu = [
                 'sortableAjaxSave' => true,
                 'sortableAttribute' => 'position',
                 'sortableAction' => '/store/attributeBackend/sortable',
+                'afterSortableUpdate' => 'js: function(id, position) {
+                    $.fn.yiiGridView.update("attributes-grid");
+                }',
                 'actionsButtons' => [
                     'add' => CHtml::link(
                         Yii::t('YupeModule.yupe', 'Add'),
