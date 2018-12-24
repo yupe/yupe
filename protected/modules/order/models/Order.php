@@ -808,19 +808,19 @@ class Order extends yupe\models\YModel
     }
 
     /**
+     * @param string $separator
      * @return string
      */
-    public function getAddress()
+    public function getAddress($separator = ', ')
     {
-        return sprintf(
-            '%s %s %s %s %s %s',
+        return implode($separator, [
+            $this->zipcode,
             $this->country,
             $this->city,
             $this->street,
             $this->house,
             $this->apartment,
-            $this->zipcode
-        );
+        ]);
     }
 
     /**
