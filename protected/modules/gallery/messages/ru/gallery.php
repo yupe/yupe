@@ -119,4 +119,5 @@ return [
     'Viewing gallery' => 'Просмотр галерей',
     'Visual Editor' => 'Визуальный редактор',
     'yupe team' => 'yupe team',
+    'Sorting' => 'Сортировка',
 ];
