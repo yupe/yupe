@@ -10,6 +10,8 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
     {
         return [
             ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['configUpdate'], 'roles' => ['Yupe.ModulesBackend.ConfigUpdate'],],
+            ['allow', 'actions' => ['moduleStatus'], 'roles' => ['Yupe.ModulesBackend.ModuleStatus'],],
             ['deny',],
         ];
     }

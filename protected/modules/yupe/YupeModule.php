@@ -579,6 +579,7 @@ class YupeModule extends WebModule
                 'icon' => "fa fa-fw fa-question-circle",
                 'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
                 'url' => ['/yupe/backend/help'],
+                'visible' => Yii::app()->getUser()->checkAccess('Yupe.Backend.index'),
             ],
         ];
     }
@@ -874,13 +875,58 @@ class YupeModule extends WebModule
         return [
             [
                 'name' => 'ManageYupeParams',
-                'description' => Yii::t('YupeModule.yupe', 'Modules update'),
+                'description' => Yii::t('YupeModule.yupe', 'Manage Yupe params'),
                 'type' => AuthItem::TYPE_TASK,
                 'items' => [
                     [
                         'type' => AuthItem::TYPE_OPERATION,
-                        'name' => 'Yupe.YupeBackend.index',
+                        'name' => 'Yupe.Backend.index',
                         'description' => Yii::t('YupeModule.yupe', 'Yupe panel'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Yupe.Backend.Settings',
+                        'description' => Yii::t('YupeModule.yupe', 'View modules list'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Yupe.Backend.Modupdate',
+                        'description' => Yii::t('YupeModule.yupe', 'Update module'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Yupe.Backend.Modulesettings',
+                        'description' => Yii::t('YupeModule.yupe', 'View module settings'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Yupe.Backend.SaveModulesettings',
+                        'description' => Yii::t('YupeModule.yupe', 'Update module settings'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Yupe.Backend.Themesettings',
+                        'description' => Yii::t('YupeModule.yupe', 'Update theme settings'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Yupe.Backend.FlushDumpSettings',
+                        'description' => Yii::t('YupeModule.yupe', 'Cleanup settings dump'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Yupe.Backend.Ajaxflush',
+                        'description' => Yii::t('YupeModule.yupe', 'Cleanup cache and assets'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Yupe.ModulesBackend.ConfigUpdate',
+                        'description' => Yii::t('YupeModule.yupe', 'Update module config'),
+                    ],
+                    [
+                        'type' => AuthItem::TYPE_OPERATION,
+                        'name' => 'Yupe.ModulesBackend.ModuleStatus',
+                        'description' => Yii::t('YupeModule.yupe', 'Update module status'),
                     ],
                 ],
             ],
