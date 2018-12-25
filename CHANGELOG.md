@@ -4,6 +4,7 @@
 -----------------------
 
 - #2303: accessRules для главного модуля Yupe (@loveorigami, @kuzmina-mariya)
+- #2652: Allowed memory size при большом количестве вариантов (@pa1m0n, @kuzmina-mariya)
 - #2670: Баг с добавлением товара в корзину (@validcom94, @kuzmina-mariya)
 - #2794: Сортировка порядка галерей (@tmsk70, @kuzmina-mariya)
 - #2796: Добавить разделители в адресе заказчика (e-mail уведомление и страница заказа) (@tmsk70, @kuzmina-mariya)
