@@ -1096,7 +1096,6 @@ class Product extends yupe\models\YModel implements ICommentable
 
             $model->name = $this->name.' ['.($similarNamesCount + 1).']';
             $model->slug = \yupe\helpers\YText::translit($model->name);
-            $model->image = $this->image;
 
             $attributes = $model->attributes;
             $typeAttributes = $this->getTypesAttributesValues();
@@ -1116,6 +1115,14 @@ class Product extends yupe\models\YModel implements ICommentable
                 }
             }
 
+            // Создание копии изображения товара
+            if ($newFileName = $this->copyImage($model)) {
+                $model->setAttribute('image', $newFileName);
+            } else {
+                throw new CException('Error copy image!');
+            }
+
+            // Сохранение данных
             if (!$model->saveData($attributes, $typeAttributes, $variantAttributes, $categoriesIds)) {
                 throw new CDbException('Error copy product!');
             }
@@ -1125,6 +1132,10 @@ class Product extends yupe\models\YModel implements ICommentable
             return $model;
         } catch (Exception $e) {
             $transaction->rollback();
+            // Удаление копии изображения товара
+            if (!empty($model->image)) {
+                \yupe\helpers\YFile::rmIfExists($model->upload->getFilePath());
+            }
         }
 
         return null;
@@ -1184,5 +1195,33 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getAvailableQuantity()
     {
         return $this->quantity;
+    }
+
+     * Создание копии изображения товара
+     * @param Product $clone
+     * @return bool|mixed|string
+     */
+    public function copyImage(Product $clone)
+    {
+        // Генерация нового имени файла
+        if (is_callable($clone->upload->fileName)) {
+            $newFileName = call_user_func($clone->upload->fileName);
+        } else {
+            $newFileName = md5(uniqid($this->image, true));
+        }
+        $newFileName .= '.' . pathinfo($this->image, PATHINFO_EXTENSION);
+
+        // Копирование файла
+        $imagePathFrom = $this->upload->getFilePath();
+        $imagePathTo = Yii::app()->uploadManager->getFilePath(
+            $newFileName,
+            $clone->upload->getUploadPath()
+        );
+
+        if (\yupe\helpers\YFile::cpFile($imagePathFrom, $imagePathTo)) {
+            return $newFileName;
+        }
+
+        return false;
     }
 }

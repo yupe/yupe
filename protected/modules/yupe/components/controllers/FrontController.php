@@ -45,4 +45,20 @@ abstract class FrontController extends Controller
             require $bootstrap;
         }
     }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'InlineWidgetsBehavior' => [
+                'class' => 'yupe.components.behaviors.InlineWidgetsBehavior',
+                'classSuffix' => 'Widget',
+                'startBlock' => '[[w:',
+                'endBlock' => ']]',
+                'widgets' => Yii::app()->params['runtimeWidgets'],
+            ],
+        ];
+    }
 }
