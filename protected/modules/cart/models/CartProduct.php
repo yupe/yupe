@@ -7,7 +7,7 @@ class CartProduct extends Product implements IECartPosition
 {
     /**
      * @param null|string $className
-     * @return Good
+     * @return Product
      */
     public static function model($className = __CLASS__)
     {

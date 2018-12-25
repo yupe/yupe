@@ -351,5 +351,6 @@ return [
     'Description for the store section' => 'Тег description для раздела родительского раздела магазина',
     'KeyWords for the store section' => 'Тег keywords для раздела родительского раздела магазина',
     'SEO setting'=>'Настройки SEO',
-    'More options' => 'Дополнительные параметры'
+    'More options' => 'Дополнительные параметры',
+    'Control stock balances' => 'Контролировать остатки товаров на складе',
 ];

@@ -4299,6 +4299,36 @@ label.error, .errorMessage, .text-error {
     color: #66512c;
 }
 
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-danger a {
+    color: #843534;
+}
+
+.notifications .alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.notifications .alert-danger a {
+    color: #843534;
+}
+
+.notifications .alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.notifications .alert-success a {
+    color: #2b542c;
+}
+
 .content p{
     margin-bottom: 15px;
     line-height: 1.6;

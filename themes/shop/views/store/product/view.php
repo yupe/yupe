@@ -113,29 +113,36 @@ $this->breadcrumbs = array_merge(
                             <?php endif; ?>
                         </div>
                     </div>
-                    <?php if (Yii::app()->hasModule('order')): ?>
-                        <div class="entry__count">
-                            <div class="entry__count-label">Кол-во:</div>
-                            <div class="entry__count-input">
-                                <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
-                                    <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
-                                    <input name="Product[quantity]" value="1" class="spinput__value" id="product-quantity-input"/>
-                                    <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
-                                </span>
+                    <?php if (Yii::app()->hasModule('cart')): ?>
+                        <?php if ($product->isInStock()): ?>
+                            <div class="entry__count">
+                                <div class="entry__count-label">Кол-во:</div>
+                                <div class="entry__count-input">
+                                    <?php
+                                    $minQuantity = 1;
+                                    $maxQuantity = Yii::app()->getModule('store')->controlStockBalances ? $product->getAvailableQuantity() : 99;
+                                    ?>
+                                    <span data-min-value='<?= $minQuantity; ?>' data-max-value='<?= $maxQuantity; ?>'
+                                          class="spinput js-spinput">
+                                        <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
+                                        <input name="Product[quantity]" value="1" class="spinput__value"
+                                               id="product-quantity-input"/>
+                                        <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
+                                    </span>
+                                </div>
+                                <div class="entry__cart-button">
+                                    <button class="btn btn_cart" id="add-product-to-cart"
+                                            data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">В корзину
+                                    </button>
+                                </div>
                             </div>
-                            <div class="entry__cart-button">
-                                <?php if(!Yii::app()->cart->itemAt($product->id)):?>
-                                <button class="btn btn_cart" id="add-product-to-cart"
-                                        data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">В корзину
-                                </button>
-                                <?php endif;?>
+                            <div class="entry__subtotal">
+                                <span id="product-result-price"><?= round($product->getResultPrice(), 2); ?></span> x
+                                <span id="product-quantity">1</span> =
+                                <span id="product-total-price"><?= round($product->getResultPrice(), 2); ?></span>
+                                <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span>
                             </div>
-                        </div>
-                        <div class="entry__subtotal">
-                            <span id="product-result-price"><?= round($product->getResultPrice(), 2); ?></span> x
-                            <span id="product-quantity">1</span> =
-                            <span id="product-total-price"><?= round($product->getResultPrice(), 2); ?></span>
-                            <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </form>
             </div>

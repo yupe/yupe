@@ -44,6 +44,10 @@ class EShoppingCart extends CMap
      * @var float
      */
     protected $discountPrice = 0.0;
+    /**
+     * @var bool
+     */
+    protected $controlStockBalances = false;
 
     /**
      *
@@ -53,6 +57,7 @@ class EShoppingCart extends CMap
         $this->restoreFromSession();
         $this->couponManager = Yii::app()->getComponent('couponManager');
         $this->eventManager = Yii::app()->getComponent('eventManager');
+        $this->controlStockBalances = Yii::app()->getModule('store')->controlStockBalances;
     }
 
     /**
@@ -139,6 +144,14 @@ class EShoppingCart extends CMap
         $position->detachBehavior("CartPosition");
         $position->attachBehavior("CartPosition", new ECartPositionBehaviour());
         $position->setRefresh($this->refresh);
+
+        if ($this->controlStockBalances && !$this->checkAvailableQuantity($position, $quantity)) {
+            throw new Exception(
+                Yii::t("CartModule.cart", 'Not enough products in stock, maximum - {n} items', [
+                    '{n}' => $position->getAvailableQuantity(),
+                ])
+            );
+        }
 
         $position->setQuantity($quantity);
 
@@ -249,5 +262,15 @@ class EShoppingCart extends CMap
     public function isEmpty()
     {
         return !(bool)$this->getCount();
+    }
+
+    /**
+     * @param IECartPosition $position
+     * @param int $quantity
+     * @return bool
+     */
+    public function checkAvailableQuantity(IECartPosition $position, $quantity)
+    {
+        return $quantity <= $position->getAvailableQuantity();
     }
 }
