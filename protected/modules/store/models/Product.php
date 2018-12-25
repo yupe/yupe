@@ -1197,6 +1197,7 @@ class Product extends yupe\models\YModel implements ICommentable
         return $this->quantity;
     }
 
+    /**
      * Создание копии изображения товара
      * @param Product $clone
      * @return bool|mixed|string
