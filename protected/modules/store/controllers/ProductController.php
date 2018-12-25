@@ -63,7 +63,15 @@ class ProductController extends FrontController
      */
     public function actionView($name, $category = null)
     {
-        $product = $this->productRepository->getBySlug($name);
+        $product = $this->productRepository->getBySlug(
+            $name,
+            [
+                'type.typeAttributes',
+                'category',
+                'variants',
+                'attributesValues',
+            ]
+        );
 
         if (
             null === $product ||
