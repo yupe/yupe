@@ -154,6 +154,7 @@ class Attribute extends \yupe\models\YModel
     public function search()
     {
         $criteria = new CDbCriteria;
+        $criteria->with = ['group'];
 
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
@@ -164,7 +165,7 @@ class Attribute extends \yupe\models\YModel
         $criteria->compare('required', $this->required);
 
         $sort = new CSort;
-        $sort->defaultOrder = 't.sort ASC';
+        $sort->defaultOrder = 'group.position ASC, t.sort ASC';
         $sort->attributes = [
             '*',
             'title' => [

@@ -51,9 +51,11 @@
                     <?php endif;?>
                     <div class="product-vertical-extra__cart">
                         <?php if (Yii::app()->hasModule('cart')): ?>
-                            <a href="javascript:void(0);" class="btn btn_cart quick-add-product-to-cart" data-product-id="<?= $data->id; ?>" data-cart-add-url="<?= Yii::app()->createUrl('/cart/cart/add');?>">
-                                <?= Yii::t('StoreModule.store', 'Into cart') ?>
-                            </a>
+                            <?php if ($data->isInStock()): ?>
+                                <a href="javascript:void(0);" class="btn btn_cart quick-add-product-to-cart" data-product-id="<?= $data->id; ?>" data-cart-add-url="<?= Yii::app()->createUrl('/cart/cart/add');?>">
+                                    <?= Yii::t('StoreModule.store', 'Into cart') ?>
+                                </a>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>

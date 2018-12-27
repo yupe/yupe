@@ -61,10 +61,13 @@ class OrderController extends \yupe\components\controllers\FrontController
                 $this->redirect(['/store/product/index']);
 
             } else {
+                $error = CHtml::errorSummary($model);
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                    CHtml::errorSummary($model)
+                    $error ?: Yii::t('OrderModule.order', 'Order error')
                 );
+
+                $this->redirect(['/cart/cart/index']);
             }
         }
 

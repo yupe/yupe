@@ -99,6 +99,10 @@ class StoreModule extends WebModule
      * @var
      */
     public $metaKeyWords;
+    /**
+     * @var bool
+     */
+    public $controlStockBalances = false;
 
     /**
      * @return array
@@ -203,6 +207,7 @@ class StoreModule extends WebModule
             'metaTitle',
             'metaDescription',
             'metaKeyWords',
+            'controlStockBalances' => $this->getChoice(),
         ];
     }
 
@@ -232,6 +237,7 @@ class StoreModule extends WebModule
             'metaTitle' => Yii::t('StoreModule.store', 'Title tag for the store section'),
             'metaDescription' => Yii::t('StoreModule.store', 'Description for the store section'),
             'metaKeyWords' => Yii::t('StoreModule.store', 'KeyWords for the store section'),
+            'controlStockBalances' => Yii::t('StoreModule.store', 'Control stock balances'),
         ];
     }
 
@@ -251,6 +257,7 @@ class StoreModule extends WebModule
                     'phone',
                     'email',
                     'currency',
+                    'controlStockBalances',
                 ],
             ],
             '1.catalog' => [

@@ -18,4 +18,9 @@ interface IECartPosition
      * @return float price
      */
     public function getPrice();
+
+    /**
+     * @return integer Available quantity
+     */
+    public function getAvailableQuantity();
 }

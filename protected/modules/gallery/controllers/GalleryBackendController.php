@@ -17,7 +17,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         return CMap::mergeArray(
             parent::filters(),
             [
-                'postOnly + delete, addImages, sortable',
+                'postOnly + delete, addImages, sortable, sortableGallery',
             ]
         );
     }
@@ -31,7 +31,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['images'], 'roles' => ['Gallery.GalleryBackend.Images']],
             ['allow', 'actions' => ['create'], 'roles' => ['Gallery.GalleryBackend.Create']],
             ['allow', 'actions' => ['addimages', 'sortable'], 'roles' => ['Gallery.GalleryBackend.Addimages']],
-            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Gallery.GalleryBackend.Update']],
+            ['allow', 'actions' => ['update', 'inline', 'sortableGallery'], 'roles' => ['Gallery.GalleryBackend.Update']],
             ['allow', 'actions' => ['delete', 'multiaction', 'sortable'], 'roles' => ['Gallery.GalleryBackend.Delete']],
             ['allow', 'actions' => ['deleteImage', 'sortable'], 'roles' => ['Gallery.GalleryBackend.DeleteImage']],
             ['deny']
@@ -44,11 +44,16 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             'inline' => [
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Gallery',
-                'validAttributes' => ['name', 'description', 'status']
+                'validAttributes' => ['name', 'description', 'status', 'sort']
             ],
             'sortable' => [
                 'class' => 'yupe\components\actions\SortAction',
                 'model' => 'ImageToGallery',
+            ],
+            'sortableGallery' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Gallery',
+                'attribute' => 'sort',
             ],
         ];
     }

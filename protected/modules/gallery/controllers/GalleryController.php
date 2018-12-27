@@ -28,7 +28,7 @@ class GalleryController extends \yupe\components\controllers\FrontController
                     'scopes' => 'published'
                 ],
                 'sort' => [
-                    'defaultOrder' => 'id DESC',
+                    'defaultOrder' => 'sort ASC',
                 ]
             ]
         );
