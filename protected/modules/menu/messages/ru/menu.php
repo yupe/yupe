@@ -68,7 +68,7 @@ return [
     'Find menu items' => 'Поиск пунктов меню',
     'Find menu' => 'Поиск меню',
     'For which one this item is attitude' => 'Укажите к какому меню относится данный пункт.',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'id' => 'Id',
     'Item order number in menu' => 'Порядковый номер пункта в меню.',
     'Item parent. Check root if it is in root menu' => 'Родитель данного пункта меню. Если пункт необходимо указать в корне, выберите корень меню.',
@@ -143,4 +143,12 @@ return [
     'Viewing menu' => 'Просмотр меню',
     'yes' => 'да',
     'yupe team' => 'yupe team',
+    'General' => 'Основное',
+    'Module name' => 'Модуль',
+    'Page type' => 'Тип страницы',
+    'Page' => 'Страница',
+    '-- Not set --' => '-- Не выбрано --',
+    'Select link' => 'Выбрать ссылку',
+    'Close' => 'Закрыть',
+    'Module ID not set' => 'Не задан индетификатор модуля'
 ];

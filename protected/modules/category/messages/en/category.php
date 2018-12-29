@@ -22,7 +22,7 @@ return [
     '--no--'                                                                        => '',
     '0.5'                                                                           => '',
     'Id'                                                                            => '',
-    'http://yupe.ru'                                                                => '',
+    'https://yupe.ru'                                                                => '',
     'team@yupe.ru'                                                                  => '',
     'yupe team'                                                                     => '',
     'Alias'                                                                         => '',

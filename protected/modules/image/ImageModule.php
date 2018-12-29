@@ -4,7 +4,7 @@
  * ImageModule основной класс модуля image
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.image
  * @since 0.1
@@ -287,7 +287,7 @@ class ImageModule extends WebModule
      */
     public function getUrl()
     {
-        return Yii::t('ImageModule.image', 'http://yupe.ru');
+        return Yii::t('ImageModule.image', 'https://yupe.ru');
     }
 
     /**

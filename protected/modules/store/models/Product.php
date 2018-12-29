@@ -142,10 +142,11 @@ class Product extends yupe\models\YModel implements ICommentable
             ],
             ['name, slug', 'required'],
             [
-                'status, is_special, producer_id, type_id, quantity, in_stock, category_id',
+                'status, is_special, producer_id, type_id, in_stock, category_id',
                 'numerical',
                 'integerOnly' => true,
             ],
+            ['quantity', 'numerical', 'integerOnly' => true, 'min' => 0],
             [
                 'price, average_price, purchase_price, recommended_price, discount_price, discount, length, height, width, weight',
                 'store\components\validators\NumberValidator',
@@ -281,7 +282,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
             'position' => Yii::t('StoreModule.store', 'Position'),
             'external_id' => Yii::t('StoreModule.store', 'External id'),
-            'title' => Yii::t('StoreModule.store', 'SEO_Title'),
+            'title' => Yii::t('StoreModule.store', 'SEO_title'),
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
             'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
             'image_title' => Yii::t('StoreModule.store', 'Image title'),
@@ -320,7 +321,7 @@ class Product extends yupe\models\YModel implements ICommentable
             'purchase_price' => Yii::t('StoreModule.store', 'Purchase price'),
             'average_price' => Yii::t('StoreModule.store', 'Average price'),
             'recommended_price' => Yii::t('StoreModule.store', 'Recommended price'),
-            'title' => Yii::t('StoreModule.store', 'SEO_Title'),
+            'title' => Yii::t('StoreModule.store', 'SEO_title'),
             'meta_canonical' => Yii::t('StoreModule.store', 'Canonical'),
             'image_alt' => Yii::t('StoreModule.store', 'Image alt'),
             'image_title' => Yii::t('StoreModule.store', 'Image title'),
@@ -477,7 +478,7 @@ class Product extends yupe\models\YModel implements ICommentable
     {
         return [
             self::SPECIAL_NOT_ACTIVE => Yii::t('StoreModule.store', 'No'),
-            self::STATUS_ACTIVE => Yii::t('StoreModule.store', 'Yes'),
+            self::SPECIAL_ACTIVE => Yii::t('StoreModule.store', 'Yes'),
         ];
     }
 
@@ -972,11 +973,12 @@ class Product extends yupe\models\YModel implements ICommentable
     }
 
     /**
-     * @return int
+     * @return boolean
      */
     public function isInStock()
     {
-        return $this->in_stock;
+        return $this->in_stock == self::STATUS_IN_STOCK
+            && (!Yii::app()->getModule('store')->controlStockBalances || $this->getAvailableQuantity() > 0);
     }
 
     /**
@@ -1094,7 +1096,6 @@ class Product extends yupe\models\YModel implements ICommentable
 
             $model->name = $this->name.' ['.($similarNamesCount + 1).']';
             $model->slug = \yupe\helpers\YText::translit($model->name);
-            $model->image = $this->image;
 
             $attributes = $model->attributes;
             $typeAttributes = $this->getTypesAttributesValues();
@@ -1114,6 +1115,14 @@ class Product extends yupe\models\YModel implements ICommentable
                 }
             }
 
+            // Создание копии изображения товара
+            if ($newFileName = $this->copyImage($model)) {
+                $model->setAttribute('image', $newFileName);
+            } else {
+                throw new CException('Error copy image!');
+            }
+
+            // Сохранение данных
             if (!$model->saveData($attributes, $typeAttributes, $variantAttributes, $categoriesIds)) {
                 throw new CDbException('Error copy product!');
             }
@@ -1123,6 +1132,10 @@ class Product extends yupe\models\YModel implements ICommentable
             return $model;
         } catch (Exception $e) {
             $transaction->rollback();
+            // Удаление копии изображения товара
+            if (!empty($model->image)) {
+                \yupe\helpers\YFile::rmIfExists($model->upload->getFilePath());
+            }
         }
 
         return null;
@@ -1174,5 +1187,42 @@ class Product extends yupe\models\YModel implements ICommentable
     public function getImageTitle()
     {
         return $this->image_title ?: $this->getTitle();
+    }
+
+    /**
+     * @return integer
+     */
+    public function getAvailableQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Создание копии изображения товара
+     * @param Product $clone
+     * @return bool|mixed|string
+     */
+    public function copyImage(Product $clone)
+    {
+        // Генерация нового имени файла
+        if (is_callable($clone->upload->fileName)) {
+            $newFileName = call_user_func($clone->upload->fileName);
+        } else {
+            $newFileName = md5(uniqid($this->image, true));
+        }
+        $newFileName .= '.' . pathinfo($this->image, PATHINFO_EXTENSION);
+
+        // Копирование файла
+        $imagePathFrom = $this->upload->getFilePath();
+        $imagePathTo = Yii::app()->uploadManager->getFilePath(
+            $newFileName,
+            $clone->upload->getUploadPath()
+        );
+
+        if (\yupe\helpers\YFile::cpFile($imagePathFrom, $imagePathTo)) {
+            return $newFileName;
+        }
+
+        return false;
     }
 }

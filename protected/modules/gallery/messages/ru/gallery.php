@@ -62,7 +62,7 @@ return [
     'Gallery categories' => 'Категории галерей',
     'Group adding' => 'Массовое добавление',
     'hidden' => 'скрытая',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'Id' => 'Id',
     'id' => 'id',
     'Image #{id} edited' => 'Изображение #{id} отредактировано!',
@@ -119,4 +119,5 @@ return [
     'Viewing gallery' => 'Просмотр галерей',
     'Visual Editor' => 'Визуальный редактор',
     'yupe team' => 'yupe team',
+    'Sorting' => 'Сортировка',
 ];

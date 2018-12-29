@@ -5,7 +5,7 @@
  * Модель для работы с постами
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.blog.models
  * @since 0.1
@@ -32,12 +32,13 @@ use yupe\widgets\YPurifier;
  * @property integer $status
  * @property integer $comment_status
  * @property integer $access_type
- * @property string $keywords
- * @property string $description
  * @property string $lang
  * @property string $create_user_ip
  * @property string $image
  * @property integer $category_id
+ * @property string $meta_title
+ * @property string $meta_keywords
+ * @property string $meta_description
  *
  * The followings are the available model relations:
  * @property User $createUser
@@ -139,7 +140,7 @@ class Post extends yupe\models\YModel implements ICommentable
             ['slug', 'length', 'max' => 150],
             ['image', 'length', 'max' => 300],
             ['create_user_ip', 'length', 'max' => 20],
-            ['description, title, link, keywords', 'length', 'max' => 250],
+            ['title, link, meta_title, meta_keywords, meta_description', 'length', 'max' => 250],
             ['quote', 'filter', 'filter' => 'trim'],
             ['link', 'yupe\components\validators\YUrlValidator'],
             ['comment_status', 'in', 'range' => array_keys($this->getCommentStatusList())],
@@ -151,7 +152,7 @@ class Post extends yupe\models\YModel implements ICommentable
                 'message' => Yii::t('BlogModule.blog', 'Forbidden symbols in {attribute}'),
             ],
             [
-                'title, slug, link, keywords, description, publish_time',
+                'title, slug, link, meta_title, meta_keywords, meta_description, publish_time',
                 'filter',
                 'filter' => [$obj = new YPurifier(), 'purify'],
             ],
@@ -159,7 +160,7 @@ class Post extends yupe\models\YModel implements ICommentable
             ['tags', 'safe'],
             ['tags', 'default', 'value' => []],
             [
-                'id, blog_id, create_user_id, update_user_id, create_time, update_time, slug, publish_time, title, quote, content, link, status, comment_status, access_type, keywords, description, lang',
+                'id, blog_id, create_user_id, update_user_id, create_time, update_time, slug, publish_time, title, quote, content, link, status, comment_status, access_type, meta_title, meta_keywords, meta_description, lang',
                 'safe',
                 'on' => 'search',
             ],
@@ -281,8 +282,9 @@ class Post extends yupe\models\YModel implements ICommentable
             'status' => Yii::t('BlogModule.blog', 'Status'),
             'comment_status' => Yii::t('BlogModule.blog', 'Comments'),
             'access_type' => Yii::t('BlogModule.blog', 'Access'),
-            'keywords' => Yii::t('BlogModule.blog', 'Keywords'),
-            'description' => Yii::t('BlogModule.blog', 'description'),
+            'meta_title' => Yii::t('BlogModule.blog', 'Post title (SEO)'),
+            'meta_keywords' => Yii::t('BlogModule.blog', 'Post keywords (SEO)'),
+            'meta_description' => Yii::t('BlogModule.blog', 'Post description (SEO)'),
             'tags' => Yii::t('BlogModule.blog', 'Tags'),
             'image' => Yii::t('BlogModule.blog', 'Image'),
             'category_id' => Yii::t('BlogModule.blog', 'Category'),
@@ -687,7 +689,7 @@ class Post extends yupe\models\YModel implements ICommentable
     public function getCategories()
     {
         return Yii::app()->db->createCommand()
-            ->select('cc.name, bp.category_id, count(bp.id) cnt, cc.slug, cc.description')
+            ->select('cc.name, bp.category_id, count(bp.id) cnt, cc.slug, cc.meta_description')
             ->from('yupe_blog_post bp')
             ->join('yupe_category_category cc', 'bp.category_id = cc.id')
             ->where('bp.category_id IS NOT NULL')

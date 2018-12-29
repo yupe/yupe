@@ -4,7 +4,7 @@
  * MenuModule основной класс модуля menu
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.menu
  * @since 0.1
@@ -15,7 +15,7 @@ class MenuModule extends yupe\components\WebModule
     /**
      *
      */
-    const VERSION = '1.1';
+    const VERSION = '1.4-beta';
 
     /**
      * @var string
@@ -88,7 +88,7 @@ class MenuModule extends yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('MenuModule.menu', 'http://yupe.ru');
+        return Yii::t('MenuModule.menu', 'https://yupe.ru');
     }
 
     /**

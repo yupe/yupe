@@ -6,7 +6,7 @@
  * @package  yupe
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 ?>
 <!DOCTYPE html>
@@ -62,31 +62,31 @@
                             [
                                 'icon'        => 'fa fa-fw fa-info-circle',
                                 'label'       => Yii::t('InstallModule.install', 'Support'),
-                                'url'         => 'http://yupe.ru/service/support',
+                                'url'         => 'https://yupe.ru/service/support',
                                 'linkOptions' => ['target' => '_blank'],
                             ],
                             [
                                 'icon'        => 'fa fa-fw fa-book',
                                 'label'       => Yii::t('YupeModule.yupe', 'Docs'),
-                                'url'         => 'http://yupe.ru/docs/index.html?from=install',
+                                'url'         => 'https://yupe.ru/docs/index.html?from=install',
                                 'linkOptions' => ['target' => '_blank'],
                             ],
                             [
                                 'icon'        => 'fa fa-fw fa-rss',
                                 'label'       => Yii::t('InstallModule.install', 'Blog'),
-                                'url'         => 'http://yupe.ru/posts?from=install',
+                                'url'         => 'https://yupe.ru/posts?from=install',
                                 'linkOptions' => ['target' => '_blank'],
                             ],
                             [
                                 'icon'        => 'fa fa-fw fa-database',
                                 'label'       => Yii::t('InstallModule.install', 'Hosting'),
-                                'url'         => 'http://yupe.ru/service/hosting?from=install',
+                                'url'         => 'https://yupe.ru/service/hosting?from=install',
                                 'linkOptions' => ['target' => '_blank'],
                             ],
                             [
                                 'label' => $this->yupe->getVersion(),
                                 'icon'  => 'fa fa-fw fa-thumbs-up',
-                                'url'   => 'http://yupe.ru/download?from=install',
+                                'url'   => 'https://yupe.ru/download?from=install',
                                 'linkOptions' => ['target' => '_blank'],
                             ],
                         ],

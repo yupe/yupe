@@ -2,7 +2,7 @@
     "name": "yupe/yupe",
     "description": "Yupe is simple and lightweight CMF for web-development, built on top of Yii 1.x",
     "keywords": ["yupe", "yii", "web", "cms", "cmf", "shop", "ecommerce"],
-    "homepage": "http://yupe.ru",
+    "homepage": "https://yupe.ru",
     "type": "project",
     "license": "BSD-3-Clause",
     "authors": [
@@ -44,7 +44,7 @@
         "docs": "http://docs.yupe.ru/"
     },
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.6",
         "yiisoft/yii": "1.1.19",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",

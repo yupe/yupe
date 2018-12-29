@@ -22,11 +22,11 @@ Yupe allows you to simple create web sites like:
 * public and personal blogs
 * e-shops
 
-**About 350 projects based on Yupe! Yupe! is using by several [developer teams](http://yupe.ru/pages/friends) and companies.**
+**About 350 projects based on Yupe! Yupe! is using by several [developer teams](https://yupe.ru/pages/friends) and companies.**
 
 First of all Yupe! have been developed for PHP-developers who knows Yii.
 
-[Installation](http://yupe.ru/docs/install.html) is simple and it takes about 5 minutes!
+[Installation](https://yupe.ru/docs/install.html) is simple and it takes about 5 minutes!
 
 Easy and common control panel. Site can be managed even by housewife!
 
@@ -47,15 +47,15 @@ Requirements and Dependencies
 Links
 ------
 
-* [Offitial site](http://yupe.ru/)
-* [Yupe! blog](http://yupe.ru/blogs/yupe-mini-cms-yii)
+* [Offitial site](https://yupe.ru/)
+* [Yupe! blog](https://yupe.ru/blogs/yupe-mini-cms-yii)
 * [Modules repository](https://github.com/yupe/yupe-ext)
 * [Docs](http://docs.yupe.ru/)
 * [API](http://api.yupe.ru/)
-* [More about project](http://yupe.ru/pages/about)
+* [More about project](https://yupe.ru/pages/about)
 * [Our team](http://docs.yupe.ru/team/)
 * [Forum](http://talk.yupe.ru/)
-* [Contacts](http://yupe.ru/contacts)
+* [Contacts](https://yupe.ru/contacts)
 * [How can I help you project?](http://docs.yupe.ru/assistance.project/)
 * [Twitter](https://twitter.com/#!/YupeCms)
 * [Commercial support](http://amylabs.ru/contact)
@@ -66,20 +66,20 @@ Capabilities
 Out of the box you will get a skeleton application with the following functionality is ready
 (we've got different modules - use only what you need):
 
-* [Registration](http://yupe.ru/registration), [Authentication](http://yupe.ru/login), [Password recovery](http://yupe.ru/recovery) ([User module](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
+* [Registration](https://yupe.ru/registration), [Authentication](https://yupe.ru/login), [Password recovery](https://yupe.ru/recovery) ([User module](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
 * Registration and authorization via social networks. ([social module](https://github.com/yupe/yupe/tree/master/protected/modules/social)).
 * User Management (blocking, activation, editing, etc.) through the administrative interface ([user module](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
-* [Creating and publishing news](http://yupe.ru/story/ocherednoy-sayt-na-yupi) ([news module](https://github.com/yupe/yupe/tree/master/protected/modules/news)).
+* [Creating and publishing news](https://yupe.ru/story/ocherednoy-sayt-na-yupi) ([news module](https://github.com/yupe/yupe/tree/master/protected/modules/news)).
 * Creating and managing site pages ([page module](https://github.com/yupe/yupe/tree/master/protected/modules/page)).
 * Creating and managing categories of sites (section) ([category module](https://github.com/yupe/yupe/tree/master/protected/modules/category)).
 * Creating and managing site navigation ([module menu](https://github.com/yupe/yupe/tree/master/protected/modules/menu)).
-* Comment module (example [http://yupe.ru/post/logotip-dlya-yupi.html](http://yupe.ru/post/logotip-dlya-yupi.html) or [http://yupe.ru/gallery/gallery/foto/id/5](http://yupe.ru/gallery/gallery/foto/id/5)) ([comment module](https://github.com/yupe/yupe/tree/master/protected/modules/comment)).
+* Comment module (example [https://yupe.ru/post/logotip-dlya-yupi.html](https://yupe.ru/post/logotip-dlya-yupi.html) or [https://yupe.ru/gallery/gallery/foto/id/5](https://yupe.ru/gallery/gallery/foto/id/5)) ([comment module](https://github.com/yupe/yupe/tree/master/protected/modules/comment)).
 * Handbooks module (storage and management background information) ([dictionary module](https://github.com/yupe/yupe/tree/master/protected/modules/dictionary)).
-* Blogging module ([both individual and collective](http://yupe.ru/blog/yupe-mini-cms-yii)) ([blog module](https://github.com/yupe/yupe/tree/master/protected/modules/blog)).
-* "Feedback" Module + [FAQ](http://yupe.ru/faq) ([feedback module](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).
+* Blogging module ([both individual and collective](https://yupe.ru/blog/yupe-mini-cms-yii)) ([blog module](https://github.com/yupe/yupe/tree/master/protected/modules/blog)).
+* "Feedback" Module + [FAQ](https://yupe.ru/faq) ([feedback module](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).
 * Module for working with content blocks ([contentblock module](https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)).
 * Wiki - working through [module yeeki](http://rmcreative.ru/blog/post/yeeki).
-* Convenient admin panel based on Twitter Boostrap  ([It looks like this](http://yupe.ru/gallery/gallery/show/1)).
+* Convenient admin panel based on Twitter Boostrap  ([It looks like this](https://yupe.ru/gallery/gallery/show/1)).
 * [Possibility to generate CRUD-style Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 
 **If you need more functionality just - [write us](http://amylabs.ru/contact) and we help us!**
@@ -89,10 +89,10 @@ License
 
 Source code, layout, design [BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
 
-Yupe community will be appreciate you if you place an reference on [yupe.ru/](http://yupe.ru/) on your site.
+Yupe community will be appreciate you if you place an reference on [yupe.ru/](https://yupe.ru/) on your site.
 
 
 
-(c) 2012 - 2015 [amylabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)
+(c) 2012 - 2018 [amylabs](http://amylabs.ru) && [Yupe! team](https://yupe.ru/)
 
 ![amyLabs](http://amylabs.ru/images/logo.png)

@@ -48,4 +48,5 @@ return [
     'Updating delivery' => 'Редактирование способа доставки',
     'View delivery' => 'Просмотреть способ доставки',
     'Viewing delivery' => 'Просмотр способа доставки',
+    'Record not removed. Check for related orders.' => 'Запись не удалена. Проверьте наличие связанных заказов.',
 ];

@@ -21,7 +21,7 @@ return [
     '--choose--' => '',
     '0.3' => '',
     'Id' => '',
-    'http://yupe.ru' => '',
+    'https://yupe.ru' => '',
     'id' => '',
     'team@yupe.ru' => '',
     'yupe team' => '',

@@ -26,6 +26,8 @@ if (!$variant->id) {
     </td>
     <td><input class="form-control" type="text" name="ProductVariant[<?= $variant->id; ?>][amount]" value="<?= $variant->amount; ?>"></td>
     <td><input class="form-control" type="text" name="ProductVariant[<?= $variant->id; ?>][sku]" value="<?= $variant->sku; ?>"></td>
+    <td><input class="form-control" type="number" min="0" name="ProductVariant[<?= $variant->id; ?>][quantity]"
+               value="<?= $variant->quantity; ?>"></td>
     <td><input class="form-control" type="text" name="ProductVariant[<?= $variant->id; ?>][position]" value="<?= $variant->position; ?>"></td>
     <td><a href="#" class="btn btn-danger btn-sm remove-variant"><?= Yii::t("StoreModule.store", "Delete"); ?></a></td>
 </tr>

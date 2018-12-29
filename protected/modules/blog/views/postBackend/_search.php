@@ -6,7 +6,7 @@
  * @package  yupe
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
@@ -165,14 +165,14 @@ $form = $this->beginWidget(
         <div class="col-sm-3">
             <?=  $form->textFieldGroup(
                 $model,
-                'description',
+                'meta_description',
                 [
                     'widgetOptions' => [
                         'htmlOptions' => [
                             'empty'               => '---',
                             'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('description'),
-                            'data-content'        => $model->getAttributeDescription('description'),
+                            'data-original-title' => $model->getAttributeLabel('meta_description'),
+                            'data-content'        => $model->getAttributeDescription('meta_description'),
                         ],
                     ],
                 ]
@@ -181,14 +181,14 @@ $form = $this->beginWidget(
         <div class="col-sm-3">
             <?=  $form->textFieldGroup(
                 $model,
-                'keywords',
+                'meta_keywords',
                 [
                     'widgetOptions' => [
                         'htmlOptions' => [
                             'empty'               => '---',
                             'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('keywords'),
-                            'data-content'        => $model->getAttributeDescription('keywords'),
+                            'data-original-title' => $model->getAttributeLabel('meta_keywords'),
+                            'data-content'        => $model->getAttributeDescription('meta_keywords'),
                         ],
                     ],
                 ]

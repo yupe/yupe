@@ -30,7 +30,7 @@ Yii::app()->clientScript->registerScript(
 <p><?=  Yii::t(
         'YupeModule.yupe',
         'More information and technical support you can find in our site {site}.',
-        ['{site}' => CHtml::link(Yii::t('YupeModule.yupe', 'Yupe!'), 'http://yupe.ru/?from=generator')]
+        ['{site}' => CHtml::link(Yii::t('YupeModule.yupe', 'Yupe!'), 'https://yupe.ru/?from=generator')]
     ); ?></p>
 
 <?php $form = $this->beginWidget('CCodeForm', ['model' => $model]); ?>

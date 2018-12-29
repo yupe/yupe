@@ -4,7 +4,7 @@
  * CommentRssController контроллер для генерации rss-ленты комментариев
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.comment.controllers
  * @since 0.1

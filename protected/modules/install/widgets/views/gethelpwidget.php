@@ -10,7 +10,7 @@
                     ),
                     '{feedback}' => CHtml::link(
                         Yii::t('InstallModule.install', 'contact us'),
-                        'http://yupe.ru/contacts?from=install',
+                        'https://yupe.ru/contacts?from=install',
                         ['target' => '_blank']
                     ),
                 ]

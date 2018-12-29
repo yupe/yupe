@@ -15,7 +15,7 @@ $this->breadcrumbs = array_merge(
     [CHtml::encode($product->name)]
 );
 ?>
-<div class="main__product-description grid">
+<div class="main__product-description grid" itemscope itemtype="http://schema.org/Product">
     <div class="product-description">
         <div class="product-description__img-block grid-module-6">
             <div class="product-gallery js-product-gallery">
@@ -36,7 +36,7 @@ $this->breadcrumbs = array_merge(
                     <?php endif; ?>
                 </div>
                 <div class="product-gallery__nav">
-                    <a href="<?= StoreImage::product($product); ?>" rel="group" data-product-thumbnail
+                    <a itemprop="image" href="<?= StoreImage::product($product); ?>" rel="group" data-product-thumbnail
                        class="product-gallery__nav-item">
                         <img src="<?= $product->getImageUrl(60, 60, false); ?>" alt=""
                              class="product-gallery__nav-img">
@@ -64,14 +64,14 @@ $this->breadcrumbs = array_merge(
                     </div>
                 </div>
                 <div class="entry__title">
-                    <h1 class="h1"><?= CHtml::encode($product->getTitle()); ?></h1>
+                    <h1 class="h1" itemprop="name"><?= CHtml::encode($product->getTitle()); ?></h1>
                 </div>
                 <div class="entry__wysiwyg">
-                    <div class="wysiwyg">
+                    <div class="wysiwyg" itemprop="description">
                         <?= $product->short_description; ?>
                     </div>
                 </div>
-                <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post">
+                <form action="<?= Yii::app()->createUrl('cart/cart/add'); ?>" method="post" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <input type="hidden" name="Product[id]" value="<?= $product->id; ?>"/>
                     <?= CHtml::hiddenField(
                         Yii::app()->getRequest()->csrfTokenName,
@@ -104,36 +104,45 @@ $this->breadcrumbs = array_merge(
                         <div class="product-price">
                             <input type="hidden" id="base-price"
                                    value="<?= round($product->getResultPrice(), 2); ?>"/>
-                            <span id="result-price"><?= round($product->getResultPrice(), 2); ?></span>
+                            <span id="result-price" itemprop="price"><?= round($product->getResultPrice(), 2); ?></span>
+                            <meta itemprop="priceCurrency" content="<?= Yii::app()->getModule('store')->currency?>">
+                            <?= $product->isInStock() ? '<link itemprop="availability" href="http://schema.org/InStock">' : '<link itemprop="availability" href="http://schema.org/PreOrder">';?>
                             <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span>
                             <?php if ($product->hasDiscount()): ?>
                                 <div class="product-price product-price_old"><?= round($product->getBasePrice(), 2) ?><span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
                             <?php endif; ?>
                         </div>
                     </div>
-                    <?php if (Yii::app()->hasModule('order')): ?>
-                        <div class="entry__count">
-                            <div class="entry__count-label">Кол-во:</div>
-                            <div class="entry__count-input">
-                                <span data-min-value='1' data-max-value='99' class="spinput js-spinput">
-                                    <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
-                                    <input name="Product[quantity]" value="1" class="spinput__value" id="product-quantity-input"/>
-                                    <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
-                                </span>
+                    <?php if (Yii::app()->hasModule('cart')): ?>
+                        <?php if ($product->isInStock()): ?>
+                            <div class="entry__count">
+                                <div class="entry__count-label">Кол-во:</div>
+                                <div class="entry__count-input">
+                                    <?php
+                                    $minQuantity = 1;
+                                    $maxQuantity = Yii::app()->getModule('store')->controlStockBalances ? $product->getAvailableQuantity() : 99;
+                                    ?>
+                                    <span data-min-value='<?= $minQuantity; ?>' data-max-value='<?= $maxQuantity; ?>'
+                                          class="spinput js-spinput">
+                                        <span class="spinput__minus js-spinput__minus product-quantity-decrease"></span>
+                                        <input name="Product[quantity]" value="1" class="spinput__value"
+                                               id="product-quantity-input"/>
+                                        <span class="spinput__plus js-spinput__plus product-quantity-increase"></span>
+                                    </span>
+                                </div>
+                                <div class="entry__cart-button">
+                                    <button class="btn btn_cart" id="add-product-to-cart"
+                                            data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">В корзину
+                                    </button>
+                                </div>
                             </div>
-                            <div class="entry__cart-button">
-                                <?php if(!Yii::app()->cart->itemAt($product->id)):?>
-                                <button class="btn btn_cart" id="add-product-to-cart"
-                                        data-loading-text="<?= Yii::t("StoreModule.store", "Adding"); ?>">В корзину
-                                </button>
-                                <?php endif;?>
+                            <div class="entry__subtotal">
+                                <span id="product-result-price"><?= round($product->getResultPrice(), 2); ?></span> x
+                                <span id="product-quantity">1</span> =
+                                <span id="product-total-price"><?= round($product->getResultPrice(), 2); ?></span>
+                                <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span>
                             </div>
-                        </div>
-                        <div class="entry__subtotal">
-                            <span id="product-result-price"><?= round($product->getResultPrice(), 2); ?></span> x
-                            <span id="product-quantity">1</span> =
-                            <span id="product-total-price"><?= round($product->getResultPrice(), 2); ?></span>
-                            <span class="ruble"> <?= Yii::t("StoreModule.store", Yii::app()->getModule('store')->currency); ?></span></div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </form>
             </div>

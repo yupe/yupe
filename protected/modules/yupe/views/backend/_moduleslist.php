@@ -6,7 +6,7 @@
  * @package  yupe
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 if (count($modules)) :
     $on = $off = $has = $dis = [];
@@ -184,7 +184,18 @@ function moduleRow($module, &$updates, &$modules)
             ?>
         </td>
         <td class="button-column">
-            <?php if ($module->getIsActive() && $module->getEditableParams()): ?>
+            <?php
+            $canUpdateModule = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)
+                || Yii::app()->getUser()->checkAccess('Yupe.Backend.Modupdate');
+
+            $canViewModuleSettings = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)
+                || Yii::app()->getUser()->checkAccess('Yupe.Backend.Modulesettings');
+
+            $canChangeModuleStatus = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)
+                || Yii::app()->getUser()->checkAccess('Yupe.ModulesBackend.ModuleStatus');
+            ?>
+
+            <?php if ($module->getIsActive() && $module->getEditableParams() && $canViewModuleSettings): ?>
                 <?= CHtml::link(
                     '<i class="fa fa-fw fa-wrench" rel="tooltip" title="' . Yii::t(
                         'YupeModule.yupe',
@@ -200,48 +211,50 @@ function moduleRow($module, &$updates, &$modules)
                 'module' => $module->getId(),
             ];
 
-            echo $module->getIsNoDisable() ? '' :
-                ($module->getIsInstalled() || $module->getIsActive()
-                    ? ($module->getIsActive()
-                        ? CHtml::link(
-                            '<i class="fa fa-fw fa-minus-circle" rel="tooltip" title="' . Yii::t(
-                                'YupeModule.yupe',
-                                'Disable'
-                            ) . '">&nbsp;</i>',
-                            $url + ['status' => '0'],
-                            array_merge($htmlOptions, ['status' => 0, 'method' => 'deactivate'])
-                        )
-                        : CHtml::link(
-                            '<i class="fa fa-fw fa-check-circle" rel="tooltip" title="' . Yii::t(
-                                'YupeModule.yupe',
-                                'Enable'
-                            ) . '">&nbsp;</i>',
-                            $url + ['status' => '1'],
-                            array_merge($htmlOptions, ['status' => 1, 'method' => 'activate'])
-                        ) .
-                        ($module->isNeedUninstall()
-                            ? ''
-                            : CHtml::link(
-                                '<i class="fa fa-fw fa-times" rel="tooltip" title="' . Yii::t(
+            if ($canChangeModuleStatus) {
+                echo $module->getIsNoDisable() ? '' :
+                    ($module->getIsInstalled() || $module->getIsActive()
+                        ? ($module->getIsActive()
+                            ? CHtml::link(
+                                '<i class="fa fa-fw fa-minus-circle" rel="tooltip" title="' . Yii::t(
                                     'YupeModule.yupe',
-                                    'Uninstall'
+                                    'Disable'
                                 ) . '">&nbsp;</i>',
                                 $url + ['status' => '0'],
-                                array_merge($htmlOptions, ['status' => 0, 'method' => 'uninstall'])
+                                array_merge($htmlOptions, ['status' => 0, 'method' => 'deactivate'])
+                            )
+                            : CHtml::link(
+                                '<i class="fa fa-fw fa-check-circle" rel="tooltip" title="' . Yii::t(
+                                    'YupeModule.yupe',
+                                    'Enable'
+                                ) . '">&nbsp;</i>',
+                                $url + ['status' => '1'],
+                                array_merge($htmlOptions, ['status' => 1, 'method' => 'activate'])
+                            ) .
+                            ($module->isNeedUninstall()
+                                ? ''
+                                : CHtml::link(
+                                    '<i class="fa fa-fw fa-times" rel="tooltip" title="' . Yii::t(
+                                        'YupeModule.yupe',
+                                        'Uninstall'
+                                    ) . '">&nbsp;</i>',
+                                    $url + ['status' => '0'],
+                                    array_merge($htmlOptions, ['status' => 0, 'method' => 'uninstall'])
+                                )
                             )
                         )
-                    )
-                    : CHtml::link(
-                        '<i class="fa fa-fw fa-download" rel="tooltip" title="' . Yii::t(
-                            'YupeModule.yupe',
-                            'Install'
-                        ) . '">&nbsp;</i>',
-                        $url + ['status' => '1'],
-                        array_merge($htmlOptions, ['status' => 1, 'method' => 'install'])
-                    )
-                );
+                        : CHtml::link(
+                            '<i class="fa fa-fw fa-download" rel="tooltip" title="' . Yii::t(
+                                'YupeModule.yupe',
+                                'Install'
+                            ) . '">&nbsp;</i>',
+                            $url + ['status' => '1'],
+                            array_merge($htmlOptions, ['status' => 1, 'method' => 'install'])
+                        )
+                    );
+            }
 
-            if (isset($updates[$module->getId()]) && $module->getIsInstalled()) {
+            if (isset($updates[$module->getId()]) && $module->getIsInstalled() && $canUpdateModule) {
                 echo CHtml::link(
                     '<i class="fa fa-fw fa-refresh" rel="tooltip" title="' . Yii::t(
                         'YupeModule.yupe',
@@ -251,7 +264,7 @@ function moduleRow($module, &$updates, &$modules)
                     ['/yupe/backend/modupdate', 'name' => $module->getId()]
                 );
             }
-            if ($module->getIsActive() && $module->isConfigNeedUpdate()) {
+            if ($module->getIsActive() && $module->isConfigNeedUpdate() && $canChangeModuleStatus) {
                 echo CHtml::link(
                     '<i class="fa fa-fw fa-repeat" rel="tooltip" title="' . Yii::t(
                         'YupeModule.yupe',

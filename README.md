@@ -6,8 +6,6 @@
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 
-![Юпи!](http://amylabs.ru/assets/6e689601/images/Head_browser.png)
-
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
 * [интернет-магазины](https://yupe.ru/ecommerce)
@@ -23,7 +21,7 @@
 
 Для успешной работы проекта на Юпи! вполне достаточно самого простого и [дешевого хостинга](https://yupe.ru/service/hosting), минимальные требования:
 
-* PHP >= 5.4
+* PHP >= 5.6
 * Composer
 * MySQL 5.x
 * Apaсhe/Nginx

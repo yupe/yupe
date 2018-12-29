@@ -3,7 +3,7 @@
  * BlogModule основной класс модуля blog
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.blog
  * @since 0.1
@@ -19,7 +19,7 @@ class BlogModule extends yupe\components\WebModule
     /**
      *
      */
-    const VERSION = '1.2';
+    const VERSION = '1.3';
 
     /**
      * @var
@@ -330,7 +330,7 @@ class BlogModule extends yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('BlogModule.blog', 'http://yupe.ru');
+        return Yii::t('BlogModule.blog', 'https://yupe.ru');
     }
 
     /**

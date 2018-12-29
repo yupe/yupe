@@ -4,7 +4,7 @@
  * Валидатор уникальности поля типа slug или alias
  *
  * @author Kucherov Anton <idexter.ru@gmail.com>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.yupe.components.validators
  * @since 0.1
@@ -12,6 +12,7 @@
  */
 namespace yupe\components\validators;
 
+use CDbCriteria;
 use CUniqueValidator;
 
 /**
@@ -27,7 +28,12 @@ class YUniqueSlugValidator extends CUniqueValidator
      */
     protected function validateAttribute($object, $attribute)
     {
-        $this->criteria = ['condition' => 'lang = :lang', 'params' => [':lang' => $object->lang]];
+        $criteria = new CDbCriteria();
+        $criteria->mergeWith($this->criteria);
+        $criteria->addCondition('lang = :lang');
+        $criteria->params[':lang'] = $object->lang;
+
+        $this->criteria = $criteria;
 
         return parent::validateAttribute($object, $attribute);
     }

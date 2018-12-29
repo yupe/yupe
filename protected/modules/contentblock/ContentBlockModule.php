@@ -4,7 +4,7 @@
  * ContentBlockModule основной класс модуля contentblock
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.contentblock
  * @since 0.1
@@ -80,7 +80,7 @@ class ContentBlockModule extends yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('ContentBlockModule.contentblock', 'http://yupe.ru');
+        return Yii::t('ContentBlockModule.contentblock', 'https://yupe.ru');
     }
 
     /**

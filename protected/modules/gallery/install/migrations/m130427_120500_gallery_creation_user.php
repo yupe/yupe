@@ -8,7 +8,7 @@
  * @package  yupe.modules.gallery.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 class m130427_120500_gallery_creation_user extends yupe\components\DbMigration
 {

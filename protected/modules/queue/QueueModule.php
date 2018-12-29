@@ -4,7 +4,7 @@
  * QueueModule основной класс модуля queue
  *
  * @author    yupe team <team@yupe.ru>
- * @link      http://yupe.ru
+ * @link      https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.queue
  * @version   0.6
@@ -83,7 +83,7 @@ class QueueModule extends yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('QueueModule.queue', 'http://yupe.ru');
+        return Yii::t('QueueModule.queue', 'https://yupe.ru');
     }
 
     /**

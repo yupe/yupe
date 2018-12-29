@@ -33,7 +33,7 @@ use yupe\widgets\YPurifier;
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.6
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  */
 class Comment extends yupe\models\YModel
 {
@@ -254,9 +254,8 @@ class Comment extends yupe\models\YModel
 
     /**
      * Событие выполняемое перед сохранением модели
-     *
-     * @return parent::beforeSave()
-     **/
+     * @return bool
+     */
     public function beforeSave()
     {
         if ($this->getIsNewRecord()) {
@@ -380,9 +379,7 @@ class Comment extends yupe\models\YModel
      */
     public function getText()
     {
-        return (Yii::app()->getModule('comment')->stripTags)
-            ? strip_tags($this->text)
-            : $this->text;
+        return $this->text;
     }
 
     /**

@@ -6,7 +6,7 @@
  * @package  yupe.commands
  * @author   Anton Kucherov <idexter.ru@gmail.com>
  * @author   YupeTeam <team@yupe.ru>
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  */
 /*
  *
@@ -26,15 +26,15 @@ class TestEnvCommand extends CConsoleCommand
     /**
      *
      */
-    const ROOT_DIR = "/../..";
+    const ROOT_DIR = "/../../../..";
     /**
      *
      */
-    const CONFIG_DIR = "/../config";
+    const CONFIG_DIR = "/../../../config";
     /**
      *
      */
-    const TESTS_DIR = "/../../tests";
+    const TESTS_DIR = "/../../../../tests";
 
     /**
      * @var array

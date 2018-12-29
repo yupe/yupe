@@ -17,7 +17,7 @@ class CallbackModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.1';
+    const VERSION = '1.2';
 
     /**
      * @var
@@ -40,6 +40,12 @@ class CallbackModule extends WebModule
     public $phonePattern = '/^\+7\(\d{3}\)\d{3}-\d{2}-\d{2}$/';
 
     /**
+     * @var string
+     */
+    public $sentTimeLimit = 10;
+
+
+    /**
      * @return array
      */
     public function getDependencies()
@@ -57,6 +63,7 @@ class CallbackModule extends WebModule
             'notifyEmailsTo',
             'phoneMask',
             'phonePattern',
+            'sentTimeLimit' => [10 => '10 сек.', 20 => '20 сек.', 30 => '30 сек.', 40 => '40 сек.', 60 => '60 сек.', 300 => '5 минут'],
         ];
     }
 
@@ -70,6 +77,7 @@ class CallbackModule extends WebModule
             'notifyEmailsTo'  => Yii::t('CallbackModule.callback', 'Recipients of notifications (comma separated)'),
             'phoneMask' => Yii::t('CallbackModule.callback', 'Phone mask'),
             'phonePattern' => Yii::t('CallbackModule.callback', 'Phone pattern'),
+            'sentTimeLimit' => Yii::t('CallbackModule.callback', 'Restart Restriction'),
         ];
     }
 
@@ -191,7 +199,7 @@ class CallbackModule extends WebModule
      */
     public function getUrl()
     {
-        return 'http://yupe.ru';
+        return 'https://yupe.ru';
     }
 
     /**

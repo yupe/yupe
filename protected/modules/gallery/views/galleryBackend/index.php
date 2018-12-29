@@ -6,7 +6,7 @@
  * @package  yupe
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 
 $this->breadcrumbs = [
@@ -65,6 +65,10 @@ $this->menu = [
     'yupe\widgets\CustomGridView',
     [
         'id' => 'gallery-grid',
+        'sortableRows' => true,
+        'sortableAjaxSave' => true,
+        'sortableAttribute' => 'sort',
+        'sortableAction' => '/gallery/galleryBackend/sortableGallery',
         'dataProvider' => $model->search(),
         'filter' => $model,
         'columns' => [

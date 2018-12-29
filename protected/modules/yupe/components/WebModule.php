@@ -9,7 +9,7 @@
  * @package  yupe.modules.yupe.components
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  *
  */
 namespace yupe\components;
@@ -197,7 +197,7 @@ abstract class WebModule extends CWebModule
      */
     public function getUrl()
     {
-        return 'http://yupe.ru';
+        return 'https://yupe.ru';
     }
 
     /**
@@ -332,6 +332,26 @@ abstract class WebModule extends CWebModule
             'coreCacheTime'  => Yii::t('YupeModule.yupe', 'Cache time')
         ];
 
+    }
+
+    /**
+     * массив описаний для параметров (свойств) модуля. Используется на странице настроек модуля в панели управления.
+     *
+     * @return array
+     */
+    public function getParamsDescriptions()
+    {
+        return [];
+    }
+
+    /**
+     * массив описаний по умолчанию для параметров (свойств) модуля. Используется на странице настроек модуля в панели управления.
+     *
+     * @return array
+     */
+    public function getDefaultParamsDescriptions()
+    {
+        return [];
     }
 
     /**

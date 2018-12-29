@@ -6,7 +6,7 @@
  * @package  yupe.modules.yupe.controllers
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  *
  **/
 use yupe\models\Settings;
@@ -23,11 +23,18 @@ class BackendController extends yupe\components\controllers\BackController
     {
         return [
             ['allow', 'roles' => ['admin']],
-            ['allow', 'actions' => ['index']],
+            ['allow', 'actions' => ['index'], 'roles' => ['Yupe.Backend.index'],],
             ['allow', 'actions' => ['error']],
             ['allow', 'actions' => ['AjaxFileUpload']],
             ['allow', 'actions' => ['AjaxImageUpload']],
             ['allow', 'actions' => ['transliterate']],
+            ['allow', 'actions' => ['settings'], 'roles' => ['Yupe.Backend.Settings'],],
+            ['allow', 'actions' => ['modulesettings'], 'roles' => ['Yupe.Backend.Modulesettings'],],
+            ['allow', 'actions' => ['saveModulesettings'], 'roles' => ['Yupe.Backend.SaveModulesettings'],],
+            ['allow', 'actions' => ['modupdate'], 'roles' => ['Yupe.Backend.Modupdate'],],
+            ['allow', 'actions' => ['themesettings'], 'roles' => ['Yupe.Backend.Themesettings'],],
+            ['allow', 'actions' => ['ajaxflush'], 'roles' => ['Yupe.Backend.Ajaxflush'],],
+            ['allow', 'actions' => ['flushDumpSettings'], 'roles' => ['Yupe.Backend.FlushDumpSettings'],],
             ['deny',],
         ];
     }
@@ -135,9 +142,24 @@ class BackendController extends yupe\components\controllers\BackController
     private function getModuleParamRow(\yupe\components\WebModule $module, $param)
     {
         $editableParams = $module->getEditableParams();
-        $moduleParamsLabels = CMap::mergeArray($module->getParamsLabels(), $module->getDefaultParamsLabels());
+        $moduleParamsLabels = CMap::mergeArray($module->getDefaultParamsLabels(), $module->getParamsLabels());
+        $moduleParamsDescriptions = CMap::mergeArray($module->getDefaultParamsDescriptions(), $module->getParamsDescriptions());
 
-        $res = CHtml::label($moduleParamsLabels[$param], $param);
+        $label = key_exists($param, $moduleParamsLabels) ? $moduleParamsLabels[$param] : '';
+        $description = key_exists($param, $moduleParamsDescriptions) ? $moduleParamsDescriptions[$param] : '';
+
+        $res = CHtml::label($label, $param);
+        if ($description) {
+            $fieldOptions = [
+                'class' => 'form-control focus-help',
+                'data-title' => $label,
+                'data-content' => $description,
+            ];
+        } else {
+            $fieldOptions = [
+                'class' => 'form-control',
+            ];
+        }
 
         /* если есть ключ в массиве параметров, то значит этот параметр выпадающий список в вариантами */
         if (array_key_exists($param, $editableParams)) {
@@ -145,10 +167,12 @@ class BackendController extends yupe\components\controllers\BackController
                 $param,
                 $module->{$param},
                 $editableParams[$param],
-                ['class' => 'form-control', 'empty' => Yii::t('YupeModule.yupe', '--choose--')]
+                CMap::mergeArray($fieldOptions, [
+                    'empty' => Yii::t('YupeModule.yupe', '--choose--'),
+                ])
             );
         } else {
-            $res .= CHtml::textField($param, $module->{$param}, ['class' => 'form-control']);
+            $res .= CHtml::textField($param, $module->{$param}, $fieldOptions);
         }
 
         return $res;
@@ -325,7 +349,7 @@ class BackendController extends yupe\components\controllers\BackController
      *
      * @param string $name - id модуля
      *
-     * @return nothing
+     * @return void
      */
     public function actionModupdate($name = null)
     {
@@ -373,7 +397,7 @@ class BackendController extends yupe\components\controllers\BackController
      * Страничка для отображения ссылок на ресурсы для получения помощи
      *
      * @since 0.4
-     * @return nothing
+     * @return void
      */
     public function actionHelp()
     {

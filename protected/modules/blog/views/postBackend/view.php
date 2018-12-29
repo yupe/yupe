@@ -6,7 +6,7 @@
  * @package  yupe
  * @author   Yupe Team <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  **/
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Posts') => ['/blog/postBackend/index'],
@@ -150,8 +150,8 @@ $this->menu = [
                 'name'  => 'access_type',
                 'value' => $model->getAccessType(),
             ],
-            'keywords',
-            'description',
+            'meta_keywords',
+            'meta_description',
         ],
     ]
 ); ?>

@@ -4,7 +4,7 @@
  * MenuitemBackendController контроллер для управления пунктами меню в панели управления
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.menu.controllers
  * @since 0.1
@@ -253,6 +253,53 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         Yii::app()->end();
     }
 
+    /**
+     * @throws CHttpException
+     */
+    public function actionGetentities()
+    {
+        $request = Yii::app()->getRequest();
+
+        if (!$entityModuleName = $request->getParam('entity_module_name')) {
+            throw new CHttpException(404);
+        }
+
+        echo json_encode(Yii::app()->menu->getEntityList($entityModuleName));
+        Yii::app()->end();
+    }
+
+
+    /**
+     * @throws CHttpException
+     */
+    public function actionGetentityitems()
+    {
+
+        $request = Yii::app()->getRequest();
+
+        if (!($entityModuleName = $request->getParam('entity_module_name')) || (!$entityName = $request->getParam('entity_name'))) {
+            throw new CHttpException(404);
+        }
+
+        echo json_encode(Yii::app()->menu->getEntityItemList($entityModuleName, $entityName));
+        Yii::app()->end();
+    }
+
+    /**
+     * @throws CHttpException
+     */
+    public function actionGetentityurl()
+    {
+        $request = Yii::app()->getRequest();
+
+        if ((!$entityModuleName = $request->getParam('entity_module_name')) ||
+            (!$entityName = $request->getParam('entity_name')) || (!$entity_id = $request->getParam('entity_id'))) {
+            throw new CHttpException(404);
+        }
+
+        echo Yii::app()->menu->getEntityItemUrl($entityModuleName, $entityName, $entity_id);
+        Yii::app()->end();
+    }
 
     /**
      * @param $id

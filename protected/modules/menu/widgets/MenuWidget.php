@@ -5,7 +5,7 @@
  *
  * @package yupe.modules.menu.widgets
  * @author yupe team
- * @link http://yupe.ru
+ * @link https://yupe.ru
  */
 
 /**
@@ -42,11 +42,11 @@ class MenuWidget extends yupe\widgets\YWidget
     /**
      * string данный параметр указывает название layout
      */
-    public $layout = 'main';
+    public $view = 'main';
     /**
      * @var array особенные параметры передаваемые в layout
      */
-    public $layoutParams = [];
+    public $viewParams = [];
     /**
      * @var array параметры виджета zii.widgets.CMenu
      */
@@ -59,10 +59,10 @@ class MenuWidget extends yupe\widgets\YWidget
     {
         $this->params['items'] = Menu::model()->getItems($this->name, $this->parent_id);
         $this->render(
-            $this->layout,
+            $this->view,
             [
                 'params' => $this->params,
-                'layoutParams' => $this->layoutParams,
+                'viewParams' => $this->viewParams,
             ]
         );
     }

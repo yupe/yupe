@@ -66,7 +66,7 @@ return [
     'Find products' => '',
     'First you need to save the product.' => '',
     'Height, m.' => '',
-    'http://yupe.ru' => '',
+    'https://yupe.ru' => '',
     'ID' => '',
     'Illegal characters in {attribute}' => '',
     'Image' => '',
@@ -146,4 +146,9 @@ return [
     'Yes' => '',
     'You are adding translate in to {lang}!' => '',
     'yupe team' => '',
+    'metaTitle' => '',
+    'metaDescription' => '',
+    'metaKeyWords' => '',
+    'SEO setting'=>'',
+    'More options' => ''
 ];

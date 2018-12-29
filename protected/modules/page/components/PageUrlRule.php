@@ -35,10 +35,8 @@ class PageUrlRule extends CBaseUrlRule
         $slugs = Yii::app()->getCache()->get(self::CACHE_KEY);
 
         if (false === $slugs) {
-            /* @var $cmd CDbCommand */
-            $cmd = Yii::app()->getDb()->createCommand();
 
-            $slugs = $cmd
+            $slugs = Yii::app()->getDb()->createCommand()
                 ->setFetchMode(PDO::FETCH_COLUMN, 0)
                 ->from('{{page_page}}')
                 ->select('slug')
@@ -47,13 +45,10 @@ class PageUrlRule extends CBaseUrlRule
             Yii::app()->getCache()->set(self::CACHE_KEY, $slugs, 0);
         }
 
-        $parts = explode('/', $manager->removeLangFromUrl($pathInfo));
+        $slug = $manager->removeLangFromUrl($pathInfo);
 
-        if (!empty($parts)) {
-            $slug = $parts[0];
-            if (in_array($slug, $slugs, true)) {
-                return 'page/page/view/slug/' . $slug;
-            }
+        if (in_array($slug, $slugs, true)) {
+            return 'page/page/view/slug/' . $slug;
         }
 
         return false;

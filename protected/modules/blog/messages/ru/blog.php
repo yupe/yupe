@@ -89,7 +89,7 @@ return [
     'Default status for public posts' => 'Статус по умолчанию для публичных постов',
     'Delete' => 'Удалить',
     'Deleted' => 'Удален',
-    'Description' => 'Описание',
+    'Post description (SEO)' => 'Mета-описание (SEO)',
     'description' => 'Описание',
     'Discuss' => 'Обсуждают',
     'Do you really want to delete selected items?' => 'Вы уверены, что хотите удалить выбранные элементы?',
@@ -118,7 +118,7 @@ return [
     'Forbidden' => 'Запрещены',
     'Full text of the post which is displayed when you click on &laquo;More&raquo; link' => 'Полный текст записи отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке записи.',
     'Good luck!' => 'Удачи!',
-    'http://yupe.ru' => 'http://yupe.ru',
+    'https://yupe.ru' => 'https://yupe.ru',
     'Icon' => 'Иконка',
     'id' => 'id',
     'If checked &ndash; Users are able to leave comments on the post' => 'Если галочка установлена &ndash; пользователи получат возможность комментировать данную запись в блоге',
@@ -131,7 +131,7 @@ return [
     'Join blog' => 'Вступить в блог',
     'Joined' => 'Присоединился',
     'Keywords for post categorization, for example:<br /><span class="label label-default">sea</span>' => 'Ключевые слова к которым требуется отнести данную запись, служат для категоризии записей, например:<br /><span class="label label-default">море</span>',
-    'Keywords' => 'Ключевые слова',
+    'Post keywords (SEO)' => 'Ключевые слова (SEO)',
     'Last blog posts' => 'Последние записи блога',
     'Last in blogs' => 'Последнее в блогах',
     'Last posts' => 'Последние записи',
@@ -296,4 +296,5 @@ return [
     'You have joined!' => 'Вы присоединились!',
     'You left the blog!' => 'Вы покинули блог!',
     'yupe team' => 'yupe team',
+    'Post title (SEO)'=>'Тег title для поста'
 ];

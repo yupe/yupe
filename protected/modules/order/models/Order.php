@@ -566,6 +566,31 @@ class Order extends yupe\models\YModel
 
         $this->delivery_price = $this->getDeliveryCost();
 
+        // Контроль остатков товара на складе
+        // @TODO реализовать перерасчет остатков товаров при изменении списка заказанных товаров администратором
+        if ($this->getIsNewRecord() && Yii::app()->getModule('store')->controlStockBalances) {
+            foreach ($this->_orderProducts as $orderProduct) {
+                $product = $orderProduct->product;
+                if ($orderProduct->quantity > $product->getAvailableQuantity()) {
+                    $this->addError(
+                        'products',
+                        Yii::t(
+                            "OrderModule.order",
+                            'Not enough product «{product_name}» in stock, maximum - {n} items', [
+                                '{product_name}' => $product->getName(),
+                                '{n}' => $product->getAvailableQuantity(),
+                            ]
+                        )
+                    );
+                    return false;
+                }
+
+                // Изменение значения количества товара
+                $newQuantity = $product->quantity - $orderProduct->quantity;
+                $product->saveAttributes(['quantity' => $newQuantity]);
+            }
+        }
+
         return parent::beforeSave();
     }
 
@@ -785,6 +810,7 @@ class Order extends yupe\models\YModel
 
     /**
      * @return bool
+     * @TODO реализовать перерасчет остатков товаров при отмене заказа
      */
     public function isStatusChanged()
     {
@@ -808,19 +834,19 @@ class Order extends yupe\models\YModel
     }
 
     /**
+     * @param string $separator
      * @return string
      */
-    public function getAddress()
+    public function getAddress($separator = ', ')
     {
-        return sprintf(
-            '%s %s %s %s %s %s',
+        return implode($separator, [
+            $this->zipcode,
             $this->country,
             $this->city,
             $this->street,
             $this->house,
             $this->apartment,
-            $this->zipcode
-        );
+        ]);
     }
 
     /**

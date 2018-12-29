@@ -9,4 +9,4 @@
 - Чемезов Михаил [http://vk.com/m.chemezov](http://vk.com/m.chemezov)
 - Филимонов Олег [http://olegfilimonov.ru/](http://olegfilimonov.ru/)
 
-[Ждем только тебя!](http://yupe.ru/contacts)
+[Ждем только тебя!](https://yupe.ru/contacts)

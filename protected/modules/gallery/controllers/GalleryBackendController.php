@@ -7,7 +7,7 @@
  * @package  yupe.modules.gallety.controllers
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @link     http://yupe.ru
+ * @link     https://yupe.ru
  *
  **/
 class GalleryBackendController extends yupe\components\controllers\BackController
@@ -17,7 +17,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         return CMap::mergeArray(
             parent::filters(),
             [
-                'postOnly + delete, addImages, sortable',
+                'postOnly + delete, addImages, sortable, sortableGallery',
             ]
         );
     }
@@ -31,7 +31,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             ['allow', 'actions' => ['images'], 'roles' => ['Gallery.GalleryBackend.Images']],
             ['allow', 'actions' => ['create'], 'roles' => ['Gallery.GalleryBackend.Create']],
             ['allow', 'actions' => ['addimages', 'sortable'], 'roles' => ['Gallery.GalleryBackend.Addimages']],
-            ['allow', 'actions' => ['update', 'inline'], 'roles' => ['Gallery.GalleryBackend.Update']],
+            ['allow', 'actions' => ['update', 'inline', 'sortableGallery'], 'roles' => ['Gallery.GalleryBackend.Update']],
             ['allow', 'actions' => ['delete', 'multiaction', 'sortable'], 'roles' => ['Gallery.GalleryBackend.Delete']],
             ['allow', 'actions' => ['deleteImage', 'sortable'], 'roles' => ['Gallery.GalleryBackend.DeleteImage']],
             ['deny']
@@ -44,11 +44,16 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             'inline' => [
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Gallery',
-                'validAttributes' => ['name', 'description', 'status']
+                'validAttributes' => ['name', 'description', 'status', 'sort']
             ],
             'sortable' => [
                 'class' => 'yupe\components\actions\SortAction',
                 'model' => 'ImageToGallery',
+            ],
+            'sortableGallery' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Gallery',
+                'attribute' => 'sort',
             ],
         ];
     }

@@ -3,7 +3,7 @@
  * <?=  $this->moduleClass; ?> основной класс модуля <?=  $this->moduleID."\n"; ?>
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-<?= date('Y'); ?> amyLabs && Yupe! team
  * @package yupe.modules.<?=  $this->moduleID."\n"; ?>
  * @since 0.1
@@ -108,7 +108,7 @@ class <?=  $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getUrl()
     {
-        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'http://yupe.ru');
+        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'https://yupe.ru');
     }
 
     /**

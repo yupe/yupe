@@ -4,7 +4,7 @@
  * NewsModule основной класс модуля news
  *
  * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @link https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.news
  * @since 0.1
@@ -21,7 +21,7 @@ class NewsModule extends WebModule
     /**
      *
      */
-    const VERSION = '1.1';
+    const VERSION = '1.3';
 
     /**
      * @var string
@@ -51,6 +51,18 @@ class NewsModule extends WebModule
      * @var int
      */
     public $perPage = 10;
+    /**
+     * @var
+     */
+    public $metaTitle;
+    /**
+     * @var
+     */
+    public $metaDescription;
+    /**
+     * @var
+     */
+    public $metaKeyWords;
 
     /**
      * @return array
@@ -129,6 +141,10 @@ class NewsModule extends WebModule
             'maxSize' => Yii::t('NewsModule.news', 'Maximum size (in bytes)'),
             'rssCount' => Yii::t('NewsModule.news', 'RSS records'),
             'perPage' => Yii::t('NewsModule.news', 'News per page'),
+            'metaTitle' => Yii::t('NewsModule.news', 'Title tag for the news section'),
+            'metaDescription' => Yii::t('NewsModule.news', 'Description for the news section'),
+            'metaKeyWords' => Yii::t('NewsModule.news', 'KeyWords for the news section'),
+
         ];
     }
 
@@ -146,6 +162,9 @@ class NewsModule extends WebModule
             'maxSize',
             'rssCount',
             'perPage',
+            'metaTitle',
+            'metaDescription',
+            'metaKeyWords',
         ];
     }
 
@@ -160,6 +179,14 @@ class NewsModule extends WebModule
                 'items' => [
                     'editor',
                     'mainCategory',
+                ],
+            ],
+            'seo' => [
+                'label' => Yii::t('NewsModule.news', 'SEO'),
+                'items' => [
+                    'metaTitle',
+                    'metaDescription',
+                    'metaKeyWords',
                 ],
             ],
             'images' => [
@@ -242,7 +269,7 @@ class NewsModule extends WebModule
      */
     public function getUrl()
     {
-        return Yii::t('NewsModule.news', 'http://yupe.ru');
+        return Yii::t('NewsModule.news', 'https://yupe.ru');
     }
 
     /**
