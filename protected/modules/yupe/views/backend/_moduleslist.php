@@ -185,13 +185,17 @@ function moduleRow($module, &$updates, &$modules)
         </td>
         <td class="button-column">
             <?php
-            $canUpdateModule = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)
+            $hasRbacModule = Yii::app()->hasModule('rbac');
+            $canUpdateModule = !$hasRbacModule
+                || Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)
                 || Yii::app()->getUser()->checkAccess('Yupe.Backend.Modupdate');
 
-            $canViewModuleSettings = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)
+            $canViewModuleSettings = !$hasRbacModule
+                || Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)
                 || Yii::app()->getUser()->checkAccess('Yupe.Backend.Modulesettings');
 
-            $canChangeModuleStatus = Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)
+            $canChangeModuleStatus = !$hasRbacModule
+                || Yii::app()->getUser()->checkAccess(AuthItem::ROLE_ADMIN)
                 || Yii::app()->getUser()->checkAccess('Yupe.ModulesBackend.ModuleStatus');
             ?>
 
