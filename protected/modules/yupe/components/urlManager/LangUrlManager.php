@@ -135,22 +135,23 @@ class LangUrlManager extends CUrlManager
      */
     public function getLangFromUrl()
     {
-        if (null === $this->_langFromUrl) {
+        if ($this->_langFromUrl && !Yii::app()->getComponent('request', false) )
+            return $this->_langFromUrl;
 
-            /* @var $request \CHttpRequest */
-            $request = Yii::app()->getRequest();
+        /* @var $request \CHttpRequest */
+        $request = Yii::app()->getRequest();
 
-            $path = explode('/', $request->getPathInfo());
-            $language = !empty($path[0]) ? $path[0] : null;
+        $path = explode('/', $request->getPathInfo());
+        $language = !empty($path[0]) ? $path[0] : null;
 
-            if ($language === null) {
-                $language = $request->getQuery($this->langParam);
-            }
-
-            $language = in_array($language, $this->_languages, true) ? $language : null;
-
-            $this->_langFromUrl = $language;
+        if ($language === null) {
+            $language = $request->getQuery($this->langParam);
         }
+
+        $language = in_array($language, $this->_languages, true) ? $language : null;
+
+        $this->_langFromUrl = $language;
+
 
         return $this->_langFromUrl;
     }
@@ -160,16 +161,18 @@ class LangUrlManager extends CUrlManager
      */
     public function getLangFromCookie()
     {
-        if (null === $this->_langFromCookie) {
-            /* @var $request \CHttpRequest */
-            $request = Yii::app()->getRequest();
+        if ($this->_langFromCookie && !Yii::app()->getComponent('request', false) )
+            return $this->_langFromCookie;
 
-            if (isset($request->cookies[$this->getCookieKey()])) {
-                $language = $request->cookies[$this->getCookieKey()]->value;
+        /* @var $request \CHttpRequest */
+        $request = Yii::app()->getRequest();
 
-                $this->_langFromCookie = in_array($language, $this->_languages, true) ? $language : null;
-            }
+        if (isset($request->cookies[$this->getCookieKey()])) {
+            $language = $request->cookies[$this->getCookieKey()]->value;
+
+            $this->_langFromCookie = in_array($language, $this->_languages, true) ? $language : null;
         }
+
 
         return $this->_langFromCookie;
     }
