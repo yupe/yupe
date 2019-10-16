@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Class YandexMoneyPaymentSystem
- * @link https://money.yandex.ru/doc.xml?id=526537
+ * Class TinkoffPaymentSystem
  */
 
 use GuzzleHttp\HandlerStack;
