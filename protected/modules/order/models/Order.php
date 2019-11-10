@@ -800,6 +800,27 @@ class Order extends yupe\models\YModel
     }
 
     /**
+     * @param Payment $payment
+     * @return bool
+     */
+    public function unpay(Payment $payment)
+    {
+        $this->setAttributes([
+            'paid' => self::PAID_STATUS_NOT_PAID,
+            'payment_method_id' => null,
+        ]);
+
+        $result = $this->save();
+
+        Yii::app()->eventManager->fire(OrderEvents::FAILURE_PAID, new PayOrderEvent($this, $payment));
+
+        return $result;
+    }
+
+
+
+
+    /**
      * @param $url
      * @return static
      */
