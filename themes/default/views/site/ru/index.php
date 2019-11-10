@@ -1,4 +1,8 @@
-<?php $this->title = Yii::app()->getModule('yupe')->siteName;?>
+<?php
+$this->title = Yii::app()->getModule('yupe')->siteName;
+$this->description = Yii::app()->getModule('yupe')->siteDescription;
+$this->keywords = Yii::app()->getModule('yupe')->siteKeyWords;
+?>
 
 <?php $this->widget('yupe\widgets\YFlashMessages'); ?>
 
