@@ -766,8 +766,6 @@ class DefaultController extends yupe\components\controllers\BackController
      **/
     public function actionModulesinstall()
     {
-        set_time_limit(180);
-
         $error = false;
 
         $modules = Yii::app()->moduleManager->getModulesDisabled();
