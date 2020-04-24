@@ -12,6 +12,7 @@ class AttributesRepository extends CApplicationComponent
     public function getForCategory(StoreCategory $category)
     {
         $criteria = new CDbCriteria([
+            'select' => ['`t`.*', '`group`.position'],
             'condition' => 't.is_filter = 1 AND t.type != :type',
             'params' => [
                 ':type' => Attribute::TYPE_TEXT,
