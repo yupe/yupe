@@ -587,6 +587,19 @@ class Product extends yupe\models\YModel implements ICommentable
 
         try {
 
+            $existAttributes = Yii::app()->db->createCommand()->select('attribute_id')->from(AttributeValue::model()->tableName())->where('product_id = :product', [
+                ':product' => $this->id
+            ])->group('attribute_id')->queryColumn();
+
+            $unselectedAttributes = array_diff( $existAttributes, array_keys($attributes));
+
+            if ($unselectedAttributes) {
+                AttributeValue::model()->deleteAll('product_id = :product AND attribute_id IN(:attributes)', [
+                    ':product' => $this->id,
+                    ':attributes' => implode(',', $unselectedAttributes),
+                ]);
+            }
+            
             foreach ($attributes as $attribute => $value) {
 
                 if (null === $value) {
