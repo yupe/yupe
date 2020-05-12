@@ -61,7 +61,9 @@
         "yiiext/migrate-command": "dev-master",
         "samdark/sitemap": "2.0.*",
         "ckeditor/ckeditor": "4.*",
-        "wikimedia/composer-merge-plugin": "dev-master"
+        "wikimedia/composer-merge-plugin": "dev-master",
+        "guzzlehttp/guzzle": "^6.3.0",
+        "guzzlehttp/psr7": "~1.4"
     },
     "repositories": {
         
