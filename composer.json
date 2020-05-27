@@ -50,7 +50,7 @@
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
         "zhuravljov/yii2-debug": "1.4.*",
-        "phpmailer/phpmailer": "5.2.*",
+        "phpmailer/phpmailer": "6.1.*",
         "yiiext/taggable-behavior": "1.5.*",
         "krupni/yii-eauth": "1.2.1",
         "imagine/imagine": "0.6.*",
