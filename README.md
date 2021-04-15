@@ -1,21 +1,21 @@
-Юпи!- CMS на Yiiframework 1.x
-=============================
+Юпи!- движок интернет-магазина на Yiiframework 1.x
+==================================================
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/yupe/yupe/?branch=dev)
-[![Gitter chat](https://badges.gitter.im/yupe/yupe.png)](https://gitter.im/yupe/yupe)
+[![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
+[![Daily Downloads](https://poser.pugx.org/yupe/yupe/d/daily.png)](https://packagist.org/packages/yupe/yupe)
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
 * [интернет-магазины](https://yupe.ru/ecommerce)
-* [блоги / сообщества](https://yupe.ru/site/blog)
-* [бизнес сайты](https://yupe.ru/site)
+* [блоги / сообщества](https://yupe.ru/ecommerce)
+* [бизнес сайты](https://yupe.ru/ecommerce)
 
 
-На Юпи! работает более 3000 проектов, среди которых более 500 интернет-магазинов, Юпи! активно используют [студии и команды разработчиков](https://yupe.ru/partners).
+На Юпи! работает более 30000 проектов, среди которых более 15000 интернет-магазинов, Юпи! активно используют студии и команды разработчиков.
 
 Прежде всего Юпи! рассчитан на PHP-разработчиков, знакомых с Yiiframework 1.x.
+
 
 [Процесс установки](http://docs.yupe.ru/install/) очень прост и занимает не более 5 минут!
 
@@ -29,23 +29,18 @@
 
 Рекомендуем хостинг от [timeweb](http://timeweb.com/ru/services/hosting/?i=28284) или виртуальные сервера от [firstvds](https://firstvds.ru/?from=442205)
 
-![Юпи!](http://amylabs.ru/web/images/shop/yupe-shop.png)
-
 Ссылки
 ------
 * [Официальный сайт](https://yupe.ru/)
-* [Юпи! Market](https://yupe.ru/store)
+* [Демо](https://demo.yupe.ru/)  
 * [Чат](https://t.me/joinchat/BuTSV0K8j5lPBSIoQk0fuA)
-* [Блог Юпи!](https://yupe.ru/blogs/yupe-mini-cms-yii)
-* [Репозиторий модулей](https://github.com/yupe/yupe-ext)
+* [Блог Юпи!](https://yupe.ru/posts)
 * [Документация](https://docs.yupe.ru/)
-* [API](https://api.yupe.ru/)
 * [Подробнее о проекте](https://yupe.ru/about)
 * [Команда](https://docs.yupe.ru/team/)
-* [Форум](https://talk.yupe.ru/)
 * [Контакты](https://yupe.ru/contacts)
 * [Как помочь проекту](http://docs.yupe.ru/assistance.project/)
-* [twitter](https://twitter.com/#!/YupeCms)
+* [Twitter](https://twitter.com/#!/YupeCms)
 * [Группа Вконтакте](https://vk.com/yupecms)
 * [Разработка](https://yupe.ru/service/development) и [поддержка](https://yupe.ru/service/support)
 
@@ -83,9 +78,7 @@
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [https://yupe.ru](https://yupe.ru)
 
 
-[![amylabs](https://yupe.ru/web/images/yupe/amylabs.jpg)](http://amylabs.ru)
-
-![amyLabs](http://amylabs.ru/assets/6e689601/images/logo1.png)
+[![yupe](https://yupe.ru/static/about-us.png)](https://yupe.ru)
 
 
-(c) 2012 - 2018 [amylabs](https://amylabs.ru) && [Yupe! team](https://yupe.ru/)  ![Юпи!](https://yupe.ru/web/images/logo.png)
+(c) 2012 - 2021 [yupe](https://yupe.ru) && [Yupe! team](https://yupe.ru)  ![Юпи!](https://yupe.ru)
