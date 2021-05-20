@@ -35,6 +35,8 @@ return [
     'Sum' => 'Сумма',
     'There are no products in cart' => 'В корзине нет товаров',
     'Total' => 'Всего',
+	'Error!' => 'Ошибка добавления товара в корзину!',
+	'There is not enough stock in the warehouse!' => 'На складе не хватает товара!',
     '{n} product|{n} products|{n} products|{n} products' => '{n} товар|{n} товара|{n} товаров|{n} товара',
     'Not enough products in stock' => 'Недостаточно товара на складе',
     'Not enough products in stock, maximum - {n} items' => 'Недостаточно товара на складе, максимум - {n} шт.',
