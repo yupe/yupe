@@ -98,7 +98,7 @@ class CouponModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('CouponModule.coupon', 'hello@amylabs.ru');
+        return Yii::t('CouponModule.coupon', 'support@yupe.ru');
     }
 
     /**

@@ -2,7 +2,7 @@
 /**
  * <?=  $this->moduleClass; ?> основной класс модуля <?=  $this->moduleID."\n"; ?>
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-<?= date('Y'); ?> amyLabs && Yupe! team
  * @package yupe.modules.<?=  $this->moduleID."\n"; ?>
@@ -148,7 +148,7 @@ class <?=  $this->moduleClass; ?>  extends yupe\components\WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'team@yupe.ru');
+        return Yii::t('<?=  $this->moduleClass; ?>.<?=  $this->moduleID; ?>', 'support@yupe.ru');
     }
 
     /**

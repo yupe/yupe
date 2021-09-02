@@ -8,7 +8,7 @@
  *
  * @category  YupeMudules
  * @package   yupe.modules.yupe
- * @author    Andrey Opeykin <team@yupe.ru>
+ * @author    Andrey Opeykin <support@yupe.ru>
  * @copyright 2009-2013 Yupe! Copyright &copy;
  * @license   BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version   0.5.3
@@ -341,7 +341,6 @@ class YupeModule extends WebModule
             'mimeTypes' => Yii::t('YupeModule.yupe', 'Mime types'),
             'maxSize' => Yii::t('YupeModule.yupe', 'Maximum size (in bytes)'),
             'defaultImage' => Yii::t('YupeModule.yupe', 'DefaultImage'),
-
         ];
     }
 
@@ -568,18 +567,9 @@ class YupeModule extends WebModule
                 'url' => $this->getSettingsUrl(),
             ],
             [
-                'icon' => 'fa fa-fw fa-shopping-cart',
-                'label' => Yii::t('YupeModule.yupe', 'Yupe! store'),
-                'url' => 'https://yupe.ru/store?from=panel-yupe-store',
-                'linkOptions' => [
-                    'target' => '_blank'
-                ]
-            ],
-            [
                 'icon' => "fa fa-fw fa-question-circle",
                 'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
                 'url' => ['/yupe/backend/help'],
-                'visible' => Yii::app()->getUser()->checkAccess('Yupe.Backend.index'),
             ],
         ];
     }
@@ -631,7 +621,7 @@ class YupeModule extends WebModule
      **/
     public function getAuthorEmail()
     {
-        return Yii::t('YupeModule.yupe', 'team@yupe.ru');
+        return Yii::t('YupeModule.yupe', 'support@yupe.ru');
     }
 
     /**

@@ -9,24 +9,24 @@
         {
             "name": "Andrey Opeykin",
             "email": "aopeykin@yandex.ru",
-            "homepage": "http://amylabs.ru",
+            "homepage": "https://yupe.ru",
             "role": "Developer"
         },
         {
             "name": "Nickolay Sedov",
             "email": "yamikspark@gmail.com",
-            "homepage": "http://amylabs.ru",
+            "homepage": "https://yupe.ru",
             "role": "Developer"
         },
         {
             "name": "Maxim Timashov",
             "email": "apexwire@amylabs.ru",
-            "homepage": "http://amylabs.ru",
+            "homepage": "https://yupe.ru",
             "role": "Developer"
         },
         {
             "name": "Plaksunov Yuri",
-            "homepage": "http://amylabs.ru",
+            "homepage": "https://yupe.ru",
             "role": "Developer"
         },
         {
@@ -44,7 +44,7 @@
     },
     "require": {
         "php": ">=7.0",
-        "yiisoft/yii": "1.1.23",
+        "yiisoft/yii": "1.1.24",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",

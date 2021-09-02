@@ -3,7 +3,7 @@
 /**
  * MailModule основной класс модуля install
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.mail
@@ -109,7 +109,7 @@ class MailModule extends yupe\components\WebModule
      **/
     public function getAuthorEmail()
     {
-        return Yii::t('MailModule.mail', 'team@yupe.ru');
+        return Yii::t('MailModule.mail', 'support@yupe.ru');
     }
 
     /**

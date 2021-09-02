@@ -279,7 +279,7 @@ return [
     'Structure' => 'Структура',
     'success' => 'успешно',
     'Targeting category was not found!' => 'Целевая категория не найдена!',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'Template' => 'Шаблон',
     'Templates settings' => 'Настройки шаблона',
     'Text' => 'Текст',

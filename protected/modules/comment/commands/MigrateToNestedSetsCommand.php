@@ -5,7 +5,7 @@
  *
  * @category YupeConsoleCommand
  * @package  yupe.commands
- * @author   YupeTeam <team@yupe.ru>
+ * @author   YupeTeam <support@yupe.ru>
  * @author   Anton Kucherov <idexter.ru@gmail.com>
  * @link     https://yupe.ru
  */

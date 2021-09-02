@@ -80,7 +80,7 @@ return [
     'Tasks - show' => 'Задания - просмотр',
     'Tasks creation and management module' => 'Модуль для создания заданий',
     'Tasks' => 'Задания',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'This section represent queue management system' => 'В данном разделе представлены средства управления заданиями',
     'View task' => 'Просмотр задания',
     'Viewing queue' => 'Просмотр задания очереди',

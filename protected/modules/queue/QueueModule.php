@@ -3,7 +3,7 @@
 /**
  * QueueModule основной класс модуля queue
  *
- * @author    yupe team <team@yupe.ru>
+ * @author    yupe team <support@yupe.ru>
  * @link      https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package   yupe.modules.queue
@@ -75,7 +75,7 @@ class QueueModule extends yupe\components\WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('QueueModule.queue', 'team@yupe.ru');
+        return Yii::t('QueueModule.queue', 'support@yupe.ru');
     }
 
     /**

@@ -452,7 +452,7 @@ class StoreModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('StoreModule.store', 'hello@amylabs.ru');
+        return Yii::t('StoreModule.store', 'support@yupe.ru');
     }
 
     /**

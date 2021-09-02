@@ -2,7 +2,7 @@
 /**
  * Файл настроек для модуля
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.blog.install

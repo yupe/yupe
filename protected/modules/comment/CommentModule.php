@@ -3,7 +3,7 @@
 /**
  * CommentModule основной класс модуля comment
  *
- * @author    yupe team <team@yupe.ru>
+ * @author    yupe team <support@yupe.ru>
  * @link      https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package   yupe.modules.comment
@@ -294,7 +294,7 @@ class CommentModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('CommentModule.comment', 'team@yupe.ru');
+        return Yii::t('CommentModule.comment', 'support@yupe.ru');
     }
 
     /**

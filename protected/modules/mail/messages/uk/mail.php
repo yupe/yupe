@@ -95,7 +95,7 @@ return [
     'Show template' => 'Переглянути подію',
     'Status' => 'Статус',
     'Symbolic code' => 'Символьний код',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'Template creation' => 'Створення шаблона',
     'Template with "{code}" was not found!' => 'Шаблон з кодом "{code}" не знайдено!',
     'Template' => 'Шаблон',

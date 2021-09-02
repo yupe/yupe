@@ -24,7 +24,7 @@ return [
     '0.4'                                                              => '',
     'Id'                                                               => '',
     'https://yupe.ru'                                                   => '',
-    'team@yupe.ru'                                                     => '',
+    'support@yupe.ru'                                                     => '',
     'yupe team'                                                        => '',
     'Author'                                                           => '',
     'Alias'                                                            => '',

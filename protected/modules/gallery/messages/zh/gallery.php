@@ -25,7 +25,7 @@ return [
     'Id' => 'Id',
     'https://yupe.ru' => 'https://yupe.ru',
     'id' => 'id',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'yupe team' => 'yupe team',
     'This section describes image gallery management' => '图像库管理',
     'Visual Editor' => '可视化编辑器',

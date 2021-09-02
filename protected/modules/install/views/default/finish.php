@@ -4,7 +4,7 @@
  *
  * @category YupeView
  * @package  yupe
- * @author   Yupe Team <team@yupe.ru>
+ * @author   Yupe Team <support@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
@@ -92,7 +92,7 @@
 
 <?= Yii::t(
     'InstallModule.install',
-    'Mail us to <b><a href="mailto:team@yupe.ru">support@yupe.ru</a></b>'
+    'Mail us to <b><a href="mailto:support@yupe.ru">support@yupe.ru</a></b>'
 ); ?>  - <?= Yii::t(
     'InstallModule.install',
     'We always open for commercial and other propositions'
