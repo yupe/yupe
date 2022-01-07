@@ -85,7 +85,7 @@ return [
     'Shortcode for using this block in template:' => 'Код для использования этого блока в шаблоне:',
     'Simple text' => 'Простой текст',
     'Status' => 'Статус',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'This section presents content blocks management' => 'В данном разделе представлены средства управления блоками контента',
     'Title' => 'Заголовок',
     'Turn off' => 'Выключить',

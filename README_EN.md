@@ -1,15 +1,13 @@
 Yupe! - CMS, based on Yii framework
-==================================
+===================================
 
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/yupe/yupe/?branch=dev)
+
 [![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
 [![Daily Downloads](https://poser.pugx.org/yupe/yupe/d/daily.png)](https://packagist.org/packages/yupe/yupe)
-[![Gitter chat](https://badges.gitter.im/yupe/yupe.png)](https://gitter.im/yupe/yupe)
-[![Dependency Status](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8/badge.png)](https://www.versioneye.com/user/projects/52fc8213ec1375edd50002b8)
 [![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87/mini.png)](https://insight.sensiolabs.com/projects/bc6a0620-0bc7-4bb8-9e80-02e586fd1b87)
-[![Issue Stats Issues](http://issuestats.com/github/yupe/yupe/badge/issue)](http://issuestats.com/github/yupe/yupe)
-![Юпи!](http://amylabs.ru/assets/196fa697/images/Head_browser.png)
+
+![Юпи!](https://yupe.ru/static/about-us.png)
 
 **Attention! All pull-requests must be made in [dev branch](https://github.com/yupe/yupe/tree/dev)**
 
@@ -26,7 +24,7 @@ Yupe allows you to simple create web sites like:
 
 First of all Yupe! have been developed for PHP-developers who knows Yii.
 
-[Installation](https://yupe.ru/docs/install.html) is simple and it takes about 5 minutes!
+[Installation](http://docs.yupe.ru/install/) is simple and it takes about 5 minutes!
 
 Easy and common control panel. Site can be managed even by housewife!
 
@@ -34,7 +32,7 @@ You can use simple and inexpensive small hosting and Yupe will be working:
 
 Requirements and Dependencies
 ------------------------
-* PHP >= 5.4
+* PHP >= 5.6
 * Yiiframework >= 1.1.17
 * YiiBooster >= 3.x
 * Nested Set Behavior
@@ -92,7 +90,7 @@ Source code, layout, design [BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%8
 Yupe community will be appreciate you if you place an reference on [yupe.ru/](https://yupe.ru/) on your site.
 
 
+[![yupe](https://yupe.ru/static/about-us.png)](https://yupe.ru)
 
-(c) 2012 - 2018 [amylabs](http://amylabs.ru) && [Yupe! team](https://yupe.ru/)
+(c) 2012 - 2021 [yupe](https://yupe.ru) && [Yupe! team](https://yupe.ru)  ![Юпи!](https://yupe.ru)
 
-![amyLabs](http://amylabs.ru/images/logo.png)

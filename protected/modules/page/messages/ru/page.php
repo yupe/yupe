@@ -112,7 +112,7 @@ return [
     'Sorting' => 'Сортировка',
     'Status' => 'Статус',
     'Targeting page was not found!' => 'Целевая страница не найдена!',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'Text' => 'Текст',
     'There is an error when connecting page to menu...' => 'Произошла ошибка при привязке к меню...',
     'This section describes page management' => 'В данном разделе представлены средства управления страницами',

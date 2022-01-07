@@ -8,7 +8,7 @@ return [
     '0.5' => '0.5',
     'Id' => 'Id',
     'https://yupe.ru' => 'https://yupe.ru',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'yupe team' => 'yupe team',
     'Alias' => 'Аліас',
     'This section describes category management' => 'У цьому розділі описані засоби керування галереями категоріями',

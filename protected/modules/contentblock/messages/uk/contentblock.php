@@ -60,7 +60,7 @@ return [
     'are required.' => 'обов’язкові.',
     'https://yupe.ru' => 'https://yupe.ru',
     'id' => 'id',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'yupe team' => 'yupe team',
     'Select {field}' => 'Вкажіть {field}',
     'Manage blocks' => 'Керування блоками',

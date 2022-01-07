@@ -95,7 +95,7 @@ return [
     'Set maximum images size {link}' => 'Укажите максимальный размер изображений {link}',
     'Show image' => 'Просмотр изображения',
     'Status' => 'Статус',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'There is an error when adding new image =(' => 'При добавлении картинки в галерею произошла ошибка =(',
     'This section describes Image management functions' => 'В данном разделе представлены средства управления изображениями',
     'Title' => 'Название',

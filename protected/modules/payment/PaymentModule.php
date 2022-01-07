@@ -105,7 +105,7 @@ class PaymentModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('PaymentModule.payment', 'hello@amylabs.ru');
+        return Yii::t('PaymentModule.payment', 'support@yupe.ru');
     }
 
     /**

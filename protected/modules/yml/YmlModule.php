@@ -110,7 +110,7 @@ class YmlModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('YmlModule.default', 'hello@amylabs.ru');
+        return Yii::t('YmlModule.default', 'support@yupe.ru');
     }
 
     /**

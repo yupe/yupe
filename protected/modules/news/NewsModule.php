@@ -3,7 +3,7 @@
 /**
  * NewsModule основной класс модуля news
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.news
@@ -261,7 +261,7 @@ class NewsModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('NewsModule.news', 'team@yupe.ru');
+        return Yii::t('NewsModule.news', 'support@yupe.ru');
     }
 
     /**

@@ -23,7 +23,7 @@ return [
     'file'                                                                  => '',
     'https://yupe.ru'                                                        => '',
     'id'                                                                    => '',
-    'team@yupe.ru'                                                          => '',
+    'support@yupe.ru'                                                          => '',
     'yupe team'                                                             => '',
     'Alternative text'                                                      => '',
     'This section describes Image management functions'                     => '',

@@ -212,7 +212,7 @@ return [
     'https://yupe.ru' => '',
     'id' => '',
     'tags' => '',
-    'team@yupe.ru' => '',
+    'support@yupe.ru' => '',
     'yupe team' => '',
     'Subscribe for updates' => '',
     'Leave comment' => '',

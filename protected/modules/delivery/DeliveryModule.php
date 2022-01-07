@@ -99,7 +99,7 @@ class DeliveryModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('DeliveryModule.delivery', 'hello@amylabs.ru');
+        return Yii::t('DeliveryModule.delivery', 'support@yupe.ru');
     }
 
     /**

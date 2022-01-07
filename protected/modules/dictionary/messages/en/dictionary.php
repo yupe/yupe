@@ -20,7 +20,7 @@ return [
     '*unknown*'                                                   => '',
     '0.2'                                                         => '',
     'id'                                                          => '',
-    'team@yupe.ru'                                                => '',
+    'support@yupe.ru'                                                => '',
     'yupe team'                                                   => '',
     'Active'                                                      => '',
     'This section describes dictionary items management'          => '',

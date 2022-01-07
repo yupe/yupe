@@ -3,7 +3,7 @@
 /**
  * ImageModule основной класс модуля image
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.image
@@ -279,7 +279,7 @@ class ImageModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('ImageModule.image', 'team@yupe.ru');
+        return Yii::t('ImageModule.image', 'support@yupe.ru');
     }
 
     /**

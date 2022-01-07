@@ -2,7 +2,7 @@
 /**
  * BlogModule основной класс модуля blog
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.blog
@@ -322,7 +322,7 @@ class BlogModule extends yupe\components\WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('BlogModule.blog', 'team@yupe.ru');
+        return Yii::t('BlogModule.blog', 'support@yupe.ru');
     }
 
     /**

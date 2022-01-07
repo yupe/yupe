@@ -55,25 +55,6 @@ $this->breadcrumbs = [
 <br/><br/>
 
 <?= CHtml::link(
-    Yii::t('YupeModule.yupe', 'Additional modules and components'),
-    'https://yupe.ru/marketplace',
-    ['target' => '_blank']
-); ?> - <?= Yii::t(
-    'YupeModule.yupe',
-    'Submit an extension!'
-); ?>
-
-<br/><br/>
-
-<?= CHtml::link(
-    Yii::t('YupeModule.yupe', 'Support Yupe! forum'),
-    'http://talk.yupe.ru/?form=help',
-    ['target' => '_blank']
-); ?> - <?= Yii::t('YupeModule.yupe', 'Lest\'s talk!'); ?>
-
-<br/><br/>
-
-<?= CHtml::link(
     Yii::t('YupeModule.yupe', 'Sources on Github'),
     'http://github.com/yupe/yupe/',
     ['target' => '_blank']
@@ -94,7 +75,7 @@ $this->breadcrumbs = [
 
 <?= CHtml::link(
     Yii::t('YupeModule.yupe', 'General sponsor'),
-    'http://amylabs.ru?from=yupe-help',
+    'https://yupe.ru?from=yupe-help',
     ['target' => '_blank']
 ); ?> - <?= Yii::t(
     'YupeModule.yupe',
@@ -106,7 +87,7 @@ $this->breadcrumbs = [
 <div class="alert alert-warning">
     <?= Yii::t(
         'YupeModule.yupe',
-        'Feedback at <a href="mailto:team@yupe.ru">team@yupe.ru</a> or {link}',
+        'Feedback at <a href="mailto:support@yupe.ru">support@yupe.ru</a> or {link}',
         [
             '{link}' => CHtml::link(
                 Yii::t('YupeModule.yupe', 'feedback form'),

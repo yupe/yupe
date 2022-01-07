@@ -3,7 +3,7 @@
 /**
  * UserModule основной класс модуля user
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2014 amyLabs && Yupe! team
  * @package yupe.modules.user
@@ -430,7 +430,7 @@ class UserModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return 'team@yupe.ru';
+        return 'support@yupe.ru';
     }
 
     /**

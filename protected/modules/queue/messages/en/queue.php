@@ -24,7 +24,7 @@ return [
     'ID'                                                                                                                      => '',
     'YQuemail.queueComponent contains bad identifier of queue component!'                                                     => '',
     'https://yupe.ru'                                                                                                          => '',
-    'team@yupe.ru'                                                                                                            => '',
+    'support@yupe.ru'                                                                                                            => '',
     'yupe team'                                                                                                               => '',
     'This section represent queue management system'                                                                          => '',
     'Working'                                                                                                                 => '',

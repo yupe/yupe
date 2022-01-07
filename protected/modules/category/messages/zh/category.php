@@ -23,7 +23,7 @@ return [
     '0.5'                                                                           => '',
     'Id'                                                                            => '',
     'https://yupe.ru'                                                                => '',
-    'team@yupe.ru'                                                                  => '',
+    'support@yupe.ru'                                                                  => '',
     'yupe team'                                                                     => '木星团队',
     'Alias'                                                                         => '别名',
     'This section describes category management'                                    => '这个版块提供分类管理',

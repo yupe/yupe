@@ -3,7 +3,7 @@
 /**
  * DictionaryModule основной класс модуля dictionary
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.dictionary
@@ -64,7 +64,7 @@ class DictionaryModule extends yupe\components\WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('DictionaryModule.dictionary', 'team@yupe.ru');
+        return Yii::t('DictionaryModule.dictionary', 'support@yupe.ru');
     }
 
     /**

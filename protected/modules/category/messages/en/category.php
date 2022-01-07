@@ -23,7 +23,7 @@ return [
     '0.5'                                                                           => '',
     'Id'                                                                            => '',
     'https://yupe.ru'                                                                => '',
-    'team@yupe.ru'                                                                  => '',
+    'support@yupe.ru'                                                                  => '',
     'yupe team'                                                                     => '',
     'Alias'                                                                         => '',
     'This section describes category management'                                    => '',

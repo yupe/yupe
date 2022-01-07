@@ -50,15 +50,23 @@ class YAjaxImageUploadCKEAction extends YAjaxImageUploadAction
         $form->types = $this->types ?: null;
         $form->file = $this->uploadedFile;
 
+        $output = [
+            'fileName' => $this->fileName,
+            'uploaded' => false,
+            'url' => null,
+            'error' => [
+                'message' => null
+            ]
+        ];
+
         if ($form->validate() && $this->uploadFile() && ($this->fileLink !== null && $this->fileName !== null)) {
-            $fullPath = $this->fileLink;
+            $output['uploaded'] = true;
+            $output['url'] = $this->fileLink;
         } else {
-            $message = implode("\n", $form->getErrors("file"));
+            $output['error']['message'] = implode(PHP_EOL, $form->getErrors('file')) ?: 'Ошибка сервера';
         }
 
-        $callback = Yii::app()->getRequest()->getParam('CKEditorFuncNum');
-        echo '<script type="text/javascript">window.parent.CKEDITOR.tools.callFunction("'.$callback.'", "'.$fullPath.'", "'.$message.'" );</script>';
-        Yii::app()->end();
+        Yii::app()->ajax->raw( $output );
     }
 
     /**

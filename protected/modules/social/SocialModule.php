@@ -79,7 +79,7 @@ class SocialModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('SocialModule.social', 'hello@amylabs.ru');
+        return Yii::t('SocialModule.social', 'support@yupe.ru');
     }
 
     /**

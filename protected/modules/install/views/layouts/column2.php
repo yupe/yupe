@@ -12,7 +12,7 @@
     </div>
     <div class="col-sm-3">
         <div>
-            <a class="btn btn-success banner-width" style="width: 100%;" target="_blank" href="https://yupe.ru/make-world-better?from=install">Сказать спасибо!</a>
+            <a class="btn btn-success banner-width" style="width: 100%;" target="_blank" href="https://sobe.ru/na/yupi">Сказать спасибо!</a>
             <br/><br/>
         </div>
 

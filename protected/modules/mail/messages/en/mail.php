@@ -24,7 +24,7 @@ return [
     'MainEvent with "{code}" code was not found!'                          => '',
     'MainEvent with code "{code}" don\'t contain any of active templates!' => '',
     'https://yupe.ru'                                                       => '',
-    'team@yupe.ru'                                                         => '',
+    'support@yupe.ru'                                                         => '',
     'yupe team'                                                            => '',
     'This section contain mail messages management'                        => '',
     'This section contain mail message templates management'               => '',

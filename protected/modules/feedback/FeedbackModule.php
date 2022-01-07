@@ -3,7 +3,7 @@
 /**
  * FeedbackModule основной класс модуля feedback
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.feedback
@@ -304,7 +304,7 @@ class FeedbackModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('FeedbackModule.feedback', 'team@yupe.ru');
+        return Yii::t('FeedbackModule.feedback', 'support@yupe.ru');
     }
 
     /**

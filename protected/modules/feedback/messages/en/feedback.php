@@ -25,7 +25,7 @@ return [
     'Email message will be send from'                                                                              => '',
     'Ip-address'                                                                                                   => '',
     'https://yupe.ru'                                                                                               => '',
-    'team@yupe.ru'                                                                                                 => '',
+    'support@yupe.ru'                                                                                                 => '',
     'yupe team'                                                                                                    => '',
     'This section represent feedback management'                                                                   => '',
     'In FAQ'                                                                                                       => '',
