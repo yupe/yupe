@@ -44,7 +44,7 @@
     },
     "require": {
         "php": ">=7.0",
-        "yiisoft/yii": "1.1.24",
+        "yiisoft/yii": "1.1.25",
         "clevertech/yii-booster": "4.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master",
@@ -64,8 +64,10 @@
         "guzzlehttp/guzzle": "^6.3.0",
         "guzzlehttp/psr7": "~1.4"
     },
+    "replace": {
+        "symfony/polyfill-php80" : "*"
+    },
     "repositories": {
-        
         "taggable": {
             "type": "package",
             "package": {

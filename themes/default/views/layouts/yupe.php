@@ -26,41 +26,7 @@
     <?php endif; ?>
 
     <div class="widget blogs-widget">
-
-        <?php $this->widget(
-            'yupe\widgets\RandomDataWidget',
-            [
-                'data' => [
-                    CHtml::link(
-                        CHtml::image(
-                            $this->mainAssets . '/images/amylabs.png',
-                            'amylabs - разработка на Юпи! и Yii !',
-                            ['style' => 'width: 100%']
-                        ),
-                        'http://amylabs.ru?from=yupe-rb',
-                        ['title' => 'amylabs - разработка на Юпи! и Yii !', 'target' => '_blank']
-                    ),
-                    CHtml::link(
-                        CHtml::image(
-                            $this->mainAssets . '/images/yupe-business.jpg',
-                            'Разработка и запуск интернет магазина на Yii и "Юпи!"',
-                            ['style' => 'width: 100%']
-                        ),
-                        'https://yupe.ru/ecommerce?from=yupe-business',
-                        [
-                            'title' => 'Разработка и запуск интернет магазина на Yii и "Юпи!"',
-                            'target' => '_blank'
-                        ]
-                    )
-                ]
-            ]
-        ); ?>
-    </div>
-
-    <div class="widget">
-        <a href="https://www.jetbrains.com/phpstorm/" target="_blank"><?= CHtml::image(
-                $this->mainAssets . '/images/logo_phpstorm.png'
-            ); ?></a>
+        <a target="_new" href="https://timeweb.com/ru/?i=28284&a=142"><img style="border:0px;" src="https://wm.timeweb.ru/images/posters/200x300/200x300-10-anim.gif"></a>
     </div>
 
     <?php if (Yii::app()->getUser()->isAuthenticated()): ?>

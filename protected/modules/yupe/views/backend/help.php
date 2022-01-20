@@ -67,7 +67,7 @@ $this->breadcrumbs = [
 
 <?= CHtml::link(
     Yii::t('YupeModule.yupe', 'Official Yupe! twitter'),
-    'https://twitter.com/#!/yupe',
+    'https://twitter.com/YupeCms',
     ['target' => '_blank']
 ); ?>  - <?= Yii::t('YupeModule.yupe', 'Follow us =)'); ?>
 
