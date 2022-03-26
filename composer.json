@@ -54,7 +54,7 @@
         "krupni/yii-eauth": "1.2.1",
         "imagine/imagine": "v0.7.1",
         "symfony/event-dispatcher": "v3.4.47",
-        "twig/twig": "1.6.5",
+        "twig/twig": "1.38.0",
         "yiiext/twig-renderer": "1.1.*",
         "2amigos/transliterator-helper": "dev-master",
         "yiiext/migrate-command": "dev-master",
