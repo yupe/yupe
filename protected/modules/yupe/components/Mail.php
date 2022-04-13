@@ -14,6 +14,8 @@
 namespace yupe\components;
 
 use CApplicationComponent;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 /**
  * Class Mail
@@ -22,7 +24,7 @@ use CApplicationComponent;
 class Mail extends CApplicationComponent
 {
     /**
-     * @var \PHPMailer
+     * @var PHPMailer
      */
     private $_mailer;
 
@@ -55,7 +57,7 @@ class Mail extends CApplicationComponent
      */
     public function init()
     {
-        $this->_mailer = new \PHPMailer();
+        $this->_mailer = new PHPMailer();
 
         switch ($this->method) {
             case 'smtp':
@@ -92,7 +94,7 @@ class Mail extends CApplicationComponent
     }
 
     /**
-     * @return \PHPMailer
+     * @return PHPMailer
      */
     public function getMailer()
     {
@@ -118,7 +120,7 @@ class Mail extends CApplicationComponent
     /**
      * @param $address
      * @param string $name
-     * @throws \phpmailerException
+     * @throws \Exception
      */
     public function setFrom($address, $name = '')
     {
