@@ -99,6 +99,11 @@ $form = $this->beginWidget(
     <div class="row">
         <div id="options"
              class="<?= !$model->isMultipleValues() ? 'hidden' : ''; ?> col-sm-5">
+            <div class='row'>
+                <div class="col-sm-8">
+                    <?= $form->checkBoxGroup($model, 'is_greed_search'); ?>
+                </div>
+            </div>
             <div class="row form-group">
                 <div class="col-sm-12">
                     <?= Yii::t("StoreModule.store", "Each option value must be on a new line."); ?>
