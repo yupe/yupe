@@ -59,7 +59,7 @@
         "2amigos/transliterator-helper": "dev-master",
         "yiiext/migrate-command": "dev-master",
         "samdark/sitemap": "2.2.1",
-        "ckeditor/ckeditor": "4.16.0",
+        "ckeditor/ckeditor": "4.17.0",
         "wikimedia/composer-merge-plugin": "dev-master",
         "guzzlehttp/guzzle": "^6.3.0",
         "guzzlehttp/psr7": "~1.4"
