@@ -1,18 +1,5 @@
 
-Привет! 
-
-Мы команда [yupe.ru](https://yupe.ru?from=mb) ! 
-
-Мы разрабатываем [свои продукты](https://yupe.ru/products) и [делаем кастомную разработку](https://yupe.ru/service/development?from=mb)!
-
-[![Yupe Platform](./img/01.png)](https://yupe.ru/platform?from=mb)
-
-[![Yupe CRM Kit](./img/03.png)](https://yupe.ru/crm?from=mb)
-
-[![Yupe Web](./img/02.png)](https://yupe.ru/ecommerce/store?from=mb)
-
-
-Юпи!- движок интернет-магазина на Yiiframework 1.x
+Юпи!- open source движок интернет-магазина на Yiiframework 1.x
 ==================================================
 
 [![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
