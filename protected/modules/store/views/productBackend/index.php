@@ -401,7 +401,7 @@ Yii::app()->getClientScript()->registerScript(
                 data: data,
                 success: function (data) {
                     if (data.result) {
-                        $.fn.yiiGridView.update("product-grid");
+                        $.fn.yiiGridView.update("product-grid", {url: document.location.href});
                     } else {
                         alert(data.data);
                     }
@@ -432,7 +432,7 @@ Yii::app()->getClientScript()->registerScript(
             data: data,
             success: function(data) {
                 if (data.result === true) {
-                    $.fn.yiiGridView.update("product-grid");
+                    $.fn.yiiGridView.update("product-grid", {url: document.location.href});
                     $('#batch-actions').modal('hide');
                 }
                 
