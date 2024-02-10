@@ -86,7 +86,7 @@ class EShoppingCart extends CMap
      * If the position was previously added to the cart,
      * then information about it is updated, and count increases by $quantity
      * @param IECartPosition $position
-     * @param int count of elements positions
+     * @param int $quantity count of elements positions
      */
     public function put(IECartPosition $position, $quantity = 1)
     {
@@ -96,6 +96,16 @@ class EShoppingCart extends CMap
             $oldQuantity = $position->getQuantity();
             $quantity += $oldQuantity;
         }
+
+        $product = Product::model()->findByPk($position->id);
+
+	    if (empty($product)) {
+		    Yii::app()->ajax->failure(Yii::t("CartModule.cart", 'Error!'));
+	    }
+
+	    if ($product->quantity < $quantity) {
+		    return Yii::app()->ajax->failure(Yii::t("CartModule.cart", 'There is not enough stock in the warehouse!'));
+	    }
 
         $this->update($position, $quantity);
         $this->eventManager->fire(CartEvents::CART_ADD_ITEM, new CartEvent(Yii::app()->getUser(), $this));
