@@ -35,6 +35,7 @@ return [
         ]
     ],
     'rules' => [
+        '/news/<News_page:\d+>' => 'news/news/index',
         '/news/' => 'news/news/index',
         '/news/categories' => 'news/newsCategory/index',
         [
