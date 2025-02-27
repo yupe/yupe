@@ -1,10 +1,7 @@
 
 Юпи!- open source движок интернет-магазина на Yiiframework 1.x
-==================================================
+==============================================================
 
-[![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
-[![Daily Downloads](https://poser.pugx.org/yupe/yupe/d/daily.png)](https://packagist.org/packages/yupe/yupe)
-[![Code Climate](https://codeclimate.com/github/yupe/yupe.png)](https://codeclimate.com/github/yupe/yupe)
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
