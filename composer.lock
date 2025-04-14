@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1882405053d94680d88cec9960846be1",
+    "content-hash": "88e70875a54ce7d26376d67c1dc2481d",
     "packages": [
         {
             "name": "2amigos/transliterator-helper",
@@ -51,16 +51,16 @@
         },
         {
             "name": "ckeditor/ckeditor",
-            "version": "4.16.0",
+            "version": "4.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "98a1bce9c9237e2ee141c0d2e01c3f0576655d5d"
+                "reference": "1690c8f35eec3c939fc0f941436d6fbd85d2ea2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/98a1bce9c9237e2ee141c0d2e01c3f0576655d5d",
-                "reference": "98a1bce9c9237e2ee141c0d2e01c3f0576655d5d",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/1690c8f35eec3c939fc0f941436d6fbd85d2ea2e",
+                "reference": "1690c8f35eec3c939fc0f941436d6fbd85d2ea2e",
                 "shasum": ""
             },
             "type": "library",
@@ -95,7 +95,7 @@
                 "source": "https://github.com/ckeditor/ckeditor4",
                 "wiki": "https://ckeditor.com/docs/ckeditor4/latest/"
             },
-            "time": "2021-01-27T08:14:09+00:00"
+            "time": "2021-11-17T10:54:44+00:00"
         },
         {
             "name": "clevertech/yii-booster",
@@ -4653,5 +4653,5 @@
         "php": ">=7.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.6.0"
 }
