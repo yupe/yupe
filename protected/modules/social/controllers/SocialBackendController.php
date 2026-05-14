@@ -6,7 +6,7 @@ namespace application\modules\social\controllers;
  *
  * @category Yupe yupe\components\controllers\BackController
  * @package  yupe
- * @author   Yupe Team <team@yupe.ru>
+ * @author   Yupe Team <support@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/

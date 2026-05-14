@@ -129,7 +129,7 @@ return [
     'Stock status' => '',
     'Structure' => '',
     'Targeting category was not found!' => '',
-    'team@yupe.ru' => '',
+    'support@yupe.ru' => '',
     'This module allows creating a simple product catalog' => '',
     'This section describes category management' => '',
     'This section describes products manager' => '',

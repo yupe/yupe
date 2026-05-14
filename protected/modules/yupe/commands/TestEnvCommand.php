@@ -5,7 +5,7 @@
  * Console application for create and manage testing environment.
  * @package  yupe.commands
  * @author   Anton Kucherov <idexter.ru@gmail.com>
- * @author   YupeTeam <team@yupe.ru>
+ * @author   YupeTeam <support@yupe.ru>
  * @link     https://yupe.ru
  */
 /*

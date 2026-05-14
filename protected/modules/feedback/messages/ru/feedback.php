@@ -145,7 +145,7 @@ return [
     'Show captcha' => 'Показывать капчу',
     'Show message' => 'Просмотр сообщения  ',
     'Status' => 'Статус',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'Text' => 'Текст',
     'Text:' => 'Текст:',
     'Thanks for attention!' => 'Спасибо, за внимание!',

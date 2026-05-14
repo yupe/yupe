@@ -7,7 +7,7 @@
  * @category YupeComponents
  * @package  yupe.modules.yupe.models
  * @abstract
- * @author   YupeTeam <team@yupe.ru>
+ * @author   YupeTeam <support@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @version  0.0.4
  * @link     https://yupe.ru - основной сайт

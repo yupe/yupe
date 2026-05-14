@@ -104,7 +104,7 @@ class RbacModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return 'hello@amylabs.ru';
+        return 'support@yupe.ru';
     }
 
     /**

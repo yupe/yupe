@@ -222,7 +222,7 @@ return [
     'https://yupe.ru' => '',
     'id' => '',
     'tags' => '标签',
-    'team@yupe.ru' => '',
+    'support@yupe.ru' => '',
     'yupe team' => '木星团队',
     'Subscribe for updates' => '订阅更新',
     'Leave comment' => '提交评论',

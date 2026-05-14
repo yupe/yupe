@@ -110,7 +110,7 @@ return [
     'Show news article' => 'Просмотр новости',
     'Status' => 'Статус',
     'Targeting news was not found!' => 'Целевая новость не найдена!',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'This section describes News Management' => 'В данном разделе представлены средства управления новостями',
     'Title' => 'Заголовок',
     'Updated at' => 'Дата изменения',

@@ -28,7 +28,7 @@ return [
     'Page Id.' => '',
     'Url' => '',
     'https://yupe.ru' => '',
-    'team@yupe.ru' => '',
+    'support@yupe.ru' => '',
     'yupe team' => '',
     'Author' => '',
     'This section describes page management' => '',

@@ -2,7 +2,7 @@
 /**
  * HomepageModule основной класс модуля homepage
  *
- * @author Andrey Opeykin <hello@amylabs.ru>
+ * @author Andrey Opeykin <support@yupe.ru>
  * @link http://amylabs.ru
  * @copyright 2013 amyLabs
  * @package yupe.modules.homepage
@@ -154,7 +154,7 @@ class HomepageModule extends yupe\components\WebModule
      */
     public function getAuthorEmail()
     {
-        return 'hello@amylabs.ru';
+        return 'support@yupe.ru';
     }
 
     /**

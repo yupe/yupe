@@ -111,7 +111,7 @@ return [
     'Spam protection, try to create comment after {few} seconds!' => 'Защита от спама, попробуйте добавить комментарий спустя {few} секнд!',
     'Spam' => 'Спам',
     'Status' => 'Статус',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'Text' => 'Текст',
     'There is an error when create comments, try again later.' => 'При добавлении комментария возникла ошибка, повторите попытку позже.',
     'This section describes comment management' => 'В данном разделе представлены средства управления комментариями',

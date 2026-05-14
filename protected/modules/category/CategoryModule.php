@@ -2,7 +2,7 @@
 /**
  * CategoryModule основной класс модуля category
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.category
@@ -144,7 +144,7 @@ class CategoryModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('CategoryModule.category', 'team@yupe.ru');
+        return Yii::t('CategoryModule.category', 'support@yupe.ru');
     }
 
     /**

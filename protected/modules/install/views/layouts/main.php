@@ -4,7 +4,7 @@
  *
  * @category YupeLayouts
  * @package  yupe
- * @author   Yupe Team <team@yupe.ru>
+ * @author   Yupe Team <support@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
@@ -54,12 +54,6 @@
                     'items'       => array_merge(
                         [
                             [
-                                'icon'        => 'fa fa-fw fa-comment',
-                                'label'       => Yii::t('YupeModule.yupe', 'Forum'),
-                                'url'         => 'http://talk.yupe.ru/?from=install',
-                                'linkOptions' => ['target' => '_blank'],
-                            ],
-                            [
                                 'icon'        => 'fa fa-fw fa-info-circle',
                                 'label'       => Yii::t('InstallModule.install', 'Support'),
                                 'url'         => 'https://yupe.ru/service/support',
@@ -68,7 +62,7 @@
                             [
                                 'icon'        => 'fa fa-fw fa-book',
                                 'label'       => Yii::t('YupeModule.yupe', 'Docs'),
-                                'url'         => 'https://yupe.ru/docs/index.html?from=install',
+                                'url'         => 'https://docs.yupe.ru?from=install',
                                 'linkOptions' => ['target' => '_blank'],
                             ],
                             [
@@ -110,9 +104,9 @@
     <?=  $this->yupe->poweredBy(); ?>
     <small class="label label-info"><?=  $this->yupe->getVersion(); ?></small>
     <br/>
-    <a href="http://amylabs.ru/?from=install" target="_blank">
+    <a href="https://yupe.ru/?from=install" target="_blank">
         <?=  Yii::t('YupeModule.yupe', 'Development and support'); ?></a> - <a
-        href="http://amylabs.ru/?from=install" target="_blank">amylabs</a>
+        href="https://yupe.ru/?from=install" target="_blank">yupe.ru</a>
     <br/>
     <?=  Yii::powered(); ?>
 </footer>

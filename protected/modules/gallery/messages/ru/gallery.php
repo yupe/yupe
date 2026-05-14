@@ -108,7 +108,7 @@ return [
     'Start uploading' => 'Начать загрузку',
     'Status' => 'Статус',
     'success' => 'успешно',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'This is private gallery' => 'Это приватная галерея!',
     'This section describes image gallery management' => 'В данном разделе представлены средства управления галереями',
     'Title' => 'Название',

@@ -25,7 +25,7 @@ return [
     'Email message will be send from'                                                                              => '电子邮件将来自',
     'Ip-address'                                                                                                   => 'IP地址',
     'https://yupe.ru'                                                                                               => '',
-    'team@yupe.ru'                                                                                                 => '',
+    'support@yupe.ru'                                                                                                 => '',
     'yupe team'                                                                                                    => '木星团队',
     'This section represent feedback management'                                                                   => '此版块提供反馈管理功能',
     'In FAQ'                                                                                                       => '显示在FAQ',

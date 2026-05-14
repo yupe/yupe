@@ -3,7 +3,7 @@
 /**
  * MenuitemBackendController контроллер для управления пунктами меню в панели управления
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2015 amyLabs && Yupe! team
  * @package yupe.modules.menu.controllers

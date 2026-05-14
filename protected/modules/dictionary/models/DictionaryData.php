@@ -2,7 +2,7 @@
 /**
  * DictionaryData модель "данные справочника"
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.dictionary.models

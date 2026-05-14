@@ -6,7 +6,7 @@ Yii::import('application.modules.comment.CommentModule');
  *
  * @category YupeWidget
  * @package  yupe.modules.comment.widgets
- * @author   YupeTeam <team@yupe.ru>
+ * @author   YupeTeam <support@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.9.4
  * @link     https://yupe.ru

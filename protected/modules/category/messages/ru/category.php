@@ -83,7 +83,7 @@ return [
     'Status' => 'Статус',
     'Structure' => 'Структура',
     'Targeting category was not found!' => 'Целевая категория не найдена!',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'This section describes category management' => 'В данном разделе представлены средства управления категориями',
     'Title' => 'Название',
     'View category' => 'Просмотреть категорию',

@@ -2,7 +2,7 @@
 /**
  * InstallModule основной класс модуля install
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amylabs && Yupe! team
  * @package yupe.modules.install
@@ -285,7 +285,7 @@ class InstallModule extends WebModule
      **/
     public function getAuthorEmail()
     {
-        return Yii::t('InstallModule.install', 'team@yupe.ru');
+        return Yii::t('InstallModule.install', 'support@yupe.ru');
     }
 
     /**

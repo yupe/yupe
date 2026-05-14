@@ -3,7 +3,7 @@
 /**
  * ContentBlockModule основной класс модуля contentblock
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.contentblock
@@ -72,7 +72,7 @@ class ContentBlockModule extends yupe\components\WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('ContentBlockModule.contentblock', 'team@yupe.ru');
+        return Yii::t('ContentBlockModule.contentblock', 'support@yupe.ru');
     }
 
     /**

@@ -259,7 +259,7 @@ return [
     'Subscribe for updates' => 'Подпишитесь на обновления',
     'Tags' => 'Теги',
     'tags' => 'теги',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'There is no members' => 'Участников нет =(',
     'This category contains blog management functions.' => 'В данном разделе представлены средства управления блогами',
     'This module allows building a personal blog or a blogging community' => 'Модуль для построения личного блога или блогового сообщества',

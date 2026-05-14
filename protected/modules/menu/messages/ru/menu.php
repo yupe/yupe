@@ -125,7 +125,7 @@ return [
     'Sorting' => 'Сортировка',
     'Status' => 'Статус',
     'Structure' => 'Структура',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'Text after link' => 'Текст после ссылки',
     'Text before link' => 'Текст перед ссылкой',
     'This section describes Menu Items Management' => 'В данном разделе представлены средства управления пунктами меню',

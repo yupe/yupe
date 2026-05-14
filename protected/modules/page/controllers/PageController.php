@@ -5,7 +5,7 @@ use yupe\components\controllers\FrontController;
 /**
  * PageController публичный контроллер для работы со страницами
  *
- * @author yupe team <team@yupe.ru>
+ * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
  * @package yupe.modules.page.controllers

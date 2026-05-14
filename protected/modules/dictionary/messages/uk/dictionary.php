@@ -6,7 +6,7 @@ return [
     '*unknown*' => '*невідомо*',
     '0.2' => '0.2',
     'id' => 'id',
-    'team@yupe.ru' => 'team@yupe.ru',
+    'support@yupe.ru' => 'support@yupe.ru',
     'yupe team' => 'yupe team',
     'Active' => 'Активний',
     'This section describes dictionary items management' => 'У цьому розділі описані засоби керування значеннями довідників',

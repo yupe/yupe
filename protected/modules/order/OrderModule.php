@@ -187,7 +187,7 @@ class OrderModule extends WebModule
      */
     public function getAuthorEmail()
     {
-        return Yii::t('OrderModule.order', 'hello@amylabs.ru');
+        return Yii::t('OrderModule.order', 'support@yupe.ru');
     }
 
     /**

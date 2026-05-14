@@ -785,6 +785,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 return true;
             }
 
+			$transaction->rollback();
             return false;
         } catch (Exception $e) {
             $transaction->rollback();

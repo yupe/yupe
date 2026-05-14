@@ -4,7 +4,7 @@
  *
  * @category Widgets
  * @package  yupe.modules.yupe.widgets
- * @author   Yupe Team <team@yupe.ru>
+ * @author   Yupe Team <support@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  * @todo     можно реализовать мультиекшен на основе вызова
