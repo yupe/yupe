@@ -85,7 +85,6 @@ class RbacBackendController extends yupe\components\controllers\BackController
 
                 $this->redirect(['assign', 'id' => $user->id]);
             } catch (Exception $e) {
-
                 Yii::app()->getUser()->setFlash(yupe\widgets\YFlashMessages::ERROR_MESSAGE, $e->getMessage());
                 $transaction->rollback();
             }

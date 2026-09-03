@@ -74,9 +74,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and continue') : Yii::t(
-                'QueueModule.queue',
-                'Save task'
-            ),
+            'QueueModule.queue',
+            'Save task'
+        ),
     ]
 ); ?>
 
@@ -86,9 +86,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and close') : Yii::t(
-                'QueueModule.queue',
-                'Save blog and close'
-            ),
+            'QueueModule.queue',
+            'Save blog and close'
+        ),
     ]
 ); ?>
 

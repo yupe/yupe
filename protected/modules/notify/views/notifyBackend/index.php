@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для index:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $this->breadcrumbs = [
     Yii::app()->getModule('notify')->getCategory() => [],
     Yii::t('NotifyModule.notify', 'Notify') => ['/notify/notifyBackend/index'],
@@ -85,23 +87,23 @@ $this->widget(
         'columns' => [
             [
                 'name'  => 'user_id',
-                'value' => function($data) {
+                'value' => function ($data) {
                         return $data->user->getFullName();
-                    },
+                },
                 'filter' => CHtml::listData(User::model()->findAll(), 'id', 'fullName')
             ],
             [
                 'name'  => 'my_post',
-                'value' => function($data) {
+                'value' => function ($data) {
                         return $data->my_post ? Yii::t('YupeModule.yupe', 'yes') : Yii::t('YupeModule.yupe', 'no');
-                    },
+                },
                 'filter' => $this->module->getChoice()
             ],
             [
                 'name'  => 'my_comment',
-                'value' => function($data) {
+                'value' => function ($data) {
                         return $data->my_comment ? Yii::t('YupeModule.yupe', 'yes') : Yii::t('YupeModule.yupe', 'no');
-                    },
+                },
                 'filter' => $this->module->getChoice()
             ],
             [

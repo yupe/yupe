@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для view:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $this->breadcrumbs = [
     Yii::t('MailModule.mail', 'Mail events') => ['index'],
     $model->name,

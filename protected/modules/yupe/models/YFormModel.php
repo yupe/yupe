@@ -1,4 +1,5 @@
 <?php
+
 /**
  * yupe\models\YFormModel - базовый класс для всех form-моделей Юпи!
  *

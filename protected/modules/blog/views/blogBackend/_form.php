@@ -174,7 +174,7 @@ $form = $this->beginWidget(
             ]
         ); ?>
 
-        <?php if (!$model->isNewRecord && $model->icon): ?>
+        <?php if (!$model->isNewRecord && $model->icon) : ?>
             <div class="checkbox">
                 <label>
                     <input type="checkbox" name="delete-file"> <?= Yii::t('YupeModule.yupe', 'Delete the file') ?>

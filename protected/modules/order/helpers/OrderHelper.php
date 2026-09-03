@@ -65,7 +65,7 @@ class OrderHelper
     {
         $labels = [];
         $statuses = OrderStatus::model()->findAll();
-        
+
         foreach ($statuses as $status) {
             if ($status->color) {
                 $labels[$status->id] = ['class' => 'label-' . $status->color];

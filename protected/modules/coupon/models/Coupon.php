@@ -1,4 +1,5 @@
 <?php
+
 Yii::import('application.modules.coupon.CouponModule');
 /**
  * @property integer $id
@@ -18,7 +19,6 @@ Yii::import('application.modules.coupon.CouponModule');
  */
 class Coupon extends yupe\models\YModel
 {
-
     /**
      * @return string the associated database table name
      */
@@ -103,7 +103,7 @@ class Coupon extends yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
@@ -121,7 +121,8 @@ class Coupon extends yupe\models\YModel
 
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
             ]
         );
@@ -182,15 +183,16 @@ class Coupon extends yupe\models\YModel
         }
         if ($price < $this->min_order_price) {
             $errors[] = Yii::t('CouponModule.coupon', 'Min order price') . Yii::t(
-                    'CouponModule.coupon',
-                    '{n} RUB|{n} RUB|{n} RUB',
-                    [$this->min_order_price]
-                );
+                'CouponModule.coupon',
+                '{n} RUB|{n} RUB|{n} RUB',
+                [$this->min_order_price]
+            );
         }
         if (!is_null($this->quantity) && $this->quantity <= 0) {
             $errors[] = Yii::t('CouponModule.coupon', 'Coupons are ended');
         }
-        if (!is_null($this->quantity_per_user) && !Yii::app()->getUser()->getIsGuest() && ($this->getNumberUsagesByUser(Yii::app()->getUser()->getId()) >= $this->quantity_per_user)
+        if (
+            !is_null($this->quantity_per_user) && !Yii::app()->getUser()->getIsGuest() && ($this->getNumberUsagesByUser(Yii::app()->getUser()->getId()) >= $this->quantity_per_user)
         ) {
             $errors[] = Yii::t('CouponModule.coupon', 'You\'ve used up all your coupons');
         }

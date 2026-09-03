@@ -35,7 +35,6 @@ class PageUrlRule extends CBaseUrlRule
         $slugs = Yii::app()->getCache()->get(self::CACHE_KEY);
 
         if (false === $slugs) {
-
             $slugs = Yii::app()->getDb()->createCommand()
                 ->setFetchMode(PDO::FETCH_COLUMN, 0)
                 ->from('{{page_page}}')

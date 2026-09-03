@@ -1,4 +1,5 @@
 <?php
+
 /**
  * EFeedItemRSS1 Class file
  * @author Antonio Ramirez
@@ -92,7 +93,6 @@ class EFeedItemRSS1 extends EFeedItemAbstract
         if (in_array($tag->name, $this->CDATAEncoded)) {
             $element .= CHtml::openTag($tag->name, $tag->attributes);
             $element .= '<![CDATA[';
-
         } else {
             $element .= CHtml::openTag($tag->name, $tag->attributes);
         }

@@ -10,6 +10,7 @@
  * @since 0.1
  *
  */
+
 use yupe\widgets\YPurifier;
 
 /**

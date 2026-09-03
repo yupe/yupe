@@ -18,10 +18,10 @@ $form = $this->beginWidget(
                 [
                     'widgetOptions' => [
                         'data' => CHtml::listData(
-                                DictionaryGroup::model()->findAll(),
-                                'id',
-                                'name'
-                            )
+                            DictionaryGroup::model()->findAll(),
+                            'id',
+                            'name'
+                        )
                     ]
                 ]
             ); ?>
@@ -61,9 +61,9 @@ $form = $this->beginWidget(
         'encodeLabel' => false,
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
-                'DictionaryModule.dictionary',
-                'Fund dictionary item'
-            ),
+            'DictionaryModule.dictionary',
+            'Fund dictionary item'
+        ),
     ]
 ); ?>
 

@@ -98,4 +98,4 @@ class OrderNotifyService extends CApplicationComponent
 
         $this->mail->send($from, $order->email, $theme, $body);
     }
-} 
+}

@@ -10,18 +10,18 @@
     <email><?= $model->shop_email; ?></email>
 <!--  @TODO по хорошему надо валюту с ЦБ страны связать-->
     <currencies>
-        <?php foreach ($currencies as $currency): ?>
+        <?php foreach ($currencies as $currency) : ?>
             <currency id="<?= $currency; ?>" <?= $currency === 'RUB' ? 'rate="1"' : 'rate="CBRF"';?>/>
         <?php endforeach; ?>
     </currencies>
     <categories>
-        <?php foreach($categories as $category):?>
-            <category id="<?= $category->id?>" <?= $category->parent_id ? sprintf('parentId="%s"', $category->parent_id):'';?>><?= $category->name;?></category>
+        <?php foreach ($categories as $category) :?>
+            <category id="<?= $category->id?>" <?= $category->parent_id ? sprintf('parentId="%s"', $category->parent_id) : '';?>><?= $category->name;?></category>
         <?php endforeach;?>
     </categories>
     <cpa><?= $model->shop_cpa; ?></cpa>
     <offers>
-        <?php foreach($offers as $offer):?>
+        <?php foreach ($offers as $offer) :?>
             <offer id="<?= $offer->id?>" type="vendor.model" available="<?= $offer->isInStock() ? 'true' : 'false';?>">
                 <url><?= CHtml::normalizeUrl(Yii::app()->getBaseUrl(true) . ProductHelper::getUrl($offer)); ?></url>
                 <price><?= $offer->getResultPrice();?></price>
@@ -33,8 +33,10 @@
                 <model><?= htmlspecialchars(strip_tags($offer->name));?></model>
                 <vendor><?= htmlspecialchars(strip_tags($offer->producer->name));?></vendor>
                 <description><?= htmlspecialchars(strip_tags($offer->description));?></description>
-                <?php foreach($offer->attributes() as $attr):?>
-                     <param name="<?= $attr->attribute->title;?>" <?php if($attr->attribute->unit):?> unit="<?= strip_tags($attr->attribute->unit);?>" <?php endif;?>>
+                <?php foreach ($offer->attributes() as $attr) :?>
+                     <param name="<?= $attr->attribute->title;?>" <?php if ($attr->attribute->unit) :
+                            ?> unit="<?= strip_tags($attr->attribute->unit);?>" <?php
+                                  endif;?>>
                          <?= htmlspecialchars(strip_tags($attr->value()));?>
                      </param>
                 <?php endforeach;?>

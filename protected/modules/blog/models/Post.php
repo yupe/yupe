@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Post
  *
@@ -11,6 +12,7 @@
  * @since 0.1
  *
  */
+
 use yupe\widgets\YPurifier;
 
 /**
@@ -254,7 +256,7 @@ class Post extends yupe\models\YModel implements ICommentable
     {
         $this->getDbCriteria()->mergeWith(
             [
-                'order' => $this->getTableAlias().'.publish_time '.$typeSort,
+                'order' => $this->getTableAlias() . '.publish_time ' . $typeSort,
             ]
         );
 
@@ -328,13 +330,13 @@ class Post extends yupe\models\YModel implements ICommentable
             ],
         ];
 
-        if(null !== $limit) {
+        if (null !== $limit) {
             $config['pagination'] = [
                 'pageSize' => $limit
             ];
         }
 
-        return new CActiveDataProvider('Post',$config);
+        return new CActiveDataProvider('Post', $config);
     }
 
     /**
@@ -354,7 +356,8 @@ class Post extends yupe\models\YModel implements ICommentable
         $criteria->order = 'publish_time DESC';
 
         return new CActiveDataProvider(
-            'Post', [
+            'Post',
+            [
                 'criteria' => $criteria,
                 'pagination' => [
                     'pageSize' => (int)$limit,
@@ -377,8 +380,8 @@ class Post extends yupe\models\YModel implements ICommentable
             ],
             'tags' => [
                 'class' => 'vendor.yiiext.taggable-behavior.EARTaggableBehavior',
-                'tagTable' => Yii::app()->getDb()->tablePrefix.'blog_tag',
-                'tagBindingTable' => Yii::app()->getDb()->tablePrefix.'blog_post_to_tag',
+                'tagTable' => Yii::app()->getDb()->tablePrefix . 'blog_tag',
+                'tagBindingTable' => Yii::app()->getDb()->tablePrefix . 'blog_post_to_tag',
                 'tagModel' => 'Tag',
                 'modelTableFk' => 'post_id',
                 'tagBindingTableTagId' => 'tag_id',
@@ -551,7 +554,6 @@ class Post extends yupe\models\YModel implements ICommentable
         $data = Yii::app()->getCache()->get("Blog::Post::archive::{$blogId}");
 
         if (false === $data) {
-
             $criteria = new CDbCriteria();
 
             if ($blogId) {
@@ -564,9 +566,7 @@ class Post extends yupe\models\YModel implements ICommentable
             $models = $this->public()->published()->recent()->findAll($criteria);
 
             if (!empty($models)) {
-
                 foreach ($models as $model) {
-
                     list($day, $month, $year) = explode('-', date('d-m-Y', strtotime($model->publish_time)));
 
                     $data[$year][$month][] = [

@@ -12,7 +12,6 @@
  **/
 class m000000_000000_queue_base extends yupe\components\DbMigration
 {
-
     public function safeUp()
     {
         $this->createTable(

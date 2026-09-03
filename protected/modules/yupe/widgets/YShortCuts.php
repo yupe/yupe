@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Виджет панели быстрого запуска:
  *
@@ -10,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 namespace yupe\widgets;
 
 use Yii;

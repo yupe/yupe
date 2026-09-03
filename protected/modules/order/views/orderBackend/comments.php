@@ -8,7 +8,7 @@
 /* @var $comments Comment[] */
 
 Yii::app()->clientScript
-    ->registerScriptFile(Yii::app()->getModule('comment')->getAssetsUrl().'/js/comments.js')
+    ->registerScriptFile(Yii::app()->getModule('comment')->getAssetsUrl() . '/js/comments.js')
     ->registerScript(
         __FILE__,
         "$(document).ready(function(){
@@ -21,22 +21,22 @@ Yii::app()->clientScript
 
 <div class="comments-widget" id="comments">
 
-    <?php if ($this->showComments): ?>
+    <?php if ($this->showComments) : ?>
         <h2>
             <small>
-                <?= Yii::t('CommentModule.comment', 'Comments').' '.count($comments); ?>
+                <?= Yii::t('CommentModule.comment', 'Comments') . ' ' . count($comments); ?>
             </small>
         </h2>
 
         <div class="comments-list">
-            <?php foreach ($comments as $comment): ?>
+            <?php foreach ($comments as $comment) : ?>
                 <?php $this->render('application.modules.order.views.orderBackend._comment', ['comment' => $comment]) ?>
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
 
-    <?php if ($this->showForm): ?>
-        <?php if (!$this->isAllowed()): ?>
+    <?php if ($this->showForm) : ?>
+        <?php if (!$this->isAllowed()) : ?>
             <div class="alert alert-warning">
                 <?= Yii::t(
                     'CommentModule.comment',
@@ -50,7 +50,7 @@ Yii::app()->clientScript
                     ]
                 ); ?>
             </div>
-        <?php else: ?>
+        <?php else : ?>
             <div class="comment-form-wrap">
                 <hr/>
                 <?php $form = $this->beginWidget(
@@ -121,7 +121,7 @@ Yii::app()->clientScript
                     </div>
                 </div>
 
-                <?php if ($module->showCaptcha && Yii::app()->getUser()->getIsGuest()): ?>
+                <?php if ($module->showCaptcha && Yii::app()->getUser()->getIsGuest()) : ?>
                     <?php if (CCaptcha::checkRequirements()) : ?>
                         <div class="row">
                             <div class="col-sm-4 form-group">

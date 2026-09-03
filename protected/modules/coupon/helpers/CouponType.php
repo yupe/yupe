@@ -1,4 +1,5 @@
 <?php
+
 class CouponType
 {
     const TYPE_SUM = 0;

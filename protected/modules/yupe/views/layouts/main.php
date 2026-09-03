@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для layouts/main:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::app()->getLanguage(); ?>">
@@ -19,21 +21,21 @@
     $mainAssets = Yii::app()->getAssetManager()->publish(
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
     );
-    Yii::app()->getClientScript()->registerCssFile($mainAssets.'/css/styles.css');
-    Yii::app()->getClientScript()->registerCssFile($mainAssets.'/css/bootstrap-notify.css');
-    Yii::app()->getClientScript()->registerScriptFile($mainAssets.'/js/main.js');
-    Yii::app()->getClientScript()->registerScriptFile($mainAssets.'/js/bootstrap-notify.js');
-    Yii::app()->getClientScript()->registerScriptFile($mainAssets.'/js/jquery.li-translit.js');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/styles.css');
+    Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/bootstrap-notify.css');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/main.js');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/bootstrap-notify.js');
+    Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
     if (($langs = $this->yupe->getLanguageSelectorArray()) != []) {
-        Yii::app()->getClientScript()->registerCssFile($mainAssets.'/css/flags.css');
+        Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/flags.css');
     }
     ?>
     <?php
     Yii::app()->getClientScript()->registerScript(
         'yupeToken',
-        'var actionToken = '.json_encode(
+        'var actionToken = ' . json_encode(
             [
-                'token' => Yii::app()->getRequest()->csrfTokenName.'='.Yii::app()->getRequest()->csrfToken,
+                'token' => Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->csrfToken,
                 'url' => Yii::app()->createAbsoluteUrl('yupe/modulesBackend/moduleStatus'),
                 'message' => Yii::t('YupeModule.yupe', 'Wait please, your request in process...'),
                 'error' => Yii::t(
@@ -41,7 +43,7 @@
                     'During the processing of your request an unknown error occurred =('
                 ),
                 'loadingimg' => CHtml::image(
-                    $mainAssets.'/img/progressbar.gif',
+                    $mainAssets . '/img/progressbar.gif',
                     '',
                     [
                         'style' => 'width: 100%; height: 20px;',
@@ -62,20 +64,20 @@
                     ),
                     'confirm_activate' => Yii::t('YupeModule.yupe', 'Do you really want to enable module?'),
                     'confirm_uninstall' => Yii::t(
-                            'YupeModule.yupe',
-                            'Do you really want to delete module?'
-                        ).'<br />'.Yii::t('YupeModule.yupe', 'All module parameters will be deleted'),
+                        'YupeModule.yupe',
+                        'Do you really want to delete module?'
+                    ) . '<br />' . Yii::t('YupeModule.yupe', 'All module parameters will be deleted'),
                     'confirm_install' => Yii::t(
-                            'YupeModule.yupe',
-                            'Do you really want to install module?'
-                        ).'<br />'.Yii::t('YupeModule.yupe', 'New module parameters will be added'),
+                        'YupeModule.yupe',
+                        'Do you really want to install module?'
+                    ) . '<br />' . Yii::t('YupeModule.yupe', 'New module parameters will be added'),
                     'confirm_cacheFlush' => Yii::t('YupeModule.yupe', 'Do you really want to clean cache?'),
                     'confirm_cacheAll' => Yii::t('YupeModule.yupe', 'Do you really want to clean cache?'),
                     'confirm_assetsFlush' => Yii::t('YupeModule.yupe', 'Do you really want to clean assets?'),
                     'confirm_cacheAssetsFlush' => Yii::t(
-                            'YupeModule.yupe',
-                            'Do you really want to clean cache and assets?'
-                        ).'<br />'.Yii::t('YupeModule.yupe', 'This process can take much time!'),
+                        'YupeModule.yupe',
+                        'Do you really want to clean cache and assets?'
+                    ) . '<br />' . Yii::t('YupeModule.yupe', 'This process can take much time!'),
                     'unknown' => Yii::t('YupeModule.yupe', 'Unknown action was selected!'),
                 ],
             ]

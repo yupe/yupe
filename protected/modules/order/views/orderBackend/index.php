@@ -1,5 +1,5 @@
 <?php
-Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl().'/css/order-backend.css');
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-backend.css');
 
 $this->breadcrumbs = [
     Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
@@ -82,24 +82,30 @@ $this->widget(
                     ],
                 ], true),
                 'value' => function ($data) {
-                    return CHtml::link(Yii::app()->getDateFormatter()->formatDateTime($data->date, 'medium'),
-                        ["/order/orderBackend/update", "id" => $data->id]);
+                    return CHtml::link(
+                        Yii::app()->getDateFormatter()->formatDateTime($data->date, 'medium'),
+                        ["/order/orderBackend/update", "id" => $data->id]
+                    );
                 },
             ],
             [
                 'name' => 'name',
                 'type' => 'raw',
                 'value' => function ($data) {
-                    return isset($data->client) ? CHtml::link(CHtml::encode($data->client->getFullName()),
-                        ['/order/clientBackend/view', 'id' => $data->user_id]) : CHtml::encode($data->name);
+                    return isset($data->client) ? CHtml::link(
+                        CHtml::encode($data->client->getFullName()),
+                        ['/order/clientBackend/view', 'id' => $data->user_id]
+                    ) : CHtml::encode($data->name);
                 },
                 'htmlOptions' => ['width' => '400px'],
             ],
             [
                 'name' => 'total_price',
                 'value' => function ($data) {
-                    return Yii::app()->getNumberFormatter()->formatCurrency($data->getTotalPriceWithDelivery(),
-                        Yii::app()->getModule('store')->currency);
+                    return Yii::app()->getNumberFormatter()->formatCurrency(
+                        $data->getTotalPriceWithDelivery(),
+                        Yii::app()->getModule('store')->currency
+                    );
                 },
             ],
             [

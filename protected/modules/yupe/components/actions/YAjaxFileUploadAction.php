@@ -1,4 +1,5 @@
 <?php
+
 /**
  * YAjaxFileUploadAction.php file.
  *
@@ -79,8 +80,8 @@ class YAjaxFileUploadAction extends CAction
             );
         }
 
-        $this->webPath = '/'.$this->getController()->yupe->uploadPath.'/files/'.date('Y/m/d').'/';
-        $this->uploadPath = Yii::getPathOfAlias('webroot').$this->webPath;
+        $this->webPath = '/' . $this->getController()->yupe->uploadPath . '/files/' . date('Y/m/d') . '/';
+        $this->uploadPath = Yii::getPathOfAlias('webroot') . $this->webPath;
 
         if (!is_dir($this->uploadPath)) {
             if (!@mkdir($this->uploadPath, 0755, true)) {
@@ -125,22 +126,22 @@ class YAjaxFileUploadAction extends CAction
         }
 
         $name = $this->uploadedFile->name;
-        $extension = '.'.$this->uploadedFile->extensionName;
+        $extension = '.' . $this->uploadedFile->extensionName;
         // сгенерировать имя файла и сохранить его,
         // если не включено переименование, то все равно имя переводится в транслит, чтобы не было проблем
         $fileName = $this->rename ?
-            md5(time().uniqid().$name).$extension :
+            md5(time() . uniqid() . $name) . $extension :
             YText::translit(
                 str_ireplace($extension, '', $name)
-            ).'_'.time().$extension;
+            ) . '_' . time() . $extension;
 
-        if (!$this->uploadedFile->saveAs($this->uploadPath.$fileName)) {
+        if (!$this->uploadedFile->saveAs($this->uploadPath . $fileName)) {
             Yii::app()->ajax->raw(
                 ['error' => Yii::t('YupeModule.yupe', 'There is an error when downloading!')]
             );
         }
 
-        $this->fileLink = Yii::app()->getBaseUrl().$this->webPath.$fileName;
+        $this->fileLink = Yii::app()->getBaseUrl() . $this->webPath . $fileName;
         $this->fileName = $name;
 
         return true;

@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('YupeModule.yupe', 'Yupe!') => ['settings'],
     Yii::t('YupeModule.yupe', 'Help'),

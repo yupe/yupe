@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('QueueModule.queue', 'Tasks') => ['/queue/queueBackend/index'],
     $model->id                           => ['view', 'id' => $model->id],

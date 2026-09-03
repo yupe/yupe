@@ -23,15 +23,15 @@ Yii::app()->clientScript->registerScript(
 <p><?=  Yii::t('YupeModule.yupe', 'Yupe! Generator helps to create CRUD for any model.'); ?></p>
 
 <p><?=  Yii::t(
-        'YupeModule.yupe',
-        ' The resulting interface is well integrated into the control panel of Yupe!.'
-    ); ?></p>
+    'YupeModule.yupe',
+    ' The resulting interface is well integrated into the control panel of Yupe!.'
+); ?></p>
 
 <p><?=  Yii::t(
-        'YupeModule.yupe',
-        'More information and technical support you can find in our site {site}.',
-        ['{site}' => CHtml::link(Yii::t('YupeModule.yupe', 'Yupe!'), 'https://yupe.ru/?from=generator')]
-    ); ?></p>
+    'YupeModule.yupe',
+    'More information and technical support you can find in our site {site}.',
+    ['{site}' => CHtml::link(Yii::t('YupeModule.yupe', 'Yupe!'), 'https://yupe.ru/?from=generator')]
+); ?></p>
 
 <?php $form = $this->beginWidget('CCodeForm', ['model' => $model]); ?>
 

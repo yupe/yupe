@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\Event;
 
 class UserActivateEvent extends Event
@@ -39,7 +40,7 @@ class UserActivateEvent extends Event
         return $this->token;
     }
 
-    public function __construct($token,  User $user = null)
+    public function __construct($token, User $user = null)
     {
         $this->token = $token;
 

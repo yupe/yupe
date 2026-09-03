@@ -100,7 +100,8 @@ class Type extends \yupe\models\YModel
         $criteria->compare('name', $this->name, true);
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
             ]
         );
@@ -116,7 +117,6 @@ class Type extends \yupe\models\YModel
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             TypeAttribute::model()->deleteAllByAttributes(['type_id' => $this->id]);
 
             foreach ($attributes as $attributeId) {
@@ -150,7 +150,7 @@ class Type extends \yupe\models\YModel
                 $attributeGroups[Yii::t('StoreModule.store', 'Without a group')][] = $attribute;
             }
         }
-        
+
         return $attributeGroups;
     }
 }

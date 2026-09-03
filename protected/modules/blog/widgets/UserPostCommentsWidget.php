@@ -47,7 +47,8 @@ class UserPostCommentsWidget extends yupe\widgets\YWidget
         $criteria->addCondition('level <> 1');
 
         $dataProvider = new CActiveDataProvider(
-            'Comment', [
+            'Comment',
+            [
                 'criteria' => $criteria,
                 'sort' => [
                     'defaultOrder' => 'comment.id DESC',

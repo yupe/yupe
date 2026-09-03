@@ -2,7 +2,6 @@
 
 use yupe\components\controllers\FrontController;
 
-
 /**
  * Class SitemapController
  */
@@ -21,7 +20,6 @@ class SitemapController extends FrontController
         parent::init();
 
         $this->generator = Yii::app()->getComponent('sitemapGenerator');
-
     }
 
     /**
@@ -34,7 +32,6 @@ class SitemapController extends FrontController
         $sitemapFile = $module->getSiteMapPath();
 
         if (!file_exists($sitemapFile)) {
-
             $staticPages = SitemapPage::model()->getData();
 
             $this->generator->generate($sitemapFile, $staticPages);

@@ -1,11 +1,11 @@
 <?=  "<?php\n"; ?>
 /**
- * <?=  $this->moduleClass; ?> основной класс модуля <?=  $this->moduleID."\n"; ?>
+ * <?=  $this->moduleClass; ?> основной класс модуля <?=  $this->moduleID . "\n"; ?>
  *
  * @author yupe team <support@yupe.ru>
  * @link https://yupe.ru
  * @copyright 2009-<?= date('Y'); ?> amyLabs && Yupe! team
- * @package yupe.modules.<?=  $this->moduleID."\n"; ?>
+ * @package yupe.modules.<?=  $this->moduleID . "\n"; ?>
  * @since 0.1
  */
 

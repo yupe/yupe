@@ -13,7 +13,8 @@
  *   @var $this NotifyBackendController
  **/
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', [
+    'bootstrap.widgets.TbActiveForm',
+    [
         'id'                     => 'notify-settings-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
@@ -48,7 +49,8 @@ $form = $this->beginWidget(
 
     <?php
     $this->widget(
-        'bootstrap.widgets.TbButton', [
+        'bootstrap.widgets.TbButton',
+        [
             'buttonType' => 'submit',
             'context'    => 'primary',
             'label' => $model->getIsNewRecord() ? Yii::t('NotifyModule.notify', 'Create notification and continue') : Yii::t('NotifyModule.notify', 'Save notification and continue'),
@@ -56,9 +58,10 @@ $form = $this->beginWidget(
     ); ?>
     <?php
     $this->widget(
-        'bootstrap.widgets.TbButton', [
+        'bootstrap.widgets.TbButton',
+        [
             'buttonType' => 'submit',
-            'htmlOptions'=> ['name' => 'submit-type', 'value' => 'index'],
+            'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
             'label' => $model->getIsNewRecord() ? Yii::t('NotifyModule.notify', 'Create notification and close') : Yii::t('NotifyModule.notify', 'Save notification and close'),
         ]
     ); ?>

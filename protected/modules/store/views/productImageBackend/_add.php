@@ -1,4 +1,5 @@
 <?php
+
 $this->widget(
     'bootstrap.widgets.TbFileUpload',
     [
@@ -12,9 +13,9 @@ $this->widget(
         'options' => [
             'maxFileSize' => Yii::app()->getModule('image')->maxSize,
             'acceptFileTypes' => 'js:/(\.|\/)(' . implode(
-                    '|',
-                    Yii::app()->getModule('image')->allowedExtensions()
-                ) . ')$/i',
+                '|',
+                Yii::app()->getModule('image')->allowedExtensions()
+            ) . ')$/i',
         ]
     ]
 );

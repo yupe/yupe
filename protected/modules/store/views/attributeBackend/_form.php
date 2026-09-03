@@ -95,7 +95,7 @@ $form = $this->beginWidget(
     </div>
 </div>
 
-<?php if ($model->getIsNewRecord()): ?>
+<?php if ($model->getIsNewRecord()) : ?>
     <div class="row">
         <div id="options"
              class="<?= !$model->isMultipleValues() ? 'hidden' : ''; ?> col-sm-5">
@@ -106,13 +106,16 @@ $form = $this->beginWidget(
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <?= CHtml::activeTextArea($model, 'rawOptions',
-                        ['rows' => 10, 'class' => 'form-control']); ?>
+                    <?= CHtml::activeTextArea(
+                        $model,
+                        'rawOptions',
+                        ['rows' => 10, 'class' => 'form-control']
+                    ); ?>
                 </div>
             </div>
         </div>
     </div>
-<?php else: ?>
+<?php else : ?>
     <div id="options" class="<?= !$model->isMultipleValues() ? 'hidden' : ''; ?>">
         <div class="row">
             <div class="col-md-4">
@@ -140,7 +143,8 @@ $form = $this->beginWidget(
                         'type' => 'condensed',
                         'ajaxUrl' => Yii::app()->createUrl('/store/attributeBackend/update', ['id' => $model->id]),
                         'template' => "{items}\n{pager}<br/><br/>",
-                        'dataProvider' => new CActiveDataProvider('AttributeOption',
+                        'dataProvider' => new CActiveDataProvider(
+                            'AttributeOption',
                             [
                                 'criteria' => [
                                     'condition' => 'attribute_id = :id',
@@ -170,8 +174,10 @@ $form = $this->beginWidget(
                                 'buttons' => [
                                     'delete' => [
                                         'url' => function ($data) {
-                                            return Yii::app()->createUrl('/store/attributeBackend/deleteOption',
-                                                ['id' => $data->id]);
+                                            return Yii::app()->createUrl(
+                                                '/store/attributeBackend/deleteOption',
+                                                ['id' => $data->id]
+                                            );
                                         },
                                         'options' => [
                                             'class' => 'delete btn-sm btn-default',
@@ -189,16 +195,19 @@ $form = $this->beginWidget(
 
 <hr/>
 
-<?php if (!empty($types)): ?>
+<?php if (!empty($types)) : ?>
     <strong><?= Yii::t('StoreModule.store', 'Use in types'); ?></strong>
     <div class="row">
-        <?php foreach ($types as $type): ?>
+        <?php foreach ($types as $type) : ?>
             <div class="form-group">
                 <div class="col-sm-7">
                     <div class="checkbox">
                         <label>
-                            <?= CHtml::checkBox('types[]', array_key_exists($type->id, $model->getTypes()),
-                                ['value' => $type->id]) ?>
+                            <?= CHtml::checkBox(
+                                'types[]',
+                                array_key_exists($type->id, $model->getTypes()),
+                                ['value' => $type->id]
+                            ) ?>
                             <?= CHtml::encode($type->name); ?>
                         </label>
                     </div>
@@ -243,8 +252,10 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'context' => 'primary',
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store',
-            'Add attribute and continue') : Yii::t('StoreModule.store', 'Save attribute and continue'),
+        'label' => $model->getIsNewRecord() ? Yii::t(
+            'StoreModule.store',
+            'Add attribute and continue'
+        ) : Yii::t('StoreModule.store', 'Save attribute and continue'),
     ]
 ); ?>
 
@@ -253,8 +264,10 @@ $form = $this->beginWidget(
     [
         'buttonType' => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
-        'label' => $model->getIsNewRecord() ? Yii::t('StoreModule.store',
-            'Add attribute and close') : Yii::t('StoreModule.store', 'Save attribute and close'),
+        'label' => $model->getIsNewRecord() ? Yii::t(
+            'StoreModule.store',
+            'Add attribute and close'
+        ) : Yii::t('StoreModule.store', 'Save attribute and close'),
     ]
 ); ?>
 

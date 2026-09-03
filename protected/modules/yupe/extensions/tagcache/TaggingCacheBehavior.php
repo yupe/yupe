@@ -13,7 +13,6 @@
  **/
 class TaggingCacheBehavior extends CBehavior
 {
-
     const PREFIX = '__tag__';
 
     /**
@@ -26,7 +25,7 @@ class TaggingCacheBehavior extends CBehavior
     public function clear($tags)
     {
         foreach ((array)$tags as $tag) {
-            $this->owner->set(self::PREFIX.$tag, microtime(true));
+            $this->owner->set(self::PREFIX . $tag, microtime(true));
         }
     }
 }

@@ -9,6 +9,5 @@ class m141004_140000_sitemap_page_data extends yupe\components\DbMigration
 
     public function safeDown()
     {
-
     }
 }

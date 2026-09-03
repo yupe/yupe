@@ -1,4 +1,5 @@
 <?php
+
 /**
  * YFrontAccessControl фильтр, контроллирующий доступ к публичной части сайта
  *
@@ -9,6 +10,7 @@
  * @since 0.1
  *
  */
+
 namespace yupe\filters;
 
 use CAccessControlFilter;

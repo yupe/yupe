@@ -135,8 +135,12 @@ $this->breadcrumbs = [
                         Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
                     ],
                 ],
-                'filter' => CHtml::activeDropDownList($page, 'changefreq', SitemapHelper::getChangeFreqList(),
-                    ['class' => 'form-control', 'empty' => '']),
+                'filter' => CHtml::activeDropDownList(
+                    $page,
+                    'changefreq',
+                    SitemapHelper::getChangeFreqList(),
+                    ['class' => 'form-control', 'empty' => '']
+                ),
                 'htmlOptions' => ['style' => 'width: 250px;'],
             ],
             [
@@ -162,8 +166,12 @@ $this->breadcrumbs = [
                     SitemapPage::STATUS_NOT_ACTIVE => ['class' => 'label-default'],
                 ],
                 'htmlOptions' => ['style' => 'width: 150px;'],
-                'filter' => CHtml::activeDropDownList($page, 'status', $page->getStatusList(),
-                    ['class' => 'form-control', 'empty' => '']),
+                'filter' => CHtml::activeDropDownList(
+                    $page,
+                    'status',
+                    $page->getStatusList(),
+                    ['class' => 'form-control', 'empty' => '']
+                ),
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',

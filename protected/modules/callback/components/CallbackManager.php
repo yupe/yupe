@@ -52,7 +52,7 @@ class CallbackManager extends CApplicationComponent
             return false;
         }
         if ($this->module->sentTimeLimit) {
-            if (!$this->hasTimeLimitForSending()){
+            if (!$this->hasTimeLimitForSending()) {
                 $this->setTimeLimitForSending();
             } else {
                 return new Exception(Yii::t('CallbackModule.callback', 'Resending will be available in a few minutes later'));
@@ -114,5 +114,4 @@ class CallbackManager extends CApplicationComponent
 
         return $settedTemporarlyBlockTime ? ($settedTemporarlyBlockTime > $expire_time) : false;
     }
-
 }

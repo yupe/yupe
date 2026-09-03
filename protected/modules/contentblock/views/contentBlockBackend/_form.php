@@ -65,7 +65,7 @@ $form = $this->beginWidget(
 </div>
 <div class="row">
     <div class="col-sm-12 form-group">
-        <?php if (!$model->isNewRecord && $model->type == ContentBlock::HTML_TEXT): ?>
+        <?php if (!$model->isNewRecord && $model->type == ContentBlock::HTML_TEXT) : ?>
             <?=  $form->labelEx($model, 'content'); ?>
             <?php $this->widget(
                 $this->yupe->getVisualEditor(),
@@ -75,7 +75,7 @@ $form = $this->beginWidget(
                 ]
             ); ?>
             <?=  $form->error($model, 'content'); ?>
-        <?php else: ?>
+        <?php else : ?>
             <?=  $form->textAreaGroup(
                 $model,
                 'content',

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *   Widget CustomGridView
  *
@@ -168,8 +169,8 @@ class CustomGridView extends \TbExtendedGridView
     public function renderBulkActions()
     {
         \Booster::getBooster()->registerAssetJs('jquery.saveselection.gridview.js');
-        $this->componentsAfterAjaxUpdate[] = "$.fn.yiiGridView.afterUpdateGrid('".$this->id."');";
-        echo '<tr><td colspan="'.count($this->columns).'" class="grid-toolbar">';
+        $this->componentsAfterAjaxUpdate[] = "$.fn.yiiGridView.afterUpdateGrid('" . $this->id . "');";
+        echo '<tr><td colspan="' . count($this->columns) . '" class="grid-toolbar">';
         if (!empty($this->bulk)) {
             $this->bulk->renderButtons();
         }
@@ -185,9 +186,9 @@ class CustomGridView extends \TbExtendedGridView
                 echo CHtml::link(
                     Yii::t('YupeModule.yupe', 'Add'),
                     [
-                        '/'.$this->getController()->getModule()->getId().'/'.lcfirst(
+                        '/' . $this->getController()->getModule()->getId() . '/' . lcfirst(
                             $this->_modelName
-                        ).'Backend/create',
+                        ) . 'Backend/create',
                     ],
                     ['class' => 'btn btn-success pull-right btn-sm']
                 );
@@ -202,7 +203,6 @@ class CustomGridView extends \TbExtendedGridView
     public function renderSorter()
     {
         if ($this->sorter) {
-
             $columns = ['' => Yii::t('YupeModule.yupe', '--sort by--')];
 
             foreach ($this->dataProvider->model->getAttributes() as $attribute => $value) {
@@ -224,12 +224,12 @@ $('body').on('click', '#{$sorterName}', function(event){
 JS
             );
 
-            return '<div class="pull-left">'.CHtml::dropDownList(
+            return '<div class="pull-left">' . CHtml::dropDownList(
                 $sorterName,
                 null,
                 $columns,
                 ['class' => 'form-control']
-            ).'</div>';
+            ) . '</div>';
         }
     }
 
@@ -293,15 +293,15 @@ JS
             'align' => 'right',
             'actionButtons' => [
                 [
-                    'id' => 'delete-'.strtolower($this->_modelName),
+                    'id' => 'delete-' . strtolower($this->_modelName),
                     'buttonType' => 'button',
                     'context' => 'danger',
                     'size' => 'small',
                     'label' => Yii::t('YupeModule.yupe', 'Delete'),
-                    'click' => 'js:function (values) { if(!confirm("'.Yii::t(
-                            'YupeModule.yupe',
-                            'Do you really want to delete selected elements?'
-                        ).'")) return false; multiaction'.$this->uid.'("delete", values); }',
+                    'click' => 'js:function (values) { if(!confirm("' . Yii::t(
+                        'YupeModule.yupe',
+                        'Do you really want to delete selected elements?'
+                    ) . '")) return false; multiaction' . $this->uid . '("delete", values); }',
                 ],
             ],
             'checkBoxColumnConfig' => [
@@ -366,7 +366,6 @@ JS
 
         // Если переменная не найдена нужно проверить наличие данных в БД
         if (!isset($sessionSettings[$modelName]['pageSize'])) {
-
             $sessionSettings[$modelName] = [];
             $setting = Settings::model()->findAllByAttributes(
                 [
@@ -392,7 +391,6 @@ JS
             }
         } // Если информация найдена в сессии и значение отличается
         elseif ($currentPageSize !== $sessionSettings[$modelName]['pageSize']) {
-
             // Обновим запись в базе
             $setting = Settings::model()->findByAttributes(
                 [
@@ -474,7 +472,7 @@ JS
             ? ""
             : ", '$csrfTokenName':'{$csrfToken}'";
         Yii::app()->getClientScript()->registerScript(
-            __CLASS__.'#'.$this->id.'ExHeadline',
+            __CLASS__ . '#' . $this->id . 'ExHeadline',
             <<<JS
             (function () {
     $('body').on('click', '#{$this->getId()} .pageSize', function (event) {
@@ -506,10 +504,10 @@ JS
     public function renderMultiaction()
     {
         Yii::app()->getClientScript()->registerScript(
-            __CLASS__.'#'.$this->id.'ExMultiaction',
-            'var multiaction'.$this->uid.' = function (action, values) {
+            __CLASS__ . '#' . $this->id . 'ExMultiaction',
+            'var multiaction' . $this->uid . ' = function (action, values) {
                 var queryString = "";
-                var url = "'.Yii::app()->getController()->createUrl('multiaction').'";
+                var url = "' . Yii::app()->getController()->createUrl('multiaction') . '";
                 $.map(values, function (itemInput) {
                     queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + itemInput;
                 });
@@ -517,15 +515,15 @@ JS
                     url: url,
                     type: "POST",
                     dataType: "json",
-                    data: "'.Yii::app()->getRequest()->csrfTokenName.'='.Yii::app()->getRequest()->getCsrfToken().'&model='.$this->_modelName.'&do=" + action + "&" + queryString,
+                    data: "' . Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->getCsrfToken() . '&model=' . $this->_modelName . '&do=" + action + "&" + queryString,
                     success: function (data) {
                         if (data.result) {
-                            jQuery("#'.$this->id.'").yiiGridView("update",{url: document.location.href });
+                            jQuery("#' . $this->id . '").yiiGridView("update",{url: document.location.href });
                         } else {
                             alert(data.data);
                         }
                     },
-                    error: function (data) {alert("'.Yii::t('YupeModule.yupe', 'Error!').'")}
+                    error: function (data) {alert("' . Yii::t('YupeModule.yupe', 'Error!') . '")}
                 });
             }',
             CClientScript::POS_BEGIN
@@ -544,7 +542,7 @@ JS
                 Yii::getPathOfAlias('application.modules.yupe.views.assets')
             );
             Yii::app()->getClientScript()->registerScriptFile(
-                $mainAssets.'/js/custom-grid-sortable.js',
+                $mainAssets . '/js/custom-grid-sortable.js',
                 CClientScript::POS_END
             );
         }

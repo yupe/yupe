@@ -41,9 +41,9 @@ $form = $this->beginWidget(
         'encodeLabel' => false,
         'buttonType' => 'submit',
         'label' => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
-                'GalleryModule.gallery',
-                'Find gallery'
-            ),
+            'GalleryModule.gallery',
+            'Find gallery'
+        ),
     ]
 ); ?>
 

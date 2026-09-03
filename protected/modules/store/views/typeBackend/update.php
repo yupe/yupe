@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('StoreModule.store', 'Product types') => ['/store/typeBackend/index'],
     $model->name,

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Файл конфигурации модуля
@@ -11,6 +12,7 @@
  * @since 0.1
  *
  */
+
 return [
     'module' => [
         'class' => 'application.modules.page.PageModule'

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Экшн, отвечающий за регистрацию нового пользователя
  *
@@ -10,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 use yupe\helpers\Url;
 
 /**
@@ -34,16 +36,13 @@ class RegistrationAction extends CAction
             throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
         }
 
-        $form = new RegistrationForm;
+        $form = new RegistrationForm();
 
         if (($data = Yii::app()->getRequest()->getPost('RegistrationForm')) !== null) {
-
             $form->setAttributes($data);
 
             if ($form->validate()) {
-
                 if ($user = Yii::app()->userManager->createUser($form)) {
-
                     if (!$module->emailAccountVerification) {
                         $this->autoLoginUser($form);
                     }

@@ -6,8 +6,8 @@
  */
 ?>
 <div class="shortcuts">
-    <?php foreach ($modules as $module): ?>
-        <?php if (!$module->getIsShowInAdminMenu() && !$module->getExtendedNavigation()): ?>
+    <?php foreach ($modules as $module) : ?>
+        <?php if (!$module->getIsShowInAdminMenu() && !$module->getExtendedNavigation()) : ?>
             <?php continue; ?>
         <?php endif; ?>
         <?=  CHtml::link($this->render('_view', ['module' => $module, 'updates' => $updates], true), is_string($module->getAdminPageLink()) ? [$module->getAdminPageLink()] : $module->getAdminPageLink(), ['class' => 'shortcut']); ?>
@@ -27,7 +27,7 @@
                 if (response.result) {
                     $this.fadeOut();
                     $('#notifications').notify({
-                        message: {text: '<?=  Yii::t('YupeModule.yupe','Successful');?>'},
+                        message: {text: '<?=  Yii::t('YupeModule.yupe', 'Successful');?>'},
                         type: 'success'
                     }).show();
                 }

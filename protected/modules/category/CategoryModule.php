@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CategoryModule основной класс модуля category
  *

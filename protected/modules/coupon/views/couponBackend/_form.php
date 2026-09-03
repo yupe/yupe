@@ -11,7 +11,7 @@
             <?=  Yii::t("CouponModule.coupon", "Coupon"); ?>
         </a>
     </li>
-    <?php if (!$model->getIsNewRecord()): ?>
+    <?php if (!$model->getIsNewRecord()) : ?>
         <li>
             <a href="#history" data-toggle="tab">
                 <?=  Yii::t("CouponModule.coupon", "Purchasing history"); ?>
@@ -127,7 +127,7 @@
                         'prepend' => '<i class="fa fa-calendar"></i>',
                     ]
                 );
-                ?>
+?>
             </div>
             <div class="col-sm-3">
                 <?=  $form->datePickerGroup(
@@ -144,7 +144,7 @@
                         'prepend' => '<i class="fa fa-calendar"></i>',
                     ]
                 );
-                ?>
+?>
             </div>
         </div>
 
@@ -179,7 +179,7 @@
         <?php $this->endWidget(); ?>
     </div>
 
-    <?php if (!$model->getIsNewRecord()): ?>
+    <?php if (!$model->getIsNewRecord()) : ?>
         <div class="tab-pane panel-body" id="history">
 
             <?php

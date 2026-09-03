@@ -75,9 +75,9 @@ $form = $this->beginWidget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('CommentModule.comment', 'Create comment and continue') : Yii::t(
-                'CommentModule.comment',
-                'Save comment and continue'
-            ),
+            'CommentModule.comment',
+            'Save comment and continue'
+        ),
     ]
 ); ?>
 
@@ -87,9 +87,9 @@ $form = $this->beginWidget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('CommentModule.comment', 'Create comment and close') : Yii::t(
-                'CommentModule.comment',
-                'Save comment and close'
-            ),
+            'CommentModule.comment',
+            'Save comment and close'
+        ),
     ]
 ); ?>
 

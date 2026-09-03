@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\widgets;
 
 use CHtmlPurifier;

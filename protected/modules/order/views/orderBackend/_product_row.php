@@ -15,28 +15,30 @@ $id = $model->id;
 
 <tr class="product-row">
     <td>
-        <?php if (!$new): ?>
+        <?php if (!$new) : ?>
             <input type="hidden" name="OrderProduct[<?= $id; ?>][id]" value="<?= $id; ?>"/>
         <?php endif; ?>
-        <?php if ($productExists): ?>
+        <?php if ($productExists) : ?>
             <input type="hidden" class="product-base-price" value="<?= $product->getResultPrice(); ?>"/>
             <input type="hidden" name="OrderProduct[<?= $id; ?>][product_id]"
                    value="<?= $product->id; ?>"/>
             <img src="<?= $product->getImageUrl(40, 40); ?>" alt="" class="img-thumbnail"/>
         <?php endif; ?>
     </td>
-    <td <?php if (!$hasVariants): ?> colspan="2" <?php endif; ?>>
-        <?php if ($productExists): ?>
+    <td <?php if (!$hasVariants) :
+        ?> colspan="2" <?php
+        endif; ?>>
+        <?php if ($productExists) : ?>
             <?= CHtml::link($model->product_name ?: $product->name, ['/store/productBackend/update', 'id' => $product->id]); ?>
             <br/>
             [<?= $product->getResultPrice(); ?><?= Yii::t("OrderModule.order", Yii::app()->getModule('store')->currency); ?>]
-        <?php else: ?>
+        <?php else : ?>
             <?= $model->product_name; ?>
         <?php endif; ?>
     </td>
-    <?php if ($hasVariants): ?>
+    <?php if ($hasVariants) : ?>
     <td>
-        <?php if ($productExists): ?>
+        <?php if ($productExists) : ?>
             <?php
             $variantGroups = [];
             $variantGroupsSelected = [];
@@ -68,7 +70,7 @@ $id = $model->id;
                 $options[$var['id']] = ['data-type' => $var['type'], 'data-amount' => $var['amount'], 'class' => 'muted'];
             }
             ?>
-            <?php foreach ($variantGroups as $title => $variantGroup): ?>
+            <?php foreach ($variantGroups as $title => $variantGroup) : ?>
                 <div class="row">
                     <div class="col-sm-5">
                         <?= $title; ?>
@@ -83,7 +85,7 @@ $id = $model->id;
                     </div>
                 </div>
             <?php endforeach; ?>
-        <?php else: ?>
+        <?php else : ?>
             <p class="text-muted"><?= Yii::t("OrderModule.order", "Product deleted"); ?></p>
         <?php endif; ?>
     </td>

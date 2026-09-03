@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Общий контроллер для панели управления и фронтенда
  *
@@ -126,7 +127,6 @@ abstract class Controller extends \CController
     public function widget($className, $properties = [], $captureOutput = false)
     {
         try {
-
             $modulePath = explode('.', $className);
 
             $isModule = strpos($className, 'application.modules') !== false
@@ -134,7 +134,6 @@ abstract class Controller extends \CController
                 && !Yii::app()->hasModule($modulePath[2]);
 
             if (false === Yii::getPathOfAlias($className) || $isModule) {
-
                 if ($isModule) {
                     throw new CException(
                         Yii::t(
@@ -144,10 +143,10 @@ abstract class Controller extends \CController
                                 '{widget}' => $className,
                                 '{module}' => $modulePath[2],
                             ]
-                        ), 1
+                        ),
+                        1
                     );
                 } elseif (class_exists($className) === false) {
-
                     throw new CException(
                         Yii::t(
                             'YupeModule.yupe',
@@ -161,9 +160,7 @@ abstract class Controller extends \CController
             }
 
             $widget = parent::widget($className, $properties, $captureOutput);
-
         } catch (CException $e) {
-
             echo CHtml::tag(
                 'p',
                 [
@@ -172,17 +169,16 @@ abstract class Controller extends \CController
                 $e->getCode()
                     ? $e->getMessage()
                     : Yii::t(
-                    'YupeModule.yupe',
-                    'Error occurred during the render widget ({widget}): {error}',
-                    [
+                        'YupeModule.yupe',
+                        'Error occurred during the render widget ({widget}): {error}',
+                        [
                         '{error}' => $e->getMessage(),
                         '{widget}' => $className,
-                    ]
-                )
+                        ]
+                    )
             );
 
             return null;
-
         }
 
         return $widget;
@@ -236,16 +232,17 @@ abstract class Controller extends \CController
     {
         if (Yii::app()->getComponent('log')) {
             foreach (Yii::app()->getComponent('log')->routes as $route) {
-                if (in_array(
-                    get_class($route),
-                    [
+                if (
+                    in_array(
+                        get_class($route),
+                        [
                         'CFileLogRoute',
                         'CProfileLogRoute',
                         'CWebLogRoute',
                         'YiiDebugToolbarRoute',
                         'DbProfileLogRoute',
-                    ]
-                )
+                        ]
+                    )
                 ) {
                     $route->enabled = false;
                 }

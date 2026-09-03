@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\Event;
 use yupe\widgets\YPurifier;
 
@@ -324,7 +325,8 @@ class Page extends yupe\models\YModel
         $criteria->compare('layout', $this->layout);
 
         return new CActiveDataProvider(
-            get_class($this), [
+            get_class($this),
+            [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 't.order DESC, t.create_time DESC'],
             ]
@@ -453,7 +455,6 @@ class Page extends yupe\models\YModel
         $list = [];
 
         foreach ($models as $model) {
-
             $model->title = str_repeat('&emsp;', $level) . $model->title;
 
             $list[$model->id] = $model->title;

@@ -111,11 +111,13 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
         $model = new Attribute();
 
         if (($data = Yii::app()->getRequest()->getPost('Attribute')) !== null) {
-
             $model->setAttributes($data);
 
-            if ($model->save() && $model->setTypes(Yii::app()->getRequest()->getPost('types',
-                    [])) && $model->setMultipleValuesAttributes(explode(PHP_EOL, $model->rawOptions))
+            if (
+                $model->save() && $model->setTypes(Yii::app()->getRequest()->getPost(
+                    'types',
+                    []
+                )) && $model->setMultipleValuesAttributes(explode(PHP_EOL, $model->rawOptions))
             ) {
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -147,15 +149,16 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Attribute')) !== null) {
-
             $currentType = $model->type;
 
             $model->setAttributes(Yii::app()->getRequest()->getPost('Attribute'));
 
-            if ($model->save() && $model->changeType($currentType,
-                    $model->type) && $model->setTypes(Yii::app()->getRequest()->getPost('types', []))
+            if (
+                $model->save() && $model->changeType(
+                    $currentType,
+                    $model->type
+                ) && $model->setTypes(Yii::app()->getRequest()->getPost('types', []))
             ) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Attribute updated')
@@ -189,7 +192,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $transaction = Yii::app()->getDb()->beginTransaction();
 
             try {
@@ -207,7 +209,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                 $transaction->rollback();
                 Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
             }
-
         } else {
             throw new CHttpException(
                 400,
@@ -224,7 +225,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     public function actionDeleteOption($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $option = AttributeOption::model()->findByPk($id);
 
             if (null === $option) {
@@ -238,7 +238,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
                     (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
                 );
             }
-
         } else {
             throw new CHttpException(
                 400,
@@ -255,7 +254,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
     public function actionAddOption($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $model = $this->loadModel($id);
 
             $option = new AttributeOption();
@@ -269,8 +267,6 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
             }
 
             Yii::app()->ajax->failure();
-
-
         } else {
             throw new CHttpException(
                 400,
@@ -330,7 +326,8 @@ class AttributeBackendController extends yupe\components\controllers\BackControl
      */
     protected function performAjaxValidation(Attribute $model)
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
+        if (
+            Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
                 'ajax'
             ) === 'attribute-form'
         ) {

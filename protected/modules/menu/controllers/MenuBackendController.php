@@ -85,7 +85,6 @@ class MenuBackendController extends yupe\components\controllers\BackController
         $model = new Menu();
 
         if (($data = Yii::app()->getRequest()->getPost('Menu')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
@@ -115,11 +114,9 @@ class MenuBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Menu')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'Record was updated!')

@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\controllers\FrontController;
 use yupe\widgets\YFlashMessages;
 
@@ -16,7 +17,8 @@ class PaymentController extends FrontController
     {
         $order = Order::model()->findByPk($orderId);
         if (!$order) {
-            Yii::app()->getUser()->setFlash(YFlashMessages::ERROR_MESSAGE,
+            Yii::app()->getUser()->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
                 Yii::t('PaymentModule.payment', 'Unknown request. Don\'t repeat it please!')
             );
             $this->redirect('/');

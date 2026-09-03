@@ -13,7 +13,6 @@
  **/
 class m000000_000000_mail_base extends yupe\components\DbMigration
 {
-
     public function safeUp()
     {
         /**

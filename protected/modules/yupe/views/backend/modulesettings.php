@@ -13,7 +13,8 @@ $this->breadcrumbs = [
 
 <br/>
 
-<?php if (is_array($groups) && count($groups)): { ?>
+<?php if (is_array($groups) && count($groups)) :
+    { ?>
     <?= CHtml::beginForm(
         ['/yupe/backend/saveModulesettings'],
         'post',
@@ -26,7 +27,7 @@ $this->breadcrumbs = [
         <div class="col-sm-8">
             <?php $collapse = $this->beginWidget('booster.widgets.TbCollapse'); ?>
             <?php $i = 0; ?>
-            <?php foreach ((array)$groups as $title => $items): ?>
+            <?php foreach ((array)$groups as $title => $items) : ?>
                 <?php $i++; ?>
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -38,7 +39,7 @@ $this->breadcrumbs = [
                     </div>
                     <div id="group-<?= $i ?>" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            <?php foreach ((array)$items as $item): ?>
+                            <?php foreach ((array)$items as $item) : ?>
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <div class="form-group">
@@ -77,6 +78,9 @@ $this->breadcrumbs = [
         </div>
     </div>
     <?= CHtml::endForm(); ?>
-<?php } else: { ?>
+    <?php }
+else :
+    { ?>
     <b><?= Yii::t('YupeModule.yupe', 'There is no parameters which you cat change for this module...'); ?></b>
-<?php } endif; ?>
+    <?php }
+endif; ?>

@@ -65,11 +65,9 @@ class NewsBackendController extends yupe\components\controllers\BackController
         $model = new News();
 
         if (($data = Yii::app()->getRequest()->getPost('News')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('NewsModule.news', 'News article was created!')
@@ -149,11 +147,9 @@ class NewsBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('News')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('NewsModule.news', 'News article was updated!')
@@ -162,9 +158,9 @@ class NewsBackendController extends yupe\components\controllers\BackController
                 $this->redirect(
                     Yii::app()->getRequest()->getIsPostRequest()
                         ? (array)Yii::app()->getRequest()->getPost(
-                        'submit-type',
-                        ['update', 'id' => $model->id]
-                    )
+                            'submit-type',
+                            ['update', 'id' => $model->id]
+                        )
                         : ['view', 'id' => $model->id]
                 );
             }
@@ -197,7 +193,6 @@ class NewsBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id = null)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $this->loadModel($id)->delete();
 
             Yii::app()->getUser()->setFlash(

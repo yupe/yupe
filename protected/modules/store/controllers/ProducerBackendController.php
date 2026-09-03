@@ -134,8 +134,10 @@ class ProducerBackendController extends yupe\components\controllers\BackControll
                 );
             }
         } else {
-            throw new CHttpException(400,
-                Yii::t('StoreModule.store', 'Bad request. Please don\'t use similar requests anymore'));
+            throw new CHttpException(
+                400,
+                Yii::t('StoreModule.store', 'Bad request. Please don\'t use similar requests anymore')
+            );
         }
     }
 

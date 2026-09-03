@@ -6,7 +6,6 @@ use CConsoleCommand;
 use CLogger;
 use Yii;
 
-
 /**
  * Class ConsoleCommand
  */

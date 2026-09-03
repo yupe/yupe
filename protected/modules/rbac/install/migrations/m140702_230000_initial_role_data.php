@@ -1,4 +1,5 @@
 <?php
+
 Yii::import('application.modules.user.models.User');
 Yii::import('application.modules.rbac.models.*');
 

@@ -38,7 +38,6 @@ class m140115_132319_auth_item_assign extends yupe\components\DbMigration
             'CASCADE',
             'CASCADE'
         );
-
     }
 
     public function safeDown()

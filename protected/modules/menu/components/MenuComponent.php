@@ -125,9 +125,11 @@ class MenuComponent extends CApplicationComponent
      */
     protected function getEntitiesByModuleName($moduleId)
     {
-        if (empty($moduleId)
+        if (
+            empty($moduleId)
             || !key_exists($moduleId, $this->modules)
-            || !key_exists('entities', $this->modules[$moduleId])) {
+            || !key_exists('entities', $this->modules[$moduleId])
+        ) {
             return [];
         }
 

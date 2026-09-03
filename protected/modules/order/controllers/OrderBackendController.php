@@ -1,4 +1,5 @@
 <?php
+
 use yupe\widgets\YFlashMessages;
 
 /**
@@ -6,7 +7,6 @@ use yupe\widgets\YFlashMessages;
  */
 class OrderBackendController extends yupe\components\controllers\BackController
 {
-
     /**
      * @var ProductRepository
      */
@@ -74,7 +74,6 @@ class OrderBackendController extends yupe\components\controllers\BackController
         $model = new Order();
 
         if (Yii::app()->getRequest()->getIsPostrequest() && Yii::app()->getRequest()->getPost('Order')) {
-
             $model->setAttributes(Yii::app()->getRequest()->getPost('Order'));
 
             $model->setProducts(Yii::app()->getRequest()->getPost('OrderProduct', 'null'));
@@ -112,13 +111,13 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 YFlashMessages::ERROR_MESSAGE,
                 Yii::t('OrderModule.order', 'Responsible manager is {user}...', [
                     '{user}' => $model->manager->getFullName()
-                ]));
+                ])
+            );
 
             $this->redirect(['/order/orderBackend/view', 'id' => $model->id]);
         }
 
         if (Yii::app()->getRequest()->getIsPostrequest() && Yii::app()->getRequest()->getPost('Order')) {
-
             $order = Yii::app()->getRequest()->getPost('Order', []);
 
             $products = Yii::app()->getRequest()->getPost('OrderProduct', []);
@@ -126,7 +125,6 @@ class OrderBackendController extends yupe\components\controllers\BackController
             $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
             if ($model->store($order, $products)) {
-
                 if (!empty($coupons)) {
                     $model->applyCoupons($coupons);
                 }
@@ -173,13 +171,13 @@ class OrderBackendController extends yupe\components\controllers\BackController
                 YFlashMessages::ERROR_MESSAGE,
                 Yii::t('OrderModule.order', 'Responsible manager is {user}...', [
                     '{user}' => $model->manager->getFullName()
-                ]));
+                ])
+            );
 
             $this->redirect(['/order/orderBackend/view', 'id' => $model->id]);
         }
 
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $model->delete();
 
             Yii::app()->getUser()->setFlash(

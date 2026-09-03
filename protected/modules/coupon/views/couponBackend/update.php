@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var Coupon $model
  */

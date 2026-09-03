@@ -33,11 +33,9 @@ class ExportBackendController extends yupe\components\controllers\BackController
         ]);
 
         if (($data = Yii::app()->getRequest()->getPost('Export')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YmlModule.default', 'Record was created!')
@@ -60,11 +58,9 @@ class ExportBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Export')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YmlModule.default', 'Record was updated!')

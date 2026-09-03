@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Файл класса UserIdentity, который расширяет возможности стандартного CUserIdentity
  *
@@ -10,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 use yupe\models\Settings;
 
 class UserIdentity extends CUserIdentity

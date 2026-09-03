@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User tokens migration
  * Класс миграций для модуля User:

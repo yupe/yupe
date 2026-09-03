@@ -136,8 +136,11 @@ class Payler
         curl_setopt_array($ch, $options);
         $json = curl_exec($ch);
         if ($json === false) {
-            Yii::log(Yii::t('PaylerModule.payler', 'Request error: {message}',
-                ['{message}' => curl_error($ch)]), CLogger::LEVEL_ERROR);
+            Yii::log(Yii::t(
+                'PaylerModule.payler',
+                'Request error: {message}',
+                ['{message}' => curl_error($ch)]
+            ), CLogger::LEVEL_ERROR);
 
             return false;
         }

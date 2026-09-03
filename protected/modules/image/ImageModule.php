@@ -70,7 +70,7 @@ class ImageModule extends WebModule
      */
     public function getUploadPath()
     {
-        return Yii::app()->uploadManager->getBasePath().DIRECTORY_SEPARATOR.$this->uploadPath;
+        return Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
     }
 
     /**
@@ -179,7 +179,7 @@ class ImageModule extends WebModule
     {
         $messages = [];
 
-        $uploadPath = Yii::app()->uploadManager->getBasePath().DIRECTORY_SEPARATOR.$this->uploadPath;
+        $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
 
         if (!$uploadPath) {
             $messages[WebModule::CHECK_ERROR][] = [

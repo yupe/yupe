@@ -2,7 +2,7 @@
 
 namespace application\modules\social\components\services;
 
-use \VKontakteOAuthService;
+use VKontakteOAuthService;
 
 class VKontakte extends VKontakteOAuthService
 {
@@ -30,7 +30,8 @@ class VKontakte extends VKontakteOAuthService
      * @return bool|void
      * @throws \CHttpException
      */
-    protected function fetchAttributes() {
+    protected function fetchAttributes()
+    {
         $info = (array)$this->makeSignedRequest('https://api.vk.com/method/users.get.json', array(
             'query' => array(
                 'user_ids' => $this->uid,
@@ -49,7 +50,8 @@ class VKontakte extends VKontakteOAuthService
      * @param string $redirect_uri
      * @return string
      */
-    protected function getCodeUrl($redirect_uri) {
+    protected function getCodeUrl($redirect_uri)
+    {
         $this->setState('redirect_uri', $redirect_uri);
         $url = parent::getCodeUrl($redirect_uri);
         if (isset($_GET['js'])) {
@@ -66,7 +68,8 @@ class VKontakte extends VKontakteOAuthService
      * @param string $code
      * @return string
      */
-    protected function getTokenUrl($code) {
+    protected function getTokenUrl($code)
+    {
         $url = parent::getTokenUrl($code);
         $url_parts = parse_url($url);
         if (!isset($url_parts['v']) || !isset($url_parts['version'])) {

@@ -50,7 +50,7 @@ $form = $this->beginWidget(
                         'prepend' => '<i class="fa fa-calendar"></i>',
                     ]
                 );
-                ?>
+?>
             </div>
 
             <div class="col-sm-2">
@@ -66,7 +66,8 @@ $form = $this->beginWidget(
             </div>
 
             <div class="col-sm-2">
-                <?php if (count($languages) > 1): { ?>
+                <?php if (count($languages) > 1) :
+                    { ?>
                     <?= $form->dropDownListGroup(
                         $model,
                         'lang',
@@ -79,34 +80,47 @@ $form = $this->beginWidget(
                             ],
                         ]
                     ); ?>
-                    <?php if (!$model->isNewRecord): { ?>
-                        <?php foreach ($languages as $k => $v): { ?>
-                            <?php if ($k !== $model->lang): { ?>
-                                <?php if (empty($langModels[$k])): { ?>
+                    <?php if (!$model->isNewRecord) :
+                        { ?>
+                        <?php foreach ($languages as $k => $v) :
+                            { ?>
+                            <?php if ($k !== $model->lang) :
+                                { ?>
+                                <?php if (empty($langModels[$k])) :
+                                    { ?>
                                     <a href="<?= $this->createUrl(
                                         '/news/newsBackend/create',
                                         ['id' => $model->id, 'lang' => $k]
-                                    ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
-                                            'NewsModule.news',
-                                            'Add translation for {lang} language',
-                                            ['{lang}' => $v]
-                                        ) ?>"></i></a>
-                                <?php } else: { ?>
+                                             ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
+                                        'NewsModule.news',
+                                        'Add translation for {lang} language',
+                                        ['{lang}' => $v]
+                                    ) ?>"></i></a>
+                                    <?php }
+                                else :
+                                    { ?>
                                     <a href="<?= $this->createUrl(
                                         '/news/newsBackend/update',
                                         ['id' => $langModels[$k]]
-                                    ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
-                                            'NewsModule.news',
-                                            'Edit translation in to {lang} language',
-                                            ['{lang}' => $v]
-                                        ) ?>"></i></a>
-                                <?php } endif; ?>
-                            <?php } endif; ?>
-                        <?php } endforeach; ?>
-                    <?php } endif; ?>
-                <?php } else: { ?>
+                                             ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
+                                        'NewsModule.news',
+                                        'Edit translation in to {lang} language',
+                                        ['{lang}' => $v]
+                                    ) ?>"></i></a>
+                                    <?php }
+                                endif; ?>
+                                <?php }
+                            endif; ?>
+                            <?php }
+                        endforeach; ?>
+                        <?php }
+                    endif; ?>
+                    <?php }
+                else :
+                    { ?>
                     <?= $form->hiddenField($model, 'lang'); ?>
-                <?php } endif; ?>
+                    <?php }
+                endif; ?>
             </div>
 
         </div>
@@ -155,7 +169,7 @@ $form = $this->beginWidget(
                     ]
                 ); ?>
 
-                <?php if (!$model->isNewRecord && $model->image): ?>
+                <?php if (!$model->isNewRecord && $model->image) : ?>
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"

@@ -17,9 +17,7 @@ class FeedbackService extends CApplicationComponent
         $success = true;
 
         if (is_array($backEnd)) {
-
             foreach ($backEnd as $storage) {
-
                 $sender = new $storage(Yii::app()->mail, $module);
 
                 if (!$sender->send($form)) {

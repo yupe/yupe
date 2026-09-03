@@ -9,7 +9,6 @@ use Yii;
 use CDbException;
 use Exception;
 
-
 /**
  * Class SortAction
  * @package yupe\components\actions
@@ -62,9 +61,7 @@ class SortAction extends CAction
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             foreach ($items as $id => $priority) {
-
                 $model = $ar->resetScope()->findByPk($id);
 
                 if (null === $model) {
@@ -84,4 +81,4 @@ class SortAction extends CAction
             Yii::app()->ajax->failure();
         }
     }
-} 
+}

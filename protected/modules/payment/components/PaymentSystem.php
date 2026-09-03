@@ -43,7 +43,7 @@ class PaymentSystem extends CApplicationComponent
     {
         $class_info = new ReflectionClass($this);
         $params = json_decode(
-            file_get_contents(dirname($class_info->getFileName()).DIRECTORY_SEPARATOR.$this->parametersFile),
+            file_get_contents(dirname($class_info->getFileName()) . DIRECTORY_SEPARATOR . $this->parametersFile),
             true
         );
 
@@ -62,17 +62,17 @@ class PaymentSystem extends CApplicationComponent
         foreach ((array)$params['settings'] as $param) {
             $variable = $param['variable'];
             $settings .= CHtml::openTag('div', ['class' => 'form-group']);
-            $settings .= CHtml::label($param['name'], 'Payment_settings_'.$variable, ['class' => 'control-label']);
+            $settings .= CHtml::label($param['name'], 'Payment_settings_' . $variable, ['class' => 'control-label']);
             $value = isset($paymentSettings[$variable]) ? $paymentSettings[$variable] : null;
             if (isset($param['options'])) {
                 $settings .= CHtml::dropDownList(
-                    'PaymentSettings['.$variable.']',
+                    'PaymentSettings[' . $variable . ']',
                     $value,
                     CHtml::listData($param['options'], 'value', 'name'),
                     ['class' => 'form-control']
                 );
             } else {
-                $settings .= CHtml::textField('PaymentSettings['.$variable.']', $value, ['class' => 'form-control']);
+                $settings .= CHtml::textField('PaymentSettings[' . $variable . ']', $value, ['class' => 'form-control']);
             }
             $settings .= CHtml::closeTag('div');
         }

@@ -69,8 +69,8 @@ class AvatarWidget extends CWidget
     {
         $this->imageSrc = $this->user->getAvatar($this->size);
         $this->imageAlt = $this->user->nick_name;
-        $this->width = $this->size.'px';
-        $this->htmlOptions = ['class' => 'avatar avatar-'.$this->user->id];
+        $this->width = $this->size . 'px';
+        $this->htmlOptions = ['class' => 'avatar avatar-' . $this->user->id];
 
         if (!$this->height) {
             $this->height = $this->width;
@@ -78,25 +78,25 @@ class AvatarWidget extends CWidget
 
         Yii::app()->clientScript->registerCssFile(
             Yii::app()->assetManager->publish(
-                Yii::getPathOfAlias('user.assets.css').'/image-wrapper.css'
+                Yii::getPathOfAlias('user.assets.css') . '/image-wrapper.css'
             )
         );
 
         $htmlOptions = [
             'class' => 'img-wrapper-tocenter',
-            'style' => 'width: '.$this->width.'; height: '.$this->height.'; background-color: '.$this->backgroundColor.';',
+            'style' => 'width: ' . $this->width . '; height: ' . $this->height . '; background-color: ' . $this->backgroundColor . ';',
         ];
 
         if (isset($this->htmlOptions['class'])) {
             $class = $this->htmlOptions['class'];
             unset($this->htmlOptions['class']);
-            $htmlOptions['class'] .= ' '.$class;
+            $htmlOptions['class'] .= ' ' . $class;
         }
 
         if (isset($this->htmlOptions['style'])) {
             $style = $this->htmlOptions['style'];
             unset($this->htmlOptions['style']);
-            $htmlOptions['style'] .= ' '.$style;
+            $htmlOptions['style'] .= ' ' . $style;
         }
 
         if (is_array($this->htmlOptions) && count($this->htmlOptions) > 0) {
@@ -107,7 +107,7 @@ class AvatarWidget extends CWidget
             'div',
             $htmlOptions,
             CHtml::image(
-                $this->imageSrc.($this->noCache ? '?'.microtime(true) : ''),
+                $this->imageSrc . ($this->noCache ? '?' . microtime(true) : ''),
                 $this->imageAlt,
                 $this->imageHtmlOptions
             )

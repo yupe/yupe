@@ -132,8 +132,8 @@ class NewsModule extends WebModule
                 'Uploading files catalog (relatively {path})',
                 [
                     '{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule(
-                            "yupe"
-                        )->uploadPath,
+                        "yupe"
+                    )->uploadPath,
                 ]
             ),
             'allowedExtensions' => Yii::t('NewsModule.news', 'Accepted extensions (separated by comma)'),

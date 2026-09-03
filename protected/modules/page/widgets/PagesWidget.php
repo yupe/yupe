@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PagesWidget виджет для вывода страниц
  *
@@ -9,6 +10,7 @@
  * @since 0.1
  *
  */
+
 Yii::import('application.modules.page.models.*');
 
 /**
@@ -66,7 +68,7 @@ class PagesWidget extends yupe\widgets\YWidget
             $criteria->addCondition("status = {$this->pageStatus}");
 
             if (!Yii::app()->user->isAuthenticated()) {
-                $criteria->addCondition('is_protected = '.Page::PROTECTED_NO);
+                $criteria->addCondition('is_protected = ' . Page::PROTECTED_NO);
             }
             if ($this->parent_id) {
                 $criteria->addCondition("id = {$this->parent_id} OR parent_id = {$this->parent_id}");

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Файл представления menu/view:
  *
@@ -10,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 $this->breadcrumbs = [
     Yii::t('MenuModule.menu', 'Menu') => ['/menu/menuBackend/index'],
     $model->name,

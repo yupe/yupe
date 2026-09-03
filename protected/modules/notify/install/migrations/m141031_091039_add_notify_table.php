@@ -3,7 +3,7 @@
 class m141031_091039_add_notify_table extends CDbMigration
 {
     public function safeUp()
-	{
+    {
         $this->createTable('{{notify_settings}}', [
                 'id' => 'pk',
                 'user_id' => 'integer NOT NULL',
@@ -27,15 +27,15 @@ class m141031_091039_add_notify_table extends CDbMigration
 
         $users = User::model()->findAll();
 
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $model = new NotifySettings();
             $model->user_id = $user->id;
             $model->save();
         }
-	}
+    }
 
-	public function safeDown()
-	{
+    public function safeDown()
+    {
         $this->dropTable('{{notify_settings}}');
-	}
+    }
 }

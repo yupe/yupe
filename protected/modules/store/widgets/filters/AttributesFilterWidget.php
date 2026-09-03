@@ -1,4 +1,5 @@
 <?php
+
 Yii::import('application.modules.store.components.repository.AttributesRepository');
 
 /**
@@ -49,7 +50,6 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
         }
 
         foreach ($this->attributes as $attribute) {
-
             $model = is_string($attribute) ? Attribute::model()->findByAttributes([
                 'name' => $attribute,
                 'is_filter' => \yupe\components\WebModule::CHOICE_YES,
@@ -91,4 +91,4 @@ class AttributesFilterWidget extends \yupe\widgets\YWidget
             }
         }
     }
-} 
+}

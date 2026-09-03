@@ -1,4 +1,5 @@
 <?php
+
 use yupe\widgets\YPurifier;
 
 /**
@@ -147,7 +148,8 @@ class Gallery extends yupe\models\YModel
         $criteria->compare('t.sort', $this->sort);
 
         return new CActiveDataProvider(
-            get_class($this), [
+            get_class($this),
+            [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 't.sort'],
             ]

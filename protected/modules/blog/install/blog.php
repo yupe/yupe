@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Файл настроек для модуля
  *
@@ -9,6 +10,7 @@
  * @since 0.1
  *
  */
+
 return [
     'module' => [
         'class' => 'application.modules.blog.BlogModule',

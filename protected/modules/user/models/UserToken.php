@@ -138,16 +138,22 @@ class UserToken extends yupe\models\YModel
 
         // Критерия для поля "Дата создания":
         if (!empty($this->create_time) && strlen($this->create_time) == 10) {
-            $criteria->addBetweenCondition('t.create_time', $this->create_time.' 00:00:00',
-                $this->create_time.' 23:59:59');
+            $criteria->addBetweenCondition(
+                't.create_time',
+                $this->create_time . ' 00:00:00',
+                $this->create_time . ' 23:59:59'
+            );
         } else {
             $criteria->compare('t.create_time', $this->create_time, true);
         }
 
         // Критерия для поля "Дата изменения":
         if (!empty($this->update_time) && strlen($this->update_time) == 10) {
-            $criteria->addBetweenCondition('t.update_time', $this->update_time.' 00:00:00',
-                $this->update_time.' 23:59:59');
+            $criteria->addBetweenCondition(
+                't.update_time',
+                $this->update_time . ' 00:00:00',
+                $this->update_time . ' 23:59:59'
+            );
         } else {
             $criteria->compare('t.update_time', $this->update_time, true);
         }
@@ -156,7 +162,8 @@ class UserToken extends yupe\models\YModel
         $criteria->compare('t.expire_time', $this->expire_time, true);
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
                 'sort' => [
                     'defaultOrder' => 't.id DESC',
@@ -219,17 +226,17 @@ class UserToken extends yupe\models\YModel
      */
     public static function getDateList($dateField = 'create_time')
     {
-        $sql = 'left('.$dateField.', 10)';
+        $sql = 'left(' . $dateField . ', 10)';
 
         // Список дат, обрезаем до формата YYYY-MM-DD и кешируем запрос:
         $dateList = self::model()->cache(
             3600,
-            new TagsCache('user-tokens-dateList', 'dateList-'.$dateField)
+            new TagsCache('user-tokens-dateList', 'dateList-' . $dateField)
         )->findAll(
             [
-                'select' => $sql.' as '.$dateField,
+                'select' => $sql . ' as ' . $dateField,
                 'group' => $dateField,
-                'order' => $dateField.' DESC',
+                'order' => $dateField . ' DESC',
             ]
         );
 

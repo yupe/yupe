@@ -60,15 +60,15 @@ $this->menu = [
             'id',
             [
                 'name' => 'type_id',
-                'value' => function($model) {
+                'value' => function ($model) {
                         return is_null($model->type) ? '---' : $model->type->name;
-                    },
+                },
             ],
             [
                 'name' => 'producer_id',
-                'value' => function($model) {
+                'value' => function ($model) {
                         return is_null($model->producer) ? '---' : $model->producer->name;
-                    },
+                },
             ],
             'name',
             'price',

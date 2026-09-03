@@ -51,6 +51,6 @@ class ExportController extends application\components\Controller
      */
     public function getXmlHead()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL.'<!DOCTYPE yml_catalog SYSTEM "shops.dtd">'.PHP_EOL;
+        return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<!DOCTYPE yml_catalog SYSTEM "shops.dtd">' . PHP_EOL;
     }
 }

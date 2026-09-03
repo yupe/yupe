@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Виджет для отрисовки блока контента:
  *
@@ -9,6 +10,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 Yii::import('application.modules.contentblock.models.ContentBlock');
 Yii::import('application.modules.contentblock.ContentBlockModule');
 
@@ -57,7 +59,6 @@ class ContentBlockWidget extends yupe\widgets\YWidget
         $output = Yii::app()->getCache()->get($cacheName);
 
         if (false === $output) {
-
             $block = ContentBlock::model()->findByAttributes(['code' => $this->code]);
 
             if (null === $block) {
@@ -74,9 +75,7 @@ class ContentBlockWidget extends yupe\widgets\YWidget
                 }
 
                 $output = '';
-
             } else {
-
                 $output = $block->status == ContentBlock::STATUS_ACTIVE ? $block->getContent() : '';
             }
 

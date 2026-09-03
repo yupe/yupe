@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\Event;
 
 class UserEmailConfirmEvent extends Event

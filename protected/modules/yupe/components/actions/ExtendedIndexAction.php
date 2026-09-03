@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Обобщённый экшн для листинга сущностей.
  * Игнорирует dataProvider, который возвращается методом $model->search() и создаёт свой на основе $dataProviderClass, с применением $dataProviderConfig.

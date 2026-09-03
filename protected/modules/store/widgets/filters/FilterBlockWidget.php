@@ -27,4 +27,4 @@ class FilterBlockWidget extends \yupe\widgets\YWidget
     {
         $this->render($this->view, ['attributes' => $this->attributes, 'category' => $this->category]);
     }
-} 
+}

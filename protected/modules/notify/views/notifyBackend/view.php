@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для view:
  *
@@ -8,6 +9,7 @@
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     https://yupe.ru
  **/
+
     $this->breadcrumbs = [
         Yii::app()->getModule('notify')->getCategory() => [],
         Yii::t('NotifyModule.notify', 'Notify') => ['/notify/notifyBackend/index'],
@@ -16,7 +18,7 @@
 
     $this->pageTitle = Yii::t('NotifyModule.notify', 'Notify - view');
 
-$this->menu = [
+    $this->menu = [
     ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('NotifyModule.notify', 'Manage notify'), 'url' => ['/notify/notifyBackend/index']],
     ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('NotifyModule.notify', 'Create notify'), 'url' => ['/notify/notifyBackend/create']],
     ['label' => Yii::t('NotifyModule.notify', 'Notification') . ' «' . mb_substr($model->id, 0, 32) . '»'],
@@ -33,8 +35,8 @@ $this->menu = [
         'confirm' => Yii::t('NotifyModule.notify', 'Do you really want to remove this notification?'),
         'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
     ]],
-];
-?>
+    ];
+    ?>
 <div class="page-header">
     <h1>
         <?=  Yii::t('NotifyModule.notify', 'View notify'); ?><br/>
@@ -47,21 +49,21 @@ $this->menu = [
 'attributes' => [
     [
         'name'  => 'user_id',
-        'value' => function($model) {
+        'value' => function ($model) {
                 return $model->user->getFullName();
-            }
+        }
     ],
     [
         'name'  => 'my_post',
-        'value' => function($model) {
+        'value' => function ($model) {
                 return $model->my_post ? Yii::t('YupeModule.yupe', 'yes') : Yii::t('YupeModule.yupe', 'no');
-            },
+        },
     ],
     [
         'name'  => 'my_comment',
-        'value' => function($model) {
+        'value' => function ($model) {
                 return $model->my_comment ? Yii::t('YupeModule.yupe', 'yes') : Yii::t('YupeModule.yupe', 'no');
-            },
+        },
     ],
 ],
 ]); ?>

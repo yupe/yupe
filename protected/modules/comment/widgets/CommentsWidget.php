@@ -1,4 +1,5 @@
 <?php
+
 Yii::import('application.modules.comment.CommentModule');
 
 /**
@@ -82,7 +83,7 @@ class CommentsWidget extends yupe\widgets\YWidget
      */
     public function run()
     {
-        $model = new Comment;
+        $model = new Comment();
         $model->setAttributes(
             [
                 'model' => get_class($this->model),

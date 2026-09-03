@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Файл конфигурации модуля
  *
@@ -8,6 +9,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     https://yupe.ru
  **/
+
 return [
     'module'    => [
         'class' => 'application.modules.contentblock.ContentBlockModule',

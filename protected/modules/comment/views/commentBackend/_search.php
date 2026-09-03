@@ -69,7 +69,7 @@ $form = $this->beginWidget(
                     'prepend'       => '<i class="fa fa-calendar"></i>',
                 ]
             );
-            ?>
+?>
         </div>
 
         <div class="col-sm-3">
@@ -91,9 +91,9 @@ $form = $this->beginWidget(
         'encodeLabel' => false,
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
-                'CommentModule.comment',
-                'Find comments'
-            ),
+            'CommentModule.comment',
+            'Find comments'
+        ),
     ]
 ); ?>
 

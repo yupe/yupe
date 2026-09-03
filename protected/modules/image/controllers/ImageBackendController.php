@@ -78,15 +78,12 @@ class ImageBackendController extends yupe\components\controllers\BackController
         $model = new Image();
 
         if (($data = Yii::app()->getRequest()->getPost('Image')) !== null) {
-
             $model->setAttributes($data);
 
             $transaction = Yii::app()->getDb()->beginTransaction();
 
             try {
-
                 if ($model->save()) {
-
                     if (Yii::app()->hasModule('gallery') && $model->galleryId) {
                         if (!$model->setGalleryId($model->galleryId)) {
                             throw new CDbException(Yii::t(
@@ -135,11 +132,9 @@ class ImageBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Image')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ImageModule.image', 'Image updated!')
@@ -170,7 +165,6 @@ class ImageBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 

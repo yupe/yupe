@@ -6,7 +6,7 @@
  * @var ImageGroup $imageGroup
  */
 ?>
-<?php Yii::app()->getClientScript()->registerCssFile($this->getModule()->getAssetsUrl().'/css/store-backend.css'); ?>
+<?php Yii::app()->getClientScript()->registerCssFile($this->getModule()->getAssetsUrl() . '/css/store-backend.css'); ?>
 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#common" data-toggle="tab"><?= Yii::t("StoreModule.store", "Common"); ?></a></li>
@@ -195,13 +195,13 @@ $form = $this->beginWidget(
                     ); ?>
                 </div>
 
-                <?php if (!$model->getIsNewRecord() && $model->image): ?>
+                <?php if (!$model->getIsNewRecord() && $model->image) : ?>
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" name="delete-file"> <?= Yii::t(
                                 'YupeModule.yupe',
                                 'Delete the file'
-                            ) ?>
+                                                                       ) ?>
                         </label>
                     </div>
                 <?php endif; ?>
@@ -339,7 +339,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class="tab-pane" id="images">
-        <?php if ($model->getIsNewRecord()): ?>
+        <?php if ($model->getIsNewRecord()) : ?>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="alert alert-success">
@@ -395,7 +395,7 @@ $form = $this->beginWidget(
                     </div>
                 </div>
 
-                <?php if (!$model->getIsNewRecord() && $model->images): ?>
+                <?php if (!$model->getIsNewRecord() && $model->images) : ?>
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -407,22 +407,28 @@ $form = $this->beginWidget(
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($model->images as $image): ?>
+                        <?php foreach ($model->images as $image) : ?>
                             <tr>
                                 <td>
                                     <img src="<?= $image->getImageUrl(100, 100); ?>" alt="" class="img-responsive"/>
                                 </td>
                                 <td>
-                                    <?= CHtml::textField('ProductImage['.$image->id.'][title]', $image->title,
-                                        ['class' => 'form-control']) ?>
+                                    <?= CHtml::textField(
+                                        'ProductImage[' . $image->id . '][title]',
+                                        $image->title,
+                                        ['class' => 'form-control']
+                                    ) ?>
                                 </td>
                                 <td>
-                                    <?= CHtml::textField('ProductImage['.$image->id.'][alt]', $image->alt,
-                                        ['class' => 'form-control']) ?>
+                                    <?= CHtml::textField(
+                                        'ProductImage[' . $image->id . '][alt]',
+                                        $image->alt,
+                                        ['class' => 'form-control']
+                                    ) ?>
                                 </td>
                                 <td>
                                     <?= CHtml::dropDownList(
-                                        'ProductImage['.$image->id.'][group_id]',
+                                        'ProductImage[' . $image->id . '][group_id]',
                                         $image->group_id,
                                         ImageGroupHelper::all(),
                                         [
@@ -435,7 +441,7 @@ $form = $this->beginWidget(
                                     <a data-id="<?= $image->id; ?>" href="<?= Yii::app()->createUrl(
                                         '/store/productBackend/deleteImage',
                                         ['id' => $image->id]
-                                    ); ?>" class="btn btn-default product-delete-image"><i
+                                                ); ?>" class="btn btn-default product-delete-image"><i
                                             class="fa fa-fw fa-trash-o"></i></a>
                                 </td>
                             </tr>
@@ -511,9 +517,9 @@ $form = $this->beginWidget(
                     <div class="form-group">
                         <select id="variants-type-attributes" class="form-control"></select>
                         <a href="#" class="btn btn-default" id="add-product-variant"><?= Yii::t(
-                                "StoreModule.store",
-                                "Add"
-                            ); ?></a>
+                            "StoreModule.store",
+                            "Add"
+                        ); ?></a>
                     </div>
                 </div>
             </div>
@@ -534,7 +540,7 @@ $form = $this->beginWidget(
                             </tr>
                             </thead>
                             <tbody id="product-variants">
-                            <?php foreach ((array)$model->variants as $variant): ?>
+                            <?php foreach ((array)$model->variants as $variant) : ?>
                                 <?php $this->renderPartial('_variant_row', ['variant' => $variant]); ?>
                             <?php endforeach; ?>
                             </tbody>
@@ -546,9 +552,9 @@ $form = $this->beginWidget(
     </div>
 
     <div class="tab-pane" id="linked">
-        <?php if ($model->getIsNewRecord()): ?>
+        <?php if ($model->getIsNewRecord()) : ?>
             <?= Yii::t("StoreModule.store", "First you need to save the product."); ?>
-        <?php else: ?>
+        <?php else : ?>
             <?= $this->renderPartial('_link_form', ['product' => $model, 'searchModel' => $searchModel]); ?>
         <?php endif; ?>
     </div>

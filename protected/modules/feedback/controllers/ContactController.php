@@ -18,7 +18,6 @@ use yupe\widgets\YFlashMessages;
  */
 class ContactController extends \yupe\components\controllers\FrontController
 {
-
     /**
      * @var FeedbackService
      */
@@ -67,15 +66,12 @@ class ContactController extends \yupe\components\controllers\FrontController
         $module = Yii::app()->getModule('feedback');
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['FeedBackForm'])) {
-
             $form->setAttributes(
                 Yii::app()->getRequest()->getPost('FeedBackForm')
             );
 
             if ($form->validate()) {
-
                 if ($this->feedback->send($form, $module)) {
-
                     if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                         Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!'));
                     }
@@ -89,7 +85,6 @@ class ContactController extends \yupe\components\controllers\FrontController
                         $module->successPage ? [$module->successPage] : ['/feedback/contact/index/']
                     );
                 } else {
-
                     if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                         Yii::app()->ajax->failure(
                             Yii::t('FeedbackModule.feedback', 'It is not possible to send message!')
@@ -100,11 +95,8 @@ class ContactController extends \yupe\components\controllers\FrontController
                         YFlashMessages::ERROR_MESSAGE,
                         Yii::t('FeedbackModule.feedback', 'It is not possible to send message!')
                     );
-
                 }
-
             } else {
-
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                     Yii::app()->ajax->rawText(CActiveForm::validate($form));
                 }
@@ -121,7 +113,8 @@ class ContactController extends \yupe\components\controllers\FrontController
     public function actionFaq()
     {
         $dataProvider = new CActiveDataProvider(
-            'FeedBack', [
+            'FeedBack',
+            [
                 'criteria' => [
                     'condition' => 'is_faq = :is_faq AND (status = :sent OR status = :finished)',
                     'params' => [

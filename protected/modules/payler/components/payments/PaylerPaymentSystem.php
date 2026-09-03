@@ -57,8 +57,11 @@ class PaylerPaymentSystem extends PaymentSystem
                 YFlashMessages::ERROR_MESSAGE,
                 Yii::t('PaylerModule.payler', 'Attempt to pay failed')
             );
-            Yii::log(Yii::t('PaylerModule.payler', 'An error occurred when you pay the order #{n}.',
-                $order->getPrimaryKey()), CLogger::LEVEL_ERROR);
+            Yii::log(Yii::t(
+                'PaylerModule.payler',
+                'An error occurred when you pay the order #{n}.',
+                $order->getPrimaryKey()
+            ), CLogger::LEVEL_ERROR);
         }
 
         return $order;

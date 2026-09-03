@@ -22,10 +22,10 @@ $this->menu = [
             ],
             [
                 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary') . ' «' . mb_substr(
-                        $model->name,
-                        0,
-                        32
-                    ) . '»'
+                    $model->name,
+                    0,
+                    32
+                ) . '»'
             ],
             [
                 'icon'  => 'fa fa-fw fa-pencil',

@@ -1,9 +1,9 @@
 <div class="page-header">
     <h1><?= Yii::t(
-            'YupeModule.yupe',
-            'Control panel "{app}"',
-            ['{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name))]
-        ); ?>
+        'YupeModule.yupe',
+        'Control panel "{app}"',
+        ['{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name))]
+    ); ?>
     </h1>
 </div>
 
@@ -15,14 +15,20 @@
     ]
 ); ?>
 
-<?php foreach ($modules as $module): { ?>
-    <?php if ($module instanceof yupe\components\WebModule === false): { ?>
+<?php foreach ($modules as $module) :
+    { ?>
+    <?php if ($module instanceof yupe\components\WebModule === false) :
+        { ?>
         <?php continue; ?>
-    <?php } endif; ?>
-    <?php if ($module->getIsActive()): { ?>
+        <?php }
+    endif; ?>
+    <?php if ($module->getIsActive()) :
+        { ?>
         <?php $messages = $module->checkSelf(); ?>
-        <?php if (is_array($messages)): { ?>
-            <?php foreach ($messages as $key => $value): { ?>
+        <?php if (is_array($messages)) :
+            { ?>
+            <?php foreach ($messages as $key => $value) :
+                { ?>
                 <?php if (!is_array($value)) {
                     continue;
                 } ?>
@@ -38,16 +44,17 @@
                                     'YupeModule.yupe',
                                     'Module {icon} "{module}", messages: {count}',
                                     [
-                                        '{icon}' => $module->icon ? "<i class='".$module->icon."'></i> " : "",
+                                        '{icon}' => $module->icon ? "<i class='" . $module->icon . "'></i> " : "",
                                         '{module}' => $module->getName(),
-                                        '{count}' => '<span class="badge alert-danger">'.count($value).'</span>',
+                                        '{count}' => '<span class="badge alert-danger">' . count($value) . '</span>',
                                     ]
                                 ); ?>
                             </a>
                         </div>
                         <div id="collapse<?= $module->getId(); ?>" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <?php foreach ($value as $error): { ?>
+                                <?php foreach ($value as $error) :
+                                    { ?>
                                     <div class="alert alert-<?= $error['type']; ?>">
                                         <h4 class="alert-heading">
                                             <?= Yii::t(
@@ -61,31 +68,44 @@
                                         </h4>
                                         <?= $error['message']; ?>
                                     </div>
-                                <?php } endforeach; ?>
+                                    <?php }
+                                endforeach; ?>
                             </div>
                         </div>
                     </div>
                 </div>
-            <?php } endforeach; ?>
-        <?php } endif; ?>
-    <?php } endif; ?>
-<?php } endforeach; ?>
+                <?php }
+            endforeach; ?>
+            <?php }
+        endif; ?>
+        <?php }
+    endif; ?>
+    <?php }
+endforeach; ?>
 
 <?php $this->endWidget(); ?>
 
 
 
-<?php foreach ($modules as $module): { ?>
-    <?php if ($module instanceof yupe\components\WebModule === false): { ?>
+<?php foreach ($modules as $module) :
+    { ?>
+    <?php if ($module instanceof yupe\components\WebModule === false) :
+        { ?>
         <?php continue; ?>
-    <?php } endif; ?>
-    <?php if ($module->getIsActive()): { ?>
-        <?php foreach ($module->getPanelWidgets() as $widget => $params): { ?>
+        <?php }
+    endif; ?>
+    <?php if ($module->getIsActive()) :
+        { ?>
+        <?php foreach ($module->getPanelWidgets() as $widget => $params) :
+            { ?>
             <?php $this->widget($widget, $params); ?>
-        <?php } endforeach; ?>
-    <?php } endif; ?>
+            <?php }
+        endforeach; ?>
+        <?php }
+    endif; ?>
 
-<?php } endforeach; ?>
+    <?php }
+endforeach; ?>
 
 
 <legend><?= Yii::t('YupeModule.yupe', 'Fast access to modules'); ?> </legend>

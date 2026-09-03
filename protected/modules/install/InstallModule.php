@@ -1,4 +1,5 @@
 <?php
+
 /**
  * InstallModule основной класс модуля install
  *

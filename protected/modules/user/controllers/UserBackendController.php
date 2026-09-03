@@ -75,11 +75,9 @@ class UserBackendController extends yupe\components\controllers\BackController
         $form = new ChangePasswordForm();
 
         if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {
-
             $form->setAttributes($data);
 
             if ($form->validate() && Yii::app()->userManager->changeUserPassword($model, $form->password)) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Password was changed successfully')
@@ -103,7 +101,6 @@ class UserBackendController extends yupe\components\controllers\BackController
         $model = new User();
 
         if (($data = Yii::app()->getRequest()->getPost('User')) !== null) {
-
             $model->setAttributes($data);
 
             $model->setAttributes(
@@ -115,7 +112,6 @@ class UserBackendController extends yupe\components\controllers\BackController
             );
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'New user was created!')
@@ -146,11 +142,9 @@ class UserBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('User')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Data was updated!')
@@ -181,7 +175,6 @@ class UserBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             header('Content-Type: application/json');
 
             try {
@@ -193,7 +186,6 @@ class UserBackendController extends yupe\components\controllers\BackController
                     ],
                     'type' => 'success',
                 ]);
-
             } catch (Exception $e) {
                 echo CJavaScript::jsonEncode([
                     'message' => [
@@ -290,7 +282,6 @@ class UserBackendController extends yupe\components\controllers\BackController
         }
 
         Yii::app()->ajax->failure();
-
     }
 
     /**
@@ -306,7 +297,6 @@ class UserBackendController extends yupe\components\controllers\BackController
     public function loadModel($id = null)
     {
         if ($this->_model === null || $this->_model instanceof User && $this->_model->id !== $id) {
-
             if (($this->_model = User::model()->findbyPk($id)) === null) {
                 throw new CHttpException(
                     404,

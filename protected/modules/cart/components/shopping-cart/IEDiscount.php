@@ -10,7 +10,6 @@
  */
 abstract class IEDiscount
 {
-
     protected $shoppingCart;
 
     public function setShoppingCart(EShoppingCart $shoppingCart)
@@ -25,5 +24,4 @@ abstract class IEDiscount
      * @return void
      */
     abstract public function apply();
-
 }

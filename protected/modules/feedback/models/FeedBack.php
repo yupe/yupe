@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FeedBack основная модель
  *
@@ -9,6 +10,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 use yupe\widgets\YPurifier;
 
 /**
@@ -31,7 +33,6 @@ use yupe\widgets\YPurifier;
  */
 class FeedBack extends yupe\models\YModel
 {
-
     /**
      *
      */
@@ -145,8 +146,8 @@ class FeedBack extends yupe\models\YModel
         if (!empty($this->create_time)) {
             $criteria->addBetweenCondition(
                 'create_time',
-                $this->create_time.' 00:00:00',
-                $this->create_time.' 23:59:59',
+                $this->create_time . ' 00:00:00',
+                $this->create_time . ' 23:59:59',
                 'AND'
             );
         }
@@ -338,7 +339,7 @@ class FeedBack extends yupe\models\YModel
         $p = new CHtmlPurifier();
 
         return $p->purify(
-            mb_substr($this->text, 0, $size).'...'
+            mb_substr($this->text, 0, $size) . '...'
         );
     }
 

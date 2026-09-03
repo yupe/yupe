@@ -177,9 +177,9 @@ class InstallForm extends yupe\models\YFormModel
              **/
             'userName'        => Yii::t('InstallModule.install', 'Admin login'),
             'userEmail'       => Yii::t(
-                    'InstallModule.install',
-                    'Site administrator e-mail. Uses for admin cp authorization.'
-                ),
+                'InstallModule.install',
+                'Site administrator e-mail. Uses for admin cp authorization.'
+            ),
             'userPassword'    => Yii::t('InstallModule.install', 'Admin password'),
             'cPassword'       => Yii::t('InstallModule.install', 'Admin password confirm'),
         ];
@@ -234,5 +234,4 @@ class InstallForm extends yupe\models\YFormModel
     {
         return User::model()->admin()->find()->getAttribute('email');
     }
-
 }

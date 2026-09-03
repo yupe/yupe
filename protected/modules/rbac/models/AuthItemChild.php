@@ -11,7 +11,6 @@
  */
 class AuthItemChild extends CActiveRecord
 {
-
     /**
      * Returns the static model of the specified AR class.
      * @param  string $className active record class name.
@@ -88,5 +87,4 @@ class AuthItemChild extends CActiveRecord
             'criteria' => $criteria,
         ]);
     }
-
 }

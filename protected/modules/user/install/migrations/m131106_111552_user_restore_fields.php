@@ -1,4 +1,5 @@
 <?php
+
 Yii::import('application.modules.user.models.*');
 
 class m131106_111552_user_restore_fields extends CDbMigration

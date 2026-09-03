@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для Default/_images_add:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $mainAssets = Yii::app()->assetManager->publish(
     Yii::getPathOfAlias('gallery.views.assets')
 );
@@ -30,9 +32,9 @@ $this->widget(
         'options' => [
             'maxFileSize' => Yii::app()->getModule('image')->maxSize,
             'acceptFileTypes' => 'js:/(\.|\/)(' . implode(
-                    '|',
-                    Yii::app()->getModule('image')->allowedExtensions()
-                ) . ')$/i',
+                '|',
+                Yii::app()->getModule('image')->allowedExtensions()
+            ) . ')$/i',
         ]
     ]
 );

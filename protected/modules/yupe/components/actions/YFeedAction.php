@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Класс экшена для генерации Feed-ленты:
  *
@@ -10,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 namespace yupe\components\actions;
 
 use CAction;
@@ -161,7 +163,8 @@ class YFeedAction extends CAction
                         'author',
                         $feedItem->{$this->itemFields['author_object']}->{$this->itemFields['author_nickname']}
                     );
-                } elseif (empty($this->itemFields['author_object'])
+                } elseif (
+                    empty($this->itemFields['author_object'])
                     && !empty($this->itemFields['author_nickname'])
                     && property_exists($feedItem, $this->itemFields['author_nickname'])
                 ) {

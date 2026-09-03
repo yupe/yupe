@@ -12,6 +12,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
+
 namespace application\modules\social\models;
 
 use yupe\models\YModel;

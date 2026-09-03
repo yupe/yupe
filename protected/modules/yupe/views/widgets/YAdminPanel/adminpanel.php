@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для виджета YAdminPanel:
  *
@@ -10,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 $mainAssets = Yii::app()->getAssetManager()->publish(
     Yii::getPathOfAlias('application.modules.yupe.views.assets')
 );
@@ -54,10 +56,10 @@ $this->widget(
                         [
                             'icon' => 'fa fa-fw fa-question-circle',
                             'label' => CHtml::tag(
-                                    'span',
-                                    ['class' => 'hidden-sm hidden-md hidden-lg'],
-                                    Yii::t('YupeModule.yupe', 'Help')
-                                ),
+                                'span',
+                                ['class' => 'hidden-sm hidden-md hidden-lg'],
+                                Yii::t('YupeModule.yupe', 'Help')
+                            ),
                             'url' => CHtml::normalizeUrl(['/yupe/backend/help']),
                             'items' => [
                                 [
@@ -118,18 +120,18 @@ $this->widget(
                         [
                             'icon' => 'fa fa-fw fa-home',
                             'label' => CHtml::tag(
-                                    'span',
-                                    ['class' => 'hidden-sm hidden-md hidden-lg'],
-                                    Yii::t('YupeModule.yupe', 'Go home')
-                                ),
+                                'span',
+                                ['class' => 'hidden-sm hidden-md hidden-lg'],
+                                Yii::t('YupeModule.yupe', 'Go home')
+                            ),
                             'url' => Yii::app()->createAbsoluteUrl('/'),
                             'linkOptions' => ['target' => '_blank']
                         ],
                         [
                             'icon' => 'fa fa-fw fa-user',
                             'label' => '<span class="label label-info">' . CHtml::encode(
-                                    Yii::app()->getUser()->getProfileField('fullName')
-                                ) . '</span>',
+                                Yii::app()->getUser()->getProfileField('fullName')
+                            ) . '</span>',
                             'items' => [
                                 [
                                     'icon' => 'fa fa-fw fa-cog',
@@ -137,8 +139,8 @@ $this->widget(
                                     'url' => ($isAdmin || $canUpdateUser) ?
                                         CHtml::normalizeUrl(
                                             (['/user/userBackend/update', 'id' => Yii::app()->getUser()->getId()])
-                                        ) 
-                                        : 
+                                        )
+                                        :
                                         Yii::app()->createAbsoluteUrl('/user/profile/profile'),
                                 ],
                                 [

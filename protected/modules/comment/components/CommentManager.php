@@ -28,7 +28,7 @@ class CommentManager extends CApplicationComponent
             );
         }
 
-        $comment = new Comment;
+        $comment = new Comment();
 
         $comment->setAttributes($params);
 
@@ -51,7 +51,6 @@ class CommentManager extends CApplicationComponent
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             Yii::app()->eventManager->fire(
                 CommentEvents::BEFORE_ADD_COMMENT,
                 new CommentEvent($comment, $user, $module, $request)
@@ -63,14 +62,12 @@ class CommentManager extends CApplicationComponent
 
             // Если указан parent_id просто добавляем новый комментарий.
             if ($parentId) {
-
                 $root = Comment::model()->approved()->findByPk($parentId);
 
                 if (null === $root) {
                     throw new CException(Yii::t('CommentModule.comment', 'Root comment not found!'));
                 }
             } else { // Иначе если parent_id не указан...
-
                 $root = $comment->createRootOfCommentsIfNotExists($comment->model, $comment->model_id);
 
                 if (null === $root) {
@@ -79,7 +76,6 @@ class CommentManager extends CApplicationComponent
             }
 
             if ($comment->appendTo($root)) {
-
                 Yii::app()->eventManager->fire(
                     CommentEvents::SUCCESS_ADD_COMMENT,
                     new CommentEvent($comment, $user, $module)
@@ -91,9 +87,7 @@ class CommentManager extends CApplicationComponent
             }
 
             throw new CException(Yii::t('CommentModule.comment', 'Error append comment to root!'));
-
         } catch (Exception $e) {
-
             $transaction->rollback();
 
             Yii::app()->eventManager->fire(
@@ -146,7 +140,6 @@ class CommentManager extends CApplicationComponent
             $transaction->commit();
 
             return true;
-
         } catch (Exception $e) {
             $transaction->rollback();
 

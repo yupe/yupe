@@ -23,7 +23,8 @@ class GalleryController extends \yupe\components\controllers\FrontController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider(
-            'Gallery', [
+            'Gallery',
+            [
                 'criteria' => [
                     'scopes' => 'published'
                 ],
@@ -50,7 +51,6 @@ class GalleryController extends \yupe\components\controllers\FrontController
         $image = new Image();
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['Image'])) {
-
             try {
                 $transaction = Yii::app()->db->beginTransaction();
                 $image->attributes = $_POST['Image'];
@@ -151,14 +151,13 @@ class GalleryController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
         }
 
-        if ((Yii::app()->getRequest()->getIsPostRequest() || Yii::app()->getRequest()->getIsAjaxRequest())
+        if (
+            (Yii::app()->getRequest()->getIsPostRequest() || Yii::app()->getRequest()->getIsAjaxRequest())
             && Yii::app()->getRequest()->getPost('Image') !== null
         ) {
-
             $image->setAttributes(Yii::app()->getRequest()->getPost('Image'));
 
             if ($image->validate() && $image->save()) {
-
                 $message = Yii::t(
                     'GalleryModule.gallery',
                     'Image #{id} edited',

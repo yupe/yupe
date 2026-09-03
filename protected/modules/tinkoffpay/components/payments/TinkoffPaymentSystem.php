@@ -89,11 +89,12 @@ class TinkoffPaymentSystem extends PaymentSystem
             'SuccessURL' => Yii::app()->createAbsoluteUrl('/order/order/view', ['url' => $order->url]),
             'NotificationURL' => Yii::app()->createAbsoluteUrl('payment/payment/process', ['id' => $payment->id]),
             'PayType' => 'О',
-            'Description' => Yii::t('TinkoffPayModule.tpay', 'Order payment in store «{n}»', Yii::app()->getModule('yupe')->siteName ),
+            'Description' => Yii::t('TinkoffPayModule.tpay', 'Order payment in store «{n}»', Yii::app()->getModule('yupe')->siteName),
         ];
 
-        if ($settings['includeReceipt'])
+        if ($settings['includeReceipt']) {
             $data['Receipt'] = $receipt;
+        }
 
         return $data;
     }
@@ -121,8 +122,9 @@ class TinkoffPaymentSystem extends PaymentSystem
         ];
 
 
-        if (in_array($params['status'], ['REJECTED', 'REVERSED']))
+        if (in_array($params['status'], ['REJECTED', 'REVERSED'])) {
             $this->showResponse($params);
+        }
 
         /* @var $order Order */
         $order = Order::model()->findByPk($params['orderId']);
@@ -133,8 +135,9 @@ class TinkoffPaymentSystem extends PaymentSystem
             throw new Exception($message);
         }
 
-        if (in_array($params['status'], ['PARTIAL_REFUNDED', 'REFUNDED']) && $order->unpay($payment))
+        if (in_array($params['status'], ['PARTIAL_REFUNDED', 'REFUNDED']) && $order->unpay($payment)) {
             $this->showResponse($params);
+        }
 
         if ($order->isPaid()) {
             $message = Yii::t('TinkoffPayModule.tpay', 'The order #{n} is already payed.', $order->getPrimaryKey());
@@ -145,15 +148,16 @@ class TinkoffPaymentSystem extends PaymentSystem
 
         $orderSum = (int)($order->getTotalPriceWithDelivery() * 100);
         $orderSumByRequest = (int)$params['orderSumAmount'];
-        if ( $orderSum !== $orderSumByRequest ) {
-            $message = Yii::t('TinkoffPayModule.tpay', 'Wrong payment amount'). " orderSum:$orderSum orderSumByRequest:$orderSumByRequest" ;
+        if ($orderSum !== $orderSumByRequest) {
+            $message = Yii::t('TinkoffPayModule.tpay', 'Wrong payment amount') . " orderSum:$orderSum orderSumByRequest:$orderSumByRequest" ;
             Yii::log($message, CLogger::LEVEL_ERROR);
 
             $this->showResponse($params, 'NOTOK', 500);
         }
 
-        if ($params['status'] === 'AUTHORIZED')
+        if ($params['status'] === 'AUTHORIZED') {
             $this->showResponse($params);
+        }
 
         if ($params['status'] === 'CONFIRMED' && $order->pay($payment)) {
             Yii::log(
@@ -184,8 +188,9 @@ class TinkoffPaymentSystem extends PaymentSystem
 
         $this->payment = Payment::model()->findByAttributes(['module' => 'tinkoffpay']);
 
-        if (!$this->payment instanceof Payment)
+        if (!$this->payment instanceof Payment) {
             throw new Exception('Создайте способ оплаты');
+        }
 
         $postData = $this->getPaymentPostData($this->payment, $order);
 
@@ -201,8 +206,9 @@ class TinkoffPaymentSystem extends PaymentSystem
 
             if (!empty($body)) {
                 $body = json_decode($body, true);
-                if (empty($body['PaymentURL']))
+                if (empty($body['PaymentURL'])) {
                     throw new Exception('Ошибка оплаты', self::ERROR_PROCESS_PAYMENT);
+                }
                 Yii::app()->controller->redirect($body['PaymentURL']);
             }
         } catch (Exception $e) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * HomepageModule основной класс модуля homepage
  *
@@ -9,6 +10,7 @@
  * @since 0.1
  *
  */
+
 Yii::import('application.modules.page.models.Page');
 Yii::import('application.modules.blog.models.Post');
 

@@ -13,7 +13,6 @@
  **/
 class m000000_000000_menu_base extends yupe\components\DbMigration
 {
-
     public function safeUp()
     {
         $this->createTable(

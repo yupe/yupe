@@ -11,7 +11,7 @@ class ProductSearch extends Product
      */
     public function searchNotFor($id)
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('name', $this->name, true);
         $criteria->compare('price', $this->price);
@@ -20,10 +20,11 @@ class ProductSearch extends Product
         $criteria->addNotInCondition('id', [$id]);
 
         return new CActiveDataProvider(
-            get_class($this), [
+            get_class($this),
+            [
             'criteria' => $criteria,
             'sort' => ['defaultOrder' => 't.position'],
-        ]
+            ]
         );
     }
 }

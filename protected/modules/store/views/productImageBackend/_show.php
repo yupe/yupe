@@ -10,7 +10,7 @@ $this->widget('gallery.extensions.colorbox.ColorBox', [
 
 <div id="gallery-wrapper">
     <div class="row product-thumbnails thumbnails">
-        <?php if (count($product->images) > 0): ?>
+        <?php if (count($product->images) > 0) : ?>
             <?php
             foreach ($product->images as $image) {
                 $this->renderPartial('_image', [
@@ -19,7 +19,7 @@ $this->widget('gallery.extensions.colorbox.ColorBox', [
                 ]);
             }
             ?>
-        <?php else: ?>
+        <?php else : ?>
             <div class="image-wrapper">
                 <?= Yii::t('StoreModule.store', 'Images not found'); ?>
             </div>

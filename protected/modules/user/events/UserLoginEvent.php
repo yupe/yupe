@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\Event;
 
 class UserLoginEvent extends Event
@@ -49,5 +50,4 @@ class UserLoginEvent extends Event
     {
         return $this->loginForm;
     }
-
 }

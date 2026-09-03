@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\controllers\FrontController;
 
 /**
@@ -62,8 +63,10 @@ class CategoryController extends FrontController
         $mainSearchParam = $this->attributeFilter->getMainAttributesForSearchFromQuery(
             Yii::app()->getRequest(),
             [
-                AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => Yii::app()->getRequest()->getQuery('category',
-                    [$category->id]),
+                AttributeFilter::MAIN_SEARCH_PARAM_CATEGORY => Yii::app()->getRequest()->getQuery(
+                    'category',
+                    [$category->id]
+                ),
             ]
         );
 

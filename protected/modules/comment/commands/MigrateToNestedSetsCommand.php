@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Converter for migrating existing comments
  * from Adjacency List to Nested Sets.
@@ -9,6 +10,7 @@
  * @author   Anton Kucherov <idexter.ru@gmail.com>
  * @link     https://yupe.ru
  */
+
 use yupe\components\Migrator;
 
 /**

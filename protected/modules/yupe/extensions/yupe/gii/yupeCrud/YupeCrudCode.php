@@ -1,4 +1,5 @@
 <?php
+
 /**
  * BootstrapCode class file.
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
@@ -45,9 +46,9 @@ class YupeCrudCode extends CrudCode
     public function attributeLabels()
     {
         return array_merge(parent::attributeLabels(), array(
-            'model'=>'Модель (название)',
-            'controller'=>'Контроллер (название)',
-            'baseControllerClass'=>'Базовый класс контроллера',
+            'model' => 'Модель (название)',
+            'controller' => 'Контроллер (название)',
+            'baseControllerClass' => 'Базовый класс контроллера',
         ));
     }
 
@@ -156,7 +157,8 @@ class YupeCrudCode extends CrudCode
     {
         $j = 0;
         foreach ($columns as $column) {
-            if (!$column->isForeignKey &&
+            if (
+                !$column->isForeignKey &&
                 !$column->isPrimaryKey &&
                 $column->type != 'INT' &&
                 $column->type != 'INTEGER' &&

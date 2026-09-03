@@ -40,12 +40,12 @@ class NewCommentListener
         //проверка на спам
         $spamField = $event->getUser()->getState('spamField');
 
-        if(null === $event->getRequest()->getPost($spamField) || $event->getRequest()->getPost($spamField) != $event->getUser()->getState('spamFieldValue')) {
+        if (null === $event->getRequest()->getPost($spamField) || $event->getRequest()->getPost($spamField) != $event->getUser()->getState('spamFieldValue')) {
             Yii::log(sprintf('Comment spam (js) by user_d = "%s" Wait for %s but get %s', $event->getUser()->getId(), $event->getUser()->getState('spamFieldValue'), $event->getRequest()->getPost($spamField)), CLogger::LEVEL_ERROR);
             throw new CException('Spam !');
         }
 
-        if($event->getComment()->comment) {
+        if ($event->getComment()->comment) {
             Yii::log(sprintf('Comment spam (comment) by user_d = "%s" ', $event->getUser()->getId()), CLogger::LEVEL_ERROR);
             throw new CException('Spam !');
         }

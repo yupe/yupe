@@ -34,13 +34,13 @@ $this->widget(
             [
                 'name' => 'name',
                 'type' => 'raw',
-                'value' => function($data){
+                'value' => function ($data) {
                     return CHtml::link($data->name, ["/payment/paymentBackend/update", "id" => $data->id]);
                 }
             ],
             [
                 'name' => 'module',
-                'value' => function($data){
+                'value' => function ($data) {
                     return $data->module ? $data->module : Yii::t('PaymentModule.payment', 'Manual processing');
                 }
             ],

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PageBackendController контроллер панели управления для управления страницами
  *
@@ -10,6 +11,7 @@
  * @version   0.6
  *
  */
+
 Yii::import('application.modules.menu.models.*');
 
 /**
@@ -93,12 +95,13 @@ class PageBackendController extends yupe\components\controllers\BackController
                         $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
                         $menu = Menu::model()->findByPk($menuId);
                         if (null !== $menu) {
-                            if (!$menu->addItem(
-                                $model->title,
-                                Yii::app()->createUrl('/page/page/view', ['slug' => $model->slug]),
-                                $parentId,
-                                true
-                            )
+                            if (
+                                !$menu->addItem(
+                                    $model->title,
+                                    Yii::app()->createUrl('/page/page/view', ['slug' => $model->slug]),
+                                    $parentId,
+                                    true
+                                )
                             ) {
                                 throw new CDbException(
                                     Yii::t('PageModule.page', 'There is an error when connecting page to menu...')
@@ -174,7 +177,6 @@ class PageBackendController extends yupe\components\controllers\BackController
                 'order' => $page->order,
                 'layout' => $page->layout,
             ]);
-
         } else {
             $model->lang = $this->yupe->defaultLanguage;
         }
@@ -210,24 +212,22 @@ class PageBackendController extends yupe\components\controllers\BackController
         $menuParentId = 0;
 
         if (($data = Yii::app()->getRequest()->getPost('Page')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 if (Yii::app()->hasModule('menu')) {
-
                     $menuId = (int)Yii::app()->getRequest()->getPost('menu_id');
                     $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
                     $menu = Menu::model()->findByPk($menuId);
                     if ($menu) {
-                        if (!$menu->changeItem(
-                            $oldTitle,
-                            $model->title,
-                            Yii::app()->createUrl('/page/page/view', ['slug' => $model->slug]),
-                            $parentId,
-                            true
-                        )
+                        if (
+                            !$menu->changeItem(
+                                $oldTitle,
+                                $model->title,
+                                Yii::app()->createUrl('/page/page/view', ['slug' => $model->slug]),
+                                $parentId,
+                                true
+                            )
                         ) {
                             throw new CDbException(
                                 Yii::t('PageModule.page', 'There is an error when connecting page to menu...')
@@ -251,7 +251,6 @@ class PageBackendController extends yupe\components\controllers\BackController
         }
 
         if (Yii::app()->hasModule('menu')) {
-
             $menuItem = MenuItem::model()->findByAttributes(
                 [
                     "title" => $oldTitle,
@@ -304,11 +303,9 @@ class PageBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id = null)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $model = $this->loadModel($id);
 
             if (Yii::app()->hasModule('menu')) {
-
                 $menuItem = MenuItem::model()->findByAttributes(["title" => $model->title]);
 
                 if ($menuItem !== null) {
@@ -376,7 +373,6 @@ class PageBackendController extends yupe\components\controllers\BackController
     public function loadModel($id)
     {
         if ($this->_model === null || $this->_model->id !== $id) {
-
             if (($this->_model = Page::model()->with('author', 'changeAuthor')->findByPk($id)) === null) {
                 throw new CHttpException(
                     404,

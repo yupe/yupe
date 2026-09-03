@@ -10,7 +10,6 @@ use Yii;
  */
 class TemplateEvent
 {
-
     /**
      * @param $eventName
      * @param Event|null $event

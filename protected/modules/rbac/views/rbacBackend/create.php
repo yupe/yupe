@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('RbacModule.rbac', 'RBAC') => ['index'],
     Yii::t('RbacModule.rbac', 'Addition'),

@@ -231,7 +231,6 @@ class AttributeFilter extends CApplicationComponent
         $attributes = Yii::app()->getCache()->get('Store::filter::attributes');
 
         if (false === $attributes) {
-
             $attributes = [];
 
             $models = Attribute::model()->findAll(
@@ -250,7 +249,6 @@ class AttributeFilter extends CApplicationComponent
         $attributeValue = new AttributeValue();
 
         foreach ($attributes as $name => $attribute) {
-
             $searchParams = $request->getQuery($attribute->name);
 
             //пропускаем пустые значения

@@ -12,7 +12,6 @@
  */
 class PostController extends \yupe\components\controllers\FrontController
 {
-
     /**
      *
      */

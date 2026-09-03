@@ -25,7 +25,7 @@ class DropdownFilterWidget extends \yupe\widgets\YWidget
         }
 
         if (!($this->attribute instanceof Attribute) || !$this->attribute->isMultipleValues()) {
-            throw new Exception(Yii::t('StoreModulle.store','Attribute error!'));
+            throw new Exception(Yii::t('StoreModulle.store', 'Attribute error!'));
         }
 
         parent::init();
@@ -38,4 +38,4 @@ class DropdownFilterWidget extends \yupe\widgets\YWidget
     {
         $this->render($this->view, ['attribute' => $this->attribute]);
     }
-} 
+}

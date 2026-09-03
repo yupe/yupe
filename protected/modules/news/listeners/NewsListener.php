@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\Event;
 
 /**
@@ -23,5 +24,4 @@ class NewsListener
     {
         Yii::app()->getCache()->clear([NewsHelper::CACHE_NEWS_TAG]);
     }
-
 }

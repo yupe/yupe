@@ -2,14 +2,13 @@
 
 namespace application\modules\social\components\services;
 
-class Odnoklassniki extends \OdnoklassnikiOAuthService {
-
+class Odnoklassniki extends \OdnoklassnikiOAuthService
+{
     const AUTH_DATA_KEY = 'authData';
 
     public function authenticate()
     {
         if (parent::authenticate()) {
-
             $this->setState(
                 self::AUTH_DATA_KEY,
                 [
@@ -36,7 +35,8 @@ class Odnoklassniki extends \OdnoklassnikiOAuthService {
         $this->setState(self::AUTH_DATA_KEY, null);
     }
 
-    protected function fetchAttributes() {
+    protected function fetchAttributes()
+    {
         $info = $this->makeSignedRequest('http://api.odnoklassniki.ru/fb.do', array(
             'query' => array(
                 'method' => 'users.getCurrentUser',

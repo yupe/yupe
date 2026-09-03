@@ -1,10 +1,10 @@
 <html>
 <head>
     <title><?=  Yii::t(
-            'UserModule.user',
-            'Password recovery for "{site}"!',
-            ['site' => CHtml::encode(Yii::app()->name)]
-        ); ?></title>
+        'UserModule.user',
+        'Password recovery for "{site}"!',
+        ['site' => CHtml::encode(Yii::app()->name)]
+    ); ?></title>
 </head>
 <body>
 <?=  Yii::t(

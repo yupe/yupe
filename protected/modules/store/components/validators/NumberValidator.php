@@ -1,4 +1,5 @@
 <?php
+
 namespace store\components\validators;
 
 use CNumberValidator;
@@ -35,7 +36,7 @@ class NumberValidator extends CNumberValidator
     {
         $js = parent::clientValidateAttribute($object, $attribute);
         if ($this->replacingCommas === true) {
-            $js = 'value = value.replace(/,/g, "."); '.$js;
+            $js = 'value = value.replace(/,/g, "."); ' . $js;
         }
 
         return $js;

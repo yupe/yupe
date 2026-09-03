@@ -1,4 +1,5 @@
 <?php
+
 /**
  * BlogModule основной класс модуля blog
  *
@@ -9,6 +10,7 @@
  * @since 0.1
  *
  */
+
 use yupe\components\WebModule;
 
 /**
@@ -139,8 +141,8 @@ class BlogModule extends yupe\components\WebModule
     public function getUploadPath()
     {
         return Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule(
-                "yupe"
-            )->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath;
+            "yupe"
+        )->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath;
     }
 
     /**
@@ -157,8 +159,8 @@ class BlogModule extends yupe\components\WebModule
                 'File directory (relatively {path})',
                 [
                     '{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule(
-                            "yupe"
-                        )->uploadPath,
+                        "yupe"
+                    )->uploadPath,
                 ]
             ),
             'allowedExtensions' => Yii::t('BlogModule.blog', 'Allowed extensions (separated by comma)'),

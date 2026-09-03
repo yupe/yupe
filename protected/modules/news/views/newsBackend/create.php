@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('NewsModule.news', 'News') => ['/news/newsBackend/index'],
     Yii::t('NewsModule.news', 'Create'),

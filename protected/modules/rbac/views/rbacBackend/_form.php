@@ -109,7 +109,8 @@
         <?=  CHtml::link(Yii::t('RbacModule.rbac', 'Select all'), '#', ['id' => 'check-all']); ?>
         <?=  CHtml::link(Yii::t('RbacModule.rbac', 'Clear all'), '#', ['id' => 'uncheck-all']); ?>
     </p>
-    <?php foreach ($operations as $k => $v): { ?>
+    <?php foreach ($operations as $k => $v) :
+        { ?>
         <div class="row operation">
             <div class="col-sm-7">
                 <div class="checkbox">
@@ -124,12 +125,14 @@
                 </div>
             </div>
         </div>
-    <?php } endforeach; ?>
+        <?php }
+    endforeach; ?>
 </div>
 
 <div id="tasks-list" style="display:none;">
     <p><b>Задачи:</b></p>
-    <?php foreach ($tasks as $k => $v): { ?>
+    <?php foreach ($tasks as $k => $v) :
+        { ?>
         <div class="row operation">
             <div class="col-sm-7">
                 <div class="checkbox">
@@ -144,12 +147,14 @@
                 </div>
             </div>
         </div>
-    <?php } endforeach; ?>
+        <?php }
+    endforeach; ?>
 </div>
 
 <div id="roles-list" style="display:none;">
     <p><b>Роли:</b></p>
-    <?php foreach ($roles as $k => $v): { ?>
+    <?php foreach ($roles as $k => $v) :
+        { ?>
         <div class="row operation">
             <div class="col-sm-7">
                 <div class="checkbox">
@@ -164,7 +169,8 @@
                 </div>
             </div>
         </div>
-    <?php } endforeach; ?>
+        <?php }
+    endforeach; ?>
 </div>
 
 <br/>

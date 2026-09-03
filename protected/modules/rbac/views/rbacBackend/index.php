@@ -24,7 +24,7 @@ $this->menu = $this->module->getNavigation();
         ],
         'columns'      => [
             [
-                'class'=>'CCheckBoxColumn',
+                'class' => 'CCheckBoxColumn',
             ],
             [
                 'name'  => 'name',
@@ -39,10 +39,10 @@ $this->menu = $this->module->getNavigation();
                     'type'   => 'text',
                     'url'    => ['/rbac/rbacBackend/inlineEdit'],
                     'title'  => Yii::t(
-                            'RbacModule.rbac',
-                            'Enter {field}',
-                            ['{field}' => mb_strtolower($model->getAttributeLabel('description'))]
-                        ),
+                        'RbacModule.rbac',
+                        'Enter {field}',
+                        ['{field}' => mb_strtolower($model->getAttributeLabel('description'))]
+                    ),
                     'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     ]
@@ -52,11 +52,11 @@ $this->menu = $this->module->getNavigation();
             [
                 'name'     => 'type',
                 'filter'   => CHtml::activeDropDownList(
-                        $model,
-                        'type',
-                        AuthItem::model()->getTypeList(),
-                        ['class' => 'form-control', 'empty' => '']
-                    ),
+                    $model,
+                    'type',
+                    AuthItem::model()->getTypeList(),
+                    ['class' => 'form-control', 'empty' => '']
+                ),
                 'value'    => '$data->getType()',
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
                 'editable' => [
@@ -64,10 +64,10 @@ $this->menu = $this->module->getNavigation();
                     'mode'   => 'popup',
                     'type'   => 'select',
                     'title'  => Yii::t(
-                            'RbacModule.rbac',
-                            'Select {field}',
-                            ['{field}' => mb_strtolower($model->getAttributeLabel('type'))]
-                        ),
+                        'RbacModule.rbac',
+                        'Select {field}',
+                        ['{field}' => mb_strtolower($model->getAttributeLabel('type'))]
+                    ),
                     'source' => AuthItem::model()->getTypeList(),
                     'params' => [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken

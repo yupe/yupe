@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\Event;
 use yupe\widgets\YPurifier;
 
@@ -105,7 +106,7 @@ class StoreCategory extends \yupe\models\YModel
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module !== null ? $module->uploadPath.'/category' : null,
+                'uploadPath' => $module !== null ? $module->uploadPath . '/category' : null,
             ],
             'tree' => [
                 'class' => 'store\components\behaviors\DCategoryTreeBehavior',
@@ -119,13 +120,13 @@ class StoreCategory extends \yupe\models\YModel
                     'with' => 'productCount',
                 ],
                 'titleAttribute' => 'name',
-                'iconAttribute' => function(StoreCategory $item){
+                'iconAttribute' => function (StoreCategory $item) {
                     return $item->getImageUrl(150, 150);
                 },
-                'iconAltAttribute' => function(StoreCategory $item){
+                'iconAltAttribute' => function (StoreCategory $item) {
                     return $item->getImageAlt();
                 },
-                'iconTitleAttribute' => function(StoreCategory $item){
+                'iconTitleAttribute' => function (StoreCategory $item) {
                     return $item->getImageTitle();
                 },
                 'useCache' => true,
@@ -253,7 +254,7 @@ class StoreCategory extends \yupe\models\YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
         $criteria->compare('parent_id', $this->parent_id);

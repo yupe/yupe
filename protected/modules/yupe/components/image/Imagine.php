@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -148,7 +149,8 @@ class Imagine
         $box = new Box($width, $height);
         $img = static::getImagine()->open($filename);
 
-        if (($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight()) ||
+        if (
+            ($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight()) ||
             (!$box->getWidth() && !$box->getHeight())
         ) {
             return $img->copy();

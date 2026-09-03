@@ -19,10 +19,10 @@ $this->menu = [
     ],
     [
         'label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks') . ' «' . mb_substr(
-                $model->name,
-                0,
-                32
-            ) . '»'
+            $model->name,
+            0,
+            32
+        ) . '»'
     ],
     [
         'icon'  => 'fa fa-fw fa-pencil',

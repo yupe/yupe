@@ -1,1 +1,3 @@
-<?php $this->widget('bootstrap.widgets.TbAlert', $options);
+<?php
+
+$this->widget('bootstrap.widgets.TbAlert', $options);

@@ -43,7 +43,6 @@ class StatusBackendController extends yupe\components\controllers\BackController
         $model = new OrderStatus();
 
         if (Yii::app()->getRequest()->getIsPostrequest() && $data = Yii::app()->getRequest()->getPost('OrderStatus')) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
@@ -72,11 +71,9 @@ class StatusBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (Yii::app()->getRequest()->getIsPostrequest() && $data = Yii::app()->getRequest()->getPost('OrderStatus')) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('OrderModule.order', 'Record updated!')
@@ -100,7 +97,6 @@ class StatusBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $this->loadModel($id)->delete();
 
             Yii::app()->getUser()->setFlash(

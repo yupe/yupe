@@ -33,9 +33,9 @@ $this->menu = [
             ],
             [
                 'header' => Yii::t('StoreModule.store', 'Products'),
-                'value' => function($data) {
+                'value' => function ($data) {
                         return CHtml::link($data->productCount, ['/store/productBackend/index', "Product[type_id]" => $data->id], ['class' => 'badge']);
-                    },
+                },
                 'type' => 'raw'
             ],
             [

@@ -1,4 +1,5 @@
 <?php
+
 namespace store\components\behaviors;
 
 use Yii;
@@ -196,7 +197,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
                 'url' => $item->{$this->urlAttribute},
                 'icon' => $this->iconAttribute !== null ? $item->{$this->iconAttribute} : '',
                 'active' => $active,
-                'itemOptions' => ['class' => 'item_'.$item->getPrimaryKey()],
+                'itemOptions' => ['class' => 'item_' . $item->getPrimaryKey()],
                 'linkOptions' => $active ? ['rel' => 'nofollow'] : [],
             ];
         }
@@ -213,7 +214,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
     {
         $model = $this->cached($this->getOwner())->find(
             [
-                'condition' => 't.'.$this->aliasAttribute.'=:alias',
+                'condition' => 't.' . $this->aliasAttribute . '=:alias',
                 'params' => [':alias' => $alias],
             ]
         );
@@ -300,7 +301,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
     {
         $aliasesAttributes = [];
         foreach ($attributes as $attribute) {
-            $aliasesAttributes[] = 't.'.$attribute;
+            $aliasesAttributes[] = 't.' . $attribute;
         }
 
         return $aliasesAttributes;
@@ -375,7 +376,7 @@ class DCategoryBehavior extends CActiveRecordBehavior
      */
     protected function getCacheTag()
     {
-        return $this->cacheTag ?: $this->defaultCachePrefix.get_class($this->getOwner());
+        return $this->cacheTag ?: $this->defaultCachePrefix . get_class($this->getOwner());
     }
 
     /**

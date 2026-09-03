@@ -88,7 +88,7 @@ class AttributeValue extends yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
         $criteria->compare('product_id', $this->product_id);
@@ -215,7 +215,7 @@ class AttributeValue extends yupe\models\YModel
             'file-upload' => [
                 'class' => 'yupe\components\behaviors\FileUploadBehavior',
                 'attributeName' => 'string_value',
-                'uploadPath' => Yii::app()->getModule('store')->uploadPath.'/product',
+                'uploadPath' => Yii::app()->getModule('store')->uploadPath . '/product',
             ],
         ];
     }
@@ -229,7 +229,7 @@ class AttributeValue extends yupe\models\YModel
             return null;
         }
 
-        $file = Yii::app()->getBasePath().'/'.Yii::app()->getModule('yupe')->uploadPath.'/'.Yii::app()->getModule('store')->uploadPath.'/product/'.$this->value();
+        $file = Yii::app()->getBasePath() . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . Yii::app()->getModule('store')->uploadPath . '/product/' . $this->value();
 
         return \yupe\helpers\YFile::rmFile($file);
     }

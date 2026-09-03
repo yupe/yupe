@@ -2,8 +2,8 @@
 
 class m150414_124659_add_order_coupon_table extends CDbMigration
 {
-	public function safeUp()
-	{
+    public function safeUp()
+    {
         $this->createTable('{{store_order_coupon}}', [
                 "id" => "pk",
                 'order_id'    => 'integer not null',
@@ -19,19 +19,18 @@ class m150414_124659_add_order_coupon_table extends CDbMigration
         $orders = Yii::app()->getDb()->createCommand('SELECT * FROM {{store_order}} WHERE coupon_code IS NOT NULL')
             ->queryAll();
 
-        foreach($orders as $order) {
-
+        foreach ($orders as $order) {
             $coupons = explode(',', $order['coupon_code']);
 
-            foreach($coupons as $code) {
+            foreach ($coupons as $code) {
                 $coupon = Yii::app()->getDb()->createCommand('SELECT * FROM {{store_coupon}} WHERE code = :code')
                     ->bindValue(':code', $code)->queryRow();
 
-                if(!empty($coupon)) {
+                if (!empty($coupon)) {
                     Yii::app()->getDb()->createCommand()->insert('{{store_order_coupon}}', [
                             'order_id'  => $order['id'],
                             'coupon_id' => $coupon['id'],
-                            'create_time'=> new CDbExpression('NOW()')
+                            'create_time' => new CDbExpression('NOW()')
                         ]);
                 }
             }
@@ -39,11 +38,11 @@ class m150414_124659_add_order_coupon_table extends CDbMigration
 
         //удалить старую колонку
         $this->dropColumn('{{store_order}}', 'coupon_code');
-	}
+    }
 
-	public function safeDown()
-	{
+    public function safeDown()
+    {
         $this->dropTable('{{store_order_coupon}}');
         $this->addColumn('{{store_order}}', 'coupon_code', 'varchar(255)');
-	}
+    }
 }

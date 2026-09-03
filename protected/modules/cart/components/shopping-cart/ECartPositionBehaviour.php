@@ -11,7 +11,6 @@
  */
 class ECartPositionBehaviour extends CActiveRecordBehavior
 {
-
     /**
      * Positions number
      * @var int

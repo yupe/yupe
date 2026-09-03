@@ -1,4 +1,5 @@
 <?php
+
 /**
  * InlineWidgetsBehavior allows render widgets in page content
  *
@@ -196,7 +197,9 @@ class InlineWidgetsBehavior extends CBehavior
         foreach ($params as $param) {
             if ($param) {
                 list($attribute, $value) = explode('=', $param);
-                if ($value) $attrs[$attribute] = trim($value);
+                if ($value) {
+                    $attrs[$attribute] = trim($value);
+                }
             }
         }
 
@@ -217,8 +220,9 @@ class InlineWidgetsBehavior extends CBehavior
     protected function _getFullClassName($name)
     {
         $widgetClass = $name . $this->classSuffix;
-        if ($this->_getClassByAlias($widgetClass) == $widgetClass && $this->location)
+        if ($this->_getClassByAlias($widgetClass) == $widgetClass && $this->location) {
             $widgetClass = $this->location . '.' . $widgetClass;
+        }
         return $widgetClass;
     }
 

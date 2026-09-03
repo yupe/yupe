@@ -11,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 Yii::import('application.modules.news.models.*');
 
 /**

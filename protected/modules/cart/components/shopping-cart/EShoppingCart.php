@@ -1,4 +1,5 @@
 <?php
+
 Yii::import('application.modules.coupon.components.CouponManager');
 Yii::import('application.modules.cart.controllers.*');
 Yii::import('application.modules.cart.CartModule');
@@ -12,7 +13,6 @@ Yii::import('application.modules.cart.CartModule');
  */
 class EShoppingCart extends CMap
 {
-
     /**
      * Update the model on session restore?
      * @var boolean

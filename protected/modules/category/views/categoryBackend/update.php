@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('CategoryModule.category', 'Categories') => ['/category/categoryBackend/index'],
     $model->name => ['/category/categoryBackend/view', 'id' => $model->id],

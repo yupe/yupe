@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Файл представления menu/_search:
  *
@@ -10,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [

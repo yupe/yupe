@@ -19,5 +19,4 @@ class GetHelpWidget extends yupe\widgets\YWidget
     {
         $this->render($this->view);
     }
-
 }

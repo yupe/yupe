@@ -1,4 +1,5 @@
 <?php
+
 namespace store\components\behaviors;
 
 use Yii;
@@ -43,7 +44,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         $this->cached();
 
         $criteria = $this->getOwnerCriteria();
-        $criteria->select = 't.'.$this->primaryKeyAttribute.', t.'.$this->titleAttribute.', t.'.$this->parentAttribute;
+        $criteria->select = 't.' . $this->primaryKeyAttribute . ', t.' . $this->titleAttribute . ', t.' . $this->parentAttribute;
         $command = $this->createFindCommand($criteria);
         $items = $command->queryAll();
         $this->clearOwnerCriteria();
@@ -192,7 +193,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
     {
         foreach ($items as $item) {
             if ((int)$item[$this->parentAttribute] == (int)$parent_id && !isset($result[$item[$this->primaryKeyAttribute]])) {
-                $result[$item[$this->primaryKeyAttribute]] = str_repeat('- ', $indent).$item[$this->titleAttribute];
+                $result[$item[$this->primaryKeyAttribute]] = str_repeat('- ', $indent) . $item[$this->titleAttribute];
                 $this->_getTabListRecursive($items, $result, $item[$this->primaryKeyAttribute], $indent + 1);
             }
         }
@@ -240,9 +241,9 @@ class DCategoryTreeBehavior extends DCategoryBehavior
             foreach ($items[$parent] as $item) {
                 $resultArray = $resultArray + [
                         $item->{$this->urlAttribute} => str_repeat(
-                                '-- ',
-                                $indent
-                            ).$item->{$this->titleAttribute},
+                            '-- ',
+                            $indent
+                        ) . $item->{$this->titleAttribute},
                     ] + $this->_getUrlListRecursive(
                         $items,
                         $item->getPrimaryKey(),
@@ -304,7 +305,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
                         'icon_alt' => $this->getAttributeValue('iconAltAttribute', $item),
                         'icon_title' => $this->getAttributeValue('iconTitleAttribute', $item),
                         'active' => $active,
-                        'itemOptions' => ['class' => 'item_'.$item->getPrimaryKey()],
+                        'itemOptions' => ['class' => 'item_' . $item->getPrimaryKey()],
                         'linkOptions' => $active ? ['rel' => 'nofollow'] : [],
                     ] + ($sub ? [
                         'items' => $this->_getMenuListRecursive(
@@ -341,20 +342,17 @@ class DCategoryTreeBehavior extends DCategoryBehavior
         $criteria = $this->getOwnerCriteria();
 
         if (count($domens) == 1) {
-
             $criteria->mergeWith(
                 [
-                    'condition' => 't.'.$this->aliasAttribute.'=:alias AND (t.'.$this->parentAttribute.' iS NULL OR t.'.$this->parentAttribute.'=0)',
+                    'condition' => 't.' . $this->aliasAttribute . '=:alias AND (t.' . $this->parentAttribute . ' iS NULL OR t.' . $this->parentAttribute . '=0)',
                     'params' => [':alias' => $domens[0]],
                 ]
             );
             $model = $this->cached($this->getOwner())->find($criteria);
-
         } else {
-
             $criteria->mergeWith(
                 [
-                    'condition' => 't.'.$this->aliasAttribute.'=:alias',
+                    'condition' => 't.' . $this->aliasAttribute . '=:alias',
                     'params' => [':alias' => $domens[0]],
                 ]
             );
@@ -560,7 +558,7 @@ class DCategoryTreeBehavior extends DCategoryBehavior
 
         $criteria->mergeWith(
             [
-                'condition' => 't.'.$this->aliasAttribute.'=:alias AND t.'.$this->parentAttribute.'=:parent_id',
+                'condition' => 't.' . $this->aliasAttribute . '=:alias AND t.' . $this->parentAttribute . '=:parent_id',
                 'params' => [
                     ':alias' => $alias,
                     ':parent_id' => $this->getOwner()->getPrimaryKey(),

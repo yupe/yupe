@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для postBackend/_form:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -127,9 +129,9 @@ $this->widget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Add member and continue') : Yii::t(
-                'BlogModule.blog',
-                'Save member and continue'
-            ),
+            'BlogModule.blog',
+            'Save member and continue'
+        ),
     ]
 ); ?>
 
@@ -140,9 +142,9 @@ $this->widget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Add member and close') : Yii::t(
-                'BlogModule.blog',
-                'Save member and close'
-            ),
+            'BlogModule.blog',
+            'Save member and close'
+        ),
     ]
 ); ?>
 

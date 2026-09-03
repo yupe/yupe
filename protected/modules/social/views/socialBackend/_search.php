@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для _search:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -50,9 +52,9 @@ $this->widget(
         'encodeLabel' => false,
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
-                'SocialModule.social',
-                'Search'
-            ),
+            'SocialModule.social',
+            'Search'
+        ),
     ]
 ); ?>
 

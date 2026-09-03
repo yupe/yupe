@@ -1,4 +1,5 @@
 <?php
+
 class CartEvents
 {
     const CART_ADD_ITEM = 'cart.item.add';

@@ -32,7 +32,6 @@ class OrderController extends \yupe\components\controllers\FrontController
         $model = new Order(Order::SCENARIO_USER);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Order')) {
-
             $order = Yii::app()->getRequest()->getPost('Order');
 
             $products = Yii::app()->getRequest()->getPost('OrderProduct');
@@ -40,7 +39,6 @@ class OrderController extends \yupe\components\controllers\FrontController
             $coupons = isset($order['couponCodes']) ? $order['couponCodes'] : [];
 
             if ($model->store($order, $products, Yii::app()->getUser()->getId(), (int)Yii::app()->getModule('order')->defaultStatus)) {
-
                 Yii::app()->cart->clear();
 
                 if (!empty($coupons)) {
@@ -59,7 +57,6 @@ class OrderController extends \yupe\components\controllers\FrontController
                 }
 
                 $this->redirect(['/store/product/index']);
-
             } else {
                 $error = CHtml::errorSummary($model);
                 Yii::app()->getUser()->setFlash(
@@ -88,7 +85,6 @@ class OrderController extends \yupe\components\controllers\FrontController
         $order = null;
 
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $form->setAttributes(
                 Yii::app()->getRequest()->getPost('CheckOrderForm')
             );

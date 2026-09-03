@@ -61,8 +61,8 @@ $form = $this->beginWidget(
             [
                 'widgetOptions' => [
                     'data'        => Yii::app()->getComponent('categoriesRepository')->getFormattedList(
-                            (int)Yii::app()->getModule('feedback')->mainCategory
-                        ),
+                        (int)Yii::app()->getModule('feedback')->mainCategory
+                    ),
                     'htmlOptions' => [
                         'empty' => '---',
                     ],
@@ -111,9 +111,9 @@ $form = $this->beginWidget(
         'encodeLabel' => false,
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i>' . Yii::t(
-                'FeedbackModule.feedback',
-                'Find messages '
-            ),
+            'FeedbackModule.feedback',
+            'Find messages '
+        ),
     ]
 ); ?>
 

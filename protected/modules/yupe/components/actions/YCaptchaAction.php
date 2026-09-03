@@ -12,6 +12,7 @@
  * @version  0.1
  * @link     https://yupe.ru
  **/
+
 namespace yupe\components\actions;
 
 use CCaptchaAction;
@@ -48,5 +49,4 @@ class YCaptchaAction extends CCaptchaAction
             $this->maxLength = $module->maxCaptchaLength;
         }
     }
-
 }

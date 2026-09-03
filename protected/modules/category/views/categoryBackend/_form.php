@@ -40,7 +40,8 @@ $form = $this->beginWidget(
 
     <div class="col-sm-4">
 
-        <?php if (count($languages) > 1): { ?>
+        <?php if (count($languages) > 1) :
+            { ?>
             <?= $form->dropDownListGroup(
                 $model,
                 'lang',
@@ -53,34 +54,47 @@ $form = $this->beginWidget(
                     ],
                 ]
             ); ?>
-            <?php if (!$model->isNewRecord): { ?>
-                <?php foreach ($languages as $k => $v): { ?>
-                    <?php if ($k !== $model->lang): { ?>
-                        <?php if (empty($langModels[$k])): { ?>
+            <?php if (!$model->isNewRecord) :
+                { ?>
+                <?php foreach ($languages as $k => $v) :
+                    { ?>
+                    <?php if ($k !== $model->lang) :
+                        { ?>
+                        <?php if (empty($langModels[$k])) :
+                            { ?>
                             <a href="<?= $this->createUrl(
                                 '/category/categoryBackend/create',
                                 ['id' => $model->id, 'lang' => $k]
-                            ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
-                                    'CategoryModule.category',
-                                    'Add translate in to {lang}',
-                                    ['{lang}' => $v]
-                                ) ?>"></i></a>
-                        <?php } else: { ?>
+                                     ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
+                                'CategoryModule.category',
+                                'Add translate in to {lang}',
+                                ['{lang}' => $v]
+                            ) ?>"></i></a>
+                            <?php }
+                        else :
+                            { ?>
                             <a href="<?= $this->createUrl(
                                 '/category/categoryBackend/update',
                                 ['id' => $langModels[$k]]
-                            ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
-                                    'CategoryModule.category',
-                                    'Change translation in to {lang}',
-                                    ['{lang}' => $v]
-                                ) ?>"></i></a>
-                        <?php } endif; ?>
-                    <?php } endif; ?>
-                <?php } endforeach; ?>
-            <?php } endif; ?>
-        <?php } else: { ?>
+                                     ); ?>"><i class="iconflags iconflags-<?= $k; ?>" title="<?= Yii::t(
+                                'CategoryModule.category',
+                                'Change translation in to {lang}',
+                                ['{lang}' => $v]
+                            ) ?>"></i></a>
+                            <?php }
+                        endif; ?>
+                        <?php }
+                    endif; ?>
+                    <?php }
+                endforeach; ?>
+                <?php }
+            endif; ?>
+            <?php }
+        else :
+            { ?>
             <?= $form->hiddenField($model, 'lang'); ?>
-        <?php } endif; ?>
+            <?php }
+        endif; ?>
 
     </div>
 
@@ -125,7 +139,7 @@ $form = $this->beginWidget(
             ]
         ); ?>
 
-        <?php if (!$model->isNewRecord && $model->image): ?>
+        <?php if (!$model->isNewRecord && $model->image) : ?>
             <div class="checkbox">
                 <label>
                     <input type="checkbox" name="delete-file"> <?= Yii::t('YupeModule.yupe', 'Delete the file') ?>

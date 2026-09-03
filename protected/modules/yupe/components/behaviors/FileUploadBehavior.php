@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\components\behaviors;
 
 use CActiveRecordBehavior;
@@ -212,7 +213,7 @@ class FileUploadBehavior extends CActiveRecordBehavior
         } else {
             $name = md5(uniqid($this->getOwner()->{$this->attributeName}, true));
         }
-        $name .= '.'.$this->getUploadedFileInstance()->getExtensionName();
+        $name .= '.' . $this->getUploadedFileInstance()->getExtensionName();
 
         return $name;
     }

@@ -75,7 +75,7 @@ $this->widget(
                             ['/rbac/rbacBackend/assign', 'id' => $data->id],
                             ['class' => 'btn btn-default btn-small']
                         );
-                    }
+                }
             ],
         ],
     ]

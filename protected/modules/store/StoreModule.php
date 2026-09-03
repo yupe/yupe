@@ -120,9 +120,9 @@ class StoreModule extends WebModule
      */
     public function getUploadPath()
     {
-        return Yii::getPathOfAlias('webroot').'/'.Yii::app()->getModule(
+        return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule(
             'yupe'
-        )->uploadPath.'/'.$this->uploadPath;
+        )->uploadPath . '/' . $this->uploadPath;
     }
 
     /**
@@ -220,7 +220,7 @@ class StoreModule extends WebModule
             'uploadPath' => Yii::t(
                 'StoreModule.store',
                 'File uploads directory (relative to "{path}")',
-                ['{path}' => Yii::getPathOfAlias('webroot').'/'.Yii::app()->getModule("yupe")->uploadPath]
+                ['{path}' => Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule("yupe")->uploadPath]
             ),
             'editor' => Yii::t('StoreModule.store', 'Visual editor'),
             'defaultImage' => Yii::t('StoreModule.store', 'Default image'),

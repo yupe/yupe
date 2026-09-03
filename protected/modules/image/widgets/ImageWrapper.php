@@ -10,6 +10,7 @@
  * @since 0.1
  *
  */
+
 use yupe\widgets\YWidget;
 
 class ImageWrapper extends YWidget

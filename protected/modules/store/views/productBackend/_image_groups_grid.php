@@ -1,4 +1,6 @@
-<?php $this->widget(
+<?php
+
+$this->widget(
     'yupe\widgets\CustomGridView',
     [
         'id' => 'group-grid',
@@ -20,7 +22,7 @@
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
                 'template' => '{delete}',
-                'deleteButtonUrl' => function($data){
+                'deleteButtonUrl' => function ($data) {
                     return Yii::app()->createUrl('/store/groupBackend/delete', ['id' => $data->id]);
                 },
             ]

@@ -1,4 +1,5 @@
 <?php
+
 use yupe\widgets\YPurifier;
 
 /**
@@ -14,7 +15,6 @@ use yupe\widgets\YPurifier;
  **/
 class RegistrationForm extends CFormModel
 {
-
     public $nick_name;
     public $email;
     public $password;

@@ -12,7 +12,6 @@
  **/
 class NotifyBackendController extends \yupe\components\controllers\BackController
 {
-
     public function accessRules()
     {
         return [
@@ -42,7 +41,7 @@ class NotifyBackendController extends \yupe\components\controllers\BackControlle
      */
     public function actionCreate()
     {
-        $model = new NotifySettings;
+        $model = new NotifySettings();
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);

@@ -39,4 +39,4 @@ class OrderEvents
      *
      */
     const STATUS_CHANGED = 'order.status.changed';
-} 
+}

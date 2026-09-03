@@ -57,9 +57,9 @@ $this->menu = [
 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#anounce" data-toggle="tab"><?= Yii::t(
-                'NewsModule.news',
-                'Short news article example'
-            ); ?></a></li>
+        'NewsModule.news',
+        'Short news article example'
+    ); ?></a></li>
     <li><a href="#full" data-toggle="tab"><?= Yii::t('NewsModule.news', 'Full news article example'); ?></a></li>
 </ul>
 <div class="tab-content">
@@ -82,7 +82,7 @@ $this->menu = [
     <div id="full" class="tab-pane fade">
         <div style="margin-bottom: 20px;">
             <h3><?= CHtml::link(CHtml::encode($model->title), ['/news/news/view', 'slug' => $model->slug]); ?></h3>
-            <?php if ($model->image): ?>
+            <?php if ($model->image) : ?>
                 <?= CHtml::image($model->getImageUrl(), $model->title); ?>
             <?php endif; ?>
             <p><?= $model->full_text; ?></p>

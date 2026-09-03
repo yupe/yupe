@@ -89,7 +89,6 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
         $model->name = Yii::app()->getUser()->getProfileField('fullName');
 
         if (($data = Yii::app()->getRequest()->getPost('FeedBack')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
@@ -177,7 +176,6 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
         );
 
         if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-
             if ($this->saveAnswer($form, $model) === true) {
                 return true;
             }
@@ -230,14 +228,14 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
      */
     public function saveAnswer(AnswerForm $form, FeedBack $model)
     {
-        if (Yii::app()->getRequest()->getIsPostRequest() && ($data = Yii::app()->getRequest()->getPost(
+        if (
+            Yii::app()->getRequest()->getIsPostRequest() && ($data = Yii::app()->getRequest()->getPost(
                 'AnswerForm'
             )) !== null
         ) {
             $form->setAttributes($data);
 
             if ($form->validate()) {
-
                 $model->setAttributes(
                     [
                         'answer' => $form->answer,
@@ -255,7 +253,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                     Yii::app()->mail->send(
                         Yii::app()->getModule('feedback')->notifyEmailFrom,
                         $model->email,
-                        'RE: '.$model->theme,
+                        'RE: ' . $model->theme,
                         $body
                     );
 
@@ -295,7 +293,6 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     public function actionDelete()
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $this->loadModel()->delete();
 
             Yii::app()->getRequest()->getIsAjaxRequest() || $this->redirect(
@@ -340,7 +337,6 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
     public function loadModel($id = null)
     {
         if ($this->_model === null) {
-
             $id = $id ?: Yii::app()->getRequest()->getParam('id');
 
             if (($this->_model = FeedBack::model()->findByPk($id)) === null) {

@@ -93,7 +93,6 @@ class YWebUser extends CWebUser
         $attempt = (int)Yii::app()->getUser()->getState(self::STATE_ADM_CHECK_ATTEMPT, 0);
 
         if ($attempt >= $this->attempt) {
-
             $attempt = 0;
 
             $user = User::model()->active()->find(
@@ -229,11 +228,9 @@ class YWebUser extends CWebUser
         Yii::app()->getCache()->clear('loggedIn' . $this->getId());
 
         if ($fromCookie) {
-
             $transaction = Yii::app()->getDb()->beginTransaction();
 
             try {
-
                 $user = User::model()->active()->findByPk($this->getId());
 
                 if (null === $user) {
@@ -258,7 +255,6 @@ class YWebUser extends CWebUser
                 $user->update(['visit_time']);
 
                 $transaction->commit();
-
             } catch (Exception $e) {
                 $transaction->rollback();
             }

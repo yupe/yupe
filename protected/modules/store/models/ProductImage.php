@@ -70,7 +70,7 @@ class ProductImage extends \yupe\models\YModel
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module->uploadPath.'/product',
+                'uploadPath' => $module->uploadPath . '/product',
                 'resizeOnUpload' => true,
                 'resizeOptions' => [
                     'maxWidth' => 900,

@@ -1,5 +1,6 @@
 <?php $box = $this->beginWidget(
-    'bootstrap.widgets.TbCollapse', [
+    'bootstrap.widgets.TbCollapse',
+    [
         'htmlOptions' => [
             'id' => 'panel-feedback-stat'
         ]

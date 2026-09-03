@@ -5,7 +5,6 @@
  */
 class ProducerRepository extends CApplicationComponent
 {
-
     /**
      * @param StoreCategory $category
      * @param CDbCriteria $mergeWith
@@ -35,7 +34,8 @@ class ProducerRepository extends CApplicationComponent
         $criteria->order = 'sort';
 
         return new CActiveDataProvider(
-            'Producer', [
+            'Producer',
+            [
                 'criteria' => $criteria,
                 'pagination' => [
                     'pageSize' => 20,

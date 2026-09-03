@@ -389,8 +389,7 @@ $form = $this->beginWidget(
                                             'placeholder' => Yii::t('MenuModule.menu', '-- Not set --'),
                                             'width' => '100%'
                                         ],
-                                    ]
-                                ); ?>
+                                    ]); ?>
                                 <?= $form->error($model, 'entity_id') ?>
                             </div>
                         </div>

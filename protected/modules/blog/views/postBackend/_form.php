@@ -19,7 +19,7 @@
     <li><a href="#seo" data-toggle="tab"><?= Yii::t("BlogModule.blog", "Data for SEO"); ?></a></li>
 </ul>
 
-<? $form = $this->beginWidget(
+<?php $form = $this->beginWidget(
     '\yupe\widgets\ActiveForm',
     [
         'id' => 'post-form',
@@ -239,7 +239,7 @@
                     ]
                 ); ?>
 
-                <?php if (!$model->getIsNewRecord() && $model->image): ?>
+                <?php if (!$model->getIsNewRecord() && $model->image) : ?>
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"
@@ -351,8 +351,7 @@
 </div>
 <br/>
 
-<?php if (!$model->getIsNewRecord() && !$model->isPublished()): ?>
-
+<?php if (!$model->getIsNewRecord() && !$model->isPublished()) : ?>
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',

@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\widgets\editors;
 
 use Yii;

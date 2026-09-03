@@ -14,7 +14,7 @@ class AttributeRender
      */
     public static function renderField($attribute, $value = null, $name = null, $htmlOptions = [])
     {
-        $name = $name ?: 'Attribute['.$attribute->id.']';
+        $name = $name ?: 'Attribute[' . $attribute->id . ']';
         switch ($attribute->type) {
             case Attribute::TYPE_SHORT_TEXT:
                 return CHtml::textField($name, $value, $htmlOptions);
@@ -35,10 +35,9 @@ class AttributeRender
                 return CHtml::dropDownList($name, $value, $data, array_merge($htmlOptions, (['empty' => '---'])));
                 break;
             case Attribute::TYPE_CHECKBOX_LIST:
-
                 $data = CHtml::listData($attribute->options, 'id', 'value');
 
-                return CHtml::checkBoxList($name.'[]', $value, $data, $htmlOptions);
+                return CHtml::checkBoxList($name . '[]', $value, $data, $htmlOptions);
                 break;
             case Attribute::TYPE_CHECKBOX:
                 return CHtml::checkBox($name, $value, CMap::mergeArray(['uncheckValue' => 0], $htmlOptions));
@@ -47,7 +46,7 @@ class AttributeRender
                 return CHtml::numberField($name, $value, $htmlOptions);
                 break;
             case Attribute::TYPE_FILE:
-                return CHtml::fileField($name.'[name]', null, $htmlOptions);
+                return CHtml::fileField($name . '[name]', null, $htmlOptions);
                 break;
         }
 
@@ -61,7 +60,7 @@ class AttributeRender
      */
     public static function renderValue(Attribute $attribute, $value, $template = '<p>{item}</p>')
     {
-        $unit = $attribute->unit ? ' '.$attribute->unit : '';
+        $unit = $attribute->unit ? ' ' . $attribute->unit : '';
         $res = null;
         switch ($attribute->type) {
             case Attribute::TYPE_TEXT:
@@ -71,7 +70,7 @@ class AttributeRender
                 break;
             case Attribute::TYPE_DROPDOWN:
                 $data = CHtml::listData($attribute->options, 'id', 'value');
-                if(is_array($value)) {
+                if (is_array($value)) {
                     $value = array_shift($value);
                 }
                 if (isset($data[$value])) {
@@ -80,7 +79,7 @@ class AttributeRender
                 break;
             case Attribute::TYPE_CHECKBOX_LIST:
                 $data = CHtml::listData($attribute->options, 'id', 'value');
-                if(is_array($value)) {
+                if (is_array($value)) {
                     foreach (array_intersect(array_keys($data), $value) as $val) {
                         $res .= strtr($template, ['{item}' => $data[$val]]);
                     }
@@ -91,6 +90,6 @@ class AttributeRender
                 break;
         }
 
-        return $res.$unit;
+        return $res . $unit;
     }
 }

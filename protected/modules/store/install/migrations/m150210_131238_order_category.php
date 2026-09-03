@@ -12,8 +12,7 @@ class m150210_131238_order_category extends CDbMigration
                 $command = Yii::app()->db->createCommand($query);
                 $command->execute(array(
                         ':id' => $item['id']
-                    )
-                );
+                    ));
             }
         }
     }

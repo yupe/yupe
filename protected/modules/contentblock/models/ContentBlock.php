@@ -9,6 +9,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     https://yupe.ru
  **/
+
 use yupe\widgets\YPurifier;
 
 /**
@@ -189,7 +190,6 @@ class ContentBlock extends yupe\models\YModel
     {
         $content = '';
         switch ($this->type) {
-
             case ContentBlock::SIMPLE_TEXT:
                 $content = CHtml::encode($this->content);
                 break;

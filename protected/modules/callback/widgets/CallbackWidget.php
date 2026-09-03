@@ -30,7 +30,6 @@ class CallbackWidget extends \yupe\widgets\YWidget
 
 
         parent::init();
-
     }
 
     /**

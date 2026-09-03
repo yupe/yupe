@@ -1,4 +1,5 @@
 <?php
+
 use yupe\widgets\YPurifier;
 
 /**
@@ -645,5 +646,4 @@ class User extends yupe\models\YModel
         $this->email_confirm = self::EMAIL_CONFIRM_YES;
         return $this;
     }
-
 }

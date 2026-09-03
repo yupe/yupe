@@ -145,10 +145,10 @@ $linkTypes = CHtml::listData(ProductLinkType::model()->findAll(['order' => 'titl
                     [
                         'name' => 'category_id',
                         'value' => function ($data) {
-                            $categoryList = '<span class="label label-primary">'.(isset($data->category) ? $data->category->name : '---').'</span>';
+                            $categoryList = '<span class="label label-primary">' . (isset($data->category) ? $data->category->name : '---') . '</span>';
 
                             foreach ($data->categories as $category) {
-                                $categoryList .= '<br>'.$category->name;
+                                $categoryList .= '<br>' . $category->name;
                             }
 
                             return $categoryList;

@@ -1,4 +1,5 @@
 <?php
+
 namespace application\modules\social\components\services;
 
 class Google extends \GoogleOAuthService
@@ -37,7 +38,8 @@ class Google extends \GoogleOAuthService
         $this->setState(self::AUTH_DATA_KEY, null);
     }
 
-    protected function fetchAttributes() {
+    protected function fetchAttributes()
+    {
         $info = (array)$this->makeSignedRequest('https://www.googleapis.com/oauth2/v1/userinfo');
 
         $this->attributes['id'] = $info['id'];

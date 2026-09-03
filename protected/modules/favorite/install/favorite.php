@@ -1,4 +1,5 @@
 <?php
+
 return [
     'module' => [
         'class' => 'application.modules.favorite.FavoriteModule',

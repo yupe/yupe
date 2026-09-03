@@ -1,4 +1,5 @@
 <?php
+
 Yii::import('application.modules.store.models.Producer');
 
 /**

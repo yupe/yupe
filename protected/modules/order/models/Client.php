@@ -71,7 +71,8 @@ class Client extends User
     public function getOrders()
     {
         $provider = new CActiveDataProvider(
-            'Order', [
+            'Order',
+            [
                 'criteria' => [
                     'condition' => 'user_id = :user',
                     'params' => [
@@ -134,14 +135,15 @@ class Client extends User
 
         $criteria->select = [
             '*',
-            $orderNumberSql.' as ordersTotalNumber',
-            $orderSumSql.' as ordersTotalSum',
+            $orderNumberSql . ' as ordersTotalNumber',
+            $orderSumSql . ' as ordersTotalSum',
         ];
 
         $criteria->params[':paid'] = Order::PAID_STATUS_PAID;
 
         return new CActiveDataProvider(
-            __CLASS__, [
+            __CLASS__,
+            [
                 'criteria' => $criteria,
                 'sort' => [
                     'defaultOrder' => 'visit_time DESC',

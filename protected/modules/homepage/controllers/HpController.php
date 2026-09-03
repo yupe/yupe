@@ -12,7 +12,6 @@
  **/
 class HpController extends \yupe\components\controllers\FrontController
 {
-
     /**
      * @throws CHttpException
      */
@@ -23,7 +22,6 @@ class HpController extends \yupe\components\controllers\FrontController
         $view = $data = null;
 
         if ($module->mode == HomepageModule::MODE_PAGE) {
-
             $target = Page::model()->findByPk($module->target);
             if (null === $target) {
                 throw new CHttpException('404', Yii::t('HomepageModule.page', 'Page was not found'));
@@ -47,16 +45,17 @@ class HpController extends \yupe\components\controllers\FrontController
             $view = 'posts';
 
             $dataProvider = new CActiveDataProvider(
-                'Post', [
+                'Post',
+                [
                     'criteria' => new CDbCriteria(
-                            [
+                        [
                                 'condition' => 't.status = :status',
                                 'params' => [':status' => Post::STATUS_PUBLISHED],
                                 'limit' => $module->limit,
                                 'order' => 't.publish_time DESC',
                                 'with' => ['createUser', 'blog', 'commentsCount'],
                             ]
-                        ),
+                    ),
                 ]
             );
 
@@ -65,8 +64,7 @@ class HpController extends \yupe\components\controllers\FrontController
             ];
         }
 
-        if($module->mode == HomepageModule::MODE_STORE) {
-
+        if ($module->mode == HomepageModule::MODE_STORE) {
             $view = 'store';
 
             Yii::import('application.modules.store.components.repository.ProductRepository');
@@ -74,7 +72,6 @@ class HpController extends \yupe\components\controllers\FrontController
             $data = [
                 'dataProvider' => (new ProductRepository())->getListForIndexPage()
             ];
-
         }
 
         $this->render($view, $data);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var $this ProductBackendController
  * @var $model Product
@@ -65,7 +66,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
                 'type' => 'raw',
                 'value' => function ($data) {
                         return CHtml::link(\yupe\helpers\YText::wordLimiter($data->name, 5), ["/store/productBackend/update", "id" => $data->id]);
-                    },
+                },
             ],
             [
                 'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -94,11 +95,11 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
             ],
             [
                 'name'  => 'category_id',
-                'value' => function($data){
-                    $categoryList = '<span class="label label-primary">'. (isset($data->category) ? $data->category->name : '---') . '</span>';
+                'value' => function ($data) {
+                    $categoryList = '<span class="label label-primary">' . (isset($data->category) ? $data->category->name : '---') . '</span>';
 
                     foreach ($data->categories as $category) {
-                        $categoryList .= '</span>&nbsp;<span class="label label-default">' . $category->name .'</span>';
+                        $categoryList .= '</span>&nbsp;<span class="label label-default">' . $category->name . '</span>';
                     }
 
                     return $categoryList;
@@ -179,7 +180,7 @@ $this->pageTitle = Yii::t('StoreModule.store', 'Products - manage');
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-                'frontViewButtonUrl' => function($data){
+                'frontViewButtonUrl' => function ($data) {
                     return ProductHelper::getUrl($data);
                 },
                 'template' => '{front_view} {view} {update} {images} {delete}',

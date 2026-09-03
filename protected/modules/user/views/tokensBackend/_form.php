@@ -79,9 +79,9 @@ $form = $this->beginWidget(
                 'buttonType' => 'submit',
                 'context'    => 'primary',
                 'label'      => $model->isNewRecord ? Yii::t('UserModule.user', 'Create token and continue') : Yii::t(
-                        'UserModule.user',
-                        'Save token and continue'
-                    ),
+                    'UserModule.user',
+                    'Save token and continue'
+                ),
             ]
         ); ?>
         <?php $this->widget(
@@ -90,9 +90,9 @@ $form = $this->beginWidget(
                 'buttonType'  => 'submit',
                 'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
                 'label'       => $model->isNewRecord ? Yii::t('UserModule.user', 'Create token and close') : Yii::t(
-                        'UserModule.user',
-                        'Save token and close'
-                    ),
+                    'UserModule.user',
+                    'Save token and close'
+                ),
             ]
         ); ?>
     </div>

@@ -47,9 +47,9 @@ $form = $this->beginWidget(
         'encodeLabel' => false,
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
-                'ContentBlockModule.contentblock',
-                'Find block'
-            ),
+            'ContentBlockModule.contentblock',
+            'Find block'
+        ),
     ]
 ); ?>
 

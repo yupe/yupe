@@ -1,4 +1,5 @@
 <?php
+
 class CategoryEvents
 {
     const CATEGORY_AFTER_SAVE = 'category.after.save';

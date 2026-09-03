@@ -63,8 +63,7 @@ $this->menu = [
                     'id' => 'approve-comments',
                     'class' => 'btn btn-sm btn-info pull-right disabled bulk-actions-btn',
                     'style' => 'margin-left: 4px;'
-                ]
-            ),
+                ]),
             'add' => CHtml::link(
                 Yii::t('CommentModule.comment', 'Add'),
                 ['/comment/commentBackend/create'],
@@ -147,6 +146,7 @@ Yii::app()->getClientScript()->registerScript(
         }
     });
 JS
-, CClientScript::POS_READY
+    ,
+    CClientScript::POS_READY
 );
 

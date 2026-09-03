@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('ContentBlockModule.contentblock', 'Content blocks') => ['/contentblock/contentBlockBackend/index'],
     $model->name                                                => [
@@ -23,10 +24,10 @@ $this->menu = [
     ],
     [
         'label' => Yii::t('ContentBlockModule.contentblock', 'Content block') . ' «' . mb_substr(
-                $model->name,
-                0,
-                32
-            ) . '»'
+            $model->name,
+            0,
+            32
+        ) . '»'
     ],
     [
         'icon'  => 'fa fa-fw fa-pencil',

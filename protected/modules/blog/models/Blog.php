@@ -12,6 +12,7 @@
  * @since 0.1
  *
  */
+
 use yupe\widgets\YPurifier;
 
 /**
@@ -411,7 +412,6 @@ class Blog extends yupe\models\YModel
         $blogs = Yii::app()->getCache()->get("Blog::Blog::members::{$userId}");
 
         if (false === $blogs) {
-
             $result = Yii::app()->getDb()->createCommand(
                 'SELECT blog_id, status FROM {{blog_user_to_blog}} WHERE user_id = :userId'
             )->bindValue(':userId', (int)$userId)
@@ -488,14 +488,11 @@ class Blog extends yupe\models\YModel
         $member = $this->getUserMembership($userId);
 
         if (null === $member) {
-
             $member = new UserToBlog();
             $member->blog_id = $this->id;
             $member->user_id = (int)$userId;
             $member->status = (int)$this->member_status;
-
         } else {
-
             if ($member->isDeleted()) {
                 $member->activate();
             } else {
@@ -504,7 +501,6 @@ class Blog extends yupe\models\YModel
         }
 
         if ($member->save()) {
-
             Yii::app()->eventManager->fire(BlogEvents::BLOG_JOIN, new BlogJoinLeaveEvent($this, $userId));
 
             Yii::app()->getCache()->delete("Blog::Blog::members::{$userId}");

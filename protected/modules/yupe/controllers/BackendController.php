@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Главный контроллер админ-панели:
  *
@@ -9,6 +10,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 use yupe\models\Settings;
 
 /**
@@ -111,9 +113,7 @@ class BackendController extends yupe\components\controllers\BackController
         ];
 
         try {
-
             $result = Yii::app()->configManager->flushDump();
-
         } catch (Exception $e) {
             Yii::app()->ajax->failure(
                 Yii::t(
@@ -244,11 +244,12 @@ class BackendController extends yupe\components\controllers\BackController
 
             if (!($module = Yii::app()->getModule($moduleId))) {
                 throw new CHttpException(
-                    404, Yii::t(
-                    'YupeModule.yupe',
-                    'Module "{module}" was not found!',
-                    ['{module}' => $moduleId]
-                )
+                    404,
+                    Yii::t(
+                        'YupeModule.yupe',
+                        'Module "{module}" was not found!',
+                        ['{module}' => $moduleId]
+                    )
                 );
             }
 
@@ -359,11 +360,9 @@ class BackendController extends yupe\components\controllers\BackController
             }
 
             if ($module->getIsInstalled()) {
-
                 $updates = Yii::app()->migrator->checkForUpdates([$name => $module]);
 
                 if (Yii::app()->getRequest()->getIsPostRequest()) {
-
                     Yii::app()->migrator->updateToLatest($name);
 
                     Yii::app()->getUser()->setFlash(
@@ -411,12 +410,12 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     private function _cleanAssets()
     {
-        if(Yii::app()->getAssetManager()->linkAssets) {
+        if (Yii::app()->getAssetManager()->linkAssets) {
             return true;
         }
 
         try {
-            $dirsList = glob(Yii::app()->assetManager->getBasePath().DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
+            $dirsList = glob(Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
             if (is_array($dirsList)) {
                 foreach ($dirsList as $item) {
                     yupe\helpers\YFile::rmDir($item);
@@ -437,7 +436,8 @@ class BackendController extends yupe\components\controllers\BackController
      */
     public function actionAjaxflush()
     {
-        if (!Yii::app()->getRequest()->getIsPostRequest()
+        if (
+            !Yii::app()->getRequest()->getIsPostRequest()
             || !Yii::app()->getRequest()->getIsAjaxRequest()
             || ($method = Yii::app()->getRequest()->getPost('method')) === null
         ) {
@@ -446,7 +446,6 @@ class BackendController extends yupe\components\controllers\BackController
 
         switch ($method) {
             case 'cacheAll':
-
                 try {
                     Yii::app()->getCache()->flush();
                     $this->_cleanAssets();
@@ -456,7 +455,6 @@ class BackendController extends yupe\components\controllers\BackController
                     Yii::app()->ajax->success(
                         Yii::t('YupeModule.yupe', 'Cache cleaned successfully!')
                     );
-
                 } catch (Exception $e) {
                     Yii::app()->ajax->failure(
                         $e->getMessage()

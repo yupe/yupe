@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var integer $id
  * @var string $description
@@ -22,5 +23,5 @@ $description = Yii::t('RobokassaModule.robokassa', 'Payment order #{id} on "{sit
 <?= CHtml::hiddenField('Desc', $description) ?>
 <?= CHtml::hiddenField('SignatureValue', md5("$login:$price:$id:$password")) ?>
 <?= CHtml::hiddenField('Culture', $settings['language']) ?>
-<?= CHtml::submitButton(Yii::t('RobokassaModule.robokassa','Pay')) ?>
-<?= CHtml::endForm() ?>
+<?= CHtml::submitButton(Yii::t('RobokassaModule.robokassa', 'Pay')) ?>
+<?= CHtml::endForm();

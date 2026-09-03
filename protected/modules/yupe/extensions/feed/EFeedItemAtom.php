@@ -1,4 +1,5 @@
 <?php
+
 /**
  * EFeedItemAtom Class file
  * @author Antonio Ramirez
@@ -104,7 +105,6 @@ class EFeedItemAtom extends EFeedItemAbstract
             $tag->attributes['type'] = "html";
             $element .= CHtml::openTag($tag->name, $tag->attributes);
             $element .= '<![CDATA["' . PHP_EOL;
-
         } else {
             $element .= CHtml::openTag($tag->name, $tag->attributes);
         }

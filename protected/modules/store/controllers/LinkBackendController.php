@@ -74,7 +74,6 @@ class LinkBackendController extends yupe\components\controllers\BackController
         if (($data = Yii::app()->getRequest()->getPost('ProductLinkType')) !== null) {
             $model->setAttributes($data);
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Record was created!')
@@ -112,5 +111,4 @@ class LinkBackendController extends yupe\components\controllers\BackController
 
         return $model;
     }
-
 }

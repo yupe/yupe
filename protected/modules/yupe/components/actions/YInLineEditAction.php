@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\components\actions;
 
 use CAction;

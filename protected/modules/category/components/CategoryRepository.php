@@ -1,4 +1,5 @@
 <?php
+
 class CategoryRepository extends CApplicationComponent
 {
     private $cache;
@@ -73,7 +74,6 @@ class CategoryRepository extends CApplicationComponent
         $list = [];
 
         foreach ($categories as $category) {
-
             $category->name = str_repeat($spacer, $level) . $category->name;
 
             $list[$category->id] = $category->name;

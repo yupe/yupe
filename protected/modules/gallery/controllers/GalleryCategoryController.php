@@ -22,7 +22,8 @@ class GalleryCategoryController extends FrontController
         }
 
         $dataProvider = new CActiveDataProvider(
-            'Gallery', [
+            'Gallery',
+            [
                 'criteria' => [
                     'condition' => 'category_id = :category_id',
                     'scopes' => 'published',

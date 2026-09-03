@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\widgets\editors;
 
 use Yii;
@@ -24,9 +25,9 @@ class CKEditor extends \CInputWidget
 
         $this->htmlOptions['id'] = $id;
 
-        if($this->hasModel()){
+        if ($this->hasModel()) {
             echo \CHtml::activeTextArea($this->model, $this->attribute, $this->htmlOptions);
-        }else{
+        } else {
             echo \CHtml::textArea($name, $this->value, $this->htmlOptions);
         }
 
@@ -46,12 +47,14 @@ class CKEditor extends \CInputWidget
         ];
 
         $assets = Yii::app()->getAssetManager()->publish(
-            Yii::getPathOfAlias('vendor').'/ckeditor/ckeditor/'
+            Yii::getPathOfAlias('vendor') . '/ckeditor/ckeditor/'
         );
 
-        Yii::app()->getClientScript()->registerScriptFile($assets.'/ckeditor.js', \CClientScript::POS_HEAD);
-        Yii::app()->getClientScript()->registerScriptFile($assets.'/lang/'.Yii::app()->getLanguage().'.js',
-            \CClientScript::POS_HEAD);
+        Yii::app()->getClientScript()->registerScriptFile($assets . '/ckeditor.js', \CClientScript::POS_HEAD);
+        Yii::app()->getClientScript()->registerScriptFile(
+            $assets . '/lang/' . Yii::app()->getLanguage() . '.js',
+            \CClientScript::POS_HEAD
+        );
 
         $options = \CJavaScript::encode(\CMap::mergeArray($options, $this->editorOptions));
 
@@ -69,7 +72,7 @@ class CKEditor extends \CInputWidget
        ');
 
         Yii::app()->getClientScript()->registerScript(
-            __CLASS__.'#'.$this->getId(),
+            __CLASS__ . '#' . $this->getId(),
             "CKEDITOR.replace( '$id', $options);"
         );
     }

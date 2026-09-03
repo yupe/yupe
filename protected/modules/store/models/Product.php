@@ -1,4 +1,5 @@
 <?php
+
 use yupe\widgets\YPurifier;
 
 Yii::import('zii.behaviors.CTimestampBehavior');
@@ -336,7 +337,7 @@ class Product extends yupe\models\YModel implements ICommentable
     public function search()
     {
         $module = Yii::app()->getModule('store');
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->with = ['category', 'categories'];
 
         $criteria->compare('id', $this->id);
@@ -363,15 +364,20 @@ class Product extends yupe\models\YModel implements ICommentable
         if ($this->category_id) {
             $categoryCriteria = new CDbCriteria();
             $categoryCriteria->compare('t.category_id', $this->category_id);
-            $categoryCriteria->addCondition(sprintf('t.id IN (SELECT product_id FROM {{store_product_category}} WHERE category_id = :category_id)'),
-                'OR');
-            $categoryCriteria->params = CMap::mergeArray($categoryCriteria->params,
-                [':category_id' => $this->category_id]);
+            $categoryCriteria->addCondition(
+                sprintf('t.id IN (SELECT product_id FROM {{store_product_category}} WHERE category_id = :category_id)'),
+                'OR'
+            );
+            $categoryCriteria->params = CMap::mergeArray(
+                $categoryCriteria->params,
+                [':category_id' => $this->category_id]
+            );
             $criteria->mergeWith($categoryCriteria);
         }
 
         return new CActiveDataProvider(
-            'Product', [
+            'Product',
+            [
                 'criteria' => $criteria,
                 'sort' => [
                     'defaultOrder' => $module->getDefaultSort(),
@@ -400,7 +406,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module->uploadPath.'/product',
+                'uploadPath' => $module->uploadPath . '/product',
                 'resizeOnUpload' => true,
                 'resizeOptions' => [
                     'maxWidth' => 900,
@@ -419,12 +425,12 @@ class Product extends yupe\models\YModel implements ICommentable
     public function beforeValidate()
     {
         foreach ($this->getTypeAttributes() as $attribute) {
-
             if ($attribute->isType(Attribute::TYPE_CHECKBOX)) {
                 continue;
             }
 
-            if ($attribute->isRequired() && (!isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id])
+            if (
+                $attribute->isRequired() && (!isset($this->_typeAttributes[$attribute->id]) || '' === $this->_typeAttributes[$attribute->id])
             ) {
                 $this->addError(
                     $attribute->title,
@@ -535,12 +541,10 @@ class Product extends yupe\models\YModel implements ICommentable
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             Yii::app()->getDb()->createCommand()
                 ->delete('{{store_product_category}}', 'product_id = :id', [':id' => $this->id]);
 
             if (!empty($categoriesId)) {
-
                 $data = [];
 
                 foreach ($categoriesId as $id) {
@@ -586,12 +590,11 @@ class Product extends yupe\models\YModel implements ICommentable
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             $existAttributes = Yii::app()->db->createCommand()->select('attribute_id')->from(AttributeValue::model()->tableName())->where('product_id = :product', [
                 ':product' => $this->id
             ])->group('attribute_id')->queryColumn();
 
-            $unselectedAttributes = array_diff( $existAttributes, array_keys($attributes));
+            $unselectedAttributes = array_diff($existAttributes, array_keys($attributes));
 
             if ($unselectedAttributes) {
                 AttributeValue::model()->deleteAll('product_id = :product AND attribute_id IN(:attributes)', [
@@ -599,9 +602,8 @@ class Product extends yupe\models\YModel implements ICommentable
                     ':attributes' => implode(',', $unselectedAttributes),
                 ]);
             }
-            
-            foreach ($attributes as $attribute => $value) {
 
+            foreach ($attributes as $attribute => $value) {
                 if (null === $value) {
                     continue;
                 }
@@ -613,7 +615,6 @@ class Product extends yupe\models\YModel implements ICommentable
 
                 //множественные значения
                 if (is_array($value)) {
-
                     AttributeValue::model()->deleteAll('product_id = :product AND attribute_id = :attribute', [
                         ':product' => $this->id,
                         ':attribute' => $attribute,
@@ -625,9 +626,7 @@ class Product extends yupe\models\YModel implements ICommentable
                             throw new InvalidArgumentException('Error store attribute!');
                         }
                     }
-
                 } else {
-
                     $model = $model ?: new AttributeValue();
 
                     if (false === $model->store($attribute, $value, $this)) {
@@ -659,7 +658,7 @@ class Product extends yupe\models\YModel implements ICommentable
             return null;
         }
 
-        return Yii::app()->getRequest()->getBaseUrl(true).'/'.Yii::app()->getModule('yupe')->uploadPath.'/'.Yii::app()->getModule('store')->uploadPath.'/product/'.$value;
+        return Yii::app()->getRequest()->getBaseUrl(true) . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . Yii::app()->getModule('store')->uploadPath . '/product/' . $value;
     }
 
     /**
@@ -706,11 +705,9 @@ class Product extends yupe\models\YModel implements ICommentable
     protected function loadAttributes()
     {
         if (null === $this->_attributesValues) {
-
             $this->_attributesValues = [];
 
             foreach ($this->attributesValues as $attribute) {
-
                 //собираем массив multiple values attributes
                 if ($attribute->attribute->isMultipleValues()) {
                     $this->_attributesValues[$attribute->attribute->name][] = $attribute;
@@ -770,12 +767,10 @@ class Product extends yupe\models\YModel implements ICommentable
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             $this->setAttributes($attributes);
             $this->setTypeAttributes($typeAttributes);
 
             if ($this->save()) {
-
                 $this->saveVariants($variants);
                 $this->saveCategories($categories);
                 $this->saveTypeAttributes($typeAttributes);
@@ -785,7 +780,7 @@ class Product extends yupe\models\YModel implements ICommentable
                 return true;
             }
 
-			$transaction->rollback();
+            $transaction->rollback();
             return false;
         } catch (Exception $e) {
             $transaction->rollback();
@@ -881,7 +876,7 @@ class Product extends yupe\models\YModel implements ICommentable
         );
         sort($variantIds);
 
-        return 'product_'.$this->id.'_'.implode('_', $variantIds);
+        return 'product_' . $this->id . '_' . implode('_', $variantIds);
     }
 
     /**
@@ -1105,10 +1100,10 @@ class Product extends yupe\models\YModel implements ICommentable
             $similarNamesCount = Yii::app()->getDb()->createCommand()
                 ->select('count(*)')
                 ->from($this->tableName())
-                ->where("name like :name", [':name' => $this->name.' [%]'])
+                ->where("name like :name", [':name' => $this->name . ' [%]'])
                 ->queryScalar();
 
-            $model->name = $this->name.' ['.($similarNamesCount + 1).']';
+            $model->name = $this->name . ' [' . ($similarNamesCount + 1) . ']';
             $model->slug = \yupe\helpers\YText::translit($model->name);
 
             $attributes = $model->attributes;

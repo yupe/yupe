@@ -64,8 +64,11 @@ $this->menu = [
                         'editable' => [
                             'type' => 'text',
                             'url' => ['/store/attributeBackend/inlineEditGroup'],
-                            'title' => Yii::t('StoreModule.store', 'Enter {field}',
-                                ['{field}' => mb_strtolower($attributeGroup->getAttributeLabel('name'))]),
+                            'title' => Yii::t(
+                                'StoreModule.store',
+                                'Enter {field}',
+                                ['{field}' => mb_strtolower($attributeGroup->getAttributeLabel('name'))]
+                            ),
                             'params' => [
                                 Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken,
                             ],
@@ -93,8 +96,10 @@ $this->menu = [
                         'name' => 'title',
                         'type' => 'raw',
                         'value' => function ($data) {
-                            return CHtml::link($data->title,
-                                array("/store/attributeBackend/update", "id" => $data->id));
+                            return CHtml::link(
+                                $data->title,
+                                array("/store/attributeBackend/update", "id" => $data->id)
+                            );
                         },
                     ],
                     [
@@ -117,8 +122,12 @@ $this->menu = [
                         'value' => function ($data) {
                             return $data->getGroupTitle();
                         },
-                        'filter' => CHtml::activeDropDownList($model, 'group_id',
-                            AttributeGroup::model()->getFormattedList(), ['empty' => '', 'class' => 'form-control']),
+                        'filter' => CHtml::activeDropDownList(
+                            $model,
+                            'group_id',
+                            AttributeGroup::model()->getFormattedList(),
+                            ['empty' => '', 'class' => 'form-control']
+                        ),
                     ],
                     [
                         'class' => 'yupe\widgets\EditableStatusColumn',

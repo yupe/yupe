@@ -124,7 +124,6 @@ class ProductImageBackendController extends BackController
             $image->setAttributes($imageData);
 
             if ($image->save()) {
-
                 $transaction->commit();
 
                 if (Yii::app()->getRequest()->getPost('ajax') === null) {
@@ -136,7 +135,6 @@ class ProductImageBackendController extends BackController
                 }
             }
         } catch (Exception $e) {
-
             $transaction->rollback();
 
             Yii::app()->getUser()->setFlash(

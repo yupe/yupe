@@ -26,7 +26,7 @@ $level = $comment->getLevel()
         </div>
         <div class="comments-item-message">
             <?= trim($comment->getText()); ?>
-            <?php if ($this->showForm): ?>
+            <?php if ($this->showForm) : ?>
                 <div>
                 <?= CHtml::link(
                     Yii::t('CommentModule.comment', 'reply'),

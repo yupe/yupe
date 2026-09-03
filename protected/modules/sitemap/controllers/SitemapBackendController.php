@@ -62,8 +62,10 @@ class SitemapBackendController extends BackController
         if ($data = Yii::app()->getRequest()->getPost('SitemapPage')) {
             $model->setAttributes($data);
             if ($model->save()) {
-                Yii::app()->getUser()->setFlash(YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('SitemapModule.sitemap', 'Page added!'));
+                Yii::app()->getUser()->setFlash(
+                    YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('SitemapModule.sitemap', 'Page added!')
+                );
                 $this->redirect(['settings']);
             }
         }
@@ -81,13 +83,17 @@ class SitemapBackendController extends BackController
         }
 
         if (\yupe\helpers\YFile::rmIfExists($this->getModule()->getSiteMapPath())) {
-            Yii::app()->getUser()->setFlash(YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('SitemapModule.sitemap', 'message.success'));
+            Yii::app()->getUser()->setFlash(
+                YFlashMessages::SUCCESS_MESSAGE,
+                Yii::t('SitemapModule.sitemap', 'message.success')
+            );
             Yii::app()->ajax->success();
         }
 
-        Yii::app()->getUser()->setFlash(YFlashMessages::ERROR_MESSAGE,
-            Yii::t('SitemapModule.sitemap', 'message.error'));
+        Yii::app()->getUser()->setFlash(
+            YFlashMessages::ERROR_MESSAGE,
+            Yii::t('SitemapModule.sitemap', 'message.error')
+        );
         Yii::app()->ajax->failure();
     }
 
@@ -98,7 +104,6 @@ class SitemapBackendController extends BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $page = SitemapPage::model()->findByPk($id);
 
             if (null === $page) {

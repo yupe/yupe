@@ -1,4 +1,5 @@
 <?php
+
 namespace application\modules\social\controllers;
 
 use application\modules\social\components\UserIdentity;
@@ -41,13 +42,10 @@ class UserController extends \yupe\components\controllers\FrontController
     public function actionLogin()
     {
         try {
-
             if ($this->service->authenticate()) {
-
                 $identity = new UserIdentity($this->service);
 
                 if ($identity->authenticate() && Yii::app()->getUser()->login($identity)) {
-
                     Yii::app()->getUser()->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('SocialModule.social', 'You successfully logged in!')
@@ -65,10 +63,10 @@ class UserController extends \yupe\components\controllers\FrontController
                 }
 
                 /* @var $user User */
-                if ($this->service->hasAttribute('email') &&
+                if (
+                    $this->service->hasAttribute('email') &&
                     ($user = Yii::app()->userManager->findUserByEmail($this->service->email))
                 ) {
-
                     if ($user->status == User::STATUS_NOT_ACTIVE) {
                         Yii::app()->getUser()->setFlash(
                             YFlashMessages::INFO_MESSAGE,
@@ -146,11 +144,9 @@ class UserController extends \yupe\components\controllers\FrontController
         $form->disableCaptcha = true;
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['RegistrationForm'])) {
-
             $form->setAttributes(Yii::app()->getRequest()->getPost('RegistrationForm'));
 
             if (!isset($authData['email']) && Yii::app()->userManager->isUserExist($form->email)) {
-
                 Yii::app()->getUser()->setFlash(
                     YFlashMessages::INFO_MESSAGE,
                     Yii::t(
@@ -174,7 +170,6 @@ class UserController extends \yupe\components\controllers\FrontController
 
             if ($form->validate()) {
                 if ($user = Yii::app()->userManager->createUser($form)) {
-
                     $social = new SocialUser();
                     $social->user_id = $user->id;
                     $social->provider = $authData['service'];
@@ -214,16 +209,15 @@ class UserController extends \yupe\components\controllers\FrontController
         $form = new LoginForm($scenario);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['LoginForm'])) {
-
             $form->setAttributes(Yii::app()->getRequest()->getPost('LoginForm'));
 
-            if ($form->validate() && Yii::app()->authenticationManager->login(
+            if (
+                $form->validate() && Yii::app()->authenticationManager->login(
                     $form,
                     Yii::app()->getUser(),
                     Yii::app()->getRequest()
                 )
             ) {
-
                 $social = new SocialUser();
                 $social->user_id = Yii::app()->getUser()->getId();
                 $social->provider = $authData['service'];
@@ -249,11 +243,9 @@ class UserController extends \yupe\components\controllers\FrontController
                     $this->redirect(Yii::app()->getUser()->getReturnUrl($redirect));
                 }
             } else {
-
                 $form->addError('hash', Yii::t('SocialModule.social', 'Wrong email or password!'));
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), $badLoginCount + 1);
-
             }
         }
 

@@ -49,16 +49,20 @@ $this->menu = [
                     'email',
                     [
                         'label' => Yii::t('OrderModule.order', 'Orders'),
-                        'value' => CHtml::link($model->getOrderNumber(),
-                            ['/order/orderBackend/index', 'Order[user_id]' => $model->id]),
+                        'value' => CHtml::link(
+                            $model->getOrderNumber(),
+                            ['/order/orderBackend/index', 'Order[user_id]' => $model->id]
+                        ),
                         'type' => 'html',
                     ],
                     'birth_date',
                     'phone',
                     [
                         'label' => Yii::t('OrderModule.order', 'Money'),
-                        'value' => '<span class="label label-success">'.Yii::app()->numberFormatter->formatCurrency($model->getOrderSum(),
-                                Yii::app()->getModule('store')->currency)."</span>",
+                        'value' => '<span class="label label-success">' . Yii::app()->numberFormatter->formatCurrency(
+                            $model->getOrderSum(),
+                            Yii::app()->getModule('store')->currency
+                        ) . "</span>",
                         'type' => 'html',
                     ],
                     'location',
@@ -127,16 +131,20 @@ $this->menu = [
                                     ],
                                 ], true),
                                 'value' => function ($data) {
-                                    return CHtml::link(Yii::app()->getDateFormatter()->formatDateTime($data->date,
+                                    return CHtml::link(Yii::app()->getDateFormatter()->formatDateTime(
+                                        $data->date,
                                         'short',
-                                        false), ["/order/orderBackend/update", "id" => $data->id]);
+                                        false
+                                    ), ["/order/orderBackend/update", "id" => $data->id]);
                                 },
                             ],
                             [
                                 'name' => 'total_price',
                                 'value' => function ($data) {
-                                    return Yii::app()->getNumberFormatter()->formatCurrency($data->total_price,
-                                        Yii::app()->getModule('store')->currency);
+                                    return Yii::app()->getNumberFormatter()->formatCurrency(
+                                        $data->total_price,
+                                        Yii::app()->getModule('store')->currency
+                                    );
                                 },
                             ],
 
@@ -172,7 +180,7 @@ $this->menu = [
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?php if (Yii::app()->hasModule('comment')): ?>
+                <?php if (Yii::app()->hasModule('comment')) : ?>
                     <?php $this->widget('application.modules.comment.widgets.CommentsWidget', [
                         'view' => 'application.modules.order.views.orderBackend.comments',
                         'redirectTo' => Yii::app()->createUrl('/order/clientBackend/view', ['id' => $model->id]),

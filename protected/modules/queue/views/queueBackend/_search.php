@@ -64,7 +64,7 @@ $form = $this->beginWidget(
                     'prepend'       => '<i class="fa fa-calendar"></i>',
                 ]
             );
-            ?>
+?>
         </div>
         <div class="col-sm-3">
             <?=  $form->datePickerGroup(
@@ -81,7 +81,7 @@ $form = $this->beginWidget(
                     'prepend'       => '<i class="fa fa-calendar"></i>',
                 ]
             );
-            ?>
+?>
         </div>
         <div class="col-sm-3">
             <?=  $form->datePickerGroup(
@@ -98,7 +98,7 @@ $form = $this->beginWidget(
                     'prepend'       => '<i class="fa fa-calendar"></i>',
                 ]
             );
-            ?>
+?>
         </div>
     </div>
 

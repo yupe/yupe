@@ -31,7 +31,7 @@ $form = $this->beginWidget(
                 'prepend' => '<i class="fa fa-calendar"></i>',
             ]
         );
-        ?>
+?>
     </div>
 </div>
 
@@ -100,9 +100,9 @@ $form = $this->beginWidget(
         'encodeLabel' => false,
         'buttonType' => 'submit',
         'label' => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
-                'NewsModule.news',
-                'Find article'
-            ),
+            'NewsModule.news',
+            'Find article'
+        ),
     ]
 ); ?>
 

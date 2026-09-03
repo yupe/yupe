@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для blogBackend/index:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blogBackend/index'],
     Yii::t('BlogModule.blog', 'Administration'),
@@ -105,7 +107,7 @@ $this->menu = [
                 'name' => 'icon',
                 'header' => false,
                 'type' => 'raw',
-                'value' => function($data){
+                'value' => function ($data) {
                     return CHtml::image($data->getImageUrl(64, 64), $data->name, array("width"  => 64, "height" => 64));
                 },
                 'filter' => false,

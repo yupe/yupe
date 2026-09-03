@@ -56,14 +56,15 @@ class ProductLinkType extends yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
         $criteria->compare('code', $this->code, true);
         $criteria->compare('title', $this->title, true);
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 't.title'],
             ]

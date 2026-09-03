@@ -116,11 +116,9 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         $model->menu_id = Yii::app()->getRequest()->getQuery('mid', null);
 
         if (($data = Yii::app()->getRequest()->getPost('MenuItem')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'New item was added to menu!')
@@ -150,11 +148,9 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('MenuItem')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MenuModule.menu', 'Record was updated!')
@@ -240,7 +236,6 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
         );
 
         if ($model->menu_id) {
-
             $model->id = Yii::app()->getRequest()->getQuery('id');
 
             $data = $model->getParentTree();
@@ -292,8 +287,10 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
     {
         $request = Yii::app()->getRequest();
 
-        if ((!$entityModuleName = $request->getParam('entity_module_name')) ||
-            (!$entityName = $request->getParam('entity_name')) || (!$entity_id = $request->getParam('entity_id'))) {
+        if (
+            (!$entityModuleName = $request->getParam('entity_module_name')) ||
+            (!$entityName = $request->getParam('entity_name')) || (!$entity_id = $request->getParam('entity_id'))
+        ) {
             throw new CHttpException(404);
         }
 

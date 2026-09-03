@@ -1,4 +1,5 @@
 <?php
+
 class CategoryHelper
 {
     const CATEGORY_CACHE_DESCENDANTS = 'Category::CategoryDescendants::';

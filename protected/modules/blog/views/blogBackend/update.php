@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для blogBackend/update:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Blogs') => ['/blog/blogBackend/index'],
     $model->name                       => ['/blog/blogBackend/view', 'id' => $model->id],

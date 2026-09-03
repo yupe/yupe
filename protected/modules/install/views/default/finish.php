@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для finish:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 ?>
 <h3><?= Yii::t('InstallModule.install', 'Congratulations Yupe was installed successfully!'); ?></h3>
 
@@ -29,13 +31,19 @@
 
 <hr/>
 
-<?= CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), '/',
-    ['class' => 'btn btn-info']); ?>
+<?= CHtml::link(
+    Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'),
+    '/',
+    ['class' => 'btn btn-info']
+); ?>
 
 <?= Yii::t('InstallModule.install', 'or'); ?>
 
-<?= CHtml::link(Yii::t('InstallModule.install', 'GO TO CONTROL PANEL'), ['/yupe/backend/index'],
-    ['class' => 'btn btn-info']); ?>
+<?= CHtml::link(
+    Yii::t('InstallModule.install', 'GO TO CONTROL PANEL'),
+    ['/yupe/backend/index'],
+    ['class' => 'btn btn-info']
+); ?>
 
 <br/>
 <hr/>

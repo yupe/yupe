@@ -80,11 +80,11 @@ $this->widget(
                 'name'   => 'category_id',
                 'value'  => '$data->getCategoryName()',
                 'filter' => CHtml::activeDropDownList(
-                        $model,
-                        'category_id',
-                        Yii::app()->getComponent('categoriesRepository')->getFormattedList(Yii::app()->getModule('image')->mainCategory),
-                        ['encode' => false, 'empty' => '', 'class' => 'form-control']
-                    )
+                    $model,
+                    'category_id',
+                    Yii::app()->getComponent('categoriesRepository')->getFormattedList(Yii::app()->getModule('image')->mainCategory),
+                    ['encode' => false, 'empty' => '', 'class' => 'form-control']
+                )
             ],
             [
                 'name'   => 'galleryId',

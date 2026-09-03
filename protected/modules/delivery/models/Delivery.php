@@ -107,7 +107,7 @@ class Delivery extends yupe\models\YModel
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
@@ -120,7 +120,8 @@ class Delivery extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 't.position']
             ]

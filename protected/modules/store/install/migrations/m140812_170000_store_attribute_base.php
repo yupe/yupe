@@ -24,7 +24,6 @@ class m140812_170000_store_attribute_base extends yupe\components\DbMigration
 
         //fk
         $this->addForeignKey("fk_{{store_attribute}}_group", "{{store_attribute}}", "group_id", "{{store_attribute_group}}", "id", "CASCADE", "CASCADE");
-
     }
 
     public function safeDown()

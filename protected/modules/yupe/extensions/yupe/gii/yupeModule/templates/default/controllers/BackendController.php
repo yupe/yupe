@@ -17,8 +17,8 @@ class <?=  ucfirst($this->moduleID); ?>BackendController extends \yupe\component
      *
      * @return void
      */
-	public function actionIndex()
-	{
-		$this->render('index');
-	}
+    public function actionIndex()
+    {
+        $this->render('index');
+    }
 }

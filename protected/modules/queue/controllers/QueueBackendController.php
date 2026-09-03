@@ -66,11 +66,9 @@ class QueueBackendController extends yupe\components\controllers\BackController
         $model = new Queue();
 
         if (($data = Yii::app()->getRequest()->getPost('Queue')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('QueueModule.queue', 'Record was created!')
@@ -100,11 +98,9 @@ class QueueBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Queue')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('QueueModule.queue', 'Record was updated!')
@@ -134,7 +130,6 @@ class QueueBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 

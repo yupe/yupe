@@ -2,7 +2,7 @@
 
 namespace application\modules\social\components\services;
 
-use \TwitterOAuthService;
+use TwitterOAuthService;
 
 class Twitter extends TwitterOAuthService
 {

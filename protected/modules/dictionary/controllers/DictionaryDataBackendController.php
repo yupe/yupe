@@ -65,11 +65,9 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
         }
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryData')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('DictionaryModule.dictionary', 'Record was added!')
@@ -100,11 +98,9 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryData')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('DictionaryModule.dictionary', 'Record was updated!')
@@ -135,7 +131,6 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
@@ -149,7 +144,6 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
             if (!isset($_GET['ajax'])) {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['index']);
             }
-
         } else {
             throw new CHttpException(
                 400,

@@ -1,7 +1,8 @@
 <?php
+
 namespace application\modules\social\components\services;
 
-use \FacebookOAuthService;
+use FacebookOAuthService;
 
 class Facebook extends FacebookOAuthService
 {

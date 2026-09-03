@@ -2,13 +2,13 @@
 /* @var $model Product - передается при рендере из формы редактирования товара */
 /* @var $type Type - передается при генерации формы через ajax */
 ?>
-<?php if (!empty($groups)): ?>
+<?php if (!empty($groups)) : ?>
     <div class="row">
         <div class="col-sm-12">
-            <?php foreach ($groups as $groupName => $items): ?>
+            <?php foreach ($groups as $groupName => $items) : ?>
                 <fieldset>
                     <legend><?= CHtml::encode($groupName); ?></legend>
-                    <?php foreach ($items as $attribute): ?>
+                    <?php foreach ($items as $attribute) : ?>
                         <?php /* @var $attribute Attribute */ ?>
                         <?php $hasError = $model->hasErrors($attribute->name); ?>
                         <div class="row form-group">
@@ -16,10 +16,10 @@
                                 <label for="Attribute_<?= $attribute->name ?>"
                                        class="<?= $hasError ? 'has-error' : null; ?>">
                                     <?= $attribute->title; ?>
-                                    <?php if ($attribute->required): ?>
+                                    <?php if ($attribute->required) : ?>
                                         <span class="required">*</span>
                                     <?php endif; ?>
-                                    <?php if ($attribute->unit): ?>
+                                    <?php if ($attribute->unit) : ?>
                                         <span>(<?= $attribute->unit; ?>)</span>
                                     <?php endif; ?>
                                 </label>
@@ -27,11 +27,13 @@
                             <div
                                 class="col-sm-<?= $attribute->isType(Attribute::TYPE_TEXT) ? 9 : 2; ?> <?= $hasError ? 'has-error' : null; ?>">
                                 <?php $htmlOptions = $attribute->isType(Attribute::TYPE_CHECKBOX) || $attribute->isType(Attribute::TYPE_CHECKBOX_LIST) ? [] : ['class' => 'form-control']; ?>
-                                <?php if ($attribute->isType(Attribute::TYPE_FILE)): ?>
-                                    <?php if ($model->attributeFile($attribute->name)): ?>
+                                <?php if ($attribute->isType(Attribute::TYPE_FILE)) : ?>
+                                    <?php if ($model->attributeFile($attribute->name)) : ?>
                                         <div>
-                                            <?= CHtml::link(Yii::t('StoreModule.store', 'Download'),
-                                                $model->attributeFile($attribute->name)); ?>
+                                            <?= CHtml::link(
+                                                Yii::t('StoreModule.store', 'Download'),
+                                                $model->attributeFile($attribute->name)
+                                            ); ?>
                                             <?= Yii::t('StoreModule.store', 'or'); ?>
                                             <?= CHtml::link(Yii::t('StoreModule.store', 'Delete'), null, [
                                                 'class' => 'rm-file-attr',
@@ -41,8 +43,12 @@
                                         </div>
                                     <?php endif; ?>
                                 <?php endif; ?>
-                                <?= AttributeRender::renderField($attribute, $model->attribute($attribute), null,
-                                    $htmlOptions); ?>
+                                <?= AttributeRender::renderField(
+                                    $attribute,
+                                    $model->attribute($attribute),
+                                    null,
+                                    $htmlOptions
+                                ); ?>
                             </div>
                         </div>
                     <?php endforeach; ?>

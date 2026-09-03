@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для modulesinstall:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -32,9 +34,9 @@ Yii::app()->clientScript->registerScript(
     <p><?= Yii::t('InstallModule.install', 'Please check modules you want to be installed.'); ?></p>
 
     <p><?= Yii::t(
-            'InstallModule.install',
-            'Addition modules you can install/activate from control panel.'
-        ); ?></p>
+        'InstallModule.install',
+        'Addition modules you can install/activate from control panel.'
+    ); ?></p>
 </div>
 
 <div class="alert alert-success">
@@ -118,7 +120,8 @@ $this->widget(
         'viewed',
         'feedback'
     ];
-    foreach ($data['modules'] as $module) : {
+    foreach ($data['modules'] as $module) :
+        {
         if (!is_object($module)) {
             continue;
         }
@@ -129,7 +132,7 @@ $this->widget(
         if ($module->getIsNoDisable()) {
             $modulesSelection['basic'][] = '#module_' . $module->getId();
         }
-        if(in_array($module->getId(), $storeModules)) {
+        if (in_array($module->getId(), $storeModules)) {
             $modulesSelection['store'][] = '#module_' . $module->getId();
         }
         ?>
@@ -150,10 +153,12 @@ $this->widget(
                 <small class='label label-info'> <?= $module->version; ?></small>
             </td>
             <td>
-                <?php if ($module->isMultiLang()) : { ?>
+                <?php if ($module->isMultiLang()) :
+                    { ?>
                     <i class="fa fa-fw fa-globe"
                        title="<?= Yii::t('InstallModule.install', 'Multilanguage module'); ?>"></i>
-                <?php } endif; ?>
+                    <?php }
+                endif; ?>
             </td>
             <td>
                 <small class="text-muted"><?= $module->category; ?></small>
@@ -203,14 +208,14 @@ $this->widget(
                 }
                 foreach ($tabs as $t) {
                     echo $t['label'] . " " . CHtml::tag(
-                            'span',
-                            [
+                        'span',
+                        [
                                 'class' => 'badge alert-info',
                                 'rel'   => 'tooltip',
                                 'title' => $t['content'],
                             ],
-                            CHtml::tag('small', [], $t['count'])
-                        ) . '</br>';
+                        CHtml::tag('small', [], $t['count'])
+                    ) . '</br>';
                 }
                 ?>
                 <br/>
@@ -224,7 +229,8 @@ $this->widget(
                 ?>
             </td>
         </tr>
-    <?php } endforeach; ?>
+        <?php }
+    endforeach; ?>
     </tbody>
 </table>
 
@@ -372,7 +378,7 @@ Yii::app()->clientScript->registerScript(__CLASS__ . '#dependencies', $js, CClie
                 echo '</div><div class="col-xs-6">';
             }
             echo '<div id="modal_' . $module->getId(
-                ) . '"><i class="fa fa-fw fa-minus"> </i> ' . $module->name . '</div>';
+            ) . '"><i class="fa fa-fw fa-minus"> </i> ' . $module->name . '</div>';
             $i++;
         }
         ?>

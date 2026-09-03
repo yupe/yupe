@@ -14,7 +14,8 @@ class PanelOrderStatWidget extends \yupe\widgets\YWidget
         $criteria->with = ['status'];
 
         $dataProvider = new CActiveDataProvider(
-            'Order', [
+            'Order',
+            [
                 'criteria' => $criteria,
                 'sort' => [
                     'defaultOrder' => 't.id DESC',

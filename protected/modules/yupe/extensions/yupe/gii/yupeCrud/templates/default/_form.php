@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
@@ -9,6 +10,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  */
+
 ?>
 <?php
 echo <<<EOF

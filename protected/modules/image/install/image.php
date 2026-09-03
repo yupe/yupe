@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Файл конфигурации модуля
  *
@@ -9,6 +10,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 return [
     'module'    => [
         'class' => 'application.modules.image.ImageModule',

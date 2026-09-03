@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для createuser:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -33,14 +35,14 @@ Yii::app()->clientScript->registerScript(
     <p><?=  Yii::t('InstallModule.install', 'Create admin account'); ?></p>
 
     <p><?=  Yii::t(
-            'InstallModule.install',
-            'Please select hard password with digits, alphas and special symbols.'
-        ); ?></p>
+        'InstallModule.install',
+        'Please select hard password with digits, alphas and special symbols.'
+    ); ?></p>
 
     <p><?=  Yii::t(
-            'InstallModule.install',
-            'Memorize please. Data form this section will need you for Control Panel access'
-        ); ?></p>
+        'InstallModule.install',
+        'Memorize please. Data form this section will need you for Control Panel access'
+    ); ?></p>
 </div>
 
 <?=  $form->errorSummary($data['model']); ?>

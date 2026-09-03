@@ -1,4 +1,5 @@
 <?php
+
 require dirname(__FILE__) . '/../vendor/autoload.php';
 $yiic = require dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
 

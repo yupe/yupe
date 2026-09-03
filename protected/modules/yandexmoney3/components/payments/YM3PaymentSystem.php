@@ -66,13 +66,13 @@ class YM3PaymentSystem extends PaymentSystem
             'metadata' => [
                 'order_id' => $order->id
             ],
-            'description' => Yii::t('YM3PayModule.ymoney', 'Order payment in store «{n}»', Yii::app()->getModule('yupe')->siteName ),
+            'description' => Yii::t('YM3PayModule.ymoney', 'Order payment in store «{n}»', Yii::app()->getModule('yupe')->siteName),
         ];
 
         if ($settings['includeReceipt']) {
             $receipt = [];
             $receipt["email"] = $order->email;
-            if ( !$order->email ) {
+            if (!$order->email) {
                 $receipt["phone"] = $order->phone;
             }
             $receipt["tax_system_code"] = $settings['tax_system_code'];
@@ -135,7 +135,7 @@ class YM3PaymentSystem extends PaymentSystem
         Yii::log(print_r($postData, true));
         Yii::log(print_r($params, true));
 
-        if ( !($order = Order::model()->findByPk($params['orderId'])) ) {
+        if (!($order = Order::model()->findByPk($params['orderId']))) {
             $message = Yii::t('YM3PayModule.ymoney', 'The order doesn\'t exist.');
             Yii::log($message, CLogger::LEVEL_ERROR);
             throw new Exception($message);
@@ -158,14 +158,14 @@ class YM3PaymentSystem extends PaymentSystem
 
         $orderSum = (int)($order->getTotalPriceWithDelivery() * 100);
         $orderSumByRequest = (int)($params['orderSumAmount'] * 100);
-        if ( $orderSum !== $orderSumByRequest ) {
-            $message = Yii::t('YM3PayModule.ymoney', 'Wrong payment amount'). " orderSum:$orderSum orderSumByRequest:$orderSumByRequest" ;
+        if ($orderSum !== $orderSumByRequest) {
+            $message = Yii::t('YM3PayModule.ymoney', 'Wrong payment amount') . " orderSum:$orderSum orderSumByRequest:$orderSumByRequest" ;
             Yii::log($message, CLogger::LEVEL_ERROR);
 
             $this->showResponse($params, 'NOTOK', 500);
         }
 
-        if ( in_array($params['status'], ['payment.succeeded', 'payment.waiting_for_capture']) && $order->pay($payment)) {
+        if (in_array($params['status'], ['payment.succeeded', 'payment.waiting_for_capture']) && $order->pay($payment)) {
             Yii::log(
                 Yii::t(
                     'YM3PayModule.ymoney',
@@ -194,8 +194,9 @@ class YM3PaymentSystem extends PaymentSystem
 
         $this->payment = Payment::model()->findByAttributes(['module' => 'yandexmoney3']);
 
-        if (!$this->payment instanceof Payment)
+        if (!$this->payment instanceof Payment) {
             throw new Exception('Создайте способ оплаты');
+        }
 
         $postData = $this->getPaymentPostData($this->payment, $order);
 
@@ -219,7 +220,7 @@ class YM3PaymentSystem extends PaymentSystem
 
             if (!empty($body)) {
                 $body = json_decode($body, true);
-                if ( empty($body['confirmation']) || empty($body['confirmation']['confirmation_url']) ) {
+                if (empty($body['confirmation']) || empty($body['confirmation']['confirmation_url'])) {
                     Yii::log('Ошибка оплаты. Подробности: ' . ($body['description'] ?? null) . json_encode($body, true), CLogger::LEVEL_ERROR);
                     throw new Exception('Ошибка оплаты', self::ERROR_PROCESS_PAYMENT);
                 }

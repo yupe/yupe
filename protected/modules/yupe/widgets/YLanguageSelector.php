@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Виджет для отображения выбора языка сайта
  *
@@ -10,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 namespace yupe\widgets;
 
 use Yii;
@@ -52,7 +54,7 @@ class YLanguageSelector extends YWidget
         }
 
         if ($this->enableFlag) {
-            Yii::app()->getClientScript()->registerCssFile(Yii::app()->getTheme()->getAssetsUrl().'/css/flags.css');
+            Yii::app()->getClientScript()->registerCssFile(Yii::app()->getTheme()->getAssetsUrl() . '/css/flags.css');
         }
 
 

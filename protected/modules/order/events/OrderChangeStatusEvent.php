@@ -10,7 +10,7 @@ class OrderChangeStatusEvent extends Event
     /**
      * @var
      */
-    protected  $order;
+    protected $order;
 
     /**
      * @param Order $order
@@ -35,4 +35,4 @@ class OrderChangeStatusEvent extends Event
     {
         return $this->order;
     }
-} 
+}

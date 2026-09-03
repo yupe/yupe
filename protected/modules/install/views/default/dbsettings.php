@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для dbsettings:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -52,30 +54,32 @@ Yii::app()->clientScript->registerScript(
     <p><?=  Yii::t('InstallModule.install', 'Select DB connection settings'); ?></p>
 
     <p><?=  Yii::t(
-            'InstallModule.install',
-            'You can create DB with phpmyadmin help, or with some other sql tools.'
-        ); ?></p>
+        'InstallModule.install',
+        'You can create DB with phpmyadmin help, or with some other sql tools.'
+    ); ?></p>
 
     <p><b><?=  Yii::t('InstallModule.install', 'Yupe try to create DB if it doesn\'t exists.'); ?></p></b>
 </div>
 
-<?php if (!$data['result']) : { ?>
+<?php if (!$data['result']) :
+    { ?>
     <div class="alert alert-danger">
         <b><?=  Yii::t(
-                'InstallModule.install',
-                'File {file} not exists or not accessible for write!',
-                ['{file}' => $data['file']]
-            ); ?></b>
+            'InstallModule.install',
+            'File {file} not exists or not accessible for write!',
+            ['{file}' => $data['file']]
+           ); ?></b>
     </div>
-<?php } endif; ?>
+    <?php }
+endif; ?>
 
 <?=  $form->errorSummary($data['model']); ?>
 
 <div class="alert alert-info">
     <p><?=  '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t(
-                'InstallModule.install',
-                'This option is experiment. Only MySQL works stable.'
-            ); ?></p>
+        'InstallModule.install',
+        'This option is experiment. Only MySQL works stable.'
+    ); ?></p>
 </div>
 <div class="row">
     <div class="col-sm-7">
@@ -226,8 +230,8 @@ Yii::app()->clientScript->registerScript(
                         'class'               => 'popover-help',
                         'data-original-title' => $data['model']->getAttributeLabel('socket'),
                         'data-content'        => $data['model']->getAttributeDescription(
-                                'socket'
-                            ) . ' (обязательно только при подключении через сокет)',
+                            'socket'
+                        ) . ' (обязательно только при подключении через сокет)',
                         'autocomplete'        => 'off',
                     ]
                 ]

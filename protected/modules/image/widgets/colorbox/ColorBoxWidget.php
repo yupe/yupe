@@ -49,4 +49,4 @@ class ColorBoxWidget extends YWidget
             Yii::app()->getClientScript()->registerScript(__CLASS__, $script, CClientScript::POS_READY);
         }
     }
-} 
+}

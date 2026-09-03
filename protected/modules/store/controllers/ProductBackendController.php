@@ -118,14 +118,12 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $model = new Product();
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Product')) {
-
             $attributes = Yii::app()->getRequest()->getPost('Product');
             $typeAttributes = Yii::app()->getRequest()->getPost('Attribute', []);
             $variants = Yii::app()->getRequest()->getPost('ProductVariant', []);
             $categories = Yii::app()->getRequest()->getPost('categories', []);
 
             if ($model->saveData($attributes, $typeAttributes, $variants, $categories)) {
-
                 $this->updateProductImages($model);
 
                 $this->uploadAttributesFiles($model);
@@ -166,14 +164,12 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $model = $this->loadModel($id);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Product')) {
-
             $attributes = Yii::app()->getRequest()->getPost('Product');
             $typeAttributes = Yii::app()->getRequest()->getPost('Attribute', []);
             $variants = Yii::app()->getRequest()->getPost('ProductVariant', []);
             $categories = Yii::app()->getRequest()->getPost('categories', []);
 
             if ($model->saveData($attributes, $typeAttributes, $variants, $categories)) {
-
                 $this->updateProductImages($model);
 
                 $this->uploadAttributesFiles($model);
@@ -232,10 +228,12 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                     'attribute_id' => $key,
                 ]);
 
-                $value->addFileInstanceName('Attribute['.$key.'][name]');
+                $value->addFileInstanceName('Attribute[' . $key . '][name]');
                 if (false === $value->save()) {
-                    Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('StoreModule.store', 'Error uploading some files...'));
+                    Yii::app()->getUser()->setFlash(
+                        \yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('StoreModule.store', 'Error uploading some files...')
+                    );
                 }
             }
         }
@@ -252,12 +250,14 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
                 if (null === $productImage) {
                     $productImage = new ProductImage();
                     $productImage->product_id = $product->id;
-                    $productImage->addFileInstanceName('ProductImage['.$key.'][name]');
+                    $productImage->addFileInstanceName('ProductImage[' . $key . '][name]');
                 }
                 $productImage->setAttributes($_POST['ProductImage'][$key]);
                 if (false === $productImage->save()) {
-                    Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('StoreModule.store', 'Error uploading some images...'));
+                    Yii::app()->getUser()->setFlash(
+                        \yupe\widgets\YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('StoreModule.store', 'Error uploading some images...')
+                    );
                 }
             }
         }
@@ -269,7 +269,6 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     public function actionDeleteImage()
     {
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
-
             $id = (int)Yii::app()->getRequest()->getPost('id');
 
             $model = ProductImage::model()->findByPk($id);
@@ -291,7 +290,6 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $this->loadModel($id)->delete();
 
             Yii::app()->getUser()->setFlash(
@@ -389,7 +387,6 @@ class ProductBackendController extends yupe\components\controllers\BackControlle
         $noSupported = [Attribute::TYPE_FILE, Attribute::TYPE_TEXT, Attribute::TYPE_CHECKBOX_LIST];
 
         foreach ($type->typeAttributes as $attr) {
-
             if (in_array($attr->type, $noSupported)) {
                 continue;
             }

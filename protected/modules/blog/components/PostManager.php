@@ -26,4 +26,4 @@ class PostManager extends CApplicationComponent
             $criteria
         );
     }
-} 
+}

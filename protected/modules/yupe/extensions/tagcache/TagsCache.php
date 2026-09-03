@@ -13,7 +13,6 @@
  **/
 class TagsCache implements ICacheDependency
 {
-
     /**
      * @var
      */
@@ -52,7 +51,7 @@ class TagsCache implements ICacheDependency
         $tags = [];
 
         foreach ($this->tags as $tag) {
-            $tags[] = TaggingCacheBehavior::PREFIX.$tag;
+            $tags[] = TaggingCacheBehavior::PREFIX . $tag;
         }
 
         $values = Yii::app()->getCache()->mget($tags);

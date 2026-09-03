@@ -1,4 +1,5 @@
 <?php
+
 /**
  * YupeModule файл класса.
  * Модуль yupe - основной модуль Юпи!
@@ -194,7 +195,7 @@ class YupeModule extends WebModule
      */
     public function getLogo()
     {
-        return Yii::app()->getTheme()->getAssetsUrl().'/'.$this->logo;
+        return Yii::app()->getTheme()->getAssetsUrl() . '/' . $this->logo;
     }
 
     /**
@@ -246,7 +247,7 @@ class YupeModule extends WebModule
             ];
         }
 
-        $uploadPath = Yii::getPathOfAlias('webroot').'/'.$this->uploadPath;
+        $uploadPath = Yii::getPathOfAlias('webroot') . '/' . $this->uploadPath;
 
         if (!is_writable($uploadPath)) {
             $messages[WebModule::CHECK_ERROR][] = [
@@ -655,9 +656,9 @@ class YupeModule extends WebModule
     public function getBackendLayoutAlias($layoutName = '')
     {
         if ($this->backendTheme) {
-            return 'themes.backend_'.$this->backendTheme.'.views.yupe.layouts.'.($layoutName ? $layoutName : $this->backendLayout);
+            return 'themes.backend_' . $this->backendTheme . '.views.yupe.layouts.' . ($layoutName ? $layoutName : $this->backendLayout);
         } else {
-            return 'application.modules.yupe.views.layouts.'.($layoutName ? $layoutName : $this->backendLayout);
+            return 'application.modules.yupe.views.layouts.' . ($layoutName ? $layoutName : $this->backendLayout);
         }
     }
 
@@ -817,7 +818,7 @@ class YupeModule extends WebModule
             CHtml::image(
                 Yii::app()->getAssetManager()->publish(
                     Yii::getPathOfAlias('application.modules.yupe.views.assets')
-                )."/img/yupe_{$color}.png",
+                ) . "/img/yupe_{$color}.png",
                 $text,
                 ['alt' => CHtml::encode($text)]
             ),
@@ -848,7 +849,7 @@ class YupeModule extends WebModule
     {
         $data = [];
 
-        foreach (new GlobIterator(Yii::app()->getTheme()->basePath.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'layouts'.DIRECTORY_SEPARATOR.'*.php') as $item) {
+        foreach (new GlobIterator(Yii::app()->getTheme()->basePath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . '*.php') as $item) {
             $name = $item->getBaseName('.php');
             $data[$name] = $name;
         }

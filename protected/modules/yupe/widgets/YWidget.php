@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Класс yupe\widgets\YWidget - базовый класс для всех виджетов Юпи!
  *
@@ -12,6 +13,7 @@
  * @link     https://yupe.ru
  *
  */
+
 namespace yupe\widgets;
 
 use ReflectionClass;
@@ -66,14 +68,14 @@ abstract class YWidget extends CWidget
 
         $themeView = null;
         $reflection = new ReflectionClass(get_class($this));
-        $path = explode(Yii::app()->getModulePath().DIRECTORY_SEPARATOR, $reflection->getFileName(), 2);
+        $path = explode(Yii::app()->getModulePath() . DIRECTORY_SEPARATOR, $reflection->getFileName(), 2);
         if (isset($path[1])) {
             $path = explode(DIRECTORY_SEPARATOR, $path[1], 2);
-            $themeView = Yii::app()->getThemeManager()->getBasePath().DIRECTORY_SEPARATOR.
-                Yii::app()->getTheme()->getName().DIRECTORY_SEPARATOR.
-                'views'.DIRECTORY_SEPARATOR.
-                $path[0].DIRECTORY_SEPARATOR.
-                'widgets'.DIRECTORY_SEPARATOR.
+            $themeView = Yii::app()->getThemeManager()->getBasePath() . DIRECTORY_SEPARATOR .
+                Yii::app()->getTheme()->getName() . DIRECTORY_SEPARATOR .
+                'views' . DIRECTORY_SEPARATOR .
+                $path[0] . DIRECTORY_SEPARATOR .
+                'widgets' . DIRECTORY_SEPARATOR .
                 $reflection->getShortName();
 
             if ($themeView && file_exists($themeView)) {
@@ -104,5 +106,4 @@ abstract class YWidget extends CWidget
 
         parent::init();
     }
-
 }

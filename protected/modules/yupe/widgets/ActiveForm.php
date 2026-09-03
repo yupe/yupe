@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class ActiveForm. Extend yii-booster TbActiveForm
  *

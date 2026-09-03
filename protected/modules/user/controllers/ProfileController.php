@@ -38,7 +38,6 @@ class ProfileController extends \yupe\components\controllers\FrontController
         $this->user = Yii::app()->getUser()->getProfile();
 
         if ($this->user === null) {
-
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t('UserModule.user', 'User not found.')

@@ -1,4 +1,5 @@
 <?php
+
 namespace comment\widgets\editors;
 
 use Yii;

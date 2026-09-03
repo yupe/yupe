@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LangUrlManager - альтернативный менеджер урлов с поддержкой языков
  * при инициализации добавляет к существующим правилам маршрутизации правила для выбора языков в начале пути.
@@ -13,6 +14,7 @@
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @link     https://yupe.ru
  */
+
 namespace yupe\components\urlManager;
 
 use CUrlManager;
@@ -64,18 +66,17 @@ class LangUrlManager extends CUrlManager
         $languages = $this->getAvailableLanguages();
 
         if ('path' === $this->urlFormat && count($languages) > 1) {
-
             $languages = implode('|', $languages);
             $rules = [];
-            $langPattern = '/<'.$this->langParam.':('.$languages.')>/';
+            $langPattern = '/<' . $this->langParam . ':(' . $languages . ')>/';
             foreach ($this->rules as $pattern => $route) {
                 if (is_array($route)) {
                     if (isset($route['pattern'])) {
-                        $route['pattern'] = $langPattern.ltrim($route['pattern'], '/');
+                        $route['pattern'] = $langPattern . ltrim($route['pattern'], '/');
                         $rules[] = $route;
                     }
                 } else {
-                    $pattern = $langPattern.ltrim($pattern, '/');
+                    $pattern = $langPattern . ltrim($pattern, '/');
                     $rules[$pattern] = $route;
                 }
             }
@@ -135,8 +136,9 @@ class LangUrlManager extends CUrlManager
      */
     public function getLangFromUrl()
     {
-        if ($this->_langFromUrl && !Yii::app()->getComponent('request', false) )
+        if ($this->_langFromUrl && !Yii::app()->getComponent('request', false)) {
             return $this->_langFromUrl;
+        }
 
         /* @var $request \CHttpRequest */
         $request = Yii::app()->getRequest();
@@ -161,8 +163,9 @@ class LangUrlManager extends CUrlManager
      */
     public function getLangFromCookie()
     {
-        if ($this->_langFromCookie && !Yii::app()->getComponent('request', false) )
+        if ($this->_langFromCookie && !Yii::app()->getComponent('request', false)) {
             return $this->_langFromCookie;
+        }
 
         /* @var $request \CHttpRequest */
         $request = Yii::app()->getRequest();
@@ -182,7 +185,7 @@ class LangUrlManager extends CUrlManager
      */
     public function getCookieKey()
     {
-        return $this->langParam.'_'.($this->isBackend() ? 'backend' : 'frontend');
+        return $this->langParam . '_' . ($this->isBackend() ? 'backend' : 'frontend');
     }
 
 
@@ -195,7 +198,6 @@ class LangUrlManager extends CUrlManager
     public function createUrl($route, $params = [], $ampersand = '&')
     {
         if (count($this->_languages) > 1) {
-
             if (!isset($params[$this->langParam])) {
                 $params[$this->langParam] = $this->getCurrentLang();
             }
@@ -203,7 +205,7 @@ class LangUrlManager extends CUrlManager
             if ($this->getDefaultLang() === $params[$this->langParam]) {
                 unset($params[$this->langParam]);
             } elseif (trim($route, '/') === '') {
-                return Yii::app()->getHomeUrl().$params[$this->langParam];
+                return Yii::app()->getHomeUrl() . $params[$this->langParam];
             }
         }
 
@@ -222,19 +224,19 @@ class LangUrlManager extends CUrlManager
         $result = '';
 
         if (isset($parsed['scheme'])) {
-            $result .= $parsed['scheme'].'://';
+            $result .= $parsed['scheme'] . '://';
         }
 
         if (isset($parsed['user'])) {
             $result .= $parsed['user'];
             if (isset($parsed['pass'])) {
-                $result .= ':'.$parsed['pass'];
+                $result .= ':' . $parsed['pass'];
             }
             $result .= '@';
         }
 
         if (isset($parsed['host'])) {
-            $result .= $parsed['host'].'/';
+            $result .= $parsed['host'] . '/';
         }
 
         if ('path' === $this->urlFormat && isset($parsed['path'])) {
@@ -242,7 +244,7 @@ class LangUrlManager extends CUrlManager
 
             $replaced = preg_replace_callback(
                 '#^(' . implode('|', $this->_languages) . '){1}(\/.*)?$#',
-                function($matches) use ($lang) {
+                function ($matches) use ($lang) {
                     return $lang . (isset($matches[2]) ? $matches[2] : '');
                 },
                 $path
@@ -253,7 +255,7 @@ class LangUrlManager extends CUrlManager
             if ($path === $replaced && null !== $lang) {
                 $replaced = $lang;
                 if ($path !== '') {
-                    $replaced .= '/'.$path;
+                    $replaced .= '/' . $path;
                 }
             }
 
@@ -261,7 +263,7 @@ class LangUrlManager extends CUrlManager
 
             if ($result !== '') {
                 if (strpos($url, '/') === 0) {
-                    $result = '/'.$result;
+                    $result = '/' . $result;
                 }
 
                 if (substr($url, -1) === '/') {
@@ -286,7 +288,7 @@ class LangUrlManager extends CUrlManager
             $query = urldecode(http_build_query($queryParams));
 
             if ($query !== '') {
-                $result .= '?'.$query;
+                $result .= '?' . $query;
             }
         }
 

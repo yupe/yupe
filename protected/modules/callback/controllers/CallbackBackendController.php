@@ -59,7 +59,6 @@ class CallbackBackendController extends \yupe\components\controllers\BackControl
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $this->loadModel($id)->delete();
 
             Yii::app()->getUser()->setFlash(

@@ -1,4 +1,5 @@
 <?php
+
 class NewsEvents
 {
     const NEWS_AFTER_SAVE = 'news.after.save';

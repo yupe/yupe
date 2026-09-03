@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('RbacModule.rbac', 'RBAC') => ['index'],
     $model->name                         => ['view', 'id' => $model->name],

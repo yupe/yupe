@@ -1,4 +1,5 @@
 <?php
+
 /**
  * EFeedItemAbstract Class file
  * @author Antonio Ramirez
@@ -150,5 +151,4 @@ abstract class EFeedItemAbstract extends CComponent
      * @return   string  formatted xml tag
      */
     abstract public function getNode();
-
 }

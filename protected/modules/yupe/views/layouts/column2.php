@@ -20,7 +20,7 @@
         <!-- content -->
     </div>
     <div class="<?= $this->hideSidebar ? 'hidden' : 'col-md-3 col-lg-2 hidden-xs hidden-sm'; ?>">
-        <?php if (count($this->menu)): ?>
+        <?php if (count($this->menu)) : ?>
             <div class="panel panel-default" style="padding: 8px 0;">
                 <?php $this->widget(
                     'bootstrap.widgets.TbMenu',

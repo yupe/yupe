@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для begininstall:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 ?>
 <h1><?=  Yii::t('InstallModule.install', 'Installation in progress...'); ?></h1>
 
@@ -15,9 +17,9 @@
 
 <div class="alert alert-info">
     <p><?=  Yii::t(
-            'InstallModule.install',
-            'On this step Yupe trying to install modules you checked. This process can take several minutes...'
-        ); ?></p>
+        'InstallModule.install',
+        'On this step Yupe trying to install modules you checked. This process can take several minutes...'
+    ); ?></p>
 </div>
 <div id="msg"></div>
 <div class="progress progress-striped active">
@@ -59,7 +61,9 @@ $this->widget(
     );
 
     echo "var total=" . count($modules) . ";\n var modules = {\n";
-    foreach ($modules as $m) {echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";}
+    foreach ($modules as $m) {
+        echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";
+    }
     echo "\n};";
     ?>
 

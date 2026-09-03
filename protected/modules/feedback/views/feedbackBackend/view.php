@@ -1,5 +1,4 @@
 <?php if (Yii::app()->getRequest()->getIsAjaxRequest() === false) : ?>
-
     <?php
     $this->breadcrumbs = [
         Yii::t('FeedbackModule.feedback', 'Messages ') => ['/feedback/feedbackBackend/index'],
@@ -21,10 +20,10 @@
         ],
         [
             'label' => Yii::t('FeedbackModule.feedback', 'Reference value') . ' «' . mb_substr(
-                    $model->theme,
-                    0,
-                    32
-                ) . '»'
+                $model->theme,
+                0,
+                32
+            ) . '»'
         ],
         [
             'icon'  => 'fa fa-fw fa-pencil',
@@ -113,7 +112,7 @@
             [
                 'name'  => 'answer_user',
                 'value' => ($model->getAnsweredUser() instanceof User ? $model->getAnsweredUser()->getFullName(
-                    ) : $model->getAnsweredUser()),
+                ) : $model->getAnsweredUser()),
             ],
             [
                 'name'  => 'answer_time',

@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('DictionaryModule.dictionary', 'Dictionaries') => ['/dictionary/dictionaryBackend/index'],
     $model->name                                          => [
@@ -26,10 +27,10 @@ $this->menu = [
             ],
             [
                 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary') . ' «' . mb_substr(
-                        $model->name,
-                        0,
-                        32
-                    ) . '»'
+                    $model->name,
+                    0,
+                    32
+                ) . '»'
             ],
             [
                 'icon'  => 'fa fa-fw fa-pencil',

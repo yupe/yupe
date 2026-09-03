@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\components\image;
 
 use CException;
@@ -59,7 +60,6 @@ class Thumbnailer extends \CApplicationComponent
         $thumbMode = $crop ? ImageInterface::THUMBNAIL_OUTBOUND : ImageInterface::THUMBNAIL_INSET;
 
         if (!file_exists($thumbFile)) {
-
             if (false === YFile::checkPath($uploadPath)) {
                 throw new CException(
                     Yii::t(

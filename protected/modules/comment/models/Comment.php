@@ -1,4 +1,5 @@
 <?php
+
 use yupe\widgets\YPurifier;
 
 /**
@@ -409,7 +410,6 @@ class Comment extends yupe\models\YModel
         $rootNode = $this->getRootOfCommentsTree($model, $model_id);
 
         if ($rootNode === null) {
-
             $rootAttributes = [
                 "user_id" => Yii::app()->getUser()->getId(),
                 "model" => $model,
@@ -457,7 +457,6 @@ class Comment extends yupe\models\YModel
         $model = CActiveRecord::model($this->model);
 
         if ($model instanceof ICommentable) {
-
             $model = $model->with($with)->findByPk($this->model_id);
 
             if (null === $model) {
@@ -541,19 +540,17 @@ class Comment extends yupe\models\YModel
             $models = $this->findAllByPk($items);
 
             foreach ($models as $model) {
-
                 Yii::app()->eventManager->fire(
                     CommentEvents::AFTER_DELETE_COMMENT,
                     new CommentEvent($model, Yii::app()->getUser(), Yii::app()->getModule('comment'))
                 );
 
-                if(!$model->getIsDeletedRecord()) {
+                if (!$model->getIsDeletedRecord()) {
                     $count += (int)$model->deleteNode();
                 }
             }
 
             $transaction->commit();
-
         } catch (Exception $e) {
             $transaction->rollback();
             Yii::log($e->__toString(), CLogger::LEVEL_ERROR);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class CheckOrderForm
  */
@@ -28,4 +29,4 @@ class CheckOrderForm extends CFormModel
             'number' =>  Yii::t('OrderModule.order', 'Order #'),
         ];
     }
-} 
+}

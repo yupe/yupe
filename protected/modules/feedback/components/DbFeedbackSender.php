@@ -49,7 +49,6 @@ class DbFeedbackSender implements IFeedbackSender
         );
 
         if ($feedback->save()) {
-
             if ($this->module->sendConfirmation) {
                 return $this->sendConfirmation($form, $feedback);
             }

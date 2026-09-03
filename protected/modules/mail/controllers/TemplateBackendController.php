@@ -94,11 +94,9 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('MailTemplate')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MailModule.mail', 'Record was updated!')

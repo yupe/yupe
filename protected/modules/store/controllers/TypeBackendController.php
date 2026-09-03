@@ -30,7 +30,6 @@ class TypeBackendController extends yupe\components\controllers\BackController
         $model = new Type();
 
         if (($data = Yii::app()->getRequest()->getPost('Type')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes', []))) {
@@ -67,11 +66,9 @@ class TypeBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Type')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save() && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes', []))) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Product type is updated')
@@ -102,7 +99,6 @@ class TypeBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $this->loadModel($id)->delete();
 
             if (!Yii::app()->getRequest()->getQuery('ajax')) {
@@ -110,7 +106,6 @@ class TypeBackendController extends yupe\components\controllers\BackController
                     (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
                 );
             }
-
         } else {
             throw new CHttpException(
                 400,
@@ -153,7 +148,8 @@ class TypeBackendController extends yupe\components\controllers\BackController
 
     protected function performAjaxValidation(Attribute $model)
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
+        if (
+            Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
                 'ajax'
             ) === 'attribute-form'
         ) {

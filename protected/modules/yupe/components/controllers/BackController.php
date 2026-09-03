@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Базовый класс для всех контроллеров панели управления
  *
@@ -100,7 +101,8 @@ abstract class BackController extends Controller
          * $this->module->getId() !== 'install' избавляет от ошибок на этапе установки
          * $this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate') устраняем проблемы с зацикливанием
          */
-        if (($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
+        if (
+            ($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
             && ($updates = Yii::app()->migrator->checkForUpdates(
                 [$this->module->getId() => $this->module]
             )) !== null
@@ -144,7 +146,6 @@ abstract class BackController extends Controller
         try {
             switch ($action) {
                 case self::BULK_DELETE:
-
                     $models = CActiveRecord::model($modelClass)->findAllByPk($items);
 
                     $count = 0;

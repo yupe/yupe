@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\Event;
 
 /**
@@ -23,5 +24,4 @@ class CategoryListener
     {
         Yii::app()->getCache()->clear([CategoryHelper::CATEGORY_CACHE_TAG]);
     }
-
 }

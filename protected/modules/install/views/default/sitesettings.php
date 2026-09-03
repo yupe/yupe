@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для sitesettings:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -31,16 +33,16 @@ Yii::app()->clientScript->registerScript(
     <p><?=  Yii::t('InstallModule.install', 'Select your site title, description and keywords for SEO.'); ?></p>
 
     <p><?=  Yii::t(
-            'InstallModule.install',
-            'More about SEO {link}',
-            [
+        'InstallModule.install',
+        'More about SEO {link}',
+        [
                 '{link}' => CHtml::link(
-                        Yii::t('InstallModule.install', 'here'),
-                        'http://help.yandex.ru/webmaster/?id=1108938',
-                        ['target' => '_blank']
-                    )
+                    Yii::t('InstallModule.install', 'here'),
+                    'http://help.yandex.ru/webmaster/?id=1108938',
+                    ['target' => '_blank']
+                )
             ]
-        ); ?></p>
+    ); ?></p>
 </div>
 
 <?=  $form->errorSummary($data['model']); ?>
@@ -64,7 +66,8 @@ Yii::app()->clientScript->registerScript(
     </div>
 </div>
 
-<?php if (!empty($data['backendThemes'])) : { ?>
+<?php if (!empty($data['backendThemes'])) :
+    { ?>
     <div class="row">
         <div class="col-sm-7">
             <?=  $form->dropDownListGroup(
@@ -83,7 +86,8 @@ Yii::app()->clientScript->registerScript(
             ); ?>
         </div>
     </div>
-<?php } endif; ?>
+    <?php }
+endif; ?>
 
 <div class="row">
     <div class="col-sm-7">

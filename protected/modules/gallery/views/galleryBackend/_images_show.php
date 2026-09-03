@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для Default/_show_images:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $mainAssets = Yii::app()->assetManager->publish(Yii::getPathOfAlias('gallery.views.assets'));
 Yii::app()->getClientScript()->registerCssFile($mainAssets . '/css/gallery.css');
 Yii::app()->getClientScript()->registerScriptFile($mainAssets . '/js/gallery-sortable.js', CClientScript::POS_END);
@@ -23,13 +25,13 @@ $keys = [];
 <div id="gallery-wrapper">
     <div class="row gallery-thumbnails thumbnails">
         <?php
-            foreach($dataProvider as $data) {
-                $keys[] = sprintf('<span data-order="%d">%d</span>', $data->position, $data->id);
-                $this->renderPartial('_image', [
-                    'gallery' => $model,
-                    'data' => $data,
-                ]);
-            }
+        foreach ($dataProvider as $data) {
+            $keys[] = sprintf('<span data-order="%d">%d</span>', $data->position, $data->id);
+            $this->renderPartial('_image', [
+                'gallery' => $model,
+                'data' => $data,
+            ]);
+        }
         ?>
     </div>
 </div>

@@ -60,7 +60,7 @@ $this->menu = [
     );
 
     $this->renderPartial('_search', ['model' => $model]);
-    ?>
+?>
 </div>
 
 <?php

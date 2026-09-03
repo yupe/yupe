@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для environment:
  *
@@ -8,25 +9,28 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 ?>
-<?php if (!$data['result']) : { ?>
+<?php if (!$data['result']) :
+    { ?>
     <div class="alert alert-danger">
         <b><?=  Yii::t('InstallModule.install', 'Install can\'t be continued. Please check errors!'); ?></b>
     </div>
-<?php } endif; ?>
+    <?php }
+endif; ?>
 
 <?php $this->widget('install.widgets.GetHelpWidget'); ?>
 
 <div class="alert alert-info">
     <p><?=  Yii::t(
-            'InstallModule.install',
-            'On this step Yupe checks access right for needed directories.'
-        ); ?></p>
+        'InstallModule.install',
+        'On this step Yupe checks access right for needed directories.'
+    ); ?></p>
 
     <p><?=  Yii::t(
-            'InstallModule.install',
-            'To continue installation you need to repair error was occured.'
-        ); ?></p>
+        'InstallModule.install',
+        'To continue installation you need to repair error was occured.'
+    ); ?></p>
 </div>
 
 <table class="table table-striped">
@@ -35,7 +39,8 @@
         <th><?=  Yii::t('InstallModule.install', 'Result'); ?></th>
         <th><?=  Yii::t('InstallModule.install', 'Comments'); ?></th>
     </tr>
-    <?php foreach ($data['requirements'] as $requirement): { ?>
+    <?php foreach ($data['requirements'] as $requirement) :
+        { ?>
         <tr>
             <td style="width:200px;"><?=  $requirement[0]; ?></td>
             <td>
@@ -50,7 +55,8 @@
             </td>
             <td><?=  $requirement[2]; ?></td>
         </tr>
-    <?php } endforeach; ?>
+        <?php }
+    endforeach; ?>
 </table>
 
 <br/>

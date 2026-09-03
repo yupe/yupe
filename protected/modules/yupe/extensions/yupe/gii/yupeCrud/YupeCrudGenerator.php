@@ -1,4 +1,5 @@
 <?php
+
 /**
  * BootstrapGenerator class file.
  * @author Christoffer Niska <ChristofferNiska@gmail.com>

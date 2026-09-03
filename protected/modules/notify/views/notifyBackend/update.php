@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для update:
  *
@@ -8,6 +9,7 @@
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     https://yupe.ru
  **/
+
     $this->breadcrumbs = [
         Yii::app()->getModule('notify')->getCategory() => [],
         Yii::t('NotifyModule.notify', 'Notify') => ['/notify/notifyBackend/index'],
@@ -35,7 +37,7 @@
             'params' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
         ]],
     ];
-?>
+    ?>
 <div class="page-header">
     <h1>
         <?=  Yii::t('NotifyModule.notify', 'Update notify'); ?><br/>

@@ -14,5 +14,4 @@
  */
 abstract class YQueue extends CApplicationComponent implements YQueueInterface
 {
-   
 }

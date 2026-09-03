@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для postBackend/index:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Posts') => ['/blog/postBackend/index'],
     Yii::t('BlogModule.blog', 'Administration'),
@@ -105,7 +107,7 @@ $this->menu = [
                 'name' => 'icon',
                 'header' => false,
                 'type' => 'raw',
-                'value' => function($data){
+                'value' => function ($data) {
                     return CHtml::image($data->getImageUrl(64, 64), $data->title, array("width"  => 64, "height" => 64));
                 },
                 'filter' => false,
@@ -180,7 +182,7 @@ $this->menu = [
                         Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
                     ]
                 ],
-                'value'    => function($data){
+                'value'    => function ($data) {
                     return $data->publish_time;
                 },
                 'filter'   => CHtml::activeTextField($model, 'publish_time', ['class' => 'form-control']),
@@ -188,7 +190,7 @@ $this->menu = [
             [
                 'name'   => 'create_user_id',
                 'type'   => 'raw',
-                'value'  => function($data){
+                'value'  => function ($data) {
                     return CHtml::link($data->createUser->getFullName(), array("/user/userBackend/view", "id" => $data->createUser->id));
                 },
                 'filter' => CHtml::activeDropDownList(
@@ -216,7 +218,7 @@ $this->menu = [
                 ],
                 'name'     => 'comment_status',
                 'type'     => 'raw',
-                'value'    => function($data){
+                'value'    => function ($data) {
                     return $data->getCommentStatus();
                 },
                 'filter'   => CHtml::activeDropDownList(
@@ -240,15 +242,15 @@ $this->menu = [
             ],
             [
                 'name'     => 'tags',
-                'value'    => function($data){
+                'value'    => function ($data) {
                     return implode(", ", $data->getTags());
                 },
                 'filter'   => false,
             ],
             [
                 'header' => "<i class=\"fa fa-comment\"></i>",
-                'value'  => function($data){
-                    return CHtml::link(($data->commentsCount>0) ? $data->commentsCount-1 : 0,array("/comment/commentBackend/index/","Comment[model]" => "Post","Comment[model_id]" => $data->id));
+                'value'  => function ($data) {
+                    return CHtml::link(($data->commentsCount > 0) ? $data->commentsCount - 1 : 0, array("/comment/commentBackend/index/","Comment[model]" => "Post","Comment[model_id]" => $data->id));
                 },
                 'type'   => 'raw',
             ],

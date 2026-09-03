@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Дефолтный контроллер сайта:
  *
@@ -10,6 +11,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 namespace application\controllers;
 
 use yupe\components\controllers\FrontController;
@@ -40,7 +42,6 @@ class SiteController extends FrontController
         }
 
         if (!\Yii::app()->getRequest()->getIsAjaxRequest()) {
-
             $this->render(
                 'error',
                 [

@@ -90,7 +90,7 @@ class UserManagerListener
         $user = $event->getUser();
 
         if (null !== $user) {
-            $notify = new NotifySettings;
+            $notify = new NotifySettings();
             $notify->user_id = $user->id;
             $notify->save();
         }

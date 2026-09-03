@@ -38,4 +38,4 @@ class TextFilterWidget extends \yupe\widgets\YWidget
     {
         $this->render($this->view, ['attribute' => $this->attribute]);
     }
-} 
+}

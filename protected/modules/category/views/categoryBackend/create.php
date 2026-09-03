@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('CategoryModule.category', 'Categories') => ['/category/categoryBackend/index'],
     Yii::t('CategoryModule.category', 'Create'),

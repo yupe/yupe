@@ -27,7 +27,7 @@ class SitemapModule extends WebModule
      */
     public function getSiteMapPath()
     {
-        return Yii::getPathOfAlias('webroot').'/'.$this->filePath;
+        return Yii::getPathOfAlias('webroot') . '/' . $this->filePath;
     }
 
     /**

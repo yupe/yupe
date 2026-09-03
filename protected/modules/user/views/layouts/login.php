@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для layouts/main:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::app()->getLanguage(); ?>">
@@ -48,13 +50,13 @@
             'collapse' => true,
             'fixed'    => 'top',
             'brand'    => CHtml::image(
-                    Yii::app()->getModule('yupe')->getLogo(),
-                    CHtml::encode(Yii::app()->name),
-                    [
+                Yii::app()->getModule('yupe')->getLogo(),
+                CHtml::encode(Yii::app()->name),
+                [
                         'height' => '38',
                         'title'  => CHtml::encode(Yii::app()->name),
                     ]
-                ),
+            ),
             'brandUrl' => CHtml::normalizeUrl(["/yupe/backend/index"]),
             'items'    => [
                 [
@@ -128,7 +130,7 @@
                                 'icon'    => 'fa fa-fw fa-home',
                                 'label'   => Yii::t('YupeModule.yupe', 'Go home'),
                                 'visible' => Yii::app()->getController(
-                                    ) instanceof yupe\components\controllers\BackController === true,
+                                ) instanceof yupe\components\controllers\BackController === true,
                                 'url'     => Yii::app()->createAbsoluteUrl('/')
                             ],
                         ],

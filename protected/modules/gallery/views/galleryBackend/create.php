@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/galleryBackend/index'],
     Yii::t('GalleryModule.gallery', 'Adding'),

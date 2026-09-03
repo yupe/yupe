@@ -41,7 +41,9 @@ class LinkedProductsWidget extends \yupe\widgets\YWidget
             return;
         }
 
-        $this->render($this->view,
-            ['dataProvider' => $this->productRepository->getLinkedProductsDataProvider($this->product, $this->code)]);
+        $this->render(
+            $this->view,
+            ['dataProvider' => $this->productRepository->getLinkedProductsDataProvider($this->product, $this->code)]
+        );
     }
-} 
+}

@@ -28,10 +28,11 @@ class YupeCommand extends \yupe\components\ConsoleCommand
 
         foreach (Yii::app()->getModules() as $key => $value) {
             $module = Yii::app()->getModule($key);
-            if (!empty($module) && $module->isConfigNeedUpdate() && ($filter === null || in_array(
-                        $module->getId(),
-                        $filter
-                    ))
+            if (
+                !empty($module) && $module->isConfigNeedUpdate() && ($filter === null || in_array(
+                    $module->getId(),
+                    $filter
+                ))
             ) {
                 $modules[$key] = $module;
             }
@@ -43,7 +44,7 @@ class YupeCommand extends \yupe\components\ConsoleCommand
             return true;
         } else {
             $this->log(
-                'The following modules have update for config files: '.implode(',', array_keys($modules)).'.'
+                'The following modules have update for config files: ' . implode(',', array_keys($modules)) . '.'
             );
 
             if ($interactive) {
@@ -57,14 +58,14 @@ class YupeCommand extends \yupe\components\ConsoleCommand
             echo "\n";
 
             foreach ($modules as $key => $value) {
-                $this->log('Change module "'.$key.'"');
+                $this->log('Change module "' . $key . '"');
 
                 $result = Yii::app()->moduleManager->updateModuleConfig($value);
 
                 if ($result) {
-                    $this->log('Module "'.$key.'" successfully updated!');
+                    $this->log('Module "' . $key . '" successfully updated!');
                 } else {
-                    $this->log('An error occurred while updating the module "'.$key.'"', CLogger::LEVEL_ERROR);
+                    $this->log('An error occurred while updating the module "' . $key . '"', CLogger::LEVEL_ERROR);
 
                     return false;
                 }
@@ -107,7 +108,7 @@ class YupeCommand extends \yupe\components\ConsoleCommand
 
             return true;
         } else {
-            $this->log('The following modules have new migrations: '.implode(',', array_keys($modules)).'.');
+            $this->log('The following modules have new migrations: ' . implode(',', array_keys($modules)) . '.');
 
             if ($interactive) {
                 if (!$this->confirm("Are you sure you want to do this?")) {
@@ -120,14 +121,14 @@ class YupeCommand extends \yupe\components\ConsoleCommand
             echo "\n";
 
             foreach ($modules as $key => $value) {
-                $this->log('Change module "'.$key.'"');
+                $this->log('Change module "' . $key . '"');
 
                 $result = Yii::app()->migrator->updateToLatest($key);
 
                 if ($result) {
-                    $this->log('Module "'.$key.'" successfully updated!');
+                    $this->log('Module "' . $key . '" successfully updated!');
                 } else {
-                    $this->log('An error occurred while updating the module "'.$key.'"', CLogger::LEVEL_ERROR);
+                    $this->log('An error occurred while updating the module "' . $key . '"', CLogger::LEVEL_ERROR);
 
                     return false;
                 }
@@ -184,11 +185,11 @@ class YupeCommand extends \yupe\components\ConsoleCommand
      */
     public function actionFlushAssets()
     {
-        $dirs = glob(Yii::getPathOfAlias('webroot.assets').DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
+        $dirs = glob(Yii::getPathOfAlias('webroot.assets') . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
 
         foreach ($dirs as $value) {
             if (!\yupe\helpers\YFile::rmDir($value)) {
-                $this->log('Failed to remove directory "'.$value.'"', CLogger::LEVEL_ERROR);
+                $this->log('Failed to remove directory "' . $value . '"', CLogger::LEVEL_ERROR);
             }
         }
 

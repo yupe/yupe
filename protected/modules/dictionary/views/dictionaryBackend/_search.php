@@ -30,9 +30,9 @@ $form = $this->beginWidget(
         'encodeLabel' => false,
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
-                'DictionaryModule.dictionary',
-                'Find dictionary'
-            ),
+            'DictionaryModule.dictionary',
+            'Find dictionary'
+        ),
     ]
 ); ?>
 

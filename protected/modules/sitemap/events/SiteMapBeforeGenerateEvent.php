@@ -25,4 +25,4 @@ class SiteMapBeforeGenerateEvent extends \yupe\components\Event
     {
         $this->generator = $generator;
     }
-} 
+}

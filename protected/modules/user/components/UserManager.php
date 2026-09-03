@@ -59,8 +59,7 @@ class UserManager extends CApplicationComponent
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
-            $user = new User;
+            $user = new User();
 
             $user->setAttributes([
                 'nick_name' => $form->nick_name,
@@ -77,7 +76,6 @@ class UserManager extends CApplicationComponent
             $user->setAttribute('hash', $this->hasher->hashPassword($form->password));
 
             if ($user->save() && ($token = $this->tokenStorage->createAccountActivationToken($user)) !== false) {
-
                 if (!$this->userModule->emailAccountVerification) {
                     Yii::app()->eventManager->fire(
                         UserEvents::SUCCESS_REGISTRATION,
@@ -96,9 +94,7 @@ class UserManager extends CApplicationComponent
             }
 
             throw new CException(Yii::t('UserModule.user', 'Error creating account!'));
-
         } catch (Exception $e) {
-
             Yii::log(
                 Yii::t('UserModule.user', 'Error {error} account creating!', ['{error}' => $e->__toString()]),
                 CLogger::LEVEL_INFO,
@@ -125,7 +121,6 @@ class UserManager extends CApplicationComponent
             $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_ACTIVATE);
 
             if (null === $tokenModel) {
-
                 Yii::app()->eventManager->fire(UserEvents::FAILURE_ACTIVATE_ACCOUNT, new UserActivateEvent($token));
 
                 return false;
@@ -134,7 +129,6 @@ class UserManager extends CApplicationComponent
             $userModel = User::model()->findByPk($tokenModel->user_id);
 
             if (null === $userModel) {
-
                 Yii::app()->eventManager->fire(UserEvents::FAILURE_ACTIVATE_ACCOUNT, new UserActivateEvent($token));
 
                 return false;
@@ -143,7 +137,6 @@ class UserManager extends CApplicationComponent
             $userModel->activate();
 
             if ($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
-
                 Yii::app()->eventManager->fire(
                     UserEvents::SUCCESS_ACTIVATE_ACCOUNT,
                     new UserActivateEvent($token, $userModel)
@@ -196,7 +189,6 @@ class UserManager extends CApplicationComponent
 
         try {
             if (($token = $this->tokenStorage->createPasswordRecoveryToken($user)) !== false) {
-
                 Yii::app()->eventManager->fire(
                     UserEvents::SUCCESS_PASSWORD_RECOVERY,
                     new UserPasswordRecoveryEvent($email, $user, $token)
@@ -209,7 +201,6 @@ class UserManager extends CApplicationComponent
 
             throw new CException(Yii::t('UserModule.user', 'Password recovery error.'));
         } catch (Exception $e) {
-
             $transaction->rollback();
 
             Yii::app()->eventManager->fire(
@@ -232,7 +223,6 @@ class UserManager extends CApplicationComponent
         $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_CHANGE_PASSWORD);
 
         if (null === $tokenModel) {
-
             Yii::app()->eventManager->fire(
                 UserEvents::FAILURE_ACTIVATE_PASSWORD,
                 new UserActivatePasswordEvent($token)
@@ -244,7 +234,6 @@ class UserManager extends CApplicationComponent
         $userModel = User::model()->active()->findByPk($tokenModel->user_id);
 
         if (null === $userModel) {
-
             Yii::app()->eventManager->fire(
                 UserEvents::FAILURE_ACTIVATE_PASSWORD,
                 new UserActivatePasswordEvent($token)
@@ -256,13 +245,11 @@ class UserManager extends CApplicationComponent
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             if (null === $password) {
                 $password = $this->hasher->generateRandomPassword();
             }
 
             if ($this->changeUserPassword($userModel, $password) && $this->tokenStorage->activate($tokenModel)) {
-
                 Yii::app()->eventManager->fire(
                     UserEvents::SUCCESS_ACTIVATE_PASSWORD,
                     new UserActivatePasswordEvent($token, $password, $userModel, $notify)
@@ -308,11 +295,9 @@ class UserManager extends CApplicationComponent
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             $user->email_confirm = User::EMAIL_CONFIRM_NO;
             $user->email = $email;
             if ($user->save()) {
-
                 if ($confirm && ($token = $this->tokenStorage->createEmailVerifyToken($user)) === false) {
                     throw new CException(Yii::t('UserModule.user', 'Error change Email!'));
                 }
@@ -347,7 +332,6 @@ class UserManager extends CApplicationComponent
             $tokenModel = $this->tokenStorage->get($token, UserToken::TYPE_EMAIL_VERIFY);
 
             if (null === $tokenModel) {
-
                 Yii::app()->eventManager->fire(UserEvents::FAILURE_EMAIL_CONFIRM, new UserEmailConfirmEvent($token));
 
                 return false;
@@ -356,7 +340,6 @@ class UserManager extends CApplicationComponent
             $userModel = User::model()->active()->findByPk($tokenModel->user_id);
 
             if (null === $userModel) {
-
                 Yii::app()->eventManager->fire(UserEvents::FAILURE_EMAIL_CONFIRM, new UserEmailConfirmEvent($token));
 
                 return false;
@@ -365,7 +348,6 @@ class UserManager extends CApplicationComponent
             $userModel->email_confirm = User::EMAIL_CONFIRM_YES;
 
             if ($this->tokenStorage->activate($tokenModel) && $userModel->save()) {
-
                 Yii::app()->eventManager->fire(
                     UserEvents::SUCCESS_EMAIL_CONFIRM,
                     new UserEmailConfirmEvent($token, $userModel)
@@ -375,7 +357,6 @@ class UserManager extends CApplicationComponent
 
                 return true;
             }
-
         } catch (Exception $e) {
             $transaction->rollback();
 

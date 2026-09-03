@@ -71,7 +71,7 @@ $form = $this->beginWidget(
         <?= $form->hiddenField($model, 'position'); ?>
     </div>
 
-    <?php if(!empty($payments)):?>
+    <?php if (!empty($payments)) :?>
     <div class="col-sm-4">
         <?= $form->checkBoxListGroup(
             $model,

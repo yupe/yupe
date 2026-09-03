@@ -157,9 +157,10 @@ class FeedbackModule extends WebModule
     {
         $messages = [];
 
-        if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(
-                    explode(',', $this->emails)
-                ))
+        if (
+            in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(
+                explode(',', $this->emails)
+            ))
         ) {
             $messages[WebModule::CHECK_ERROR][] = [
                 'type' => WebModule::CHECK_ERROR,
@@ -204,23 +205,23 @@ class FeedbackModule extends WebModule
             $messages[WebModule::CHECK_NOTICE][] = [
                 'type' => WebModule::CHECK_NOTICE,
                 'message' => Yii::t(
-                        'FeedbackModule.feedback',
-                        'You have {{count}} ',
-                        [
+                    'FeedbackModule.feedback',
+                    'You have {{count}} ',
+                    [
                             '{{count}}' => $count,
                         ]
-                    ).Yii::t(
-                        'FeedbackModule.feedback',
-                        'new message |new messages |new messages ',
-                        $count
-                    ).' '.CHtml::link(
-                        Yii::t('FeedbackModule.feedback', 'Show and reply?'),
-                        [
+                ) . Yii::t(
+                    'FeedbackModule.feedback',
+                    'new message |new messages |new messages ',
+                    $count
+                ) . ' ' . CHtml::link(
+                    Yii::t('FeedbackModule.feedback', 'Show and reply?'),
+                    [
                             '/feedback/feedbackBackend/index/',
                             'order' => 'status.asc',
                             'FeedbBack_sort' => 'status',
                         ]
-                    ),
+                ),
             ];
         }
 

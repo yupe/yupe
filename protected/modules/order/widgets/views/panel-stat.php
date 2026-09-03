@@ -49,14 +49,14 @@ Yii::app()->getClientScript()->registerCssFile(Yii::app()->getModule('order')->g
                                         'type' => 'raw',
                                         'value' => function ($data) {
                                             return CHtml::link(
-                                                Yii::t('OrderModule.order', 'Order #').$data->id,
+                                                Yii::t('OrderModule.order', 'Order #') . $data->id,
                                                 ["/order/orderBackend/update", "id" => $data->id]
                                             );
                                         },
                                     ],
                                     [
                                         'name' => 'date',
-                                        'value' => function($data){
+                                        'value' => function ($data) {
                                             return CHtml::link(Yii::app()->getDateFormatter()->formatDateTime($data->date, 'medium'), array("/order/orderBackend/update", "id" => $data->id));
                                         },
                                         'type' => 'raw'

@@ -2,8 +2,8 @@
 
 class m150414_180119_rename_date_fields extends yupe\components\DbMigration
 {
-	public function safeUp()
-	{
+    public function safeUp()
+    {
         $this->renameColumn('{{blog_blog}}', 'create_date', 'create_time');
         $this->renameColumn('{{blog_blog}}', 'update_date', 'update_time');
 

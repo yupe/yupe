@@ -23,16 +23,12 @@ class BlogPostCommentListener
 
         //нотификация автору поста
         if ('Post' === $comment->model) {
-
             //ответ на комментарий
             if ($comment->hasParent()) {
-
                 if (null !== $parent && $parent->user_id) {
-
                     $notify = NotifySettings::model()->getForUser($parent->user_id);
 
                     if (null !== $notify && $notify->isNeedSendForCommentAnswer()) {
-
                         Yii::app()->mail->send(
                             $module->email,
                             $parent->email,
@@ -55,14 +51,11 @@ class BlogPostCommentListener
             $post = Post::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->with(['createUser'])->get((int)$comment->model_id);
 
             if (null !== $post) {
-
                 //пропускаем автора поста + если отвечают на комментарий автора поста - он уже получил уведомление выше
                 if ($comment->user_id != $post->create_user_id) {
-
                     $notify = NotifySettings::model()->getForUser($post->create_user_id);
 
                     if (null != $notify && $notify->isNeedSendForNewPostComment()) {
-
                         Yii::app()->mail->send(
                             $module->email,
                             $post->createUser->email,

@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('PageModule.page', 'Pages') => ['/page/pageBackend/index'],
     Yii::t('PageModule.page', 'Add page'),

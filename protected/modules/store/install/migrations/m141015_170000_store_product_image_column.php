@@ -10,6 +10,5 @@ class m141015_170000_store_product_image_column extends yupe\components\DbMigrat
 
     public function safeDown()
     {
-
     }
 }

@@ -69,7 +69,6 @@ class BlogBackendController extends yupe\components\controllers\BackController
         $model = new Blog();
 
         if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Blog') !== null) {
-
             $model->setAttributes(Yii::app()->getRequest()->getPost('Blog'));
 
             if ($model->save()) {
@@ -130,7 +129,6 @@ class BlogBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             if (($model = Blog::model()->findByPk($id)) === null) {
                 throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
             }

@@ -54,7 +54,6 @@ class m000000_000000_yupe_base extends yupe\components\DbMigration
             'SET NULL',
             'NO ACTION'
         );
-
     }
 
     /**

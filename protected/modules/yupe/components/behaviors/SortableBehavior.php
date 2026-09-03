@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\components\behaviors;
 
 use CActiveRecordBehavior;
@@ -27,4 +28,4 @@ class SortableBehavior extends CActiveRecordBehavior
 
         return parent::beforeSave($event);
     }
-} 
+}

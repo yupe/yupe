@@ -153,7 +153,7 @@ class Attribute extends \yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->with = ['group'];
 
         $criteria->compare('id', $this->id);
@@ -164,7 +164,7 @@ class Attribute extends \yupe\models\YModel
         $criteria->compare('is_filter', $this->is_filter);
         $criteria->compare('required', $this->required);
 
-        $sort = new CSort;
+        $sort = new CSort();
         $sort->defaultOrder = 'group.position ASC, t.sort ASC';
         $sort->attributes = [
             '*',
@@ -175,7 +175,8 @@ class Attribute extends \yupe\models\YModel
         ];
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
                 'sort' => $sort,
             ]
@@ -267,16 +268,20 @@ class Attribute extends \yupe\models\YModel
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             Yii::app()->getDb()
-                ->createCommand(sprintf('UPDATE {{store_product_attribute_value}} SET %s = %s WHERE attribute_id = :id',
-                    $newCol, $currentCol))
+                ->createCommand(sprintf(
+                    'UPDATE {{store_product_attribute_value}} SET %s = %s WHERE attribute_id = :id',
+                    $newCol,
+                    $currentCol
+                ))
                 ->bindValue(':id', $this->id)
                 ->execute();
 
             Yii::app()->getDb()
-                ->createCommand(sprintf('UPDATE {{store_product_attribute_value}} SET %s = null WHERE attribute_id = :id',
-                    $currentCol))
+                ->createCommand(sprintf(
+                    'UPDATE {{store_product_attribute_value}} SET %s = null WHERE attribute_id = :id',
+                    $currentCol
+                ))
                 ->bindValue(':id', $this->id)
                 ->execute();
 
@@ -365,7 +370,6 @@ class Attribute extends \yupe\models\YModel
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             foreach ($attributes as $attribute) {
                 $model = new AttributeOption();
                 $model->setAttributes([

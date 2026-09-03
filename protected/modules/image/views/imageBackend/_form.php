@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для default/_form:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -38,7 +40,8 @@ $form = $this->beginWidget(
             ]
         ); ?>
     </div>
-    <?php if (Yii::app()->hasModule('gallery')) : { ?>
+    <?php if (Yii::app()->hasModule('gallery')) :
+        { ?>
         <div class='col-sm-2'>
             <?=  $form->dropDownListGroup(
                 $model,
@@ -56,7 +59,8 @@ $form = $this->beginWidget(
                 ]
             ); ?>
         </div>
-    <?php } endif; ?>
+        <?php }
+    endif; ?>
 </div>
 
 <div class='row'>
@@ -99,9 +103,11 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-7">
-        <?php if (!$model->isNewRecord) : { ?>
+        <?php if (!$model->isNewRecord) :
+            { ?>
             <?=  CHtml::image($model->getImageUrl(300, 200), $model->alt, ["width" => 300, "height" => 200]); ?>
-        <?php } endif; ?>
+            <?php }
+        endif; ?>
         <?=  $form->fileFieldGroup(
             $model,
             'file',
@@ -127,9 +133,9 @@ $this->widget(
         'buttonType' => 'submit',
         'context'    => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('ImageModule.image', 'Add image and close') : Yii::t(
-                'ImageModule.image',
-                'Save image and continue'
-            ),
+            'ImageModule.image',
+            'Save image and continue'
+        ),
     ]
 ); ?>
 
@@ -140,9 +146,9 @@ $this->widget(
         'buttonType'  => 'submit',
         'htmlOptions' => ['name' => 'submit-type', 'value' => 'index'],
         'label'       => $model->isNewRecord ? Yii::t('ImageModule.image', 'Add image and save') : Yii::t(
-                'ImageModule.image',
-                'Save mage and close'
-            ),
+            'ImageModule.image',
+            'Save mage and close'
+        ),
     ]
 ); ?>
 

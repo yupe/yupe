@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Menu основная модель для menu
  *
@@ -9,6 +10,7 @@
  * @since 0.1
  *
  */
+
 use yupe\widgets\YPurifier;
 
 /**
@@ -132,7 +134,8 @@ class Menu extends yupe\models\YModel
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(
-            get_class($this), [
+            get_class($this),
+            [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 'status DESC, id'],
             ]
@@ -205,16 +208,16 @@ class Menu extends yupe\models\YModel
     {
         $userId = Yii::app()->getUser()->getId();
 
-        $items = Yii::app()->getCache()->get("Menu::{$code}{$parent_id}::user_{$userId}".Yii::app()->getLanguage());
+        $items = Yii::app()->getCache()->get("Menu::{$code}{$parent_id}::user_{$userId}" . Yii::app()->getLanguage());
 
         if ($items === false) {
             $alias = $this->getDbConnection()->getSchema()->quoteTableName('menuItems');
             $results = self::model()->with(
                 [
                     'menuItems' => [
-                        'on' => $alias.'.parent_id = :parent_id AND '.$alias.'.status = 1',
+                        'on' => $alias . '.parent_id = :parent_id AND ' . $alias . '.status = 1',
                         'params' => ['parent_id' => (int)$parent_id],
-                        'order' => $alias.'.sort ASC, '.$alias.'.id ASC',
+                        'order' => $alias . '.sort ASC, ' . $alias . '.id ASC',
                     ],
                 ]
             )->findByAttributes(
@@ -254,15 +257,15 @@ class Menu extends yupe\models\YModel
                     $url = [];
                 }
 
-                $class = (($childItems) ? ' submenuItem' : '').(($result->class) ? ' '.$result->class : '');
+                $class = (($childItems) ? ' submenuItem' : '') . (($result->class) ? ' ' . $result->class : '');
                 $title_attr = ($result->title_attr) ? ['title' => $result->title_attr] : [];
                 $target = ($result->target && $url) ? ['target' => $result->target] : [];
                 $rel = ($result->rel && $url) ? ['rel' => $result->rel] : [];
 
                 $items[] = [
                         'label' => $result->title,
-                        'template' => $result->before_link.'{menu}'.$result->after_link,
-                        'itemOptions' => ['class' => 'listItem'.$class],
+                        'template' => $result->before_link . '{menu}' . $result->after_link,
+                        'itemOptions' => ['class' => 'listItem' . $class],
                         'linkOptions' => [
                                 'class' => 'listItemLink',
                             ] + $title_attr + $target + $rel,
@@ -274,10 +277,10 @@ class Menu extends yupe\models\YModel
             }
 
             Yii::app()->getCache()->set(
-                "Menu::{$code}{$parent_id}::user_{$userId}".Yii::app()->getLanguage(),
+                "Menu::{$code}{$parent_id}::user_{$userId}" . Yii::app()->getLanguage(),
                 $items,
                 0,
-                new TagsCache('menu', $code, 'loggedIn'.$userId)
+                new TagsCache('menu', $code, 'loggedIn' . $userId)
             );
         }
 

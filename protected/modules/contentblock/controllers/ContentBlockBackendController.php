@@ -152,7 +152,6 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
@@ -160,7 +159,6 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
             Yii::app()->getRequest()->getIsAjaxRequest() || $this->redirect(
                 (array)Yii::app()->getRequest()->getPost('returnUrl', 'index')
             );
-
         } else {
             throw new CHttpException(400, Yii::t('ContentBlockModule.contentblock', 'Unknown request!'));
         }

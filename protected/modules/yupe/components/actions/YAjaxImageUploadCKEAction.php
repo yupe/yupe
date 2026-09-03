@@ -27,8 +27,8 @@ class YAjaxImageUploadCKEAction extends YAjaxImageUploadAction
 
         // по умолчанию не переименовываем файл
         $this->rename = (bool)Yii::app()->getRequest()->getQuery('rename', false);
-        $this->webPath = '/'.$this->getController()->yupe->uploadPath.'/files/'.date('Y/m/d').'/';
-        $this->uploadPath = Yii::getPathOfAlias('webroot').$this->webPath;
+        $this->webPath = '/' . $this->getController()->yupe->uploadPath . '/files/' . date('Y/m/d') . '/';
+        $this->uploadPath = Yii::getPathOfAlias('webroot') . $this->webPath;
 
         if (!is_dir($this->uploadPath)) {
             if (!@mkdir($this->uploadPath, 0755, true)) {
@@ -66,7 +66,7 @@ class YAjaxImageUploadCKEAction extends YAjaxImageUploadAction
             $output['error']['message'] = implode(PHP_EOL, $form->getErrors('file')) ?: 'Ошибка сервера';
         }
 
-        Yii::app()->ajax->raw( $output );
+        Yii::app()->ajax->raw($output);
     }
 
     /**

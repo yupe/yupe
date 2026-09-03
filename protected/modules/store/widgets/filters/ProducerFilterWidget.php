@@ -61,4 +61,4 @@ class ProducerFilterWidget extends \yupe\widgets\YWidget
             'producers' => $producers
         ]);
     }
-} 
+}

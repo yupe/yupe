@@ -101,7 +101,7 @@ $this->menu = [
             ],
             [
                 'class' => 'yupe\widgets\CustomButtonColumn',
-                'frontViewButtonUrl' => function($data){
+                'frontViewButtonUrl' => function ($data) {
                     return Yii::app()->createUrl('/store/category/view', ['path' => $data->path]);
                 },
                 'buttons' => [

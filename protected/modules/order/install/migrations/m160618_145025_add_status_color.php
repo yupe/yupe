@@ -2,8 +2,8 @@
 
 class m160618_145025_add_status_color extends yupe\components\DbMigration
 {
-	public function safeUp()
-	{
+    public function safeUp()
+    {
         $this->addColumn('{{store_order_status}}', 'color', 'string');
 
         $default = [
@@ -21,10 +21,10 @@ class m160618_145025_add_status_color extends yupe\components\DbMigration
                     ':name' => $name,
                 ]);
         }
-	}
+    }
 
-	public function safeDown()
-	{
+    public function safeDown()
+    {
         $this->dropColumn('{{store_order_status}}', 'color');
-	}
+    }
 }

@@ -10,7 +10,7 @@
 <div class="fileupload-buttonbar row">
     <div class="col-sm-7">
         <!-- The fileinput-button span is used to style the file input field as button -->
-		<span class="btn btn-success fileinput-button"> <i
+        <span class="btn btn-success fileinput-button"> <i
                 class="fa fa-fw fa-plus"></i> <span><?= Yii::t(
                     'GalleryModule.gallery',
                     'Add...'
@@ -22,7 +22,7 @@
                 echo CHtml::fileField($name, $this->value, $htmlOptions) . "\n";
             endif;
             ?>
-		</span>
+        </span>
         <button type="submit" class="btn btn-primary start">
             <i class="fa fa-fw fa-upload"></i>
             <span><?= Yii::t('GalleryModule.gallery', 'Start uploading'); ?></span>

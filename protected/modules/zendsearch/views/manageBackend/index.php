@@ -37,10 +37,10 @@ $this->widget(
             'data' => [Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken],
             'url' => $this->createUrl('/zendsearch/manageBackend/create'),
             'beforeSend' => 'function () {
-	       $("#create-search").text("'.Yii::t('ZendSearchModule.zendsearch', 'Wait please...').'");
+	       $("#create-search").text("' . Yii::t('ZendSearchModule.zendsearch', 'Wait please...') . '");
 	     }',
             'success' => 'js:function (data,status) {
-            $("#create-search").text("'.Yii::t('ZendSearchModule.zendsearch', 'Update find index').'");
+            $("#create-search").text("' . Yii::t('ZendSearchModule.zendsearch', 'Update find index') . '");
             alert(data);
 	     }',
         ],

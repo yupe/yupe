@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Search form generator:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 echo <<<EOF
 <?php
 /**

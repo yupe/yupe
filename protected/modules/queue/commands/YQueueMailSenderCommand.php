@@ -1,4 +1,5 @@
 <?php
+
 /**
  * YQueueMailSenderCommand консольная команда для отправки email-сообщений через очередь
  *
@@ -10,6 +11,7 @@
  * @since 0.1
  *
  */
+
 use yupe\components\ConsoleCommand;
 
 /**
@@ -58,7 +60,7 @@ class YQueueMailSenderCommand extends ConsoleCommand
 
         $models = $queue->getTasksForWorker(self::MAIL_WORKER_ID, $limit);
 
-        $this->log("Find ".count($models)." new mail task");
+        $this->log("Find " . count($models) . " new mail task");
 
         foreach ($models as $model) {
             $this->log("Process mail task id = {$model->id}");

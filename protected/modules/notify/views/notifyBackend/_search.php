@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для _search:
  *
@@ -8,8 +9,10 @@
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     https://yupe.ru
  **/
+
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', [
+    'bootstrap.widgets.TbActiveForm',
+    [
         'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
         'type'        => 'vertical',
@@ -37,7 +40,8 @@ $form = $this->beginWidget(
 
     <?php
     $this->widget(
-        'bootstrap.widgets.TbButton', [
+        'bootstrap.widgets.TbButton',
+        [
             'context'     => 'primary',
             'encodeLabel' => false,
             'buttonType'  => 'submit',

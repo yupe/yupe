@@ -10,6 +10,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 Yii::import('application.modules.feedback.models.FeedBack');
 
 /**

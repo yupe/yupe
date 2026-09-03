@@ -40,7 +40,8 @@ class GalleryWidget extends yupe\widgets\YWidget
             )
         );
         $dataProvider = new CActiveDataProvider(
-            'ImageToGallery', [
+            'ImageToGallery',
+            [
                 'criteria' => [
                     'condition' => 't.gallery_id = :gallery_id',
                     'params' => [':gallery_id' => $this->galleryId],

@@ -42,17 +42,14 @@ class PublisherController extends \yupe\components\controllers\FrontController
         $post = new Post();
         $post->blog_id = Yii::app()->getRequest()->getParam('blog-id');
         if (($postId = (int)Yii::app()->getRequest()->getQuery('id'))) {
-
             $post = Post::model()->findUserPost($postId, Yii::app()->getUser()->getId());
 
             if ($post === null) {
                 throw new CHttpException(404);
             }
-
         }
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['Post'])) {
-
             $data = Yii::app()->getRequest()->getPost('Post');
 
             $data['user_id'] = Yii::app()->getUser()->getId();
@@ -62,7 +59,6 @@ class PublisherController extends \yupe\components\controllers\FrontController
             $data['tags'] = Yii::app()->getRequest()->getPost('tags');
 
             if ($post->createPublicPost($data)) {
-
                 $message = Yii::t('BlogModule.blog', 'Post sent for moderation!');
 
                 $redirect = ['/blog/publisher/my'];
@@ -72,7 +68,6 @@ class PublisherController extends \yupe\components\controllers\FrontController
                 }
 
                 if ($post->isPublished()) {
-
                     $message = Yii::t('BlogModule.blog', 'Post published!');
 
                     $redirect = ['/blog/post/view', 'slug' => $post->slug];
@@ -105,7 +100,6 @@ class PublisherController extends \yupe\components\controllers\FrontController
     public function actionDelete()
     {
         if ((new Post())->deleteUserPost(Yii::app()->getRequest()->getQuery('id'), Yii::app()->getUser()->getId())) {
-
             Yii::app()->ajax->success();
         }
 

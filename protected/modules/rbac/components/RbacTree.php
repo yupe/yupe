@@ -130,8 +130,8 @@ class RbacTree
                 CHtml::checkBox(
                     'AuthItem[]',
                     $this->permissionList[$item['name']],
-                    ['class' => 'auth-item', 'value' => $item['name'], 'id' => 'auth-item-'.uniqid()]
-                ).$this->getItemDescription($item),
+                    ['class' => 'auth-item', 'value' => $item['name'], 'id' => 'auth-item-' . uniqid()]
+                ) . $this->getItemDescription($item),
                 null
             )
         );
@@ -139,7 +139,7 @@ class RbacTree
 
     private function getItemDescription($item)
     {
-        return $item->description." ({$item->getType()} <span class='text-muted'>{$item->name}</span>)";
+        return $item->description . " ({$item->getType()} <span class='text-muted'>{$item->name}</span>)";
     }
 
     /**

@@ -19,4 +19,4 @@ class SearchProductWidget extends \yupe\widgets\YWidget
     {
         $this->render($this->view);
     }
-} 
+}

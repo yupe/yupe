@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для Default/images:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $this->pageTitle = 'Галерея - Изображения галереи';
 
 $this->breadcrumbs = [

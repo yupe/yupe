@@ -25,11 +25,9 @@ class NotifyController extends \yupe\components\controllers\FrontController
         }
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['NotifySettings'])) {
-
             $model->setAttributes(Yii::app()->getRequest()->getPost('NotifySettings'));
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(\yupe\widgets\YFlashMessages::SUCCESS_MESSAGE, Yii::t('NotifyModule.notify', 'Settings changed!'));
 
                 $this->redirect(['/notify/notify/settings']);
@@ -38,4 +36,4 @@ class NotifyController extends \yupe\components\controllers\FrontController
 
         $this->render('settings', ['model' => $model]);
     }
-} 
+}

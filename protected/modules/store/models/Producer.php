@@ -117,7 +117,7 @@ class Producer extends yupe\models\YModel
 
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
         $criteria->compare('name_short', $this->name_short, true);
@@ -130,7 +130,8 @@ class Producer extends yupe\models\YModel
         $criteria->compare('description', $this->description, true);
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 'sort'],
             ]
@@ -163,7 +164,7 @@ class Producer extends yupe\models\YModel
                 'minSize' => $module->minSize,
                 'maxSize' => $module->maxSize,
                 'types' => $module->allowedExtensions,
-                'uploadPath' => $module !== null ? $module->uploadPath.'/producer' : null,
+                'uploadPath' => $module !== null ? $module->uploadPath . '/producer' : null,
                 'resizeOptions' => [
                     'maxWidth' => 900,
                     'maxHeight' => 900,

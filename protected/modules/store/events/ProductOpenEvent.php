@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\Event;
 
 class ProductOpenEvent extends Event

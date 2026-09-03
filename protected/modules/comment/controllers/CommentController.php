@@ -78,7 +78,8 @@ class CommentController extends \yupe\components\controllers\FrontController
             throw new CHttpException(404);
         }
 
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
+        if (
+            Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost(
                 'ajax'
             ) == 'comment-form'
         ) {
@@ -87,19 +88,17 @@ class CommentController extends \yupe\components\controllers\FrontController
         }
 
         try {
-
             $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->getUser()->getReturnUrl());
 
-            if (($comment = Yii::app()->commentManager->create(
-                Yii::app()->getRequest()->getPost('Comment'),
-                $module,
-                Yii::app()->getUser(),
-                Yii::app()->getRequest()
-            ))
+            if (
+                ($comment = Yii::app()->commentManager->create(
+                    Yii::app()->getRequest()->getPost('Comment'),
+                    $module,
+                    Yii::app()->getUser(),
+                    Yii::app()->getRequest()
+                ))
             ) {
-
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-
                     $commentContent = $comment->isApproved() ? $this->_renderComment($comment) : '';
 
                     Yii::app()->ajax->success(
@@ -119,11 +118,8 @@ class CommentController extends \yupe\components\controllers\FrontController
                 );
 
                 $this->redirect($redirect);
-
             } else {
-
                 if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-
                     Yii::app()->ajax->failure(
                         [
                             'message' => Yii::t('CommentModule.comment', 'Record was not added!'),
@@ -140,7 +136,6 @@ class CommentController extends \yupe\components\controllers\FrontController
             }
         } catch (Exception $e) {
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-
                 Yii::app()->ajax->failure(
                     [
                         'message' => Yii::t('CommentModule.comment', $e->getMessage()),

@@ -11,7 +11,6 @@
  */
 class AttributeOption extends \yupe\models\YModel
 {
-
     /**
      * @return string the associated database table name
      */

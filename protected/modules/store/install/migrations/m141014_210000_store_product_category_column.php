@@ -11,6 +11,5 @@ class m141014_210000_store_product_category_column extends yupe\components\DbMig
 
     public function safeDown()
     {
-
     }
 }

@@ -2,22 +2,19 @@
 
 class m150210_063409_add_store_menu_item extends CDbMigration
 {
-	public function safeUp()
-	{
-        if(Yii::app()->hasModule('menu')) {
-
+    public function safeUp()
+    {
+        if (Yii::app()->hasModule('menu')) {
             Yii::import('application.modules.menu.models.*');
 
             Yii::import('application.modules.menu.MenuModule');
 
             $menu = Menu::model()->find(['order' => 'id ASC', 'limit' => 1]);
 
-            if(null !== $menu) {
-
+            if (null !== $menu) {
                 $item = MenuItem::model()->find('href = :href', [':href' => '/store/product/index']);
 
-                if(null != $item) {
-
+                if (null != $item) {
                     $item = new MenuItem();
                     $item->menu_id = $menu->id;
                     $item->title   = 'Магазин';
@@ -28,21 +25,20 @@ class m150210_063409_add_store_menu_item extends CDbMigration
                 }
             }
         }
-	}
+    }
 
-	public function safeDown()
-	{
-        if(Yii::app()->hasModule('menu')) {
-
+    public function safeDown()
+    {
+        if (Yii::app()->hasModule('menu')) {
             Yii::import('application.modules.menu.models.*');
 
             Yii::import('application.modules.menu.MenuModule');
 
             $item = MenuItem::model()->find('href = :href', [':href' => '/store/product/index']);
 
-            if($item !== null) {
+            if ($item !== null) {
                 $item->delete();
             }
         }
-	}
+    }
 }

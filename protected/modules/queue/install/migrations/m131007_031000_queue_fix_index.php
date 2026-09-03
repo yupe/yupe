@@ -12,7 +12,6 @@
  **/
 class m131007_031000_queue_fix_index extends yupe\components\DbMigration
 {
-
     public function safeUp()
     {
         $this->dropIndex("ux_{{queue_queue}}_worker", '{{queue_queue}}');
@@ -24,6 +23,5 @@ class m131007_031000_queue_fix_index extends yupe\components\DbMigration
 
     public function safeDown()
     {
-
     }
 }

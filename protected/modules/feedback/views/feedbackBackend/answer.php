@@ -21,10 +21,10 @@ $this->menu = [
     ],
     [
         'label' => Yii::t('FeedbackModule.feedback', 'Reference value') . ' «' . mb_substr(
-                $model->theme,
-                0,
-                32
-            ) . '»'
+            $model->theme,
+            0,
+            32
+        ) . '»'
     ],
     [
         'icon' => 'fa fa-fw fa-pencil',

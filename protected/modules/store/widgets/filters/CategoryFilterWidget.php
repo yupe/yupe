@@ -29,4 +29,4 @@ class CategoryFilterWidget extends \yupe\widgets\YWidget
             ]),
         ]);
     }
-} 
+}

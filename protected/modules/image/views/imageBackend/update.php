@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('ImageModule.image', 'Images') => ['/image/imageBackend/index'],
     $model->name                          => ['/image/imageBackend/view', 'id' => $model->id],

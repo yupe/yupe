@@ -13,7 +13,6 @@
  */
 class LoginAction extends CAction
 {
-
     /**
      *
      */
@@ -34,16 +33,15 @@ class LoginAction extends CAction
         $form = new LoginForm($scenario);
 
         if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['LoginForm'])) {
-
             $form->setAttributes(Yii::app()->getRequest()->getPost('LoginForm'));
 
-            if (Yii::app()->authenticationManager->login(
-                $form,
-                Yii::app()->getUser(),
-                Yii::app()->getRequest()
-            )
+            if (
+                Yii::app()->authenticationManager->login(
+                    $form,
+                    Yii::app()->getUser(),
+                    Yii::app()->getRequest()
+                )
             ) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'You authorized successfully!')
@@ -60,9 +58,7 @@ class LoginAction extends CAction
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), 0);
 
                 $this->getController()->redirect($redirect);
-
             } else {
-
                 $form->addError('email', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
 
                 Yii::app()->authenticationManager->setBadLoginCount(Yii::app()->getUser(), $badLoginCount + 1);

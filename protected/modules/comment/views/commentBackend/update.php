@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('CommentModule.comment', 'Comments') => ['/comment/commentBackend/index'],
     $model->id                                  => ['/comment/commentBackend/view', 'id' => $model->id],

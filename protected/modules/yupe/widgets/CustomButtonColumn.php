@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\widgets;
 
 use Yii;
@@ -77,10 +78,9 @@ class CustomButtonColumn extends \TbButtonColumn
     {
         parent::initDefaultButtons();
 
-        $this->template = '<div class="btn-group">'.$this->template.'</div>';
+        $this->template = '<div class="btn-group">' . $this->template . '</div>';
 
         if ($this->frontViewButtonUrl) {
-
             if ($this->frontViewButtonLabel === null) {
                 $this->frontViewButtonLabel = Yii::t('zii', 'View');
             }
@@ -92,7 +92,9 @@ class CustomButtonColumn extends \TbButtonColumn
                 'icon' => $this->frontViewButtonIcon,
                 'visible' => isset($this->buttons['front_view']['visible'])
                     ? $this->buttons['front_view']['visible']
-                    : function () { return true; },
+                    : function () {
+                        return true;
+                    },
             ];
         } else {
             $this->buttons['front_view'] = [
@@ -103,7 +105,7 @@ class CustomButtonColumn extends \TbButtonColumn
         }
 
         if (is_string($this->deleteConfirmation)) {
-            $confirmation = "if(!confirm(".\CJavaScript::encode($this->deleteConfirmation).")) return false;";
+            $confirmation = "if(!confirm(" . \CJavaScript::encode($this->deleteConfirmation) . ")) return false;";
         } else {
             $confirmation = '';
         }
@@ -147,5 +149,4 @@ function() {
 }
 EOD;
     }
-
 }

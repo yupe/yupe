@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var $this ProductBackendController
  * @var $model Product

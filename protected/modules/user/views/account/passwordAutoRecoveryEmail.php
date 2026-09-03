@@ -43,14 +43,14 @@
         'For password recovery, please follow this :link',
         [
             ':link' => CHtml::link(
-                    Yii::t('UserModule.user', 'link'),
-                    $link = $this->createAbsoluteUrl(
-                        '/user/account/restore',
-                        [
+                Yii::t('UserModule.user', 'link'),
+                $link = $this->createAbsoluteUrl(
+                    '/user/account/restore',
+                    [
                             'token' => $model->recovery->genActivateCode(),
                         ]
-                    )
-                ),
+                )
+            ),
         ]
     ); ?>
 </p>

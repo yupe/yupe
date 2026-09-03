@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('GalleryModule.gallery', 'Galleries') => ['/gallery/galleryBackend/index'],
     //$model->name => array('/gallery/galleryBackend/view', 'id' => $model->id),

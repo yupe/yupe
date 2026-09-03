@@ -20,7 +20,6 @@ class EmailConfirmAction extends CAction
     {
         // пытаемся подтвердить почту
         if (Yii::app()->userManager->verifyEmail($token)) {
-
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t(
@@ -28,9 +27,7 @@ class EmailConfirmAction extends CAction
                     'You confirmed new e-mail successfully!'
                 )
             );
-
         } else {
-
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                 Yii::t(

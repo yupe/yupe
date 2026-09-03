@@ -42,7 +42,7 @@
 <div class="row">
     <div class="col-sm-3">
         <div class="form-group">
-            <?=  $form->labelEx($model,'phone',['class' => 'control-label']); ?>
+            <?=  $form->labelEx($model, 'phone', ['class' => 'control-label']); ?>
             <?php $this->widget(
                 'CMaskedTextField',
                 [
@@ -55,7 +55,7 @@
                     ]
                 ]
             ); ?>
-            <?=  $form->error($model,'phone'); ?>
+            <?=  $form->error($model, 'phone'); ?>
         </div>
     </div>
     <div class="col-sm-3">

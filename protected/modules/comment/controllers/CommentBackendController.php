@@ -82,7 +82,6 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         $model = new Comment();
 
         if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
-
             $model->setAttributes($data);
 
             $saveStatus = false;
@@ -93,7 +92,6 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
                 $rootForComment = Comment::model()->findByPk($parentId);
                 $saveStatus = $model->appendTo($rootForComment);
             } else { // Иначе если parent_id не указан...
-
                 $rootNode = $model->createRootOfCommentsIfNotExists(
                     $model->getAttribute("model"),
                     $model->getAttribute("model_id")
@@ -106,7 +104,6 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
             }
 
             if ($saveStatus) {
-
                 Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
 
                 Yii::app()->getUser()->setFlash(
@@ -121,7 +118,6 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
                     )
                 );
             }
-
         }
         $this->render('create', ['model' => $model]);
     }
@@ -138,7 +134,6 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
 
         if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->saveNode()) {
@@ -166,7 +161,6 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $model = $this->loadModel($id);
 
             Yii::app()->getCache()->delete("Comment{$model->model}{$model->model_id}");
@@ -219,7 +213,6 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
         }
 
         if ($count = Comment::model()->multiDelete($items)) {
-
             Yii::app()->ajax->success(
                 Yii::t(
                     'YupeModule.yupe',

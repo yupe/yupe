@@ -11,7 +11,6 @@ class m140115_132045_auth_item_child extends yupe\components\DbMigration
                 'child'  => "char(64) NOT NULL",
             ],
             $this->getOptions()
-
         );
 
         $this->addPrimaryKey(

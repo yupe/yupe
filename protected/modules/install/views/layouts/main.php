@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Шаблон инсталятора:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::app()->language;?>">

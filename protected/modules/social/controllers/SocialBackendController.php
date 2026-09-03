@@ -1,4 +1,5 @@
 <?php
+
 namespace application\modules\social\controllers;
 
 /**
@@ -10,6 +11,7 @@ namespace application\modules\social\controllers;
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 use yupe\components\controllers\BackController;
 use application\modules\social\models\SocialUser;
 use CHttpException;
@@ -18,7 +20,6 @@ use yupe\widgets\YFlashMessages;
 
 class SocialBackendController extends BackController
 {
-
     public function accessRules()
     {
         return [

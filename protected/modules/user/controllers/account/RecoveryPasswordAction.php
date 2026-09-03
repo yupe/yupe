@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Экшн, отвечающий за процедуру восстановления пароля пользователя
  *
@@ -38,18 +39,14 @@ class RecoveryPasswordAction extends CAction
 
         // Если включено автоматическое восстановление пароля
         if ((int)$module->autoRecoveryPassword === WebModule::CHOICE_YES) {
-
             if (Yii::app()->userManager->activatePassword($token)) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'New password was sent to your email')
                 );
 
                 $this->getController()->redirect(['/user/account/login']);
-
             } else {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'Error when changing password!')
@@ -64,16 +61,15 @@ class RecoveryPasswordAction extends CAction
 
         // Получаем данные POST если таковые имеются:
         if (($data = Yii::app()->getRequest()->getPost('ChangePasswordForm')) !== null) {
-
             $changePasswordForm->setAttributes($data);
 
             // Проводим валидацию формы:
-            if ($changePasswordForm->validate() && Yii::app()->userManager->activatePassword(
+            if (
+                $changePasswordForm->validate() && Yii::app()->userManager->activatePassword(
                     $token,
                     $changePasswordForm->password
                 )
             ) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Password recover successfully')

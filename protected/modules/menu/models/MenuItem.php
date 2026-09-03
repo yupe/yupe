@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Menu основная модель для пунктов меню
  *
@@ -201,7 +202,8 @@ class MenuItem extends yupe\models\YModel
         $criteria->with = ['menu', 'parent'];
 
         return new CActiveDataProvider(
-            get_class($this), [
+            get_class($this),
+            [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 't.sort'],
             ]
@@ -314,9 +316,9 @@ class MenuItem extends yupe\models\YModel
             $childItems = $this->getParentTreeIterator($result->id, ($level + 1));
             $items += [
                     $result->id => str_repeat(
-                            '&nbsp;&nbsp;&nbsp;&nbsp;',
-                            $level
-                        ).$result->title,
+                        '&nbsp;&nbsp;&nbsp;&nbsp;',
+                        $level
+                    ) . $result->title,
                 ] + $childItems;
         }
 
@@ -362,7 +364,7 @@ class MenuItem extends yupe\models\YModel
     {
         $data = ['' => Yii::t('MenuModule.menu', 'Condition is not set')] + $this->getConditionList();
 
-        return (isset($data[$this->condition_name])) ? $data[$this->condition_name].(($this->condition_name == '') ? '' : ' ('.$this->conditionDenial.')') : Yii::t(
+        return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t(
             'MenuModule.menu',
             '*неизвестно*'
         );
@@ -403,9 +405,9 @@ class MenuItem extends yupe\models\YModel
         $data = $this->getConditionDenialList();
 
         return isset($data[$this->condition_denial]) ? Yii::t(
-                'MenuModule.menu',
-                'negation'
-            ).': '.$data[$this->condition_denial] : Yii::t('MenuModule.menu', '*unknown*');
+            'MenuModule.menu',
+            'negation'
+        ) . ': ' . $data[$this->condition_denial] : Yii::t('MenuModule.menu', '*unknown*');
     }
 
     /**

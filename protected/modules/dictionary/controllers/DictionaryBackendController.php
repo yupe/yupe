@@ -59,11 +59,9 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
         $model = new DictionaryGroup();
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryGroup')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('DictionaryModule.dictionary', 'Record was created')
@@ -94,11 +92,9 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('DictionaryGroup')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('DictionaryModule.dictionary', 'Record was created')
@@ -129,7 +125,6 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 

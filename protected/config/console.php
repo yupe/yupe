@@ -1,4 +1,5 @@
 <?php
+
 Yii::setPathOfAlias('application', __DIR__ . '/../');
 Yii::setPathOfAlias('yupe', __DIR__ . '/../modules/yupe/');
 Yii::setPathOfAlias('vendor', __DIR__ . '/../../vendor/');

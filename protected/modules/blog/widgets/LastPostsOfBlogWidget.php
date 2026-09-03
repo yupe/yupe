@@ -10,6 +10,7 @@
  * @since 0.1
  *
  */
+
 Yii::import('application.modules.blog.models.*');
 
 /**
@@ -53,10 +54,10 @@ class LastPostsOfBlogWidget extends yupe\widgets\YWidget
             $this->view,
             [
                 'posts' => Post::model()->public()->published()->sortByPubDate('DESC')->with(
-                        'commentsCount',
-                        'createUser',
-                        'blog'
-                    )->findAll($criteria)
+                    'commentsCount',
+                    'createUser',
+                    'blog'
+                )->findAll($criteria)
             ]
         );
     }

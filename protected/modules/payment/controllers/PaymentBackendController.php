@@ -69,7 +69,7 @@ class PaymentBackendController extends yupe\components\controllers\BackControlle
         }
 
         //@TODO вынести в метод модели
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->select = new CDbExpression('MAX(position) as position');
         $max = $model->find($criteria);
 

@@ -96,9 +96,9 @@ $form = $this->beginWidget(
         'encodeLabel' => false,
         'buttonType'  => 'submit',
         'label'       => '<i class="fa fa-search">&nbsp;</i> ' . Yii::t(
-                'MenuModule.menu',
-                'Find menu item'
-            ),
+            'MenuModule.menu',
+            'Find menu item'
+        ),
     ]
 ); ?>
 

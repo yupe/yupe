@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
@@ -9,6 +10,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  */
+
 ?>
 <?php
 $nameColumn = $this->guessNameColumn($this->tableSchema->columns);
@@ -68,9 +70,9 @@ EOF;
     'data'       => $model,
     'attributes' => [
 <?php
-    foreach ($this->tableSchema->columns as $column) {
+foreach ($this->tableSchema->columns as $column) {
     echo "        '{$column->name}',\n";
-    }
-    ?>
+}
+?>
     ],
 ]); ?>

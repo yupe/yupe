@@ -75,7 +75,8 @@ $form = $this->beginWidget(
 <div class="tab-content">
     <div class="tab-pane active" id="common">
 
-        <?php if (Yii::app()->hasModule('menu')): { ?>
+        <?php if (Yii::app()->hasModule('menu')) :
+            { ?>
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
@@ -106,7 +107,8 @@ $form = $this->beginWidget(
                     </div>
                 </div>
             </div>
-        <?php } endif ?>
+            <?php }
+        endif ?>
 
         <div class="row">
             <div class="col-sm-3">
@@ -127,7 +129,8 @@ $form = $this->beginWidget(
                     ]
                 ); ?>
             </div>
-            <?php if (count($languages) > 1) : { ?>
+            <?php if (count($languages) > 1) :
+                { ?>
                 <div class="col-sm-4">
                     <?= $form->dropDownListGroup(
                         $model,
@@ -145,37 +148,50 @@ $form = $this->beginWidget(
                 </div>
                 <div class="col-sm-4">
                     <br/>
-                    <?php if (!$model->isNewRecord) : { ?>
-                        <?php foreach ($languages as $k => $v) : { ?>
-                            <?php if ($k !== $model->lang) : { ?>
-                                <?php if (empty($langModels[$k])) : { ?>
+                    <?php if (!$model->isNewRecord) :
+                        { ?>
+                        <?php foreach ($languages as $k => $v) :
+                            { ?>
+                            <?php if ($k !== $model->lang) :
+                                { ?>
+                                <?php if (empty($langModels[$k])) :
+                                    { ?>
                                     <a href="<?= $this->createUrl(
                                         '/page/pageBackend/create',
                                         ['id' => $model->id, 'lang' => $k]
-                                    ); ?>"><i class="iconflags iconflags-<?= $k; ?>"
+                                             ); ?>"><i class="iconflags iconflags-<?= $k; ?>"
                                               title="<?= Yii::t(
                                                   'PageModule.page',
                                                   'Add translation for {lang}',
                                                   ['{lang}' => $v]
-                                              ); ?>"></i></a>
-                                <?php } else : { ?>
+                                                     ); ?>"></i></a>
+                                    <?php }
+                                else :
+                                    { ?>
                                     <a href="<?= $this->createUrl(
                                         '/page/pageBackend/update',
                                         ['id' => $langModels[$k]]
-                                    ); ?>"><i class="iconflags iconflags-<?= $k; ?>"
+                                             ); ?>"><i class="iconflags iconflags-<?= $k; ?>"
                                               title="<?= Yii::t(
                                                   'PageModule.page',
                                                   'Edit translation for {lang} language',
                                                   ['{lang}' => $v]
-                                              ); ?>"></i></a>
-                                <?php } endif; ?>
-                            <?php } endif; ?>
-                        <?php } endforeach; ?>
-                    <?php } endif; ?>
+                                                     ); ?>"></i></a>
+                                    <?php }
+                                endif; ?>
+                                <?php }
+                            endif; ?>
+                            <?php }
+                        endforeach; ?>
+                        <?php }
+                    endif; ?>
                 </div>
-            <?php } else : { ?>
+                <?php }
+            else :
+                { ?>
                 <?= $form->hiddenField($model, 'lang'); ?>
-            <?php } endif; ?>
+                <?php }
+            endif; ?>
         </div>
 
         <div class="row">

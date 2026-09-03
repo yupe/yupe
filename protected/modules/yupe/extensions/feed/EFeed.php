@@ -1,4 +1,5 @@
 <?php
+
 /**
  * EFeed Class file
  * @author Antonio Ramirez
@@ -80,7 +81,6 @@ class EFeed extends CComponent
 
         // Tag elements that we need to CDATA encode
         $this->feedElements->add('CDATAEncoded', ['description', 'content:encoded', 'summary']);
-
     }
 
     /**
@@ -272,7 +272,6 @@ class EFeed extends CComponent
         }
 
         $this->addChannelTag('ChannelAbout', $url);
-
     }
 
     /**
@@ -350,22 +349,22 @@ class EFeed extends CComponent
 
         if ($this->type == self::RSS2) {
             $head .= CHtml::openTag(
-                    'rss',
-                    [
+                'rss',
+                [
                         "version"       => "2.0",
                         "xmlns:content" => "http://purl.org/rss/1.0/modules/content/",
                         "xmlns:wfw"     => "http://wellformedweb.org/CommentAPI/"
                     ]
-                ) . PHP_EOL;
+            ) . PHP_EOL;
         } elseif ($this->type == self::RSS1) {
             $head .= CHtml::openTag(
-                    'rdf:RDF',
-                    [
+                'rdf:RDF',
+                [
                         "xmlns:rdf" => "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                         "xmlns"     => "http://purl.org/rss/1.0/",
                         "xmlns:dc"  => "http://purl.org/dc/elements/1.1/"
                     ]
-                ) . PHP_EOL;
+            ) . PHP_EOL;
         } elseif ($this->type == self::ATOM) {
             $head .= CHtml::openTag('feed', ["xmlns" => "http://www.w3.org/2005/Atom"]) . PHP_EOL;
         }
@@ -387,7 +386,6 @@ class EFeed extends CComponent
         } elseif ($this->type == self::ATOM) {
             echo CHtml::closeTag('feed');
         }
-
     }
 
     /**
@@ -398,7 +396,7 @@ class EFeed extends CComponent
     private function renderChannels()
     {
         switch ($this->type) {
-            case self::RSS2 :
+            case self::RSS2:
                 echo '<channel>' . PHP_EOL;
                 break;
             case self::RSS1:
@@ -420,7 +418,6 @@ class EFeed extends CComponent
             } else {
                 echo $this->makeNode($key, $value);
             }
-
         }
 
         // RSS 1.0 have special tag <rdf:Seq> with channel
@@ -505,6 +502,5 @@ class EFeed extends CComponent
         $node .= CHtml::closeTag($tagName);
 
         return $node . PHP_EOL;
-
     }
 }

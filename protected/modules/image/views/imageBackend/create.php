@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('ImageModule.image', 'Images') => ['/image/imageBackend/index'],
     Yii::t('ImageModule.image', 'Add'),

@@ -5,7 +5,7 @@ use yupe\components\Event;
 /**
  * Class PayOrderEvent
  */
-class PayOrderEvent extends  Event
+class PayOrderEvent extends Event
 {
     /**
      * @var
@@ -59,4 +59,4 @@ class PayOrderEvent extends  Event
     {
         return $this->payment;
     }
-} 
+}

@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\models;
 
 use CFormModel;

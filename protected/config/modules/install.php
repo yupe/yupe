@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Файл конфигурации модуля
@@ -10,6 +11,7 @@
  * @version  0.0.1
  * @link     https://yupe.ru
  **/
+
 return [
     'install' => true,
     'module'  => [

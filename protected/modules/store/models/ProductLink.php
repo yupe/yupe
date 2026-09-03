@@ -84,7 +84,7 @@ class ProductLink extends yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('id', $this->id);
         $criteria->compare('product_id', $this->product_id);
@@ -92,7 +92,8 @@ class ProductLink extends yupe\models\YModel
         $criteria->compare('type_id', $this->type_id);
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
                 'sort' => [
                     'defaultOrder' => 't.position DESC'

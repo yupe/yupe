@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для postBackend/update:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Posts') => ['/blog/postBackend/index'],
     $model->title => ['/blog/postBackend/view', 'id' => $model->id],
@@ -20,7 +22,7 @@ $this->menu = [
     [
         'label' => Yii::t('BlogModule.blog', 'Posts'),
         'items' => [
-            ['label' => Yii::t('BlogModule.blog', 'Post').' «'.mb_substr($model->title, 0, 32).'»', 'utf-8'],
+            ['label' => Yii::t('BlogModule.blog', 'Post') . ' «' . mb_substr($model->title, 0, 32) . '»', 'utf-8'],
             [
                 'icon' => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('BlogModule.blog', 'Edit posts'),

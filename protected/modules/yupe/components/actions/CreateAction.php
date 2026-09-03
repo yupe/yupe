@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Обобщённый экшн для создания сущностей.
  *
@@ -6,6 +7,7 @@
  * @package yupe.components.actions
  * @since 0.9.4
  */
+
 namespace yupe\components\actions;
 
 use CAction;
@@ -115,5 +117,4 @@ class CreateAction extends CAction
     {
         $this->raiseEvent('onAfterRender', $event);
     }
-
 }

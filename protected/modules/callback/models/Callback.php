@@ -130,7 +130,7 @@ class Callback extends \yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->compare('id', $this->id);
         $criteria->compare('comment', $this->comment, true);
         $criteria->compare('name', $this->name, true);
@@ -143,7 +143,8 @@ class Callback extends \yupe\models\YModel
         $criteria->compare('type', $this->type);
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 'id DESC'],
             ]

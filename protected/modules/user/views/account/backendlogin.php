@@ -28,7 +28,8 @@ Yii::app()->getClientScript()->registerCssFile(
                 <div class="col-xs-12">
                     <?= $form->passwordFieldGroup($model, 'password'); ?>
                 </div>
-                <?php if ($this->getModule()->sessionLifeTime > 0): { ?>
+                <?php if ($this->getModule()->sessionLifeTime > 0) :
+                    { ?>
                     <div class="col-xs-12">
                         <?= $form->checkBoxGroup($model, 'remember_me', [
                             'widgetOptions' => [
@@ -38,13 +39,16 @@ Yii::app()->getClientScript()->registerCssFile(
                             ]
                         ]); ?>
                     </div>
-                <?php } endif; ?>
+                    <?php }
+                endif; ?>
 
             </div>
-            <?php if (Yii::app()->user->getState('badLoginCount', 0) >= $this->getModule()->badLoginCount): { ?>
+            <?php if (Yii::app()->user->getState('badLoginCount', 0) >= $this->getModule()->badLoginCount) :
+                { ?>
                 <div class='row'>
                     <div class="col-xs-12">
-                        <?php if (CCaptcha::checkRequirements('gd')): { ?>
+                        <?php if (CCaptcha::checkRequirements('gd')) :
+                            { ?>
                             <div>
                                 <?php $this->widget('CCaptcha', ['showRefreshButton' => true]); ?>
                                 <?= $form->textFieldGroup(
@@ -54,12 +58,15 @@ Yii::app()->getClientScript()->registerCssFile(
                                 ); ?>
 
                             </div>
-                        <?php } endif; ?>
+                            <?php }
+                        endif; ?>
                     </div>
                 </div>
-            <?php } endif; ?>
+                <?php }
+            endif; ?>
 
-            <?php if (!$this->getModule()->recoveryDisabled): { ?>
+            <?php if (!$this->getModule()->recoveryDisabled) :
+                { ?>
                 <div class="row">
                     <div class="col-xs-12">
                         <?= CHtml::link(
@@ -68,7 +75,8 @@ Yii::app()->getClientScript()->registerCssFile(
                         ); ?>
                     </div>
                 </div>
-            <?php } endif; ?>
+                <?php }
+            endif; ?>
         </fieldset>
         <div class="form-actions">
             <?php

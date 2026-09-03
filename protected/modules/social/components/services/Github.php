@@ -1,4 +1,5 @@
 <?php
+
 namespace application\modules\social\components\services;
 
 use GitHubOAuthService;

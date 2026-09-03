@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Controller is the customized base front controller class.
  * All front controllers in all modules extends from this base class.
  */
+
 namespace application\components;
 
 use yupe\components\controllers\Controller as BaseController;
@@ -31,5 +33,4 @@ class Controller extends BaseController
      * Contains data for "CMenu" widget (provides view for menu on the site)
      */
     public $menu = [];
-
 }

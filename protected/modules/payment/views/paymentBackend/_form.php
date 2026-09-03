@@ -96,7 +96,7 @@ $form = $this->beginWidget(
     })
 </script>
 
-<?php if (!$model->isNewRecord && $model->module): ?>
+<?php if (!$model->isNewRecord && $model->module) : ?>
     <div class="row">
         <div class="col-sm-7">
             <div class="form-group">

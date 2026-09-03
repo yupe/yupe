@@ -4,7 +4,7 @@
  * @var $form TbActiveForm
  */
 
-Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl().'/css/order-backend.css');
+Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/css/order-backend.css');
 
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
@@ -86,7 +86,7 @@ $form = $this->beginWidget(
                             'formatResult' => 'js:productFormatResult',
                             'formatSelection' => 'js:productFormatSelection',
                             'initSelection' => $model->client ?
-                                'js:function(element,callback){callback({name:"'.$model->client->getFullName().'"})}'
+                                'js:function(element,callback){callback({name:"' . $model->client->getFullName() . '"})}'
                                 : false,
                         ],
                         'htmlOptions' => [
@@ -133,7 +133,7 @@ $form = $this->beginWidget(
                                 <th></th>
                             </tr>
                             <?php $totalProductCost = 0; ?>
-                            <?php foreach ((array)$model->products as $orderProduct): ?>
+                            <?php foreach ((array)$model->products as $orderProduct) : ?>
                                 <?php $totalProductCost += $orderProduct->price * $orderProduct->quantity; ?>
                                 <?php $this->renderPartial('_product_row', ['model' => $orderProduct]); ?>
                             <?php endforeach; ?>
@@ -170,9 +170,9 @@ $form = $this->beginWidget(
                             </div>
                             <div class="col-sm-2">
                                 <a class="btn btn-primary btn-sm" href="#" id="add-product"><?= Yii::t(
-                                        'OrderModule.order',
-                                        'Add'
-                                    ); ?></a>
+                                    'OrderModule.order',
+                                    'Add'
+                                ); ?></a>
                             </div>
                         </div>
                         <div class="text-right">
@@ -313,7 +313,7 @@ $form = $this->beginWidget(
                     </div>
                 </div>
             </div>
-            <?php if (!$model->getIsNewRecord() && isset($model->client)): ?>
+            <?php if (!$model->getIsNewRecord() && isset($model->client)) : ?>
                 <div class="col-sm-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -331,7 +331,7 @@ $form = $this->beginWidget(
                                                 $model->client->getFullName(),
                                                 ['/order/clientBackend/view', 'id' => $model->client->id]
                                             ),
-                                            'type' => 'html',
+                                                      'type' => 'html',
                                         ],
                                         'nick_name',
                                         [
@@ -347,15 +347,15 @@ $form = $this->beginWidget(
                                                 $model->client->getOrderNumber(),
                                                 ['/order/orderBackend/index', 'Order[user_id]' => $model->client->id]
                                             ),
-                                            'type' => 'html',
+                                                      'type' => 'html',
                                         ],
                                         [
                                             'label' => Yii::t('OrderModule.order', 'Money'),
-                                            'value' => '<span  class="label label-success">'.Yii::app()->getNumberFormatter()->formatCurrency(
+                                            'value' => '<span  class="label label-success">' . Yii::app()->getNumberFormatter()->formatCurrency(
                                                 $model->client->getOrderSum(),
                                                 Yii::app()->getModule('store')->currency
-                                            ).'</span>',
-                                            'type' => 'html'
+                                            ) . '</span>',
+                                                      'type' => 'html'
                                         ],
                                     ],
                                 ]
@@ -390,7 +390,7 @@ $form = $this->beginWidget(
                                 <?= $form->textAreaGroup($model, 'comment'); ?>
                             </div>
                         </div>
-                        <?php if (!$model->getIsNewRecord()): ?>
+                        <?php if (!$model->getIsNewRecord()) : ?>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <?= CHtml::link(
@@ -405,13 +405,13 @@ $form = $this->beginWidget(
             </div>
         </div>
     </div>
-    <?php if (Yii::app()->hasModule('coupon')): ?>
+    <?php if (Yii::app()->hasModule('coupon')) : ?>
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <span class="panel-title"><?= Yii::t('OrderModule.order', 'Coupons'); ?></span>
                 </div>
-                <?php if ($model->hasCoupons()): ?>
+                <?php if ($model->hasCoupons()) : ?>
                     <div class="panel-body coupons">
                         <?php
                         $this->widget(

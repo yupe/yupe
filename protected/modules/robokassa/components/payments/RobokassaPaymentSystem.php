@@ -66,7 +66,7 @@ class RobokassaPaymentSystem extends PaymentSystem
 
         $settings = $payment->getPaymentSystemSettings();
 
-        $myCrc = strtoupper(md5("$amount:$orderId:".$settings['password2']));
+        $myCrc = strtoupper(md5("$amount:$orderId:" . $settings['password2']));
 
         if ($myCrc !== $crc) {
             Yii::log(

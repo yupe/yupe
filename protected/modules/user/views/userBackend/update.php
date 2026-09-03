@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('UserModule.user', 'Users') => ['/user/userBackend/index'],
     $model->nick_name                  => ['/user/userBackend/view', 'id' => $model->id],

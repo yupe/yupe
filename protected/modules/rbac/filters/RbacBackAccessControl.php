@@ -1,4 +1,5 @@
 <?php
+
 namespace rbac\filters;
 
 use CAccessControlFilter;

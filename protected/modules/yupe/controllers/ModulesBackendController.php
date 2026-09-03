@@ -55,7 +55,8 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
          * Получаем название модуля и проверяем,
          * возможно модуль необходимо подгрузить
          **/
-        if (($name = Yii::app()->getRequest()->getPost('module'))
+        if (
+            ($name = Yii::app()->getRequest()->getPost('module'))
             && ($status = Yii::app()->getRequest()->getPost('status')) !== null
             && (($module = Yii::app()->getModule($name)) === null || $module->canActivate())
         ) {
@@ -86,7 +87,6 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
                         break;
 
                     case 1:
-
                         if ($module->getIsInstalled()) {
                             $module->getActivate();
                             $message = Yii::t('YupeModule.yupe', 'Module enabled successfully!');
@@ -126,7 +126,6 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
             $result === true
                 ? Yii::app()->ajax->success($message)
                 : Yii::app()->ajax->failure($message);
-
         } else {
             /**
              * Иначе возвращаем ошибку:
@@ -134,5 +133,4 @@ class ModulesBackendController extends yupe\components\controllers\BackControlle
             Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Module was not found or it\'s enabling finished'));
         }
     }
-
 }

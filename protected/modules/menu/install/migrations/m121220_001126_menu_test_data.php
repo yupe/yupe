@@ -13,7 +13,6 @@
  **/
 class m121220_001126_menu_test_data extends yupe\components\DbMigration
 {
-
     public function safeUp()
     {
         $this->insert(

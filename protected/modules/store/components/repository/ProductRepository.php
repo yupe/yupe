@@ -38,13 +38,11 @@ class ProductRepository extends CApplicationComponent
 
         //поиск по категории, производителю и цене
         foreach ($this->attributeFilter->getMainSearchParams() as $param => $field) {
-
             if (empty($mainSearchAttributes[$param])) {
                 continue;
             }
 
             if ('category' === $param) {
-
                 $categories = [];
 
                 foreach ($mainSearchAttributes[$param] as $categoryId) {
@@ -55,15 +53,17 @@ class ProductRepository extends CApplicationComponent
                 $builder = new CDbCommandBuilder(Yii::app()->getDb()->getSchema());
 
                 $criteria->addInCondition('t.category_id', array_unique($categories));
-                $criteria->addCondition(sprintf('t.id IN (SELECT product_id FROM {{store_product_category}} WHERE %s)',
-                    $builder->createInCondition('{{store_product_category}}', 'category_id', $categories)), 'OR');
+                $criteria->addCondition(sprintf(
+                    't.id IN (SELECT product_id FROM {{store_product_category}} WHERE %s)',
+                    $builder->createInCondition('{{store_product_category}}', 'category_id', $categories)
+                ), 'OR');
 
                 continue;
             }
 
             if (isset($mainSearchAttributes[$param]['from'], $mainSearchAttributes[$param]['to'])) {
                 $criteria->addBetweenCondition(
-                    "t.".$field,
+                    "t." . $field,
                     $mainSearchAttributes[$param]['from'],
                     $mainSearchAttributes[$param]['to']
                 );
@@ -74,13 +74,12 @@ class ProductRepository extends CApplicationComponent
                 $criteria->addCondition("t.{$field} <= :attr_{$field}");
                 $criteria->params[":attr_{$field}"] = $mainSearchAttributes[$param]['to'];
             } else {
-                $criteria->addInCondition("t.".$field, $mainSearchAttributes[$param]);
+                $criteria->addInCondition("t." . $field, $mainSearchAttributes[$param]);
             }
         }
 
         //поиск по названию и артикулу
         if (!empty($mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME])) {
-
             $term = trim($mainSearchAttributes[AttributeFilter::MAIN_SEARCH_PARAM_NAME]);
 
             $words = explode(' ', $term);
@@ -122,7 +121,6 @@ class ProductRepository extends CApplicationComponent
         $i = 0;
 
         foreach ($typeSearchAttributes as $attribute => $params) {
-
             if (empty($params['value'])) {
                 continue;
             }
@@ -136,7 +134,7 @@ class ProductRepository extends CApplicationComponent
                 if (isset($params['value']['from'], $params['value']['to'])) {
                     $between = new CDbCriteria();
                     $between->addBetweenCondition(
-                        "{$alias}.".$params['column'],
+                        "{$alias}." . $params['column'],
                         $params['value']['from'],
                         $params['value']['to']
                     );
@@ -159,14 +157,14 @@ class ProductRepository extends CApplicationComponent
                     $criteria->mergeWith($between);
                 } else {
                     $in = new CDbCriteria();
-                    $in->addInCondition("{$alias}.".$params['column'], $params['value']);
+                    $in->addInCondition("{$alias}." . $params['column'], $params['value']);
                     $criteria->mergeWith($in);
                 }
             } else {
                 $condition = new CDbCriteria();
                 $condition->addCondition("{$alias}.attribute_id = :attributeId_{$i}");
                 $condition->params[":attributeId_{$i}"] = (int)$params['attribute_id'];
-                $condition->addColumnCondition(["{$alias}.".$params['column'] => $params['value']]);
+                $condition->addColumnCondition(["{$alias}." . $params['column'] => $params['value']]);
                 $criteria->mergeWith($condition);
             }
 
@@ -229,8 +227,10 @@ class ProductRepository extends CApplicationComponent
         $builder = new CDbCommandBuilder(Yii::app()->getDb()->getSchema());
 
         $criteria->addInCondition('t.category_id', array_unique($categories));
-        $criteria->addCondition(sprintf('t.id IN (SELECT product_id FROM {{store_product_category}} WHERE %s)',
-            $builder->createInCondition('{{store_product_category}}', 'category_id', $categories)), 'OR');
+        $criteria->addCondition(sprintf(
+            't.id IN (SELECT product_id FROM {{store_product_category}} WHERE %s)',
+            $builder->createInCondition('{{store_product_category}}', 'category_id', $categories)
+        ), 'OR');
 
         $pagination = [
             'pageSize' => (int)$module->itemsPerPage,
@@ -299,7 +299,8 @@ class ProductRepository extends CApplicationComponent
         $criteria = new CDbCriteria();
         $criteria->addSearchCondition('name', $name);
         $provider = new CActiveDataProvider(
-            Product::model()->published(), [
+            Product::model()->published(),
+            [
                 'criteria' => $criteria,
             ]
         );
@@ -326,7 +327,8 @@ class ProductRepository extends CApplicationComponent
         ];
 
         return new CActiveDataProvider(
-            Product::model(), [
+            Product::model(),
+            [
                 'criteria' => $criteria,
                 'pagination' => [
                     'pageSize' => (int)$module->itemsPerPage,
@@ -354,7 +356,8 @@ class ProductRepository extends CApplicationComponent
         $criteria->addInCondition('t.id', $ids);
 
         return new CActiveDataProvider(
-            Product::model(), [
+            Product::model(),
+            [
                 'criteria' => $criteria,
                 'pagination' => [
                     'pageSize' => (int)$module->itemsPerPage,
@@ -386,7 +389,8 @@ class ProductRepository extends CApplicationComponent
         }
 
         return new CActiveDataProvider(
-            'Product', [
+            'Product',
+            [
                 'criteria' => $criteria,
             ]
         );

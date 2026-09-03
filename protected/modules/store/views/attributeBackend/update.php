@@ -1,4 +1,5 @@
 <?php
+
     $this->breadcrumbs = [
         Yii::t('StoreModule.store', 'Attributes') => ['/store/attributeBackend/index'],
         Yii::t('StoreModule.store', 'Edition'),
@@ -17,7 +18,7 @@
             'label' => Yii::t('StoreModule.store', 'Create attribute'),
             'url' => ['/store/attributeBackend/create'],
         ],
-        ['label' => Yii::t('StoreModule.store', 'Attribute').' «'.mb_substr($model->name, 0, 32).'»'],
+        ['label' => Yii::t('StoreModule.store', 'Attribute') . ' «' . mb_substr($model->name, 0, 32) . '»'],
         [
             'icon' => 'fa fa-fw fa-pencil',
             'label' => Yii::t('StoreModule.store', 'Update attribute'),
@@ -38,7 +39,7 @@
             ],
         ],
     ];
-?>
+    ?>
     <div class="page-header">
         <h1>
             <?= Yii::t('StoreModule.store', 'Updating attribute'); ?><br/>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для default/index:
  *
@@ -162,7 +163,7 @@ $this->menu = [
                         }
                     ]
                 ],
-                'frontViewButtonUrl' => function($data){
+                'frontViewButtonUrl' => function ($data) {
                     return Yii::app()->createUrl('/gallery/gallery/view', ['id' => $data->id]);
                 },
             ],

@@ -62,11 +62,9 @@ class TokensBackendController extends yupe\components\controllers\BackController
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('UserToken')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Data was updated!')
@@ -97,7 +95,6 @@ class TokensBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $this->loadModel($id)->delete();
 
             Yii::app()->getUser()->setFlash(
@@ -149,15 +146,14 @@ class TokensBackendController extends yupe\components\controllers\BackController
      */
     public function actionCompromise($id)
     {
-        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getQuery(
+        if (
+            Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getQuery(
                 'ajax'
             ) === 'user-tokens-grid'
         ) {
-
             $this->loadModel($id)->compromise();
 
             return $this->actionIndex();
-
         } else {
             throw new CHttpException(
                 400,
@@ -179,7 +175,6 @@ class TokensBackendController extends yupe\components\controllers\BackController
     public function loadModel($id)
     {
         if ($this->_model === null || $this->_model instanceof UserToken && $this->_model->id !== $id) {
-
             if (($this->_model = UserToken::model()->findbyPk($id)) === null) {
                 throw new CHttpException(
                     404,

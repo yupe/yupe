@@ -34,7 +34,6 @@ class AuthenticationManager extends CApplicationComponent
     public function login(LoginForm $form, IWebUser $user, CHttpRequest $request = null)
     {
         if (false === $form->validate()) {
-
             Yii::app()->eventManager->fire(UserEvents::FAILURE_LOGIN, new UserLoginEvent($form, $user));
 
             return false;
@@ -50,11 +49,9 @@ class AuthenticationManager extends CApplicationComponent
         }
 
         if ($identity->authenticate()) {
-
             Yii::app()->eventManager->fire(UserEvents::BEFORE_LOGIN, new UserLoginEvent($form, $user, $identity));
 
             if ($user->login($identity, $duration)) {
-
                 Yii::app()->eventManager->fire(UserEvents::SUCCESS_LOGIN, new UserLoginEvent($form, $user, $identity));
 
                 return true;

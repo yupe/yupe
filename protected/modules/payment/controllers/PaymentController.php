@@ -1,4 +1,5 @@
 <?php
+
 use yupe\components\controllers\FrontController;
 use yupe\widgets\YFlashMessages;
 
@@ -25,8 +26,10 @@ class PaymentController extends FrontController
         if ($paymentSystem = Yii::app()->paymentManager->getPaymentSystemObject($payment->module)) {
             $result = $paymentSystem->processCheckout($payment, Yii::app()->getRequest());
             if ($result instanceof Order) {
-                Yii::app()->getUser()->setFlash(YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('PaymentModule.payment', 'Success get pay info!'));
+                Yii::app()->getUser()->setFlash(
+                    YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('PaymentModule.payment', 'Success get pay info!')
+                );
                 $this->redirect(['/order/order/view', 'url' => $result->url]);
             }
         }

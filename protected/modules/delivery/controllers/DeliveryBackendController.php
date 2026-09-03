@@ -64,7 +64,7 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
                 }
             }
         }
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->select = new CDbExpression('MAX(position) as position');
         $max = $model->find($criteria);
 
@@ -138,10 +138,11 @@ class DeliveryBackendController extends yupe\components\controllers\BackControll
             }
         } else {
             throw new CHttpException(
-                400, Yii::t(
-                'DeliveryModule.delivery',
-                'Unknown request. Don\'t repeat it please!'
-            )
+                400,
+                Yii::t(
+                    'DeliveryModule.delivery',
+                    'Unknown request. Don\'t repeat it please!'
+                )
             );
         }
     }

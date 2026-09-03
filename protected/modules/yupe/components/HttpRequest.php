@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CHttpRequest переопределен для загрузки файлов через ajax, подробнее:
  * http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
@@ -33,7 +34,6 @@ class HttpRequest extends CHttpRequest
         parent::normalizeRequest();
 
         if ($this->enableCsrfValidation && !empty($this->noCsrfValidationRoutes) && $this->getIsPostRequest()) {
-
             try {
                 $url = Yii::app()->getUrlManager()->parseUrl($this);
             } catch (CHttpException $e) {

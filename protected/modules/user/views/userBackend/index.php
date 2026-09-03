@@ -167,7 +167,7 @@ $this->menu = [
             ],
             [
                 'name'   => 'create_time',
-                'value'  => function($data){
+                'value'  => function ($data) {
                     return Yii::app()->getDateFormatter()->formatDateTime($data->create_time);
                 },
                 'filter' => $this->widget('booster.widgets.TbDatePicker', [
@@ -183,7 +183,7 @@ $this->menu = [
             ],
             [
                 'name'   => 'visit_time',
-                'value'  => function($data){
+                'value'  => function ($data) {
                     return Yii::app()->getDateFormatter()->formatDateTime($data->visit_time);
                 },
                 'filter' => $this->widget('booster.widgets.TbDatePicker', [
@@ -217,7 +217,7 @@ $this->menu = [
                         ]
                     ],
                 ],
-                'afterDelete'=>'function(link,success,data){$("#notifications").notify(data).show(); }',
+                'afterDelete' => 'function(link,success,data){$("#notifications").notify(data).show(); }',
             ],
         ],
     ]

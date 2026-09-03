@@ -71,7 +71,6 @@ class PostBackendController extends yupe\components\controllers\BackController
     public function actionView($id)
     {
         if (($post = Post::model()->findByPk($id)) === null) {
-
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
         }
 
@@ -167,7 +166,6 @@ class PostBackendController extends yupe\components\controllers\BackController
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             if (($post = Post::model()->findByPk($id)) === null) {
                 throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
             } else {

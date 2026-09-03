@@ -54,17 +54,15 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      */
     public function actionCreate()
     {
-        $model = new StoreCategory;
+        $model = new StoreCategory();
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('StoreCategory')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Record was created!')
@@ -102,7 +100,6 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             $model->setAttributes(Yii::app()->getRequest()->getPost('StoreCategory'));
 
             if ($model->save()) {
-
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('StoreModule.store', 'Category was changed!')
@@ -141,7 +138,6 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             $transaction = Yii::app()->db->beginTransaction();
 
             try {
@@ -161,7 +157,6 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
 
                 Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
             }
-
         } else {
             throw new CHttpException(
                 400,
@@ -220,5 +215,4 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
             Yii::app()->end();
         }
     }
-
 }

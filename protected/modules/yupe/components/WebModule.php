@@ -1,4 +1,5 @@
 <?php
+
 /**
  * WebModule - базовый класс для всех модулей Юпи!
  *
@@ -12,6 +13,7 @@
  * @link     https://yupe.ru
  *
  */
+
 namespace yupe\components;
 
 use CChainedCacheDependency;
@@ -25,7 +27,6 @@ use yupe\widgets\YFlashMessages;
 use Yii;
 use CWebModule;
 use Category;
-
 use yupe\models\Settings;
 
 /**
@@ -316,7 +317,6 @@ abstract class WebModule extends CWebModule
             'adminMenuOrder' => Yii::t('YupeModule.yupe', 'Menu items order'),
             'coreCacheTime'  => Yii::t('YupeModule.yupe', 'Cache time')
         ];
-
     }
 
 
@@ -331,7 +331,6 @@ abstract class WebModule extends CWebModule
             'adminMenuOrder' => Yii::t('YupeModule.yupe', 'Menu items order'),
             'coreCacheTime'  => Yii::t('YupeModule.yupe', 'Cache time')
         ];
-
     }
 
     /**
@@ -624,7 +623,6 @@ abstract class WebModule extends CWebModule
         $modulesInstalled = Yii::app()->getCache()->get('YupeModulesInstalled');
 
         if ($modulesInstalled === false) {
-
             $modulesInstalled = Yii::app()->migrator->getInstalledModulesList();
 
             // Цепочка зависимостей:
@@ -706,7 +704,6 @@ abstract class WebModule extends CWebModule
         if (is_file($fileConfig) && $this->id != ModuleManager::INSTALL_MODULE) {
             return true;
         } else {
-
             // Проверка модулей от которых зависит данный
             if (!$noDependent) {
                 $dependencies = $this->getDependencies();
@@ -777,7 +774,7 @@ abstract class WebModule extends CWebModule
                     foreach ($dependent as $dependen) {
                         $module = Yii::app()->getModule($dependen);
                         if ($module != null) {
-                            if($module->getIsNoDisable()) {
+                            if ($module->getIsNoDisable()) {
                                 continue;
                             }
                             $module->getDeActivate();
@@ -895,7 +892,6 @@ abstract class WebModule extends CWebModule
                     } else {
                         $module->getInstall();
                     }
-
                 } else {
                     $i = $m->installDB($installed);
                     if (!isset($installed[$dep]) && !$i) {
@@ -931,7 +927,6 @@ abstract class WebModule extends CWebModule
         $history = Yii::app()->migrator->getMigrationHistory($this->getId(), -1);
 
         if (!empty($history)) {
-
             Yii::app()->getCache()->clear(
                 'installedModules',
                 $this->getId(),
@@ -945,7 +940,6 @@ abstract class WebModule extends CWebModule
             $message = '';
 
             foreach ($history as $migrationName => $migrationTimeUp) {
-
                 // удалить настройки модуля из таблички Settings
                 Settings::model()->deleteAll(
                     'module_id = :module_id',
@@ -957,22 +951,22 @@ abstract class WebModule extends CWebModule
                 if ($migrationTimeUp > 0) {
                     if (Yii::app()->migrator->migrateDown($this->getId(), $migrationName)) {
                         $message .= Yii::t(
-                                'YupeModule.yupe',
-                                '{m}: Migration was downgrade - {migrationName}',
-                                [
+                            'YupeModule.yupe',
+                            '{m}: Migration was downgrade - {migrationName}',
+                            [
                                     '{m}'             => $this->getId(),
                                     '{migrationName}' => $migrationName,
                                 ]
-                            ) . '<br />';
+                        ) . '<br />';
                     } else {
                         $message .= Yii::t(
-                                'YupeModule.yupe',
-                                '{m}: Can\'t downgrade migration - {migrationName}',
-                                [
+                            'YupeModule.yupe',
+                            '{m}: Can\'t downgrade migration - {migrationName}',
+                            [
                                     '{m}'             => $this->getId(),
                                     '{migrationName}' => $migrationName,
                                 ]
-                            ) . '<br />';
+                        ) . '<br />';
                     }
                 }
             }
@@ -1062,7 +1056,6 @@ abstract class WebModule extends CWebModule
                 ->queryAll();
 
             if (!empty($settingsRows)) {
-
                 foreach ($settingsRows as $sRow) {
                     if (property_exists($this, $sRow['param_name'])) {
                         $this->{$sRow['param_name']} = $sRow['param_value'];
@@ -1071,7 +1064,6 @@ abstract class WebModule extends CWebModule
             }
 
             return true;
-
         } catch (CDbException $e) {
             return false;
         }

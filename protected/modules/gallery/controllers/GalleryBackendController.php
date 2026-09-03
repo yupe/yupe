@@ -69,11 +69,9 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         $model = new Gallery();
 
         if (($data = Yii::app()->getRequest()->getPost('Gallery')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Record was created')
@@ -102,11 +100,9 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         $model = $this->loadModel($id);
 
         if (($data = Yii::app()->getRequest()->getPost('Gallery')) !== null) {
-
             $model->setAttributes($data);
 
             if ($model->save()) {
-
                 Yii::app()->getUser()->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Record was updated')
@@ -137,7 +133,6 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     public function actionDelete($id)
     {
         if (Yii::app()->getRequest()->getIsPostRequest()) {
-
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
@@ -197,7 +192,8 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
 
         $image = new Image();
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && ($imageData = Yii::app()->getRequest()->getPost(
+        if (
+            Yii::app()->getRequest()->getIsPostRequest() && ($imageData = Yii::app()->getRequest()->getPost(
                 'Image'
             )) !== null
         ) {
@@ -241,7 +237,6 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
             $image->setAttributes($imageData);
 
             if ($image->save() && $gallery->addImage($image)) {
-
                 $transaction->commit();
 
                 if (Yii::app()->getRequest()->getPost('ajax') === null) {
@@ -253,7 +248,6 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 }
             }
         } catch (Exception $e) {
-
             $transaction->rollback();
 
             Yii::app()->getUser()->setFlash(
@@ -371,7 +365,8 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     {
         if (($gallery = Gallery::model()->findByPk($id)) === null) {
             throw new CHttpException(
-                404, Yii::t('GalleryModule.gallery', 'Page was not found!')
+                404,
+                Yii::t('GalleryModule.gallery', 'Page was not found!')
             );
         }
 
@@ -415,7 +410,6 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
     public function loadModel($id)
     {
         if (($model = Gallery::model()->findByPk($id)) === null) {
-
             throw new CHttpException(
                 404,
                 Yii::t('GalleryModule.gallery', 'Requested page was not found.')

@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('MailModule.mail', 'Mail events')    => ['/mail/eventBackend/index'],
     Yii::t('MailModule.mail', 'Mail templates') => ['index'],

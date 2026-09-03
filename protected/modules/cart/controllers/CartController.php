@@ -26,7 +26,6 @@ class CartController extends FrontController
         $coupons = [];
 
         if (Yii::app()->hasModule('coupon')) {
-
             $couponCodes = Yii::app()->cart->couponManager->coupons;
 
             foreach ($couponCodes as $code) {

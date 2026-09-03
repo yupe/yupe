@@ -100,4 +100,4 @@ class CouponController extends FrontController
     {
         Yii::app()->ajax->success(Yii::app()->cart->couponManager->coupons);
     }
-} 
+}

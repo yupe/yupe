@@ -82,7 +82,8 @@ class OrderStatus extends yupe\models\YModel
         $criteria->compare('name', $this->name, true);
 
         return new CActiveDataProvider(
-            $this, [
+            $this,
+            [
                 'criteria' => $criteria,
             ]
         );

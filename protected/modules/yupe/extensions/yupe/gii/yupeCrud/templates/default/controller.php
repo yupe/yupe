@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the template for generating a controller class file for CRUD feature.
  * The following variables are available in this template:
@@ -10,6 +11,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  */
+
 ?>
 <?=  "<?php\n"; ?>
 /**
@@ -59,7 +61,7 @@ class <?=  $this->controllerClass; ?> extends <?=  $this->baseControllerClass . 
                         'submit-type',
                         [
                             'update',
-                            'id' => $model-><?=  $this->tableSchema->primaryKey."\n"; ?>
+                            'id' => $model-><?=  $this->tableSchema->primaryKey . "\n"; ?>
                         ]
                     )
                 );
@@ -93,7 +95,7 @@ class <?=  $this->controllerClass; ?> extends <?=  $this->baseControllerClass . 
                         'submit-type',
                         [
                             'update',
-                            'id' => $model-><?=  $this->tableSchema->primaryKey."\n"; ?>
+                            'id' => $model-><?=  $this->tableSchema->primaryKey . "\n"; ?>
                         ]
                     )
                 );

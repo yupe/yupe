@@ -27,11 +27,9 @@ class ProfileAction extends CAction
 
         // Если у нас есть данные из POST - получаем их:
         if (($data = Yii::app()->getRequest()->getPost('ProfileForm')) !== null) {
-
             $transaction = Yii::app()->getDb()->beginTransaction();
 
             try {
-
                 $form->setAttributes($data);
 
                 if ($form->validate()) {
@@ -53,7 +51,6 @@ class ProfileAction extends CAction
 
                     // Если нет ошибок валидации:
                     if ($form->hasErrors() === false) {
-
                         Yii::log(
                             Yii::t(
                                 'UserModule.user',
@@ -95,9 +92,7 @@ class ProfileAction extends CAction
                         $transaction->commit();
 
                         $this->getController()->redirect(['/user/profile/profile']);
-
                     } else {
-
                         Yii::log(
                             Yii::t('UserModule.user', 'Error when save profile! #{id}', ['{id}' => $user->id]),
                             CLogger::LEVEL_ERROR,
@@ -105,9 +100,7 @@ class ProfileAction extends CAction
                         );
                     }
                 }
-
             } catch (Exception $e) {
-
                 $transaction->rollback();
 
                 Yii::app()->getUser()->setFlash(

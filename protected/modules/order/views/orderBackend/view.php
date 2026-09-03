@@ -2,7 +2,7 @@
 /* @var $model Order */
 $this->breadcrumbs = [
     Yii::t('OrderModule.order', 'Orders') => ['/order/orderBackend/index'],
-    Yii::t('OrderModule.order', 'Order #').$model->id,
+    Yii::t('OrderModule.order', 'Order #') . $model->id,
 ];
 
 $this->pageTitle = Yii::t('OrderModule.order', 'Orders - view');
@@ -21,7 +21,7 @@ $this->menu = [
                 'label' => Yii::t('OrderModule.order', 'Create order'),
                 'url' => ['/order/orderBackend/create'],
             ],
-            ['label' => Yii::t('OrderModule.order', 'Order #').' «'.$model->id.'»'],
+            ['label' => Yii::t('OrderModule.order', 'Order #') . ' «' . $model->id . '»'],
             [
                 'icon' => 'fa fa-fw fa-pencil',
                 'label' => Yii::t('OrderModule.order', 'Update order'),
@@ -103,7 +103,7 @@ $this->menu = [
                     [
                         'name' => 'manager_id',
                         'type' => 'raw',
-                        'value' => function(Order $model){
+                        'value' => function (Order $model) {
                             return isset($model->manager) ? $model->manager->getFullName() : null;
                         },
                     ],

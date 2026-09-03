@@ -10,7 +10,6 @@ use Composer\Script\Event;
  */
 class Composer
 {
-
     /**
      * @param Event $event
      */
@@ -73,7 +72,7 @@ class Composer
      */
     public static function copyInstallConfig()
     {
-        if(!file_exists('protected/config/modules/yupe.php')) {
+        if (!file_exists('protected/config/modules/yupe.php')) {
             copy('protected/modules/install/install/install.php', 'protected/config/modules/install.php');
         }
     }
@@ -103,4 +102,4 @@ class Composer
             }
         }
     }
-} 
+}

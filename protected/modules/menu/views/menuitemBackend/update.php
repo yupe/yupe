@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('MenuModule.menu', 'Menu')       => ['/menu/menuBackend/index'],
     Yii::t('MenuModule.menu', 'Menu items') => ['/menu/menuitemBackend/index'],

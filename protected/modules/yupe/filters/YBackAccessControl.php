@@ -1,4 +1,5 @@
 <?php
+
 /**
  * YBackAccessControl фильтр, контролирующий доступ в панель управления
  *
@@ -9,6 +10,7 @@
  * @since 0.1
  *
  */
+
 namespace yupe\filters;
 
 use CAccessControlFilter;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для Default/_image_add:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
@@ -82,9 +84,11 @@ $form = $this->beginWidget(
 
 <div class='row'>
     <div class="col-sm-6">
-        <?php if (!$model->isNewRecord) : { ?>
+        <?php if (!$model->isNewRecord) :
+            { ?>
             <?= CHtml::image($model->getImageUrl(), $model->alt); ?>
-        <?php } endif; ?>
+            <?php }
+        endif; ?>
         <img id="preview" src="#" class='img-polaroid' alt="current preview of image"/>
         <?= $form->fileFieldGroup(
             $model,

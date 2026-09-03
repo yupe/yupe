@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Виджет для отрисовки группы блоков контента:
  *
@@ -9,6 +10,7 @@
  * @link     https://yupe.ru
  *
  **/
+
 Yii::import('application.modules.contentblock.models.ContentBlock');
 Yii::import('application.modules.contentblock.ContentBlockModule');
 
@@ -75,12 +77,11 @@ class ContentBlockGroupWidget extends yupe\widgets\YWidget
      */
     public function run()
     {
-        $cacheName = "ContentBlock{$this->category}".Yii::app()->language;
+        $cacheName = "ContentBlock{$this->category}" . Yii::app()->language;
 
         $blocks = Yii::app()->getCache()->get($cacheName);
 
         if ($blocks === false) {
-
             $category = Yii::app()->getComponent('categoriesRepository')->getByAlias($this->category);
 
             $criteria = new CDbCriteria([

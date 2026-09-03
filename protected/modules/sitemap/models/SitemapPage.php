@@ -94,7 +94,8 @@ class SitemapPage extends yupe\models\YModel
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(
-            get_class($this), [
+            get_class($this),
+            [
                 'criteria' => $criteria,
                 'sort' => ['defaultOrder' => 'url ASC'],
             ]
@@ -131,9 +132,9 @@ class SitemapPage extends yupe\models\YModel
 
         $data = [];
 
-        foreach(new CDataProviderIterator($provider) as $page) {
+        foreach (new CDataProviderIterator($provider) as $page) {
             $data[] =  [
-                'location' => $page->url === '/' ? Yii::app()->getBaseUrl(true)  : Yii::app()->getBaseUrl(true).$page->url,
+                'location' => $page->url === '/' ? Yii::app()->getBaseUrl(true)  : Yii::app()->getBaseUrl(true) . $page->url,
                 'changeFrequency' => $page->changefreq,
                 'priority' => $page->priority,
                 'lastModified' => null

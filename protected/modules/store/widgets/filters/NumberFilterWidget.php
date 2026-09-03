@@ -38,4 +38,4 @@ class NumberFilterWidget extends \yupe\widgets\YWidget
     {
         $this->render($this->view, ['attribute' => $this->attribute]);
     }
-} 
+}

@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs = [
     Yii::t('YupeModule.yupe', 'System') => ['settings'],
     Yii::t('YupeModule.yupe', 'Themes'),
@@ -12,10 +13,10 @@ $this->breadcrumbs = [
     <?= Yii::t('YupeModule.yupe', 'Current backend theme'); ?>: <b><?= $backendTheme; ?></b>
 
     <p><?= CHtml::link(
-            Yii::t('YupeModule.yupe', 'More about themes'),
-            'http://yiiframework.com/doc/guide/topics.theming',
-            ['target' => '_blank']
-        ); ?></p>
+        Yii::t('YupeModule.yupe', 'More about themes'),
+        'http://yiiframework.com/doc/guide/topics.theming',
+        ['target' => '_blank']
+    ); ?></p>
 </div>
 
 

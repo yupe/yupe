@@ -1,4 +1,5 @@
 <?php
+
 namespace yupe\widgets\editors;
 
 use Yii;
@@ -11,7 +12,6 @@ use CHtml;
  */
 class Textarea extends \CInputWidget
 {
-
     /**
      * @var array
      */

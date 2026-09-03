@@ -63,9 +63,9 @@ $this->menu = [
             [
                 'name' => 'image',
                 'type' => 'raw',
-                'value' => function($model){
+                'value' => function ($model) {
                         return $model->image ? CHtml::image($model->getImageUrl()) : '';
-                    },
+                },
             ],
             [
                 'name' => 'short_description',

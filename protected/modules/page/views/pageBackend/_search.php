@@ -66,8 +66,8 @@ $form = $this->beginWidget(
                 [
                     'widgetOptions' => [
                         'data'        => Yii::app()->getComponent('categoriesRepository')->getFormattedList(
-                                (int)Yii::app()->getModule('page')->mainCategory
-                            ),
+                            (int)Yii::app()->getModule('page')->mainCategory
+                        ),
                         'htmlOptions' => [
                             'class' => 'popover-help',
                             'empty' => Yii::t('PageModule.page', '- not set -')

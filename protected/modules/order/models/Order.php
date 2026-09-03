@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @property integer $id
  * @property integer $delivery_id
@@ -37,6 +38,7 @@
  * @property OrderStatus $status
  *
  */
+
 use yupe\widgets\YPurifier;
 
 Yii::import('application.modules.order.OrderModule');
@@ -240,7 +242,7 @@ class Order extends yupe\models\YModel
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
         $criteria->with = ['delivery', 'payment', 'client', 'status'];
 
         $criteria->compare('t.id', $this->id);
@@ -285,9 +287,10 @@ class Order extends yupe\models\YModel
         }
 
         return new CActiveDataProvider(
-            __CLASS__, [
+            __CLASS__,
+            [
                 'criteria' => $criteria,
-                'sort' => ['defaultOrder' => $this->getTableAlias().'.id DESC'],
+                'sort' => ['defaultOrder' => $this->getTableAlias() . '.id DESC'],
             ]
         );
     }
@@ -297,14 +300,15 @@ class Order extends yupe\models\YModel
      */
     public function searchCoupons()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->compare('t.order_id', $this->id);
 
         $criteria->with = ['coupon'];
 
         return new CActiveDataProvider(
-            OrderCoupon::_CLASS_(), [
+            OrderCoupon::_CLASS_(),
+            [
                 'criteria' => $criteria,
             ]
         );
@@ -325,7 +329,6 @@ class Order extends yupe\models\YModel
     public function beforeValidate()
     {
         if ($this->getScenario() === self::SCENARIO_USER) {
-
             if (!$this->hasProducts) {
                 $this->addError('products', Yii::t('OrderModule.order', 'There are no selected products'));
             }
@@ -423,7 +426,6 @@ class Order extends yupe\models\YModel
         /* @var $coupon Coupon */
         /* проверим купоны на валидность */
         foreach ($codes as $code) {
-
             $coupon = Coupon::model()->getCouponByCode($code);
 
             if (null !== $coupon && $coupon->getIsAvailable($productsTotalPrice)) {
@@ -473,7 +475,6 @@ class Order extends yupe\models\YModel
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             $this->status_id = (int)$status;
             $this->user_id = $client;
             $this->setAttributes($attributes);
@@ -513,9 +514,7 @@ class Order extends yupe\models\YModel
         $transaction = Yii::app()->getDb()->beginTransaction();
 
         try {
-
             foreach ($coupons as $coupon) {
-
                 $model = new OrderCoupon();
 
                 $model->setAttributes(
@@ -576,7 +575,8 @@ class Order extends yupe\models\YModel
                         'products',
                         Yii::t(
                             "OrderModule.order",
-                            'Not enough product «{product_name}» in stock, maximum - {n} items', [
+                            'Not enough product «{product_name}» in stock, maximum - {n} items',
+                            [
                                 '{product_name}' => $product->getName(),
                                 '{n}' => $product->getAvailableQuantity(),
                             ]
@@ -836,7 +836,6 @@ class Order extends yupe\models\YModel
     public function isStatusChanged()
     {
         if ($this->oldAttributes['status_id'] != $this->status_id) {
-
             Yii::app()->eventManager->fire(OrderEvents::STATUS_CHANGED, new OrderChangeStatusEvent($this));
 
             return true;
@@ -876,7 +875,8 @@ class Order extends yupe\models\YModel
     public function getProducts()
     {
         return new CActiveDataProvider(
-            'OrderProduct', [
+            'OrderProduct',
+            [
                 'criteria' => [
                     'condition' => 'order_id = :id',
                     'params' => [

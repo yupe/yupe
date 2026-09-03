@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для index:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $this->breadcrumbs = [
     Yii::app()->getModule('social')->getCategory() => [],
     Yii::t('SocialModule.social', 'Accounts')      => ['/social/socialBackend/index'],

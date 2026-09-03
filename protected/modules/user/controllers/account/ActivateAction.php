@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Экшн, отвечающий за активацию аккаунта пользователя
  *
@@ -22,7 +23,6 @@ class ActivateAction extends CAction
         // Пытаемся найти пользователя по токену,
         // в противном случае - ошибка:
         if (Yii::app()->userManager->activateUser($token)) {
-
             // Сообщаем пользователю:
             Yii::app()->getUser()->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,

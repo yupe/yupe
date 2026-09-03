@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Экшн, отвечающий за запрос восстановления пароля пользователя
  *
@@ -43,13 +44,10 @@ class RecoveryAction extends CAction
         $form = new RecoveryForm();
 
         if (($data = Yii::app()->getRequest()->getPost('RecoveryForm')) !== null) {
-
             $form->setAttributes($data);
 
             if ($form->validate()) {
-
                 if (Yii::app()->userManager->passwordRecovery($form->email)) {
-
                     Yii::app()->getUser()->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t(

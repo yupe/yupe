@@ -25,7 +25,7 @@ class YandexMoneyPaymentSystem extends PaymentSystem
         $ym_merchant_receipt["taxSystem"] = $settings['ym_merchant_receipt_taxSystem'];
         $ym_merchant_receipt["items"] = [];
         $arr = [];
-        foreach ($order->products as $product){
+        foreach ($order->products as $product) {
             $arr["quantity"] = $product->quantity;
             $arr["price"]['amount'] = $product->price;
             $arr["tax"] = $settings['ym_merchant_receipt_tax'];
@@ -35,7 +35,7 @@ class YandexMoneyPaymentSystem extends PaymentSystem
         $arr["quantity"] = 1; // доставка всегда одна штука в заказе
         $arr["price"]['amount'] = $order->delivery->price;
         $arr["tax"] = $settings['ym_merchant_receipt_tax'];
-        $arr["text"] = Yii::t('YandexMoneyModule.ymoney', 'Delivery').": ".$order->delivery->name;
+        $arr["text"] = Yii::t('YandexMoneyModule.ymoney', 'Delivery') . ": " . $order->delivery->name;
         $ym_merchant_receipt["items"][] = $arr;
 
         return Yii::app()->getController()->renderPartial(
@@ -130,11 +130,11 @@ class YandexMoneyPaymentSystem extends PaymentSystem
     {
         header("Content-type: text/xml; charset=utf-8");
 
-        $writer = new XMLWriter;
+        $writer = new XMLWriter();
         $writer->openURI('php://output');
         $writer->startDocument('1.0', 'UTF-8');
 
-        $writer->startElement($params['action'].'Response');
+        $writer->startElement($params['action'] . 'Response');
 
         $writer->startAttribute('performedDatetime');
         $writer->text(date('c'));

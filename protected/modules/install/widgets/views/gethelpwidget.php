@@ -1,8 +1,8 @@
 <div class="alert alert-warning">
     <p><b><?= Yii::t(
-                'InstallModule.install',
-                'If you have problems with installation, please check {link} or {feedback}',
-                [
+        'InstallModule.install',
+        'If you have problems with installation, please check {link} or {feedback}',
+        [
                     '{link}' => CHtml::link(
                         Yii::t('InstallModule.install', 'our forum'),
                         'http://talk.yupe.ru/?from=install',
@@ -14,5 +14,5 @@
                         ['target' => '_blank']
                     ),
                 ]
-            ); ?></b></p>
+    ); ?></b></p>
 </div>

@@ -47,4 +47,4 @@ class SitemapGenerator extends CApplicationComponent
 
         $sitemap->write();
     }
-} 
+}

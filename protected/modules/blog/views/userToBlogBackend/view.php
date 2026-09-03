@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Отображение для postBackend/view:
  *
@@ -8,6 +9,7 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     https://yupe.ru
  **/
+
 $this->breadcrumbs = [
     Yii::t('BlogModule.blog', 'Members') => ['/blog/userToBlogBackend/index'],
     $model->user->nick_name,

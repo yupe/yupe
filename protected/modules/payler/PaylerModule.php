@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Payler payment module
  *
